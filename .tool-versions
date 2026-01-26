@@ -1,0 +1,9 @@
+# 项目环境配置文件
+
+## Node.js 和 Python 版本控制
+
+# 指定 Node.js 版本
+node=16.20.0
+
+# 指定 Python 版本  
+python=3.9.0
