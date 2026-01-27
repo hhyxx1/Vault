@@ -24,15 +24,15 @@ const TeacherLayout = () => {
 
         {/* 用户信息 */}
         <div className="p-4 border-b border-gray-200">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-white font-semibold">
+          <Link to="/teacher/profile" className="flex items-center space-x-3 hover:bg-gray-50 rounded-lg p-2 transition-colors">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-white font-semibold cursor-pointer">
               师
             </div>
             <div>
               <p className="font-medium text-gray-800">教师用户</p>
               <p className="text-sm text-gray-500">teacher@vault.cs</p>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* 导航菜单 */}

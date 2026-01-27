@@ -5,8 +5,10 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import StudentQA from '@/pages/student/QA'
 import StudentSurvey from '@/pages/student/Survey'
+import StudentProfile from '@/pages/student/Profile'
 import TeacherDashboard from '@/pages/teacher/Dashboard'
 import TeacherSurvey from '@/pages/teacher/Survey'
+import TeacherProfile from '@/pages/teacher/Profile'
 
 const AppRouter = () => {
   return (
@@ -20,6 +22,7 @@ const AppRouter = () => {
         <Route index element={<Navigate to="qa" replace />} />
         <Route path="qa" element={<StudentQA />} />
         <Route path="survey" element={<StudentSurvey />} />
+        <Route path="profile" element={<StudentProfile />} />
       </Route>
 
       {/* 教师端路由 */}
@@ -27,6 +30,7 @@ const AppRouter = () => {
         <Route index element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard" element={<TeacherDashboard />} />
         <Route path="survey" element={<TeacherSurvey />} />
+        <Route path="profile" element={<TeacherProfile />} />
       </Route>
 
       {/* 默认重定向到登录页 */}

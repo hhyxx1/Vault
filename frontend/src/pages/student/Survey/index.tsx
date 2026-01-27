@@ -1,33 +1,30 @@
 import { useState } from 'react'
 
+interface Survey {
+  id: string
+  title: string
+  description: string
+  questionCount: number
+  status: 'published'
+  publishedAt: string
+  dueDate?: string
+}
+
 const StudentSurvey = () => {
   const [activeTab, setActiveTab] = useState('survey')
-  const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({})
-
-  const mockSurvey = {
-    id: '1',
-    title: '课程反馈调查',
-    questions: [
-      {
-        id: 'q1',
-        text: '您对本课程的整体满意度如何？',
-        type: 'radio',
-        options: ['非常满意', '满意', '一般', '不满意'],
-      },
-      {
-        id: 'q2',
-        text: '您认为课程内容的难度如何？',
-        type: 'radio',
-        options: ['太简单', '适中', '较难', '非常难'],
-      },
-    ],
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('提交答案:', selectedAnswers)
-    alert('问卷提交成功！')
-  }
+  
+  // 模拟已发布的问卷列表（只显示status为published的）
+  const publishedSurveys: Survey[] = [
+    {
+      id: '1',
+      title: '数据结构期中测验',
+      description: '栈、队列、树的基础知识',
+      questionCount: 20,
+      status: 'published',
+      publishedAt: '2026-01-21',
+      dueDate: '2026-02-15'
+    }
+  ]
 
   return (
     <div className="h-full bg-gray-50">
@@ -63,7 +60,7 @@ const StudentSurvey = () => {
       {/* 内容区域 */}
       <div className="p-8">
         {activeTab === 'survey' ? (
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             {/* 说明卡片 */}
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
               <div className="flex items-start space-x-2">
@@ -71,64 +68,75 @@ const StudentSurvey = () => {
                 <div>
                   <p className="font-medium text-blue-900">课程检测说明</p>
                   <p className="text-sm text-blue-700 mt-1">
-                    课程检测由教师在课上发起，有时间限制，请在选定时间完成。系统会自动收集结果，可能会继续作业。
+                    以下是教师已发布的问卷测验，请在截止日期前完成。未发布的问卷您暂时无法看到。
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* 问卷表单 */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-              <h3 className="text-xl font-bold mb-6">{mockSurvey.title}</h3>
-
-              <form onSubmit={handleSubmit} className="space-y-8">
-                {mockSurvey.questions.map((question, index) => (
-                  <div key={question.id} className="pb-6 border-b border-gray-100 last:border-0">
-                    <h4 className="font-medium text-gray-800 mb-4">
-                      {index + 1}. {question.text}
-                    </h4>
-                    <div className="space-y-3">
-                      {question.options.map((option) => (
-                        <label
-                          key={option}
-                          className="flex items-center space-x-3 cursor-pointer group"
-                        >
-                          <input
-                            type="radio"
-                            name={question.id}
-                            value={option}
-                            checked={selectedAnswers[question.id] === option}
-                            onChange={(e) =>
-                              setSelectedAnswers({
-                                ...selectedAnswers,
-                                [question.id]: e.target.value,
-                              })
-                            }
-                            className="w-5 h-5 text-primary-500 border-gray-300 focus:ring-primary-500"
-                          />
-                          <span className="text-gray-700 group-hover:text-gray-900">
-                            {option}
+            {/* 已发布问卷列表 */}
+            {publishedSurveys.length > 0 ? (
+              <div className="space-y-4">
+                {publishedSurveys.map((survey) => (
+                  <div
+                    key={survey.id}
+                    className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-3 mb-2">
+                          <h3 className="text-xl font-bold text-gray-800">{survey.title}</h3>
+                          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                            ✅ 可作答
                           </span>
-                        </label>
-                      ))}
+                        </div>
+                        <p className="text-gray-600 mb-3">{survey.description}</p>
+                        <div className="flex items-center space-x-6 text-sm text-gray-500">
+                          <span className="flex items-center">
+                            <span className="mr-1">📋</span>
+                            {survey.questionCount} 道题目
+                          </span>
+                          <span className="flex items-center">
+                            <span className="mr-1">🚀</span>
+                            发布于 {survey.publishedAt}
+                          </span>
+                          {survey.dueDate && (
+                            <span className="flex items-center text-orange-600 font-medium">
+                              <span className="mr-1">⏰</span>
+                              截止日期: {survey.dueDate}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="flex flex-col space-y-2 ml-4">
+                        <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg">
+                          开始答题
+                        </button>
+                        <button className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-all">
+                          查看详情
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
-
-                <div className="flex justify-end pt-4">
-                  <button
-                    type="submit"
-                    className="px-8 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors shadow-md"
-                  >
-                    提交问卷
-                  </button>
-                </div>
-              </form>
-            </div>
+              </div>
+            ) : (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+                <div className="text-6xl mb-4">📝</div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">暂无可用问卷</h3>
+                <p className="text-gray-500">教师还没有发布任何问卷测验</p>
+              </div>
+            )}
           </div>
         ) : (
           <div className="max-w-4xl mx-auto text-center py-20">
-            <p className="text-gray-400">暂无{activeTab === 'homework' ? '作业' : '练习'}</p>
+            <div className="text-6xl mb-4">
+              {activeTab === 'homework' ? '✏️' : '📚'}
+            </div>
+            <p className="text-xl text-gray-400">
+              暂无{activeTab === 'homework' ? '课后作业' : '自主练习'}
+            </p>
           </div>
         )}
       </div>

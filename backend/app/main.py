@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+
+# 添加项目根目录到Python路径
+backend_dir = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(backend_dir))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.student import qa as student_qa, survey as student_survey
