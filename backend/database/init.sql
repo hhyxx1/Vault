@@ -5,7 +5,8 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- 启用向量扩展（如使用pgvector）
-CREATE EXTENSION IF NOT EXISTS vector;
+-- 注意：如果未安装pgvector，请注释掉下面这行
+-- CREATE EXTENSION IF NOT EXISTS vector;
 
 -- 创建更新时间触发器函数
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -289,106 +290,7 @@ CREATE INDEX idx_submissions_student ON questionnaire_submissions(student_id);
 CREATE INDEX idx_submissions_time ON questionnaire_submissions(submit_time);
 
 -- =====================================================
--- 4. 智能问答模块
--- =====================================================
-
--- 4.1 问答记录表
-CREATE TABLE IF NOT EXISTS qa_records (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    student_id UUID NOT NULL REFERENCES users(id),
-    course_id UUID REFERENCES courses(id),
-    question TEXT NOT NULL,
-    answer TEXT,
-    answer_type VARCHAR(50),
-    context_used JSONB,
-    knowledge_sources JSONB,
-    confidence_score DECIMAL(3, 2),
-    is_helpful BOOLEAN,
-    feedback TEXT,
-    response_time INTEGER,
-    tokens_used INTEGER,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE INDEX idx_qa_student ON qa_records(student_id);
-CREATE INDEX idx_qa_course ON qa_records(course_id);
-CREATE INDEX idx_qa_created ON qa_records(created_at);
-
--- 4.2 问答会话表
-CREATE TABLE IF NOT EXISTS qa_sessions (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    student_id UUID NOT NULL REFERENCES users(id),
-    title VARCHAR(200),
-    course_id UUID REFERENCES courses(id),
-    message_count INTEGER NOT NULL DEFAULT 0,
-    is_active BOOLEAN NOT NULL DEFAULT true,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_message_at TIMESTAMP
-);
-
-CREATE INDEX idx_sessions_student ON qa_sessions(student_id);
-CREATE INDEX idx_sessions_updated ON qa_sessions(updated_at);
-
-CREATE TRIGGER update_qa_sessions_updated_at 
-BEFORE UPDATE ON qa_sessions 
-FOR EACH ROW 
-EXECUTE FUNCTION update_updated_at_column();
-
--- =====================================================
--- 5. 知识库模块
--- =====================================================
-
--- 5.1 知识库文档表
-CREATE TABLE IF NOT EXISTS knowledge_documents (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    title VARCHAR(200) NOT NULL,
-    description TEXT,
-    content TEXT,
-    file_url VARCHAR(500),
-    file_type VARCHAR(50),
-    file_size BIGINT,
-    teacher_id UUID NOT NULL REFERENCES users(id),
-    course_id UUID REFERENCES courses(id),
-    category VARCHAR(100),
-    tags TEXT[],
-    version VARCHAR(50) DEFAULT '1.0',
-    status VARCHAR(20) NOT NULL DEFAULT 'processing',
-    chunk_count INTEGER DEFAULT 0,
-    vector_db_id VARCHAR(255),
-    indexed_at TIMESTAMP,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE INDEX idx_documents_teacher ON knowledge_documents(teacher_id);
-CREATE INDEX idx_documents_course ON knowledge_documents(course_id);
-CREATE INDEX idx_documents_status ON knowledge_documents(status);
-CREATE INDEX idx_documents_created ON knowledge_documents(created_at);
-
-CREATE TRIGGER update_knowledge_documents_updated_at 
-BEFORE UPDATE ON knowledge_documents 
-FOR EACH ROW 
-EXECUTE FUNCTION update_updated_at_column();
-
--- 5.2 文档片段表
-CREATE TABLE IF NOT EXISTS document_chunks (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    document_id UUID NOT NULL REFERENCES knowledge_documents(id) ON DELETE CASCADE,
-    chunk_index INTEGER NOT NULL,
-    content TEXT NOT NULL,
-    embedding_vector VECTOR(1536),
-    token_count INTEGER,
-    metadata JSONB,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE INDEX idx_chunks_document ON document_chunks(document_id);
--- 向量索引（如使用pgvector）
--- CREATE INDEX idx_chunks_vector ON document_chunks USING ivfflat (embedding_vector);
-
--- =====================================================
--- 6. 辅助函数
+-- 4. 辅助函数
 -- =====================================================
 
 -- 生成班级邀请码

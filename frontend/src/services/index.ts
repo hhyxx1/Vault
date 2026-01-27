@@ -1,5 +1,18 @@
 import apiClient from './api'
 
+// 认证相关API
+export const authApi = {
+  // 用户注册
+  register: async (data: any) => {
+    return apiClient.post('/auth/register', data)
+  },
+  
+  // 用户登录
+  login: async (username: string, password: string) => {
+    return apiClient.post('/auth/login', { username, password })
+  },
+}
+
 // 学生端 - 智能问答相关API
 export const qaApi = {
   // 提交问题

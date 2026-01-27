@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { authApi } from '@/services'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -7,21 +8,53 @@ const Login = () => {
     username: '',
     password: '',
   })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  // 检查是否已登录，如果已登录则跳转到对应页面
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    const userStr = localStorage.getItem('user')
+    
+    if (token && userStr) {
+      try {
+        const user = JSON.parse(userStr)
+        if (user.role === 'teacher') {
+          navigate('/teacher', { replace: true })
+        } else if (user.role === 'student') {
+          navigate('/student', { replace: true })
+        }
+      } catch (error) {
+        // 用户信息解析失败，清除localStorage
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+      }
+    }
+  }, [navigate])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError('')
+    setLoading(true)
 
-    // TODO: 实际登录逻辑（调用后端API）
-    // 后端会返回用户角色，根据角色跳转
-    console.log('登录信息:', formData)
-
-    // 模拟：根据用户名判断角色（实际应该从后端获取）
-    const isTeacher = formData.username.toLowerCase().includes('teacher') || formData.username.toLowerCase().includes('老师')
-    
-    if (isTeacher) {
-      navigate('/teacher')
-    } else {
-      navigate('/student')
+    try {
+      const data = await authApi.login(formData.username, formData.password)
+      
+      // 保存token和用户信息
+      localStorage.setItem('token', data.access_token)
+      localStorage.setItem('user', JSON.stringify(data.user))
+      
+      // 根据用户角色跳转
+      if (data.user.role === 'teacher') {
+        navigate('/teacher')
+      } else {
+        navigate('/student')
+      }
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { detail?: string } } }
+      setError(err.response?.data?.detail || '登录失败，请检查用户名和密码')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -96,12 +129,20 @@ const Login = () => {
               </a>
             </div>
 
+            {/* 错误提示 */}
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+                {error}
+              </div>
+            )}
+
             {/* 登录按钮 */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-3 rounded-lg font-medium hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-3 rounded-lg font-medium hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              登录
+              {loading ? '登录中...' : '登录'}
             </button>
           </form>
 

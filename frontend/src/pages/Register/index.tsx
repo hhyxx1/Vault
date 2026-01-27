@@ -1,39 +1,113 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { authApi } from '@/services'
 
 const Register = () => {
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
     role: 'student',
-    fullName: '',
+    full_name: '',
     // 学生专属字段
-    studentNumber: '',
+    student_number: '',
     major: '',
     grade: '',
-    className: '',
     // 教师专属字段
-    teacherNumber: '',
+    teacher_number: '',
     department: '',
     title: '',
   })
 
+  // 检查是否已登录，如果已登录则跳转到对应页面
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    const userStr = localStorage.getItem('user')
+    
+    if (token && userStr) {
+      try {
+        const user = JSON.parse(userStr)
+        if (user.role === 'teacher') {
+          navigate('/teacher', { replace: true })
+        } else if (user.role === 'student') {
+          navigate('/student', { replace: true })
+        }
+      } catch (error) {
+        // 用户信息解析失败，清除localStorage
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+      }
+    }
+  }, [navigate])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError('')
 
     if (formData.password !== formData.confirmPassword) {
-      alert('两次输入的密码不一致')
+      setError('两次输入的密码不一致')
       return
     }
 
-    // TODO: 实际注册逻辑（调用后端API）
-    console.log('注册信息:', formData)
+    if (formData.password.length < 6) {
+      setError('密码长度不能少于6位')
+      return
+    }
 
-    // 注册成功后跳转到登录页
-    navigate('/login')
+    setLoading(true)
+
+    try {
+      // 准备注册数据
+      const registerData: Record<string, string> = {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        full_name: formData.full_name,
+        role: formData.role
+      }
+
+      if (formData.role === 'student') {
+        if (!formData.student_number || !formData.major || !formData.grade) {
+          setError('请填写所有必填字段（学号、专业、年级）')
+          setLoading(false)
+          return
+        }
+        registerData.student_number = formData.student_number
+        registerData.major = formData.major
+        registerData.grade = formData.grade
+      } else if (formData.role === 'teacher') {
+        if (!formData.teacher_number || !formData.department || !formData.title) {
+          setError('请填写所有必填字段（工号、院系、职称）')
+          setLoading(false)
+          return
+        }
+        registerData.teacher_number = formData.teacher_number
+        registerData.department = formData.department
+        registerData.title = formData.title
+      }
+
+      const data = await authApi.register(registerData)
+      
+      // 保存token和用户信息
+      localStorage.setItem('token', data.access_token)
+      localStorage.setItem('user', JSON.stringify(data.user))
+      
+      // 根据角色跳转
+      if (data.user.role === 'teacher') {
+        navigate('/teacher')
+      } else {
+        navigate('/student')
+      }
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { detail?: string } } }
+      setError(err.response?.data?.detail || '注册失败，请检查输入信息')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -94,7 +168,7 @@ const Register = () => {
             {/* 用户名 */}
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-                用户名
+                用户名 <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -110,7 +184,7 @@ const Register = () => {
             {/* 邮箱 */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                邮箱
+                邮箱 <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
@@ -126,132 +200,23 @@ const Register = () => {
             {/* 真实姓名 */}
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
-                真实姓名
+                真实姓名 <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 id="fullName"
-                value={formData.fullName}
-                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                value={formData.full_name}
+                onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
                 placeholder="请输入真实姓名"
                 required
               />
             </div>
 
-            {/* 学生专属字段 */}
-            {formData.role === 'student' && (
-              <>
-                <div>
-                  <label htmlFor="studentNumber" className="block text-sm font-medium text-gray-700 mb-2">
-                    学号
-                  </label>
-                  <input
-                    type="text"
-                    id="studentNumber"
-                    value={formData.studentNumber}
-                    onChange={(e) => setFormData({ ...formData, studentNumber: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
-                    placeholder="请输入学号"
-                    required
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="major" className="block text-sm font-medium text-gray-700 mb-2">
-                      专业
-                    </label>
-                    <input
-                      type="text"
-                      id="major"
-                      value={formData.major}
-                      onChange={(e) => setFormData({ ...formData, major: e.target.value })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
-                      placeholder="请输入专业"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="grade" className="block text-sm font-medium text-gray-700 mb-2">
-                      年级
-                    </label>
-                    <input
-                      type="text"
-                      id="grade"
-                      value={formData.grade}
-                      onChange={(e) => setFormData({ ...formData, grade: e.target.value })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
-                      placeholder="如: 2024"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="className" className="block text-sm font-medium text-gray-700 mb-2">
-                    班级
-                  </label>
-                  <input
-                    type="text"
-                    id="className"
-                    value={formData.className}
-                    onChange={(e) => setFormData({ ...formData, className: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
-                    placeholder="请输入班级"
-                  />
-                </div>
-              </>
-            )}
-
-            {/* 教师专属字段 */}
-            {formData.role === 'teacher' && (
-              <>
-                <div>
-                  <label htmlFor="teacherNumber" className="block text-sm font-medium text-gray-700 mb-2">
-                    工号
-                  </label>
-                  <input
-                    type="text"
-                    id="teacherNumber"
-                    value={formData.teacherNumber}
-                    onChange={(e) => setFormData({ ...formData, teacherNumber: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
-                    placeholder="请输入工号"
-                    required
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-2">
-                      所属院系
-                    </label>
-                    <input
-                      type="text"
-                      id="department"
-                      value={formData.department}
-                      onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
-                      placeholder="请输入院系"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
-                      职称
-                    </label>
-                    <input
-                      type="text"
-                      id="title"
-                      value={formData.title}
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
-                      placeholder="如: 教授/副教授"
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-
             {/* 密码 */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                密码
+                密码 <span className="text-red-500">*</span>
               </label>
               <input
                 type="password"
@@ -259,7 +224,7 @@ const Register = () => {
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
-                placeholder="请输入密码"
+                placeholder="请输入密码（至少6位）"
                 required
                 minLength={6}
               />
@@ -268,7 +233,7 @@ const Register = () => {
             {/* 确认密码 */}
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                确认密码
+                确认密码 <span className="text-red-500">*</span>
               </label>
               <input
                 type="password"
@@ -281,12 +246,120 @@ const Register = () => {
               />
             </div>
 
+            {/* 学生专属字段 */}
+            {formData.role === 'student' && (
+              <>
+                <div>
+                  <label htmlFor="studentNumber" className="block text-sm font-medium text-gray-700 mb-2">
+                    学号 <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="studentNumber"
+                    value={formData.student_number}
+                    onChange={(e) => setFormData({ ...formData, student_number: e.target.value })}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
+                    placeholder="请输入学号"
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="major" className="block text-sm font-medium text-gray-700 mb-2">
+                      专业 <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="major"
+                      value={formData.major}
+                      onChange={(e) => setFormData({ ...formData, major: e.target.value })}
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
+                      placeholder="请输入专业"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="grade" className="block text-sm font-medium text-gray-700 mb-2">
+                      年级 <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="grade"
+                      value={formData.grade}
+                      onChange={(e) => setFormData({ ...formData, grade: e.target.value })}
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
+                      placeholder="如: 2024"
+                      required
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* 教师专属字段 */}
+            {formData.role === 'teacher' && (
+              <>
+                <div>
+                  <label htmlFor="teacherNumber" className="block text-sm font-medium text-gray-700 mb-2">
+                    工号 <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="teacherNumber"
+                    value={formData.teacher_number}
+                    onChange={(e) => setFormData({ ...formData, teacher_number: e.target.value })}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
+                    placeholder="请输入工号"
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-2">
+                      所属院系 <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="department"
+                      value={formData.department}
+                      onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
+                      placeholder="请输入院系"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+                      职称 <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="title"
+                      value={formData.title}
+                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-gray-50 focus:bg-white"
+                      placeholder="如: 教授/副教授"
+                      required
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* 错误提示 */}
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+                {error}
+              </div>
+            )}
+
             {/* 注册按钮 */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-3 rounded-lg font-medium hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-6"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-3 rounded-lg font-medium hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              注册
+              {loading ? '注册中...' : '注册'}
             </button>
           </form>
 

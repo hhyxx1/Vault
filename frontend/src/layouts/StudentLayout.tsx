@@ -10,7 +10,11 @@ const StudentLayout = () => {
   ]
 
   const handleLogout = () => {
-    navigate('/login')
+    // 清除本地存储的token和用户信息
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    // 跳转到登录页
+    navigate('/login', { replace: true })
   }
 
   return (
