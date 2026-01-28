@@ -13,15 +13,24 @@ sys.path.insert(0, str(backend_dir))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.api.auth import router as auth_router
-from app.api.student import qa as student_qa, survey as student_survey
-from app.api.teacher import dashboard, survey as teacher_survey
+from app.api.student import qa as student_qa, survey as student_survey, class_enrollment as student_class
+from app.api.teacher import dashboard, survey as teacher_survey, profile as teacher_profile
 
 app = FastAPI(
     title="智能教学平台 API",
     description="智能教学平台后端服务",
     version="1.0.0"
 )
+
+# 请求日志中间件
+@app.middleware("http")
+async def log_requests(request, call_next):
+    print(f"📨 收到请求: {request.method} {request.url.path}")
+    response = await call_next(request)
+    print(f"✅ 响应: {request.method} {request.url.path} - {response.status_code}")
+    return response
 
 # CORS配置
 app.add_middleware(
@@ -32,12 +41,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 静态文件服务
+static_dir = backend_dir / "static"
+app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
 # 注册路由
 app.include_router(auth_router)  # 认证路由
 app.include_router(student_qa.router, prefix="/api/student/qa", tags=["学生-问答"])
 app.include_router(student_survey.router, prefix="/api/student/surveys", tags=["学生-问卷"])
+app.include_router(student_class.router, prefix="/api/student/classes", tags=["学生-班级"])
 app.include_router(dashboard.router, prefix="/api/teacher/dashboard", tags=["教师-看板"])
 app.include_router(teacher_survey.router, prefix="/api/teacher/surveys", tags=["教师-问卷"])
+app.include_router(teacher_profile.router, prefix="/api/teacher/profile", tags=["教师-个人资料"])
 
 @app.get("/")
 async def root():

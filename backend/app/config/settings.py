@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     # 安全配置
     SECRET_KEY: str = "your-secret-key-here-change-in-production-please-change-this-to-random-string"
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60  # Token有效期：60分钟
     
     class Config:
         env_file = ".env"

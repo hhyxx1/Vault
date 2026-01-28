@@ -383,17 +383,19 @@ const TeacherSurvey = () => {
   }
 
   return (
-    <div className="h-full bg-gray-50">
+    <div className="h-full bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 overflow-y-auto">
       {/* 顶部标题 */}
-      <div className="bg-white border-b border-gray-200 px-8 py-4">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 px-8 py-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">问卷管理</h2>
-            <p className="text-sm text-gray-500 mt-1">创建、编辑和发布问卷</p>
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              问卷管理
+            </h2>
+            <p className="text-sm text-gray-500 mt-2">创建、编辑和发布问卷</p>
           </div>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+            className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl font-medium"
           >
             <span>🎯</span>
             <span>出题助手</span>
@@ -406,7 +408,10 @@ const TeacherSurvey = () => {
         <div className="max-w-7xl mx-auto space-y-8">
           {/* 出题方式选择卡片 */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">创建新问卷</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
+              <span className="mr-2">✨</span>
+              创建新问卷
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {creationModes.map((mode) => (
                 <div
@@ -415,17 +420,37 @@ const TeacherSurvey = () => {
                     setCreateMode(mode.id)
                     setShowCreateModal(true)
                   }}
-                  className={`bg-white rounded-lg border-2 p-6 cursor-pointer transition-all hover:shadow-lg ${
-                    mode.color === 'blue'
-                      ? 'border-blue-200 hover:border-blue-400'
-                      : mode.color === 'purple'
-                      ? 'border-purple-200 hover:border-purple-400'
-                      : 'border-green-200 hover:border-green-400'
-                  }`}
+                  className="group bg-white rounded-2xl border-2 border-gray-200 p-8 cursor-pointer transition-all hover:shadow-2xl hover:border-transparent hover:-translate-y-2 relative overflow-hidden"
                 >
-                  <div className="text-4xl mb-3">{mode.icon}</div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">{mode.title}</h3>
-                  <p className="text-sm text-gray-600">{mode.description}</p>
+                  {/* 渐变背景 */}
+                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity ${
+                    mode.color === 'blue' ? 'bg-gradient-to-br from-blue-400 to-cyan-400' :
+                    mode.color === 'purple' ? 'bg-gradient-to-br from-purple-400 to-pink-400' :
+                    'bg-gradient-to-br from-green-400 to-emerald-400'
+                  }`}></div>
+                  
+                  <div className="relative">
+                    <div className={`text-5xl mb-4 transform group-hover:scale-110 transition-transform`}>
+                      {mode.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
+                      {mode.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {mode.description}
+                    </p>
+                  </div>
+                  
+                  {/* 角标装饰 */}
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-lg ${
+                      mode.color === 'blue' ? 'bg-gradient-to-br from-blue-400 to-cyan-400' :
+                      mode.color === 'purple' ? 'bg-gradient-to-br from-purple-400 to-pink-400' :
+                      'bg-gradient-to-br from-green-400 to-emerald-400'
+                    }`}>
+                      <span className="text-white text-xs">→</span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -433,79 +458,106 @@ const TeacherSurvey = () => {
 
           {/* 问卷列表 */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">我的问卷</h3>
-            <div className="space-y-4">
-              {surveys.map((survey) => (
-                <div
-                  key={survey.id}
-                  className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-all"
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <h4 className="text-xl font-bold text-gray-800">{survey.title}</h4>
+            <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
+              <span className="mr-2">📚</span>
+              我的问卷
+            </h3>
+            {isLoadingSurveys ? (
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-12 text-center">
+                <div className="text-4xl mb-4">⏳</div>
+                <p className="text-gray-500">加载中...</p>
+              </div>
+            ) : surveys.length === 0 ? (
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-12 text-center">
+                <div className="text-6xl mb-4">📝</div>
+                <h4 className="text-xl font-semibold text-gray-800 mb-2">暂无问卷</h4>
+                <p className="text-gray-500">点击上方"出题助手"开始创建您的第一份问卷</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {surveys.map((survey) => (
+                  <div
+                    key={survey.id}
+                    className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    {/* 顶部状态栏 */}
+                    <div className={`h-2 ${survey.status === 'published' ? 'bg-gradient-to-r from-green-400 to-emerald-400' : 'bg-gradient-to-r from-gray-300 to-gray-400'}`}></div>
+                    
+                    {/* 内容区域 */}
+                    <div className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <h4 className="text-lg font-bold text-gray-800 line-clamp-2 flex-1">
+                          {survey.title}
+                        </h4>
                         {survey.status === 'published' ? (
-                          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
-                            ✅ 已发布
+                          <span className="px-2 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-bold ml-2 whitespace-nowrap">
+                            已发布
                           </span>
                         ) : (
-                          <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
-                            📝 草稿
+                          <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-bold ml-2 whitespace-nowrap">
+                            草稿
                           </span>
                         )}
                       </div>
-                      <p className="text-gray-600 mb-3">{survey.description}</p>
-                      <div className="flex items-center space-x-6 text-sm text-gray-500">
-                        <span className="flex items-center">
-                          <span className="mr-1">📋</span>
-                          {survey.questionCount} 道题目
-                        </span>
-                        <span className="flex items-center">
-                          <span className="mr-1">📅</span>
-                          创建于 {survey.createdAt}
-                        </span>
+                      
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">
+                        {survey.description}
+                      </p>
+                      
+                      <div className="space-y-2 text-xs text-gray-500 mb-5">
+                        <div className="flex items-center">
+                          <span className="mr-2">📋</span>
+                          <span>{survey.questionCount} 道题目</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="mr-2">📅</span>
+                          <span>创建于 {survey.createdAt}</span>
+                        </div>
                         {survey.publishedAt && (
-                          <span className="flex items-center">
-                            <span className="mr-1">🚀</span>
-                            发布于 {survey.publishedAt}
-                          </span>
+                          <div className="flex items-center text-green-600">
+                            <span className="mr-2">🚀</span>
+                            <span>发布于 {survey.publishedAt}</span>
+                          </div>
                         )}
                       </div>
-                    </div>
-                    
-                    <div className="flex flex-col space-y-2 ml-4">
-                      {survey.status === 'draft' ? (
-                        <button
-                          onClick={() => handlePublish(survey.id)}
-                          className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg text-sm font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg"
-                        >
-                          🚀 发布问卷
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => handleUnpublish(survey.id)}
-                          className="px-4 py-2 bg-gray-500 text-white rounded-lg text-sm font-medium hover:bg-gray-600 transition-all"
-                        >
-                          📥 取消发布
-                        </button>
-                      )}
-                      <button className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-all">
-                        ✏️ 编辑
-                      </button>
-                      <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-all">
-                        📊 查看统计
-                      </button>
-                      <button
-                        onClick={() => handleDelete(survey.id)}
-                        className="px-4 py-2 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-600 transition-all"
-                      >
-                        🗑️ 删除
-                      </button>
+                      
+                      {/* 操作按钮 */}
+                      <div className="space-y-2">
+                        {survey.status === 'draft' ? (
+                          <button
+                            onClick={() => handlePublish(survey.id)}
+                            className="w-full py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl text-sm font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg"
+                          >
+                            🚀 发布问卷
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => handleUnpublish(survey.id)}
+                            className="w-full py-2.5 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition-all"
+                          >
+                            📥 取消发布
+                          </button>
+                        )}
+                        <div className="grid grid-cols-3 gap-2">
+                          <button className="py-2 bg-blue-50 text-blue-600 rounded-lg text-xs font-medium hover:bg-blue-100 transition-all">
+                            ✏️ 编辑
+                          </button>
+                          <button className="py-2 bg-purple-50 text-purple-600 rounded-lg text-xs font-medium hover:bg-purple-100 transition-all">
+                            📊 统计
+                          </button>
+                          <button
+                            onClick={() => handleDelete(survey.id)}
+                            className="py-2 bg-red-50 text-red-600 rounded-lg text-xs font-medium hover:bg-red-100 transition-all"
+                          >
+                            🗑️ 删除
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

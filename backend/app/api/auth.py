@@ -3,10 +3,17 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.user import User, Student, Teacher
 from app.schemas.auth import RegisterRequest, LoginRequest, TokenResponse, UserResponse
-from app.utils.auth import get_password_hash, verify_password, create_access_token
+from app.utils.auth import get_password_hash, verify_password, create_access_token, get_current_user
 from datetime import datetime
+from pydantic import BaseModel, Field
 
 router = APIRouter(prefix="/api/auth", tags=["认证"])
+
+class ChangePasswordRequest(BaseModel):
+    """修改密码请求"""
+    current_password: str = Field(..., description="当前密码")
+    new_password: str = Field(..., min_length=6, description="新密码")
+    confirm_password: str = Field(..., description="确认新密码")
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 async def register(request: RegisterRequest, db: Session = Depends(get_db)):
@@ -186,3 +193,43 @@ async def login(request: LoginRequest, db: Session = Depends(get_db)):
         token_type="bearer",
         user=user_data
     )
+
+@router.post("/change-password")
+async def change_password(
+    request: ChangePasswordRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """修改密码"""
+    
+    # 验证新密码和确认密码是否一致
+    if request.new_password != request.confirm_password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="新密码和确认密码不一致"
+        )
+    
+    # 从数据库获取完整的用户信息（包括密码哈希）
+    db_user = db.query(User).filter(User.id == current_user.id).first()
+    if not db_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="用户不存在"
+        )
+    
+    # 验证当前密码是否正确
+    if not verify_password(request.current_password, db_user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="当前密码不正确"
+        )
+    
+    # 加密新密码
+    new_password_hash = get_password_hash(request.new_password)
+    
+    # 更新密码
+    db_user.password_hash = new_password_hash
+    db_user.updated_at = datetime.utcnow()
+    db.commit()
+    
+    return {"message": "密码修改成功"}

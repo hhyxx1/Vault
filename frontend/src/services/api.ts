@@ -31,6 +31,17 @@ apiClient.interceptors.response.use(
   (error) => {
     // 统一错误处理
     console.error('API Error:', error)
+    
+    // 处理401未授权错误（token过期或无效）
+    if (error.response && error.response.status === 401) {
+      console.warn('Token过期或无效，跳转到登录页')
+      // 清除本地存储
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      // 跳转到登录页
+      window.location.href = '/login'
+    }
+    
     return Promise.reject(error)
   }
 )
