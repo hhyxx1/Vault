@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { surveyApi } from '@/services'
 
 type CreateMode = 'manual' | 'ai' | 'knowledge' | null
 type SurveyStatus = 'draft' | 'published'
@@ -13,32 +14,68 @@ interface Survey {
   publishedAt?: string
 }
 
+interface QuestionOption {
+  label: string
+  text: string
+}
+
+interface ParsedQuestion {
+  id: string
+  question: string
+  options: QuestionOption[]
+  type: string
+  required: boolean
+  answer?: string | string[] | null
+  score?: number
+}
+
+interface ParseResult {
+  success: boolean
+  file_id: string
+  filename: string
+  questions: ParsedQuestion[]
+  validation: {
+    is_valid: boolean
+    errors: string[]
+    question_count: number
+  }
+  message: string
+}
+
 const TeacherSurvey = () => {
   const [createMode, setCreateMode] = useState<CreateMode>(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [aiDescription, setAiDescription] = useState('')
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
+  const [showPreviewModal, setShowPreviewModal] = useState(false)
+  const [parsedQuestions, setParsedQuestions] = useState<ParsedQuestion[]>([])
+  const [isUploading, setIsUploading] = useState(false)
+  const [parseErrors, setParseErrors] = useState<string[]>([])
+  const [isDuplicate, setIsDuplicate] = useState(false)
+  const [duplicateInfo, setDuplicateInfo] = useState<any>(null)
+  const [currentFileId, setCurrentFileId] = useState<string>('')
+  const [currentFilename, setCurrentFilename] = useState<string>('')
+  const [surveys, setSurveys] = useState<Survey[]>([])
+  const [isLoadingSurveys, setIsLoadingSurveys] = useState(false)
   
-  // 模拟问卷列表
-  const [surveys, setSurveys] = useState<Survey[]>([
-    {
-      id: '1',
-      title: '数据结构期中测验',
-      description: '栈、队列、树的基础知识',
-      questionCount: 20,
-      status: 'published',
-      createdAt: '2026-01-20',
-      publishedAt: '2026-01-21'
-    },
-    {
-      id: '2',
-      title: '算法分析问卷',
-      description: '时间复杂度与空间复杂度分析',
-      questionCount: 15,
-      status: 'draft',
-      createdAt: '2026-01-25'
-    },
-  ])
+  // 获取问卷列表
+  const loadSurveys = async () => {
+    setIsLoadingSurveys(true)
+    try {
+      const data = await surveyApi.getSurveys()
+      setSurveys(data)
+    } catch (error: any) {
+      console.error('获取问卷列表失败:', error)
+      alert(error.response?.data?.detail || '获取问卷列表失败')
+    } finally {
+      setIsLoadingSurveys(false)
+    }
+  }
+  
+  // 组件加载时获取问卷列表
+  useEffect(() => {
+    loadSurveys()
+  }, [])
 
   const creationModes = [
     {
@@ -68,49 +105,280 @@ const TeacherSurvey = () => {
     const file = e.target.files?.[0]
     if (file) {
       setUploadedFile(file)
-      alert(`文件已选择: ${file.name}`)
     }
   }
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (createMode === 'ai' || createMode === 'knowledge') {
       if (!aiDescription.trim()) {
         alert('请输入描述')
         return
       }
       alert(`正在使用${createMode === 'ai' ? 'AI' : 'AI+知识库'}生成问卷...\n描述: ${aiDescription}`)
+      setShowCreateModal(false)
+      setCreateMode(null)
+      setAiDescription('')
+      setUploadedFile(null)
     } else if (createMode === 'manual') {
       if (!uploadedFile) {
         alert('请上传文件或手动添加题目')
         return
       }
-      alert(`正在处理文件: ${uploadedFile.name}`)
+      
+      // 上传并解析Word文档
+      setIsUploading(true)
+      try {
+        const result = await surveyApi.uploadWord(uploadedFile)
+        
+        if (result.success) {
+          setParsedQuestions(result.questions)
+          setParseErrors(result.validation.errors)
+          setCurrentFileId(result.file_id)
+          setCurrentFilename(result.filename)
+          
+          // 检查是否重复
+          if (result.is_duplicate) {
+            setIsDuplicate(true)
+            setDuplicateInfo(result.duplicate_info)
+          } else {
+            setIsDuplicate(false)
+            setDuplicateInfo(null)
+          }
+          
+          setShowCreateModal(false)
+          setShowPreviewModal(true)
+        } else {
+          alert(`解析失败: ${result.message}`)
+        }
+      } catch (error: any) {
+        console.error('文件上传失败:', error)
+        alert(error.response?.data?.detail || '文件上传失败，请重试')
+      } finally {
+        setIsUploading(false)
+      }
     }
-    setShowCreateModal(false)
-    setCreateMode(null)
-    setAiDescription('')
-    setUploadedFile(null)
+  }
+  
+  const handleQuestionEdit = (index: number, field: string, value: any) => {
+    const updated = [...parsedQuestions]
+    
+    // 处理答案字段
+    if (field === 'answer') {
+      const question = updated[index]
+      if (question.type === 'multiple_choice') {
+        // 多选题：将逗号分隔的字符串转换为数组
+        updated[index] = { 
+          ...updated[index], 
+          [field]: value ? value.split(',').map((s: string) => s.trim().toUpperCase()).filter((s: string) => s) : [] 
+        }
+      } else if (question.type === 'single_choice' || question.type === 'judgment') {
+        // 单选题/判断题：转换为大写字母
+        updated[index] = { 
+          ...updated[index], 
+          [field]: value ? value.trim().toUpperCase() : null 
+        }
+      } else {
+        // 解答题：保持原文本
+        updated[index] = { ...updated[index], [field]: value }
+      }
+    } else {
+      updated[index] = { ...updated[index], [field]: value }
+    }
+    
+    setParsedQuestions(updated)
+  }
+  
+  const handleOptionEdit = (qIndex: number, optIndex: number, value: string) => {
+    const updated = [...parsedQuestions]
+    updated[qIndex].options[optIndex].text = value
+    setParsedQuestions(updated)
+  }
+  
+  const handleDeleteQuestion = (index: number) => {
+    const updated = parsedQuestions.filter((_, i) => i !== index)
+    setParsedQuestions(updated)
+  }
+  
+  const handleSaveQuestions = async () => {
+    try {
+      console.log('=' .repeat(70))
+      console.log('📝 开始保存问卷到数据库')
+      console.log('💡 逻辑：先删除同名旧问卷（如果存在），再保存新问卷（覆盖）')
+      console.log('题目数量:', parsedQuestions.length)
+      console.log('题目数据:', parsedQuestions)
+      
+      // 1. 先删除PostgreSQL中同名的旧问卷（无论是否重复文件）
+      const existingSurveys = await surveyApi.getSurveys()
+      const titleToMatch = currentFilename.replace(/\.(docx?|doc)$/i, '')
+      const oldSurvey = existingSurveys.find((s: any) => s.title === titleToMatch)
+      
+      if (oldSurvey) {
+        console.log(`🗑️ 发现同名旧问卷，先删除: ${oldSurvey.title} (ID: ${oldSurvey.id})`)
+        await surveyApi.deleteSurvey(oldSurvey.id)
+      } else {
+        console.log('💡 PostgreSQL中没有同名问卷，直接保存')
+      }
+      
+      // 2. 如果是重复文件，更新向量数据库（删除旧文件，保存新文件）
+      if (isDuplicate && duplicateInfo) {
+        console.log('🔄 处理向量数据库中的重复文件...')
+        await surveyApi.confirmNewFile({
+          new_file_id: currentFileId,
+          old_file_id: duplicateInfo.file_id,
+          filename: currentFilename,
+          questions: parsedQuestions
+        })
+      }
+      
+      // 3. 保存新问卷到PostgreSQL
+      const surveyData = {
+        file_id: currentFileId,
+        filename: currentFilename,
+        title: titleToMatch,
+        description: `从${currentFilename}自动生成`,
+        questions: parsedQuestions
+      }
+      
+      console.log('📤 发送数据到后端:', surveyData)
+      
+      // 调用后端API保存到PostgreSQL
+      const result = await surveyApi.createSurvey(surveyData)
+      
+      console.log('✅ 后端响应:', result)
+      
+      if (result.success) {
+        alert(`成功保存${parsedQuestions.length}个问题！（已覆盖旧问卷）`)
+        
+        // 重新加载问卷列表
+        await loadSurveys()
+        
+        // 关闭模态框并清理状态
+        setShowPreviewModal(false)
+        setParsedQuestions([])
+        setUploadedFile(null)
+        setParseErrors([])
+        setIsDuplicate(false)
+        setDuplicateInfo(null)
+        setCurrentFileId('')
+        setCurrentFilename('')
+      }
+    } catch (error: any) {
+      console.error('保存问卷失败:', error)
+      alert(error.response?.data?.detail || '保存问卷失败')
+    }
   }
 
-  const handlePublish = (surveyId: string) => {
-    setSurveys(surveys.map(s => 
-      s.id === surveyId 
-        ? { ...s, status: 'published', publishedAt: new Date().toISOString().split('T')[0] }
-        : s
-    ))
+  const handlePublish = async (surveyId: string) => {
+    try {
+      await surveyApi.publishSurvey(surveyId)
+      await loadSurveys()
+      alert('问卷发布成功')
+    } catch (error: any) {
+      console.error('发布问卷失败:', error)
+      alert(error.response?.data?.detail || '发布问卷失败')
+    }
   }
 
-  const handleUnpublish = (surveyId: string) => {
-    setSurveys(surveys.map(s => 
-      s.id === surveyId 
-        ? { ...s, status: 'draft', publishedAt: undefined }
-        : s
-    ))
+  const handleUnpublish = async (surveyId: string) => {
+    try {
+      await surveyApi.unpublishSurvey(surveyId)
+      await loadSurveys()
+      alert('已取消发布')
+    } catch (error: any) {
+      console.error('取消发布失败:', error)
+      alert(error.response?.data?.detail || '取消发布失败')
+    }
   }
 
-  const handleDelete = (surveyId: string) => {
+  const handleDelete = async (surveyId: string) => {
     if (confirm('确定要删除这个问卷吗？')) {
-      setSurveys(surveys.filter(s => s.id !== surveyId))
+      try {
+        await surveyApi.deleteSurvey(surveyId)
+        await loadSurveys()
+        alert('问卷删除成功')
+      } catch (error: any) {
+        console.error('删除问卷失败:', error)
+        alert(error.response?.data?.detail || '删除问卷失败')
+      }
+    }
+  }
+
+  const handleDeleteUploadedFile = async () => {
+    if (!currentFileId) return
+    
+    if (confirm('确定要删除这个上传的文件吗？此操作不可恢复。')) {
+      try {
+        await surveyApi.deleteUploadedFile(currentFileId)
+        alert('文件删除成功')
+        
+        // 关闭模态框并清理状态
+        setShowPreviewModal(false)
+        setParsedQuestions([])
+        setUploadedFile(null)
+        setParseErrors([])
+        setIsDuplicate(false)
+        setDuplicateInfo(null)
+        setCurrentFileId('')
+        setCurrentFilename('')
+      } catch (error: any) {
+        console.error('删除文件失败:', error)
+        alert(error.response?.data?.detail || '删除文件失败')
+      }
+    }
+  }
+
+  const handleUseDatabaseFile = async () => {
+    if (!currentFileId) return
+    
+    try {
+      console.log('📚 用户选择使用数据库文件')
+      console.log('💡 逻辑：只删除新上传的临时文件，不改变PostgreSQL数据')
+      
+      // 调用后端删除新上传的临时文件（因为向量数据库中已经有了）
+      await surveyApi.useDatabaseFile(currentFileId)
+      
+      // ⚠️ 不对PostgreSQL做任何操作（无论数据库中是否已有该问卷）
+      console.log('✅ 已删除临时文件，保持PostgreSQL数据不变')
+      alert('已使用数据库中的文件！')
+      
+      // 重新加载问卷列表（显示现有数据）
+      await loadSurveys()
+      
+      // 关闭模态框并清理状态
+      setShowPreviewModal(false)
+      setParsedQuestions([])
+      setUploadedFile(null)
+      setParseErrors([])
+      setIsDuplicate(false)
+      setDuplicateInfo(null)
+      setCurrentFileId('')
+      setCurrentFilename('')
+      
+    } catch (error: any) {
+      console.error('使用数据库文件失败:', error)
+      alert(error.response?.data?.detail || '使用数据库文件失败')
+    }
+  }
+
+  const handleConfirmNewFile = async () => {
+    if (!currentFileId || !duplicateInfo) return
+    
+    try {
+      // 调用后端删除旧文件，保存新文件到向量数据库
+      await surveyApi.confirmNewFile({
+        new_file_id: currentFileId,
+        old_file_id: duplicateInfo.file_id,
+        filename: currentFilename,
+        questions: parsedQuestions
+      })
+      
+      alert('已使用新文件替换旧文件')
+      
+      // 继续保存到数据库
+      await handleSaveQuestions()
+    } catch (error: any) {
+      console.error('确认使用新文件失败:', error)
+      alert(error.response?.data?.detail || '确认使用新文件失败')
     }
   }
 
@@ -239,29 +507,6 @@ const TeacherSurvey = () => {
               ))}
             </div>
           </div>
-
-          {/* 功能说明 */}
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
-            <h3 className="font-semibold text-gray-800 mb-3">💡 出题功能说明</h3>
-            <ul className="space-y-2 text-sm text-gray-700">
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span><strong>手动上传:</strong> 支持手动添加题目或上传Word文档，系统自动识别题目格式</span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span><strong>AI生成:</strong> 输入题目要求描述，AI智能生成相关试题</span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span><strong>基于知识库:</strong> 结合课程知识库，生成符合教学大纲的高质量题目</span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span><strong>发布管理:</strong> 创建的问卷为草稿状态，点击"发布"后学生才能看到</span>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
 
@@ -356,9 +601,261 @@ const TeacherSurvey = () => {
               </button>
               <button
                 onClick={handleGenerate}
-                className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-md hover:shadow-lg"
+                disabled={isUploading}
+                className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {createMode === 'manual' ? '开始识别' : '生成问卷'}
+                {isUploading ? '上传中...' : (createMode === 'manual' ? '开始识别' : '生成问卷')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 问题预览和编辑模态框 */}
+      {showPreviewModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-2xl">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-800">📋 问题预览与编辑</h3>
+                  <p className="text-sm text-gray-500 mt-1">
+                    共解析出 {parsedQuestions.length} 个问题
+                    {parseErrors.length > 0 && (
+                      <span className="text-red-500 ml-2">
+                        ⚠️ {parseErrors.length} 个问题需要修正
+                      </span>
+                    )}
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowPreviewModal(false)
+                    setParsedQuestions([])
+                    setParseErrors([])
+                    setIsDuplicate(false)
+                    setDuplicateInfo(null)
+                    setCurrentFileId('')
+                    setCurrentFilename('')
+                  }}
+                  className="text-gray-400 hover:text-gray-600 text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-4">
+              {/* 重复文件警告 */}
+              {isDuplicate && duplicateInfo && (
+                <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-5">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 text-3xl mr-3">⚠️</div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-yellow-900 mb-2 text-lg">检测到重复文件</h4>
+                      <p className="text-yellow-800 mb-3">
+                        数据库中已存在内容相同的文件，相似度：
+                        <span className="font-bold ml-1">
+                          {(duplicateInfo.similarity * 100).toFixed(1)}%
+                        </span>
+                      </p>
+                      <div className="bg-white rounded-lg p-3 space-y-1 text-sm">
+                        <p><strong>文件名：</strong>{duplicateInfo.filename}</p>
+                        <p><strong>上传时间：</strong>{new Date(duplicateInfo.upload_time).toLocaleString('zh-CN')}</p>
+                        <p><strong>题目数量：</strong>{duplicateInfo.question_count} 道</p>
+                      </div>
+                      <p className="text-yellow-800 mt-3 text-sm">
+                        💡 您可以选择继续使用当前解析结果，或使用数据库中已有的文件进行出题。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {/* 错误提示 */}
+              {parseErrors.length > 0 && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-red-800 mb-2">⚠️ 解析警告</h4>
+                  <ul className="space-y-1 text-sm text-red-700">
+                    {parseErrors.map((error, i) => (
+                      <li key={i}>• {error}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              {/* 题型统计 */}
+              {parsedQuestions.length > 0 && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-blue-800 mb-2">📊 题型统计</h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                    <div className="bg-white rounded px-3 py-2">
+                      <div className="text-gray-500">单选题</div>
+                      <div className="text-xl font-bold text-blue-600">
+                        {parsedQuestions.filter(q => q.type === 'single_choice').length}
+                      </div>
+                    </div>
+                    <div className="bg-white rounded px-3 py-2">
+                      <div className="text-gray-500">多选题</div>
+                      <div className="text-xl font-bold text-purple-600">
+                        {parsedQuestions.filter(q => q.type === 'multiple_choice').length}
+                      </div>
+                    </div>
+                    <div className="bg-white rounded px-3 py-2">
+                      <div className="text-gray-500">判断题</div>
+                      <div className="text-xl font-bold text-green-600">
+                        {parsedQuestions.filter(q => q.type === 'judgment').length}
+                      </div>
+                    </div>
+                    <div className="bg-white rounded px-3 py-2">
+                      <div className="text-gray-500">解答题</div>
+                      <div className="text-xl font-bold text-gray-600">
+                        {parsedQuestions.filter(q => q.type === 'text').length}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 问题列表 */}
+              {parsedQuestions.map((question, qIndex) => (
+                <div
+                  key={question.id}
+                  className="bg-gray-50 border-2 border-gray-200 rounded-lg p-5 hover:border-blue-300 transition-colors"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <span className="inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full font-bold">
+                          {qIndex + 1}
+                        </span>
+                        <span className={`px-2 py-1 text-xs rounded ${
+                          question.type === 'single_choice' ? 'bg-blue-100 text-blue-700' :
+                          question.type === 'multiple_choice' ? 'bg-purple-100 text-purple-700' :
+                          question.type === 'judgment' ? 'bg-green-100 text-green-700' :
+                          'bg-gray-100 text-gray-700'
+                        }`}>
+                          {question.type === 'single_choice' ? '单选题' :
+                           question.type === 'multiple_choice' ? '多选题' :
+                           question.type === 'judgment' ? '判断题' : '解答题'}
+                        </span>
+                        {question.required && (
+                          <span className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded">
+                            必答
+                          </span>
+                        )}
+                      </div>
+                      <textarea
+                        value={question.question}
+                        onChange={(e) => handleQuestionEdit(qIndex, 'question', e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                        rows={2}
+                      />
+                    </div>
+                    <button
+                      onClick={() => handleDeleteQuestion(qIndex)}
+                      className="ml-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      title="删除此问题"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+
+                  {/* 选项列表 */}
+                  {question.options.length > 0 && (
+                    <div className="space-y-2 ml-10">
+                      {question.options.map((option, optIndex) => (
+                        <div key={optIndex} className="flex items-center space-x-2">
+                          <span className="font-semibold text-gray-600 min-w-[30px]">
+                            {option.label}.
+                          </span>
+                          <input
+                            type="text"
+                            value={option.text}
+                            onChange={(e) => handleOptionEdit(qIndex, optIndex, e.target.value)}
+                            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* 答案和分数 */}
+                  <div className="mt-4 ml-10 grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        答案
+                        {question.type === 'multiple_choice' && <span className="text-gray-500 ml-1">(多个答案用逗号分隔，如：A,B,C)</span>}
+                        {question.type === 'text' && <span className="text-gray-500 ml-1">(参考答案)</span>}
+                      </label>
+                      <input
+                        type="text"
+                        value={Array.isArray(question.answer) ? question.answer.join(',') : (question.answer || '')}
+                        onChange={(e) => handleQuestionEdit(qIndex, 'answer', e.target.value)}
+                        placeholder={question.type === 'single_choice' || question.type === 'judgment' ? '例如：A' : question.type === 'multiple_choice' ? '例如：A,B,C' : '输入参考答案'}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        分数
+                      </label>
+                      <input
+                        type="number"
+                        value={question.score || 5}
+                        onChange={(e) => handleQuestionEdit(qIndex, 'score', parseFloat(e.target.value) || 5)}
+                        min="0"
+                        step="0.5"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {parsedQuestions.length === 0 && (
+                <div className="text-center py-12 text-gray-400">
+                  <p className="text-lg">未找到任何问题</p>
+                </div>
+              )}
+            </div>
+
+            <div className="sticky bottom-0 bg-gray-50 px-6 py-4 rounded-b-2xl border-t border-gray-200 flex justify-end space-x-3">
+              <button
+                onClick={() => {
+                  setShowPreviewModal(false)
+                  setParsedQuestions([])
+                  setParseErrors([])
+                  setIsDuplicate(false)
+                  setDuplicateInfo(null)
+                  setCurrentFileId('')
+                  setCurrentFilename('')
+                }}
+                className="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium"
+              >
+                取消
+              </button>
+              <button
+                onClick={handleDeleteUploadedFile}
+                disabled={!currentFileId}
+                className="px-6 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                🗑️ 删除文件
+              </button>
+              {isDuplicate && duplicateInfo && (
+                <button
+                  onClick={handleUseDatabaseFile}
+                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
+                >
+                  📚 使用数据库文件
+                </button>
+              )}
+              <button
+                onClick={handleSaveQuestions}
+                disabled={parsedQuestions.length === 0}
+                className="px-6 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                ✅ 保存问题 ({parsedQuestions.length})
               </button>
             </div>
           </div>

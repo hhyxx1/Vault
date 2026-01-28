@@ -53,4 +53,18 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    print("=" * 70)
+    print("🚀 启动智能教学平台后端服务")
+    print("=" * 70)
+    print("📍 服务地址: http://127.0.0.1:8000")
+    print("📚 API文档: http://127.0.0.1:8000/docs")
+    print("🔄 热重载: 已启用")
+    print("💾 向量数据库: 自动初始化中...")
+    print("=" * 70)
+    uvicorn.run(
+        "app.main:app",
+        host="127.0.0.1",
+        port=8000,
+        reload=True,
+        reload_dirs=["app"]
+    )
