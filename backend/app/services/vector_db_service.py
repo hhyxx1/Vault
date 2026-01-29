@@ -15,13 +15,18 @@ class VectorDBService:
     
     def __init__(self):
         try:
-            # 数据存储路径
-            db_path = os.path.join(os.getcwd(), "data", "chroma_db")
-            os.makedirs(db_path, exist_ok=True)
+            # 数据存储路径 - 使用绝对路径确保正确
+            # 获取backend目录的绝对路径
+            from pathlib import Path
+            backend_dir = Path(__file__).resolve().parent.parent.parent
+            db_path = backend_dir / "data" / "chroma_db"
+            db_path.mkdir(parents=True, exist_ok=True)
+            
+            print(f"向量数据库路径: {db_path}")
             
             # 创建ChromaDB客户端
             self.client = chromadb.PersistentClient(
-                path=db_path,
+                path=str(db_path),
                 settings=Settings(anonymized_telemetry=False)
             )
             

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { surveyApi } from '@/services'
+import ManualQuestionForm, { QuestionFormData } from '@/components/ManualQuestionForm'
+import { Icon, IconName } from '@/components/Icon'
 
 type CreateMode = 'manual' | 'ai' | 'knowledge' | null
 type SurveyStatus = 'draft' | 'published'
@@ -58,11 +60,25 @@ const TeacherSurvey = () => {
   const [surveys, setSurveys] = useState<Survey[]>([])
   const [isLoadingSurveys, setIsLoadingSurveys] = useState(false)
   
+  // 手动添加题目相关状态
+  const [showManualQuestionModal, setShowManualQuestionModal] = useState(false)
+  const [manualQuestions, setManualQuestions] = useState<QuestionFormData[]>([])
+  const [surveyTitle, setSurveyTitle] = useState('')
+  const [surveyDescription, setSurveyDescription] = useState('')
+  const [isPublishing, setIsPublishing] = useState(false)
+  
+  // 编辑和统计相关状态
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [editingSurvey, setEditingSurvey] = useState<any>(null)
+  const [showStatsModal, setShowStatsModal] = useState(false)
+  const [statsData, setStatsData] = useState<any>(null)
+  
   // 获取问卷列表
   const loadSurveys = async () => {
     setIsLoadingSurveys(true)
     try {
       const data = await surveyApi.getSurveys()
+      console.log('获取到的问卷数据:', data)
       setSurveys(data)
     } catch (error: any) {
       console.error('获取问卷列表失败:', error)
@@ -82,21 +98,21 @@ const TeacherSurvey = () => {
       id: 'manual' as CreateMode,
       title: '手动上传',
       description: '手动添加题目或上传Word文档自动识别',
-      icon: '📝',
+      iconName: 'survey' as IconName,
       color: 'blue',
     },
     {
       id: 'ai' as CreateMode,
       title: 'AI生成',
       description: '给出描述，AI自动生成问卷',
-      icon: '🤖',
+      iconName: 'sparkles' as IconName,
       color: 'purple',
     },
     {
       id: 'knowledge' as CreateMode,
       title: '基于知识库',
       description: '描述需求，AI基于知识库生成问卷',
-      icon: '📚',
+      iconName: 'book' as IconName,
       color: 'green',
     },
   ]
@@ -291,7 +307,7 @@ const TeacherSurvey = () => {
   }
 
   const handleDelete = async (surveyId: string) => {
-    if (confirm('确定要删除这个问卷吗？')) {
+    if (confirm('确定要删除这个问卷吗？删除后数据库中的问卷将被删除，但向量数据库中的数据会保留用于重复检测。')) {
       try {
         await surveyApi.deleteSurvey(surveyId)
         await loadSurveys()
@@ -300,6 +316,95 @@ const TeacherSurvey = () => {
         console.error('删除问卷失败:', error)
         alert(error.response?.data?.detail || '删除问卷失败')
       }
+    }
+  }
+
+  // 编辑问卷
+  const handleEdit = async (surveyId: string) => {
+    try {
+      const data = await surveyApi.getSurveyDetail(surveyId)
+      setEditingSurvey(data)
+      setSurveyTitle(data.title)
+      setSurveyDescription(data.description || '')
+      setManualQuestions(data.questions.map((q: any) => ({
+        id: q.id,
+        questionText: q.questionText,
+        questionType: q.questionType,
+        options: q.options || [],
+        correctAnswers: q.correctAnswer,
+        score: q.score,
+        answerExplanation: q.answerExplanation,
+        referenceFiles: q.referenceFiles,
+        minWordCount: q.minWordCount,
+        gradingCriteria: q.gradingCriteria
+      })))
+      setShowEditModal(true)
+    } catch (error: any) {
+      console.error('获取问卷详情失败:', error)
+      alert(error.response?.data?.detail || '获取问卷详情失败')
+    }
+  }
+
+  // 保存编辑
+  const handleSaveEdit = async () => {
+    if (!editingSurvey) return
+    
+    if (!surveyTitle.trim()) {
+      alert('请输入问卷标题')
+      return
+    }
+    
+    if (manualQuestions.length === 0) {
+      alert('请至少添加一道题目')
+      return
+    }
+    
+    try {
+      setIsPublishing(true)
+      const surveyData = {
+        file_id: editingSurvey.id,
+        filename: editingSurvey.title,
+        title: surveyTitle,
+        description: surveyDescription,
+        questions: manualQuestions.map((q, index) => ({
+          questionText: q.questionText,
+          questionType: q.questionType,
+          questionOrder: index + 1,
+          score: q.score || 0,
+          options: q.options,
+          correctAnswer: q.correctAnswer,
+          answerExplanation: q.answerExplanation,
+          referenceFiles: q.referenceFiles,
+          minWordCount: q.minWordCount,
+          gradingCriteria: q.gradingCriteria
+        }))
+      }
+      
+      await surveyApi.updateSurvey(editingSurvey.id, surveyData)
+      alert('问卷更新成功！')
+      setShowEditModal(false)
+      setEditingSurvey(null)
+      setSurveyTitle('')
+      setSurveyDescription('')
+      setManualQuestions([])
+      await loadSurveys()
+    } catch (error: any) {
+      console.error('更新问卷失败:', error)
+      alert(error.response?.data?.detail || '更新问卷失败')
+    } finally {
+      setIsPublishing(false)
+    }
+  }
+
+  // 查看统计
+  const handleStats = async (surveyId: string) => {
+    try {
+      const data = await surveyApi.getSurveyResults(surveyId)
+      setStatsData(data)
+      setShowStatsModal(true)
+    } catch (error: any) {
+      console.error('获取统计数据失败:', error)
+      alert(error.response?.data?.detail || '获取统计数据失败')
     }
   }
 
@@ -397,7 +502,7 @@ const TeacherSurvey = () => {
             onClick={() => setShowCreateModal(true)}
             className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl font-medium"
           >
-            <span>🎯</span>
+            <Icon name="add" size={20} className="text-white" />
             <span>出题助手</span>
           </button>
         </div>
@@ -409,7 +514,7 @@ const TeacherSurvey = () => {
           {/* 出题方式选择卡片 */}
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
-              <span className="mr-2">✨</span>
+              <Icon name="sparkles" size={24} className="mr-2 text-blue-600" />
               创建新问卷
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -430,8 +535,16 @@ const TeacherSurvey = () => {
                   }`}></div>
                   
                   <div className="relative">
-                    <div className={`text-5xl mb-4 transform group-hover:scale-110 transition-transform`}>
-                      {mode.icon}
+                    <div className={`mb-4 transform group-hover:scale-110 transition-transform`}>
+                      <Icon 
+                        name={mode.iconName} 
+                        size={48} 
+                        className={
+                          mode.color === 'blue' ? 'text-blue-500' :
+                          mode.color === 'purple' ? 'text-purple-500' :
+                          'text-green-500'
+                        }
+                      />
                     </div>
                     <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
                       {mode.title}
@@ -448,7 +561,7 @@ const TeacherSurvey = () => {
                       mode.color === 'purple' ? 'bg-gradient-to-br from-purple-400 to-pink-400' :
                       'bg-gradient-to-br from-green-400 to-emerald-400'
                     }`}>
-                      <span className="text-white text-xs">→</span>
+                      <Icon name="chevron-right" size={16} className="text-white" />
                     </div>
                   </div>
                 </div>
@@ -459,17 +572,21 @@ const TeacherSurvey = () => {
           {/* 问卷列表 */}
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
-              <span className="mr-2">📚</span>
+              <Icon name="survey" size={24} className="mr-2 text-blue-600" />
               我的问卷
             </h3>
             {isLoadingSurveys ? (
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-12 text-center">
-                <div className="text-4xl mb-4">⏳</div>
+                <div className="mb-4 flex justify-center">
+                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                </div>
                 <p className="text-gray-500">加载中...</p>
               </div>
-            ) : surveys.length === 0 ? (
+            ) : !surveys || surveys.length === 0 ? (
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-12 text-center">
-                <div className="text-6xl mb-4">📝</div>
+                <div className="mb-4 flex justify-center">
+                  <Icon name="survey" size={64} className="text-gray-300" />
+                </div>
                 <h4 className="text-xl font-semibold text-gray-800 mb-2">暂无问卷</h4>
                 <p className="text-gray-500">点击上方"出题助手"开始创建您的第一份问卷</p>
               </div>
@@ -506,16 +623,16 @@ const TeacherSurvey = () => {
                       
                       <div className="space-y-2 text-xs text-gray-500 mb-5">
                         <div className="flex items-center">
-                          <span className="mr-2">📋</span>
+                          <Icon name="description" size={14} className="mr-2 text-gray-400" />
                           <span>{survey.questionCount} 道题目</span>
                         </div>
                         <div className="flex items-center">
-                          <span className="mr-2">📅</span>
+                          <Icon name="calendar" size={14} className="mr-2 text-gray-400" />
                           <span>创建于 {survey.createdAt}</span>
                         </div>
                         {survey.publishedAt && (
                           <div className="flex items-center text-green-600">
-                            <span className="mr-2">🚀</span>
+                            <Icon name="award" size={14} className="mr-2" />
                             <span>发布于 {survey.publishedAt}</span>
                           </div>
                         )}
@@ -526,30 +643,41 @@ const TeacherSurvey = () => {
                         {survey.status === 'draft' ? (
                           <button
                             onClick={() => handlePublish(survey.id)}
-                            className="w-full py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl text-sm font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg"
+                            className="w-full py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl text-sm font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
                           >
-                            🚀 发布问卷
+                            <Icon name="award" size={16} className="text-white" />
+                            <span>发布问卷</span>
                           </button>
                         ) : (
                           <button
                             onClick={() => handleUnpublish(survey.id)}
-                            className="w-full py-2.5 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition-all"
+                            className="w-full py-2.5 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition-all flex items-center justify-center space-x-2"
                           >
-                            📥 取消发布
+                            <Icon name="logout" size={16} className="text-white" />
+                            <span>取消发布</span>
                           </button>
                         )}
                         <div className="grid grid-cols-3 gap-2">
-                          <button className="py-2 bg-blue-50 text-blue-600 rounded-lg text-xs font-medium hover:bg-blue-100 transition-all">
-                            ✏️ 编辑
+                          <button 
+                            onClick={() => handleEdit(survey.id)}
+                            className="py-2 bg-blue-50 text-blue-600 rounded-lg text-xs font-medium hover:bg-blue-100 transition-all flex items-center justify-center space-x-1"
+                          >
+                            <Icon name="description" size={14} />
+                            <span>编辑</span>
                           </button>
-                          <button className="py-2 bg-purple-50 text-purple-600 rounded-lg text-xs font-medium hover:bg-purple-100 transition-all">
-                            📊 统计
+                          <button 
+                            onClick={() => handleStats(survey.id)}
+                            className="py-2 bg-purple-50 text-purple-600 rounded-lg text-xs font-medium hover:bg-purple-100 transition-all flex items-center justify-center space-x-1"
+                          >
+                            <Icon name="dashboard" size={14} />
+                            <span>统计</span>
                           </button>
                           <button
                             onClick={() => handleDelete(survey.id)}
-                            className="py-2 bg-red-50 text-red-600 rounded-lg text-xs font-medium hover:bg-red-100 transition-all"
+                            className="py-2 bg-red-50 text-red-600 rounded-lg text-xs font-medium hover:bg-red-100 transition-all flex items-center justify-center space-x-1"
                           >
-                            🗑️ 删除
+                            <Icon name="close" size={14} />
+                            <span>删除</span>
                           </button>
                         </div>
                       </div>
@@ -568,10 +696,10 @@ const TeacherSurvey = () => {
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-2xl">
               <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-bold text-gray-800">
-                  {createMode === 'manual' && '📝 手动创建问卷'}
-                  {createMode === 'ai' && '🤖 AI生成问卷'}
-                  {createMode === 'knowledge' && '📚 基于知识库生成'}
+                <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                  {createMode === 'manual' && <><Icon name="survey" size={28} className="text-blue-500" /> 手动创建问卷</>}
+                  {createMode === 'ai' && <><Icon name="sparkles" size={28} className="text-purple-500" /> AI生成问卷</>}
+                  {createMode === 'knowledge' && <><Icon name="book" size={28} className="text-green-500" /> 基于知识库生成</>}
                 </h3>
                 <button
                   onClick={() => {
@@ -580,9 +708,9 @@ const TeacherSurvey = () => {
                     setAiDescription('')
                     setUploadedFile(null)
                   }}
-                  className="text-gray-400 hover:text-gray-600 text-2xl"
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  ×
+                  <Icon name="close" size={24} />
                 </button>
               </div>
             </div>
@@ -594,7 +722,7 @@ const TeacherSurvey = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       上传Word文档
                     </label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors relative">
                       <input
                         type="file"
                         accept=".doc,.docx"
@@ -602,18 +730,47 @@ const TeacherSurvey = () => {
                         className="hidden"
                         id="file-upload"
                       />
-                      <label htmlFor="file-upload" className="cursor-pointer">
-                        <div className="text-4xl mb-2">📄</div>
-                        <p className="text-gray-600 mb-1">点击上传或拖拽文件</p>
-                        <p className="text-sm text-gray-400">支持 .doc, .docx 格式</p>
-                        {uploadedFile && (
-                          <p className="mt-2 text-blue-600 font-medium">{uploadedFile.name}</p>
-                        )}
-                      </label>
+                      {!uploadedFile ? (
+                        <label htmlFor="file-upload" className="cursor-pointer">
+                          <div className="mb-2 text-blue-500 flex justify-center">
+                             <Icon name="description" size={48} />
+                          </div>
+                          <p className="text-gray-600 mb-1">点击上传或拖拽文件</p>
+                          <p className="text-sm text-gray-400">支持 .doc, .docx 格式</p>
+                        </label>
+                      ) : (
+                        <div className="flex items-center justify-center gap-3">
+                          <div className="text-blue-500">
+                             <Icon name="description" size={32} />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-blue-600 font-medium">{uploadedFile.name}</p>
+                            <p className="text-sm text-gray-400">文件已选择</p>
+                          </div>
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault()
+                              setUploadedFile(null)
+                              const fileInput = document.getElementById('file-upload') as HTMLInputElement
+                              if (fileInput) fileInput.value = ''
+                            }}
+                            className="p-2 hover:bg-red-50 rounded-lg transition-colors group"
+                            title="删除文件"
+                          >
+                            <Icon name="close" size={20} className="text-gray-400 group-hover:text-red-500" />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="text-center text-gray-400">或</div>
-                  <button className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  <button
+                    onClick={() => {
+                      setShowCreateModal(false)
+                      setShowManualQuestionModal(true)
+                    }}
+                    className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
                     手动添加题目
                   </button>
                 </>
@@ -632,8 +789,8 @@ const TeacherSurvey = () => {
                     }
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none min-h-[200px] resize-none"
                   />
-                  <p className="mt-2 text-sm text-gray-500">
-                    {createMode === 'knowledge' && '💡 AI将从您上传的课程资料中提取相关知识点'}
+                  <p className="mt-2 text-sm text-gray-500 flex items-center">
+                    {createMode === 'knowledge' && <><Icon name="sparkles" size={16} className="mr-1 text-yellow-500" /> AI将从您上传的课程资料中提取相关知识点</>}
                   </p>
                 </div>
               )}
@@ -702,7 +859,9 @@ const TeacherSurvey = () => {
               {isDuplicate && duplicateInfo && (
                 <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-5">
                   <div className="flex items-start">
-                    <div className="flex-shrink-0 text-3xl mr-3">⚠️</div>
+                    <div className="flex-shrink-0 mr-3 text-yellow-600">
+                      <Icon name="description" size={32} />
+                    </div>
                     <div className="flex-1">
                       <h4 className="font-bold text-yellow-900 mb-2 text-lg">检测到重复文件</h4>
                       <p className="text-yellow-800 mb-3">
@@ -717,7 +876,10 @@ const TeacherSurvey = () => {
                         <p><strong>题目数量：</strong>{duplicateInfo.question_count} 道</p>
                       </div>
                       <p className="text-yellow-800 mt-3 text-sm">
-                        💡 您可以选择继续使用当前解析结果，或使用数据库中已有的文件进行出题。
+                      <div className="flex items-start">
+                        <Icon name="sparkles" size={20} className="text-yellow-500 mt-1 mr-2 flex-shrink-0" />
+                        <span>您可以选择继续使用当前解析结果，或使用数据库中已有的文件进行出题。</span>
+                      </div>
                       </p>
                     </div>
                   </div>
@@ -727,7 +889,9 @@ const TeacherSurvey = () => {
               {/* 错误提示 */}
               {parseErrors.length > 0 && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-red-800 mb-2">⚠️ 解析警告</h4>
+                  <h4 className="font-semibold text-red-800 mb-2 flex items-center">
+                    <Icon name="description" size={20} className="mr-2" /> 解析警告
+                  </h4>
                   <ul className="space-y-1 text-sm text-red-700">
                     {parseErrors.map((error, i) => (
                       <li key={i}>• {error}</li>
@@ -739,7 +903,9 @@ const TeacherSurvey = () => {
               {/* 题型统计 */}
               {parsedQuestions.length > 0 && (
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-800 mb-2">📊 题型统计</h4>
+                  <h4 className="font-semibold text-blue-800 mb-2 flex items-center">
+                    <Icon name="dashboard" size={20} className="mr-2" /> 题型统计
+                  </h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                     <div className="bg-white rounded px-3 py-2">
                       <div className="text-gray-500">单选题</div>
@@ -809,7 +975,7 @@ const TeacherSurvey = () => {
                       className="ml-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       title="删除此问题"
                     >
-                      🗑️
+                      <Icon name="close" size={20} />
                     </button>
                   </div>
 
@@ -890,25 +1056,458 @@ const TeacherSurvey = () => {
               <button
                 onClick={handleDeleteUploadedFile}
                 disabled={!currentFileId}
-                className="px-6 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
-                🗑️ 删除文件
+                <Icon name="close" size={18} /> 删除文件
               </button>
               {isDuplicate && duplicateInfo && (
                 <button
                   onClick={handleUseDatabaseFile}
-                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
+                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg flex items-center gap-2"
                 >
-                  📚 使用数据库文件
+                  <Icon name="book" size={18} /> 使用数据库文件
                 </button>
               )}
               <button
                 onClick={handleSaveQuestions}
                 disabled={parsedQuestions.length === 0}
-                className="px-6 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
-                ✅ 保存问题 ({parsedQuestions.length})
+                <Icon name="add" size={18} /> 保存问题 ({parsedQuestions.length})
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 手动添加题目模态框 */}
+      {showManualQuestionModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-2xl z-10">
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                  <Icon name="survey" size={28} className="text-blue-500" /> 手动创建问卷
+                </h3>
+                <button
+                  onClick={() => {
+                    setShowManualQuestionModal(false)
+                    setManualQuestions([])
+                    setSurveyTitle('')
+                    setSurveyDescription('')
+                  }}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <Icon name="close" size={24} />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-6">
+              {/* 问卷基本信息 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  问卷标题 <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={surveyTitle}
+                  onChange={(e) => setSurveyTitle(e.target.value)}
+                  placeholder="请输入问卷标题..."
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  问卷描述（可选）
+                </label>
+                <textarea
+                  value={surveyDescription}
+                  onChange={(e) => setSurveyDescription(e.target.value)}
+                  placeholder="请输入问卷描述..."
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none min-h-[80px] resize-none"
+                  rows={3}
+                />
+              </div>
+
+              {/* 题目列表 */}
+              {manualQuestions.length > 0 && (
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-lg font-semibold text-gray-800">
+                      已添加题目 ({manualQuestions.length})
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    {manualQuestions.map((q, index) => (
+                      <div
+                        key={index}
+                        className="bg-gray-50 rounded-lg p-4 border border-gray-200"
+                      >
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-2 mb-2">
+                              <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium">
+                                题目 {index + 1}
+                              </span>
+                              <span className="px-2 py-1 bg-gray-200 text-gray-700 rounded text-xs">
+                                {q.questionType === 'single_choice' ? '选择题' : 
+                                 q.questionType === 'fill_blank' ? '填空题' : '问答题'}
+                              </span>
+                              <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">
+                                {q.score} 分
+                              </span>
+                            </div>
+                            <p className="text-gray-800 font-medium mb-1">{q.questionText}</p>
+                            {q.questionType === 'single_choice' && q.options && (
+                              <div className="mt-2 space-y-1">
+                                {q.options.map((opt) => (
+                                  <div key={opt.key} className="text-sm text-gray-600">
+                                    {opt.key}. {opt.value}
+                                    {opt.isCorrect && (
+                                      <span className="ml-2 text-green-600 font-medium">✓ 正确答案</span>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                            {q.questionType === 'fill_blank' && q.correctAnswers && (
+                              <div className="mt-2 text-sm text-gray-600">
+                                答案: {q.correctAnswers.join(', ')}
+                              </div>
+                            )}
+                            {q.questionType === 'essay' && (
+                              <div className="mt-2 text-sm text-gray-600">
+                                {q.minWordCount && <div>最少字数: {q.minWordCount}</div>}
+                                {q.gradingCriteria && (
+                                  <div>评分标准: {q.gradingCriteria.scoreDistribution.length} 项</div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          <button
+                            onClick={() => {
+                              setManualQuestions(manualQuestions.filter((_, i) => i !== index))
+                            }}
+                            className="ml-4 text-red-500 hover:text-red-700 transition-colors"
+                          >
+                            <Icon name="close" size={20} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 添加题目表单 */}
+              <div className="border-t border-gray-200 pt-6">
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">
+                  {manualQuestions.length === 0 ? '添加第一道题目' : '添加下一道题目'}
+                </h4>
+                <ManualQuestionForm
+                  onSave={(question) => {
+                    setManualQuestions([...manualQuestions, question])
+                    // 滚动到顶部显示新添加的题目
+                    setTimeout(() => {
+                      const modal = document.querySelector('.max-h-\\[90vh\\]')
+                      if (modal) {
+                        modal.scrollTop = 0
+                      }
+                    }, 100)
+                  }}
+                  onCancel={() => {
+                    // 重置表单后继续添加题目
+                  }}
+                  onSaveAll={async (questions) => {
+                    // 将新题目添加到已有题目列表
+                    const allQuestions = [...manualQuestions, ...questions]
+                    
+                    if (!surveyTitle.trim()) {
+                      alert('请输入问卷标题')
+                      return
+                    }
+                    
+                    if (allQuestions.length === 0) {
+                      alert('请至少添加一道题目')
+                      return
+                    }
+
+                    setIsPublishing(true)
+                    try {
+                      // 准备题目数据
+                      const questionsData = await Promise.all(allQuestions.map(async (q, index) => {
+                        const questionData: any = {
+                          questionType: q.questionType,
+                          questionText: q.questionText,
+                          questionOrder: index + 1,
+                          score: q.score,
+                          answerExplanation: q.answerExplanation,
+                        }
+
+                        if (q.questionType === 'single_choice' && q.options) {
+                          questionData.options = q.options.map(opt => ({
+                            key: opt.key,
+                            value: opt.value,
+                          }))
+                          questionData.correctAnswer = q.options.find(opt => opt.isCorrect)?.key
+                        }
+
+                        if (q.questionType === 'fill_blank' && q.correctAnswers) {
+                          questionData.correctAnswer = q.correctAnswers
+                        }
+
+                        if (q.questionType === 'essay') {
+                          // 上传文件（如果有）
+                          if (q.referenceFiles && q.referenceFiles.length > 0) {
+                            const uploadedFileUrls: string[] = []
+                            for (const file of q.referenceFiles) {
+                              try {
+                                const result = await surveyApi.uploadFile(file)
+                                const fileUrl = result.data?.url || result.url
+                                if (fileUrl) {
+                                  uploadedFileUrls.push(fileUrl)
+                                }
+                              } catch (error) {
+                                console.error('文件上传失败:', error)
+                              }
+                            }
+                            questionData.referenceFiles = uploadedFileUrls
+                          }
+                          questionData.minWordCount = q.minWordCount
+                          questionData.gradingCriteria = q.gradingCriteria
+                        }
+
+                        return questionData
+                      }))
+
+                      // 创建问卷
+                      const surveyData = {
+                        title: surveyTitle.trim(),
+                        description: surveyDescription.trim() || undefined,
+                        questions: questionsData,
+                      }
+
+                      const result = await surveyApi.createManualSurvey(surveyData)
+
+                      // 兼容不同返回结构，确保拿到 id
+                      const surveyId = result?.id || result?.data?.id || result?.data?.data?.id || result?.survey_id
+                      if (!surveyId) {
+                        console.error('createManualSurvey 返回值:', result)
+                        alert('创建问卷未返回 id，发布失败，请检查后端日志')
+                        setIsPublishing(false)
+                        return
+                      }
+
+                      // 发布问卷
+                      await surveyApi.publishSurvey(surveyId)
+
+                      alert('问卷保存并发布成功！')
+                      
+                      // 重新加载问卷列表
+                      await loadSurveys()
+                      
+                      // 关闭模态框并清理状态
+                      setShowManualQuestionModal(false)
+                      setManualQuestions([])
+                      setSurveyTitle('')
+                      setSurveyDescription('')
+                    } catch (error: any) {
+                      console.error('保存失败:', error)
+                      const msg =
+                        error?.response?.data?.message ||
+                        error?.response?.data?.detail ||
+                        error?.message ||
+                        '保存失败，请重试'
+                      alert(msg)
+                    } finally {
+                      setIsPublishing(false)
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 编辑问卷模态框 */}
+      {showEditModal && editingSurvey && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6 rounded-t-2xl">
+              <div className="flex items-center justify-between text-white">
+                <h3 className="text-2xl font-bold flex items-center gap-3">
+                  <Icon name="description" size={28} />
+                  编辑问卷
+                </h3>
+                <button 
+                  onClick={() => {
+                    setShowEditModal(false)
+                    setEditingSurvey(null)
+                    setSurveyTitle('')
+                    setSurveyDescription('')
+                    setManualQuestions([])
+                  }}
+                  className="p-2 hover:bg-white/20 rounded-full transition-colors"
+                >
+                  <Icon name="close" size={24} />
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-8">
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">问卷标题</label>
+                <input
+                  type="text"
+                  value={surveyTitle}
+                  onChange={(e) => setSurveyTitle(e.target.value)}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  placeholder="请输入问卷标题"
+                />
+              </div>
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">问卷描述</label>
+                <textarea
+                  value={surveyDescription}
+                  onChange={(e) => setSurveyDescription(e.target.value)}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  placeholder="请输入问卷描述（可选）"
+                  rows={3}
+                />
+              </div>
+              
+              <div className="text-gray-600">
+                当前题目数量: {manualQuestions.length}
+                <div className="mt-2 text-sm text-gray-500">
+                  提示：在编辑模式下，您可以修改问卷标题、描述，但题目的编辑需要返回手动创建页面
+                </div>
+              </div>
+              
+              <div className="flex justify-end gap-4 mt-6 pt-6 border-t border-gray-200">
+                <button
+                  onClick={() => {
+                    setShowEditModal(false)
+                    setEditingSurvey(null)
+                    setSurveyTitle('')
+                    setSurveyDescription('')
+                    setManualQuestions([])
+                  }}
+                  className="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-all"
+                >
+                  取消
+                </button>
+                <button
+                  onClick={handleSaveEdit}
+                  disabled={isPublishing}
+                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {isPublishing ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      保存中...
+                    </>
+                  ) : (
+                    <>
+                      <Icon name="award" size={20} />
+                      保存修改
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 统计模态框 */}
+      {showStatsModal && statsData && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="sticky top-0 bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-6 rounded-t-2xl">
+              <div className="flex items-center justify-between text-white">
+                <h3 className="text-2xl font-bold flex items-center gap-3">
+                  <Icon name="dashboard" size={28} />
+                  问卷统计 - {statsData.title}
+                </h3>
+                <button 
+                  onClick={() => {
+                    setShowStatsModal(false)
+                    setStatsData(null)
+                  }}
+                  className="p-2 hover:bg-white/20 rounded-full transition-colors"
+                >
+                  <Icon name="close" size={24} />
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-8">
+              {/* 总体统计 */}
+              <div className="grid grid-cols-4 gap-6 mb-8">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl">
+                  <div className="text-sm text-blue-600 font-medium mb-2">总提交数</div>
+                  <div className="text-3xl font-bold text-blue-700">{statsData.totalResponses}</div>
+                </div>
+                <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl">
+                  <div className="text-sm text-green-600 font-medium mb-2">平均分</div>
+                  <div className="text-3xl font-bold text-green-700">{statsData.avgScore}</div>
+                </div>
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl">
+                  <div className="text-sm text-purple-600 font-medium mb-2">通过人数</div>
+                  <div className="text-3xl font-bold text-purple-700">{statsData.passCount}</div>
+                </div>
+                <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl">
+                  <div className="text-sm text-orange-600 font-medium mb-2">通过率</div>
+                  <div className="text-3xl font-bold text-orange-700">{statsData.passRate}%</div>
+                </div>
+              </div>
+
+              {/* 题目统计 */}
+              <div className="space-y-6">
+                <h4 className="text-xl font-bold text-gray-800 mb-4">题目详细统计</h4>
+                {statsData.questionStats && statsData.questionStats.length > 0 ? (
+                  statsData.questionStats.map((q: any, index: number) => (
+                    <div key={q.questionId} className="bg-gray-50 p-6 rounded-xl">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <div className="text-sm text-gray-500 mb-2">题目 {index + 1}</div>
+                          <div className="text-lg font-medium text-gray-800">{q.questionText}</div>
+                        </div>
+                        <div className="text-right ml-4">
+                          <div className="text-sm text-gray-500">正确率</div>
+                          <div className="text-2xl font-bold text-green-600">{q.correctRate.toFixed(1)}%</div>
+                        </div>
+                      </div>
+                      
+                      {q.optionStats && Object.keys(q.optionStats).length > 0 && (
+                        <div className="mt-4 space-y-2">
+                          <div className="text-sm font-medium text-gray-600 mb-2">选项统计：</div>
+                          {Object.entries(q.optionStats).map(([option, count]: [string, any]) => (
+                            <div key={option} className="flex items-center gap-3">
+                              <div className="w-24 text-sm text-gray-600">{option}:</div>
+                              <div className="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
+                                <div 
+                                  className="bg-gradient-to-r from-blue-500 to-indigo-500 h-full flex items-center justify-end pr-2 text-white text-xs font-medium transition-all"
+                                  style={{ width: `${(count / q.totalAnswers * 100)}%` }}
+                                >
+                                  {count > 0 && `${count}人`}
+                                </div>
+                              </div>
+                              <div className="w-16 text-sm text-gray-600 text-right">{((count / q.totalAnswers) * 100).toFixed(1)}%</div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center text-gray-500 py-8">暂无答题数据</div>
+                )}
+              </div>
             </div>
           </div>
         </div>

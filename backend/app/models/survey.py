@@ -53,6 +53,10 @@ class Question(Base):
     tags = Column(ARRAY(Text))
     knowledge_points = Column(ARRAY(Text))
     is_required = Column(Boolean, default=True, nullable=False)
+    # 问答题专用字段
+    reference_files = Column(JSONB)  # 参考材料文件URL列表
+    min_word_count = Column(Integer)  # 最小作答字数
+    grading_criteria = Column(JSONB)  # 评分标准
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 

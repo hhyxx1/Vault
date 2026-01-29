@@ -188,7 +188,7 @@ const TeacherLayout = () => {
                 isCollapsed ? 'justify-center p-2' : 'justify-center px-4 py-3'
               }`}
             >
-              <Icon name="logout" size={20} className="bg-gray-600 group-hover:bg-red-600" />
+              <Icon name="logout" size={20} className="text-gray-600 group-hover:text-red-600" />
               <span className={`transition-all duration-300 ${
                 isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100 block'
               }`}>

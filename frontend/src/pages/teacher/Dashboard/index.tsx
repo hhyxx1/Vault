@@ -1,3 +1,5 @@
+import { Icon } from '../../../components/Icon'
+
 const TeacherDashboard = () => {
   const stats = {
     avgScore: 84.9,
@@ -62,7 +64,9 @@ const TeacherDashboard = () => {
           {/* 核心数据统计 */}
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
-              <span className="mr-2">📊</span>
+              <span className="mr-2">
+                <Icon name="dashboard" size={24} className="text-blue-600" />
+              </span>
               核心数据概览
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5">
@@ -71,7 +75,7 @@ const TeacherDashboard = () => {
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-sm text-gray-600 font-medium">班级平均分</p>
                   <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center">
-                    <span className="text-xl">📈</span>
+                    <Icon name="sparkles" size={24} className="text-white" />
                   </div>
                 </div>
                 <p className="text-3xl font-bold text-gray-800 mb-1">{stats.avgScore}</p>
@@ -83,7 +87,7 @@ const TeacherDashboard = () => {
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-sm text-gray-600 font-medium">及格率</p>
                   <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center">
-                    <span className="text-xl">✅</span>
+                    <Icon name="award" size={24} className="text-white" />
                   </div>
                 </div>
                 <p className="text-3xl font-bold text-gray-800 mb-1">{stats.passRate}%</p>
@@ -100,7 +104,7 @@ const TeacherDashboard = () => {
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-sm text-gray-600 font-medium">最高分</p>
                   <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-xl flex items-center justify-center">
-                    <span className="text-xl">🏆</span>
+                    <Icon name="award" size={24} className="text-white" />
                   </div>
                 </div>
                 <p className="text-3xl font-bold text-gray-800 mb-1">{stats.maxScore}</p>
@@ -112,7 +116,7 @@ const TeacherDashboard = () => {
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-sm text-gray-600 font-medium">作业提交率</p>
                   <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center">
-                    <span className="text-xl">📝</span>
+                    <Icon name="survey" size={24} className="text-white" />
                   </div>
                 </div>
                 <p className="text-3xl font-bold text-gray-800 mb-1">{stats.completionRate}%</p>
@@ -124,7 +128,7 @@ const TeacherDashboard = () => {
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-sm text-gray-600 font-medium">学生总数</p>
                   <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center">
-                    <span className="text-xl">👥</span>
+                    <Icon name="class" size={24} className="text-white" />
                   </div>
                 </div>
                 <p className="text-3xl font-bold text-gray-800 mb-1">{stats.totalStudents}</p>
@@ -136,7 +140,7 @@ const TeacherDashboard = () => {
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-sm text-gray-600 font-medium">活跃学生</p>
                   <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-500 rounded-xl flex items-center justify-center">
-                    <span className="text-xl">🔥</span>
+                    <Icon name="sparkles" size={24} className="text-white" />
                   </div>
                 </div>
                 <p className="text-3xl font-bold text-gray-800 mb-1">{stats.activeStudents}</p>
@@ -148,7 +152,9 @@ const TeacherDashboard = () => {
           {/* AI智能分析 */}
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
-              <span className="mr-2">🤖</span>
+              <span className="mr-2">
+                <Icon name="sparkles" size={24} className="text-purple-600" />
+              </span>
               AI 智能分析与建议
             </h3>
 
@@ -157,7 +163,7 @@ const TeacherDashboard = () => {
                 <div key={index} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-md hover:shadow-xl transition-all">
                   <div className="flex items-start space-x-3 mb-4">
                     <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center">
-                      <span className="text-white text-lg">?</span>
+                      <Icon name="description" size={24} className="text-white" />
                     </div>
                     <h4 className="text-gray-800 font-bold flex-1 text-lg">{insight.question}</h4>
                   </div>
@@ -185,7 +191,9 @@ const TeacherDashboard = () => {
                         <div className="space-y-2">
                           {insight.skills.map((skill, idx) => (
                             <div key={idx} className="flex items-start space-x-2 text-sm">
-                              <span className="text-red-500 mt-1">•</span>
+                              <span className="mt-1">
+                                <Icon name="close" size={14} className="text-red-500" />
+                              </span>
                               <span className="text-gray-700">{skill}</span>
                             </div>
                           ))}
@@ -199,7 +207,9 @@ const TeacherDashboard = () => {
                         <div className="space-y-2">
                           {insight.stats.map((stat, idx) => (
                             <div key={idx} className="flex items-start space-x-2 text-sm">
-                              <span className="text-green-500 mt-1">✓</span>
+                              <span className="mt-1">
+                                <Icon name="award" size={14} className="text-green-500" />
+                              </span>
                               <span className="text-gray-700">{stat}</span>
                             </div>
                           ))}
@@ -213,7 +223,9 @@ const TeacherDashboard = () => {
                         <div className="space-y-2">
                           {insight.suggestions.map((suggestion, idx) => (
                             <div key={idx} className="flex items-start space-x-2 text-sm">
-                              <span className="text-purple-500 mt-1">→</span>
+                              <span className="mt-1">
+                                <Icon name="chevron-right" size={14} className="text-purple-500" />
+                              </span>
                               <span className="text-gray-700">{suggestion}</span>
                             </div>
                           ))}
@@ -229,7 +241,9 @@ const TeacherDashboard = () => {
           {/* 最近动态 */}
           <div>
             <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
-              <span className="mr-2">📋</span>
+              <span className="mr-2">
+                <Icon name="description" size={24} className="text-blue-600" />
+              </span>
               最近动态
             </h3>
             <div className="bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden">
@@ -243,11 +257,10 @@ const TeacherDashboard = () => {
                         activity.type === 'complete' ? 'bg-green-100' :
                         'bg-orange-100'
                       }`}>
-                        <span className="text-xl">
-                          {activity.type === 'submit' ? '📤' :
-                           activity.type === 'question' ? '💬' :
-                           activity.type === 'complete' ? '✅' : '📝'}
-                        </span>
+                        {activity.type === 'submit' && <Icon name="add" size={20} className="text-blue-600" />}
+                        {activity.type === 'question' && <Icon name="description" size={20} className="text-purple-600" />}
+                        {activity.type === 'complete' && <Icon name="award" size={20} className="text-green-600" />}
+                        {activity.type === 'survey' && <Icon name="survey" size={20} className="text-orange-600" />}
                       </div>
                       <div className="flex-1">
                         <p className="text-gray-800 font-medium">

@@ -8,6 +8,7 @@ import {
   deleteClass,
   changePassword,
   getTeacherProfile,
+  updateTeacherProfile,
   uploadAvatar,
   Course, 
   Class,
@@ -17,20 +18,7 @@ import {
 } from '../../../services/teacher'
 import CreateCourseDialog from '../../../components/CreateCourseDialog'
 import CreateClassDialog from '../../../components/CreateClassDialog'
-import { 
-  User, 
-  Mail, 
-  Building2, 
-  GraduationCap, 
-  BookOpen, 
-  Users, 
-  Plus, 
-  Trash2,
-  Phone,
-  Calendar,
-  Award,
-  Lock
-} from 'lucide-react'
+import { Icon } from '../../../components/Icon'
 
 type TabType = 'info' | 'courses' | 'classes' | 'password'
 
@@ -43,7 +31,6 @@ const TeacherProfile = () => {
     department: '计算机学院',
     title: '副教授',
     email: 'teacher@vault.cs',
-    phone: '13800138000',
     joinDate: '2020-09-01',
     avatar: ''
   })
@@ -62,6 +49,15 @@ const TeacherProfile = () => {
     confirmPassword: ''
   })
   const [passwordLoading, setPasswordLoading] = useState(false)
+  
+  // 编辑模式状态
+  const [isEditing, setIsEditing] = useState(false)
+  const [editForm, setEditForm] = useState({
+    fullName: '',
+    email: '',
+    department: '',
+    title: ''
+  })
 
   // 处理头像点击
   const handleAvatarClick = () => {
@@ -101,8 +97,7 @@ const TeacherProfile = () => {
   const loadProfile = async () => {
     try {
       const data = await getTeacherProfile()
-      setTeacherInfo(prev => ({
-        ...prev,
+      const profileData = {
         fullName: data.full_name || data.username,
         teacherNumber: data.teacher_number,
         department: data.department || '未设置',
@@ -110,11 +105,77 @@ const TeacherProfile = () => {
         email: data.email,
         joinDate: data.join_date || '',
         avatar: data.avatar_url || ''
-      }))
+      }
+      setTeacherInfo(profileData)
+      setEditForm({
+        fullName: profileData.fullName,
+        email: profileData.email,
+        department: profileData.department,
+        title: profileData.title
+      })
       setAvatarTimestamp(Date.now())
     } catch (error) {
       console.error('加载个人信息失败:', error)
     }
+  }
+
+  // 开始编辑
+  const handleStartEdit = () => {
+    setEditForm({
+      fullName: teacherInfo.fullName,
+      email: teacherInfo.email,
+      department: teacherInfo.department,
+      title: teacherInfo.title
+    })
+    setIsEditing(true)
+    setActiveTab('info') // 切换到个人信息标签页
+  }
+
+  // 保存修改
+  const handleSaveProfile = async () => {
+    // 验证邮箱格式
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(editForm.email)) {
+      alert('请输入有效的电子邮箱地址')
+      return
+    }
+    
+    try {
+      // 调用后端API保存到数据库
+      const updatedData = await updateTeacherProfile({
+        full_name: editForm.fullName,
+        email: editForm.email,
+        department: editForm.department,
+        title: editForm.title
+      })
+      
+      // 更新本地状态
+      setTeacherInfo(prev => ({
+        ...prev,
+        fullName: updatedData.full_name,
+        email: updatedData.email,
+        department: updatedData.department,
+        title: updatedData.title
+      }))
+      
+      setIsEditing(false)
+      alert('个人信息已成功保存到数据库！')
+    } catch (error: any) {
+      console.error('保存个人信息失败:', error)
+      const errorMsg = error.response?.data?.detail || '保存失败，请重试'
+      alert(errorMsg)
+    }
+  }
+
+  // 取消编辑
+  const handleCancelEdit = () => {
+    setIsEditing(false)
+    setEditForm({
+      fullName: teacherInfo.fullName,
+      email: teacherInfo.email,
+      department: teacherInfo.department,
+      title: teacherInfo.title
+    })
   }
 
   // 加载课程数据
@@ -221,7 +282,14 @@ const TeacherProfile = () => {
         confirmPassword: ''
       })
       
-      alert('密码修改成功！')
+      alert('密码修改成功！即将退出登录，请使用新密码重新登录')
+      
+      // 清除本地存储
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      
+      // 跳转到登录页
+      window.location.href = '/login'
       
     } catch (error: any) {
       console.error('修改密码失败:', error)
@@ -232,10 +300,15 @@ const TeacherProfile = () => {
     }
   }
 
-  const StatCard = ({ icon: Icon, label, value, color }: any) => (
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center space-x-4 transition-transform hover:scale-[1.02]">
+  const StatCard = ({ iconName, label, value, color, onClick }: { iconName: any, label: string, value: string | number, color: string, onClick?: () => void }) => (
+    <div 
+      onClick={onClick}
+      className={`bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center space-x-4 transition-all hover:scale-[1.02] ${
+        onClick ? 'cursor-pointer hover:shadow-md hover:border-indigo-200' : ''
+      }`}
+    >
       <div className={`p-3 rounded-lg ${color}`}>
-        <Icon className="w-6 h-6 text-white" />
+        <Icon name={iconName} size={24} className="text-white" />
       </div>
       <div>
         <p className="text-sm text-gray-500">{label}</p>
@@ -282,21 +355,24 @@ const TeacherProfile = () => {
               <div className="sm:ml-6 text-center sm:text-left">
                 <h1 className="text-3xl font-bold text-gray-900">{teacherInfo.fullName}</h1>
                 <p className="text-sm text-gray-500 mt-1 flex items-center justify-center sm:justify-start">
-                  <Award className="w-4 h-4 mr-1" />
+                  <Icon name="award" size={16} className="mr-1" />
                   {teacherInfo.title} · {teacherInfo.department}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2 justify-center sm:justify-start">
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
-                    <Mail className="w-3 h-3 mr-1" /> {teacherInfo.email}
+                    <Icon name="description" size={12} className="mr-1" /> {teacherInfo.email}
                   </span>
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-50 text-purple-700 border border-purple-100">
-                    <User className="w-3 h-3 mr-1" /> 工号: {teacherInfo.teacherNumber}
+                    <Icon name="user" size={12} className="mr-1" /> 工号: {teacherInfo.teacherNumber}
                   </span>
                 </div>
               </div>
             </div>
             <div className="mt-6 sm:mt-0 flex gap-3 justify-center">
-              <button className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
+              <button 
+                onClick={handleStartEdit}
+                className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
+              >
                 编辑资料
               </button>
             </div>
@@ -306,25 +382,27 @@ const TeacherProfile = () => {
         {/* 统计概览 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard 
-            icon={BookOpen} 
+            iconName="book" 
             label="授课课程" 
             value={courses.length} 
             color="bg-blue-500" 
+            onClick={() => setActiveTab('courses')}
           />
           <StatCard 
-            icon={Users} 
+            iconName="class" 
             label="管理班级" 
             value={classes.length} 
             color="bg-green-500" 
+            onClick={() => setActiveTab('classes')}
           />
           <StatCard 
-            icon={Building2} 
+            iconName="class" 
             label="所属学院" 
             value={teacherInfo.department} 
             color="bg-purple-500" 
           />
           <StatCard 
-            icon={GraduationCap} 
+            iconName="user" 
             label="学生总数" 
             value={totalStudents} 
             color="bg-orange-500" 
@@ -337,10 +415,10 @@ const TeacherProfile = () => {
           <div className="border-b border-gray-200 px-6">
             <nav className="-mb-px flex space-x-8" aria-label="Tabs">
               {[
-                { id: 'info', name: '个人信息', icon: User },
-                { id: 'courses', name: '我的课程', icon: BookOpen },
-                { id: 'classes', name: '我的班级', icon: Users },
-                { id: 'password', name: '修改密码', icon: Lock },
+                { id: 'info', name: '个人信息', icon: 'user' },
+                { id: 'courses', name: '我的课程', icon: 'book' },
+                { id: 'classes', name: '我的班级', icon: 'class' },
+                { id: 'password', name: '修改密码', icon: 'password' },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -352,8 +430,8 @@ const TeacherProfile = () => {
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
                   `}
                 >
-                  <tab.icon className={`
-                    -ml-0.5 mr-2 h-5 w-5
+                  <Icon name={tab.icon as any} size={20} className={`
+                    -ml-0.5 mr-2
                     ${activeTab === tab.id ? 'text-indigo-500' : 'text-gray-400 group-hover:text-gray-500'}
                   `} />
                   {tab.name}
@@ -369,12 +447,21 @@ const TeacherProfile = () => {
               <div className="max-w-4xl mx-auto animate-fadeIn">
                 <div className="bg-gray-50 rounded-xl p-8 border border-gray-100">
                   <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center">
-                    <User className="w-5 h-5 mr-2 text-indigo-600" /> 基本资料
+                    <Icon name="user" size={20} className="mr-2 text-indigo-600" /> 基本资料
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                       <label className="block text-sm font-medium text-gray-500 mb-1">真实姓名</label>
-                      <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{teacherInfo.fullName}</div>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.fullName}
+                          onChange={(e) => setEditForm({ ...editForm, fullName: e.target.value })}
+                          className="w-full text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border-2 border-indigo-300 focus:border-indigo-500 outline-none transition-all"
+                        />
+                      ) : (
+                        <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{teacherInfo.fullName}</div>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-500 mb-1">工号</label>
@@ -382,24 +469,72 @@ const TeacherProfile = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-500 mb-1">所属院系</label>
-                      <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{teacherInfo.department}</div>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.department}
+                          onChange={(e) => setEditForm({ ...editForm, department: e.target.value })}
+                          className="w-full text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border-2 border-indigo-300 focus:border-indigo-500 outline-none transition-all"
+                        />
+                      ) : (
+                        <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{teacherInfo.department}</div>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-500 mb-1">职称</label>
-                      <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{teacherInfo.title}</div>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.title}
+                          onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                          className="w-full text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border-2 border-indigo-300 focus:border-indigo-500 outline-none transition-all"
+                        />
+                      ) : (
+                        <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{teacherInfo.title}</div>
+                      )}
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-gray-500 mb-1">电子邮箱</label>
-                      <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200 flex items-center">
-                        <Mail className="w-4 h-4 mr-2 text-gray-400" />
-                        {teacherInfo.email}
-                      </div>
+                      {isEditing ? (
+                        <input
+                          type="email"
+                          value={editForm.email}
+                          onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                          className="w-full text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border-2 border-indigo-300 focus:border-indigo-500 outline-none transition-all"
+                          placeholder="请输入电子邮箱"
+                        />
+                      ) : (
+                        <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200 flex items-center">
+                          <Icon name="description" size={16} className="mr-2 text-gray-400" />
+                          {teacherInfo.email}
+                        </div>
+                      )}
                     </div>
                   </div>
-                  <div className="mt-8 flex justify-end">
-                    <button className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors">
-                      保存修改
-                    </button>
+                  <div className="mt-8 flex justify-end gap-3">
+                    {isEditing ? (
+                      <>
+                        <button 
+                          onClick={handleCancelEdit}
+                          className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg shadow-sm transition-colors"
+                        >
+                          取消
+                        </button>
+                        <button 
+                          onClick={handleSaveProfile}
+                          className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors"
+                        >
+                          保存修改
+                        </button>
+                      </>
+                    ) : (
+                      <button 
+                        onClick={handleStartEdit}
+                        className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors"
+                      >
+                        编辑资料
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -414,7 +549,7 @@ const TeacherProfile = () => {
                     onClick={() => setShowCourseDialog(true)}
                     className="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
                   >
-                    <Plus className="w-4 h-4 mr-2" /> 新建课程
+                    <Icon name="add" size={16} className="mr-2" /> 新建课程
                   </button>
                 </div>
                 
@@ -422,26 +557,25 @@ const TeacherProfile = () => {
                   <div className="text-center py-12 text-gray-500">加载中...</div>
                 ) : courses.length === 0 ? (
                   <div className="text-center py-16 bg-gray-50 rounded-xl border border-dashed border-gray-300">
-                    <BookOpen className="mx-auto h-12 w-12 text-gray-400" />
+                    <Icon name="book" size={48} className="mx-auto text-gray-400" />
                     <h3 className="mt-2 text-sm font-medium text-gray-900">暂无课程</h3>
-                    <p className="mt-1 text-sm text-gray-500">开始创建您的第一门课程吧</p>
+                    <p className="mt-1 text-sm text-gray-500">点击上方按钮创建新课程</p>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {courses.map((course) => (
-                      <div key={course.id} className="group bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden">
-                        <div className="h-2 bg-indigo-500"></div>
+                      <div key={course.id} className="group bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
                         <div className="p-6">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h4 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{course.course_name}</h4>
-                              <p className="text-sm text-gray-500 mt-1">代码: {course.course_code}</p>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-4">
+                              <div className="p-3 bg-blue-100 rounded-lg text-blue-600">
+                                <Icon name="book" size={20} />
+                              </div>
+                              <div>
+                                <p className="text-lg font-bold text-gray-900">{course.course_name}</p>
+                                <p className="text-sm text-gray-500">{course.course_code}</p>
+                              </div>
                             </div>
-                            <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600">
-                              <BookOpen className="w-5 h-5" />
-                            </div>
-                          </div>
-                          <div className="mt-6 flex items-center justify-between">
                             <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">
                               {course.semester || '2024 春季'}
                             </span>
@@ -450,7 +584,7 @@ const TeacherProfile = () => {
                               className="text-gray-400 hover:text-red-500 transition-colors p-1"
                               title="删除课程"
                             >
-                              <Trash2 className="w-5 h-5" />
+                              <Icon name="close" size={20} />
                             </button>
                           </div>
                         </div>
@@ -470,7 +604,7 @@ const TeacherProfile = () => {
                     onClick={() => setShowClassDialog(true)}
                     className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
                   >
-                    <Plus className="w-4 h-4 mr-2" /> 新建班级
+                    <Icon name="add" size={16} className="mr-2" /> 新建班级
                   </button>
                 </div>
 
@@ -478,7 +612,7 @@ const TeacherProfile = () => {
                   <div className="text-center py-12 text-gray-500">加载中...</div>
                 ) : classes.length === 0 ? (
                   <div className="text-center py-16 bg-gray-50 rounded-xl border border-dashed border-gray-300">
-                    <Users className="mx-auto h-12 w-12 text-gray-400" />
+                    <Icon name="class" size={48} className="mx-auto text-gray-400" />
                     <h3 className="mt-2 text-sm font-medium text-gray-900">暂无班级</h3>
                     <p className="mt-1 text-sm text-gray-500">点击上方按钮创建新班级</p>
                   </div>
@@ -490,7 +624,7 @@ const TeacherProfile = () => {
                           <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0">
                               <div className="p-3 bg-green-100 rounded-lg text-green-600">
-                                <Users className="w-6 h-6" />
+                                <Icon name="class" size={24} />
                               </div>
                             </div>
                             <div className="flex-1 min-w-0">
@@ -505,7 +639,7 @@ const TeacherProfile = () => {
                               onClick={() => handleDeleteClass(cls.id)}
                               className="flex-shrink-0 text-gray-400 hover:text-red-500 transition-colors p-1"
                             >
-                              <Trash2 className="w-5 h-5" />
+                              <Icon name="close" size={20} />
                             </button>
                           </div>
                           <div className="mt-6 grid grid-cols-2 gap-4 border-t border-gray-100 pt-4">
@@ -533,7 +667,7 @@ const TeacherProfile = () => {
               <div className="max-w-2xl mx-auto animate-fadeIn">
                 <div className="bg-gray-50 rounded-xl p-8 border border-gray-100">
                   <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center">
-                    <Lock className="w-5 h-5 mr-2 text-indigo-600" /> 修改密码
+                    <Icon name="password" size={20} className="mr-2 text-indigo-600" /> 修改密码
                   </h3>
                   <div className="space-y-6">
                     <div>
@@ -596,6 +730,7 @@ const TeacherProfile = () => {
         isOpen={showClassDialog}
         onClose={() => setShowClassDialog(false)}
         onSubmit={handleCreateClass}
+        courses={courses}
       />
     </div>
   )

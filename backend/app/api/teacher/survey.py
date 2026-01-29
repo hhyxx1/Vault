@@ -4,6 +4,7 @@ from typing import List, Dict, Any, Optional
 import os
 import uuid
 from datetime import datetime
+from pathlib import Path
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 
@@ -14,6 +15,16 @@ from app.models.survey import Survey, Question
 
 router = APIRouter()
 
+# 获取项目根目录（project目录）
+# __file__ -> .../backend/app/api/teacher/survey.py
+# .parent -> .../backend/app/api/teacher
+# .parent.parent -> .../backend/app/api
+# .parent.parent.parent -> .../backend/app
+# .parent.parent.parent.parent -> .../backend
+# .parent.parent.parent.parent.parent -> .../project
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
+UPLOADS_DIR = PROJECT_ROOT / "uploads"
+
 # 模型定义
 class SurveyCreate(BaseModel):
     title: str
@@ -21,8 +32,8 @@ class SurveyCreate(BaseModel):
     questions: List[Dict[str, Any]]
 
 class SaveSurveyRequest(BaseModel):
-    file_id: str
-    filename: str
+    file_id: Optional[str] = None
+    filename: Optional[str] = None
     title: str
     description: Optional[str] = None
     questions: List[Dict[str, Any]]
@@ -83,6 +94,14 @@ async def create_survey(survey_data: SaveSurveyRequest, db: Session = Depends(ge
         print(f"描述: {survey_data.description}")
         print(f"题目数量: {len(survey_data.questions)}")
         print(f"=" * 70)
+        
+        # 检查问卷名称是否重复
+        existing_survey = db.query(Survey).filter(
+            Survey.title == survey_data.title,
+            Survey.teacher_id == "00000000-0000-0000-0000-000000000001"
+        ).first()
+        if existing_survey:
+            raise HTTPException(status_code=400, detail=f"问卷名称 '{survey_data.title}' 已存在，请使用其他名称")
         
         # 创建问卷记录
         new_survey = Survey(
@@ -179,6 +198,108 @@ async def unpublish_survey(survey_id: str, db: Session = Depends(get_db)):
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.get("/{survey_id}", response_model=Dict[str, Any])
+async def get_survey_detail(survey_id: str, db: Session = Depends(get_db)):
+    """
+    获取问卷详情
+    """
+    try:
+        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        if not survey:
+            raise HTTPException(status_code=404, detail="问卷不存在")
+        
+        # 获取所有题目
+        questions = db.query(Question).filter(
+            Question.survey_id == survey_id
+        ).order_by(Question.question_order).all()
+        
+        questions_data = []
+        for q in questions:
+            questions_data.append({
+                "id": str(q.id),
+                "questionType": q.question_type,
+                "questionText": q.question_text,
+                "questionOrder": q.question_order,
+                "score": float(q.score) if q.score else 0,
+                "difficulty": q.difficulty,
+                "options": q.options,
+                "correctAnswer": q.correct_answer,
+                "answerExplanation": q.answer_explanation,
+                "isRequired": q.is_required,
+                "referenceFiles": q.reference_files,
+                "minWordCount": q.min_word_count,
+                "gradingCriteria": q.grading_criteria
+            })
+        
+        return {
+            "id": str(survey.id),
+            "title": survey.title,
+            "description": survey.description,
+            "status": survey.status,
+            "totalScore": survey.total_score,
+            "questions": questions_data,
+            "createdAt": survey.created_at.isoformat(),
+            "publishedAt": survey.published_at.isoformat() if survey.published_at else None
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"获取问卷详情失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.put("/{survey_id}")
+async def update_survey(survey_id: str, survey_data: SaveSurveyRequest, db: Session = Depends(get_db)):
+    """
+    更新问卷内容
+    """
+    try:
+        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        if not survey:
+            raise HTTPException(status_code=404, detail="问卷不存在")
+        
+        # 更新问卷基本信息
+        survey.title = survey_data.title
+        survey.description = survey_data.description
+        survey.total_score = sum(q.get('score', 0) for q in survey_data.questions)
+        
+        # 删除旧题目
+        db.query(Question).filter(Question.survey_id == survey_id).delete()
+        
+        # 添加新题目
+        for index, q in enumerate(survey_data.questions):
+            question = Question(
+                survey_id=survey.id,
+                question_type=q.get('questionType', 'single_choice'),
+                question_text=q.get('questionText', ''),
+                question_order=q.get('questionOrder', index + 1),
+                score=q.get('score', 0),
+                options=q.get('options', []),
+                correct_answer=q.get('correctAnswer'),
+                answer_explanation=q.get('answerExplanation'),
+                is_required=True,
+                reference_files=q.get('referenceFiles') if q.get('questionType') == 'essay' else None,
+                min_word_count=q.get('minWordCount') if q.get('questionType') == 'essay' else None,
+                grading_criteria=q.get('gradingCriteria') if q.get('questionType') == 'essay' else None,
+            )
+            db.add(question)
+        
+        db.commit()
+        
+        return {
+            "success": True,
+            "message": "问卷更新成功"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        db.rollback()
+        print(f"更新问卷失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.delete("/{survey_id}")
 async def delete_survey(survey_id: str, db: Session = Depends(get_db)):
     """
@@ -199,25 +320,210 @@ async def delete_survey(survey_id: str, db: Session = Depends(get_db)):
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/{survey_id}/results", response_model=SurveyResults)
-async def get_survey_results(survey_id: str):
+
+@router.post("/manual", response_model=Dict[str, Any])
+async def create_manual_survey(survey_data: SaveSurveyRequest, db: Session = Depends(get_db)):
+    """
+    手动创建问卷（不经过Word解析）
+    """
+    try:
+        print(f"=" * 70)
+        print(f"📝 开始创建手动问卷")
+        print(f"标题: {survey_data.title}")
+        print(f"描述: {survey_data.description}")
+        print(f"题目数量: {len(survey_data.questions)}")
+        print(f"=" * 70)
+        
+        # 检查问卷名称是否重复
+        existing_survey = db.query(Survey).filter(
+            Survey.title == survey_data.title,
+            Survey.teacher_id == "00000000-0000-0000-0000-000000000001"
+        ).first()
+        if existing_survey:
+            raise HTTPException(status_code=400, detail=f"问卷名称 '{survey_data.title}' 已存在，请使用其他名称")
+        
+        # 创建问卷记录
+        new_survey = Survey(
+            title=survey_data.title,
+            description=survey_data.description,
+            teacher_id="00000000-0000-0000-0000-000000000001",  # TODO: 从token获取真实teacher_id
+            course_id=None,
+            class_id=None,
+            generation_method="manual",
+            status="draft",
+            total_score=sum(q.get('score', 0) for q in survey_data.questions)
+        )
+        
+        db.add(new_survey)
+        db.flush()
+        
+        print(f"✅ 问卷记录已创建，ID: {new_survey.id}")
+        
+        # 创建题目记录
+        for index, q in enumerate(survey_data.questions):
+            print(f"添加题目 {index + 1}: {q.get('questionText', '')[:50]}...")
+            print(f"  类型: {q.get('questionType')}, 分数: {q.get('score')}, 答案: {q.get('correctAnswer')}")
+            
+            question = Question(
+                survey_id=new_survey.id,
+                question_type=q.get('questionType', 'single_choice'),
+                question_text=q.get('questionText', ''),
+                question_order=q.get('questionOrder', index + 1),
+                score=q.get('score', 0),
+                options=q.get('options', []),
+                correct_answer=q.get('correctAnswer'),
+                answer_explanation=q.get('answerExplanation'),
+                is_required=True,
+                # 问答题专用字段
+                reference_files=q.get('referenceFiles') if q.get('questionType') == 'essay' else None,
+                min_word_count=q.get('minWordCount') if q.get('questionType') == 'essay' else None,
+                grading_criteria=q.get('gradingCriteria') if q.get('questionType') == 'essay' else None,
+            )
+            db.add(question)
+        
+        db.commit()
+        db.refresh(new_survey)
+        
+        print(f"✅ 手动问卷保存成功，共 {len(survey_data.questions)} 道题")
+        print(f"=" * 70)
+        
+        return {
+            "success": True,
+            "id": str(new_survey.id),
+            "survey_id": str(new_survey.id),
+            "message": "问卷创建成功"
+        }
+        
+    except Exception as e:
+        db.rollback()
+        print(f"❌ 创建手动问卷失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"创建问卷失败: {str(e)}")
+
+
+@router.post("/upload")
+async def upload_reference_file(file: UploadFile = File(...)):
+    """
+    上传参考材料文件（用于问答题）
+    """
+    try:
+        # 创建上传目录
+        upload_dir = UPLOADS_DIR / "references"
+        upload_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 生成唯一文件名
+        file_ext = os.path.splitext(file.filename)[1]
+        file_id = str(uuid.uuid4())
+        filename = f"{file_id}{file_ext}"
+        file_path = upload_dir / filename
+        
+        # 保存文件
+        with open(file_path, "wb") as f:
+            content = await file.read()
+            f.write(content)
+        
+        # 返回文件URL
+        file_url = f"/uploads/references/{filename}"
+        
+        return {
+            "success": True,
+            "url": file_url,
+            "data": {
+                "url": file_url,
+                "filename": file.filename,
+                "size": len(content)
+            }
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"文件上传失败: {str(e)}")
+
+@router.get("/{survey_id}/results")
+async def get_survey_results(survey_id: str, db: Session = Depends(get_db)):
     """
     获取问卷统计结果
     """
-    # TODO: 从数据库统计结果
-    return SurveyResults(
-        survey_id=survey_id,
-        title="课程反馈调查",
-        total_responses=45,
-        results={
-            "q1": {
-                "非常满意": 20,
-                "满意": 15,
-                "一般": 8,
-                "不满意": 2
-            }
+    try:
+        from app.models.survey import SurveyResponse, Answer
+        
+        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        if not survey:
+            raise HTTPException(status_code=404, detail="问卷不存在")
+        
+        # 获取所有提交记录
+        responses = db.query(SurveyResponse).filter(
+            SurveyResponse.survey_id == survey_id,
+            SurveyResponse.status == 'completed'
+        ).all()
+        
+        # 获取所有题目
+        questions = db.query(Question).filter(
+            Question.survey_id == survey_id
+        ).order_by(Question.question_order).all()
+        
+        # 统计数据
+        total_responses = len(responses)
+        avg_score = 0
+        pass_count = 0
+        
+        if total_responses > 0:
+            total_scores = sum(r.total_score or 0 for r in responses)
+            avg_score = total_scores / total_responses
+            pass_count = sum(1 for r in responses if r.is_passed)
+        
+        # 统计每道题的答题情况
+        question_stats = []
+        for q in questions:
+            answers = db.query(Answer).join(SurveyResponse).filter(
+                SurveyResponse.survey_id == survey_id,
+                Answer.question_id == q.id
+            ).all()
+            
+            # 对于选择题，统计各选项的选择次数
+            option_stats = {}
+            correct_count = 0
+            
+            if q.question_type in ['single_choice', 'multiple_choice']:
+                for answer in answers:
+                    if answer.student_answer:
+                        answer_value = answer.student_answer
+                        if isinstance(answer_value, list):
+                            for opt in answer_value:
+                                option_stats[opt] = option_stats.get(opt, 0) + 1
+                        else:
+                            option_stats[answer_value] = option_stats.get(answer_value, 0) + 1
+                    
+                    if answer.is_correct:
+                        correct_count += 1
+            
+            question_stats.append({
+                "questionId": str(q.id),
+                "questionText": q.question_text,
+                "questionType": q.question_type,
+                "totalAnswers": len(answers),
+                "correctCount": correct_count,
+                "correctRate": (correct_count / len(answers) * 100) if answers else 0,
+                "optionStats": option_stats
+            })
+        
+        return {
+            "surveyId": str(survey.id),
+            "title": survey.title,
+            "totalResponses": total_responses,
+            "avgScore": round(avg_score, 2),
+            "passCount": pass_count,
+            "passRate": round((pass_count / total_responses * 100), 2) if total_responses > 0 else 0,
+            "questionStats": question_stats
         }
-    )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"获取统计结果失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 
 @router.post("/upload-word")
@@ -236,23 +542,23 @@ async def upload_word_document(file: UploadFile = File(...)):
                 detail="仅支持Word文档格式 (.docx, .doc)"
             )
         
-        # 创建临时文件夹
-        upload_dir = os.path.join(os.getcwd(), "uploads", "documents")
-        os.makedirs(upload_dir, exist_ok=True)
+        # 创建文档上传文件夹
+        upload_dir = UPLOADS_DIR / "documents"
+        upload_dir.mkdir(parents=True, exist_ok=True)
         
         # 生成唯一文件名
         file_id = str(uuid.uuid4())
         file_ext = os.path.splitext(file.filename)[1]
-        save_path = os.path.join(upload_dir, f"{file_id}{file_ext}")
+        save_path = upload_dir / f"{file_id}{file_ext}"
         
         # 保存上传的文件
-        with open(save_path, "wb") as buffer:
+        with open(str(save_path), "wb") as buffer:
             content = await file.read()
             buffer.write(content)
         
         # 解析Word文档
         try:
-            questions = doc_parser.parse_word(save_path)
+            questions = doc_parser.parse_word(str(save_path))
             validation = doc_parser.validate_questions(questions)
             
             # 准备文档内容（所有问题的组合）
@@ -386,14 +692,14 @@ async def use_database_file(new_file_id: str):
     """
     try:
         # 从文件系统删除新上传的临时文件
-        upload_dir = os.path.join(os.getcwd(), "uploads", "documents")
+        upload_dir = UPLOADS_DIR / "documents"
         deleted_file = None
         
         for ext in ['.docx', '.doc']:
-            file_path = os.path.join(upload_dir, f"{new_file_id}{ext}")
-            if os.path.exists(file_path):
-                os.remove(file_path)
-                deleted_file = file_path
+            file_path = upload_dir / f"{new_file_id}{ext}"
+            if file_path.exists():
+                file_path.unlink()
+                deleted_file = str(file_path)
                 print(f"已删除临时文件: {file_path}")
                 break
         
@@ -439,9 +745,9 @@ async def confirm_new_file(file_data: Dict[str, Any]):
         
         # 2. 从文件系统删除旧文件
         if old_file_id:
-            upload_dir = os.path.join(os.getcwd(), "uploads", "documents")
-            for ext in ['.docx', '.doc']:
-                old_file_path = os.path.join(upload_dir, f"{old_file_id}{ext}")
+            upload_dir = UPLOADS_DIR / "documents"
+            for ext in [".docx", ".doc"]:
+                old_file_path = upload_dir / f"{old_file_id}{ext}"
                 if os.path.exists(old_file_path):
                     os.remove(old_file_path)
                     print(f"已从文件系统删除旧文件: {old_file_path}")
@@ -499,15 +805,15 @@ async def delete_uploaded_file(file_id: str):
             print(f"从向量数据库删除失败: {ve}")
         
         # 从文件系统删除
-        upload_dir = os.path.join(os.getcwd(), "uploads", "documents")
+        upload_dir = UPLOADS_DIR / "documents"
         deleted_file = None
         
         # 查找并删除文件（支持.docx和.doc扩展名）
         for ext in ['.docx', '.doc']:
-            file_path = os.path.join(upload_dir, f"{file_id}{ext}")
-            if os.path.exists(file_path):
-                os.remove(file_path)
-                deleted_file = file_path
+            file_path = upload_dir / f"{file_id}{ext}"
+            if file_path.exists():
+                file_path.unlink()
+                deleted_file = str(file_path)
                 print(f"已从文件系统删除: {file_path}")
                 break
         

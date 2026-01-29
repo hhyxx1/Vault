@@ -110,7 +110,7 @@ export interface Survey {
 export interface Question {
   id: string
   surveyId: string
-  questionType: 'single_choice' | 'multiple_choice' | 'true_false' | 'short_answer' | 'essay' | 'coding'
+  questionType: 'single_choice' | 'multiple_choice' | 'true_false' | 'short_answer' | 'essay' | 'coding' | 'fill_blank'
   questionText: string
   questionOrder: number
   score: number
@@ -121,13 +121,51 @@ export interface Question {
   tags?: string[]
   knowledgePoints?: string[]
   isRequired: boolean
+  // 问答题专用字段
+  referenceFiles?: string[]  // 参考材料（图片/文件URL列表）
+  minWordCount?: number  // 最小作答字数限制
+  gradingCriteria?: GradingCriteria  // 评分标准
   createdAt: string
   updatedAt: string
+}
+
+export interface GradingCriteria {
+  totalScore: number
+  scoreDistribution?: Array<{
+    item: string
+    score: number
+    description?: string
+  }>
+  keywords?: string[]  // 关键词要求
+  requirements?: string[]  // 其他要求
 }
 
 export interface QuestionOption {
   key: string
   value: string
+}
+
+// 题目创建表单类型
+export interface QuestionFormData {
+  id?: string
+  questionType: 'single_choice' | 'fill_blank' | 'essay'
+  questionText: string
+  score: number
+  // 选择题字段
+  options?: Array<{ key: string; value: string; isCorrect: boolean }>
+  // 填空题字段
+  correctAnswers?: string[]  // 多空答案
+  // 问答题字段
+  referenceFiles?: File[]
+  minWordCount?: number
+  gradingCriteria?: GradingCriteria
+  answerExplanation?: string
+}
+
+export interface SurveyCreateFormData {
+  title: string
+  description?: string
+  questions: QuestionFormData[]
 }
 
 export interface SurveyResponse {

@@ -64,9 +64,19 @@ export const surveyApi = {
     return apiClient.get('/teacher/surveys')
   },
   
+  // 获取问卷详情
+  getSurveyDetail: async (surveyId: string) => {
+    return apiClient.get(`/teacher/surveys/${surveyId}`)
+  },
+  
   // 创建问卷（保存解析后的问卷）
   createSurvey: async (surveyData: any) => {
     return apiClient.post('/teacher/surveys', surveyData)
+  },
+  
+  // 更新问卷
+  updateSurvey: async (surveyId: string, surveyData: any) => {
+    return apiClient.put(`/teacher/surveys/${surveyId}`, surveyData)
   },
   
   // 发布问卷
@@ -120,6 +130,23 @@ export const surveyApi = {
   searchSimilar: async (query: string, limit: number = 5) => {
     return apiClient.get('/teacher/surveys/search-similar', {
       params: { query, limit }
+    })
+  },
+  
+  // 手动创建问卷（直接创建不经过Word解析）
+  createManualSurvey: async (surveyData: { title: string; description?: string; questions: any[] }) => {
+    return apiClient.post('/teacher/surveys/manual', surveyData)
+  },
+  
+  // 上传文件（用于问答题参考材料）
+  uploadFile: async (file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    
+    return apiClient.post('/teacher/surveys/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
   },
 }
