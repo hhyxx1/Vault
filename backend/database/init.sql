@@ -290,7 +290,51 @@ CREATE INDEX idx_submissions_student ON questionnaire_submissions(student_id);
 CREATE INDEX idx_submissions_time ON questionnaire_submissions(submit_time);
 
 -- =====================================================
--- 4. 辅助函数
+-- 4. 知识库模块
+-- =====================================================
+
+-- 4.1 课程文档表
+CREATE TABLE IF NOT EXISTS course_documents (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    course_id UUID NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    teacher_id UUID NOT NULL REFERENCES users(id),
+    file_name VARCHAR(500) NOT NULL,
+    file_path VARCHAR(1000) NOT NULL,
+    file_type VARCHAR(50) NOT NULL,
+    file_size BIGINT NOT NULL,
+    upload_status VARCHAR(20) NOT NULL DEFAULT 'processing',
+    processed_status VARCHAR(20) DEFAULT 'pending',
+    error_message TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_course_docs_course ON course_documents(course_id);
+CREATE INDEX idx_course_docs_teacher ON course_documents(teacher_id);
+CREATE INDEX idx_course_docs_status ON course_documents(upload_status);
+
+CREATE TRIGGER update_course_documents_updated_at 
+BEFORE UPDATE ON course_documents 
+FOR EACH ROW 
+EXECUTE FUNCTION update_updated_at_column();
+
+-- 4.2 知识库表（向量化的文档片段）
+CREATE TABLE IF NOT EXISTS knowledge_base (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    document_id UUID NOT NULL REFERENCES course_documents(id) ON DELETE CASCADE,
+    course_id UUID NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    chunk_text TEXT NOT NULL,
+    chunk_index INTEGER NOT NULL,
+    chunk_metadata JSONB,
+    embedding_vector TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_knowledge_course ON knowledge_base(course_id);
+CREATE INDEX idx_knowledge_document ON knowledge_base(document_id);
+
+-- =====================================================
+-- 5. 辅助函数
 -- =====================================================
 
 -- 生成班级邀请码

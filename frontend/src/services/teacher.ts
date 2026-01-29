@@ -132,3 +132,63 @@ export interface ChangePasswordRequest {
 export const changePassword = async (passwordData: ChangePasswordRequest): Promise<{ message: string }> => {
   return await apiClient.post('/auth/change-password', passwordData)
 }
+
+// ===== 知识库相关 =====
+
+export interface DocumentResponse {
+  id: string
+  course_id: string
+  course_name: string
+  file_name: string
+  file_type: string
+  file_size: number
+  upload_status: string
+  processed_status: string | null
+  error_message: string | null
+  created_at: string
+}
+
+export interface CourseDocumentsResponse {
+  course_id: string
+  course_name: string
+  document_count: number
+  documents: DocumentResponse[]
+}
+
+export interface KnowledgeBaseStats {
+  total_documents: number
+  total_courses_with_docs: number
+  documents_by_course: Array<{
+    course_id: string
+    course_name: string
+    document_count: number
+    total_size: number
+  }>
+}
+
+// 上传课程文档
+export const uploadCourseDocument = async (courseId: string, file: File): Promise<any> => {
+  const formData = new FormData()
+  formData.append('file', file)
+  
+  return await apiClient.post(`/teacher/knowledge-base/courses/${courseId}/upload`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+
+// 获取课程的所有文档
+export const getCourseDocuments = async (courseId: string): Promise<CourseDocumentsResponse> => {
+  return await apiClient.get(`/teacher/knowledge-base/courses/${courseId}/documents`)
+}
+
+// 获取知识库统计信息
+export const getKnowledgeBaseStats = async (): Promise<KnowledgeBaseStats> => {
+  return await apiClient.get('/teacher/knowledge-base/knowledge-base/stats')
+}
+
+// 删除文档
+export const deleteDocument = async (documentId: string): Promise<void> => {
+  return await apiClient.delete(`/teacher/knowledge-base/documents/${documentId}`)
+}

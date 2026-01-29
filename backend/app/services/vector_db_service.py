@@ -36,10 +36,19 @@ class VectorDBService:
             print("向量化模型加载完成")
             
             # 创建问卷文档集合
-            self.collection = self.client.get_or_create_collection(
+            self.survey_collection = self.client.get_or_create_collection(
                 name="survey_documents",
                 metadata={"description": "问卷文档知识库"}
             )
+            
+            # 创建课程文档集合
+            self.course_collection = self.client.get_or_create_collection(
+                name="course_documents",
+                metadata={"description": "课程知识库文档"}
+            )
+            
+            # 默认使用课程文档集合
+            self.collection = self.course_collection
             
         except Exception as e:
             print(f"向量数据库初始化失败: {e}")

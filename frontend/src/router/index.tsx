@@ -10,6 +10,7 @@ import StudentProfile from '@/pages/student/Profile'
 import TeacherDashboard from '@/pages/teacher/Dashboard'
 import TeacherSurvey from '@/pages/teacher/Survey'
 import TeacherProfile from '@/pages/teacher/Profile'
+import CourseKnowledgeBase from '@/pages/teacher/CourseKnowledgeBase'
 
 const AppRouter = () => {
   return (
@@ -46,6 +47,7 @@ const AppRouter = () => {
         <Route path="dashboard" element={<TeacherDashboard />} />
         <Route path="survey" element={<TeacherSurvey />} />
         <Route path="profile" element={<TeacherProfile />} />
+        <Route path="course/:courseId/knowledge-base" element={<CourseKnowledgeBase />} />
       </Route>
 
       {/* 默认重定向到登录页 */}
