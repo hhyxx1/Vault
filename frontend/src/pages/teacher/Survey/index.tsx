@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react'
 import { surveyApi } from '@/services'
-import ManualQuestionForm, { QuestionFormData } from '@/components/ManualQuestionForm'
+import ManualQuestionForm, { QuestionFormData as BaseQuestionFormData } from '@/components/ManualQuestionForm'
 import { Icon, IconName } from '@/components/Icon'
+
+// 扩展QuestionFormData以支持更多题型
+interface QuestionFormData extends Omit<BaseQuestionFormData, 'questionType'> {
+  questionType: 'single_choice' | 'multiple_choice' | 'judgment' | 'fill_blank' | 'essay' | 'text'
+  correctAnswer?: string | string[]
+}
 
 type CreateMode = 'manual' | 'ai' | 'knowledge' | null
 type SurveyStatus = 'draft' | 'published'
@@ -152,6 +158,11 @@ const TeacherSurvey = () => {
           setCurrentFileId(result.file_id)
           setCurrentFilename(result.filename)
           
+          // 设置问卷标题和描述（从文件名生成）
+          const title = result.filename.replace(/\.(docx?|doc)$/i, '')
+          setSurveyTitle(title)
+          setSurveyDescription(`从${result.filename}自动生成`)
+          
           // 检查是否重复
           if (result.is_duplicate) {
             setIsDuplicate(true)
@@ -222,10 +233,13 @@ const TeacherSurvey = () => {
       console.log('💡 逻辑：先删除同名旧问卷（如果存在），再保存新问卷（覆盖）')
       console.log('题目数量:', parsedQuestions.length)
       console.log('题目数据:', parsedQuestions)
+      console.log('是否重复文件:', isDuplicate)
+      console.log('重复文件信息:', duplicateInfo)
+      
+      const titleToMatch = currentFilename.replace(/\.(docx?|doc)$/i, '')
       
       // 1. 先删除PostgreSQL中同名的旧问卷（无论是否重复文件）
       const existingSurveys = await surveyApi.getSurveys()
-      const titleToMatch = currentFilename.replace(/\.(docx?|doc)$/i, '')
       const oldSurvey = existingSurveys.find((s: any) => s.title === titleToMatch)
       
       if (oldSurvey) {
@@ -235,15 +249,27 @@ const TeacherSurvey = () => {
         console.log('💡 PostgreSQL中没有同名问卷，直接保存')
       }
       
-      // 2. 如果是重复文件，更新向量数据库（删除旧文件，保存新文件）
+      // 2. 如果是重复文件，删除旧的向量数据库记录和本地文件，保存新文件
       if (isDuplicate && duplicateInfo) {
-        console.log('🔄 处理向量数据库中的重复文件...')
-        await surveyApi.confirmNewFile({
-          new_file_id: currentFileId,
-          old_file_id: duplicateInfo.file_id,
-          filename: currentFilename,
-          questions: parsedQuestions
-        })
+        console.log('🔄 检测到重复文件，删除旧文件并保存新文件')
+        console.log('旧文件ID:', duplicateInfo.file_id)
+        console.log('新文件ID:', currentFileId)
+        console.log('传递给后端的questions:', parsedQuestions)
+        
+        try {
+          // 调用后端API：删除旧文件（向量数据库+本地文件），保存新文件到向量数据库
+          const confirmResult = await surveyApi.confirmNewFile({
+            new_file_id: currentFileId,
+            old_file_id: duplicateInfo.file_id,
+            filename: currentFilename,
+            questions: parsedQuestions
+          })
+          console.log('✅ 后端confirmNewFile响应:', confirmResult)
+          console.log('✅ 旧文件已删除，新文件已保存到向量数据库')
+        } catch (error) {
+          console.error('❌ 处理重复文件失败:', error)
+          // 即使向量数据库操作失败，也继续保存到PostgreSQL
+        }
       }
       
       // 3. 保存新问卷到PostgreSQL
@@ -263,7 +289,10 @@ const TeacherSurvey = () => {
       console.log('✅ 后端响应:', result)
       
       if (result.success) {
-        alert(`成功保存${parsedQuestions.length}个问题！（已覆盖旧问卷）`)
+        const message = isDuplicate 
+          ? `成功保存${parsedQuestions.length}个问题！已删除旧文件并保存新文件。`
+          : `成功保存${parsedQuestions.length}个问题！`
+        alert(message)
         
         // 重新加载问卷列表
         await loadSurveys()
@@ -277,6 +306,8 @@ const TeacherSurvey = () => {
         setDuplicateInfo(null)
         setCurrentFileId('')
         setCurrentFilename('')
+        setSurveyTitle('')
+        setSurveyDescription('')
       }
     } catch (error: any) {
       console.error('保存问卷失败:', error)
@@ -323,25 +354,97 @@ const TeacherSurvey = () => {
   const handleEdit = async (surveyId: string) => {
     try {
       const data = await surveyApi.getSurveyDetail(surveyId)
+      console.log('获取到的问卷数据:', data)
       setEditingSurvey(data)
       setSurveyTitle(data.title)
       setSurveyDescription(data.description || '')
-      setManualQuestions(data.questions.map((q: any) => ({
-        id: q.id,
-        questionText: q.questionText,
-        questionType: q.questionType,
-        options: q.options || [],
-        correctAnswers: q.correctAnswer,
-        score: q.score,
-        answerExplanation: q.answerExplanation,
-        referenceFiles: q.referenceFiles,
-        minWordCount: q.minWordCount,
-        gradingCriteria: q.gradingCriteria
-      })))
+      
+      // 转换题目数据格式
+      const questions = data.questions.map((q: any) => {
+        console.log('处理题目:', q)
+        console.log('题目类型:', q.questionType, '答案:', q.correctAnswer)
+        const questionData: QuestionFormData = {
+          id: q.id,
+          questionText: q.questionText,
+          questionType: q.questionType,
+          score: q.score || 0,
+          answerExplanation: q.answerExplanation || ''
+        }
+        
+        // 处理选择题选项
+        if (q.questionType === 'single_choice' || q.questionType === 'multiple_choice' || q.questionType === 'judgment') {
+          if (q.options && Array.isArray(q.options)) {
+            questionData.options = q.options.map((opt: any) => {
+              // 兼容两种格式：{key, value} 或 {label, text}
+              const optKey = opt.key || opt.label
+              const optValue = opt.value || opt.text
+              
+              // 判断是否为正确答案
+              let isCorrect = false
+              if (Array.isArray(q.correctAnswer)) {
+                // 多选题：答案是数组
+                isCorrect = q.correctAnswer.includes(optKey)
+              } else if (q.correctAnswer) {
+                // 单选题/判断题：答案是字符串
+                isCorrect = q.correctAnswer === optKey
+              }
+              
+              console.log(`选项 ${optKey}: ${optValue}, 正确答案: ${q.correctAnswer}, isCorrect: ${isCorrect}`)
+              
+              return {
+                key: optKey,
+                value: optValue,
+                isCorrect: isCorrect
+              }
+            })
+          }
+        }
+        
+        // 处理填空题答案
+        if (q.questionType === 'fill_blank') {
+          questionData.correctAnswer = q.correctAnswer
+        }
+        
+        // 处理问答题特殊字段（兼容text和essay两种类型）
+        if (q.questionType === 'essay' || q.questionType === 'text') {
+          questionData.correctAnswer = q.correctAnswer  // 添加解答题参考答案
+          questionData.referenceFiles = q.referenceFiles
+          questionData.minWordCount = q.minWordCount
+          questionData.gradingCriteria = q.gradingCriteria
+        }
+        
+        return questionData
+      })
+      
+      console.log('转换后的题目数据:', questions)
+      setManualQuestions(questions)
       setShowEditModal(true)
     } catch (error: any) {
       console.error('获取问卷详情失败:', error)
       alert(error.response?.data?.detail || '获取问卷详情失败')
+    }
+  }
+
+  // 编辑题目字段
+  const handleEditQuestion = (index: number, field: string, value: any) => {
+    const updated = [...manualQuestions]
+    updated[index] = { ...updated[index], [field]: value }
+    setManualQuestions(updated)
+  }
+  
+  // 编辑题目选项
+  const handleEditOption = (qIndex: number, optIndex: number, field: string, value: any) => {
+    const updated = [...manualQuestions]
+    const options = [...(updated[qIndex].options || [])]
+    options[optIndex] = { ...options[optIndex], [field]: value }
+    updated[qIndex] = { ...updated[qIndex], options }
+    setManualQuestions(updated)
+  }
+  
+  // 删除编辑中的题目
+  const handleDeleteEditQuestion = (index: number) => {
+    if (confirm('确定要删除这道题目吗？')) {
+      setManualQuestions(manualQuestions.filter((_, i) => i !== index))
     }
   }
 
@@ -361,24 +464,56 @@ const TeacherSurvey = () => {
     
     try {
       setIsPublishing(true)
-      const surveyData = {
-        file_id: editingSurvey.id,
-        filename: editingSurvey.title,
-        title: surveyTitle,
-        description: surveyDescription,
-        questions: manualQuestions.map((q, index) => ({
+      
+      // 准备题目数据
+      const questionsData = manualQuestions.map((q, index) => {
+        const questionData: any = {
           questionText: q.questionText,
           questionType: q.questionType,
           questionOrder: index + 1,
           score: q.score || 0,
-          options: q.options,
-          correctAnswer: q.correctAnswer,
-          answerExplanation: q.answerExplanation,
-          referenceFiles: q.referenceFiles,
-          minWordCount: q.minWordCount,
-          gradingCriteria: q.gradingCriteria
-        }))
+          answerExplanation: q.answerExplanation || null
+        }
+        
+        // 处理选择题
+        if (q.questionType === 'single_choice' || q.questionType === 'multiple_choice' || q.questionType === 'judgment') {
+          questionData.options = q.options?.map((opt: any) => ({
+            key: opt.key,
+            value: opt.value
+          })) || []
+          
+          // 设置正确答案
+          if (q.questionType === 'single_choice' || q.questionType === 'judgment') {
+            const correctOpt = q.options?.find((opt: any) => opt.isCorrect)
+            questionData.correctAnswer = correctOpt?.key || null
+          } else if (q.questionType === 'multiple_choice') {
+            questionData.correctAnswer = q.options?.filter((opt: any) => opt.isCorrect).map((opt: any) => opt.key) || []
+          }
+        }
+        
+        // 处理填空题
+        if (q.questionType === 'fill_blank') {
+          questionData.correctAnswer = q.correctAnswer || []
+        }
+        
+        // 处理问答题（兼容text和essay两种类型）
+        if (q.questionType === 'essay' || q.questionType === 'text') {
+          questionData.correctAnswer = q.correctAnswer || null
+          questionData.referenceFiles = q.referenceFiles || null
+          questionData.minWordCount = q.minWordCount || null
+          questionData.gradingCriteria = q.gradingCriteria || null
+        }
+        
+        return questionData
+      })
+      
+      const surveyData = {
+        title: surveyTitle,
+        description: surveyDescription,
+        questions: questionsData
       }
+      
+      console.log('更新问卷数据:', surveyData)
       
       await surveyApi.updateSurvey(editingSurvey.id, surveyData)
       alert('问卷更新成功！')
@@ -437,27 +572,56 @@ const TeacherSurvey = () => {
     
     try {
       console.log('📚 用户选择使用数据库文件')
-      console.log('💡 逻辑：只删除新上传的临时文件，不改变PostgreSQL数据')
+      console.log('💡 逻辑：删除新上传的临时文件，但要保存题目到PostgreSQL')
       
-      // 调用后端删除新上传的临时文件（因为向量数据库中已经有了）
+      // 确保标题和描述已设置
+      const title = surveyTitle.trim() || currentFilename.replace(/\.(docx?|doc)$/i, '')
+      const description = surveyDescription || `从${duplicateInfo.filename}自动生成`
+      
+      // 1. 先删除PostgreSQL中同名的旧问卷（如果存在）
+      const existingSurveys = await surveyApi.getSurveys()
+      const oldSurvey = existingSurveys.find((s: any) => s.title === title)
+      
+      if (oldSurvey) {
+        console.log(`🗑️ 发现同名旧问卷，先删除: ${oldSurvey.title} (ID: ${oldSurvey.id})`)
+        await surveyApi.deleteSurvey(oldSurvey.id)
+      }
+      
+      // 2. 调用后端删除新上传的临时文件（因为向量数据库中已经有了）
       await surveyApi.useDatabaseFile(currentFileId)
       
-      // ⚠️ 不对PostgreSQL做任何操作（无论数据库中是否已有该问卷）
-      console.log('✅ 已删除临时文件，保持PostgreSQL数据不变')
-      alert('已使用数据库中的文件！')
+      // 3. 保存题目到PostgreSQL
+      const surveyData = {
+        file_id: duplicateInfo.file_id, // 使用数据库中的文件ID
+        filename: duplicateInfo.filename,
+        title: title,
+        description: description,
+        questions: parsedQuestions
+      }
       
-      // 重新加载问卷列表（显示现有数据）
-      await loadSurveys()
+      console.log('📤 保存题目到PostgreSQL:', surveyData)
+      const result = await surveyApi.createSurvey(surveyData)
       
-      // 关闭模态框并清理状态
-      setShowPreviewModal(false)
-      setParsedQuestions([])
-      setUploadedFile(null)
-      setParseErrors([])
-      setIsDuplicate(false)
-      setDuplicateInfo(null)
-      setCurrentFileId('')
-      setCurrentFilename('')
+      if (result.success) {
+        alert(`成功使用数据库文件并保存了${parsedQuestions.length}个问题！`)
+        
+        // 重新加载问卷列表
+        await loadSurveys()
+        
+        // 关闭模态框并清理状态
+        setShowPreviewModal(false)
+        setParsedQuestions([])
+        setUploadedFile(null)
+        setParseErrors([])
+        setIsDuplicate(false)
+        setDuplicateInfo(null)
+        setCurrentFileId('')
+        setCurrentFilename('')
+        setSurveyTitle('')
+        setSurveyDescription('')
+      } else {
+        alert('保存失败')
+      }
       
     } catch (error: any) {
       console.error('使用数据库文件失败:', error)
@@ -1040,25 +1204,31 @@ const TeacherSurvey = () => {
 
             <div className="sticky bottom-0 bg-gray-50 px-6 py-4 rounded-b-2xl border-t border-gray-200 flex justify-end space-x-3">
               <button
-                onClick={() => {
+                onClick={async () => {
+                  // 点击取消时，删除临时上传的文件
+                  if (currentFileId) {
+                    try {
+                      await surveyApi.useDatabaseFile(currentFileId)
+                      console.log('✅ 已删除临时文件')
+                    } catch (error) {
+                      console.error('删除临时文件失败:', error)
+                    }
+                  }
+                  
                   setShowPreviewModal(false)
                   setParsedQuestions([])
+                  setUploadedFile(null)
                   setParseErrors([])
                   setIsDuplicate(false)
                   setDuplicateInfo(null)
                   setCurrentFileId('')
                   setCurrentFilename('')
+                  setSurveyTitle('')
+                  setSurveyDescription('')
                 }}
                 className="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium"
               >
                 取消
-              </button>
-              <button
-                onClick={handleDeleteUploadedFile}
-                disabled={!currentFileId}
-                className="px-6 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
-                <Icon name="close" size={18} /> 删除文件
               </button>
               {isDuplicate && duplicateInfo && (
                 <button
@@ -1208,7 +1378,12 @@ const TeacherSurvey = () => {
                 </h4>
                 <ManualQuestionForm
                   onSave={(question) => {
-                    setManualQuestions([...manualQuestions, question])
+                    // 转换类型以适配我们的扩展类型
+                    const extendedQuestion: QuestionFormData = {
+                      ...question,
+                      questionType: question.questionType as any
+                    }
+                    setManualQuestions([...manualQuestions, extendedQuestion])
                     // 滚动到顶部显示新添加的题目
                     setTimeout(() => {
                       const modal = document.querySelector('.max-h-\\[90vh\\]')
@@ -1218,7 +1393,10 @@ const TeacherSurvey = () => {
                     }, 100)
                   }}
                   onCancel={() => {
-                    // 重置表单后继续添加题目
+                    setShowManualQuestionModal(false)
+                    setManualQuestions([])
+                    setSurveyTitle('')
+                    setSurveyDescription('')
                   }}
                   onSaveAll={async (questions) => {
                     // 将新题目添加到已有题目列表
@@ -1380,11 +1558,167 @@ const TeacherSurvey = () => {
                 />
               </div>
               
-              <div className="text-gray-600">
-                当前题目数量: {manualQuestions.length}
-                <div className="mt-2 text-sm text-gray-500">
-                  提示：在编辑模式下，您可以修改问卷标题、描述，但题目的编辑需要返回手动创建页面
+              {/* 题目列表 */}
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <label className="block text-sm font-medium text-gray-700">题目列表</label>
+                  <span className="text-sm text-gray-500">共 {manualQuestions.length} 道题目</span>
                 </div>
+                
+                {manualQuestions.length > 0 ? (
+                  <div className="space-y-4">
+                    {manualQuestions.map((question, qIndex) => (
+                      <div key={qIndex} className="border-2 border-gray-200 rounded-xl p-5 bg-gray-50">
+                        {/* 题目标题和操作 */}
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex items-center space-x-2 text-sm font-medium text-gray-600">
+                            <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                              第 {qIndex + 1} 题
+                            </span>
+                            <span className="text-gray-500">
+                              {question.questionType === 'single_choice' && '单选题'}
+                              {question.questionType === 'multiple_choice' && '多选题'}
+                              {question.questionType === 'judgment' && '判断题'}
+                              {question.questionType === 'fill_blank' && '填空题'}
+                              {(question.questionType === 'essay' || question.questionType === 'text') && '问答题'}
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => handleDeleteEditQuestion(qIndex)}
+                            className="text-red-500 hover:text-red-700 transition-colors p-1"
+                            title="删除此题"
+                          >
+                            <Icon name="close" size={20} />
+                          </button>
+                        </div>
+
+                        {/* 题目文本 */}
+                        <div className="mb-3">
+                          <label className="block text-xs text-gray-600 mb-1">题目内容</label>
+                          <textarea
+                            value={question.questionText}
+                            onChange={(e) => handleEditQuestion(qIndex, 'questionText', e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                            rows={2}
+                            placeholder="输入题目内容"
+                          />
+                        </div>
+
+                        {/* 选项（单选/多选/判断题） */}
+                        {(question.questionType === 'single_choice' || 
+                          question.questionType === 'multiple_choice' || 
+                          question.questionType === 'judgment') && question.options && (
+                          <div className="mb-3">
+                            <label className="block text-xs text-gray-600 mb-2">选项</label>
+                            <div className="space-y-2">
+                              {question.options.map((option: any, optIndex: number) => (
+                                <div key={optIndex} className="flex items-center space-x-2">
+                                  <span className="font-medium text-gray-600 min-w-[30px]">
+                                    {option.key}.
+                                  </span>
+                                  <input
+                                    type="text"
+                                    value={option.value}
+                                    onChange={(e) => handleEditOption(qIndex, optIndex, 'value', e.target.value)}
+                                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                  />
+                                  <label className="flex items-center space-x-1 text-sm text-gray-600">
+                                    <input
+                                      type={question.questionType === 'multiple_choice' ? 'checkbox' : 'radio'}
+                                      name={`question_${qIndex}_correct`}
+                                      checked={option.isCorrect || false}
+                                      onChange={(e) => {
+                                        if (question.questionType === 'single_choice' || question.questionType === 'judgment') {
+                                          // 单选/判断题：只能选一个
+                                          const updated = [...manualQuestions]
+                                          const options = updated[qIndex].options?.map((opt: any, i: number) => ({
+                                            ...opt,
+                                            isCorrect: i === optIndex
+                                          }))
+                                          updated[qIndex] = { ...updated[qIndex], options }
+                                          setManualQuestions(updated)
+                                        } else {
+                                          // 多选：可以多个
+                                          handleEditOption(qIndex, optIndex, 'isCorrect', e.target.checked)
+                                        }
+                                      }}
+                                      className="rounded"
+                                    />
+                                    <span>正确</span>
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* 填空题答案 */}
+                        {question.questionType === 'fill_blank' && (
+                          <div className="mb-3">
+                            <label className="block text-xs text-gray-600 mb-1">
+                              正确答案（多个答案用逗号分隔）
+                            </label>
+                            <input
+                              type="text"
+                              value={Array.isArray(question.correctAnswer) ? question.correctAnswer.join(', ') : question.correctAnswer || ''}
+                              onChange={(e) => {
+                                const answers = e.target.value.split(',').map(a => a.trim()).filter(a => a)
+                                handleEditQuestion(qIndex, 'correctAnswer', answers)
+                              }}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                              placeholder="例如：答案1, 答案2"
+                            />
+                          </div>
+                        )}
+
+                        {/* 解答题参考答案 */}
+                        {(question.questionType === 'essay' || question.questionType === 'text') && (
+                          <div className="mb-3">
+                            <label className="block text-xs text-gray-600 mb-1">
+                              参考答案（可选）
+                            </label>
+                            <textarea
+                              value={(typeof question.correctAnswer === 'string' ? question.correctAnswer : '') || ''}
+                              onChange={(e) => handleEditQuestion(qIndex, 'correctAnswer', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                              rows={3}
+                              placeholder="输入参考答案"
+                            />
+                          </div>
+                        )}
+
+                        {/* 分数 */}
+                        <div className="mb-3">
+                          <label className="block text-xs text-gray-600 mb-1">分数</label>
+                          <input
+                            type="number"
+                            value={question.score || 0}
+                            onChange={(e) => handleEditQuestion(qIndex, 'score', parseFloat(e.target.value) || 0)}
+                            min="0"
+                            step="0.5"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                          />
+                        </div>
+
+                        {/* 答案解析 */}
+                        <div>
+                          <label className="block text-xs text-gray-600 mb-1">答案解析（可选）</label>
+                          <textarea
+                            value={question.answerExplanation || ''}
+                            onChange={(e) => handleEditQuestion(qIndex, 'answerExplanation', e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                            rows={2}
+                            placeholder="输入答案解析"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-gray-400 border-2 border-dashed border-gray-300 rounded-xl">
+                    <p>暂无题目</p>
+                  </div>
+                )}
               </div>
               
               <div className="flex justify-end gap-4 mt-6 pt-6 border-t border-gray-200">

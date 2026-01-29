@@ -1,12 +1,35 @@
+import { useState } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
+import { Icon, IconName } from '../components/Icon'
 
 const StudentLayout = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [userInfo] = useState(() => {
+    const userStr = localStorage.getItem('user')
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr)
+        return {
+          name: user.full_name || user.username || '学生用户',
+          email: user.email || 'student@vault.cs',
+          avatar: user.avatar_url || ''
+        }
+      } catch (e) {
+        console.error('Failed to parse user info:', e)
+      }
+    }
+    return {
+      name: '学生用户',
+      email: 'student@vault.cs',
+      avatar: ''
+    }
+  })
 
-  const navItems = [
-    { path: '/student/qa', label: '智能问答', icon: '💬' },
-    { path: '/student/survey', label: '问卷测验', icon: '📝' },
+  const navItems: { path: string; label: string; icon: IconName }[] = [
+    { path: '/student/qa', label: '智能问答', icon: 'sparkles' },
+    { path: '/student/survey', label: '问卷测验', icon: 'survey' },
   ]
 
   const handleLogout = () => {
@@ -20,57 +43,115 @@ const StudentLayout = () => {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* 左侧导航栏 */}
-      <aside className="w-64 bg-white border-r border-gray-200 flex flex-col">
+      <aside 
+        className={`bg-white border-r border-gray-200 flex flex-col relative z-20 shadow-sm transition-all duration-300 ease-in-out ${
+          isCollapsed ? 'w-20' : 'w-72'
+        }`}
+      >
         {/* Logo区域 */}
-        <div className="h-16 flex items-center px-6 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-indigo-600">Vault CS</h1>
-        </div>
-
-        {/* 用户信息 */}
-        <div className="p-4 border-b border-gray-200">
-          <Link to="/student/profile" className="flex items-center space-x-3 hover:bg-gray-50 rounded-lg p-2 transition-colors">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold cursor-pointer">
-              学
+        <div className={`h-20 flex items-center border-b border-gray-200 bg-white transition-all duration-300 ${
+          isCollapsed ? 'justify-center px-0' : 'px-6'
+        }`}>
+          <div className={`flex items-center w-full ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
+            <div className={`flex items-center gap-3 text-indigo-600 ${isCollapsed ? 'hidden' : 'flex'}`}>
+              <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <h1 className="text-2xl font-bold whitespace-nowrap overflow-hidden text-indigo-600">
+                Vault CS
+              </h1>
             </div>
-            <div>
-              <p className="font-medium text-gray-800">学生端</p>
-              <p className="text-sm text-gray-500">Student</p>
-            </div>
-          </Link>
+            
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className={`p-2 rounded-lg text-indigo-600 hover:bg-indigo-50 transition-colors ${
+                isCollapsed ? '' : ''
+              }`}
+            >
+              {isCollapsed ? <Icon name="chevron-right" size={24} /> : <Icon name="chevron-left" size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* 导航菜单 */}
-        <nav className="flex-1 py-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`flex items-center space-x-3 px-6 py-3 transition-colors ${
-                location.pathname === item.path
-                  ? 'bg-indigo-50 text-indigo-600 border-r-4 border-indigo-600'
-                  : 'text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              <span className="text-xl">{item.icon}</span>
-              <span className="font-medium">{item.label}</span>
-            </Link>
-          ))}
+        <nav className="flex-1 py-6 px-4 space-y-2">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                title={isCollapsed ? item.label : ''}
+                className={`flex items-center px-3 py-3.5 rounded-xl transition-all duration-200 group ${
+                  isActive
+                    ? 'bg-indigo-50 text-indigo-600 shadow-sm'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                } ${isCollapsed ? 'justify-center' : 'space-x-4'}`}
+              >
+                <Icon 
+                  name={item.icon} 
+                  size={24} 
+                  className={`flex-shrink-0 ${isActive ? 'bg-indigo-600' : 'bg-gray-400 group-hover:bg-gray-600'}`} 
+                />
+                <span className={`font-medium text-base whitespace-nowrap overflow-hidden transition-all duration-300 ${
+                  isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100 block'
+                }`}>
+                  {item.label}
+                </span>
+              </Link>
+            )
+          })}
         </nav>
 
-        {/* 底部退出按钮 */}
-        <div className="p-4 border-t border-gray-200">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center space-x-2 px-4 py-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-          >
-            <span>🚪</span>
-            <span>退出登录</span>
-          </button>
+        {/* 底部信息区域 */}
+        <div className="border-t border-gray-200 bg-gray-50/50">
+          <div className="p-4 space-y-4">
+            {/* 用户信息 - 移到底部 */}
+            <div className={`flex items-center rounded-xl transition-colors group ${
+              isCollapsed ? 'justify-center' : 'space-x-3 hover:bg-white/50 p-2'
+            }`}>
+              <div 
+                className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold group-hover:bg-indigo-200 transition-colors flex-shrink-0 shadow-sm border border-indigo-50 relative overflow-hidden"
+              >
+                {userInfo.avatar ? (
+                  <img src={userInfo.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  <Icon name="user" size={24} className="bg-indigo-600" />
+                )}
+              </div>
+              <Link 
+                to="/student/profile"
+                className={`flex-1 min-w-0 overflow-hidden transition-all duration-300 ${
+                isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100 block'
+              }`}>
+                <p className="font-medium text-gray-800 truncate text-base hover:text-indigo-600 transition-colors">{userInfo.name}</p>
+                <p className="text-xs text-gray-500 truncate">{userInfo.email}</p>
+              </Link>
+            </div>
+
+            {/* 退出登录按钮 */}
+            <button
+              onClick={handleLogout}
+              title={isCollapsed ? '退出登录' : ''}
+              className={`w-full flex items-center space-x-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors text-sm font-medium ${
+                isCollapsed ? 'justify-center p-2' : 'justify-center px-4 py-3'
+              }`}
+            >
+              <Icon name="logout" size={20} className="text-gray-600 group-hover:text-red-600" />
+              <span className={`transition-all duration-300 ${
+                isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100 block'
+              }`}>
+                退出登录
+              </span>
+            </button>
+          </div>
         </div>
       </aside>
 
       {/* 右侧主内容区域 */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto bg-gray-50 relative">
         <Outlet />
       </main>
     </div>

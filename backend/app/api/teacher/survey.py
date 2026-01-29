@@ -754,11 +754,22 @@ async def confirm_new_file(file_data: Dict[str, Any]):
                     break
         
         # 3. 将新文件保存到向量数据库
-        doc_content = "\n".join([
-            f"问题{i+1}: {q['question']}\n" + 
-            "\n".join([f"{opt['label']}. {opt['text']}" for opt in q.get('options', [])])
-            for i, q in enumerate(questions)
-        ])
+        # 准备文档内容（兼容两种格式）
+        doc_content_parts = []
+        for i, q in enumerate(questions):
+            # 兼容question和questionText两种字段名
+            question_text = q.get('question') or q.get('questionText', '')
+            doc_content_parts.append(f"问题{i+1}: {question_text}")
+            
+            # 处理选项（兼容label/text和key/value两种格式）
+            options = q.get('options', [])
+            for opt in options:
+                opt_label = opt.get('label') or opt.get('key', '')
+                opt_text = opt.get('text') or opt.get('value', '')
+                if opt_label and opt_text:
+                    doc_content_parts.append(f"{opt_label}. {opt_text}")
+        
+        doc_content = "\n".join(doc_content_parts)
         
         metadata = {
             "file_id": new_file_id,
