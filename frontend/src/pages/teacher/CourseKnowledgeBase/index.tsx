@@ -174,7 +174,7 @@ const CourseKnowledgeBase = () => {
         <div className="mb-6">
           <button
             onClick={() => navigate('/teacher/profile')}
-            className="inline-flex items-center text-white hover:text-gray-200 transition-colors mb-4"
+            className="inline-flex items-center px-4 py-2 bg-white text-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors mb-4 shadow-sm font-medium"
           >
             <Icon name="arrow_back" size={20} className="mr-2" />
             返回个人中心
@@ -292,8 +292,8 @@ const CourseKnowledgeBase = () => {
                 <li>支持上传 PDF、Word、PowerPoint、TXT、MD 等格式的文档</li>
                 <li>单个文件大小不超过 50MB</li>
                 <li>支持单个上传或批量上传多个文件</li>
-                <li>上传的文档将作为该课程的专属知识库，用于智能问答和内容检索</li>
-                <li>所有课程的知识库将汇总形成总知识库</li>
+                <li>每个课程拥有独立的知识库集合，实现课程间知识隔离</li>
+                <li>上传的文档将自动提取内容并向量化，用于智能问答和内容检索</li>
               </ul>
             </div>
           </div>

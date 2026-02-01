@@ -1,6 +1,14 @@
 """
 课程知识库管理API
 用于上传、管理课程相关的文档资料
+
+知识库架构：
+- 两层架构设计：
+  1. 课程专属知识库：每个课程都有独立的ChromaDB集合（course_{course_id}）
+  2. 全局知识库：可以跨所有课程进行统一搜索和统计
+- 上传文档时自动创建对应课程的集合
+- 实现课程间的知识库完全隔离，同时支持全局知识整合
+- 支持课程内搜索、多课程搜索、全局搜索三种模式
 """
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, BackgroundTasks
 from sqlalchemy.orm import Session
@@ -96,7 +104,7 @@ async def process_document_background(
                 }
             )
             
-            # 3.2 存入ChromaDB向量数据库
+            # 3.2 存入ChromaDB向量数据库（使用课程专属集合）
             vector_db.add_document(
                 doc_id=chunk_id,
                 content=chunk_text,
@@ -106,7 +114,8 @@ async def process_document_background(
                     'file_name': file_name,
                     'chunk_index': chunk_index,
                     'total_chunks': len(chunks)
-                }
+                },
+                course_id=course_id  # 指定课程ID，将存储到该课程的专属集合
             )
             
             success_count += 1
@@ -174,6 +183,178 @@ class KnowledgeBaseStats(BaseModel):
     total_documents: int
     total_courses_with_docs: int
     documents_by_course: List[dict]
+
+class CourseCollectionInfo(BaseModel):
+    course_id: str
+    course_name: str
+    collection_name: str
+    vector_count: int
+    created_at: str | None
+
+class GlobalSearchResult(BaseModel):
+    id: str
+    content: str
+    metadata: dict
+    similarity: float
+    course_id: str
+    course_name: str | None
+    collection_name: str
+
+class GlobalKnowledgeBaseStats(BaseModel):
+    total_documents: int
+    total_courses: int
+    average_docs_per_course: float
+    course_collections: List[dict]
+
+@router.get("/global/stats", response_model=GlobalKnowledgeBaseStats)
+async def get_global_knowledge_base_stats(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """获取全局知识库统计信息（所有课程的汇总）"""
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以查看")
+    
+    vector_db = get_vector_db()
+    
+    try:
+        stats = vector_db.get_global_stats()
+        
+        # 为每个课程添加课程名称
+        course_collections_with_names = []
+        for coll in stats['course_collections']:
+            course_id = coll['metadata'].get('course_id', '')
+            if course_id:
+                # 查询课程信息
+                course = db.query(Course).filter(
+                    Course.id == course_id,
+                    Course.teacher_id == current_user.id
+                ).first()
+                
+                if course:
+                    course_collections_with_names.append({
+                        "course_id": course_id,
+                        "course_name": course.course_name,
+                        "collection_name": coll['name'],
+                        "document_count": coll['count'],
+                        "created_at": coll['metadata'].get('created_at')
+                    })
+        
+        return GlobalKnowledgeBaseStats(
+            total_documents=stats['total_documents'],
+            total_courses=stats['total_courses'],
+            average_docs_per_course=round(stats['average_docs_per_course'], 2),
+            course_collections=course_collections_with_names
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取统计信息失败: {str(e)}")
+
+@router.post("/global/search")
+async def search_global_knowledge_base(
+    query: str = Form(...),
+    n_results: int = Form(10),
+    course_ids: List[str] = Form(None),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    在全局知识库中搜索（跨所有课程或指定课程）
+    
+    Args:
+        query: 搜索查询
+        n_results: 返回结果数量
+        course_ids: 指定要搜索的课程ID列表（为空则搜索所有课程）
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以搜索")
+    
+    vector_db = get_vector_db()
+    
+    try:
+        # 如果指定了课程ID，验证权限
+        if course_ids:
+            for course_id in course_ids:
+                course = db.query(Course).filter(
+                    Course.id == course_id,
+                    Course.teacher_id == current_user.id
+                ).first()
+                if not course:
+                    raise HTTPException(status_code=403, detail=f"无权访问课程 {course_id}")
+        
+        # 执行全局搜索
+        results = vector_db.search_all_courses(
+            query=query,
+            n_results=n_results,
+            course_ids=course_ids
+        )
+        
+        # 为结果添加课程名称
+        formatted_results = []
+        for result in results:
+            course_id = result.get('course_id', '')
+            course_name = None
+            
+            if course_id:
+                course = db.query(Course).filter(Course.id == course_id).first()
+                if course:
+                    course_name = course.course_name
+            
+            formatted_results.append(GlobalSearchResult(
+                id=result['id'],
+                content=result['content'],
+                metadata=result['metadata'],
+                similarity=result['similarity'],
+                course_id=course_id,
+                course_name=course_name,
+                collection_name=result['collection_name']
+            ))
+        
+        return {
+            "query": query,
+            "total_results": len(formatted_results),
+            "results": formatted_results
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"搜索失败: {str(e)}")
+
+@router.get("/courses/{course_id}/collection-info", response_model=CourseCollectionInfo)
+async def get_course_collection_info(
+    course_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """获取课程知识库集合信息"""
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以查看")
+    
+    # 验证课程权限
+    course = db.query(Course).filter(
+        Course.id == course_id,
+        Course.teacher_id == current_user.id
+    ).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="课程不存在或无权限")
+    
+    # 获取向量数据库信息
+    from app.services.vector_db_service import get_vector_db
+    vector_db = get_vector_db()
+    
+    try:
+        # 获取或创建课程集合（自动创建）
+        course_collection = vector_db.get_course_collection(str(course_id))
+        
+        return CourseCollectionInfo(
+            course_id=str(course_id),
+            course_name=course.course_name,
+            collection_name=course_collection.name,
+            vector_count=course_collection.count(),
+            created_at=course_collection.metadata.get('created_at')
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取集合信息失败: {str(e)}")
 
 @router.post("/courses/{course_id}/upload")
 async def upload_course_document(
@@ -260,15 +441,17 @@ async def upload_course_document(
             old_doc_id = existing_doc[0]
             print(f"🔄 覆盖模式: 删除旧文档 {file.filename} (ID: {old_doc_id})")
             
-            # 删除向量数据库中的数据
+            # 删除向量数据库中的数据（从课程专属集合中删除）
             try:
                 vector_db = get_vector_db()
-                results = vector_db.course_collection.get(
+                # 获取课程专属集合
+                course_collection = vector_db.get_course_collection(str(course_id))
+                results = course_collection.get(
                     where={"document_id": str(old_doc_id)}
                 )
                 if results and results['ids']:
-                    vector_db.course_collection.delete(ids=results['ids'])
-                    print(f"   ✅ 删除 {len(results['ids'])} 个向量")
+                    course_collection.delete(ids=results['ids'])
+                    print(f"   ✅ 从课程集合中删除 {len(results['ids'])} 个向量")
             except Exception as e:
                 print(f"   ⚠️  删除向量失败: {e}")
             
@@ -520,7 +703,7 @@ async def delete_document(
     # 查询文档
     result = db.execute(
         text("""
-            SELECT cd.file_path, c.teacher_id
+            SELECT cd.file_path, cd.course_id, c.teacher_id
             FROM course_documents cd
             JOIN courses c ON cd.course_id = c.id
             WHERE cd.id = :document_id
@@ -532,13 +715,27 @@ async def delete_document(
     if not row:
         raise HTTPException(status_code=404, detail="文档不存在")
     
-    file_path, teacher_id = row[0], row[1]
+    file_path, course_id, teacher_id = row[0], row[1], row[2]
     
     # 验证权限
     if str(teacher_id) != str(current_user.id):
         raise HTTPException(status_code=403, detail="无权限删除此文档")
     
     try:
+        # 删除ChromaDB中的向量数据（从课程专属集合中删除）
+        from app.services.vector_db_service import get_vector_db
+        vector_db = get_vector_db()
+        try:
+            course_collection = vector_db.get_course_collection(str(course_id))
+            results = course_collection.get(
+                where={"document_id": str(document_id)}
+            )
+            if results and results['ids']:
+                course_collection.delete(ids=results['ids'])
+                print(f"✅ 从课程集合中删除 {len(results['ids'])} 个向量")
+        except Exception as e:
+            print(f"⚠️ 删除向量数据失败: {e}")
+        
         # 删除物理文件
         if os.path.exists(file_path):
             os.remove(file_path)
