@@ -1,31 +1,96 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { Icon, IconName } from '../components/Icon'
+import { getStudentProfile, uploadStudentAvatar } from '../services/student'
 
 const StudentLayout = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [userInfo] = useState(() => {
-    const userStr = localStorage.getItem('user')
-    if (userStr) {
-      try {
-        const user = JSON.parse(userStr)
-        return {
-          name: user.full_name || user.username || '学生用户',
-          email: user.email || 'student@vault.cs',
-          avatar: user.avatar_url || ''
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [userInfo, setUserInfo] = useState({
+    name: '学生用户',
+    email: 'student@vault.cs',
+    avatar: ''
+  })
+
+  // 加载学生信息
+  const loadUserInfo = async () => {
+    try {
+      const data = await getStudentProfile()
+      setUserInfo({
+        name: data.full_name || data.username,
+        email: data.email,
+        avatar: data.avatar_url || ''
+      })
+    } catch (error) {
+      console.error('加载学生信息失败:', error)
+      // 如果加载失败，尝试从localStorage读取
+      const userStr = localStorage.getItem('user')
+      if (userStr) {
+        try {
+          const user = JSON.parse(userStr)
+          setUserInfo({
+            name: user.full_name || user.username || '学生用户',
+            email: user.email || 'student@vault.cs',
+            avatar: user.avatar_url || ''
+          })
+        } catch (e) {
+          console.error('Failed to parse user info:', e)
         }
-      } catch (e) {
-        console.error('Failed to parse user info:', e)
       }
     }
-    return {
-      name: '学生用户',
-      email: 'student@vault.cs',
-      avatar: ''
+  }
+
+  // 初始加载和监听头像更新事件
+  useEffect(() => {
+    loadUserInfo()
+
+    // 监听头像更新事件
+    const handleAvatarUpdate = () => {
+      loadUserInfo()
     }
-  })
+    window.addEventListener('avatarUpdated', handleAvatarUpdate)
+
+    return () => {
+      window.removeEventListener('avatarUpdated', handleAvatarUpdate)
+    }
+  }, [])
+
+  // 处理头像点击
+  const handleAvatarClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    fileInputRef.current?.click()
+  }
+
+  // 处理文件选择
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    console.log('开始上传头像:', file.name, file.type, file.size)
+
+    try {
+      const response = await uploadStudentAvatar(file)
+      console.log('上传响应:', response)
+      
+      // 更新本地状态
+      setUserInfo(prev => ({ ...prev, avatar: response.avatar_url }))
+      
+      // 触发全局更新事件（通知其他组件）
+      window.dispatchEvent(new Event('avatarUpdated'))
+      
+      alert('头像上传成功！')
+    } catch (error: any) {
+      console.error('上传头像失败:', error)
+      alert(`上传头像失败: ${error.response?.data?.detail || error.message || '未知错误'}`)
+    } finally {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    }
+  }
 
   const navItems: { path: string; label: string; icon: IconName }[] = [
     { path: '/student/qa', label: '智能问答', icon: 'sparkles' },
@@ -108,18 +173,33 @@ const StudentLayout = () => {
         {/* 底部信息区域 */}
         <div className="border-t border-gray-200 bg-gray-50/50">
           <div className="p-4 space-y-4">
+            {/* 隐藏的文件上传input */}
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              onChange={handleFileChange} 
+              className="hidden" 
+              accept="image/*"
+            />
+            
             {/* 用户信息 - 移到底部 */}
             <div className={`flex items-center rounded-xl transition-colors group ${
               isCollapsed ? 'justify-center' : 'space-x-3 hover:bg-white/50 p-2'
             }`}>
               <div 
-                className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold group-hover:bg-indigo-200 transition-colors flex-shrink-0 shadow-sm border border-indigo-50 relative overflow-hidden"
+                onClick={handleAvatarClick}
+                className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold group-hover:bg-indigo-200 transition-colors flex-shrink-0 shadow-sm border border-indigo-50 relative overflow-hidden cursor-pointer"
+                title="点击上传头像"
               >
                 {userInfo.avatar ? (
                   <img src={userInfo.avatar} alt="Avatar" className="w-full h-full object-cover" />
                 ) : (
                   <Icon name="user" size={24} className="bg-indigo-600" />
                 )}
+                {/* 悬停提示 */}
+                <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 rounded-full flex items-center justify-center transition-all">
+                  <span className="text-white text-[8px] opacity-0 group-hover:opacity-100 font-medium">上传</span>
+                </div>
               </div>
               <Link 
                 to="/student/profile"

@@ -51,7 +51,7 @@ export const Icon: React.FC<IconProps> = ({ name, size = 24, className = '' }) =
   const src = iconMap[name];
   
   return (
-    <div 
+    <span 
       className={`inline-block ${className}`}
       style={{
         width: size,

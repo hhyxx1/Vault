@@ -1,6 +1,16 @@
-import { useState, useEffect } from 'react'
-import { studentClassService, ClassInfo, changePassword, ChangePasswordRequest } from '../../../services/student'
+import { useState, useEffect, useRef } from 'react'
+import { 
+  studentClassService, 
+  ClassInfo, 
+  changePassword, 
+  ChangePasswordRequest,
+  getStudentProfile,
+  updateStudentProfile,
+  uploadStudentAvatar,
+  StudentProfile as StudentProfileType
+} from '../../../services/student'
 import { Icon } from '../../../components/Icon'
+import CourseDocumentsDialog from '../../../components/CourseDocumentsDialog'
 
 type TabType = 'info' | 'courses' | 'join' | 'password'
 
@@ -11,6 +21,8 @@ const StudentProfile = () => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [enrolledClasses, setEnrolledClasses] = useState<ClassInfo[]>([])
+  const [avatarTimestamp, setAvatarTimestamp] = useState(Date.now())
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const [studentInfo, setStudentInfo] = useState({
     fullName: '李明',
     studentNumber: 'S202100123',
@@ -20,21 +32,154 @@ const StudentProfile = () => {
     avatar: ''
   })
 
-  // 尝试从localStorage加载用户信息
-  useEffect(() => {
-    const userStr = localStorage.getItem('user')
-    if (userStr) {
-      try {
-        const user = JSON.parse(userStr)
-        setStudentInfo(prev => ({
-          ...prev,
-          fullName: user.full_name || user.username || prev.fullName,
-          email: user.email || prev.email,
-          avatar: user.avatar_url || prev.avatar
-        }))
-      } catch (e) {
-        console.error('Failed to parse user info', e)
+  // 编辑模式状态
+  const [isEditing, setIsEditing] = useState(false)
+  const [editForm, setEditForm] = useState({
+    fullName: '',
+    email: '',
+    major: '',
+    grade: ''
+  })
+
+  // 加载个人信息
+  const loadProfile = async () => {
+    try {
+      const data = await getStudentProfile()
+      const profileData = {
+        fullName: data.full_name || data.username,
+        studentNumber: data.student_number,
+        major: data.major || '未设置',
+        grade: data.grade || '未设置',
+        email: data.email,
+        avatar: data.avatar_url || ''
       }
+      setStudentInfo(profileData)
+      setEditForm({
+        fullName: profileData.fullName,
+        email: profileData.email,
+        major: profileData.major,
+        grade: profileData.grade
+      })
+      setAvatarTimestamp(Date.now())
+    } catch (error) {
+      console.error('加载个人信息失败:', error)
+    }
+  }
+
+  // 开始编辑
+  const handleStartEdit = () => {
+    setEditForm({
+      fullName: studentInfo.fullName,
+      email: studentInfo.email,
+      major: studentInfo.major,
+      grade: studentInfo.grade
+    })
+    setIsEditing(true)
+    setActiveTab('info') // 切换到个人信息标签页
+  }
+
+  // 保存修改
+  const handleSaveProfile = async () => {
+    // 验证邮箱格式
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(editForm.email)) {
+      alert('请输入有效的电子邮箱地址')
+      return
+    }
+    
+    try {
+      // 调用后端API保存到数据库
+      const updatedData = await updateStudentProfile({
+        full_name: editForm.fullName,
+        email: editForm.email,
+        major: editForm.major,
+        grade: editForm.grade
+      })
+      
+      // 更新本地状态
+      setStudentInfo(prev => ({
+        ...prev,
+        fullName: updatedData.full_name,
+        email: updatedData.email,
+        major: updatedData.major || '未设置',
+        grade: updatedData.grade || '未设置'
+      }))
+      
+      setIsEditing(false)
+      alert('个人信息已成功保存到数据库！')
+    } catch (error: any) {
+      console.error('保存个人信息失败:', error)
+      const errorMsg = error.response?.data?.detail || '保存失败，请重试'
+      alert(errorMsg)
+    }
+  }
+
+  // 取消编辑
+  const handleCancelEdit = () => {
+    setIsEditing(false)
+    setEditForm({
+      fullName: studentInfo.fullName,
+      email: studentInfo.email,
+      major: studentInfo.major,
+      grade: studentInfo.grade
+    })
+  }
+
+  // 处理头像点击
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  // 处理文件选择
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    console.log('开始上传头像:', file.name, file.type, file.size)
+
+    try {
+      console.log('调用uploadStudentAvatar API...')
+      const response = await uploadStudentAvatar(file)
+      console.log('上传响应:', response)
+      
+      setStudentInfo(prev => ({ ...prev, avatar: response.avatar_url }))
+      setAvatarTimestamp(Date.now())
+      
+      // 触发自定义事件通知 Layout 更新
+      window.dispatchEvent(new Event('avatarUpdated'))
+      alert('头像上传成功！')
+    } catch (error: any) {
+      console.error('上传头像失败:', error)
+      console.error('错误详情:', error.response?.data || error.message)
+      alert(`上传头像失败: ${error.response?.data?.detail || error.message || '未知错误'}`)
+    } finally {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    }
+  }
+
+  // 获取学生加入的班级列表
+  const loadMyClasses = async () => {
+    try {
+      const classes = await studentClassService.getMyClasses()
+      setEnrolledClasses(classes)
+    } catch (err: any) {
+      console.error('Failed to load classes:', err)
+    }
+  }
+
+  // 初始加载
+  useEffect(() => {
+    loadProfile()
+    loadMyClasses()
+
+    const handleAvatarUpdate = () => {
+      loadProfile()
+    }
+    window.addEventListener('avatarUpdated', handleAvatarUpdate)
+    return () => {
+      window.removeEventListener('avatarUpdated', handleAvatarUpdate)
     }
   }, [])
 
@@ -45,20 +190,10 @@ const StudentProfile = () => {
     confirmPassword: ''
   })
   const [passwordLoading, setPasswordLoading] = useState(false)
-
-  // 获取学生加入的班级列表
-  useEffect(() => {
-    loadMyClasses()
-  }, [])
-
-  const loadMyClasses = async () => {
-    try {
-      const classes = await studentClassService.getMyClasses()
-      setEnrolledClasses(classes)
-    } catch (err: any) {
-      console.error('Failed to load classes:', err)
-    }
-  }
+  
+  // 课程资料对话框状态
+  const [showDocumentsDialog, setShowDocumentsDialog] = useState(false)
+  const [selectedCourse, setSelectedCourse] = useState<{ id: string; name: string } | null>(null)
 
   const handleJoinClass = async () => {
     if (!inviteCode.trim()) {
@@ -124,7 +259,14 @@ const StudentProfile = () => {
         confirmPassword: ''
       })
       
-      alert('密码修改成功！')
+      alert('密码修改成功！即将退出登录，请使用新密码重新登录')
+      
+      // 清除本地存储
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      
+      // 跳转到登录页
+      window.location.href = '/login'
       
     } catch (error: any) {
       console.error('修改密码失败:', error)
@@ -162,8 +304,15 @@ const StudentProfile = () => {
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
           <div className="p-8 sm:flex sm:items-center sm:justify-between">
             <div className="sm:flex sm:items-center">
-              <div className="mb-4 sm:mb-0 relative">
-                <div className="h-24 w-24 rounded-full bg-white p-1 shadow-md transition-all relative overflow-hidden">
+              <div className="mb-4 sm:mb-0 relative cursor-pointer group" onClick={handleAvatarClick}>
+                <input 
+                  type="file" 
+                  ref={fileInputRef} 
+                  onChange={handleFileChange} 
+                  className="hidden" 
+                  accept="image/*"
+                />
+                <div className="h-24 w-24 rounded-full bg-white p-1 shadow-md group-hover:shadow-lg transition-all relative overflow-hidden">
                   {studentInfo.avatar ? (
                     <img src={studentInfo.avatar} alt="Avatar" className="h-full w-full rounded-full object-cover" />
                   ) : (
@@ -171,7 +320,11 @@ const StudentProfile = () => {
                       {studentInfo.fullName[0]}
                     </div>
                   )}
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 rounded-full flex items-center justify-center transition-all">
+                    <span className="text-white opacity-0 group-hover:opacity-100 text-xs font-medium">更换头像</span>
+                  </div>
                 </div>
+                <div className="absolute bottom-0 right-0 h-6 w-6 bg-green-500 border-4 border-white rounded-full"></div>
               </div>
               <div className="sm:ml-6 text-center sm:text-left">
                 <h1 className="text-3xl font-bold text-gray-900">{studentInfo.fullName}</h1>
@@ -189,7 +342,14 @@ const StudentProfile = () => {
                 </div>
               </div>
             </div>
-            {/* 可以在这里添加编辑按钮，如果需要的话 */}
+            <div className="mt-6 sm:mt-0 flex gap-3 justify-center">
+              <button 
+                onClick={handleStartEdit}
+                className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
+              >
+                编辑资料
+              </button>
+            </div>
           </div>
         </div>
 
@@ -259,7 +419,16 @@ const StudentProfile = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                       <label className="block text-sm font-medium text-gray-500 mb-1">真实姓名</label>
-                      <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{studentInfo.fullName}</div>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.fullName}
+                          onChange={(e) => setEditForm({ ...editForm, fullName: e.target.value })}
+                          className="w-full text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border-2 border-indigo-300 focus:border-indigo-500 outline-none transition-all"
+                        />
+                      ) : (
+                        <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{studentInfo.fullName}</div>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-500 mb-1">学号</label>
@@ -267,19 +436,72 @@ const StudentProfile = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-500 mb-1">专业</label>
-                      <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{studentInfo.major}</div>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.major}
+                          onChange={(e) => setEditForm({ ...editForm, major: e.target.value })}
+                          className="w-full text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border-2 border-indigo-300 focus:border-indigo-500 outline-none transition-all"
+                        />
+                      ) : (
+                        <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{studentInfo.major}</div>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-500 mb-1">年级</label>
-                      <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{studentInfo.grade}</div>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.grade}
+                          onChange={(e) => setEditForm({ ...editForm, grade: e.target.value })}
+                          className="w-full text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border-2 border-indigo-300 focus:border-indigo-500 outline-none transition-all"
+                        />
+                      ) : (
+                        <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200">{studentInfo.grade}</div>
+                      )}
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-gray-500 mb-1">电子邮箱</label>
-                      <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200 flex items-center">
-                        <Icon name="description" size={16} className="mr-2 text-gray-400" />
-                        {studentInfo.email}
-                      </div>
+                      {isEditing ? (
+                        <input
+                          type="email"
+                          value={editForm.email}
+                          onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                          className="w-full text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border-2 border-indigo-300 focus:border-indigo-500 outline-none transition-all"
+                          placeholder="请输入电子邮箱"
+                        />
+                      ) : (
+                        <div className="text-gray-900 font-medium bg-white px-4 py-3 rounded-lg border border-gray-200 flex items-center">
+                          <Icon name="description" size={16} className="mr-2 text-gray-400" />
+                          {studentInfo.email}
+                        </div>
+                      )}
                     </div>
+                  </div>
+                  <div className="mt-8 flex justify-end gap-3">
+                    {isEditing ? (
+                      <>
+                        <button 
+                          onClick={handleCancelEdit}
+                          className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg shadow-sm transition-colors"
+                        >
+                          取消
+                        </button>
+                        <button 
+                          onClick={handleSaveProfile}
+                          className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors"
+                        >
+                          保存修改
+                        </button>
+                      </>
+                    ) : (
+                      <button 
+                        onClick={handleStartEdit}
+                        className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-sm transition-colors"
+                      >
+                        编辑资料
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -329,8 +551,18 @@ const StudentProfile = () => {
                             </div>
                             {classInfo.teacher_name}
                           </div>
-                          <button className="px-4 py-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg text-sm font-medium transition-colors">
-                            查看详情
+                          <button 
+                            onClick={() => {
+                              setSelectedCourse({ 
+                                id: classInfo.course_id, 
+                                name: classInfo.course_name 
+                              })
+                              setShowDocumentsDialog(true)
+                            }}
+                            className="px-4 py-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg text-sm font-medium transition-colors flex items-center"
+                          >
+                            <Icon name="description" size={16} className="mr-1" />
+                            查看资料
                           </button>
                         </div>
                       </div>
@@ -485,6 +717,19 @@ const StudentProfile = () => {
           </div>
         </div>
       </div>
+
+      {/* 课程资料对话框 */}
+      {selectedCourse && (
+        <CourseDocumentsDialog
+          isOpen={showDocumentsDialog}
+          onClose={() => {
+            setShowDocumentsDialog(false)
+            setSelectedCourse(null)
+          }}
+          courseId={selectedCourse.id}
+          courseName={selectedCourse.name}
+        />
+      )}
     </div>
   )
 }

@@ -139,7 +139,7 @@ async def upload_avatar(
         # 保存文件 - 使用绝对路径
         # 获取backend目录的绝对路径
         backend_dir = Path(__file__).resolve().parent.parent.parent
-        upload_dir = backend_dir / "static" / "avatars"
+        upload_dir = backend_dir / "app" / "static" / "avatars"
         upload_dir.mkdir(parents=True, exist_ok=True)
         
         print(f"Upload directory: {upload_dir}")

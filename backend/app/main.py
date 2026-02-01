@@ -15,7 +15,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.api.auth import router as auth_router
-from app.api.student import qa as student_qa, survey as student_survey, class_enrollment as student_class
+from app.api.student import qa as student_qa, survey as student_survey, class_enrollment as student_class, profile as student_profile, course_documents as student_course_docs
 from app.api.teacher import dashboard, survey as teacher_survey, profile as teacher_profile, knowledge_base as teacher_kb, survey_generation
 
 app = FastAPI(
@@ -45,8 +45,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 静态文件服务
-static_dir = backend_dir / "static"
+# 静态文件服务 - 指向 app/static 目录
+static_dir = backend_dir / "app" / "static"
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 # 注册路由
@@ -54,6 +54,8 @@ app.include_router(auth_router)  # 认证路由
 app.include_router(student_qa.router, prefix="/api/student/qa", tags=["学生-问答"])
 app.include_router(student_survey.router, prefix="/api/student/surveys", tags=["学生-问卷"])
 app.include_router(student_class.router, prefix="/api/student/classes", tags=["学生-班级"])
+app.include_router(student_profile.router, prefix="/api/student/profile", tags=["学生-个人资料"])
+app.include_router(student_course_docs.router, prefix="/api/student/courses", tags=["学生-课程资料"])
 app.include_router(dashboard.router, prefix="/api/teacher/dashboard", tags=["教师-看板"])
 app.include_router(teacher_survey.router, prefix="/api/teacher/surveys", tags=["教师-问卷"])
 app.include_router(teacher_profile.router, prefix="/api/teacher/profile", tags=["教师-个人资料"])
