@@ -28,9 +28,10 @@ export const qaApi = {
 
 // 学生端 - 问卷相关API
 export const studentSurveyApi = {
-  // 获取问卷列表
-  getSurveys: async () => {
-    return apiClient.get('/student/surveys')
+  // 获取问卷列表（按发布类型：in_class=课堂检测, homework=课后作业, practice=自主练习）
+  getSurveys: async (releaseType?: 'in_class' | 'homework' | 'practice') => {
+    const params = releaseType ? { release_type: releaseType } : {}
+    return apiClient.get('/student/surveys', { params })
   },
   
   // 获取问卷详情
@@ -41,6 +42,11 @@ export const studentSurveyApi = {
   // 提交问卷
   submitSurvey: async (surveyId: string, answers: Record<string, any>) => {
     return apiClient.post(`/student/surveys/${surveyId}/submit`, { answers })
+  },
+
+  // 获取当前学生在该问卷的作答状态与成绩（查看详情用）
+  getMyResult: async (surveyId: string) => {
+    return apiClient.get(`/student/surveys/${surveyId}/my-result`)
   },
 }
 
@@ -79,9 +85,19 @@ export const surveyApi = {
     return apiClient.put(`/teacher/surveys/${surveyId}`, surveyData)
   },
   
-  // 发布问卷
-  publishSurvey: async (surveyId: string) => {
-    return apiClient.put(`/teacher/surveys/${surveyId}/publish`)
+  // 发布问卷（选择班级与发布类型）- 请求体使用 snake_case 与后端一致
+  publishSurvey: async (
+    surveyId: string,
+    options?: { classIds: string[]; releaseType: 'in_class' | 'homework' | 'practice' }
+  ) => {
+    const opts = options ?? { classIds: [], releaseType: 'in_class' }
+    if (!opts.classIds?.length) {
+      throw new Error('请至少选择一个班级')
+    }
+    return apiClient.put(`/teacher/surveys/${surveyId}/publish`, {
+      class_ids: opts.classIds,
+      release_type: opts.releaseType,
+    })
   },
   
   // 取消发布问卷

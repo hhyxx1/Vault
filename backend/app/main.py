@@ -32,17 +32,18 @@ async def log_requests(request, call_next):
     print(f"✅ 响应: {request.method} {request.url.path} - {response.status_code}")
     return response
 
-# CORS配置
+# CORS配置（确保错误响应也带 CORS 头，避免前端报跨域）
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "http://localhost:3000", 
-        "http://localhost:3001"  # 添加3001端口支持
-    ],  # 前端地址
+        "http://localhost:3000",
+        "http://localhost:3001"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # 静态文件服务 - 指向 app/static 目录

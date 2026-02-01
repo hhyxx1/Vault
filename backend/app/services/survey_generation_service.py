@@ -264,12 +264,17 @@ class SurveyGenerationService:
         
         prompt_parts.extend([
             f"",
-            f"要求：",
+            f"【必须严格遵守的格式要求】：",
             f"1. 严格按照技能模板中的JSON格式输出",
-            f"2. 确保所有答案准确无误",
-            f"3. 每题必须有详细解析",
-            f"4. 分数分配合理，总分接近100分",
-            f"5. 只输出JSON，不要有任何其他文字",
+            f"2. 选择题(choice)必须有4个选项: [\"A. 选项1\", \"B. 选项2\", \"C. 选项3\", \"D. 选项4\"]",
+            f"3. 判断题(judge)必须有2个选项: [\"正确\", \"错误\"]",
+            f"4. 问答题(essay)的options必须是空数组: []",
+            f"5. 确保所有答案准确无误",
+            f"6. 每题必须有详细解析（至少50字）",
+            f"7. 分数分配合理，总分接近100分",
+            f"8. 只输出JSON，不要有任何其他文字或markdown标记",
+            f"",
+            f"⚠️ 特别注意：选择题和判断题的options字段是必填项，绝对不能为空！",
         ])
         
         return "\n".join(prompt_parts)
@@ -357,14 +362,19 @@ class SurveyGenerationService:
         prompt_parts.extend([
             f"",
             f"=" * 60,
-            f"📋 输出要求：",
+            f"📋 输出要求（必须严格遵守）：",
             f"",
             f"1. 严格按照技能模板中的JSON格式输出",
-            f"2. 确保所有答案准确无误",
-            f"3. 每题必须有详细解析（≥50字符）",
-            f"4. 分数分配合理，总分接近100分",
-            f"5. 每题必须标注knowledge_source",
-            f"6. 只输出JSON，不要有任何其他文字",
+            f"2. 选择题(choice)必须有4个选项: [\"A. 选项1\", \"B. 选项2\", \"C. 选项3\", \"D. 选项4\"]",
+            f"3. 判断题(judge)必须有2个选项: [\"正确\", \"错误\"]",
+            f"4. 问答题(essay)的options必须是空数组: []",
+            f"5. 确保所有答案准确无误",
+            f"6. 每题必须有详细解析（≥50字符）",
+            f"7. 分数分配合理，总分接近100分",
+            f"8. 每题必须标注knowledge_source",
+            f"9. 只输出JSON，不要有任何其他文字或markdown标记",
+            f"",
+            f"⚠️ 特别注意：选择题和判断题的options字段是必填项，绝对不能为空！",
         ])
         
         return "\n".join(prompt_parts)
@@ -486,6 +496,33 @@ class SurveyGenerationService:
         # 验证题目格式
         if not isinstance(data["questions"], list) or len(data["questions"]) == 0:
             raise ValueError("生成的问卷没有题目")
+        
+        # 🔧 修复选择题和判断题的options - 确保一定有选项
+        for idx, question in enumerate(data["questions"], 1):
+            q_type = question.get("question_type")
+            options = question.get("options", [])
+            
+            # 选择题必须有4个选项
+            if q_type == "choice":
+                if not options or len(options) < 4:
+                    print(f"⚠️  警告: 第{idx}题（选择题）缺少选项，自动补充标准选项")
+                    question["options"] = ["A. 选项A", "B. 选项B", "C. 选项C", "D. 选项D"]
+                elif len(options) > 4:
+                    # 如果超过4个，只保留前4个
+                    question["options"] = options[:4]
+            
+            # 判断题必须有2个选项
+            elif q_type == "judge":
+                if not options or len(options) < 2:
+                    print(f"⚠️  警告: 第{idx}题（判断题）缺少选项，自动补充正确/错误选项")
+                    question["options"] = ["正确", "错误"]
+                elif options != ["正确", "错误"]:
+                    # 规范化判断题选项
+                    question["options"] = ["正确", "错误"]
+            
+            # 问答题确保options是空数组
+            elif q_type == "essay":
+                question["options"] = []
         
         return data
 

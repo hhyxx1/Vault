@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import { surveyApi } from '@/services'
+import { getTeacherClasses } from '@/services/teacher'
 import ManualQuestionForm, { QuestionFormData as BaseQuestionFormData } from '@/components/ManualQuestionForm'
 import { Icon, IconName } from '@/components/Icon'
+
+type ReleaseType = 'in_class' | 'homework' | 'practice'
 
 // 扩展QuestionFormData以支持更多题型
 interface QuestionFormData extends Omit<BaseQuestionFormData, 'questionType'> {
@@ -78,6 +81,13 @@ const TeacherSurvey = () => {
   const [editingSurvey, setEditingSurvey] = useState<any>(null)
   const [showStatsModal, setShowStatsModal] = useState(false)
   const [statsData, setStatsData] = useState<any>(null)
+  // 发布弹窗：选择班级与发布类型
+  const [showPublishModal, setShowPublishModal] = useState(false)
+  const [publishSurveyId, setPublishSurveyId] = useState<string | null>(null)
+  const [publishClassIds, setPublishClassIds] = useState<string[]>([])
+  const [publishReleaseType, setPublishReleaseType] = useState<ReleaseType>('in_class')
+  const [teacherClasses, setTeacherClasses] = useState<Array<{ id: string; class_name: string; course_name?: string }>>([])
+  const [loadingClasses, setLoadingClasses] = useState(false)
   
   // AI生成相关状态
   const [aiGeneratedData, setAiGeneratedData] = useState<any>(null)
@@ -111,12 +121,16 @@ const TeacherSurvey = () => {
     loadCourses()
   }, [])
   
-  // 获取问卷列表
+  // 获取问卷列表（兼容后端直接返回数组或 { data: [] }）
   const loadSurveys = async () => {
     setIsLoadingSurveys(true)
     try {
-      const data = await surveyApi.getSurveys()
-      console.log('获取到的问卷数据:', data)
+      const raw = await surveyApi.getSurveys()
+      const data = Array.isArray(raw) ? raw : (raw?.data ?? raw?.surveys ?? [])
+      if (!Array.isArray(data)) {
+        setSurveys([])
+        return
+      }
       setSurveys(data)
     } catch (error: any) {
       console.error('获取问卷列表失败:', error)
@@ -492,15 +506,45 @@ const TeacherSurvey = () => {
     }
   }
 
-  const handlePublish = async (surveyId: string) => {
+  const openPublishModal = async (surveyId: string) => {
+    setPublishSurveyId(surveyId)
+    setPublishClassIds([])
+    setPublishReleaseType('in_class')
+    setShowPublishModal(true)
+    setLoadingClasses(true)
     try {
-      await surveyApi.publishSurvey(surveyId)
+      const list = await getTeacherClasses()
+      setTeacherClasses(list)
+    } catch (e: any) {
+      console.error('获取班级列表失败:', e)
+      alert(e.response?.data?.detail || '获取班级列表失败')
+    } finally {
+      setLoadingClasses(false)
+    }
+  }
+
+  const handlePublishConfirm = async () => {
+    if (!publishSurveyId || publishClassIds.length === 0) {
+      alert('请至少选择一个班级')
+      return
+    }
+    try {
+      await surveyApi.publishSurvey(publishSurveyId, {
+        classIds: publishClassIds,
+        releaseType: publishReleaseType,
+      })
       await loadSurveys()
-      alert('问卷发布成功')
+      setShowPublishModal(false)
+      setPublishSurveyId(null)
+      alert('问卷发布成功，对应班级学生将在问卷检测中看到该题目')
     } catch (error: any) {
       console.error('发布问卷失败:', error)
-      alert(error.response?.data?.detail || '发布问卷失败')
+      alert(error.response?.data?.detail || error.message || '发布问卷失败')
     }
+  }
+
+  const handlePublish = async (surveyId: string) => {
+    openPublishModal(surveyId)
   }
 
   const handleUnpublish = async (surveyId: string) => {
@@ -983,7 +1027,7 @@ const TeacherSurvey = () => {
                       <div className="space-y-2">
                         {survey.status === 'draft' ? (
                           <button
-                            onClick={() => handlePublish(survey.id)}
+                            onClick={() => openPublishModal(survey.id)}
                             className="w-full py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl text-sm font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
                           >
                             <Icon name="award" size={16} className="text-white" />
@@ -1030,6 +1074,86 @@ const TeacherSurvey = () => {
           </div>
         </div>
       </div>
+
+      {/* 发布问卷弹窗：选择班级与发布类型 */}
+      {showPublishModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl p-6">
+            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+              <Icon name="award" size={24} className="text-green-500" />
+              发布问卷
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              选择要发布的班级和类型后，对应班级的学生将在「问卷检测」的对应页面看到该问卷。
+            </p>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">选择发布的班级 <span className="text-red-500">*</span></label>
+                {loadingClasses ? (
+                  <p className="text-gray-500 text-sm">加载班级列表...</p>
+                ) : teacherClasses.length === 0 ? (
+                  <p className="text-amber-600 text-sm">暂无班级，请先在个人资料中创建班级</p>
+                ) : (
+                  <div className="border border-gray-200 rounded-lg max-h-40 overflow-y-auto p-2 space-y-1">
+                    {teacherClasses.map((cls) => (
+                      <label key={cls.id} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
+                        <input
+                          type="checkbox"
+                          checked={publishClassIds.includes(cls.id)}
+                          onChange={(e) => {
+                            if (e.target.checked) setPublishClassIds([...publishClassIds, cls.id])
+                            else setPublishClassIds(publishClassIds.filter((id) => id !== cls.id))
+                          }}
+                          className="w-4 h-4 rounded border-gray-300"
+                        />
+                        <span className="text-sm">{cls.class_name}{cls.course_name ? `（${cls.course_name}）` : ''}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">发布类型</label>
+                <div className="flex flex-wrap gap-3">
+                  {[
+                    { value: 'in_class' as ReleaseType, label: '课堂检测', icon: '✅' },
+                    { value: 'homework' as ReleaseType, label: '课后作业', icon: '📝' },
+                    { value: 'practice' as ReleaseType, label: '自主练习', icon: '📚' },
+                  ].map((opt) => (
+                    <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="releaseType"
+                        checked={publishReleaseType === opt.value}
+                        onChange={() => setPublishReleaseType(opt.value)}
+                        className="w-4 h-4 text-green-600"
+                      />
+                      <span className="text-sm">{opt.icon} {opt.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end gap-2 mt-6">
+              <button
+                type="button"
+                onClick={() => { setShowPublishModal(false); setPublishSurveyId(null) }}
+                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+              >
+                取消
+              </button>
+              <button
+                type="button"
+                onClick={handlePublishConfirm}
+                disabled={publishClassIds.length === 0 || loadingClasses}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                确认发布
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 创建问卷模态框 */}
       {showCreateModal && (
@@ -1834,19 +1958,14 @@ const TeacherSurvey = () => {
                         return
                       }
 
-                      // 发布问卷
-                      await surveyApi.publishSurvey(surveyId)
-
-                      alert('问卷保存并发布成功！')
-                      
-                      // 重新加载问卷列表
+                      // 重新加载问卷列表后打开发布弹窗，让教师选择班级与发布类型
                       await loadSurveys()
-                      
-                      // 关闭模态框并清理状态
                       setShowManualQuestionModal(false)
                       setManualQuestions([])
                       setSurveyTitle('')
                       setSurveyDescription('')
+                      openPublishModal(surveyId)
+                      alert('问卷已保存，请选择发布的班级和类型后点击「确认发布」')
                     } catch (error: any) {
                       console.error('保存失败:', error)
                       const msg =

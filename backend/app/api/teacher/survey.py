@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File, Depends
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
+from typing import Literal
 import os
 import uuid
 from datetime import datetime
@@ -51,6 +52,15 @@ class SurveyResults(BaseModel):
     total_responses: int
     results: Dict[str, Any]
 
+
+class PublishSurveyRequest(BaseModel):
+    """发布问卷请求：选择班级与发布类型"""
+    class_ids: List[str] = Field(..., min_length=1, description="发布的班级ID列表，至少选一个")
+    release_type: Literal["in_class", "homework", "practice"] = Field(
+        default="in_class",
+        description="发布类型：in_class=课堂检测, homework=课后作业, practice=自主练习"
+    )
+
 @router.get("", response_model=List[Dict[str, Any]])
 async def get_surveys(db: Session = Depends(get_db)):
     """
@@ -79,6 +89,8 @@ async def get_surveys(db: Session = Depends(get_db)):
                 "description": survey.description,
                 "questionCount": question_count or 0,
                 "status": survey.status,
+                "releaseType": getattr(survey, "release_type", None) or "in_class",
+                "targetClassIds": getattr(survey, "target_class_ids", None) or [],
                 "createdAt": survey.created_at.strftime('%Y-%m-%d'),
                 "publishedAt": survey.published_at.strftime('%Y-%m-%d') if survey.published_at else None
             })
@@ -163,19 +175,24 @@ async def create_survey(survey_data: SaveSurveyRequest, db: Session = Depends(ge
         raise HTTPException(status_code=500, detail=f"保存问卷失败: {str(e)}")
 
 @router.put("/{survey_id}/publish")
-async def publish_survey(survey_id: str, db: Session = Depends(get_db)):
+async def publish_survey(
+    survey_id: str,
+    body: PublishSurveyRequest,
+    db: Session = Depends(get_db),
+):
     """
-    发布问卷
+    发布问卷：选择发布的班级和发布类型（课堂检测/课后作业/自主练习）。
+    发布后，对应班级的学生将在问卷检测的对应类型页面看到该问卷。
     """
     try:
         survey = db.query(Survey).filter(Survey.id == survey_id).first()
         if not survey:
             raise HTTPException(status_code=404, detail="问卷不存在")
-        
         survey.status = "published"
         survey.published_at = datetime.now()
+        survey.release_type = body.release_type
+        survey.target_class_ids = body.class_ids
         db.commit()
-        
         return {"success": True, "message": "问卷发布成功"}
     except HTTPException:
         raise
@@ -243,6 +260,8 @@ async def get_survey_detail(survey_id: str, db: Session = Depends(get_db)):
             "description": survey.description,
             "status": survey.status,
             "totalScore": survey.total_score,
+            "releaseType": getattr(survey, "release_type", None) or "in_class",
+            "targetClassIds": getattr(survey, "target_class_ids", None) or [],
             "questions": questions_data,
             "createdAt": survey.created_at.isoformat(),
             "publishedAt": survey.published_at.isoformat() if survey.published_at else None

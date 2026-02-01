@@ -6,6 +6,8 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import StudentQA from '@/pages/student/QA'
 import StudentSurvey from '@/pages/student/Survey'
+import StudentSurveyTake from '@/pages/student/Survey/Take'
+import StudentSurveyDetail from '@/pages/student/Survey/Detail'
 import StudentProfile from '@/pages/student/Profile'
 import TeacherDashboard from '@/pages/teacher/Dashboard'
 import TeacherSurvey from '@/pages/teacher/Survey'
@@ -31,6 +33,8 @@ const AppRouter = () => {
         <Route index element={<Navigate to="qa" replace />} />
         <Route path="qa" element={<StudentQA />} />
         <Route path="survey" element={<StudentSurvey />} />
+        <Route path="survey/:surveyId/take" element={<StudentSurveyTake />} />
+        <Route path="survey/:surveyId/detail" element={<StudentSurveyDetail />} />
         <Route path="profile" element={<StudentProfile />} />
       </Route>
 

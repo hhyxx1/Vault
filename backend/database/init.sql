@@ -164,6 +164,8 @@ CREATE TABLE IF NOT EXISTS surveys (
     course_id UUID REFERENCES courses(id),
     class_id UUID REFERENCES classes(id),
     survey_type VARCHAR(50) NOT NULL DEFAULT 'questionnaire',
+    release_type VARCHAR(30) NOT NULL DEFAULT 'in_class',
+    target_class_ids JSONB,
     target_students JSONB,
     generation_method VARCHAR(50) NOT NULL DEFAULT 'manual',
     generation_prompt TEXT,
@@ -185,6 +187,7 @@ CREATE TABLE IF NOT EXISTS surveys (
 CREATE INDEX idx_surveys_teacher ON surveys(teacher_id);
 CREATE INDEX idx_surveys_course ON surveys(course_id);
 CREATE INDEX idx_surveys_status ON surveys(status);
+CREATE INDEX idx_surveys_release_type ON surveys(release_type);
 CREATE INDEX idx_surveys_created ON surveys(created_at);
 
 CREATE TRIGGER update_surveys_updated_at 

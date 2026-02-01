@@ -16,6 +16,10 @@ class Survey(Base):
     course_id = Column(UUID(as_uuid=True), ForeignKey("courses.id"), index=True)
     class_id = Column(UUID(as_uuid=True), ForeignKey("classes.id"))
     survey_type = Column(String(50), nullable=False, default='questionnaire')  # 'questionnaire' or 'exam'
+    # 发布类型：in_class=课堂检测, homework=课后作业, practice=自主练习
+    release_type = Column(String(30), nullable=False, default='in_class', index=True)
+    # 发布目标班级ID列表（支持多班级）；为空时兼容旧数据可用 class_id
+    target_class_ids = Column(JSONB)  # List[str] of UUID
     target_students = Column(JSONB)  # 目标学生ID列表
     generation_method = Column(String(50), nullable=False, default='manual')
     generation_prompt = Column(Text)
