@@ -467,3 +467,96 @@ async def delete_class(
     db.commit()
     
     return {"message": "班级已删除"}
+
+class StudentInClass(BaseModel):
+    id: str
+    username: str
+    full_name: str
+    email: str
+    student_number: str
+    major: str | None
+    grade: str | None
+    enrollment_date: str
+    
+    class Config:
+        from_attributes = True
+
+class ClassDetailResponse(BaseModel):
+    id: str
+    class_name: str
+    course_id: str
+    course_name: str
+    max_students: int
+    academic_year: str
+    invite_code: str
+    status: str
+    student_count: int
+    students: List[StudentInClass]
+    
+    class Config:
+        from_attributes = True
+
+@router.get("/classes/{class_id}/students", response_model=ClassDetailResponse)
+async def get_class_students(
+    class_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """获取班级的学生列表"""
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    # 验证班级是否存在且属于当前教师
+    cls = db.query(Class).filter(
+        Class.id == class_id,
+        Class.teacher_id == current_user.id,
+        Class.status == 'active'
+    ).first()
+    
+    if not cls:
+        raise HTTPException(status_code=404, detail="班级不存在或无权限")
+    
+    # 获取课程信息
+    course = db.query(Course).filter(Course.id == cls.course_id).first()
+    
+    # 获取班级学生列表
+    from sqlalchemy import text
+    from app.models.user import Student
+    
+    class_students = db.execute(
+        text("""
+            SELECT cs.student_id, cs.enrollment_date
+            FROM class_students cs
+            WHERE cs.class_id = :class_id AND cs.status = 'active'
+            ORDER BY cs.enrollment_date DESC
+        """),
+        {"class_id": str(class_id)}
+    ).fetchall()
+    
+    students_list = []
+    for cs in class_students:
+        user = db.query(User).filter(User.id == cs.student_id).first()
+        if user and user.student:
+            students_list.append(StudentInClass(
+                id=str(user.id),
+                username=user.username,
+                full_name=user.full_name or user.username,
+                email=user.email,
+                student_number=user.student.student_number,
+                major=user.student.major,
+                grade=user.student.grade,
+                enrollment_date=cs.enrollment_date.strftime("%Y-%m-%d") if cs.enrollment_date else ""
+            ))
+    
+    return ClassDetailResponse(
+        id=str(cls.id),
+        class_name=cls.class_name,
+        course_id=str(cls.course_id),
+        course_name=course.course_name if course else "未知课程",
+        max_students=cls.max_students,
+        academic_year=cls.academic_year or '',
+        invite_code=cls.invite_code,
+        status=cls.status,
+        student_count=len(students_list),
+        students=students_list
+    )

@@ -30,6 +30,32 @@ export interface Class {
   status: string
   student_count: number
   average_score: number | null
+  grade?: string
+  major?: string
+}
+
+export interface StudentInClass {
+  id: string
+  username: string
+  full_name: string
+  email: string
+  student_number: string
+  major: string | null
+  grade: string | null
+  enrollment_date: string
+}
+
+export interface ClassDetail {
+  id: string
+  class_name: string
+  course_id: string
+  course_name: string
+  max_students: number
+  academic_year: string
+  invite_code: string
+  status: string
+  student_count: number
+  students: StudentInClass[]
 }
 
 export interface ClassCreate {
@@ -120,6 +146,11 @@ export const createClass = async (classData: ClassCreate): Promise<Class> => {
 // 删除班级
 export const deleteClass = async (classId: string): Promise<void> => {
   return await apiClient.delete(`/teacher/profile/classes/${classId}`)
+}
+
+// 获取班级学生列表
+export const getClassStudents = async (classId: string): Promise<ClassDetail> => {
+  return await apiClient.get(`/teacher/profile/classes/${classId}/students`)
 }
 
 // 修改密码

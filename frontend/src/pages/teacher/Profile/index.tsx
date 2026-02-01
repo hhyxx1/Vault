@@ -20,6 +20,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import CreateCourseDialog from '../../../components/CreateCourseDialog'
 import CreateClassDialog from '../../../components/CreateClassDialog'
+import ClassDetailDialog from '../../../components/ClassDetailDialog'
 import { Icon } from '../../../components/Icon'
 
 type TabType = 'info' | 'courses' | 'classes' | 'password'
@@ -43,6 +44,8 @@ const TeacherProfile = () => {
   const [loading, setLoading] = useState(false)
   const [showCourseDialog, setShowCourseDialog] = useState(false)
   const [showClassDialog, setShowClassDialog] = useState(false)
+  const [showClassDetailDialog, setShowClassDetailDialog] = useState(false)
+  const [selectedClassId, setSelectedClassId] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null)
   const courseFileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({})
 
@@ -356,6 +359,18 @@ const TeacherProfile = () => {
       await deleteClass(classId)
       await loadClasses()
     }
+  }
+
+  // 查看班级详情
+  const handleViewClassDetail = (classId: string) => {
+    setSelectedClassId(classId)
+    setShowClassDetailDialog(true)
+  }
+
+  // 复制邀请码
+  const handleCopyInviteCode = (inviteCode: string) => {
+    navigator.clipboard.writeText(inviteCode)
+    alert('邀请码已复制到剪贴板！')
   }
 
   // 修改密码
@@ -765,7 +780,7 @@ const TeacherProfile = () => {
                     {classes.map((cls) => (
                       <div key={cls.id} className="group bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
                         <div className="p-6">
-                          <div className="flex items-center space-x-4">
+                          <div className="flex items-center space-x-4 mb-4">
                             <div className="flex-shrink-0">
                               <div className="p-3 bg-green-100 rounded-lg text-green-600">
                                 <Icon name="class" size={24} />
@@ -776,7 +791,7 @@ const TeacherProfile = () => {
                                 {cls.class_name}
                               </p>
                               <p className="text-sm text-gray-500 truncate">
-                                {cls.grade || '2024级'} · {cls.major || '计算机科学与技术'}
+                                {cls.course_name}
                               </p>
                             </div>
                             <button
@@ -786,18 +801,53 @@ const TeacherProfile = () => {
                               <Icon name="close" size={20} />
                             </button>
                           </div>
-                          <div className="mt-6 grid grid-cols-2 gap-4 border-t border-gray-100 pt-4">
+
+                          {/* 邀请码区域 */}
+                          <div className="mb-4 bg-green-50 rounded-lg p-3 border border-green-200">
+                            <div className="flex items-center justify-between">
+                              <div className="flex-1">
+                                <p className="text-xs text-gray-600 mb-1 flex items-center">
+                                  <Icon name="key" size={12} className="mr-1" />
+                                  邀请码
+                                </p>
+                                <p className="text-lg font-mono font-bold text-green-700 tracking-wider">
+                                  {cls.invite_code}
+                                </p>
+                              </div>
+                              <button
+                                onClick={() => handleCopyInviteCode(cls.invite_code)}
+                                className="ml-2 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded-lg transition-colors flex items-center"
+                                title="复制邀请码"
+                              >
+                                <Icon name="code" size={14} className="mr-1" />
+                                复制
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-4 border-t border-gray-100 pt-4 mb-4">
                             <div className="text-center">
                               <p className="text-xs text-gray-500 uppercase tracking-wide">学生人数</p>
-                              <p className="mt-1 text-lg font-semibold text-gray-900">{cls.student_count || 0}</p>
+                              <p className="mt-1 text-lg font-semibold text-gray-900">
+                                {cls.student_count || 0} / {cls.max_students}
+                              </p>
                             </div>
                             <div className="text-center border-l border-gray-100">
                               <p className="text-xs text-gray-500 uppercase tracking-wide">平均成绩</p>
                               <p className="mt-1 text-lg font-semibold text-gray-900">
-                                {cls.average_score !== null ? cls.average_score.toFixed(1) : '暂无数据'}
+                                {cls.average_score !== null ? cls.average_score.toFixed(1) : '暂无'}
                               </p>
                             </div>
                           </div>
+
+                          {/* 查看详情按钮 */}
+                          <button
+                            onClick={() => handleViewClassDetail(cls.id)}
+                            className="w-full px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-sm font-medium rounded-lg transition-colors flex items-center justify-center"
+                          >
+                            <Icon name="user" size={16} className="mr-1" />
+                            查看学生列表
+                          </button>
                         </div>
                       </div>
                     ))}
@@ -875,6 +925,12 @@ const TeacherProfile = () => {
         onClose={() => setShowClassDialog(false)}
         onSubmit={handleCreateClass}
         courses={courses}
+      />
+
+      <ClassDetailDialog
+        isOpen={showClassDetailDialog}
+        onClose={() => setShowClassDetailDialog(false)}
+        classId={selectedClassId}
       />
     </div>
   )
