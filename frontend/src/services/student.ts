@@ -122,11 +122,28 @@ export const getCourseDocuments = async (courseId: string): Promise<CourseDocume
   return await apiClient.get(`/student/courses/${courseId}/documents`)
 }
 
-// 下载课程文档
-export const downloadCourseDocument = (courseId: string, documentId: string): string => {
-  const token = localStorage.getItem('token')
-  const baseURL = 'http://localhost:8000/api'
-  return `${baseURL}/student/courses/${courseId}/documents/${documentId}/download?token=${token}`
+// 通过带认证的请求下载课程文档（返回 Blob，用于触发下载或预览）
+export const downloadCourseDocumentAsBlob = async (
+  courseId: string,
+  documentId: string
+): Promise<Blob> => {
+  const data = await apiClient.get(
+    `/student/courses/${courseId}/documents/${documentId}/download`,
+    { responseType: 'blob' }
+  )
+  return data as Blob
+}
+
+/** 以 PDF 形式预览文档（完整页数）。PPTX 会由服务端转为 PDF（需 LibreOffice）。失败时抛出。 */
+export const getCourseDocumentPreviewPdf = async (
+  courseId: string,
+  documentId: string
+): Promise<Blob> => {
+  const data = await apiClient.get(
+    `/student/courses/${courseId}/documents/${documentId}/preview-pdf`,
+    { responseType: 'blob' }
+  )
+  return data as Blob
 }
 
 export default studentClassService
