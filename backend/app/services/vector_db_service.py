@@ -190,11 +190,22 @@ class VectorDBService:
             # 格式化结果
             formatted_results = []
             for i in range(len(results['ids'][0])):
+                # ChromaDB使用L2距离，距离越小越相似
+                # L2距离对高维向量来说数值较大，需要合适的转换公式
+                distance = results['distances'][0][i]
+                
+                # 使用更宽容的转换公式：similarity = 1 / (1 + distance/10)
+                # 这样：distance=0 → 100%, distance=10 → 50%, distance=20 → 33%
+                if distance < 0:
+                    similarity = 0.0
+                else:
+                    similarity = 1.0 / (1.0 + distance / 10.0)
+                
                 formatted_results.append({
                     "id": results['ids'][0][i],
                     "content": results['documents'][0][i],
-                    "metadata": results['metadatas'][0][i],
-                    "similarity": 1 - results['distances'][0][i]  # 转换为相似度分数(0-1)
+                    "metadata": results['metadatas'][0][i] if results['metadatas'][0][i] else {},
+                    "similarity": similarity
                 })
             
             return formatted_results

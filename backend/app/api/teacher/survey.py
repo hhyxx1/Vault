@@ -54,24 +54,30 @@ class SurveyResults(BaseModel):
 @router.get("", response_model=List[Dict[str, Any]])
 async def get_surveys(db: Session = Depends(get_db)):
     """
-    获取教师创建的所有问卷
+    获取教师创建的所有问卷（优化版 - 使用JOIN减少查询次数）
     """
     try:
-        # 从数据库获取问卷列表
-        surveys = db.query(Survey).order_by(Survey.created_at.desc()).all()
+        # 使用LEFT JOIN一次性获取所有数据，避免N+1查询问题
+        from sqlalchemy import func
+        
+        query_result = db.query(
+            Survey,
+            func.count(Question.id).label('question_count')
+        ).outerjoin(
+            Question, Survey.id == Question.survey_id
+        ).group_by(
+            Survey.id
+        ).order_by(
+            Survey.created_at.desc()
+        ).all()
         
         result = []
-        for survey in surveys:
-            # 获取题目数量
-            question_count = db.query(func.count(Question.id)).filter(
-                Question.survey_id == survey.id
-            ).scalar()
-            
+        for survey, question_count in query_result:
             result.append({
                 "id": str(survey.id),
                 "title": survey.title,
                 "description": survey.description,
-                "questionCount": question_count,
+                "questionCount": question_count or 0,
                 "status": survey.status,
                 "createdAt": survey.created_at.strftime('%Y-%m-%d'),
                 "publishedAt": survey.published_at.strftime('%Y-%m-%d') if survey.published_at else None

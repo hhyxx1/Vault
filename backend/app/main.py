@@ -16,7 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.api.auth import router as auth_router
 from app.api.student import qa as student_qa, survey as student_survey, class_enrollment as student_class
-from app.api.teacher import dashboard, survey as teacher_survey, profile as teacher_profile, knowledge_base as teacher_kb
+from app.api.teacher import dashboard, survey as teacher_survey, profile as teacher_profile, knowledge_base as teacher_kb, survey_generation
 
 app = FastAPI(
     title="智能教学平台 API",
@@ -58,6 +58,7 @@ app.include_router(dashboard.router, prefix="/api/teacher/dashboard", tags=["教
 app.include_router(teacher_survey.router, prefix="/api/teacher/surveys", tags=["教师-问卷"])
 app.include_router(teacher_profile.router, prefix="/api/teacher/profile", tags=["教师-个人资料"])
 app.include_router(teacher_kb.router, prefix="/api/teacher/knowledge-base", tags=["教师-知识库"])
+app.include_router(survey_generation.router, prefix="/api/teacher/survey-generation", tags=["教师-AI问卷生成"])
 
 @app.get("/")
 async def root():
