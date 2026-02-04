@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import { message } from 'antd'
+import { askQuestion } from '@/services/student'
 
 const StudentQA = () => {
   const [question, setQuestion] = useState('')
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant'; content: string }>>([])
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -10,17 +13,31 @@ const StudentQA = () => {
 
     setMessages([...messages, { role: 'user', content: question }])
     setQuestion('')
+    setLoading(true)
 
-    // 模拟AI回答
-    setTimeout(() => {
+    try {
+      // 调用真实的后端API
+      const response = await askQuestion(question)
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: '这是对您问题的回答。实际应用中会调用AI模型。',
+          content: response.answer,
         },
       ])
-    }, 1000)
+    } catch (error) {
+      console.error('Error asking question:', error)
+      message.error('抱歉，问答服务暂时不可用，请稍后再试。')
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: '抱歉，问答服务暂时不可用，请稍后再试。',
+        },
+      ])
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleNewChat = () => {
@@ -96,12 +113,12 @@ const StudentQA = () => {
               />
             </div>
             <button
-              type="submit"
-              disabled={!question.trim()}
-              className="px-8 py-3 bg-primary-500 text-white rounded-xl hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed h-12"
-            >
-              发送
-            </button>
+            type="submit"
+            disabled={!question.trim() || loading}
+            className="px-8 py-3 bg-primary-500 text-white rounded-xl hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed h-12 flex items-center justify-center"
+          >
+            {loading ? '发送中...' : '发送'}
+          </button>
           </div>
           <p className="text-xs text-gray-400 mt-2">按 Enter 发送，Shift + Enter 换行</p>
         </form>

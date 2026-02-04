@@ -12,16 +12,16 @@ class Settings(BaseSettings):
     PORT: int = 8000
     
     # PostgreSQL数据库配置
-    DATABASE_URL: str = "postgresql+psycopg://postgres:123456@localhost:5432/app_project"
+    DATABASE_URL: str = "postgresql+psycopg://postgres:123456@localhost:5432/vault"
     # 异步数据库URL（用于asyncpg）
-    ASYNC_DATABASE_URL: str = "postgresql+asyncpg://postgres:123456@localhost:5432/app_project"
+    ASYNC_DATABASE_URL: str = "postgresql+asyncpg://postgres:123456@localhost:5432/vault"
     
     # 向量数据库配置（知识库）
     VECTOR_DB_PATH: str = "./data/chroma_db"
     PGVECTOR_ENABLED: bool = False  # 是否使用pgvector扩展
     
     # AI功能配置
-    ENABLE_AI_FEATURES: bool = False  # 是否启用AI功能，如果遇到llama-index兼容性问题，可设为False
+    ENABLE_AI_FEATURES: bool = True  # 是否启用AI功能，如果遇到llama-index兼容性问题，可设为False
     
     # 安全配置
     SECRET_KEY: str = "your-secret-key-here-change-in-production-please-change-this-to-random-string"

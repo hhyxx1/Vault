@@ -223,3 +223,69 @@ export const getKnowledgeBaseStats = async (): Promise<KnowledgeBaseStats> => {
 export const deleteDocument = async (documentId: string): Promise<void> => {
   return await apiClient.delete(`/teacher/knowledge-base/documents/${documentId}`)
 }
+
+// ===== 教师仪表盘相关 =====
+
+export interface DashboardData {
+  totalStudents: number
+  totalQuestions: number
+  avgParticipationRate: number
+  topStudents: Array<{
+    studentId: string
+    name: string
+    score: number
+  }>
+  questionTrend: Array<{
+    date: string
+    count: number
+  }>
+  categoryDistribution: Array<{
+    category: string
+    count: number
+  }>
+}
+
+export interface Student {
+  id: string
+  name: string
+  avatar: string
+  grade: string
+  class: string
+  enrollmentDate: string
+}
+
+export interface StudentStats {
+  studentId: string
+  questionCount: number
+  participationRate: number
+  avgQuestionScore: number
+  highFrequencyQuestions: string[]
+  lastActiveDate: string
+}
+
+export interface TableHeader {
+  id: string
+  title: string
+  key: string
+  visible: boolean
+}
+
+// 获取教师仪表盘数据
+export const getDashboardData = async (): Promise<DashboardData> => {
+  return await apiClient.get('/teacher/dashboard/')
+}
+
+// 获取学生列表
+export const getStudents = async (): Promise<Student[]> => {
+  return await apiClient.get('/teacher/dashboard/students')
+}
+
+// 获取学生统计数据
+export const getStudentStats = async (): Promise<StudentStats[]> => {
+  return await apiClient.get('/teacher/dashboard/student-stats')
+}
+
+// 获取表格表头配置
+export const getTableHeaders = async (): Promise<TableHeader[]> => {
+  return await apiClient.get('/teacher/dashboard/table-headers')
+}

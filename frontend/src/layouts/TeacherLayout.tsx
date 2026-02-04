@@ -68,9 +68,8 @@ const TeacherLayout = () => {
   }
 
   const navItems: { path: string; label: string; icon: IconName }[] = [
-    { path: '/teacher/dashboard', label: '教师看板', icon: 'dashboard' },
+    { path: '/teacher/ai/dashboard', label: '教师看板', icon: 'sparkles' },
     { path: '/teacher/survey', label: '问卷生成', icon: 'survey' },
-    { path: '/teacher/ai/dashboard', label: 'AI智能看板', icon: 'sparkles' },
   ]
 
   const handleLogout = () => {

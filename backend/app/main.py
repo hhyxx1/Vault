@@ -4,8 +4,9 @@ from pathlib import Path
 
 # 设置环境变量强制UTF-8编码，解决PostgreSQL路径中文问题
 os.environ['PGCLIENTENCODING'] = 'UTF8'
-os.environ.setdefault('LANG', 'en_US.UTF-8')
-os.environ.setdefault('LC_ALL', 'en_US.UTF-8')
+os.environ.setdefault('LANG', 'zh_CN.UTF-8')
+os.environ.setdefault('LC_ALL', 'zh_CN.UTF-8')
+os.environ.setdefault('PYTHONIOENCODING', 'UTF-8')
 
 # 添加项目根目录到Python路径
 backend_dir = Path(__file__).resolve().parent.parent

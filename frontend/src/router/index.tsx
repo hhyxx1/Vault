@@ -54,7 +54,7 @@ const AppRouter = () => {
           </ProtectedRoute>
         }
       >
-        <Route index element={<Navigate to="dashboard" replace />} />
+        <Route index element={<Navigate to="ai/dashboard" replace />} />
         <Route path="dashboard" element={<TeacherDashboard />} />
         <Route path="survey" element={<TeacherSurvey />} />
         <Route path="profile" element={<TeacherProfile />} />

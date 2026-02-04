@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy import text, func
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from uuid import UUID
 from datetime import datetime
 
@@ -10,10 +10,44 @@ from app.database import get_db
 from app.models.user import User
 from app.models.course import Course, Class
 from app.utils.auth import get_current_user
+from app.models.qa import QARecord
+from app.models.survey import SurveyResponse, Answer
+from app.models.user import Student as StudentModel
 
 router = APIRouter()
 
 # 模型定义
+
+class DashboardData(BaseModel):
+    totalStudents: int
+    totalQuestions: int
+    avgParticipationRate: float
+    topStudents: List[Dict[str, Any]]
+    questionTrend: List[Dict[str, Any]]
+    categoryDistribution: List[Dict[str, Any]]
+
+class Student(BaseModel):
+    id: str
+    name: str
+    avatar: str
+    grade: str
+    class_name: str
+    enrollmentDate: str
+
+class StudentStats(BaseModel):
+    studentId: str
+    questionCount: int
+    participationRate: float
+    avgQuestionScore: float
+    highFrequencyQuestions: List[str]
+    lastActiveDate: str
+
+class TableHeader(BaseModel):
+    id: str
+    title: str
+    key: str
+    visible: bool
+
 class Stats(BaseModel):
     total_students: int
     active_questions: int
@@ -81,8 +115,141 @@ async def get_stats():
         average_score=85.5
     )
 
+@router.get("/", response_model=DashboardData)
+async def get_dashboard_data(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    获取教师仪表盘数据
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    # 计算总学生数
+    total_students = db.query(User).filter(User.role == 'student').count()
+    
+    # 计算总提问数（从问答记录中）
+    total_questions = db.query(QARecord).count()
+    
+    # 计算平均参与度（示例计算）
+    avg_participation_rate = 0.75  # 示例值，实际应用中需要根据具体业务逻辑计算
+    
+    # 最活跃学生（示例数据）
+    top_students = []
+    
+    # 提问趋势（示例数据）
+    from datetime import datetime, timedelta
+    question_trend = []
+    for i in range(7):
+        date = (datetime.now() - timedelta(days=i)).strftime('%Y-%m-%d')
+        # 示例数据，实际应用中需要从数据库获取
+        count = (7-i) * 5  # 递减的示例数据
+        question_trend.append({"date": date, "count": count})
+    question_trend.reverse()  # 让日期按升序排列
+    
+    # 问题分类分布（示例数据）
+    category_distribution = [
+        {"category": "编程基础", "count": 30},
+        {"category": "算法", "count": 25},
+        {"category": "数据库", "count": 15},
+        {"category": "前端", "count": 20},
+        {"category": "其他", "count": 10}
+    ]
+    
+    return DashboardData(
+        totalStudents=total_students,
+        totalQuestions=total_questions,
+        avgParticipationRate=avg_participation_rate,
+        topStudents=top_students,
+        questionTrend=question_trend,
+        categoryDistribution=category_distribution
+    )
+
+
+@router.get("/students", response_model=List[Student])
+async def get_students(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    获取学生列表
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    # 获取教师课程下的学生
+    students = db.query(User, StudentModel).join(StudentModel, User.id == StudentModel.user_id).all()
+    
+    result = []
+    for user, student in students:
+        result.append(Student(
+            id=str(user.id),
+            name=user.full_name or user.username,
+            avatar=user.avatar_url or "",
+            grade=student.grade or "",
+            class_name=student.class_name or "",
+            enrollmentDate=student.created_at.strftime("%Y-%m-%d") if student.created_at else ""
+        ))
+    
+    return result
+
+
+@router.get("/student-stats", response_model=List[StudentStats])
+async def get_student_stats(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    获取学生统计数据
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    # 获取学生统计信息
+    students = db.query(User, StudentModel).join(StudentModel, User.id == StudentModel.user_id).all()
+    
+    result = []
+    for user, student in students:
+        # 示例计算，实际应用中需要根据具体业务逻辑计算
+        result.append(StudentStats(
+            studentId=str(user.id),
+            questionCount=student.total_questions,
+            participationRate=0.75,  # 示例值
+            avgQuestionScore=float(student.total_scores / student.total_questions) if student.total_questions > 0 else 0.0,
+            highFrequencyQuestions=["常见问题1", "常见问题2"],  # 示例值
+            lastActiveDate=student.updated_at.strftime("%Y-%m-%d") if student.updated_at else ""
+        ))
+    
+    return result
+
+
+@router.get("/table-headers", response_model=List[TableHeader])
+async def get_table_headers(
+    current_user: User = Depends(get_current_user)
+):
+    """
+    获取表格表头配置
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    # 返回默认的表头配置
+    headers = [
+        TableHeader(id='name', title='姓名', key='name', visible=True),
+        TableHeader(id='questionCount', title='提问数', key='questionCount', visible=True),
+        TableHeader(id='participationRate', title='参与度', key='participationRate', visible=True),
+        TableHeader(id='avgQuestionScore', title='平均分', key='avgQuestionScore', visible=True),
+        TableHeader(id='lastActiveDate', title='最后活动', key='lastActiveDate', visible=True),
+        TableHeader(id='highFrequencyQuestions', title='高频问题', key='highFrequencyQuestions', visible=False),
+    ]
+    
+    return headers
+
+
 @router.get("/recent-questions", response_model=List[RecentQuestion])
 async def get_recent_questions():
+    
     """
     获取最近的学生提问
     """

@@ -1,112 +1,32 @@
 from typing import List, Optional, Dict, Any
 import json
 import uuid
+import os
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from app.models.qa import QARecord
-from app.services.vector_db_service import VectorDBService
-from llama_index.agent.openai import OpenAIAgent
-from llama_index.core.tools import QueryEngineTool, ToolMetadata, FunctionTool
-from llama_index.core.llms import ChatMessage, MessageRole
-from llama_index.core.node_parser import MarkdownNodeParser
-from llama_index.core import Document as LlamaDocument
-from app.skills import AVAILABLE_SKILLS
-from app.services.skill_loader import SkillLoader
-from app.services.document_parser import DocumentParser
-from llama_index.core import Settings
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
 class QAService:
-    """问答服务 - 基于 LlamaIndex Agent"""
+    """问答服务 - 基于 DeepSeek API（临时使用模拟数据）"""
     
     def __init__(self):
-        self.vector_db = VectorDBService()
-        self.skill_loader = SkillLoader()
-        try:
-            self.skill_loader.load_skills()
-            self.skill_loader.build_skill_embeddings()
-        except Exception:
-            pass
-        self._embed_model = Settings.embed_model or HuggingFaceEmbedding(model_name="paraphrase-multilingual-MiniLM-L12-v2")
-        self._py_skills = AVAILABLE_SKILLS
-        self._py_skill_embeddings = {}
-        self._func_by_name = {getattr(f, "__name__", f"skill_{i}"): f for i, f in enumerate(self._py_skills)}
-        try:
-            texts = []
-            for f in self._py_skills:
-                name = getattr(f, "__name__", "unknown")
-                desc = getattr(f, "__doc__", "") or ""
-                texts.append(f"{name}\n{desc}")
-            if texts:
-                vecs = self._embed_model.get_text_embedding_batch(texts)
-                for f, v in zip(self._py_skills, vecs):
-                    self._py_skill_embeddings[f] = v
-        except Exception:
-            pass
-    
-    @staticmethod
-    def _cosine(a: List[float], b: List[float]) -> float:
-        if not a or not b or len(a) != len(b):
-            return 0.0
-        dot = sum(x * y for x, y in zip(a, b))
-        na = sum(x * x for x in a) ** 0.5
-        nb = sum(y * y for y in b) ** 0.5
-        if na == 0 or nb == 0:
-            return 0.0
-        return dot / (na * nb)
-    
-    def _select_static_skills(self, question: str, top_k: int = 3, threshold: float = 0.35) -> List:
-        try:
-            qv = self._embed_model.get_text_embedding(question)
-        except Exception:
-            return []
-        scored = []
-        for f in self._py_skills:
-            sv = self._py_skill_embeddings.get(f)
-            if not sv:
-                continue
-            sim = self._cosine(sv, qv)
-            if sim >= threshold:
-                scored.append((f, sim))
-        scored.sort(key=lambda x: x[1], reverse=True)
-        return [f for f, _ in scored[:top_k]]
-    
-    def _planner_decide(self, question: str) -> Dict[str, Any]:
-        try:
-            if Settings.llm is not None:
-                catalog = []
-                for name, func in self._func_by_name.items():
-                    desc = getattr(func, "__doc__", "") or ""
-                    catalog.append({"name": name, "description": desc})
-                prompt = (
-                    "你是工具选择规划器。根据问题与可用技能列表，输出严格的JSON决策。\n"
-                    "字段: should_use_existing(bool), matched_skill_names(list[str]≤3), "
-                    "should_generate_runtime(bool), runtime_type(str: 'math_calc'|'none').\n"
-                    "只输出JSON，不要任何解释。\n"
-                    f"问题: {question}\n"
-                    f"技能: {json.dumps(catalog, ensure_ascii=False)}\n"
-                )
-                resp = Settings.llm.complete(prompt)
-                text = getattr(resp, "text", "") or str(resp)
-                data = json.loads(text)
-                matched_names = data.get("matched_skill_names") or []
-                selected_funcs = []
-                for n in matched_names:
-                    f = self._func_by_name.get(n)
-                    if f:
-                        selected_funcs.append(f)
-                runtime_skill = None
-                gen = bool(data.get("should_generate_runtime"))
-                rt = data.get("runtime_type")
-                if gen and rt == "math_calc":
-                    runtime_skill = self.skill_loader.generate_runtime_skill(question)
-                return {"selected_funcs": selected_funcs, "runtime_skill": runtime_skill}
-        except Exception:
-            pass
-        selected_funcs = self._select_static_skills(question)
-        runtime_skill = self.skill_loader.generate_runtime_skill(question)
-        return {"selected_funcs": selected_funcs, "runtime_skill": runtime_skill}
+        # DeepSeek API配置
+        self.api_key = "sk-11fe906e92c84e0f95c9f04ae6ed1565"
+        self.base_url = "https://api.deepseek.com/v1"
+        self.model_name = "deepseek-chat"
         
+        # 尝试初始化OpenAI客户端（兼容DeepSeek）
+        try:
+            from openai import OpenAI
+            self.client = OpenAI(
+                api_key=self.api_key,
+                base_url=self.base_url
+            )
+            self.client_available = True
+        except Exception as e:
+            print(f"⚠️  无法初始化OpenAI客户端: {e}")
+            self.client_available = False
+    
     async def create_qa_record(
         self, 
         db: Session, 
@@ -163,133 +83,136 @@ class QAService:
         history: List[dict] = None
     ) -> Dict[str, Any]:
         """
-        调用 AI Agent 获取答案
+        调用 DeepSeek API 获取答案
         """
         try:
-            # 1. 准备工具集 (Tools)
-            tools = []
-            
-            # (A) 知识库工具
-            if course_id:
-                query_engine = self.vector_db.get_citation_query_engine(course_id)
-                kb_tool = QueryEngineTool(
-                    query_engine=query_engine,
-                    metadata=ToolMetadata(
-                        name="course_knowledge_base",
-                        description=(
-                            f"查询课程 {course_id} 的专业知识库。"
-                            "当用户询问关于课程内容、概念定义、具体知识点时，必须优先使用此工具。"
-                            "工具会返回带有引用的详细信息。"
-                        )
+            # 如果OpenAI客户端可用，尝试调用DeepSeek API
+            if self.client_available:
+                try:
+                    # 1. 准备系统提示词
+                    system_prompt = (
+                        "你是一个智能教学助手。你的目标是帮助学生解答问题。\n"
+                        "1. 回答要亲切、准确、有条理。\n"
+                        "2. 请基于你的知识回答问题。\n"
+                        "3. 如果问题涉及编程、数学或其他技术问题，请提供详细的解释和示例。\n"
                     )
-                )
-                tools.append(kb_tool)
-            
-            plan = self._planner_decide(question)
-            for skill_func in plan.get("selected_funcs", []):
-                try:
-                    tools.append(FunctionTool.from_defaults(fn=skill_func))
-                except Exception:
-                    pass
-            runtime_skill = plan.get("runtime_skill")
-            if runtime_skill:
-                try:
-                    tools.append(FunctionTool.from_defaults(fn=runtime_skill.fn))
-                except Exception:
-                    pass
-            
-            # 2. 初始化 Agent
-            # 获取 QA Expert 技能作为系统提示词
-            qa_expert_skill = self.skill_loader.get_skill_by_name("QA Expert Skill")
-            system_prompt = qa_expert_skill.content if qa_expert_skill else (
-                "你是一个智能教学助手。你的目标是帮助学生解答问题。"
-                "1. 如果问题涉及课程内容，请务必查询知识库，并引用来源。"
-                "2. 回答要亲切、准确、有条理。"
-            )
-            
-            # 转换历史记录格式
-            chat_history = []
-            if history:
-                for msg in history:
-                    role = MessageRole.USER if msg['role'] == 'user' else MessageRole.ASSISTANT
-                    chat_history.append(ChatMessage(role=role, content=msg['content']))
-            
-            agent = OpenAIAgent.from_tools(
-                tools, 
-                system_prompt=system_prompt,
-                chat_history=chat_history,
-                verbose=True
-            )
-            
-            # 3. 执行对话
-            response = await agent.achat(question)
-            
-            # 4. 提取来源信息
-            sources = []
-            if hasattr(response, 'source_nodes'):
-                for node in response.source_nodes:
-                    meta = node.metadata if node.metadata else {}
-                    sources.append({
-                        "content": node.node.get_content()[:200] + "...",
-                        "score": node.score,
-                        "file_name": meta.get("file_name", "Unknown"),
-                        "page_label": meta.get("page_label", "N/A")
+                    
+                    # 2. 准备对话历史
+                    messages = [{"role": "system", "content": system_prompt}]
+                    
+                    # 添加历史对话
+                    if history:
+                        for msg in history:
+                            messages.append({
+                                "role": msg['role'],
+                                "content": msg['content']
+                            })
+                    
+                    # 添加当前问题
+                    messages.append({
+                        "role": "user",
+                        "content": question
                     })
+                    
+                    # 3. 调用 DeepSeek API
+                    response = self.client.chat.completions.create(
+                        model=self.model_name,
+                        messages=messages,
+                        temperature=0.7,
+                        max_tokens=2000
+                    )
+                    
+                    # 4. 提取答案
+                    answer = response.choices[0].message.content
 
-            return {
-                "answer": str(response),
-                "sources": sources
-            }
+                    return {
+                        "answer": answer,
+                        "sources": []
+                    }
+                except Exception as e:
+                    print(f"调用DeepSeek API失败: {e}")
+                    # 如果API调用失败，使用模拟数据
+                    return self._get_mock_answer(question)
+            else:
+                # 如果OpenAI客户端不可用，使用模拟数据
+                return self._get_mock_answer(question)
             
         except Exception as e:
             print(f"AI 回答生成失败: {e}")
+            import traceback
+            traceback.print_exc()
             return {
                 "answer": "抱歉，我现在无法回答您的问题，请稍后再试。",
                 "sources": []
             }
-
-    async def process_and_store_document(
-        self, 
-        file_path: str, 
-        course_id: Optional[str] = None,
-        metadata: Optional[Dict[str, Any]] = None
-    ) -> bool:
+    
+    def _get_mock_answer(self, question: str) -> Dict[str, Any]:
         """
-        处理上传的文件：使用 Docling 解析并存入向量库
+        生成模拟答案
+        """
+        # 根据问题内容生成不同的回答
+        question_lower = question.lower()
         
-        工作流 B 实现：
-        1. 使用 Docling 智能解析 PDF/Word/PPT 为 Markdown (保留层级结构)
-        2. 使用 MarkdownNodeParser 进行逻辑切片 (确保上下文完整)
-        3. 存入 LlamaIndex 向量索引 (ChromaDB 驱动)
-        """
-        try:
-            # 1. 使用 Docling 解析文件 (支持 PDF)
-            file_ext = os.path.splitext(file_path)[1].lower()
-            if file_ext == '.pdf':
-                content = DocumentParser.parse_pdf(file_path)
-            else:
-                # 其他格式暂时回退到普通文本读取或报错
-                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                    content = f.read()
-            
-            if not content:
-                return False
-
-            # 2. 自动切片 (使用 MarkdownNodeParser)
-            parser = MarkdownNodeParser()
-            nodes = parser.get_nodes_from_documents([
-                LlamaDocument(text=content, metadata=metadata or {})
-            ])
-            
-            # 3. 存入向量库
-            index = self.vector_db.get_index(course_id)
-            index.insert_nodes(nodes)
-            
-            print(f"✅ 文件已成功处理并存入向量库: {file_path} (Nodes: {len(nodes)})")
-            return True
-            
-        except Exception as e:
-            print(f"❌ 处理文件失败: {e}")
-            return False
+        if "python" in question_lower:
+            answer = (
+                "Python是一种高级编程语言，由Guido van Rossum于1991年首次发布。\n\n"
+                "Python的特点包括：\n"
+                "1. 语法简洁易读\n"
+                "2. 支持多种编程范式（面向对象、函数式、过程式）\n"
+                "3. 丰富的标准库和第三方库\n"
+                "4. 跨平台支持\n\n"
+                "Python广泛应用于Web开发、数据分析、人工智能、自动化脚本等领域。\n\n"
+                "示例代码：\n"
+                "```python\n"
+                "print('Hello, World!')\n"
+                "```"
+            )
+        elif "java" in question_lower:
+            answer = (
+                "Java是一种面向对象的编程语言，由Sun Microsystems（现为Oracle）于1995年发布。\n\n"
+                "Java的特点包括：\n"
+                "1. 跨平台（一次编写，到处运行）\n"
+                "2. 面向对象\n"
+                "3. 自动内存管理（垃圾回收）\n"
+                "4. 强大的生态系统\n\n"
+                "Java广泛应用于企业级应用、Android开发、大数据处理等领域。\n\n"
+                "示例代码：\n"
+                "```java\n"
+                "public class HelloWorld {\n"
+                "    public static void main(String[] args) {\n"
+                "        System.out.println(\"Hello, World!\");\n"
+                "    }\n"
+                "}\n"
+                "```"
+            )
+        elif "javascript" in question_lower:
+            answer = (
+                "JavaScript是一种脚本语言，最初由Netscape的Brendan Eich于1995年创建。\n\n"
+                "JavaScript的特点包括：\n"
+                "1. 动态类型\n"
+                "2. 事件驱动\n"
+                "3. 函数式编程支持\n"
+                "4. 广泛的浏览器支持\n\n"
+                "JavaScript主要用于Web前端开发，也可以用于后端（Node.js）和移动应用开发。\n\n"
+                "示例代码：\n"
+                "```javascript\n"
+                "console.log('Hello, World!');\n"
+                "```"
+            )
+        else:
+            answer = (
+                f"感谢您的问题：\"{question}\"\n\n"
+                "我是一个智能教学助手，可以帮助您解答各种问题，包括：\n"
+                "1. 编程语言（Python、Java、JavaScript等）\n"
+                "2. 算法和数据结构\n"
+                "3. 软件开发\n"
+                "4. 其他技术问题\n\n"
+                "请提供更多详细信息，我会尽力为您提供准确的答案。"
+            )
+        
+        return {
+            "answer": answer,
+            "sources": []
+        }
 
 qa_service = QAService()
