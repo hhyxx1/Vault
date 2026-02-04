@@ -85,6 +85,9 @@ class KnowledgePointExtractor:
             saved_points = await self._save_all_points(all_points, course_id, document_id)
             await self._update_progress(task.id, 90, 5, 'processing')
             
+            # 步骤5.5：同步到 ChromaDB，供问卷生成等检索使用
+            await self._sync_points_to_chromadb(saved_points, course_id, document_id)
+            
             # 步骤6：构建知识图谱 (90-100%)
             await self._build_complete_graph(saved_points, course_id)
             
@@ -136,6 +139,8 @@ class KnowledgePointExtractor:
             return await self._extract_pdf_unlimited(file_path)
         elif ext in ['docx', 'doc']:
             return await self._extract_docx_unlimited(file_path)
+        elif ext in ['ppt', 'pptx']:
+            return await self._extract_pptx_unlimited(file_path)
         elif ext in ['txt', 'md']:
             return await self._extract_text_file(file_path)
         else:
@@ -181,6 +186,26 @@ class KnowledgePointExtractor:
             return '\n\n'.join(all_text)
         except Exception as e:
             raise Exception(f"DOCX解析失败: {str(e)}")
+    
+    async def _extract_pptx_unlimited(self, file_path: str) -> str:
+        """PPT/PPTX 提取 - 使用 python-pptx 提取所有幻灯片文本"""
+        try:
+            from pptx import Presentation
+        except ImportError:
+            raise Exception("PowerPoint 解析需要安装 python-pptx 库，请执行: pip install python-pptx")
+        try:
+            prs = Presentation(file_path)
+            all_text = []
+            for slide_num, slide in enumerate(prs.slides, 1):
+                slide_lines = []
+                for shape in slide.shapes:
+                    if hasattr(shape, "text") and shape.text.strip():
+                        slide_lines.append(shape.text.strip())
+                if slide_lines:
+                    all_text.append(f"=== 幻灯片 {slide_num} ===\n" + "\n".join(slide_lines))
+            return "\n\n".join(all_text) if all_text else ""
+        except Exception as e:
+            raise Exception(f"PowerPoint 解析失败: {str(e)}")
     
     async def _extract_text_file(self, file_path: str) -> str:
         """文本文件提取"""
@@ -468,6 +493,45 @@ class KnowledgePointExtractor:
         self.db.flush()
         return saved
     
+    async def _sync_points_to_chromadb(
+        self,
+        saved_points: List[KnowledgePoint],
+        course_id: str,
+        document_id: str
+    ) -> None:
+        """将已保存的知识点同步到 ChromaDB，供问卷生成等向量检索使用。"""
+        if not saved_points:
+            return
+        try:
+            from app.services.vector_db_service import get_vector_db
+            vector_db = get_vector_db()
+        except Exception as e:
+            print(f"⚠️ 获取向量库失败，跳过 ChromaDB 同步: {e}")
+            return
+        doc = self.db.query(CourseDocument).filter(CourseDocument.id == document_id).first()
+        file_name = doc.file_name if doc else "unknown"
+        document_type = doc.document_type if doc else "material"
+        for kp in saved_points:
+            content = (kp.point_content or "").strip()
+            if not content:
+                continue
+            chunk_id = f"{document_id}_kp_{kp.id}"
+            vector_db.add_document(
+                doc_id=chunk_id,
+                content=content,
+                metadata={
+                    "document_id": str(document_id),
+                    "course_id": str(course_id),
+                    "file_name": file_name,
+                    "document_type": document_type,
+                    "point_name": (kp.point_name or "")[:500],
+                    "point_type": getattr(kp, "point_type", None) or "concept",
+                    "chunk_index": getattr(kp, "order_index", 0),
+                },
+                course_id=course_id,
+            )
+        print(f"✅ 已同步 {len(saved_points)} 条知识点到课程向量库 (ChromaDB)")
+
     async def _build_complete_graph(
         self,
         points: List[KnowledgePoint],
