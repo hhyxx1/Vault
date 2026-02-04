@@ -1,0 +1,43 @@
+# 项目 Git 忽略配置
+
+# 通用
+node_modules/
+.DS_Store
+Thumbs.db
+
+# 前端相关
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# 后端相关
+backend/__pycache__/
+backend/venv/
+backend/env/
+backend/*.db
+backend/*.sqlite3
+backend/.env
+backend/.pytest_cache/
+backend/coverage/
+backend/htmlcov/
+
+# 数据存储 (Vector DB & Uploads)
+backend/data/
+uploads/
+backend/app/static/course_documents/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 日志
+*.log
+
+# 临时文件
+*.tmp
+*.temp
