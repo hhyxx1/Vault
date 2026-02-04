@@ -192,9 +192,13 @@ class SurveyGenerationService:
                 filter_metadata = {"document_id": document_id}
                 print(f"   ➡️ 仅检索指定资料: {document_id[:8]}…")
             elif knowledge_source_type == "material" and course_id:
-                # 基于资料且不指定单篇时：只检索资料类文档，排除大纲
+                # 基于资料：只检索资料类文档，排除大纲
                 filter_metadata = {"document_type": "material"}
                 print(f"   ➡️ 仅检索该课程下资料（排除大纲）")
+            elif knowledge_source_type == "outline" and course_id:
+                # 基于大纲：只检索大纲类文档，排除资料
+                filter_metadata = {"document_type": "outline"}
+                print(f"   ➡️ 仅检索该课程下大纲（排除资料）")
             
             if course_id:
                 # 指定课程：取该课程知识库内全部文档（或按 document_id 过滤），无数量上限
@@ -228,12 +232,14 @@ class SurveyGenerationService:
                         if len(extra) > 0:
                             print(f"   ➡️ 扩展检索后共 {len(results)} 条")
             else:
-                # 不选课程：在所有知识库中检索，每课程取全部，汇总后全部返回（无数量限制）
-                # 基于资料时只检索资料类，排除大纲
+                # 不选课程：在所有知识库中检索；按来源类型只检索大纲或只检索资料，不混合
                 global_filter = None
                 if knowledge_source_type == "material":
                     global_filter = {"document_type": "material"}
                     print(f"   ➡️ 在所有知识库中检索（仅资料，排除大纲）")
+                elif knowledge_source_type == "outline":
+                    global_filter = {"document_type": "outline"}
+                    print(f"   ➡️ 在所有知识库中检索（仅大纲，排除资料）")
                 else:
                     print(f"   ➡️ 在所有知识库中检索（每课程取全部文档，汇总后全部返回，无数量限制）")
                 

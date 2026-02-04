@@ -5,7 +5,7 @@ import { getCourseDocuments as getKnowledgeBaseCourseDocuments } from '@/service
 import ManualQuestionForm, { QuestionFormData as BaseQuestionFormData } from '@/components/ManualQuestionForm'
 import { Icon, IconName } from '@/components/Icon'
 
-type ReleaseType = 'in_class' | 'homework' | 'practice'
+type ReleaseType = 'in_class' | 'homework' | 'practice' | 'ability_test'
 
 // 扩展QuestionFormData以支持更多题型
 interface QuestionFormData extends Omit<BaseQuestionFormData, 'questionType'> {
@@ -24,6 +24,7 @@ interface Survey {
   status: SurveyStatus
   createdAt: string
   publishedAt?: string
+  generationMethod?: string  // manual | ai | knowledge_outline | knowledge_material | word_upload 等
 }
 
 interface QuestionOption {
@@ -488,9 +489,7 @@ const TeacherSurvey = () => {
         // 调用保存API
         const axios = (await import('axios')).default
         const token = localStorage.getItem('token')
-        const generationMethod = (aiGeneratedData.generationMethod === 'knowledge_outline' || aiGeneratedData.generationMethod === 'knowledge_material')
-          ? 'knowledge_based'
-          : aiGeneratedData.generationMethod
+        const generationMethod = aiGeneratedData.generationMethod  // 保留 knowledge_outline | knowledge_material | ai，便于分类与发布限制
         const response = await axios.post(`http://localhost:8000/api/teacher/survey-generation/save`, {
           survey_title: surveyTitle,
           description: surveyDescription,
@@ -613,7 +612,9 @@ const TeacherSurvey = () => {
   const openPublishModal = async (surveyId: string) => {
     setPublishSurveyId(surveyId)
     setPublishClassIds([])
-    setPublishReleaseType('in_class')
+    const survey = surveys.find((s) => s.id === surveyId)
+    // 基于大纲生成的问卷只能发布到「测试能力」
+    setPublishReleaseType(survey?.generationMethod === 'knowledge_outline' ? 'ability_test' : 'in_class')
     setShowPublishModal(true)
     setLoadingClasses(true)
     try {
@@ -1068,99 +1069,92 @@ const TeacherSurvey = () => {
                 <p className="text-gray-500">点击上方创建方式卡片开始创建您的第一份问卷</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {surveys.map((survey) => (
-                  <div
-                    key={survey.id}
-                    className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
-                  >
-                    {/* 顶部状态栏 */}
-                    <div className={`h-2 ${survey.status === 'published' ? 'bg-gradient-to-r from-green-400 to-emerald-400' : 'bg-gradient-to-r from-gray-300 to-gray-400'}`}></div>
-                    
-                    {/* 内容区域 */}
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <h4 className="text-lg font-bold text-gray-800 line-clamp-2 flex-1">
-                          {survey.title}
-                        </h4>
-                        {survey.status === 'published' ? (
-                          <span className="px-2 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-bold ml-2 whitespace-nowrap">
-                            已发布
-                          </span>
-                        ) : (
-                          <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-bold ml-2 whitespace-nowrap">
-                            草稿
-                          </span>
-                        )}
-                      </div>
-                      
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">
-                        {survey.description}
-                      </p>
-                      
-                      <div className="space-y-2 text-xs text-gray-500 mb-5">
-                        <div className="flex items-center">
-                          <Icon name="description" size={14} className="mr-2 text-gray-400" />
-                          <span>{survey.questionCount} 道题目</span>
-                        </div>
-                        <div className="flex items-center">
-                          <Icon name="calendar" size={14} className="mr-2 text-gray-400" />
-                          <span>创建于 {survey.createdAt}</span>
-                        </div>
-                        {survey.publishedAt && (
-                          <div className="flex items-center text-green-600">
-                            <Icon name="award" size={14} className="mr-2" />
-                            <span>发布于 {survey.publishedAt}</span>
+              <div className="space-y-10">
+                {[
+                  { key: 'manual', title: '手动上传', methodFilter: (m: string) => ['manual', 'word_upload'].includes(m || '') },
+                  { key: 'ai', title: 'AI生成', methodFilter: (m: string) => m === 'ai' },
+                  { key: 'outline', title: '基于大纲', methodFilter: (m: string) => m === 'knowledge_outline' },
+                  { key: 'material', title: '基于资料', methodFilter: (m: string) => ['knowledge_material', 'knowledge_based'].includes(m || '') },
+                  { key: 'other', title: '其他', methodFilter: (m: string) => !['manual', 'word_upload', 'ai', 'knowledge_outline', 'knowledge_material', 'knowledge_based'].includes(m || '') },
+                ].map((cat) => {
+                  const list = surveys.filter((s) => cat.methodFilter(s.generationMethod || 'manual'))
+                  if (list.length === 0) return null
+                  return (
+                    <div key={cat.key}>
+                      <h4 className="text-base font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                        <span>{cat.title}</span>
+                        <span className="text-gray-400 font-normal">({list.length})</span>
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {list.map((survey) => (
+                          <div
+                            key={survey.id}
+                            className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                          >
+                            <div className={`h-2 ${survey.status === 'published' ? 'bg-gradient-to-r from-green-400 to-emerald-400' : 'bg-gradient-to-r from-gray-300 to-gray-400'}`}></div>
+                            <div className="p-6">
+                              <div className="flex items-start justify-between mb-3">
+                                <h4 className="text-lg font-bold text-gray-800 line-clamp-2 flex-1">{survey.title}</h4>
+                                {survey.status === 'published' ? (
+                                  <span className="px-2 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-bold ml-2 whitespace-nowrap">已发布</span>
+                                ) : (
+                                  <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-bold ml-2 whitespace-nowrap">草稿</span>
+                                )}
+                              </div>
+                              <p className="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">{survey.description}</p>
+                              <div className="space-y-2 text-xs text-gray-500 mb-5">
+                                <div className="flex items-center">
+                                  <Icon name="description" size={14} className="mr-2 text-gray-400" />
+                                  <span>{survey.questionCount} 道题目</span>
+                                </div>
+                                <div className="flex items-center">
+                                  <Icon name="calendar" size={14} className="mr-2 text-gray-400" />
+                                  <span>创建于 {survey.createdAt}</span>
+                                </div>
+                                {survey.publishedAt && (
+                                  <div className="flex items-center text-green-600">
+                                    <Icon name="award" size={14} className="mr-2" />
+                                    <span>发布于 {survey.publishedAt}</span>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="space-y-2">
+                                {survey.status === 'draft' ? (
+                                  <button
+                                    onClick={() => openPublishModal(survey.id)}
+                                    className="w-full py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl text-sm font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
+                                  >
+                                    <Icon name="award" size={16} className="text-white" />
+                                    <span>发布问卷</span>
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={() => handleUnpublish(survey.id)}
+                                    className="w-full py-2.5 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition-all flex items-center justify-center space-x-2"
+                                  >
+                                    <Icon name="logout" size={16} className="text-white" />
+                                    <span>取消发布</span>
+                                  </button>
+                                )}
+                                <div className="grid grid-cols-3 gap-2">
+                                  <button onClick={() => handleEdit(survey.id)} className="py-2 bg-blue-50 text-blue-600 rounded-lg text-xs font-medium hover:bg-blue-100 transition-all flex items-center justify-center space-x-1">
+                                    <Icon name="description" size={14} /><span>编辑</span>
+                                  </button>
+                                  <button onClick={() => handleStats(survey.id)} className="py-2 bg-purple-50 text-purple-600 rounded-lg text-xs font-medium hover:bg-purple-100 transition-all flex items-center justify-center space-x-1">
+                                    <Icon name="dashboard" size={14} /><span>统计</span>
+                                  </button>
+                                  <button onClick={() => handleDelete(survey.id)} className="py-2 bg-red-50 text-red-600 rounded-lg text-xs font-medium hover:bg-red-100 transition-all flex items-center justify-center space-x-1">
+                                    <Icon name="close" size={14} /><span>删除</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        )}
-                      </div>
-                      
-                      {/* 操作按钮 */}
-                      <div className="space-y-2">
-                        {survey.status === 'draft' ? (
-                          <button
-                            onClick={() => openPublishModal(survey.id)}
-                            className="w-full py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl text-sm font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
-                          >
-                            <Icon name="award" size={16} className="text-white" />
-                            <span>发布问卷</span>
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => handleUnpublish(survey.id)}
-                            className="w-full py-2.5 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition-all flex items-center justify-center space-x-2"
-                          >
-                            <Icon name="logout" size={16} className="text-white" />
-                            <span>取消发布</span>
-                          </button>
-                        )}
-                        <div className="grid grid-cols-3 gap-2">
-                          <button 
-                            onClick={() => handleEdit(survey.id)}
-                            className="py-2 bg-blue-50 text-blue-600 rounded-lg text-xs font-medium hover:bg-blue-100 transition-all flex items-center justify-center space-x-1"
-                          >
-                            <Icon name="description" size={14} />
-                            <span>编辑</span>
-                          </button>
-                          <button 
-                            onClick={() => handleStats(survey.id)}
-                            className="py-2 bg-purple-50 text-purple-600 rounded-lg text-xs font-medium hover:bg-purple-100 transition-all flex items-center justify-center space-x-1"
-                          >
-                            <Icon name="dashboard" size={14} />
-                            <span>统计</span>
-                          </button>
-                          <button
-                            onClick={() => handleDelete(survey.id)}
-                            className="py-2 bg-red-50 text-red-600 rounded-lg text-xs font-medium hover:bg-red-100 transition-all flex items-center justify-center space-x-1"
-                          >
-                            <Icon name="close" size={14} />
-                            <span>删除</span>
-                          </button>
-                        </div>
+                        ))}
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             )}
           </div>
@@ -1176,7 +1170,9 @@ const TeacherSurvey = () => {
               发布问卷
             </h3>
             <p className="text-sm text-gray-600 mb-4">
-              选择要发布的班级和类型后，对应班级的学生将在「问卷检测」的对应页面看到该问卷。
+              {publishSurveyId && surveys.find((s) => s.id === publishSurveyId)?.generationMethod === 'knowledge_outline'
+                ? '基于大纲生成的问卷只能发布到「测试能力」，学生将在问卷测验的「测试能力」中看到。'
+                : '选择要发布的班级和类型后，对应班级的学生将在「问卷测验」的对应页面看到该问卷。'}
             </p>
             <div className="space-y-4">
               <div>
@@ -1207,11 +1203,16 @@ const TeacherSurvey = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">发布类型</label>
                 <div className="flex flex-wrap gap-3">
-                  {[
-                    { value: 'in_class' as ReleaseType, label: '课堂检测', icon: '✅' },
-                    { value: 'homework' as ReleaseType, label: '课后作业', icon: '📝' },
-                    { value: 'practice' as ReleaseType, label: '自主练习', icon: '📚' },
-                  ].map((opt) => (
+                  {(
+                    publishSurveyId && surveys.find((s) => s.id === publishSurveyId)?.generationMethod === 'knowledge_outline'
+                      ? [{ value: 'ability_test' as ReleaseType, label: '测试能力', icon: '🎯' }]
+                      : [
+                          { value: 'in_class' as ReleaseType, label: '课堂检测', icon: '✅' },
+                          { value: 'homework' as ReleaseType, label: '课后作业', icon: '📝' },
+                          { value: 'practice' as ReleaseType, label: '自主练习', icon: '📚' },
+                          { value: 'ability_test' as ReleaseType, label: '测试能力', icon: '🎯' },
+                        ]
+                  ).map((opt) => (
                     <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
                       <input
                         type="radio"

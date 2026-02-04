@@ -60,9 +60,9 @@ class SurveyResults(BaseModel):
 class PublishSurveyRequest(BaseModel):
     """发布问卷请求：选择班级与发布类型"""
     class_ids: List[str] = Field(..., min_length=1, description="发布的班级ID列表，至少选一个")
-    release_type: Literal["in_class", "homework", "practice"] = Field(
+    release_type: Literal["in_class", "homework", "practice", "ability_test"] = Field(
         default="in_class",
-        description="发布类型：in_class=课堂检测, homework=课后作业, practice=自主练习"
+        description="发布类型：in_class=课堂检测, homework=课后作业, practice=自主练习, ability_test=测试能力（基于大纲生成的问卷仅能发布到此）"
     )
 
 @router.get("", response_model=List[Dict[str, Any]])
@@ -96,7 +96,8 @@ async def get_surveys(db: Session = Depends(get_db)):
                 "releaseType": getattr(survey, "release_type", None) or "in_class",
                 "targetClassIds": getattr(survey, "target_class_ids", None) or [],
                 "createdAt": survey.created_at.strftime('%Y-%m-%d'),
-                "publishedAt": survey.published_at.strftime('%Y-%m-%d') if survey.published_at else None
+                "publishedAt": survey.published_at.strftime('%Y-%m-%d') if survey.published_at else None,
+                "generationMethod": getattr(survey, "generation_method", None) or "manual",
             })
         
         return result
@@ -193,6 +194,12 @@ async def publish_survey(
         survey = db.query(Survey).filter(Survey.id == survey_id).first()
         if not survey:
             raise HTTPException(status_code=404, detail="问卷不存在")
+        # 基于大纲生成的问卷只能发布到「测试能力」
+        if getattr(survey, "generation_method", None) == "knowledge_outline" and body.release_type != "ability_test":
+            raise HTTPException(
+                status_code=400,
+                detail="基于大纲生成的问卷只能发布到「测试能力」，学生将在问卷测验的「测试能力」中看到。"
+            )
         survey.status = "published"
         survey.published_at = datetime.now()
         survey.release_type = body.release_type

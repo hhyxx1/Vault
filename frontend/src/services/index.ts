@@ -29,7 +29,7 @@ export const qaApi = {
 // 学生端 - 问卷相关API
 export const studentSurveyApi = {
   // 获取问卷列表（按发布类型：in_class=课堂检测, homework=课后作业, practice=自主练习）
-  getSurveys: async (releaseType?: 'in_class' | 'homework' | 'practice') => {
+  getSurveys: async (releaseType?: 'in_class' | 'homework' | 'practice' | 'ability_test') => {
     const params = releaseType ? { release_type: releaseType } : {}
     return apiClient.get('/student/surveys', { params })
   },
@@ -88,7 +88,7 @@ export const surveyApi = {
   // 发布问卷（选择班级与发布类型）- 请求体使用 snake_case 与后端一致
   publishSurvey: async (
     surveyId: string,
-    options?: { classIds: string[]; releaseType: 'in_class' | 'homework' | 'practice' }
+    options?: { classIds: string[]; releaseType: 'in_class' | 'homework' | 'practice' | 'ability_test' }
   ) => {
     const opts = options ?? { classIds: [], releaseType: 'in_class' }
     if (!opts.classIds?.length) {

@@ -13,9 +13,10 @@ interface Survey {
 }
 
 const TAB_CONFIG = [
-  { id: 'survey', label: '课程检测', icon: '✅', releaseType: 'in_class' as const, tipTitle: '课程检测说明', tipText: '以下是教师已发布的问卷测验，请在截止日期前完成。未发布的问卷您暂时无法看到。' },
+  { id: 'survey', label: '课堂检测', icon: '✅', releaseType: 'in_class' as const, tipTitle: '课堂检测说明', tipText: '以下是教师已发布的问卷测验，请在截止日期前完成。未发布的问卷您暂时无法看到。' },
   { id: 'homework', label: '课后作业', icon: '📝', releaseType: 'homework' as const, tipTitle: '课后作业说明', tipText: '以下是教师发布的课后作业，请在截止日期前完成。' },
   { id: 'practice', label: '自主练习', icon: '📚', releaseType: 'practice' as const, tipTitle: '自主练习说明', tipText: '以下是教师发布的自主练习，可随时作答巩固知识。' },
+  { id: 'ability_test', label: '测试能力', icon: '🎯', releaseType: 'ability_test' as const, tipTitle: '测试能力说明', tipText: '以下是教师基于课程大纲发布的测试能力问卷，用于检测知识掌握情况。' },
 ]
 
 const StudentSurvey = () => {
@@ -159,6 +160,7 @@ const StudentSurvey = () => {
                 {activeTab === 'survey' && '教师还没有发布任何课堂检测'}
                 {activeTab === 'homework' && '教师还没有发布任何课后作业'}
                 {activeTab === 'practice' && '教师还没有发布任何自主练习'}
+                {activeTab === 'ability_test' && '教师还没有发布任何测试能力问卷'}
               </p>
             </div>
           )}
