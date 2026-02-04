@@ -7,9 +7,11 @@ const API_BASE = '/api/teacher/survey-generation';
 
 export interface GenerateRequest {
   description: string;
-  question_count: number;
+  question_count?: number;
   include_types?: string[];
   course_id?: string;
+  /** 仅知识库生成：outline=基于大纲知识图谱, material=基于上传资料 */
+  knowledge_source_type?: 'outline' | 'material';
   auto_save?: boolean;
 }
 

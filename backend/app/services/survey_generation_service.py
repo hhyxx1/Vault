@@ -88,6 +88,7 @@ class SurveyGenerationService:
         self,
         description: str,
         course_id: Optional[str] = None,
+        knowledge_source_type: str = "material",
         question_count: int = 20,
         include_types: Optional[List[str]] = None
     ) -> Dict[str, Any]:
@@ -95,30 +96,35 @@ class SurveyGenerationService:
         基于知识库生成问卷（优先检索模式）
         
         生成策略：
-        1. 必须先检索知识库（如果指定了course_id则检索该课程，否则检索所有知识库）
-        2. 如果检索到相关内容，优先基于知识库生成
-        3. 只有在知识库没有相关内容时，才基于AI深度思考生成
+        1. 课程可选：不选则在所有知识库中根据描述解析并检索；选则仅在该课程知识库中检索
+        2. 检索必须完整：尽量检索到所有相关片段，不遗漏
+        3. knowledge_source_type: outline=优先依据大纲知识点/知识图谱, material=优先依据上传资料
+        4. 题目禁止带「基于xx生成」前缀；描述未说明时默认 20 道、三种题型
         
         Args:
             description: 用户描述
-            course_id: 课程ID（UUID字符串，可选，不传则在所有知识库中检索）
-            question_count: 题目数量
+            course_id: 课程ID（可选；不选则全局检索所有知识库）
+            knowledge_source_type: outline | material
+            question_count: 题目数量（默认20）
             include_types: 包含的题型
             
         Returns:
             生成的问卷数据
         """
         print("=" * 70)
-        print("📚 知识库生成模式 - 优先检索知识库")
+        print("📚 知识库生成模式 - 检索知识库并基于 skill 生成")
         print(f"📝 描述: {description}")
         print(f"📊 题目数量: {question_count}")
         print(f"📋 题型要求: {include_types or '全部题型'}")
-        print(f"📚 课程ID: {course_id if course_id else '所有课程（全局检索）'}")
+        print(f"📚 课程: {course_id if course_id else '不指定（在所有知识库中检索）'}")
+        print(f"📂 来源类型: {knowledge_source_type}（outline=大纲知识图谱, material=上传资料）")
         print("=" * 70)
         
-        # 1. 必须先检索知识库
-        print("🔍 步骤1: 开始检索知识库...")
-        knowledge_context, has_knowledge = self._retrieve_knowledge_smart(description, course_id)
+        # 1. 检索知识库（不选课程=全局检索；选课程=该课程检索；检索完整、不遗漏）
+        print("🔍 步骤1: 检索知识库（尽量覆盖所有相关内容）...")
+        knowledge_context, has_knowledge = self._retrieve_knowledge_smart(
+            description, course_id, knowledge_source_type=knowledge_source_type
+        )
         
         if has_knowledge:
             print(f"✅ 检索成功！找到相关知识，优先基于知识库生成")
@@ -131,13 +137,14 @@ class SurveyGenerationService:
         if not skill:
             raise ValueError("未找到知识库问卷生成技能模板")
         
-        # 3. 构建提示（根据是否有知识采用不同策略）
+        # 3. 构建提示（根据是否有知识、来源类型采用不同策略）
         user_prompt = self._build_kb_generation_prompt_smart(
             description,
             knowledge_context,
             question_count,
             include_types,
-            has_knowledge
+            has_knowledge,
+            knowledge_source_type=knowledge_source_type
         )
         
         print(f"\n💬 生成策略: {'[知识库优先]' if has_knowledge else '[AI深度思考]'}\n")
@@ -162,48 +169,95 @@ class SurveyGenerationService:
         self, 
         query: str, 
         course_id: Optional[str] = None, 
-        top_k: int = 8
+        top_k: int = 20,
+        knowledge_source_type: Optional[str] = None
     ) -> tuple[str, bool]:
         """
-        智能检索知识库
-        
-        Args:
-            query: 查询文本
-            course_id: 课程ID（UUID字符串，可选，不传则检索所有知识库）
-            top_k: 返回结果数量
-            
-        Returns:
-            (knowledge_context, has_knowledge): 知识内容和是否有知识
+        检索知识库，不设数量限制，检索完所有相关内容、不遗漏。
+        - course_id 为空：在所有课程知识库中检索，每课程取全部文档，汇总后全部返回。
+        - course_id 指定：仅在该课程知识库中检索，取该课程内全部文档。
+        - 结果少时做扩展查询合并去重。
         """
+        vec = self._get_vector_service()
         try:
-            print(f"   ➡️ 检索查询: {query[:50]}...")
-            print(f"   ➡️ 课程ID: {course_id if course_id else '所有课程（全局检索）'}")
-            print(f"   ➡️ 检索数量: top_{top_k}")
+            print(f"   ➡️ 检索查询: {query[:80]}...")
             
-            # 使用向量数据库服务查询（仅知识库模式会执行到此，此处才加载向量库）
-            # course_id已经是UUID字符串或None
-            results = self._get_vector_service().search_similar(
-                query=query,
-                course_id=course_id,
-                n_results=top_k
-            )
+            if course_id:
+                # 指定课程：取该课程知识库内全部文档，无数量上限
+                total = vec.get_stats(course_id=course_id).get("total_documents", 0)
+                n_results = total if total else 1
+                print(f"   ➡️ 课程ID: {course_id}，检索数量: 全部 {n_results} 条（无上限）")
+                
+                results = vec.search_similar(
+                    query=query,
+                    course_id=course_id,
+                    n_results=n_results
+                )
+                
+                # 结果较少时用关键词扩展再查一轮
+                if len(results) < 8 and len(query.strip()) > 4:
+                    parts = query.replace("，", " ").replace("、", " ").split()
+                    if len(parts) > 2:
+                        extra_query = " ".join(parts[:6])
+                        extra = vec.search_similar(
+                            query=extra_query,
+                            course_id=course_id,
+                            n_results=n_results
+                        )
+                        seen_ids = {r.get("id") for r in results}
+                        for r in extra:
+                            if r.get("id") not in seen_ids:
+                                results.append(r)
+                                seen_ids.add(r.get("id"))
+                        if len(extra) > 0:
+                            print(f"   ➡️ 扩展检索后共 {len(results)} 条")
+            else:
+                # 不选课程：在所有知识库中检索，每课程取全部，汇总后全部返回（无数量限制）
+                print(f"   ➡️ 在所有知识库中检索（每课程取全部文档，汇总后全部返回，无数量限制）")
+                
+                results = vec.search_all_courses(
+                    query=query,
+                    n_results=0,  # 未使用，每课程内部已取全部
+                    course_ids=None
+                )
+                
+                # 结果较少时扩展查询
+                if len(results) < 8 and len(query.strip()) > 4:
+                    parts = query.replace("，", " ").replace("、", " ").split()
+                    if len(parts) > 2:
+                        extra_query = " ".join(parts[:6])
+                        extra = vec.search_all_courses(
+                            query=extra_query,
+                            n_results=0,
+                            course_ids=None
+                        )
+                        seen_ids = {r.get("id") for r in results}
+                        for r in extra:
+                            if r.get("id") not in seen_ids:
+                                results.append(r)
+                                seen_ids.add(r.get("id"))
+                        if len(extra) > 0:
+                            print(f"   ➡️ 扩展检索后共 {len(results)} 条")
             
             if not results:
                 print(f"   ❌ 未找到任何相关知识")
                 return "知识库中未找到相关内容。", False
             
-            print(f"   ✅ 检索到 {len(results)} 条相关知识")
+            print(f"   ✅ 检索到 {len(results)} 条相关知识（已尽量覆盖，避免遗漏）")
             
-            # 格式化检索结果
+            # 统一格式化（兼容 search_similar 与 search_all_courses 的返回）
             knowledge_parts = []
             knowledge_parts.append(f"检索到 {len(results)} 条相关知识：\n")
             
             for idx, result in enumerate(results, 1):
                 content = result.get('content', '')
-                metadata = result.get('metadata', {}) or {}  # 确保metadata不是None
+                metadata = result.get('metadata', {}) or {}
+                if isinstance(metadata, dict):
+                    pass
+                else:
+                    metadata = {}
                 similarity = result.get('similarity', 0)
                 
-                # 获取来源信息，处理各种可能的键名
                 source = (
                     metadata.get('source') or 
                     metadata.get('filename') or 
@@ -211,15 +265,17 @@ class SurveyGenerationService:
                     metadata.get('document_name') or 
                     '未知来源'
                 )
+                course_label = result.get('course_id', '')
+                if course_label:
+                    source = f"{source}（课程: {course_label[:8]}…）" if len(str(course_label)) > 8 else f"{source}（课程: {course_label}）"
                 
                 knowledge_parts.append(f"[知识片段{idx}]")
-                knowledge_parts.append(f"相关度: {similarity:.1%}")
+                knowledge_parts.append(f"相关度: {similarity:.1%}" if isinstance(similarity, (int, float)) else f"相关度: —")
                 knowledge_parts.append(f"来源: {source}")
-                knowledge_parts.append(f"内容: {content[:300]}...")  # 增加长度从200到300
+                knowledge_parts.append(f"内容: {content[:400]}...")
                 knowledge_parts.append("")
                 
-                # 打印到控制台
-                print(f"   📚 片段{idx}: {source} (相关度: {similarity:.1%})")
+                print(f"   📚 片段{idx}: {source} (相关度: {similarity:.1%})" if isinstance(similarity, (int, float)) else f"   📚 片段{idx}: {source}")
             
             return "\n".join(knowledge_parts), True
             
@@ -227,7 +283,7 @@ class SurveyGenerationService:
             print(f"   ❌ 知识检索错误: {e}")
             import traceback
             traceback.print_exc()
-            return f"知识库检索遇到问题，将基于主题深度思考出题。", False
+            return "知识库检索遇到问题，将基于主题深度思考出题。", False
 
     def _build_ai_generation_prompt(
         self,
@@ -260,8 +316,8 @@ class SurveyGenerationService:
             "",
             "【必须严格遵守的格式要求】：",
             "1. 严格按照技能模板中的JSON格式输出",
-            "2. 选择题(choice)必须有4个选项: [\"A. 选项1\", \"B. 选项2\", \"C. 选项3\", \"D. 选项4\"]",
-            "3. 判断题(judge)必须有2个选项: [\"正确\", \"错误\"]",
+            "2. 选择题(choice)的 options 只写选项内容，不要加 \"A.\"、\"B.\"、\"C.\"、\"D.\"，例如: [\"内容1\", \"内容2\", \"内容3\", \"内容4\"]",
+            "3. 判断题(judge)的 options 为 [\"正确\", \"错误\"]",
             "4. 问答题(essay)的options必须是空数组: []",
             "5. 确保所有答案准确无误",
             "6. 每题必须有解析（30–50字，简明扼要，减少冗余）",
@@ -278,14 +334,15 @@ class SurveyGenerationService:
         knowledge_context: str,
         question_count: int,
         include_types: Optional[List[str]],
-        has_knowledge: bool
+        has_knowledge: bool,
+        knowledge_source_type: str = "material"
     ) -> str:
         """构建基于知识库生成的用户提示（智能模式）"""
         prompt_parts = [
             f"请基于知识库内容和深度思考生成问卷：",
             f"",
             f"用户需求: {description}",
-            f"题目数量: {question_count}题",
+            f"题目数量: {question_count}题（描述未说明时默认20道）",
         ]
         
         if include_types:
@@ -298,10 +355,24 @@ class SurveyGenerationService:
             prompt_parts.append(f"题型要求: 【严格限制】只能生成{types_str}，不能生成其他题型")
             prompt_parts.append(f"⚠️ 重要：必须严格遵守题型限制，生成的{question_count}道题目必须全部是指定的题型")
         else:
-            prompt_parts.append(f"题型要求: 选择题、判断题、问答题合理分布")
+            prompt_parts.append(f"题型要求: 选择题、判断题、问答题合理分布（描述未说明时默认三种题型）")
         
+        # 题目表述禁止带「基于xx生成」前缀
         prompt_parts.extend([
             f"",
+            f"【题目表述】每道题的 question_text 必须是题目本身，禁止在题目前加「基于xx生成」等前缀，直接写题目内容。",
+            f"",
+        ])
+        
+        # 来源类型说明
+        if knowledge_source_type == "outline":
+            prompt_parts.append(f"📂 用户选择「基于大纲中的知识点/知识图谱」：请依据课程大纲中的知识点与知识图谱结构出题。")
+            prompt_parts.append(f"   **覆盖要求（必须满足）**：检索到的每一章、每个实验、每个实训项目等**至少对应一题**，确保整套题**覆盖全部**检索到的知识点、无遗漏；这样教师才能依据答题情况判断学生对整门课的掌握程度。不得把多道题集中在少数章节。")
+        else:
+            prompt_parts.append(f"📂 用户选择「基于上传的资料」：请优先依据检索到的上传课程资料出题。")
+        prompt_parts.append("")
+        
+        prompt_parts.extend([
             f"=" * 60,
             f"知识库检索内容：",
             f"=" * 60,
@@ -311,24 +382,26 @@ class SurveyGenerationService:
         ])
         
         if has_knowledge:
-            # 有知识库内容：优先使用知识库
             prompt_parts.extend([
-                f"📚 生成策略（知识库优先模式）：",
+                f"📚 生成策略（只出知识点题，完完全全基于知识点）：",
                 f"",
-                f"1. **基于知识库生成**：",
-                f"   - 仔细阅读上述检索到的知识内容",
-                f"   - 优先从知识库中提取题目和答案",
-                f"   - 每题必须标注knowledge_source字段",
-                f"   - 确保题目与知识库内容直接相关",
+                f"1. **“知识点”仅指**：概念、定义、原理、技术名称、操作技能、章节中的技术/理论要点（如：进程、Vibe Coding、分布式协同、某实验的技术目标与步骤）。",
+                f"   - 每道题必须**直接考查**上述某一具体知识点，题干直接问该知识点，例如：「X是什么？」「下列哪项属于X？」。",
+                f"   - 检索到某知识点（如「进程」）则围绕该知识点出题（如「进程是什么？」「进程的三种基本状态是什么？」），不要围绕课程规定、考核、思政出题。",
                 f"",
-                f"2. **质量保证**：",
-                f"   - 所有答案必须准确无误",
-                f"   - 有知识库支撑的题目，标注具体来源",
-                f"   - 解析必须引用知识库中的相关内容",
+                f"2. **禁止出题的内容（一律忽略，不得据此出题）**：",
+                f"   - 课程基本信息：总学时、学分、先修、课程代码、任课教师、开课学期；",
+                f"   - 思政融入点、课程思政、育人目标；",
+                f"   - 考核说明、考核方式、考核原则、成绩评定、提审上线规定、伪造处理；",
+                f"   - 课程要求、学生行为规范、能否过度依赖AI、独立完成要求等非技术性规定。",
+                f"   - 禁止题目出现：「根据课程内容」「课程中，学生可以…吗」「本课程」「本课程中」「本课程考核…」等表述；题干直接写对知识点的提问。",
+                f"   - 题干**禁止**出现：本课程、本课程中、目标要求、学生需要掌握、学生需要掌握哪些核心技能、核心技能要求、课程目标 等字样；只写对知识点本身的提问（如「Flutter 主要用于开发鸿蒙应用的哪一层？」而非「本课程中 Flutter 主要用于…」）。",
+                f"   - **禁止**以「…实验/实训的目标要求」「…的目标是什么」「简述…实验的目标要求」等形式出题；若考查某实验或实训，须问其**技术内容**，例如：「分布式协同与跨端通信实验主要涉及哪些技术能力？」「简述实现分布式协同与跨端通信需掌握的技术要点。」而非「简述分布式协同与跨端通信实验的目标要求。」",
+                f"   - **禁止**题干出现「学生」及以学生/教学为视角的表述：如 学生、要求学生、让学生、考核学生、训练哪项技能、考核…能力、实训/实验的目标、目标之一、旨在… 等；只问知识点或技术本身（如「组件开发与跨端适配实践主要涉及哪些技术？」而非「主要训练哪项技能？」「考核学生哪些能力？」）。",
                 f"",
-                f"3. **标注规范**：",
-                f"   - 直接来自知识库：\"文档名 - 具体章节\"",
-                f"   - 例如：knowledge_source: \"操作系统教程 - 第3章进程管理\"",
+                f"3. **质量与标注**：",
+                f"   - 题目正文（question_text）只写对知识点的提问，不要「基于xx生成」「根据课程内容」「本课程」「目标要求」「…的目标是什么」等前缀或课程元表述。",
+                f"   - 每题 knowledge_source 须为具体知识点/章节（不能是考核说明、思政、课程基本信息）。",
             ])
         else:
             # 没有知识库内容：基于AI深度思考
@@ -357,17 +430,19 @@ class SurveyGenerationService:
             f"=" * 60,
             f"📋 输出要求（必须严格遵守）：",
             f"",
-            f"1. 严格按照技能模板中的JSON格式输出",
-            f"2. 选择题(choice)必须有4个选项: [\"A. 选项1\", \"B. 选项2\", \"C. 选项3\", \"D. 选项4\"]",
-            f"3. 判断题(judge)必须有2个选项: [\"正确\", \"错误\"]",
-            f"4. 问答题(essay)的options必须是空数组: []",
-            f"5. 确保所有答案准确无误",
-            f"6. 每题必须有解析（30–50字，简明扼要）",
-            f"7. 分数分配合理，总分接近100分",
-            f"8. 每题必须标注knowledge_source",
-            f"9. 只输出JSON，不要有任何其他文字或markdown标记",
+            f"1. 只出知识点题：严禁根据课程基本信息、思政、考核说明、课程要求/学生规范出题；只根据具体知识点（概念、定义、原理、技术、技能）出题，题干直接问该知识点（如「X是什么？」）。每道题必须能明确对应某一具体知识点，不得出「…实验/实训的目标要求」「…的目标是什么」等元问题。",
+            f"2. 题干禁止出现：本课程、本课程中、学生、要求学生、考核学生、训练哪项技能、考核…能力、目标要求、…实验/实训的目标、目标之一、旨在…、学生需要掌握、核心技能要求 等字样；只问知识点或技术内容（如「…实验主要涉及哪些技术？」「组件开发与跨端适配实践主要涉及哪些技术？」），禁止问「训练哪项技能」「考核学生哪些能力」「…的目标是什么」。",
+            f"3. 严格按照技能模板中的JSON格式输出；question_text 只写题目本身，禁止「基于xx生成」「本课程」「目标要求」「…的目标是什么」等前缀。",
+            f"4. 选择题(choice)的 options 只写选项内容，不要加 \"A.\"、\"B.\"、\"C.\"、\"D.\"，例如: [\"内容1\", \"内容2\", \"内容3\", \"内容4\"]",
+            f"5. 判断题(judge)的 options 为 [\"正确\", \"错误\"]，不要加 A/B 前缀",
+            f"6. 问答题(essay)的options必须是空数组: []",
+            f"7. 确保所有答案准确无误，且必须基于知识点内容（非课程元信息）",
+            f"8. 每题必须有解析（30–50字，简明扼要）：解析须与正确答案一致、确保正确；**解析中禁止**出现「学生」「要求学生」「让学生」「培养学生」「提升学生」「考核学生」「该实验/实训的目标」「旨在」「核心目标是」等字样；解析应**直接说明技术要点或答案依据**，不要描述教学目的、学生行为或考核目的；可结合知识点与通用表述来写。",
+            f"9. 分数分配合理，总分接近100分",
+            f"10. 每题必须标注 knowledge_source（须为知识点/章节，不能为课程基本信息）",
+            f"11. 只输出JSON，不要有任何其他文字或markdown标记",
             f"",
-            f"⚠️ 特别注意：选择题和判断题的options字段是必填项，绝对不能为空！",
+            f"⚠️ 特别注意：不得出课程元信息、思政、考核、学生规范类题；只出考查概念/定义/原理/技术的知识点题；题干和解析均**禁止「学生」及教学/考核视角**（如 要求学生、考核学生、训练哪项技能、…的目标、旨在培养）；题干只问技术/知识点本身；解析只写技术要点或答案依据，不写教学目的；检索到的各章节/实验/实训须全覆盖；解析必须正确；options 必填。",
         ])
         
         return "\n".join(prompt_parts)
@@ -530,8 +605,19 @@ class SurveyGenerationService:
             f"无法解析AI返回的JSON，请重试或缩短描述以减少输出长度。\n原始响应前500字: {response_text[:500]}"
         )
 
+    @staticmethod
+    def _strip_option_label(text: str) -> str:
+        """去掉选项前的 A. / B. / C. / D. 前缀，只保留内容"""
+        if not text or not isinstance(text, str):
+            return (text or "").strip()
+        t = text.strip()
+        for prefix in ("A.", "B.", "C.", "D.", "A．", "B．", "C．", "D．"):
+            if t.startswith(prefix):
+                return t[len(prefix):].strip()
+        return t
+
     def _validate_and_fix_parsed_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        """校验并修复解析后的问卷数据（必需字段、options 等）"""
+        """校验并修复解析后的问卷数据（必需字段、options 等）；选项统一为仅内容，不带 A/B/C/D 前缀"""
         
         required_fields = ["survey_title", "description", "questions"]
         for field in required_fields:
@@ -544,23 +630,24 @@ class SurveyGenerationService:
             q_type = question.get("question_type")
             options = question.get("options", [])
             
-            # 选择题必须有4个选项
+            # 选择题必须有4个选项；选项内容去掉 A./B./C./D. 前缀
             if q_type == "choice":
                 if not options or len(options) < 4:
                     print(f"⚠️  警告: 第{idx}题（选择题）缺少选项，自动补充标准选项")
-                    question["options"] = ["A. 选项A", "B. 选项B", "C. 选项C", "D. 选项D"]
-                elif len(options) > 4:
-                    # 如果超过4个，只保留前4个
-                    question["options"] = options[:4]
+                    question["options"] = ["选项A", "选项B", "选项C", "选项D"]
+                else:
+                    if len(options) > 4:
+                        options = options[:4]
+                    question["options"] = [self._strip_option_label(str(o)) for o in options]
             
-            # 判断题必须有2个选项
+            # 判断题必须有2个选项；去掉 A/B 前缀
             elif q_type == "judge":
                 if not options or len(options) < 2:
                     print(f"⚠️  警告: 第{idx}题（判断题）缺少选项，自动补充正确/错误选项")
                     question["options"] = ["正确", "错误"]
-                elif options != ["正确", "错误"]:
-                    # 规范化判断题选项
-                    question["options"] = ["正确", "错误"]
+                else:
+                    opts = [self._strip_option_label(str(o)) for o in options[:2]]
+                    question["options"] = ["正确", "错误"] if opts != ["正确", "错误"] else opts
             
             # 问答题确保options是空数组
             elif q_type == "essay":

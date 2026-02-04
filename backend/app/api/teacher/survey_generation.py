@@ -33,8 +33,12 @@ class AIGenerationRequest(BaseModel):
 class KnowledgeBasedGenerationRequest(BaseModel):
     """基于知识库生成问卷请求"""
     description: str = Field(..., description="问卷描述", min_length=5)
-    course_id: Optional[str] = Field(None, description="课程ID（可选，不传则在所有知识库中检索）")
-    question_count: int = Field(20, description="题目数量，默认20道", ge=1, le=50)
+    course_id: Optional[str] = Field(None, description="课程ID（可选；不选则在所有知识库中根据描述检索）")
+    knowledge_source_type: str = Field(
+        "material",
+        description="题目来源类型: outline=基于大纲中的知识点/知识图谱, material=基于上传的资料"
+    )
+    question_count: int = Field(20, description="题目数量，描述未说明时默认20道", ge=1, le=50)
     include_types: Optional[List[str]] = Field(
         None,
         description="包含的题型: choice(选择题), judge(判断题), essay(问答题)。不指定则三种都包含"
@@ -216,13 +220,17 @@ async def generate_survey_knowledge_based(
     **请求示例**：
     ```json
     {
-        "description": "生成操作系统进程管理相关的测试题",
-        "course_id": "uuid-string",
-        "question_count": 10,
-        "include_types": ["choice", "essay"],  # 只要选择题和问答题
-        "auto_save": true
+        "description": "涵盖进程管理、内存管理相关知识点，生成测验",
+        "course_id": null,
+        "knowledge_source_type": "material",
+        "question_count": 20,
+        "include_types": ["choice", "judge", "essay"],
+        "auto_save": false
     }
     ```
+    - course_id 可选：不选则在所有知识库中根据描述检索；选则仅在该课程知识库中检索（检索会尽量覆盖所有相关片段）。
+    - knowledge_source_type: outline=基于大纲知识点/知识图谱, material=基于上传资料。
+    - 描述未说明题型和数量时默认 20 道、三种题型。
     """
     try:
         # 验证用户权限
@@ -239,20 +247,11 @@ async def generate_survey_knowledge_based(
                     detail=f"无效的题型: {invalid}。有效题型：choice, judge, essay"
                 )
         
-        # 验证课程访问权限
-        # TODO: 添加课程权限检查
-        
-        # 初始化生成服务
-        service = SurveyGenerationService()
-        
-        # 调用基于知识库的生成
-        # course_id是可选的，不传则在所有知识库中检索
-        # 注意：course_id是UUID字符串，需要先验证格式
+        # 若传了 course_id 则校验格式
         parsed_course_id = None
         if request.course_id:
             try:
                 import uuid
-                # 验证是否为有效的UUID
                 uuid.UUID(request.course_id)
                 parsed_course_id = request.course_id
             except ValueError:
@@ -260,10 +259,18 @@ async def generate_survey_knowledge_based(
                     status_code=400,
                     detail=f"无效的课程ID格式: {request.course_id}"
                 )
+        if request.knowledge_source_type not in ("outline", "material"):
+            raise HTTPException(
+                status_code=400,
+                detail="knowledge_source_type 必须是 outline 或 material"
+            )
+        
+        service = SurveyGenerationService()
         
         survey_data = service.generate_survey_knowledge_based(
             description=request.description,
             course_id=parsed_course_id,
+            knowledge_source_type=request.knowledge_source_type,
             question_count=request.question_count,
             include_types=request.include_types
         )

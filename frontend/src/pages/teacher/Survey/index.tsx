@@ -12,7 +12,7 @@ interface QuestionFormData extends Omit<BaseQuestionFormData, 'questionType'> {
   correctAnswer?: string | string[]
 }
 
-type CreateMode = 'manual' | 'ai' | 'knowledge' | null
+type CreateMode = 'manual' | 'ai' | 'knowledge_outline' | 'knowledge_material' | null
 type SurveyStatus = 'draft' | 'published'
 
 interface Survey {
@@ -51,6 +51,13 @@ interface ParseResult {
     question_count: number
   }
   message: string
+}
+
+/** 去掉选项前的 A. / B. / C. / D. 前缀，选项框内只保留内容 */
+function stripOptionPrefix(s: string): string {
+  const t = (s ?? '').trim()
+  const m = t.match(/^[A-D][\.．]\s*(.*)$/s)
+  return m ? m[1].trim() : t
 }
 
 const TeacherSurvey = () => {
@@ -96,7 +103,8 @@ const TeacherSurvey = () => {
   const [generateProgress, setGenerateProgress] = useState(0)
   const [generateStage, setGenerateStage] = useState('')
   const [questionCount, setQuestionCount] = useState<number>(20)  // 题目数量，默认20道
-  const [selectedCourse, setSelectedCourse] = useState<string>('')  // 选中的课程ID
+  const [selectedCourse, setSelectedCourse] = useState<string>('')  // 选中的课程ID（知识库模式必选）
+  const [knowledgeSourceType, setKnowledgeSourceType] = useState<'outline' | 'material'>('material')  // 基于大纲知识图谱 / 基于上传资料
   const [selectedQuestionTypes, setSelectedQuestionTypes] = useState<string[]>(['choice', 'judge', 'essay'])  // 默认三种题型都有
   const [courses, setCourses] = useState<Array<{id: string, course_name: string}>>([])  // 课程列表
   
@@ -163,13 +171,22 @@ const TeacherSurvey = () => {
       color: 'purple',
     },
     {
-      id: 'knowledge' as CreateMode,
-      title: '基于知识库',
-      description: '描述需求，AI基于知识库生成问卷',
+      id: 'knowledge_outline' as CreateMode,
+      title: '基于大纲',
+      description: '根据课程大纲中的知识点与知识图谱生成题目',
       iconName: 'book' as IconName,
       color: 'green',
     },
+    {
+      id: 'knowledge_material' as CreateMode,
+      title: '基于资料',
+      description: '根据已上传到课程的文档资料生成题目',
+      iconName: 'book' as IconName,
+      color: 'teal',
+    },
   ]
+
+  const isKnowledgeMode = createMode === 'knowledge_outline' || createMode === 'knowledge_material'
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -179,12 +196,11 @@ const TeacherSurvey = () => {
   }
 
   const handleGenerate = async () => {
-    if (createMode === 'ai' || createMode === 'knowledge') {
+    if (createMode === 'ai' || isKnowledgeMode) {
       if (!aiDescription.trim()) {
         alert('请输入描述')
         return
       }
-      
       setIsGenerating(true)
       setGenerateProgress(0)
       setGenerateStage('')
@@ -194,16 +210,16 @@ const TeacherSurvey = () => {
         auto_save: false
       }
       if (createMode !== 'ai') {
-        payload.question_count = questionCount
-        if (selectedQuestionTypes.length > 0) payload.include_types = selectedQuestionTypes
+        // 基于大纲/基于资料：题型与数量由描述决定，未写则后端默认 20 道、三种题型
+        payload.question_count = 20
         if (selectedCourse) payload.course_id = selectedCourse
+        payload.knowledge_source_type = createMode === 'knowledge_outline' ? 'outline' : 'material'
       }
       
       const token = localStorage.getItem('token')
       const baseUrl = 'http://localhost:8000/api'
       
       try {
-        // AI 生成使用流式接口，带后端真实进度（120 秒超时，避免长时间无响应）
         if (createMode === 'ai') {
           const abort = new AbortController()
           const timeoutId = setTimeout(() => abort.abort(), 120000)
@@ -269,7 +285,10 @@ const TeacherSurvey = () => {
               id: `ai-q-${index}`,
               question: q.question_text,
               type: q.question_type,
-              options: q.options ? q.options.map((opt: string) => ({ label: opt.charAt(0), text: opt })) : [],
+              options: q.options ? q.options.map((opt: string, i: number) => ({
+                label: ['A', 'B', 'C', 'D'][i] ?? String.fromCharCode(65 + i),
+                text: stripOptionPrefix(opt)
+              })) : [],
               required: true,
               answer: q.correct_answer,
               score: q.score,
@@ -297,7 +316,10 @@ const TeacherSurvey = () => {
               id: `ai-q-${index}`,
               question: q.question_text,
               type: q.question_type,
-              options: q.options ? q.options.map((opt: string) => ({ label: opt.charAt(0), text: opt })) : [],
+              options: q.options ? q.options.map((opt: string, i: number) => ({
+                label: ['A', 'B', 'C', 'D'][i] ?? String.fromCharCode(65 + i),
+                text: stripOptionPrefix(opt)
+              })) : [],
               required: true,
               answer: q.correct_answer,
               score: q.score,
@@ -437,11 +459,14 @@ const TeacherSurvey = () => {
         // 调用保存API
         const axios = (await import('axios')).default
         const token = localStorage.getItem('token')
+        const generationMethod = (aiGeneratedData.generationMethod === 'knowledge_outline' || aiGeneratedData.generationMethod === 'knowledge_material')
+          ? 'knowledge_based'
+          : aiGeneratedData.generationMethod
         const response = await axios.post(`http://localhost:8000/api/teacher/survey-generation/save`, {
           survey_title: surveyTitle,
           description: surveyDescription,
           questions: questions,
-          generation_method: aiGeneratedData.generationMethod,
+          generation_method: generationMethod,
           generation_prompt: aiGeneratedData.generationPrompt
         }, {
           headers: {
@@ -630,54 +655,45 @@ const TeacherSurvey = () => {
       setSurveyTitle(data.title)
       setSurveyDescription(data.description || '')
       
-      // 转换题目数据格式
+      // 转换题目数据格式（兼容后端 choice/judge 与 single_choice/judgment）
       const questions = data.questions.map((q: any) => {
-        console.log('处理题目:', q)
-        console.log('题目类型:', q.questionType, '答案:', q.correctAnswer)
+        const rawType = q.questionType ?? q.question_type
+        const normalizedType = rawType === 'choice' ? 'single_choice' : rawType === 'judge' ? 'judgment' : rawType
         const questionData: QuestionFormData = {
           id: q.id,
-          questionText: q.questionText,
-          questionType: q.questionType,
+          questionText: q.questionText ?? q.question_text,
+          questionType: normalizedType as QuestionFormData['questionType'],
           score: q.score || 0,
-          answerExplanation: q.answerExplanation || ''
+          answerExplanation: q.answerExplanation ?? q.answer_explanation ?? ''
         }
         
-        // 处理选择题选项
-        if (q.questionType === 'single_choice' || q.questionType === 'multiple_choice' || q.questionType === 'judgment') {
-          if (q.options && Array.isArray(q.options)) {
-            questionData.options = q.options.map((opt: any) => {
-              // 兼容两种格式：{key, value} 或 {label, text}
-              const optKey = opt.key || opt.label
-              const optValue = opt.value || opt.text
-              
-              // 判断是否为正确答案
+        // 处理选择题/判断题选项（AI 生成的 choice/judge 也显示选项）
+        if (normalizedType === 'single_choice' || normalizedType === 'multiple_choice' || normalizedType === 'judgment') {
+          const opts = q.options ?? []
+          if (Array.isArray(opts) && opts.length > 0) {
+            const correctAns = q.correctAnswer ?? q.correct_answer
+            questionData.options = opts.map((opt: any, optIndex: number) => {
+              const raw = typeof opt === 'string' ? opt : (opt.value ?? opt.text ?? '')
+              const optKey = typeof opt === 'object' && (opt.key || opt.label) ? (opt.key || opt.label) : (['A', 'B', 'C', 'D'][optIndex] ?? String.fromCharCode(65 + optIndex))
+              const optValue = stripOptionPrefix(raw)
               let isCorrect = false
-              if (Array.isArray(q.correctAnswer)) {
-                // 多选题：答案是数组
-                isCorrect = q.correctAnswer.includes(optKey)
-              } else if (q.correctAnswer) {
-                // 单选题/判断题：答案是字符串
-                isCorrect = q.correctAnswer === optKey
+              if (Array.isArray(correctAns)) {
+                isCorrect = correctAns.includes(optKey) || correctAns.includes(optValue)
+              } else if (correctAns != null && correctAns !== '') {
+                isCorrect = correctAns === optKey || correctAns === optValue
               }
-              
-              console.log(`选项 ${optKey}: ${optValue}, 正确答案: ${q.correctAnswer}, isCorrect: ${isCorrect}`)
-              
-              return {
-                key: optKey,
-                value: optValue,
-                isCorrect: isCorrect
-              }
+              return { key: optKey, value: optValue, isCorrect }
             })
           }
         }
         
         // 处理填空题答案
-        if (q.questionType === 'fill_blank') {
-          questionData.correctAnswer = q.correctAnswer
+        if (normalizedType === 'fill_blank') {
+          questionData.correctAnswer = q.correctAnswer ?? q.correct_answer
         }
         
         // 处理问答题特殊字段（兼容text和essay两种类型）
-        if (q.questionType === 'essay' || q.questionType === 'text') {
+        if (normalizedType === 'essay' || normalizedType === 'text') {
           questionData.correctAnswer = q.correctAnswer  // 添加解答题参考答案
           questionData.referenceFiles = q.referenceFiles
           questionData.minWordCount = q.minWordCount
@@ -945,12 +961,14 @@ const TeacherSurvey = () => {
               <Icon name="sparkles" size={24} className="mr-2 text-blue-600" />
               创建新问卷
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {creationModes.map((mode) => (
                 <div
                   key={mode.id}
                   onClick={() => {
                     setCreateMode(mode.id)
+                    if (mode.id === 'knowledge_outline') setKnowledgeSourceType('outline')
+                    if (mode.id === 'knowledge_material') setKnowledgeSourceType('material')
                     setShowCreateModal(true)
                   }}
                   className="group bg-white rounded-2xl border-2 border-gray-200 p-8 cursor-pointer transition-all hover:shadow-2xl hover:border-transparent hover:-translate-y-2 relative overflow-hidden"
@@ -959,6 +977,7 @@ const TeacherSurvey = () => {
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity ${
                     mode.color === 'blue' ? 'bg-gradient-to-br from-blue-400 to-cyan-400' :
                     mode.color === 'purple' ? 'bg-gradient-to-br from-purple-400 to-pink-400' :
+                    mode.color === 'teal' ? 'bg-gradient-to-br from-teal-400 to-cyan-400' :
                     'bg-gradient-to-br from-green-400 to-emerald-400'
                   }`}></div>
                   
@@ -970,6 +989,7 @@ const TeacherSurvey = () => {
                         className={
                           mode.color === 'blue' ? 'text-blue-500' :
                           mode.color === 'purple' ? 'text-purple-500' :
+                          mode.color === 'teal' ? 'text-teal-500' :
                           'text-green-500'
                         }
                       />
@@ -1207,7 +1227,8 @@ const TeacherSurvey = () => {
                 <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
                   {createMode === 'manual' && <><Icon name="survey" size={28} className="text-blue-500" /> 手动创建问卷</>}
                   {createMode === 'ai' && <><Icon name="sparkles" size={28} className="text-purple-500" /> AI生成问卷</>}
-                  {createMode === 'knowledge' && <><Icon name="book" size={28} className="text-green-500" /> 基于知识库生成</>}
+                  {createMode === 'knowledge_outline' && <><Icon name="book" size={28} className="text-green-500" /> 基于大纲生成</>}
+                  {createMode === 'knowledge_material' && <><Icon name="book" size={28} className="text-teal-500" /> 基于资料生成</>}
                 </h3>
                 <button
                   onClick={() => {
@@ -1284,8 +1305,8 @@ const TeacherSurvey = () => {
                 </>
               ) : (
                 <div className="space-y-4">
-                  {/* 知识库模式需要选择课程 */}
-                  {createMode === 'knowledge' && (
+                  {/* 知识库模式（基于大纲/基于资料）：仅显示课程选择与描述等，来源已在入口卡片选定 */}
+                  {isKnowledgeMode && (
                     <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                       <label className="block text-sm font-medium text-yellow-800 mb-2">
                         <Icon name="book" size={16} className="inline mr-1" />
@@ -1302,14 +1323,14 @@ const TeacherSurvey = () => {
                         ))}
                       </select>
                       <p className="mt-2 text-xs text-yellow-600">
-                        💡 选择课程会在该课程知识库中检索，不选则在所有知识库中检索
+                        💡 不选则在所有知识库中根据描述检索；选择则仅在该课程知识库中检索
                       </p>
                     </div>
                   )}
                   
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {createMode === 'ai' ? 'AI生成描述' : '基于知识库生成描述'}
+                      {createMode === 'ai' ? 'AI生成描述' : '生成描述'}
                     </label>
                     <textarea
                       value={aiDescription}
@@ -1317,102 +1338,20 @@ const TeacherSurvey = () => {
                       placeholder={
                         createMode === 'ai'
                           ? '例如：帮我生成一套关于操作系统的测试题...（可在描述中写明题目数量、题型，未写则默认20题、选择题+判断题+问答题）'
-                          : '例如：根据知识库中的数据结构课程资料，生成一份涵盖第三章内容的测验...'
+                          : '例如：涵盖进程管理、内存管理相关知识点，生成测验。未写题型和数量则默认20道、三种题型。'
                       }
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none min-h-[150px] resize-none"
                     />
                   </div>
-                  
-                  {/* 仅知识库模式显示题目数量与题型选择；AI生成完全根据描述生成，描述未写则默认20题、三种题型 */}
-                  {createMode === 'knowledge' && (
-                    <div className="border rounded-lg p-4 bg-yellow-50 border-yellow-200">
-                      <label className="block text-sm font-medium mb-2 text-yellow-800">
-                        <Icon name="list" size={16} className="inline mr-1" />
-                        题目数量（可选，默认20题）
-                      </label>
-                      <input
-                        type="number"
-                        min="1"
-                        max="50"
-                        value={questionCount}
-                        placeholder="20"
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 outline-none border-yellow-300 focus:ring-yellow-500"
-                        onChange={(e) => {
-                          const count = parseInt(e.target.value) || 20
-                          setQuestionCount(count)
-                          if (!aiDescription.match(/\d+\s*道题/)) {
-                            setAiDescription(prev => {
-                              const base = prev.trim()
-                              return base ? `${base}\n\n请生成${count}道题目` : `请生成${count}道题目`
-                            })
-                          } else {
-                            setAiDescription(prev => prev.replace(/(\d+)\s*道题/, `${count}道题`))
-                          }
-                        }}
-                      />
-                    </div>
-                  )}
-                  {createMode === 'knowledge' && (
-                    <div className="border rounded-lg p-4 bg-green-50 border-green-200">
-                      <label className="block text-sm font-medium mb-2 text-green-800">
-                        <Icon name="list" size={16} className="inline mr-1" />
-                        题型选择（可选，默认全部题型）
-                      </label>
-                      <div className="space-y-2">
-                        <label className="flex items-center space-x-2 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={selectedQuestionTypes.includes('choice')}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setSelectedQuestionTypes([...selectedQuestionTypes, 'choice'])
-                              } else {
-                                setSelectedQuestionTypes(selectedQuestionTypes.filter(t => t !== 'choice'))
-                              }
-                            }}
-                            className="w-4 h-4 rounded border-gray-300"
-                          />
-                          <span className="text-sm">选择题</span>
-                        </label>
-                        <label className="flex items-center space-x-2 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={selectedQuestionTypes.includes('judge')}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setSelectedQuestionTypes([...selectedQuestionTypes, 'judge'])
-                              } else {
-                                setSelectedQuestionTypes(selectedQuestionTypes.filter(t => t !== 'judge'))
-                              }
-                            }}
-                            className="w-4 h-4 rounded border-gray-300"
-                          />
-                          <span className="text-sm">判断题</span>
-                        </label>
-                        <label className="flex items-center space-x-2 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={selectedQuestionTypes.includes('essay')}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setSelectedQuestionTypes([...selectedQuestionTypes, 'essay'])
-                              } else {
-                                setSelectedQuestionTypes(selectedQuestionTypes.filter(t => t !== 'essay'))
-                              }
-                            }}
-                            className="w-4 h-4 rounded border-gray-300"
-                          />
-                          <span className="text-sm">问答题</span>
-                        </label>
-                      </div>
-                    </div>
-                  )}
+                  <p className="text-xs text-gray-500">
+                    {isKnowledgeMode && '可在描述中写明题型和题目数量，未写则默认 20 道题、选择题+判断题+问答题三种题型。'}
+                  </p>
                 </div>
               )}
             </div>
 
             {/* 生成中时显示进度条（根据后端阶段更新） */}
-            {(createMode === 'ai' || createMode === 'knowledge') && isGenerating && (
+            {(createMode === 'ai' || isKnowledgeMode) && isGenerating && (
               <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
                 <div className="flex items-center justify-between text-sm text-gray-700 mb-2">
                   <span>{createMode === 'ai' ? (generateStage || '准备中…') : '正在生成…'}</span>
@@ -2102,12 +2041,12 @@ const TeacherSurvey = () => {
                           />
                         </div>
 
-                        {/* 选项（单选/多选/判断题） */}
-                        {(question.questionType === 'single_choice' || 
-                          question.questionType === 'multiple_choice' || 
+                        {/* 选项（单选/多选/判断题）；选项框内只显示内容，不带 A、B、C、D 前缀 */}
+                        {(question.questionType === 'single_choice' ||
+                          question.questionType === 'multiple_choice' ||
                           question.questionType === 'judgment') && question.options && (
                           <div className="mb-3">
-                            <label className="block text-xs text-gray-600 mb-2">选项</label>
+                            <label className="block text-xs text-gray-600 mb-2">选项（框内只填内容，无需写 A、B、C、D）</label>
                             <div className="space-y-2">
                               {question.options.map((option: any, optIndex: number) => (
                                 <div key={optIndex} className="flex items-center space-x-2">
@@ -2119,6 +2058,7 @@ const TeacherSurvey = () => {
                                     value={option.value}
                                     onChange={(e) => handleEditOption(qIndex, optIndex, 'value', e.target.value)}
                                     className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                    placeholder="选项内容"
                                   />
                                   <label className="flex items-center space-x-1 text-sm text-gray-600">
                                     <input
@@ -2127,7 +2067,6 @@ const TeacherSurvey = () => {
                                       checked={option.isCorrect || false}
                                       onChange={(e) => {
                                         if (question.questionType === 'single_choice' || question.questionType === 'judgment') {
-                                          // 单选/判断题：只能选一个
                                           const updated = [...manualQuestions]
                                           const options = updated[qIndex].options?.map((opt: any, i: number) => ({
                                             ...opt,
@@ -2136,7 +2075,6 @@ const TeacherSurvey = () => {
                                           updated[qIndex] = { ...updated[qIndex], options }
                                           setManualQuestions(updated)
                                         } else {
-                                          // 多选：可以多个
                                           handleEditOption(qIndex, optIndex, 'isCorrect', e.target.checked)
                                         }
                                       }}
