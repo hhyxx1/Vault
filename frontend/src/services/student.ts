@@ -1,5 +1,29 @@
 import apiClient from './api'
 
+// Chatbox 问答
+export interface SourceItem {
+  content: string
+  file_name: string
+  page_label: string
+  score?: number
+}
+
+export interface AskQuestionResponse {
+  answer: string
+  question_id: string
+  sources: SourceItem[]
+}
+
+export const askQuestion = async (
+  question: string,
+  courseId?: string
+): Promise<AskQuestionResponse> => {
+  return await apiClient.post('/student/qa/ask', {
+    question,
+    course_id: courseId ?? null
+  })
+}
+
 // 班级信息
 export interface ClassInfo {
   id: string
