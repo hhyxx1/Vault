@@ -93,9 +93,11 @@ const TeacherSurvey = () => {
   const [aiGeneratedData, setAiGeneratedData] = useState<any>(null)
   const [showAiEditor, setShowAiEditor] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
-  const [questionCount, setQuestionCount] = useState<number>(10)  // 题目数量
+  const [generateProgress, setGenerateProgress] = useState(0)
+  const [generateStage, setGenerateStage] = useState('')
+  const [questionCount, setQuestionCount] = useState<number>(20)  // 题目数量，默认20道
   const [selectedCourse, setSelectedCourse] = useState<string>('')  // 选中的课程ID
-  const [selectedQuestionTypes, setSelectedQuestionTypes] = useState<string[]>([])  // 选中的题型
+  const [selectedQuestionTypes, setSelectedQuestionTypes] = useState<string[]>(['choice', 'judge', 'essay'])  // 默认三种题型都有
   const [courses, setCourses] = useState<Array<{id: string, course_name: string}>>([])  // 课程列表
   
   // 加载课程列表
@@ -183,96 +185,144 @@ const TeacherSurvey = () => {
         return
       }
       
-      // 调用AI生成API
       setIsGenerating(true)
+      setGenerateProgress(0)
+      setGenerateStage('')
+      
+      const payload: any = {
+        description: aiDescription,
+        auto_save: false
+      }
+      if (createMode !== 'ai') {
+        payload.question_count = questionCount
+        if (selectedQuestionTypes.length > 0) payload.include_types = selectedQuestionTypes
+        if (selectedCourse) payload.course_id = selectedCourse
+      }
+      
+      const token = localStorage.getItem('token')
+      const baseUrl = 'http://localhost:8000/api'
+      
       try {
-        const endpoint = createMode === 'ai' 
-          ? '/teacher/survey-generation/generate/ai'
-          : '/teacher/survey-generation/generate/knowledge-based'
-        
-        // 从描述中智能提取题目数量
-        let extractedCount = questionCount  // 默认使用state中的数量
-        const countMatch = aiDescription.match(/(\d+)\s*道题/)
-        if (countMatch) {
-          extractedCount = parseInt(countMatch[1])
-        }
-        
-        // AI生成模式不需要course_id，直接深度思考生成
-        const payload: any = {
-          description: aiDescription,
-          question_count: extractedCount,  // 传递题目数量
-          auto_save: false  // 不自动保存，让用户编辑
-        }
-        
-        // 如果指定了题型，传递include_types参数
-        if (selectedQuestionTypes.length > 0) {
-          payload.include_types = selectedQuestionTypes
-        }
-        
-        // 只有知识库模式才传course_id
-        if (createMode === 'knowledge') {
-          // course_id是可选的，不传则在所有知识库中检索
-          if (selectedCourse) {
-            payload.course_id = selectedCourse
+        // AI 生成使用流式接口，带后端真实进度（120 秒超时，避免长时间无响应）
+        if (createMode === 'ai') {
+          const abort = new AbortController()
+          const timeoutId = setTimeout(() => abort.abort(), 120000)
+          let res: Response
+          try {
+            res = await fetch(`${baseUrl}/teacher/survey-generation/generate/ai/stream`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify(payload),
+              signal: abort.signal
+            })
+          } catch (e: any) {
+            clearTimeout(timeoutId)
+            if (e?.name === 'AbortError') {
+              alert('生成超时（约 2 分钟），请重试或缩短描述、减少题目数量')
+              return
+            }
+            throw e
           }
-        }
-        
-        console.log('🚀 发送请求参数:', payload)
-        
-        // 使用axios而不是fetch，自动携带token
-        const axios = (await import('axios')).default
-        const token = localStorage.getItem('token')
-        
-        const response = await axios.post(`http://localhost:8000/api${endpoint}`, payload, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+          clearTimeout(timeoutId)
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}))
+            throw new Error(err.detail || res.statusText)
           }
-        })
-        
-        const result = response.data
-        
-        if (result.success && result.data) {
-          // 转换AI生成的数据格式为预览格式
-          const questions = result.data.questions.map((q: any, index: number) => ({
-            id: `ai-q-${index}`,
-            question: q.question_text,
-            type: q.question_type,
-            options: q.options ? q.options.map((opt: string, i: number) => ({
-              label: opt.charAt(0),  // A, B, C, D
-              text: opt
-            })) : [],
-            required: true,
-            answer: q.correct_answer,
-            score: q.score,
-            explanation: q.explanation,
-            knowledge_source: q.knowledge_source
-          }))
-          
-          setParsedQuestions(questions)
-          setSurveyTitle(result.data.survey_title)
-          setSurveyDescription(result.data.description || aiDescription)
-          
-          // 保存元数据用于后续保存
-          setAiGeneratedData({
-            generationMethod: createMode,
-            generationPrompt: aiDescription,
-            originalData: result.data
-          })
-          
-          // 关闭生成弹窗，打开编辑预览
-          setShowCreateModal(false)
-          setShowPreviewModal(true)
-          setCreateMode(null)
-          setAiDescription('')
+          const reader = res.body?.getReader()
+          const decoder = new TextDecoder()
+          let buffer = ''
+          let survey_data: any = null
+          let error_message = ''
+          const processLine = (line: string) => {
+            if (!line.startsWith('data: ')) return
+            try {
+              const ev = JSON.parse(line.slice(6))
+              setGenerateProgress(ev.progress ?? 0)
+              setGenerateStage(ev.message ?? '')
+              if (ev.stage === 'done' && ev.data) survey_data = ev.data
+              if (ev.stage === 'error') error_message = ev.message || '生成失败'
+            } catch (_) {}
+          }
+          while (reader) {
+            const { value, done } = await reader.read()
+            buffer += decoder.decode(value, { stream: true })
+            const lines = buffer.split('\n')
+            buffer = lines.pop() || ''
+            for (const line of lines) processLine(line)
+            if (done) break
+          }
+          for (const line of buffer.split('\n')) processLine(line)
+          if (error_message) {
+            alert(error_message)
+            return
+          }
+          if (!survey_data) {
+            alert('未收到生成结果，请重试')
+            return
+          }
+          const result = { success: true, data: survey_data }
+          if (result.success && result.data) {
+            const questions = result.data.questions.map((q: any, index: number) => ({
+              id: `ai-q-${index}`,
+              question: q.question_text,
+              type: q.question_type,
+              options: q.options ? q.options.map((opt: string) => ({ label: opt.charAt(0), text: opt })) : [],
+              required: true,
+              answer: q.correct_answer,
+              score: q.score,
+              explanation: q.explanation,
+              knowledge_source: q.knowledge_source
+            }))
+            setParsedQuestions(questions)
+            setSurveyTitle(result.data.survey_title)
+            setSurveyDescription(result.data.description || aiDescription)
+            setAiGeneratedData({ generationMethod: createMode, generationPrompt: aiDescription, originalData: result.data })
+            setShowCreateModal(false)
+            setShowPreviewModal(true)
+            setCreateMode(null)
+            setAiDescription('')
+          }
         } else {
-          alert(`生成失败: ${result.message || '未知错误'}`)
+          // 知识库生成仍用普通接口
+          const axios = (await import('axios')).default
+          const response = await axios.post(`${baseUrl}/teacher/survey-generation/generate/knowledge-based`, payload, {
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+          })
+          const result = response.data
+          if (result.success && result.data) {
+            const questions = result.data.questions.map((q: any, index: number) => ({
+              id: `ai-q-${index}`,
+              question: q.question_text,
+              type: q.question_type,
+              options: q.options ? q.options.map((opt: string) => ({ label: opt.charAt(0), text: opt })) : [],
+              required: true,
+              answer: q.correct_answer,
+              score: q.score,
+              explanation: q.explanation,
+              knowledge_source: q.knowledge_source
+            }))
+            setParsedQuestions(questions)
+            setSurveyTitle(result.data.survey_title)
+            setSurveyDescription(result.data.description || aiDescription)
+            setAiGeneratedData({ generationMethod: createMode, generationPrompt: aiDescription, originalData: result.data })
+            setShowCreateModal(false)
+            setShowPreviewModal(true)
+            setCreateMode(null)
+            setAiDescription('')
+          } else {
+            alert(`生成失败: ${result.message || '未知错误'}`)
+          }
         }
       } catch (error: any) {
         console.error('AI生成失败:', error)
-        alert(error.response?.data?.detail || error.message || 'AI生成失败，请重试')
+        alert(error.response?.data?.detail || error.message || error.message || 'AI生成失败，请重试')
       } finally {
         setIsGenerating(false)
+        setGenerateProgress(0)
+        setGenerateStage('')
       }
     } else if (createMode === 'manual') {
       if (!uploadedFile) {
@@ -883,13 +933,6 @@ const TeacherSurvey = () => {
             </h2>
             <p className="text-sm text-gray-500 mt-2">创建、编辑和发布问卷</p>
           </div>
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl font-medium"
-          >
-            <Icon name="add" size={20} className="text-white" />
-            <span>出题助手</span>
-          </button>
         </div>
       </div>
 
@@ -973,7 +1016,7 @@ const TeacherSurvey = () => {
                   <Icon name="survey" size={64} className="text-gray-300" />
                 </div>
                 <h4 className="text-xl font-semibold text-gray-800 mb-2">暂无问卷</h4>
-                <p className="text-gray-500">点击上方"出题助手"开始创建您的第一份问卷</p>
+                <p className="text-gray-500">点击上方创建方式卡片开始创建您的第一份问卷</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1273,70 +1316,45 @@ const TeacherSurvey = () => {
                       onChange={(e) => setAiDescription(e.target.value)}
                       placeholder={
                         createMode === 'ai'
-                          ? '例如：帮我生成一套关于操作系统的测试题...\n\n💡 提示：默认生成10道题，可在下方自定义题目数量'
+                          ? '例如：帮我生成一套关于操作系统的测试题...（可在描述中写明题目数量、题型，未写则默认20题、选择题+判断题+问答题）'
                           : '例如：根据知识库中的数据结构课程资料，生成一份涵盖第三章内容的测验...'
                       }
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none min-h-[150px] resize-none"
                     />
                   </div>
                   
-                  {/* AI模式和知识库模式都支持题目数量选择 */}
-                  {(createMode === 'ai' || createMode === 'knowledge') && (
-                    <div className={`border rounded-lg p-4 ${
-                      createMode === 'ai' ? 'bg-purple-50 border-purple-200' : 'bg-yellow-50 border-yellow-200'
-                    }`}>
-                      <label className={`block text-sm font-medium mb-2 ${
-                        createMode === 'ai' ? 'text-purple-800' : 'text-yellow-800'
-                      }`}>
+                  {/* 仅知识库模式显示题目数量与题型选择；AI生成完全根据描述生成，描述未写则默认20题、三种题型 */}
+                  {createMode === 'knowledge' && (
+                    <div className="border rounded-lg p-4 bg-yellow-50 border-yellow-200">
+                      <label className="block text-sm font-medium mb-2 text-yellow-800">
                         <Icon name="list" size={16} className="inline mr-1" />
-                        题目数量（可选，默认10题）
+                        题目数量（可选，默认20题）
                       </label>
                       <input
                         type="number"
                         min="1"
                         max="50"
                         value={questionCount}
-                        placeholder="10"
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 outline-none ${
-                          createMode === 'ai' 
-                            ? 'border-purple-300 focus:ring-purple-500' 
-                            : 'border-yellow-300 focus:ring-yellow-500'
-                        }`}
+                        placeholder="20"
+                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 outline-none border-yellow-300 focus:ring-yellow-500"
                         onChange={(e) => {
-                          const count = parseInt(e.target.value) || 10
+                          const count = parseInt(e.target.value) || 20
                           setQuestionCount(count)
-                          
-                          // 如果描述中没有提到题目数量，自动添加
                           if (!aiDescription.match(/\d+\s*道题/)) {
                             setAiDescription(prev => {
                               const base = prev.trim()
                               return base ? `${base}\n\n请生成${count}道题目` : `请生成${count}道题目`
                             })
                           } else {
-                            // 如果已经有数量，替换它
                             setAiDescription(prev => prev.replace(/(\d+)\s*道题/, `${count}道题`))
                           }
                         }}
                       />
-                      <p className={`mt-2 text-xs ${
-                        createMode === 'ai' ? 'text-purple-600' : 'text-yellow-600'
-                      }`}>
-                        {createMode === 'ai' 
-                          ? '💡 AI会根据您的描述深度思考生成高质量题目，答案准确率100%'
-                          : '💡 优先从知识库检索，检索不到时才会基于AI深度思考生成'
-                        }
-                      </p>
                     </div>
                   )}
-                  
-                  {/* 题型选择（AI和知识库模式都支持） */}
-                  {(createMode === 'ai' || createMode === 'knowledge') && (
-                    <div className={`border rounded-lg p-4 ${
-                      createMode === 'ai' ? 'bg-blue-50 border-blue-200' : 'bg-green-50 border-green-200'
-                    }`}>
-                      <label className={`block text-sm font-medium mb-2 ${
-                        createMode === 'ai' ? 'text-blue-800' : 'text-green-800'
-                      }`}>
+                  {createMode === 'knowledge' && (
+                    <div className="border rounded-lg p-4 bg-green-50 border-green-200">
+                      <label className="block text-sm font-medium mb-2 text-green-800">
                         <Icon name="list" size={16} className="inline mr-1" />
                         题型选择（可选，默认全部题型）
                       </label>
@@ -1387,21 +1405,27 @@ const TeacherSurvey = () => {
                           <span className="text-sm">问答题</span>
                         </label>
                       </div>
-                      <p className={`mt-2 text-xs ${
-                        createMode === 'ai' ? 'text-blue-600' : 'text-green-600'
-                      }`}>
-                        💡 不选则生成所有题型的混合问卷
-                      </p>
                     </div>
                   )}
-                  
-                  <p className="text-sm text-gray-500 flex items-center">
-                    {createMode === 'ai' && <><Icon name="sparkles" size={16} className="mr-1 text-purple-500" /> 纯AI深度思考模式，不依赖知识库</>}
-                    {createMode === 'knowledge' && <><Icon name="sparkles" size={16} className="mr-1 text-yellow-500" /> AI将从您上传的课程资料中提取相关知识点</>}
-                  </p>
                 </div>
               )}
             </div>
+
+            {/* 生成中时显示进度条（根据后端阶段更新） */}
+            {(createMode === 'ai' || createMode === 'knowledge') && isGenerating && (
+              <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+                <div className="flex items-center justify-between text-sm text-gray-700 mb-2">
+                  <span>{createMode === 'ai' ? (generateStage || '准备中…') : '正在生成…'}</span>
+                  {createMode === 'ai' && <span className="font-medium text-indigo-600">{generateProgress}%</span>}
+                </div>
+                <div className="h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300 ease-out"
+                    style={{ width: createMode === 'ai' ? `${Math.min(100, generateProgress)}%` : '100%' }}
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="sticky bottom-0 bg-gray-50 px-6 py-4 rounded-b-2xl border-t border-gray-200 flex justify-end space-x-3">
               <button
@@ -1420,7 +1444,7 @@ const TeacherSurvey = () => {
                 disabled={isUploading || isGenerating}
                 className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isUploading ? '上传中...' : isGenerating ? 'AI生成中...' : (createMode === 'manual' ? '开始识别' : '生成问卷')}
+                {isUploading ? '上传中...' : isGenerating ? (generateStage || 'AI生成中...') : (createMode === 'manual' ? '开始识别' : '生成问卷')}
               </button>
             </div>
           </div>
@@ -1648,20 +1672,19 @@ const TeacherSurvey = () => {
                       </div>
                     </div>
                     
-                    {/* 答案解析 */}
-                    {question.explanation && (
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          答案解析
-                        </label>
-                        <textarea
-                          value={question.explanation}
-                          onChange={(e) => handleQuestionEdit(qIndex, 'explanation', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
-                          rows={3}
-                        />
-                      </div>
-                    )}
+                    {/* 答案解析（Word 中可带解析，也可不加；此处可查看/编辑或手动补充） */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        答案解析 <span className="text-gray-400 font-normal">（可选）</span>
+                      </label>
+                      <textarea
+                        value={question.explanation || ''}
+                        onChange={(e) => handleQuestionEdit(qIndex, 'explanation', e.target.value)}
+                        placeholder="Word 中可写「解析：xxx」；此处也可手动填写"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                        rows={3}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}

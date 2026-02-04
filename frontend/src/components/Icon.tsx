@@ -18,6 +18,8 @@ import award from '../assets/icons/award.svg';
 import sparkles from '../assets/icons/sparkles.svg';
 import key from '../assets/icons/key.svg';
 import add from '../assets/icons/add.svg';
+import csv from '../assets/icons/csv.svg';
+import edit from '../assets/icons/edit.svg';
 
 const iconMap: Record<string, string> = {
   dashboard,
@@ -37,6 +39,8 @@ const iconMap: Record<string, string> = {
   sparkles,
   key,
   add,
+  csv,
+  edit,
 };
 
 export type IconName = keyof typeof iconMap;

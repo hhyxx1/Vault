@@ -11,7 +11,6 @@ import {
   getTeacherProfile,
   updateTeacherProfile,
   uploadAvatar,
-  uploadCourseDocument,
   Course, 
   Class,
   CourseCreate,
@@ -52,7 +51,6 @@ const TeacherProfile = () => {
   const [showClassDetailDialog, setShowClassDetailDialog] = useState(false)
   const [selectedClassId, setSelectedClassId] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const courseFileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({})
 
   // 密码表单状态
   const [passwordForm, setPasswordForm] = useState({
@@ -266,108 +264,6 @@ const TeacherProfile = () => {
     if (window.confirm('确定要删除这个课程吗？')) {
       await deleteCourse(courseId)
       await loadCourses()
-    }
-  }
-
-  // 上传课程文档
-  const handleUploadDocument = (courseId: string) => {
-    const fileInput = courseFileInputRefs.current[courseId]
-    if (fileInput) {
-      fileInput.click()
-    }
-  }
-
-  // 处理文件上传（支持多文件）
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>, courseId: string) => {
-    const files = event.target.files
-    if (!files || files.length === 0) return
-
-    const allowedTypes = ['.pdf', '.doc', '.docx', '.ppt', '.pptx', '.txt', '.md']
-    const maxFileSize = 50 * 1024 * 1024 // 50MB
-    
-    // 验证所有文件
-    const invalidFiles: string[] = []
-    const oversizedFiles: string[] = []
-    const validFiles: File[] = []
-
-    Array.from(files).forEach(file => {
-      const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase()
-      
-      if (!allowedTypes.includes(fileExt)) {
-        invalidFiles.push(file.name)
-      } else if (file.size > maxFileSize) {
-        oversizedFiles.push(file.name)
-      } else {
-        validFiles.push(file)
-      }
-    })
-
-    // 显示验证错误
-    if (invalidFiles.length > 0) {
-      alert(`以下文件类型不支持：\n${invalidFiles.join('\n')}\n\n支持的格式: PDF, Word, PowerPoint, TXT, MD`)
-    }
-    if (oversizedFiles.length > 0) {
-      alert(`以下文件超过50MB限制：\n${oversizedFiles.join('\n')}`)
-    }
-
-    if (validFiles.length === 0) {
-      event.target.value = ''
-      return
-    }
-
-    const course = courses.find(c => c.id === courseId)
-    const fileCount = validFiles.length
-    const fileNames = validFiles.map(f => f.name).join('、')
-    
-    if (!confirm(`确定要将 ${fileCount} 个文件上传到课程「${course?.course_name}」的知识库吗？\n\n文件列表：\n${fileNames}`)) {
-      event.target.value = ''
-      return
-    }
-
-    // 上传所有有效文件
-    const results = {
-      success: [] as string[],
-      failed: [] as { name: string, error: string }[]
-    }
-
-    try {
-      // 显示上传提示
-      const uploadingMsg = `正在上传 ${fileCount} 个文件，请稍候...`
-      console.log(uploadingMsg)
-
-      // 串行上传每个文件（避免并发过多）
-      for (const file of validFiles) {
-        try {
-          console.log(`上传文件: ${file.name}`)
-          await uploadCourseDocument(courseId, file)
-          results.success.push(file.name)
-        } catch (error: any) {
-          console.error(`上传文件失败: ${file.name}`, error)
-          const errorMsg = error.response?.data?.detail || error.message || '未知错误'
-          results.failed.push({ name: file.name, error: errorMsg })
-        }
-      }
-
-      // 显示上传结果
-      let message = ''
-      if (results.success.length > 0) {
-        message += `✅ 成功上传 ${results.success.length} 个文件：\n${results.success.join('\n')}`
-      }
-      if (results.failed.length > 0) {
-        if (message) message += '\n\n'
-        message += `❌ 上传失败 ${results.failed.length} 个文件：\n${results.failed.map(f => `${f.name}: ${f.error}`).join('\n')}`
-      }
-      
-      alert(message || '上传完成！')
-      
-    } catch (error: any) {
-      console.error('上传过程出错:', error)
-      alert(`上传过程出错: ${error.message || '未知错误'}`)
-    } finally {
-      // 清空文件输入
-      if (event.target) {
-        event.target.value = ''
-      }
     }
   }
 
@@ -744,22 +640,6 @@ const TeacherProfile = () => {
                           
                           {/* 操作按钮区域 */}
                           <div className="flex gap-2 pt-4 border-t border-gray-100">
-                            <input
-                              type="file"
-                              ref={(el) => courseFileInputRefs.current[course.id] = el}
-                              onChange={(e) => handleFileUpload(e, course.id)}
-                              className="hidden"
-                              accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.md"
-                              multiple
-                            />
-                            <button
-                              onClick={() => handleUploadDocument(course.id)}
-                              className="flex-1 inline-flex items-center justify-center px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 text-sm font-medium rounded-lg transition-colors"
-                              title="上传单个或多个文档到知识库"
-                            >
-                              <Icon name="add" size={16} className="mr-1" />
-                              上传资料
-                            </button>
                             <button
                               onClick={() => handleViewCourseDetails(course.id)}
                               className="flex-1 inline-flex items-center justify-center px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-sm font-medium rounded-lg transition-colors"
@@ -820,10 +700,10 @@ const TeacherProfile = () => {
                             <div className="flex-shrink-0 flex items-center space-x-1">
                               <button
                                 onClick={() => handleEditClass(cls)}
-                                className="px-2 py-1 text-xs font-medium text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                                className="p-1 text-blue-600 hover:bg-blue-50 rounded transition-colors"
                                 title="编辑班级"
                               >
-                                编辑
+                                <Icon name="edit" size={20} />
                               </button>
                               <button
                                 onClick={() => handleDeleteClass(cls.id)}

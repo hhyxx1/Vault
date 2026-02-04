@@ -14,7 +14,25 @@ from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
 from typing import List, Dict, Any, Optional
 import os
+from pathlib import Path
 from datetime import datetime
+
+
+def _resolve_vector_db_path() -> Path:
+    """从配置解析向量数据库路径（支持环境变量与相对路径）"""
+    try:
+        from app.config.settings import settings
+        path_cfg = settings.VECTOR_DB_PATH
+    except Exception:
+        path_cfg = "./data/chroma_db"
+    p = Path(path_cfg)
+    if p.is_absolute():
+        db_path = p
+    else:
+        backend_dir = Path(__file__).resolve().parent.parent.parent
+        db_path = (backend_dir / path_cfg).resolve()
+    db_path.mkdir(parents=True, exist_ok=True)
+    return db_path
 
 
 class VectorDBService:
@@ -22,13 +40,7 @@ class VectorDBService:
     
     def __init__(self):
         try:
-            # 数据存储路径 - 使用绝对路径确保正确
-            # 获取backend目录的绝对路径
-            from pathlib import Path
-            backend_dir = Path(__file__).resolve().parent.parent.parent
-            db_path = backend_dir / "data" / "chroma_db"
-            db_path.mkdir(parents=True, exist_ok=True)
-            
+            db_path = _resolve_vector_db_path()
             print(f"向量数据库路径: {db_path}")
             
             # 创建ChromaDB客户端

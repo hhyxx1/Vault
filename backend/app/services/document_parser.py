@@ -225,6 +225,34 @@ class DocumentParser:
         
         return False, None
     
+    @staticmethod
+    def _extract_explanation(text: str) -> tuple:
+        """
+        从文本中识别并提取解析（答案解析）内容
+        支持格式：
+        - 解析：xxx
+        - 答案解析：xxx
+        - 【解析】xxx
+        - （解析）xxx
+        
+        Returns:
+            (is_explanation_line, explanation_content)
+        """
+        text = text.strip()
+        patterns = [
+            r'^解析[：:]\s*(.+)',
+            r'^答案解析[：:]\s*(.+)',
+            r'^【解析】\s*(.+)',
+            r'^（解析）\s*(.+)',
+            r'^\(解析\)\s*(.+)',
+            r'^\[解析\]\s*(.+)',
+        ]
+        for pattern in patterns:
+            match = re.match(pattern, text)
+            if match:
+                return True, match.group(1).strip()
+        return False, None
+    
     
     @staticmethod
     def parse_word(file_path: str) -> List[Dict[str, Any]]:
@@ -252,6 +280,8 @@ class DocumentParser:
             current_options = []
             current_answer = None
             current_score = 5.0  # 默认分数
+            current_explanation = None  # 当前题目的解析（可为多行）
+            collecting_explanation = False  # 是否正在收集解析多行
             option_counter = 0
             seen_answer_or_score = False  # 标记是否已经看到答案或分数（用于防止继续收集选项）
             
@@ -263,6 +293,7 @@ class DocumentParser:
                 # 检测答案行
                 is_answer, answer_content = DocumentParser._extract_answer(text)
                 if is_answer:
+                    collecting_explanation = False
                     current_answer = answer_content
                     seen_answer_or_score = True  # 标记已经遇到答案，后续不再收集选项
                     continue
@@ -270,9 +301,26 @@ class DocumentParser:
                 # 检测分数行
                 is_score, score_value = DocumentParser._extract_score(text)
                 if is_score:
+                    collecting_explanation = False
                     current_score = score_value
                     seen_answer_or_score = True  # 标记已经遇到分数，后续不再收集选项
                     continue
+                
+                # 检测解析行（答案解析，可选；支持多行直到下一题/答案/分数）
+                is_explanation, explanation_content = DocumentParser._extract_explanation(text)
+                if is_explanation and current_question:
+                    current_explanation = explanation_content if explanation_content else ""
+                    collecting_explanation = True
+                    continue
+                if collecting_explanation and current_question:
+                    # 多行解析：当前行不是题目标识、选项，则追加到解析
+                    _is_q = DocumentParser._is_question_indicator(text)
+                    _is_opt = DocumentParser._is_option_indicator(text)
+                    if not _is_q and not _is_opt:
+                        current_explanation = (current_explanation or "") + "\n" + text
+                        continue
+                    collecting_explanation = False
+                    # 否则 fall through 让下面按题目/选项处理
                 
                 # 检测是否是新题目
                 is_question = DocumentParser._is_question_indicator(text)
@@ -305,13 +353,15 @@ class DocumentParser:
                                 # 解答题：答案是文本
                                 correct_answer = current_answer
                         
+                        expl = (current_explanation or "").strip() or None
                         questions.append({
                             "question": current_question,
                             "options": current_options,
                             "type": question_type,
                             "required": True,
                             "answer": correct_answer,
-                            "score": current_score
+                            "score": current_score,
+                            "explanation": expl
                         })
                     
                     # 开始新问题，重置所有状态
@@ -319,6 +369,8 @@ class DocumentParser:
                     current_options = []
                     current_answer = None
                     current_score = 5.0
+                    current_explanation = None
+                    collecting_explanation = False
                     option_counter = 0
                     seen_answer_or_score = False  # 重置标记
                     continue
@@ -380,13 +432,15 @@ class DocumentParser:
                     else:
                         correct_answer = current_answer
                 
+                expl_last = (current_explanation or "").strip() or None
                 questions.append({
                     "question": current_question,
                     "options": current_options,
                     "type": question_type,
                     "required": True,
                     "answer": correct_answer,
-                    "score": current_score
+                    "score": current_score,
+                    "explanation": expl_last
                 })
             
             # 自动排序：单选题 -> 多选题 -> 判断题 -> 解答题

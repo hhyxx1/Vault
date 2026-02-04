@@ -26,6 +26,10 @@ router = APIRouter()
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
 UPLOADS_DIR = PROJECT_ROOT / "uploads"
 
+# 问卷上传的 Word 保存目录：backend/app/api/static/questionnaire_word
+API_STATIC_DIR = Path(__file__).resolve().parent.parent  # backend/app/api
+SURVEY_WORD_UPLOAD_DIR = API_STATIC_DIR / "static" / "questionnaire_word"
+
 # 模型定义
 class SurveyCreate(BaseModel):
     title: str
@@ -151,6 +155,7 @@ async def create_survey(survey_data: SaveSurveyRequest, db: Session = Depends(ge
                 score=q.get('score', 0),
                 options=q.get('options', []),
                 correct_answer=q.get('answer') or q.get('correct_answer'),  # 支持answer和correct_answer两种字段名
+                answer_explanation=q.get('explanation'),  # Word 中的解析（可选）
                 is_required=q.get('required', True)
             )
             db.add(question)
@@ -567,14 +572,13 @@ async def upload_word_document(file: UploadFile = File(...)):
                 detail="仅支持Word文档格式 (.docx, .doc)"
             )
         
-        # 创建文档上传文件夹
-        upload_dir = UPLOADS_DIR / "documents"
-        upload_dir.mkdir(parents=True, exist_ok=True)
+        # 保存到 backend/app/api/static/questionnaire_word
+        SURVEY_WORD_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
         
         # 生成唯一文件名
         file_id = str(uuid.uuid4())
         file_ext = os.path.splitext(file.filename)[1]
-        save_path = upload_dir / f"{file_id}{file_ext}"
+        save_path = SURVEY_WORD_UPLOAD_DIR / f"{file_id}{file_ext}"
         
         # 保存上传的文件
         with open(str(save_path), "wb") as buffer:
@@ -716,12 +720,11 @@ async def use_database_file(new_file_id: str):
         new_file_id: 新上传文件的ID（需要删除）
     """
     try:
-        # 从文件系统删除新上传的临时文件
-        upload_dir = UPLOADS_DIR / "documents"
+        # 从文件系统删除新上传的临时文件（与上传目录一致：backend/app/api/static/questionnaire_word）
         deleted_file = None
         
         for ext in ['.docx', '.doc']:
-            file_path = upload_dir / f"{new_file_id}{ext}"
+            file_path = SURVEY_WORD_UPLOAD_DIR / f"{new_file_id}{ext}"
             if file_path.exists():
                 file_path.unlink()
                 deleted_file = str(file_path)
@@ -768,11 +771,10 @@ async def confirm_new_file(file_data: Dict[str, Any]):
             except Exception as ve:
                 print(f"删除旧文件失败: {ve}")
         
-        # 2. 从文件系统删除旧文件
+        # 2. 从文件系统删除旧文件（问卷 Word 保存目录）
         if old_file_id:
-            upload_dir = UPLOADS_DIR / "documents"
             for ext in [".docx", ".doc"]:
-                old_file_path = upload_dir / f"{old_file_id}{ext}"
+                old_file_path = SURVEY_WORD_UPLOAD_DIR / f"{old_file_id}{ext}"
                 if os.path.exists(old_file_path):
                     os.remove(old_file_path)
                     print(f"已从文件系统删除旧文件: {old_file_path}")
@@ -840,13 +842,12 @@ async def delete_uploaded_file(file_id: str):
         except Exception as ve:
             print(f"从向量数据库删除失败: {ve}")
         
-        # 从文件系统删除
-        upload_dir = UPLOADS_DIR / "documents"
+        # 从文件系统删除（问卷 Word 保存目录）
         deleted_file = None
         
         # 查找并删除文件（支持.docx和.doc扩展名）
         for ext in ['.docx', '.doc']:
-            file_path = upload_dir / f"{file_id}{ext}"
+            file_path = SURVEY_WORD_UPLOAD_DIR / f"{file_id}{ext}"
             if file_path.exists():
                 file_path.unlink()
                 deleted_file = str(file_path)

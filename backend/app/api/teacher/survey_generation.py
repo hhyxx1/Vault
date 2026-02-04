@@ -1,6 +1,9 @@
 """问卷AI生成API端点"""
 
+import asyncio
+import json as json_module
 from fastapi import APIRouter, HTTPException, Depends
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from sqlalchemy.orm import Session
@@ -16,12 +19,12 @@ router = APIRouter()
 # ==================== 请求模型 ====================
 
 class AIGenerationRequest(BaseModel):
-    """AI生成问卷请求"""
+    """AI生成问卷请求。仅传 description 时，由 skill 根据描述解析题型与数量；描述未写则默认20题、三种题型。"""
     description: str = Field(..., description="问卷描述", min_length=5)
-    question_count: int = Field(10, description="题目数量", ge=5, le=30)
+    question_count: Optional[int] = Field(None, description="题目数量（可选；不传则由描述解析，未写默认20）", ge=1, le=50)
     include_types: Optional[List[str]] = Field(
-        None, 
-        description="包含的题型: choice(选择题), judge(判断题), essay(问答题)。不指定则三种都包含"
+        None,
+        description="包含的题型。不传则由描述解析，未写默认三种题型"
     )
     course_id: Optional[str] = Field(None, description="关联的课程ID（可选）")
     auto_save: bool = Field(False, description="是否自动保存到数据库，默认false让用户编辑后再保存")
@@ -31,7 +34,7 @@ class KnowledgeBasedGenerationRequest(BaseModel):
     """基于知识库生成问卷请求"""
     description: str = Field(..., description="问卷描述", min_length=5)
     course_id: Optional[str] = Field(None, description="课程ID（可选，不传则在所有知识库中检索）")
-    question_count: int = Field(10, description="题目数量", ge=5, le=30)
+    question_count: int = Field(20, description="题目数量，默认20道", ge=1, le=50)
     include_types: Optional[List[str]] = Field(
         None,
         description="包含的题型: choice(选择题), judge(判断题), essay(问答题)。不指定则三种都包含"
@@ -84,20 +87,20 @@ async def generate_survey_ai(
         if current_user.role != "teacher":
             raise HTTPException(status_code=403, detail="只有教师可以使用AI生成功能")
         
-        # 验证题型参数
-        if request.include_types:
+        # 验证题型参数（仅当显式传入时）
+        if request.include_types is not None:
             valid_types = {"choice", "judge", "essay"}
             invalid = set(request.include_types) - valid_types
             if invalid:
                 raise HTTPException(
-                    status_code=400, 
+                    status_code=400,
                     detail=f"无效的题型: {invalid}。有效题型：choice, judge, essay"
                 )
         
         # 初始化生成服务
         service = SurveyGenerationService()
         
-        # 调用AI生成
+        # 调用AI生成（不传 question_count/include_types 时由 skill 根据描述解析，默认20题、三种题型）
         survey_data = service.generate_survey_ai(
             description=request.description,
             question_count=request.question_count,
@@ -135,6 +138,56 @@ async def generate_survey_ai(
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"生成失败: {str(e)}")
+
+
+def _sse_event(data: dict) -> str:
+    """格式化为 SSE 单条事件"""
+    return f"data: {json_module.dumps(data, ensure_ascii=False)}\n\n"
+
+
+@router.post("/generate/ai/stream")
+async def generate_survey_ai_stream(
+    request: AIGenerationRequest,
+    current_user: User = Depends(get_current_user)
+):
+    """
+    AI生成问卷（流式接口，带进度）
+    返回 Server-Sent Events：start -> generating -> parsing -> done | error
+    """
+    if current_user.role != "teacher":
+        raise HTTPException(status_code=403, detail="只有教师可以使用AI生成功能")
+    if request.include_types is not None:
+        valid_types = {"choice", "judge", "essay"}
+        invalid = set(request.include_types) - valid_types
+        if invalid:
+            raise HTTPException(status_code=400, detail=f"无效的题型: {invalid}")
+
+    async def event_stream():
+        service = SurveyGenerationService()
+        try:
+            yield _sse_event({"stage": "start", "progress": 0, "message": "准备生成…"})
+            yield _sse_event({"stage": "generating", "progress": 15, "message": "正在生成题目…"})
+            # 在线程池中执行阻塞的 LLM 调用
+            survey_data = await asyncio.to_thread(
+                service.generate_survey_ai,
+                description=request.description,
+                question_count=request.question_count,
+                include_types=request.include_types,
+            )
+            yield _sse_event({"stage": "parsing", "progress": 90, "message": "正在解析结果…"})
+            if not service.validate_survey_data(survey_data):
+                yield _sse_event({"stage": "error", "progress": 0, "message": "生成的问卷数据格式不正确"})
+                return
+            yield _sse_event({"stage": "done", "progress": 100, "message": "完成", "data": survey_data})
+        except Exception as e:
+            msg = str(e)
+            yield _sse_event({"stage": "error", "progress": 0, "message": msg})
+
+    return StreamingResponse(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
 
 
 @router.post("/generate/knowledge-based", response_model=SurveyGenerationResponse)

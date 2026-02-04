@@ -10,15 +10,14 @@ from datetime import datetime
 import uuid
 
 from app.services.skill_loader import SkillLoader, Skill
-from app.services.vector_db_service import VectorDBService
 from app.models.survey import Survey, Question
 
 
 class SurveyGenerationService:
-    """问卷AI生成服务 - 参考chat-skills架构"""
+    """问卷AI生成服务 - 参考chat-skills架构。向量库仅在「基于知识库」生成时按需加载。"""
 
     def __init__(self):
-        """初始化服务"""
+        """初始化服务（不初始化向量库，避免 AI 生成时加载）"""
         # DeepSeek API配置
         self.api_key = "sk-11fe906e92c84e0f95c9f04ae6ed1565"
         self.base_url = "https://api.deepseek.com/v1"
@@ -34,68 +33,62 @@ class SurveyGenerationService:
         self.skill_loader = SkillLoader()
         self.skill_loader.load_skills()
         
-        # 向量数据库服务（用于知识库查询）
-        self.vector_service = VectorDBService()
+        # 向量数据库延迟初始化，仅「基于知识库」生成时使用
+        self._vector_service = None
+
+    def _get_vector_service(self):
+        """按需获取向量数据库服务（仅知识库生成路径会调用）"""
+        if self._vector_service is None:
+            from app.services.vector_db_service import VectorDBService
+            self._vector_service = VectorDBService()
+        return self._vector_service
 
     def generate_survey_ai(
-        self, 
+        self,
         description: str,
-        question_count: int = 10,
+        question_count: Optional[int] = None,
         include_types: Optional[List[str]] = None
     ) -> Dict[str, Any]:
         """
-        AI生成问卷 - 纯AI深度思考，不调用知识库
-        
-        Args:
-            description: 用户描述
-            question_count: 题目数量
-            include_types: 包含的题型 ["choice", "judge", "essay"]
-            
-        Returns:
-            生成的问卷数据
+        AI生成问卷 - 纯AI深度思考，不调用知识库；使用 skill 根据描述生成。
+        题型与数量：若调用方未传 question_count/include_types，则完全由描述解析，
+        描述未写则按 skill 默认（20题、三种题型）。
         """
         print("=" * 70)
-        print("🤖 AI生成模式 - 纯深度思考，不调用知识库")
+        print("🤖 AI生成模式 - 纯深度思考，不调用知识库，依据描述生成")
         print(f"📝 描述: {description}")
-        print(f"📊 题目数量: {question_count}")
-        print(f"📋 题型要求: {include_types or '全部题型'}")
+        if question_count is not None:
+            print(f"📊 题目数量(显式): {question_count}")
+        else:
+            print("📊 题目数量: 由描述解析，未写默认20题")
+        if include_types is not None:
+            print(f"📋 题型要求(显式): {include_types}")
+        else:
+            print("📋 题型要求: 由描述解析，未写默认三种题型")
         print("=" * 70)
         
-        # 获取AI生成技能
         skill = self.skill_loader.get_skill_by_name("AI问卷生成器")
-        
         if not skill:
             raise ValueError("未找到AI问卷生成技能模板")
         
-        # 构建用户提示
-        user_prompt = self._build_ai_generation_prompt(
-            description, 
-            question_count, 
-            include_types
-        )
-        
+        user_prompt = self._build_ai_generation_prompt(description, question_count, include_types)
         print(f"💬 用户提示:\n{user_prompt}\n")
         
-        # 注入技能并调用AI
         response_text = self._call_llm_with_skill(skill, user_prompt)
-        
-        # 解析JSON响应
         survey_data = self._parse_json_response(response_text)
         
-        # 验证题型是否符合要求
-        if include_types:
+        if include_types is not None:
             self._validate_question_types(survey_data, include_types)
         
         print(f"✅ 成功生成 {len(survey_data.get('questions', []))} 道题目")
         print("=" * 70)
-        
         return survey_data
 
     def generate_survey_knowledge_based(
         self,
         description: str,
         course_id: Optional[str] = None,
-        question_count: int = 10,
+        question_count: int = 20,
         include_types: Optional[List[str]] = None
     ) -> Dict[str, Any]:
         """
@@ -187,9 +180,9 @@ class SurveyGenerationService:
             print(f"   ➡️ 课程ID: {course_id if course_id else '所有课程（全局检索）'}")
             print(f"   ➡️ 检索数量: top_{top_k}")
             
-            # 使用向量数据库服务查询
+            # 使用向量数据库服务查询（仅知识库模式会执行到此，此处才加载向量库）
             # course_id已经是UUID字符串或None
-            results = self.vector_service.search_similar(
+            results = self._get_vector_service().search_similar(
                 query=query,
                 course_id=course_id,
                 n_results=top_k
@@ -239,44 +232,44 @@ class SurveyGenerationService:
     def _build_ai_generation_prompt(
         self,
         description: str,
-        question_count: int,
-        include_types: Optional[List[str]]
+        question_count: Optional[int] = None,
+        include_types: Optional[List[str]] = None
     ) -> str:
-        """构建AI生成的用户提示"""
+        """构建AI生成的用户提示。未传题目数量/题型时仅给描述，由 skill 规定：描述未写则默认20题、三种题型。"""
         prompt_parts = [
-            f"请根据以下描述生成一份问卷：",
-            f"",
+            "请根据以下描述生成一份问卷：",
+            "",
             f"描述: {description}",
-            f"题目数量: {question_count}题",
         ]
-        
+        if question_count is not None:
+            prompt_parts.append(f"题目数量: {question_count}题（若描述中已写数量，以描述为准）")
+        else:
+            prompt_parts.append("题目数量与题型: 请从描述中解析；若描述中未明确写题目数量则默认20道，未明确写题型则默认包含选择题、判断题、问答题三种。")
+            prompt_parts.append("【重要】若描述中未指定题目数量，你必须生成恰好20道题目，不能少于20道也不能多于20道。")
         if include_types:
-            types_map = {
-                "choice": "选择题",
-                "judge": "判断题",
-                "essay": "问答题"
-            }
+            types_map = {"choice": "选择题", "judge": "判断题", "essay": "问答题"}
             types_str = "、".join([types_map.get(t, t) for t in include_types])
             prompt_parts.append(f"题型要求: 【严格限制】只能生成{types_str}，不能生成其他题型")
-            prompt_parts.append(f"⚠️ 重要：必须严格遵守题型限制，生成的{question_count}道题目必须全部是指定的题型")
+            if question_count is not None:
+                prompt_parts.append(f"⚠️ 重要：必须严格遵守题型限制，生成的{question_count}道题目必须全部是指定的题型")
+        elif question_count is None:
+            prompt_parts.append("题型要求: 从描述中解析；若描述未指定题型，则选择题、判断题、问答题合理分布。")
         else:
-            prompt_parts.append(f"题型要求: 选择题、判断题、问答题合理分布")
-        
+            prompt_parts.append("题型要求: 选择题、判断题、问答题合理分布")
         prompt_parts.extend([
-            f"",
-            f"【必须严格遵守的格式要求】：",
-            f"1. 严格按照技能模板中的JSON格式输出",
-            f"2. 选择题(choice)必须有4个选项: [\"A. 选项1\", \"B. 选项2\", \"C. 选项3\", \"D. 选项4\"]",
-            f"3. 判断题(judge)必须有2个选项: [\"正确\", \"错误\"]",
-            f"4. 问答题(essay)的options必须是空数组: []",
-            f"5. 确保所有答案准确无误",
-            f"6. 每题必须有详细解析（至少50字）",
-            f"7. 分数分配合理，总分接近100分",
-            f"8. 只输出JSON，不要有任何其他文字或markdown标记",
-            f"",
-            f"⚠️ 特别注意：选择题和判断题的options字段是必填项，绝对不能为空！",
+            "",
+            "【必须严格遵守的格式要求】：",
+            "1. 严格按照技能模板中的JSON格式输出",
+            "2. 选择题(choice)必须有4个选项: [\"A. 选项1\", \"B. 选项2\", \"C. 选项3\", \"D. 选项4\"]",
+            "3. 判断题(judge)必须有2个选项: [\"正确\", \"错误\"]",
+            "4. 问答题(essay)的options必须是空数组: []",
+            "5. 确保所有答案准确无误",
+            "6. 每题必须有解析（30–50字，简明扼要，减少冗余）",
+            "7. 分数分配合理，总分接近100分",
+            "8. 只输出JSON，不要有任何其他文字或markdown标记",
+            "",
+            "⚠️ 特别注意：选择题和判断题的options字段是必填项，绝对不能为空！",
         ])
-        
         return "\n".join(prompt_parts)
 
     def _build_kb_generation_prompt_smart(
@@ -369,7 +362,7 @@ class SurveyGenerationService:
             f"3. 判断题(judge)必须有2个选项: [\"正确\", \"错误\"]",
             f"4. 问答题(essay)的options必须是空数组: []",
             f"5. 确保所有答案准确无误",
-            f"6. 每题必须有详细解析（≥50字符）",
+            f"6. 每题必须有解析（30–50字，简明扼要）",
             f"7. 分数分配合理，总分接近100分",
             f"8. 每题必须标注knowledge_source",
             f"9. 只输出JSON，不要有任何其他文字或markdown标记",
@@ -402,7 +395,7 @@ class SurveyGenerationService:
                     {"role": "user", "content": user_prompt}
                 ],
                 temperature=0.7,
-                max_tokens=4000
+                max_tokens=8192   # DeepSeek 上限 8192；20题+解析尽量控制在以内，避免截断
             )
             
             return response.choices[0].message.content
@@ -442,62 +435,111 @@ class SurveyGenerationService:
             "=" * 60,
             "\n重要提醒：",
             "- 严格按照上述技能模板生成内容",
-            "- 只输出JSON格式，不要有markdown代码块标记",
-            "- 确保JSON格式正确可解析",
+            "- 只输出纯JSON，不要有markdown代码块（如```json）或前后说明文字",
+            "- 确保JSON格式正确可解析，不要使用尾部逗号（如 ,] 或 ,}）",
             "- 所有必需字段都要填写完整"
         ]
         
         return "\n".join(parts)
 
+    def _try_repair_truncated_json(self, raw: str) -> str:
+        """尝试修复截断的 JSON（未闭合的字符串、未闭合的 [] 与 {}）"""
+        s = raw.rstrip()
+        in_string = False
+        escape = False
+        quote = None
+        brace_depth = 0  # {}
+        bracket_depth = 0  # []
+        for i, c in enumerate(s):
+            if escape:
+                escape = False
+                continue
+            if c == "\\" and in_string:
+                escape = True
+                continue
+            if in_string:
+                if c == quote:
+                    in_string = False
+                continue
+            if c in ('"', "'"):
+                in_string = True
+                quote = c
+                continue
+            if c == "{":
+                brace_depth += 1
+            elif c == "}":
+                brace_depth -= 1
+            elif c == "[":
+                bracket_depth += 1
+            elif c == "]":
+                bracket_depth -= 1
+        if in_string:
+            s = s + quote
+        # 先闭合数组再闭合对象
+        while bracket_depth > 0:
+            s = s + "]"
+            bracket_depth -= 1
+        while brace_depth > 0:
+            s = s + "}"
+            brace_depth -= 1
+        return s
+
+    def _remove_trailing_commas(self, s: str) -> str:
+        """去掉 JSON 中不合法的尾部逗号（如 ,] 或 ,}），便于解析"""
+        # 去掉 ,] 和 ,}
+        s = re.sub(r',(\s*])', r'\1', s)
+        s = re.sub(r',(\s*})', r'\1', s)
+        return s
+
     def _parse_json_response(self, response_text: str) -> Dict[str, Any]:
         """
-        解析AI返回的JSON响应 - 处理各种格式
-        
-        Args:
-            response_text: AI响应文本
-            
-        Returns:
-            解析后的字典
+        解析AI返回的JSON响应 - 处理各种格式，含截断修复、尾部逗号、markdown 代码块
         """
-        # 清理响应文本
         cleaned_text = response_text.strip()
-        
-        # 移除markdown代码块标记
+        # 去掉 markdown 代码块
         if cleaned_text.startswith("```"):
             lines = cleaned_text.split("\n")
-            # 移除开头的```json或```
             if lines[0].startswith("```"):
                 lines = lines[1:]
-            # 移除结尾的```
             if lines and lines[-1].strip() == "```":
                 lines = lines[:-1]
             cleaned_text = "\n".join(lines).strip()
+        # 去掉可能的前后说明文字，只保留第一个 { ... } 或从第一个 { 开始
+        json_match = re.search(r'\{.*', cleaned_text, re.DOTALL)
+        if json_match:
+            cleaned_text = json_match.group()
+
+        def parse(s: str):
+            try:
+                return json.loads(s)
+            except json.JSONDecodeError:
+                return None
+
+        # 先尝试去掉尾部逗号再解析
+        cleaned_text = self._remove_trailing_commas(cleaned_text)
+        data = parse(cleaned_text)
+        if data is not None:
+            return self._validate_and_fix_parsed_data(data)
+
+        repaired = self._try_repair_truncated_json(cleaned_text)
+        data = parse(repaired)
+        if data is not None:
+            return self._validate_and_fix_parsed_data(data)
+
+        raise ValueError(
+            f"无法解析AI返回的JSON，请重试或缩短描述以减少输出长度。\n原始响应前500字: {response_text[:500]}"
+        )
+
+    def _validate_and_fix_parsed_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """校验并修复解析后的问卷数据（必需字段、options 等）"""
         
-        # 尝试解析JSON
-        try:
-            data = json.loads(cleaned_text)
-        except json.JSONDecodeError as e:
-            # 尝试查找JSON部分
-            json_match = re.search(r'\{.*\}', cleaned_text, re.DOTALL)
-            if json_match:
-                try:
-                    data = json.loads(json_match.group())
-                except:
-                    raise ValueError(f"无法解析AI返回的JSON: {str(e)}\n原始响应: {response_text[:500]}")
-            else:
-                raise ValueError(f"响应中未找到有效的JSON: {response_text[:500]}")
-        
-        # 验证必需字段
         required_fields = ["survey_title", "description", "questions"]
         for field in required_fields:
             if field not in data:
                 raise ValueError(f"生成的问卷缺少必需字段: {field}")
-        
-        # 验证题目格式
-        if not isinstance(data["questions"], list) or len(data["questions"]) == 0:
+        if not isinstance(data.get("questions"), list) or len(data["questions"]) == 0:
             raise ValueError("生成的问卷没有题目")
-        
-        # 🔧 修复选择题和判断题的options - 确保一定有选项
+
         for idx, question in enumerate(data["questions"], 1):
             q_type = question.get("question_type")
             options = question.get("options", [])

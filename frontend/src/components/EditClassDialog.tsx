@@ -220,8 +220,9 @@ const EditClassDialog = ({ isOpen, onClose, onSubmit, courses, classData }: Edit
                 value={formData.academic_year}
                 onChange={(e) => setFormData({ ...formData, academic_year: e.target.value })}
                 className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 focus:bg-white transition-all duration-200 outline-none text-gray-900 placeholder-gray-400"
-                placeholder="例如: 2024春季"
+                placeholder="例如: 2025-2026学年第1学期"
               />
+              <p className="text-xs text-gray-500">格式：2025-2026学年第x学期（x 为 1 或 2）</p>
             </div>
 
             {/* Max Students */}
