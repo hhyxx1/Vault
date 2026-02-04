@@ -38,6 +38,8 @@ interface ParsedQuestion {
   required: boolean
   answer?: string | string[] | null
   score?: number
+  explanation?: string
+  knowledge_source?: string
 }
 
 interface ParseResult {

@@ -105,13 +105,13 @@ export const uploadAvatar = async (file: File): Promise<{ avatar_url: string }> 
   console.log('发送POST请求到: /teacher/profile/avatar')
   
   try {
-    const response = await apiClient.post('/teacher/profile/avatar', formData, {
+    const response = await apiClient.post<{ avatar_url: string }>('/teacher/profile/avatar', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
     console.log('上传响应:', response)
-    return response
+    return response as unknown as { avatar_url: string }
   } catch (error) {
     console.error('上传请求失败:', error)
     throw error

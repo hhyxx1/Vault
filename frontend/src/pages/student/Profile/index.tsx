@@ -6,8 +6,7 @@ import {
   ChangePasswordRequest,
   getStudentProfile,
   updateStudentProfile,
-  uploadStudentAvatar,
-  StudentProfile as StudentProfileType
+  uploadStudentAvatar
 } from '../../../services/student'
 import { Icon } from '../../../components/Icon'
 import CourseDocumentsDialog from '../../../components/CourseDocumentsDialog'
@@ -21,7 +20,7 @@ const StudentProfile = () => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [enrolledClasses, setEnrolledClasses] = useState<ClassInfo[]>([])
-  const [avatarTimestamp, setAvatarTimestamp] = useState(Date.now())
+
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [studentInfo, setStudentInfo] = useState({
     fullName: '李明',
@@ -60,7 +59,6 @@ const StudentProfile = () => {
         major: profileData.major,
         grade: profileData.grade
       })
-      setAvatarTimestamp(Date.now())
     } catch (error) {
       console.error('加载个人信息失败:', error)
     }
@@ -143,7 +141,6 @@ const StudentProfile = () => {
       console.log('上传响应:', response)
       
       setStudentInfo(prev => ({ ...prev, avatar: response.avatar_url }))
-      setAvatarTimestamp(Date.now())
       
       // 触发自定义事件通知 Layout 更新
       window.dispatchEvent(new Event('avatarUpdated'))

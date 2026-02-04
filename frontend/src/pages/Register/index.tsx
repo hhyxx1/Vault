@@ -90,14 +90,14 @@ const Register = () => {
         registerData.title = formData.title
       }
 
-      const data = await authApi.register(registerData)
+      const response = await authApi.register(registerData)
       
       // 保存token和用户信息
-      localStorage.setItem('token', data.access_token)
-      localStorage.setItem('user', JSON.stringify(data.user))
+      localStorage.setItem('token', response.access_token)
+      localStorage.setItem('user', JSON.stringify(response.user))
       
       // 根据角色跳转
-      if (data.user.role === 'teacher') {
+      if (response.user.role === 'teacher') {
         navigate('/teacher')
       } else {
         navigate('/student')

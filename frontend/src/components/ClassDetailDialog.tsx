@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Icon } from './Icon'
-import { getClassStudents, ClassDetail, StudentInClass } from '../services/teacher'
+import { getClassStudents, ClassDetail } from '../services/teacher'
 
 interface ClassDetailDialogProps {
   isOpen: boolean

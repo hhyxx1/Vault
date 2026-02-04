@@ -89,13 +89,13 @@ export const uploadStudentAvatar = async (file: File): Promise<{ avatar_url: str
   console.log('发送POST请求到: /student/profile/avatar')
   
   try {
-    const response = await apiClient.post('/student/profile/avatar', formData, {
+    const response = await apiClient.post<{ avatar_url: string }>('/student/profile/avatar', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
     console.log('上传响应:', response)
-    return response
+    return response as unknown as { avatar_url: string }
   } catch (error) {
     console.error('上传请求失败:', error)
     throw error
@@ -151,11 +151,11 @@ export const downloadCourseDocumentAsBlob = async (
   courseId: string,
   documentId: string
 ): Promise<Blob> => {
-  const data = await apiClient.get(
+  const data = await apiClient.get<Blob>(
     `/student/courses/${courseId}/documents/${documentId}/download`,
     { responseType: 'blob' }
   )
-  return data as Blob
+  return data as unknown as Blob
 }
 
 /** 以 PDF 形式预览文档（完整页数）。PPTX 会由服务端转为 PDF（需 LibreOffice）。失败时抛出。 */
@@ -163,11 +163,11 @@ export const getCourseDocumentPreviewPdf = async (
   courseId: string,
   documentId: string
 ): Promise<Blob> => {
-  const data = await apiClient.get(
+  const data = await apiClient.get<Blob>(
     `/student/courses/${courseId}/documents/${documentId}/preview-pdf`,
     { responseType: 'blob' }
   )
-  return data as Blob
+  return data as unknown as Blob
 }
 
 export default studentClassService

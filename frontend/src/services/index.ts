@@ -1,14 +1,34 @@
 import apiClient from './api'
 
 // 认证相关API
+interface LoginResponse {
+  access_token: string;
+  user: {
+    id: string;
+    username: string;
+    role: string;
+    [key: string]: any;
+  };
+}
+
+interface RegisterResponse {
+  access_token: string;
+  user: {
+    id: string;
+    username: string;
+    role: string;
+    [key: string]: any;
+  };
+}
+
 export const authApi = {
   // 用户注册
-  register: async (data: any) => {
+  register: async (data: any): Promise<RegisterResponse> => {
     return apiClient.post('/auth/register', data)
   },
   
   // 用户登录
-  login: async (username: string, password: string) => {
+  login: async (username: string, password: string): Promise<LoginResponse> => {
     return apiClient.post('/auth/login', { username, password })
   },
 }
@@ -66,104 +86,146 @@ export const dashboardApi = {
 // 教师端 - 问卷管理API
 export const surveyApi = {
   // 获取问卷列表
-  getSurveys: async () => {
-    return apiClient.get('/teacher/surveys')
+  getSurveys: async (): Promise<any[]> => {
+    const res = await apiClient.get<any[]>('/teacher/surveys')
+    return res as unknown as any[]
   },
   
   // 获取问卷详情
-  getSurveyDetail: async (surveyId: string) => {
-    return apiClient.get(`/teacher/surveys/${surveyId}`)
+  getSurveyDetail: async (surveyId: string): Promise<any> => {
+    const res = await apiClient.get<any>(`/teacher/surveys/${surveyId}`)
+    return res as unknown as any
   },
   
   // 创建问卷（保存解析后的问卷）
-  createSurvey: async (surveyData: any) => {
-    return apiClient.post('/teacher/surveys', surveyData)
+  createSurvey: async (surveyData: any): Promise<any> => {
+    const res = await apiClient.post<any>('/teacher/surveys', surveyData)
+    return res as unknown as any
   },
   
   // 更新问卷
-  updateSurvey: async (surveyId: string, surveyData: any) => {
-    return apiClient.put(`/teacher/surveys/${surveyId}`, surveyData)
+  updateSurvey: async (surveyId: string, surveyData: any): Promise<any> => {
+    const res = await apiClient.put<any>(`/teacher/surveys/${surveyId}`, surveyData)
+    return res as unknown as any
   },
   
   // 发布问卷（选择班级与发布类型）- 请求体使用 snake_case 与后端一致
   publishSurvey: async (
     surveyId: string,
     options?: { classIds: string[]; releaseType: 'in_class' | 'homework' | 'practice' }
-  ) => {
+  ): Promise<any> => {
     const opts = options ?? { classIds: [], releaseType: 'in_class' }
     if (!opts.classIds?.length) {
       throw new Error('请至少选择一个班级')
     }
-    return apiClient.put(`/teacher/surveys/${surveyId}/publish`, {
+    const res = await apiClient.put<any>(`/teacher/surveys/${surveyId}/publish`, {
       class_ids: opts.classIds,
       release_type: opts.releaseType,
     })
+    return res as unknown as any
   },
   
   // 取消发布问卷
-  unpublishSurvey: async (surveyId: string) => {
-    return apiClient.put(`/teacher/surveys/${surveyId}/unpublish`)
+  unpublishSurvey: async (surveyId: string): Promise<any> => {
+    const res = await apiClient.put<any>(`/teacher/surveys/${surveyId}/unpublish`)
+    return res as unknown as any
   },
   
   // 删除问卷
-  deleteSurvey: async (surveyId: string) => {
-    return apiClient.delete(`/teacher/surveys/${surveyId}`)
+  deleteSurvey: async (surveyId: string): Promise<any> => {
+    const res = await apiClient.delete<any>(`/teacher/surveys/${surveyId}`)
+    return res as unknown as any
   },
   
   // 获取问卷结果
-  getSurveyResults: async (surveyId: string) => {
-    return apiClient.get(`/teacher/surveys/${surveyId}/results`)
+  getSurveyResults: async (surveyId: string): Promise<any> => {
+    const res = await apiClient.get<any>(`/teacher/surveys/${surveyId}/results`)
+    return res as unknown as any
   },
   
   // 上传Word文档并解析
-  uploadWord: async (file: File) => {
+  uploadWord: async (file: File): Promise<{
+    success: boolean
+    file_id: string
+    filename: string
+    questions: any[]
+    validation: { is_valid: boolean; errors: string[]; question_count: number }
+    is_duplicate?: boolean
+    duplicate_info?: any
+    message?: string
+  }> => {
     const formData = new FormData()
     formData.append('file', file)
     
-    return apiClient.post('/teacher/surveys/upload-word', formData, {
+    const res = await apiClient.post<{
+      success: boolean
+      file_id: string
+      filename: string
+      questions: any[]
+      validation: { is_valid: boolean; errors: string[]; question_count: number }
+      is_duplicate?: boolean
+      duplicate_info?: any
+      message?: string
+    }>('/teacher/surveys/upload-word', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     })
+    return res as unknown as {
+      success: boolean
+      file_id: string
+      filename: string
+      questions: any[]
+      validation: { is_valid: boolean; errors: string[]; question_count: number }
+      is_duplicate?: boolean
+      duplicate_info?: any
+      message?: string
+    }
   },
   
   // 删除上传的文件
-  deleteUploadedFile: async (fileId: string) => {
-    return apiClient.delete(`/teacher/surveys/uploaded-file/${fileId}`)
+  deleteUploadedFile: async (fileId: string): Promise<any> => {
+    const res = await apiClient.delete<any>(`/teacher/surveys/uploaded-file/${fileId}`)
+    return res as unknown as any
   },
   
   // 使用数据库中已有的文件（删除新上传的临时文件）
-  useDatabaseFile: async (newFileId: string) => {
-    return apiClient.post(`/teacher/surveys/use-database-file/${newFileId}`)
+  useDatabaseFile: async (newFileId: string): Promise<any> => {
+    const res = await apiClient.post<any>(`/teacher/surveys/use-database-file/${newFileId}`)
+    return res as unknown as any
   },
   
   // 确认使用新文件（删除旧文件，保存新文件到向量数据库）
-  confirmNewFile: async (data: { new_file_id: string; old_file_id: string; filename: string; questions: any[] }) => {
-    return apiClient.post('/teacher/surveys/confirm-new-file', data)
+  confirmNewFile: async (data: { new_file_id: string; old_file_id: string; filename: string; questions: any[] }): Promise<any> => {
+    const res = await apiClient.post<any>('/teacher/surveys/confirm-new-file', data)
+    return res as unknown as any
   },
   
   // 搜索相似问题
-  searchSimilar: async (query: string, limit: number = 5) => {
-    return apiClient.get('/teacher/surveys/search-similar', {
+  searchSimilar: async (query: string, limit: number = 5): Promise<any[]> => {
+    const res = await apiClient.get<any[]>('/teacher/surveys/search-similar', {
       params: { query, limit }
     })
+    return res as unknown as any[]
   },
   
   // 手动创建问卷（直接创建不经过Word解析）
-  createManualSurvey: async (surveyData: { title: string; description?: string; questions: any[] }) => {
-    return apiClient.post('/teacher/surveys/manual', surveyData)
+  createManualSurvey: async (surveyData: { title: string; description?: string; questions: any[] }): Promise<{ id: string }> => {
+    const res = await apiClient.post<{ id: string }>('/teacher/surveys/manual', surveyData)
+    return res as unknown as { id: string }
   },
   
   // 上传文件（用于问答题参考材料）
-  uploadFile: async (file: File) => {
+  uploadFile: async (file: File): Promise<{ url: string }> => {
     const formData = new FormData()
     formData.append('file', file)
     
-    return apiClient.post('/teacher/surveys/upload', formData, {
+    const res = await apiClient.post<{ url: string }>('/teacher/surveys/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     })
+    return res as unknown as { url: string }
   },
 }
 

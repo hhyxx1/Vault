@@ -29,7 +29,15 @@ const TeacherProfile = () => {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<TabType>('courses')
   const [avatarTimestamp, setAvatarTimestamp] = useState(Date.now())
-  const [teacherInfo, setTeacherInfo] = useState({
+  const [teacherInfo, setTeacherInfo] = useState<{
+    fullName: string
+    teacherNumber: string
+    department: string | null
+    title: string | null
+    email: string
+    joinDate: string
+    avatar: string
+  }>({
     fullName: '张老师',
     teacherNumber: 'T20240001',
     department: '计算机学院',

@@ -15,7 +15,20 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.api.auth import router as auth_router
-from app.api.student import qa as student_qa, survey as student_survey, class_enrollment as student_class, profile as student_profile, course_documents as student_course_docs
+from app.config.settings import settings
+
+# 条件导入AI功能
+try:
+    if settings.ENABLE_AI_FEATURES:
+        from app.api.student import qa as student_qa
+    else:
+        student_qa = None
+except ImportError:
+    print("⚠️  警告: 无法导入AI问答功能，可能由于llama-index兼容性问题")
+    print("💡 提示: 如需启用AI功能，请检查llama-index版本")
+    student_qa = None
+
+from app.api.student import survey as student_survey, class_enrollment as student_class, profile as student_profile, course_documents as student_course_docs
 from app.api.teacher import dashboard, survey as teacher_survey, profile as teacher_profile, knowledge_base as teacher_kb, survey_generation
 
 app = FastAPI(
@@ -52,7 +65,13 @@ app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 # 注册路由
 app.include_router(auth_router)  # 认证路由
-app.include_router(student_qa.router, prefix="/api/student/qa", tags=["学生-问答"])
+
+# 仅在启用AI功能时注册AI相关路由
+if student_qa:
+    app.include_router(student_qa.router, prefix="/api/student/qa", tags=["学生-问答"])
+else:
+    print("⚠️  AI问答功能已禁用，相关API不可用")
+
 app.include_router(student_survey.router, prefix="/api/student/surveys", tags=["学生-问卷"])
 app.include_router(student_class.router, prefix="/api/student/classes", tags=["学生-班级"])
 app.include_router(student_profile.router, prefix="/api/student/profile", tags=["学生-个人资料"])

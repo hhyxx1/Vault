@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     VECTOR_DB_PATH: str = "./data/chroma_db"
     PGVECTOR_ENABLED: bool = False  # 是否使用pgvector扩展
     
+    # AI功能配置
+    ENABLE_AI_FEATURES: bool = False  # 是否启用AI功能，如果遇到llama-index兼容性问题，可设为False
+    
     # 安全配置
     SECRET_KEY: str = "your-secret-key-here-change-in-production-please-change-this-to-random-string"
     ALGORITHM: str = "HS256"

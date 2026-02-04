@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useParams } from 'react-router-dom'
 import ProtectedRoute from '@/components/ProtectedRoute'
 import StudentLayout from '@/layouts/StudentLayout'
 import TeacherLayout from '@/layouts/TeacherLayout'
@@ -13,6 +13,13 @@ import TeacherDashboard from '@/pages/teacher/Dashboard'
 import TeacherSurvey from '@/pages/teacher/Survey'
 import TeacherProfile from '@/pages/teacher/Profile'
 import CourseKnowledgeBase from '@/pages/teacher/CourseKnowledgeBase'
+import AIDashboard from '@/components/Dashboard'
+import AIStudentProfile from '@/components/StudentProfile'
+
+const AIStudentProfileRoute = () => {
+  const { id } = useParams()
+  return <AIStudentProfile studentId={id ?? ''} />
+}
 
 const AppRouter = () => {
   return (
@@ -52,6 +59,8 @@ const AppRouter = () => {
         <Route path="survey" element={<TeacherSurvey />} />
         <Route path="profile" element={<TeacherProfile />} />
         <Route path="course/:courseId/knowledge-base" element={<CourseKnowledgeBase />} />
+        <Route path="ai/dashboard" element={<AIDashboard />} />
+        <Route path="ai/student/:id" element={<AIStudentProfileRoute />} />
       </Route>
 
       {/* 默认重定向到登录页 */}

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends, Query
 from pydantic import BaseModel
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Union
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from sqlalchemy.exc import ProgrammingError
@@ -17,13 +17,13 @@ class QuestionResponse(BaseModel):
     id: str
     text: str
     type: str
-    options: List[str] | None = None
+    options: Union[List[str], None] = None
     required: bool = True
 
 class SurveyResponse(BaseModel):
     id: str
     title: str
-    description: str | None = None
+    description: Union[str, None] = None
     status: str
     questions: List[QuestionResponse]
 

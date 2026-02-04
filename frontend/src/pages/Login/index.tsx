@@ -38,14 +38,14 @@ const Login = () => {
     setLoading(true)
 
     try {
-      const data = await authApi.login(formData.username, formData.password)
+      const response = await authApi.login(formData.username, formData.password)
       
       // 保存token和用户信息
-      localStorage.setItem('token', data.access_token)
-      localStorage.setItem('user', JSON.stringify(data.user))
+      localStorage.setItem('token', response.access_token)
+      localStorage.setItem('user', JSON.stringify(response.user))
       
       // 根据用户角色跳转
-      if (data.user.role === 'teacher') {
+      if (response.user.role === 'teacher') {
         navigate('/teacher')
       } else {
         navigate('/student')
