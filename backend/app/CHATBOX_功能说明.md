@@ -1,0 +1,120 @@
+# Chatbox 功能说明
+
+- 目标：为学生提供一个可用“知识库 + 引用 + 工具调用”的问答助手
+- 能力：RAG 检索并生成带来源引用的答案，按需调用 Skills（如计算器、时间查询等），保存问答历史
+- 技术栈：LlamaIndex（RAG/引用）、ChromaDB（向量存储）、OpenAI Function Calling（工具调用）、FastAPI（接口）
+
+## 工作流概览
+- 学生提出问题 → Agent 判断需要查询知识库或调用技能
+- 知识库查询由 CitationQueryEngine 提供，答案附带来源节点（文档名、页码、相似度）
+- Agent 将来源信息与最终回答一起返回，并持久化到数据库
+- 重要代码：
+  - QAService：[qa_service.py](services/qa_service.py)
+  - VectorDBService：[vector_db_service.py](services/vector_db_service.py)
+  - 学生接口：[qa.py](api/student/qa.py)
+  - 数据模型：[qa.py](models/qa.py)
+
+## 关键模块
+- QAService
+  - 方法：
+    - get_ai_answer(question, course_id, history)：调用 Agent，返回 {answer, sources}
+    - create_qa_record(db, student_id, question, answer, course_id, sources)：保存问答记录
+    - get_student_history(db, student_id, limit)：查询历史消息作为上下文
+  - 代码参考：[qa_service.py](services/qa_service.py)
+- VectorDBService
+  - 使用 LlamaIndex + ChromaVectorStore 构建每课程一个索引集合
+  - 提供 get_citation_query_engine(course_id)：返回带引用的查询引擎
+  - 代码参考：[vector_db_service.py](services/vector_db_service.py)
+- Skills（工具）
+  - 路径：backend/app/skills/
+  - 注册点：AVAILABLE_SKILLS 列表
+  - 示例：数学计算与时间查询
+  - 代码参考：[__init__.py](skills/__init__.py)、[math_skills.py](skills/math_skills.py)、[general_skills.py](skills/general_skills.py)
+
+## 接口设计
+- POST /api/student/qa/ask
+  - 入参：{ question: string, course_id?: string }
+  - 出参：{ answer: string, question_id: string, sources: [{content, file_name, page_label, score?}] }
+  - 实现参考：[qa.py](api/student/qa.py)
+- GET /api/student/qa/history
+  - 入参：依赖当前用户
+  - 出参：最近问答列表
+  - 实现参考：[qa.py](api/student/qa.py)
+
+## 环境与依赖
+ - 重要依赖：见 [requirements.txt](../requirements.txt)
+  - chromadb、sentence-transformers、llama-index 系列、openai
+- 环境变量：
+  - OPENAI_API_KEY：用于 OpenAI/DeepSeek 兼容客户端
+- 运行前确保首次安装：
+  - pip install -r backend/requirements.txt
+
+## 使用示例
+- 请求：
+  - question: “根据知识库，这门课的评分标准是什么？另外帮我算一下 30% 的 80 分是多少。”
+  - course_id: 课程标识
+- 响应：
+  - answer：结合知识库检索与技能调用的最终回答
+  - sources：来源节点（文档名、页码、相似度），便于核查依据
+
+## 扩展 Skills
+- 在 backend/app/skills/ 下新增函数文件并完善 Docstring
+- 在 AVAILABLE_SKILLS 中注册该函数
+- Agent 将自动识别并在需要时调用
+ - 参考：[__init__.py](skills/__init__.py)
+
+## 数据持久化
+- 模型：QARecord（问题、答案、来源、置信度、时间戳等）
+ - 代码参考：[qa.py](models/qa.py)
+- 每次回答会保存问答与引用来源，便于后续回顾与审计
+
+## 测试与验证
+- 单元测试脚本：验证 Agent 工作流结构与返回格式
+- 命令：python backend/tests/test_qa_workflow.py
+ - 参考：[test_qa_workflow.py](../tests/test_qa_workflow.py)
+
+## 常见问题
+- 无 OPENAI_API_KEY：将导致 Agent 初始化失败，需设置环境变量
+- 首次下载 HuggingFace 模型较慢：可预设缓存目录或提前下载
+- Chroma 数据目录权限：Windows 路径下需确保有写入权限
+
+## 安全与合规
+- 不持久化任何密钥或隐私数据
+- 引用来源仅存储必要的元信息（文件名、页码、相似度），不泄露敏感内容
+
+## 技能检索与动态生成（新增）
+- 目标：在提问后先检索是否有“现有可用技能”，若不足则按需“动态生成临时技能”，并纳入本轮工具集合
+- 静态技能语义检索：
+  - 为每个技能构建向量（name+description），通过余弦相似度检索 TopK 候选
+  - 实现参考：[services/skill_loader.py](services/skill_loader.py) 中 `search_skills`、`build_skill_embeddings`
+- Skill Planner（是否生成）：
+  - 先用启发式规则判断（如“计算/百分比/求”等关键词），必要时可升级为 LLM 规划器
+  - 规则实现参考：[services/skill_loader.py](services/skill_loader.py) 中 `generate_runtime_skill`
+- 运行时临时技能（安全）：
+  - 不落盘，仅在本轮对话中以函数形式存在，使用 AST 安全计算等方式保证可控
+  - 例：自动提取问题里的算式并安全计算（支持百分比）；返回 `GeneratedSkill`（name/description/fn）
+- 后续持久化（可选）：
+  - 对通用效果好的临时技能，可生成 Markdown 技能文件落盘到 `skills/`，下次启动自动加入库
+
+## 工作流步骤（更新串联）
+- 步骤：
+  - 收到问题 → 准备工具集合
+  - 加入知识库工具：课程级 `CitationQueryEngine`（带引用）
+  - 语义检索静态技能：对 `AVAILABLE_SKILLS` 的函数名与 Docstring 做向量化，按相似度选择少量技能加入工具集合（QAService 内实现）
+  - Planner 决策：在 QAService 内部统一执行 `_planner_decide(question)`，优先用 LLM Planner（Settings.llm.complete）输出严格 JSON：
+    - should_use_existing: bool
+    - matched_skill_names: list[str]（≤3）
+    - should_generate_runtime: bool
+    - runtime_type: 'math_calc' | 'none'
+  - 判定并生成临时技能：当 Planner 认为需要生成时，由 `SkillLoader.generate_runtime_skill` 生成“安全临时技能”，与静态技能一同注入 Agent；若 LLM Planner 不可用则回退启发式规则
+  - 构建 Agent：将以上工具与历史上下文注入，进行对话生成
+  - 收集引用与结果：提取 source_nodes，整理结构化 `sources`
+  - 持久化：保存问题、答案、引用来源到 `QARecord`
+- 代码参考：
+  - QAService 工具构建与调用（含静态技能检索、Planner 与临时技能生成）：[services/qa_service.py](services/qa_service.py)
+  - 技能检索与生成：[services/skill_loader.py](services/skill_loader.py)
+  - 知识库与引用：[services/vector_db_service.py](services/vector_db_service.py)
+
+## 维护约定
+- 本文档作为 Chatbox 的实现说明与变更记录的“同步源”
+- 后续每次与 Chatbox 相关的功能改动（接口、工作流、技能机制）需同步更新本说明
