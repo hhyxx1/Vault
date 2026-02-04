@@ -24,6 +24,18 @@ export const askQuestion = async (
   })
 }
 
+export interface QAHistoryItem {
+  id: string
+  question: string
+  answer: string
+  timestamp: string
+  course_id?: string
+}
+
+export const getQAHistory = async (): Promise<QAHistoryItem[]> => {
+  return await apiClient.get<QAHistoryItem[]>('/student/qa/history')
+}
+
 // 班级信息
 export interface ClassInfo {
   id: string
@@ -168,6 +180,85 @@ export const getCourseDocumentPreviewPdf = async (
     { responseType: 'blob' }
   )
   return data as unknown as Blob
+}
+
+// QA上传文档
+export interface UploadDocumentResponse {
+  message: string
+  file_name: string
+  status: string
+}
+
+export const uploadQADocument = async (
+  file: File,
+  courseId?: string
+): Promise<UploadDocumentResponse> => {
+  const formData = new FormData()
+  formData.append('file', file)
+  if (courseId) {
+    formData.append('course_id', courseId)
+  }
+  
+  return await apiClient.post<UploadDocumentResponse>('/student/qa/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+
+// QA分享相关接口
+export interface ShareRequest {
+  title: string
+  description?: string
+  access_password?: string
+  expires_in_hours?: number
+  session_id?: string
+  qa_record_id?: string
+  limit?: number
+}
+
+export interface ShareResponse {
+  share_code: string
+  share_url: string
+  expires_at: string
+  access_required: boolean
+}
+
+export interface SharedQAItem {
+  question: string
+  answer: string
+  timestamp: string
+}
+
+export interface SharedSessionResponse {
+  share_code: string
+  title: string
+  description?: string
+  sharer_name: string
+  created_at: string
+  expires_at?: string
+  view_count: number
+  items: SharedQAItem[]
+}
+
+export const createQAShare = async (shareData: ShareRequest): Promise<ShareResponse> => {
+  return await apiClient.post<ShareResponse>('/student/qa/share', shareData)
+}
+
+export const getSharedQA = async (
+  shareCode: string,
+  accessPassword?: string
+): Promise<SharedSessionResponse> => {
+  const params: any = {}
+  if (accessPassword) {
+    params.access_password = accessPassword
+  }
+  
+  return await apiClient.get<SharedSessionResponse>(`/student/qa/share/${shareCode}`, { params })
+}
+
+export const deleteQAShare = async (shareCode: string): Promise<{ message: string }> => {
+  return await apiClient.delete<{ message: string }>(`/student/qa/share/${shareCode}`)
 }
 
 export default studentClassService

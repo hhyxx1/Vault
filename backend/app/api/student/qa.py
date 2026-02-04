@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, UploadFile, File, Form, BackgroundTasks
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
 import os
@@ -50,6 +50,14 @@ class ShareRequest(BaseModel):
     expires_in_hours: Optional[int] = Field(24, ge=1, le=720, description="过期时间（小时）")
     session_id: Optional[str] = Field(None, description="会话ID，分享整个会话")
     qa_record_id: Optional[str] = Field(None, description="问答记录ID，分享单条问答")
+    limit: Optional[int] = Field(None, ge=1, le=50, description="分享最近的N条问答记录")
+
+    @field_validator('access_password', mode='before')
+    @classmethod
+    def validate_password(cls, v):
+        if v == '':
+            return None
+        return v
 
 class ShareResponse(BaseModel):
     share_code: str
@@ -207,13 +215,15 @@ async def create_share(
 ):
     """
     创建分享链接
-    可以分享单条问答或整个会话
+    可以分享单条问答、整个会话或最近的N条问答记录
     """
-    # 验证必须提供session_id或qa_record_id之一
-    if not request.session_id and not request.qa_record_id:
+    print(f"📨 分享请求参数: {request.model_dump()}")
+    
+    # 验证必须提供session_id、qa_record_id或limit之一
+    if not request.session_id and not request.qa_record_id and not request.limit:
         raise HTTPException(
             status_code=400,
-            detail="必须提供session_id或qa_record_id之一"
+            detail="必须提供session_id、qa_record_id或limit之一"
         )
     
     # 验证资源是否存在且属于当前用户
@@ -254,7 +264,8 @@ async def create_share(
         title=request.title,
         description=request.description,
         access_password=request.access_password,
-        expires_at=expires_at
+        expires_at=expires_at,
+        limit=request.limit
     )
     
     db.add(share)
@@ -328,6 +339,16 @@ async def get_shared_content(
             QARecord.student_id == share.sharer_id
         ).order_by(QARecord.created_at.asc()).all()
         for record in records:
+            items.append(SharedQAItem(
+                question=record.question,
+                answer=record.answer or "",
+                timestamp=record.created_at.isoformat() if record.created_at else ""
+            ))
+    elif share.limit:
+        records = db.query(QARecord).filter(
+            QARecord.student_id == share.sharer_id
+        ).order_by(QARecord.created_at.desc()).limit(share.limit).all()
+        for record in reversed(records):
             items.append(SharedQAItem(
                 question=record.question,
                 answer=record.answer or "",

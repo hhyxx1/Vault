@@ -15,6 +15,7 @@ import TeacherProfile from '@/pages/teacher/Profile'
 import CourseKnowledgeBase from '@/pages/teacher/CourseKnowledgeBase'
 import AIDashboard from '@/components/Dashboard'
 import AIStudentProfile from '@/components/StudentProfile'
+import SharedQAView from '@/pages/SharedQA'
 
 const AIStudentProfileRoute = () => {
   const { id } = useParams()
@@ -62,6 +63,9 @@ const AppRouter = () => {
         <Route path="ai/dashboard" element={<AIDashboard />} />
         <Route path="ai/student/:id" element={<AIStudentProfileRoute />} />
       </Route>
+
+      {/* 分享链接路由（公开访问） */}
+      <Route path="/qa/share/:shareCode" element={<SharedQAView />} />
 
       {/* 默认重定向到登录页 */}
       <Route path="/" element={<Navigate to="/login" replace />} />

@@ -52,4 +52,5 @@ class QAShare(Base):
     expires_at = Column(DateTime, nullable=True)
     view_count = Column(Integer, default=0, nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)
+    limit = Column(Integer, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)

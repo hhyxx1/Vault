@@ -25,9 +25,8 @@ try:
         load_index_from_storage
     )
     from llama_index.vector_stores.chroma import ChromaVectorStore
-    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+    from llama_index.embeddings.openai import OpenAIEmbedding
     from llama_index.llms.openai import OpenAI
-    from llama_index.core.query_engine import CitationQueryEngine
     LLAMA_INDEX_AVAILABLE = True
 except ImportError:
     print("⚠️  警告: 无法导入 LlamaIndex，向量数据库功能将不可用")
@@ -70,17 +69,19 @@ class VectorDBService:
             # 3. 配置全局 Settings (LlamaIndex v0.10+)
             print("正在初始化 LlamaIndex 模型配置...")
             
-            # Embedding 模型 (保持与原项目一致，使用本地 HuggingFace 模型)
-            # cache_folder 可以指定模型缓存路径，避免重复下载
-            self.embed_model = HuggingFaceEmbedding(
-                model_name="paraphrase-multilingual-MiniLM-L12-v2"
+            # Embedding 模型 (使用 OpenAI)
+            self.embed_model = OpenAIEmbedding(
+                model="text-embedding-ada-002",
+                api_key="sk-11fe906e92c84e0f95c9f04ae6ed1565",
+                api_base="https://api.deepseek.com/v1"
             )
             Settings.embed_model = self.embed_model
             
-            # LLM 配置 (使用 OpenAI)
-            # 注意：需要环境变量 OPENAI_API_KEY
-            self.llm = OpenAI(model="gpt-3.5-turbo", temperature=0)
-            Settings.llm = self.llm
+            # LLM 配置 (使用 DeepSeek)
+            # 注意：CitationQueryEngine不支持DeepSeek模型，所以我们不设置LLM
+            # 这样查询引擎将只做向量检索，不做LLM生成
+            self.llm = None
+            Settings.llm = None
             
             print("LlamaIndex 配置完成")
             
@@ -237,17 +238,15 @@ class VectorDBService:
             print("⚠️  向量数据库不可用，无法创建查询引擎")
             return None
         """
-        获取带引用功能的查询引擎
-        这是 LlamaIndex 的核心功能之一
+        获取查询引擎（简化版，不使用CitationQueryEngine）
+        由于CitationQueryEngine不支持DeepSeek模型，我们使用简单的查询引擎
         """
         index = self.get_index(course_id)
         
-        # 创建 CitationQueryEngine
-        # 它会自动检索，并让 LLM 生成带有引用的回答
-        query_engine = CitationQueryEngine.from_args(
-            index,
+        # 创建简单的查询引擎，只做向量检索
+        query_engine = index.as_query_engine(
             similarity_top_k=similarity_top_k,
-            citation_chunk_size=512, # 引用块的大小
+            retriever_mode="default"
         )
         return query_engine
         

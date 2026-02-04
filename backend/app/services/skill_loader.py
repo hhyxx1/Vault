@@ -6,17 +6,15 @@ from typing import List, Optional, Callable, Dict, Any, Tuple
 from dataclasses import dataclass
 import re
 import ast
-# LlamaIndex 导入（条件导入）
+import chromadb
+from chromadb.utils import embedding_functions
+
+CHROMADB_AVAILABLE = False
+
 try:
-    from llama_index.core import Settings
-    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-    LLAMA_INDEX_AVAILABLE = True
+    CHROMADB_AVAILABLE = True
 except ImportError:
-    print("⚠️  警告: 无法导入 LlamaIndex，技能加载功能将受限")
-    print("💡 提示: 如需启用完整技能功能，请安装 llama-index 相关包")
-    LLAMA_INDEX_AVAILABLE = False
-    Settings = None
-    HuggingFaceEmbedding = None
+    print("⚠️  警告: 无法导入 chromadb，技能语义检索功能将受限")
 
 
 @dataclass
@@ -147,30 +145,39 @@ class SkillLoader:
 
     def _ensure_embed_model(self):
         """确保有可用的嵌入模型"""
-        if not LLAMA_INDEX_AVAILABLE:
-            print("⚠️  LlamaIndex 不可用，跳过嵌入模型初始化")
+        if not CHROMADB_AVAILABLE:
+            print("⚠️  chromadb 不可用，跳过嵌入模型初始化")
             return
         if self._embed_model:
             return
-        if Settings.embed_model is not None:
-            self._embed_model = Settings.embed_model
-        else:
-            self._embed_model = HuggingFaceEmbedding(
-                model_name="paraphrase-multilingual-MiniLM-L12-v2"
-            )
+        try:
+            self._embed_model = embedding_functions.DefaultEmbeddingFunction()
+            print("✅ chromadb默认嵌入模型初始化成功")
+        except Exception as e:
+            print(f"⚠️  初始化嵌入模型失败: {e}")
+            self._embed_model = None
 
     def build_skill_embeddings(self):
         """为当前技能集构建向量表示，用于语义检索"""
-        if not LLAMA_INDEX_AVAILABLE:
-            print("⚠️  LlamaIndex 不可用，跳过技能向量构建")
+        if not CHROMADB_AVAILABLE:
+            print("⚠️  chromadb 不可用，跳过技能向量构建")
             return
-        self._ensure_embed_model()
-        texts = [f"{s.name}\n{s.description}" for s in self.skills]
-        if not texts:
-            return
-        vectors = self._embed_model.get_text_embedding_batch(texts)
-        for s, v in zip(self.skills, vectors):
-            self._skill_embeddings[s.name] = v
+        try:
+            self._ensure_embed_model()
+            if self._embed_model is None:
+                print("⚠️  嵌入模型初始化失败，跳过技能向量构建")
+                return
+            texts = [f"{s.name}\n{s.description}" for s in self.skills]
+            if not texts:
+                return
+            embeddings = self._embed_model(texts)
+            for s, v in zip(self.skills, embeddings):
+                self._skill_embeddings[s.name] = v
+            print(f"✅ 成功构建 {len(self.skills)} 个技能的向量表示")
+        except Exception as e:
+            print(f"⚠️  构建技能向量失败: {e}")
+            print("💡 技能语义检索功能将不可用，但其他功能正常")
+            self._skill_embeddings = {}
 
     @staticmethod
     def _cosine(a: List[float], b: List[float]) -> float:
@@ -186,25 +193,37 @@ class SkillLoader:
 
     def search_skills(self, query: str, top_k: int = 3, threshold: float = 0.35) -> List[Tuple[Skill, float]]:
         """基于语义的技能检索"""
-        if not LLAMA_INDEX_AVAILABLE:
-            print("⚠️  LlamaIndex 不可用，返回空技能搜索结果")
+        if not CHROMADB_AVAILABLE:
+            print("⚠️  chromadb 不可用，返回空技能搜索结果")
             return []
         if not self.skills:
             return []
         if not self._skill_embeddings:
-            self.build_skill_embeddings()
-        self._ensure_embed_model()
-        qv = self._embed_model.get_text_embedding(query)
-        scored: List[Tuple[Skill, float]] = []
-        for s in self.skills:
-            sv = self._skill_embeddings.get(s.name)
-            if not sv:
-                continue
-            sim = self._cosine(sv, qv)
-            if sim >= threshold:
-                scored.append((s, sim))
-        scored.sort(key=lambda x: x[1], reverse=True)
-        return scored[:top_k]
+            try:
+                self.build_skill_embeddings()
+            except Exception as e:
+                print(f"⚠️  构建技能向量失败，跳过语义检索: {e}")
+                return []
+        
+        try:
+            self._ensure_embed_model()
+            if self._embed_model is None:
+                print("⚠️  嵌入模型未初始化，跳过语义检索")
+                return []
+            qv = self._embed_model([query])[0]
+            scored: List[Tuple[Skill, float]] = []
+            for s in self.skills:
+                sv = self._skill_embeddings.get(s.name)
+                if not sv:
+                    continue
+                sim = self._cosine(sv, qv)
+                if sim >= threshold:
+                    scored.append((s, sim))
+            scored.sort(key=lambda x: x[1], reverse=True)
+            return scored[:top_k]
+        except Exception as e:
+            print(f"⚠️  技能语义检索失败: {e}")
+            return []
 
     # ---------------- 运行时技能生成 ----------------
     def generate_runtime_skill(self, question: str) -> Optional[GeneratedSkill]:
