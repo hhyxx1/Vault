@@ -1,0 +1,56 @@
+# 智能教学平台 - 后端依赖清单
+# Python 3.12+ 所需包
+# 首次安装命令: pip install -r requirements.txt
+
+# ============ 核心框架 ============
+fastapi==0.109.0              # Web框架
+uvicorn[standard]==0.27.0     # ASGI服务器
+pydantic==2.5.3               # 数据验证
+pydantic-settings==2.1.0      # 配置管理
+email-validator==2.1.0.post1  # Pydantic email 字段支持
+python-dotenv==1.0.0          # 环境变量
+python-multipart==0.0.6       # 文件上传支持
+
+# ============ 数据库 ============
+sqlalchemy==2.0.25            # ORM框架
+psycopg[binary]==3.3.2        # PostgreSQL驱动（psycopg3，支持中文路径）
+asyncpg==0.29.0               # 异步PostgreSQL驱动
+
+# ============ 认证与安全 ============
+python-jose[cryptography]==3.3.0  # JWT令牌
+passlib[bcrypt]==1.7.4            # 密码加密
+bcrypt==4.1.2                     # bcrypt哈希算法
+
+# ============ HTTP客户端 ============
+httpx==0.26.0                 # 异步HTTP客户端
+aiofiles==23.2.1              # 异步文件操作
+
+# ============ 文档处理 ============
+python-docx==1.1.0            # Word文档解析
+PyPDF2==3.0.1                 # PDF文档解析
+python-pptx==0.6.23           # PowerPoint文档解析
+docling==1.1.0                # 智能文档解析 (PDF/Word/PPT to Markdown)
+# 可选：安装 LibreOffice 后，课程资料中的 PPTX 可转为 PDF 预览（完整页数）
+# 命令行安装示例：
+#   Windows (PowerShell，需 winget):  winget install TheDocumentFoundation.LibreOffice
+#   Windows (Chocolatey):            choco install libreoffice-fresh
+#   Ubuntu/Debian:                   sudo apt update && sudo apt install -y libreoffice
+#   CentOS/RHEL/Fedora:              sudo dnf install -y libreoffice  或  sudo yum install -y libreoffice
+#   macOS:                           brew install --cask libreoffice
+# 安装后重启后端服务即可
+
+# ============ 向量数据库与AI ============
+chromadb==0.4.22              # 向量数据库
+sentence-transformers==2.3.1  # 文本向量化模型
+openai==1.10.0                # OpenAI API
+# LlamaIndex 核心与组件
+llama-index==0.10.0
+llama-index-vector-stores-chroma==0.1.1
+llama-index-embeddings-huggingface==0.1.1
+llama-index-llms-openai==0.1.1
+
+# ============ 开发工具（可选）============
+# pytest==7.4.4               # 单元测试
+# pytest-asyncio==0.23.3      # 异步测试
+# black==24.1.1               # 代码格式化
+# flake8==7.0.0               # 代码检查
