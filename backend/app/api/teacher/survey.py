@@ -29,7 +29,7 @@ UPLOADS_DIR = PROJECT_ROOT / "uploads"
 # 模型定义
 class SurveyCreate(BaseModel):
     title: str
-    description: str | None = None
+    description: Optional[str] = None
     questions: List[Dict[str, Any]]
 
 class SaveSurveyRequest(BaseModel):

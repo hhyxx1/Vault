@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from typing import List
+from typing import List, Union
 from uuid import UUID
 import random
 import string
@@ -24,11 +24,11 @@ class TeacherProfileResponse(BaseModel):
     username: str
     full_name: str
     email: str
-    avatar_url: str | None
+    avatar_url: Union[str, None]
     teacher_number: str
-    department: str | None
-    title: str | None
-    join_date: str | None
+    department: Union[str, None]
+    title: Union[str, None]
+    join_date: Union[str, None]
 
     class Config:
         from_attributes = True
@@ -192,7 +192,7 @@ async def upload_avatar(
 class CourseCreate(BaseModel):
     course_code: str = Field(..., description="课程代码")
     course_name: str = Field(..., description="课程名称")
-    description: str | None = Field(None, description="课程描述")
+    description: Union[str, None] = Field(None, description="课程描述")
     semester: str = Field(..., description="学期")
     credit: float = Field(..., description="学分")
 
@@ -200,7 +200,7 @@ class CourseResponse(BaseModel):
     id: str
     course_code: str
     course_name: str
-    description: str | None
+    description: Union[str, None]
     semester: str
     credit: float
     status: str
@@ -226,7 +226,7 @@ class ClassResponse(BaseModel):
     allow_self_enroll: bool
     status: str
     student_count: int
-    average_score: float | None = None
+    average_score: Union[float, None] = None
     
     class Config:
         from_attributes = True
@@ -474,8 +474,8 @@ class StudentInClass(BaseModel):
     full_name: str
     email: str
     student_number: str
-    major: str | None
-    grade: str | None
+    major: Union[str, None]
+    grade: Union[str, None]
     enrollment_date: str
     
     class Config:

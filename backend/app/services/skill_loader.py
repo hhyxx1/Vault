@@ -6,8 +6,17 @@ from typing import List, Optional, Callable, Dict, Any, Tuple
 from dataclasses import dataclass
 import re
 import ast
-from llama_index.core import Settings
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+# LlamaIndex 导入（条件导入）
+try:
+    from llama_index.core import Settings
+    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+    LLAMA_INDEX_AVAILABLE = True
+except ImportError:
+    print("⚠️  警告: 无法导入 LlamaIndex，技能加载功能将受限")
+    print("💡 提示: 如需启用完整技能功能，请安装 llama-index 相关包")
+    LLAMA_INDEX_AVAILABLE = False
+    Settings = None
+    HuggingFaceEmbedding = None
 
 
 @dataclass
@@ -138,6 +147,9 @@ class SkillLoader:
 
     def _ensure_embed_model(self):
         """确保有可用的嵌入模型"""
+        if not LLAMA_INDEX_AVAILABLE:
+            print("⚠️  LlamaIndex 不可用，跳过嵌入模型初始化")
+            return
         if self._embed_model:
             return
         if Settings.embed_model is not None:
@@ -149,6 +161,9 @@ class SkillLoader:
 
     def build_skill_embeddings(self):
         """为当前技能集构建向量表示，用于语义检索"""
+        if not LLAMA_INDEX_AVAILABLE:
+            print("⚠️  LlamaIndex 不可用，跳过技能向量构建")
+            return
         self._ensure_embed_model()
         texts = [f"{s.name}\n{s.description}" for s in self.skills]
         if not texts:
@@ -171,6 +186,9 @@ class SkillLoader:
 
     def search_skills(self, query: str, top_k: int = 3, threshold: float = 0.35) -> List[Tuple[Skill, float]]:
         """基于语义的技能检索"""
+        if not LLAMA_INDEX_AVAILABLE:
+            print("⚠️  LlamaIndex 不可用，返回空技能搜索结果")
+            return []
         if not self.skills:
             return []
         if not self._skill_embeddings:

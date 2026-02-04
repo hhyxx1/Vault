@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from sqlalchemy.orm import Session
-from typing import Optional
+from typing import Optional, Union
 import shutil
 import os
 from pathlib import Path
@@ -18,14 +18,14 @@ class StudentProfileResponse(BaseModel):
     username: str
     full_name: str
     email: str
-    avatar_url: str | None
+    avatar_url: Union[str, None]
     student_number: str
-    major: str | None
-    grade: str | None
-    class_name: str | None
+    major: Union[str, None]
+    grade: Union[str, None]
+    class_name: Union[str, None]
     total_questions: int
     total_scores: float
-    join_date: str | None
+    join_date: Union[str, None]
 
     class Config:
         from_attributes = True

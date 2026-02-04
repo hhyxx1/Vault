@@ -15,23 +15,45 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-# LlamaIndex 核心组件
-from llama_index.core import (
-    VectorStoreIndex, 
-    Document, 
-    Settings, 
-    StorageContext,
-    load_index_from_storage
-)
-from llama_index.vector_stores.chroma import ChromaVectorStore
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from llama_index.llms.openai import OpenAI
-from llama_index.core.query_engine import CitationQueryEngine
+# LlamaIndex 核心组件（条件导入）
+try:
+    from llama_index.core import (
+        VectorStoreIndex, 
+        Document, 
+        Settings, 
+        StorageContext,
+        load_index_from_storage
+    )
+    from llama_index.vector_stores.chroma import ChromaVectorStore
+    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+    from llama_index.llms.openai import OpenAI
+    from llama_index.core.query_engine import CitationQueryEngine
+    LLAMA_INDEX_AVAILABLE = True
+except ImportError:
+    print("⚠️  警告: 无法导入 LlamaIndex，向量数据库功能将不可用")
+    print("💡 提示: 如需启用向量数据库功能，请安装 llama-index 相关包")
+    LLAMA_INDEX_AVAILABLE = False
+    # 定义占位符类，以防需要这些类的类型提示
+    VectorStoreIndex = None
+    Document = None
+    Settings = None
+    StorageContext = None
+    load_index_from_storage = None
+    ChromaVectorStore = None
+    HuggingFaceEmbedding = None
+    OpenAI = None
+    CitationQueryEngine = None
 
 class VectorDBService:
     """基于 LlamaIndex 的向量数据库服务"""
     
     def __init__(self):
+        if not LLAMA_INDEX_AVAILABLE:
+            print("⚠️  LlamaIndex 不可用，跳过向量数据库初始化")
+            self.available = False
+            return
+        
+        self.available = True
         try:
             # 1. 路径配置
             backend_dir = Path(__file__).resolve().parent.parent.parent
@@ -81,7 +103,9 @@ class VectorDBService:
             metadata={"description": description}
         )
 
-    def get_index(self, course_id: Optional[str] = None) -> VectorStoreIndex:
+    def get_index(self, course_id: Optional[str] = None) -> Optional[VectorStoreIndex]:
+        if not self.available:
+            return None
         """
         获取指定课程的索引对象
         如果不存在则自动创建并连接到对应的 Chroma Collection
@@ -131,6 +155,9 @@ class VectorDBService:
         metadata: Optional[Dict[str, Any]] = None,
         course_id: Optional[str] = None
     ) -> bool:
+        if not self.available:
+            print("⚠️  向量数据库不可用，跳过文档添加")
+            return False
         """
         添加文档到 LlamaIndex
         """
@@ -167,6 +194,9 @@ class VectorDBService:
         filter_metadata: Optional[Dict[str, Any]] = None,
         course_id: Optional[str] = None
     ) -> List[Dict[str, Any]]:
+        if not self.available:
+            print("⚠️  向量数据库不可用，返回空结果")
+            return []
         """
         原生检索 (Retriever 模式)，不经过 LLM 生成
         用于保持向后兼容性
@@ -203,6 +233,9 @@ class VectorDBService:
             return []
 
     def get_citation_query_engine(self, course_id: Optional[str] = None, similarity_top_k: int = 3):
+        if not self.available:
+            print("⚠️  向量数据库不可用，无法创建查询引擎")
+            return None
         """
         获取带引用功能的查询引擎
         这是 LlamaIndex 的核心功能之一
@@ -219,6 +252,9 @@ class VectorDBService:
         return query_engine
         
     def delete_document(self, doc_id: str, course_id: Optional[str] = None) -> bool:
+        if not self.available:
+            print("⚠️  向量数据库不可用，跳过文档删除")
+            return False
         """删除文档"""
         try:
             index = self.get_index(course_id)
@@ -239,6 +275,9 @@ class VectorDBService:
                 return False
 
     def delete_course_collection(self, course_id: str) -> bool:
+        if not self.available:
+            print("⚠️  向量数据库不可用，跳过课程集合删除")
+            return False
         """删除课程集合"""
         try:
             collection_name = f"course_{course_id.replace('-', '_')}"
@@ -256,3 +295,10 @@ class VectorDBService:
 # 全局单例
 # vector_db = VectorDBService() 
 # 注意：我们不在模块级别实例化，而是在使用时实例化，避免导入时的副作用
+
+def get_vector_db():
+    """获取向量数据库服务实例"""
+    if not LLAMA_INDEX_AVAILABLE:
+        print("⚠️  LlamaIndex 不可用，无法提供向量数据库服务")
+        return None
+    return VectorDBService()
