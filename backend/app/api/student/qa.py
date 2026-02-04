@@ -1,14 +1,17 @@
 from fastapi import APIRouter, HTTPException, Depends, UploadFile, File, Form, BackgroundTasks
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
 import os
 import time
+import secrets
 from pathlib import Path
+from datetime import datetime, timedelta
 from app.services.qa_service import qa_service
 from app.database import get_db
 from app.utils.auth import get_current_user
 from app.models.user import User
+from app.models.qa import QAShare, QARecord, QASession
 
 router = APIRouter()
 
@@ -39,6 +42,35 @@ class UploadResponse(BaseModel):
     message: str
     file_name: str
     status: str
+
+class ShareRequest(BaseModel):
+    title: str = Field(..., description="分享标题")
+    description: Optional[str] = Field(None, description="分享描述")
+    access_password: Optional[str] = Field(None, min_length=4, max_length=20, description="访问密码")
+    expires_in_hours: Optional[int] = Field(24, ge=1, le=720, description="过期时间（小时）")
+    session_id: Optional[str] = Field(None, description="会话ID，分享整个会话")
+    qa_record_id: Optional[str] = Field(None, description="问答记录ID，分享单条问答")
+
+class ShareResponse(BaseModel):
+    share_code: str
+    share_url: str
+    expires_at: str
+    access_required: bool
+
+class SharedQAItem(BaseModel):
+    question: str
+    answer: str
+    timestamp: str
+
+class SharedSessionResponse(BaseModel):
+    share_code: str
+    title: str
+    description: Optional[str]
+    sharer_name: str
+    created_at: str
+    expires_at: Optional[str]
+    view_count: int
+    items: List[SharedQAItem]
 
 @router.post("/ask", response_model=QuestionResponse)
 async def ask_question(
@@ -166,3 +198,174 @@ async def get_history(
         )
         for r in records
     ]
+
+@router.post("/share", response_model=ShareResponse)
+async def create_share(
+    request: ShareRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    创建分享链接
+    可以分享单条问答或整个会话
+    """
+    # 验证必须提供session_id或qa_record_id之一
+    if not request.session_id and not request.qa_record_id:
+        raise HTTPException(
+            status_code=400,
+            detail="必须提供session_id或qa_record_id之一"
+        )
+    
+    # 验证资源是否存在且属于当前用户
+    if request.qa_record_id:
+        qa_record = db.query(QARecord).filter(
+            QARecord.id == request.qa_record_id,
+            QARecord.student_id == current_user.id
+        ).first()
+        if not qa_record:
+            raise HTTPException(
+                status_code=404,
+                detail="问答记录不存在或无权访问"
+            )
+    
+    if request.session_id:
+        session = db.query(QASession).filter(
+            QASession.id == request.session_id,
+            QASession.student_id == current_user.id
+        ).first()
+        if not session:
+            raise HTTPException(
+                status_code=404,
+                detail="会话不存在或无权访问"
+            )
+    
+    # 生成唯一的分享码
+    share_code = secrets.token_urlsafe(16)
+    
+    # 计算过期时间
+    expires_at = datetime.utcnow() + timedelta(hours=request.expires_in_hours) if request.expires_in_hours else None
+    
+    # 创建分享记录
+    share = QAShare(
+        share_code=share_code,
+        sharer_id=current_user.id,
+        session_id=request.session_id,
+        qa_record_id=request.qa_record_id,
+        title=request.title,
+        description=request.description,
+        access_password=request.access_password,
+        expires_at=expires_at
+    )
+    
+    db.add(share)
+    db.commit()
+    db.refresh(share)
+    
+    return ShareResponse(
+        share_code=share_code,
+        share_url=f"/api/student/qa/share/{share_code}",
+        expires_at=expires_at.isoformat() if expires_at else "",
+        access_required=bool(request.access_password)
+    )
+
+@router.get("/share/{share_code}", response_model=SharedSessionResponse)
+async def get_shared_content(
+    share_code: str,
+    access_password: Optional[str] = None,
+    db: Session = Depends(get_db)
+):
+    """
+    获取分享的问答内容
+    """
+    # 查找分享记录
+    share = db.query(QAShare).filter(
+        QAShare.share_code == share_code,
+        QAShare.is_active == True
+    ).first()
+    
+    if not share:
+        raise HTTPException(
+            status_code=404,
+            detail="分享链接不存在或已失效"
+        )
+    
+    # 检查是否过期
+    if share.expires_at and share.expires_at < datetime.utcnow():
+        raise HTTPException(
+            status_code=410,
+            detail="分享链接已过期"
+        )
+    
+    # 验证访问密码
+    if share.access_password and share.access_password != access_password:
+        raise HTTPException(
+            status_code=403,
+            detail="访问密码错误"
+        )
+    
+    # 增加访问次数
+    share.view_count += 1
+    db.commit()
+    
+    # 获取分享者信息
+    sharer = db.query(User).filter(User.id == share.sharer_id).first()
+    sharer_name = sharer.full_name if sharer else "未知用户"
+    
+    # 获取分享内容
+    items = []
+    if share.qa_record_id:
+        qa_record = db.query(QARecord).filter(
+            QARecord.id == share.qa_record_id
+        ).first()
+        if qa_record:
+            items.append(SharedQAItem(
+                question=qa_record.question,
+                answer=qa_record.answer or "",
+                timestamp=qa_record.created_at.isoformat() if qa_record.created_at else ""
+            ))
+    elif share.session_id:
+        records = db.query(QARecord).filter(
+            QARecord.student_id == share.sharer_id
+        ).order_by(QARecord.created_at.asc()).all()
+        for record in records:
+            items.append(SharedQAItem(
+                question=record.question,
+                answer=record.answer or "",
+                timestamp=record.created_at.isoformat() if record.created_at else ""
+            ))
+    
+    return SharedSessionResponse(
+        share_code=share_code,
+        title=share.title,
+        description=share.description,
+        sharer_name=sharer_name,
+        created_at=share.created_at.isoformat() if share.created_at else "",
+        expires_at=share.expires_at.isoformat() if share.expires_at else None,
+        view_count=share.view_count,
+        items=items
+    )
+
+@router.delete("/share/{share_code}")
+async def delete_share(
+    share_code: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    删除分享链接
+    """
+    share = db.query(QAShare).filter(
+        QAShare.share_code == share_code,
+        QAShare.sharer_id == current_user.id
+    ).first()
+    
+    if not share:
+        raise HTTPException(
+            status_code=404,
+            detail="分享链接不存在或无权删除"
+        )
+    
+    share.is_active = False
+    db.commit()
+    
+    return {"message": "分享链接已删除"}

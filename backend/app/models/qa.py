@@ -38,3 +38,20 @@ class QASession(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False, index=True)
     last_message_at = Column(DateTime)
+
+class QAShare(Base):
+    """问答分享模型"""
+    __tablename__ = "qa_shares"
+    
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    share_code = Column(String(32), unique=True, nullable=False, index=True)
+    sharer_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    session_id = Column(UUID(as_uuid=True), ForeignKey("qa_sessions.id"), nullable=True, index=True)
+    qa_record_id = Column(UUID(as_uuid=True), ForeignKey("qa_records.id"), nullable=True, index=True)
+    title = Column(String(200))
+    description = Column(Text)
+    access_password = Column(String(128))
+    expires_at = Column(DateTime, nullable=True)
+    view_count = Column(Integer, default=0, nullable=False)
+    is_active = Column(Boolean, default=True, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)

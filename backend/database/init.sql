@@ -337,7 +337,77 @@ CREATE INDEX idx_knowledge_course ON knowledge_base(course_id);
 CREATE INDEX idx_knowledge_document ON knowledge_base(document_id);
 
 -- =====================================================
--- 5. 辅助函数
+-- 5. 问答模块
+-- =====================================================
+
+-- 5.1 问答记录表
+CREATE TABLE IF NOT EXISTS qa_records (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    course_id UUID REFERENCES courses(id),
+    question TEXT NOT NULL,
+    answer TEXT,
+    answer_type VARCHAR(50),
+    context_used JSONB,
+    knowledge_sources JSONB,
+    confidence_score DECIMAL(3, 2),
+    is_helpful BOOLEAN,
+    feedback TEXT,
+    response_time INTEGER,
+    tokens_used INTEGER,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_qa_records_student ON qa_records(student_id);
+CREATE INDEX idx_qa_records_course ON qa_records(course_id);
+CREATE INDEX idx_qa_records_created ON qa_records(created_at);
+
+-- 5.2 问答会话表
+CREATE TABLE IF NOT EXISTS qa_sessions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    student_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    title VARCHAR(200),
+    course_id UUID REFERENCES courses(id),
+    message_count INTEGER NOT NULL DEFAULT 0,
+    is_active BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_message_at TIMESTAMP
+);
+
+CREATE INDEX idx_qa_sessions_student ON qa_sessions(student_id);
+CREATE INDEX idx_qa_sessions_course ON qa_sessions(course_id);
+CREATE INDEX idx_qa_sessions_updated ON qa_sessions(updated_at);
+
+CREATE TRIGGER update_qa_sessions_updated_at 
+BEFORE UPDATE ON qa_sessions 
+FOR EACH ROW 
+EXECUTE FUNCTION update_updated_at_column();
+
+-- 5.3 问答分享表
+CREATE TABLE IF NOT EXISTS qa_shares (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    share_code VARCHAR(32) UNIQUE NOT NULL,
+    sharer_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    session_id UUID REFERENCES qa_sessions(id) ON DELETE CASCADE,
+    qa_record_id UUID REFERENCES qa_records(id) ON DELETE CASCADE,
+    title VARCHAR(200),
+    description TEXT,
+    access_password VARCHAR(128),
+    expires_at TIMESTAMP,
+    view_count INTEGER NOT NULL DEFAULT 0,
+    is_active BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_qa_shares_code ON qa_shares(share_code);
+CREATE INDEX idx_qa_shares_sharer ON qa_shares(sharer_id);
+CREATE INDEX idx_qa_shares_session ON qa_shares(session_id);
+CREATE INDEX idx_qa_shares_record ON qa_shares(qa_record_id);
+CREATE INDEX idx_qa_shares_created ON qa_shares(created_at);
+
+-- =====================================================
+-- 6. 辅助函数
 -- =====================================================
 
 -- 生成班级邀请码
