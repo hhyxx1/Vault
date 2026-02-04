@@ -1,10 +1,8 @@
 from sqlalchemy import Column, String, Integer, DateTime, Text, Boolean, ForeignKey, DECIMAL
 from sqlalchemy.dialects.postgresql import UUID, JSONB
-from sqlalchemy.ext.declarative import declarative_base
+from app.database import Base
 from datetime import datetime
 import uuid
-
-Base = declarative_base()
 
 class QARecord(Base):
     """问答记录模型"""

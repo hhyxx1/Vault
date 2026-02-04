@@ -12,9 +12,9 @@ class Settings(BaseSettings):
     PORT: int = 8000
     
     # PostgreSQL数据库配置
-    DATABASE_URL: str = "postgresql+psycopg://postgres:123456@localhost:5432/vault"
+    DATABASE_URL: str = "postgresql+psycopg://postgres:123456@localhost:5432/app_project"
     # 异步数据库URL（用于asyncpg）
-    ASYNC_DATABASE_URL: str = "postgresql+asyncpg://postgres:123456@localhost:5432/vault"
+    ASYNC_DATABASE_URL: str = "postgresql+asyncpg://postgres:123456@localhost:5432/app_project"
     
     # 向量数据库配置（知识库）
     VECTOR_DB_PATH: str = "./data/chroma_db"
