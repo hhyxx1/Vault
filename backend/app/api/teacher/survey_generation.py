@@ -38,6 +38,10 @@ class KnowledgeBasedGenerationRequest(BaseModel):
         "material",
         description="题目来源类型: outline=基于大纲中的知识点/知识图谱, material=基于上传的资料"
     )
+    document_id: Optional[str] = Field(
+        None,
+        description="资料ID（可选；仅当 knowledge_source_type=material 时有效。指定则仅从该篇资料检索出题；不指定则从该课程下所有资料中检索）"
+    )
     question_count: int = Field(20, description="题目数量，描述未说明时默认20道", ge=1, le=50)
     include_types: Optional[List[str]] = Field(
         None,
@@ -271,6 +275,7 @@ async def generate_survey_knowledge_based(
             description=request.description,
             course_id=parsed_course_id,
             knowledge_source_type=request.knowledge_source_type,
+            document_id=request.document_id,
             question_count=request.question_count,
             include_types=request.include_types
         )

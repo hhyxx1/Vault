@@ -378,7 +378,8 @@ class VectorDBService:
         self,
         query: str,
         n_results: int = 5,
-        course_ids: Optional[List[str]] = None
+        course_ids: Optional[List[str]] = None,
+        filter_metadata: Optional[Dict[str, Any]] = None
     ) -> List[Dict[str, Any]]:
         """
         在所有课程的知识库中搜索（全局知识库）
@@ -387,6 +388,7 @@ class VectorDBService:
             query: 查询文本
             n_results: 未使用（保留兼容），每课程取全部文档，无数量上限
             course_ids: 指定要搜索的课程ID列表（None表示搜索所有课程）
+            filter_metadata: 元数据过滤（如 document_type=material，只检索资料不检索大纲）
             
         Returns:
             所有课程的搜索结果合并后按相似度排序，不设数量限制
@@ -434,12 +436,15 @@ class VectorDBService:
                     if count == 0:
                         continue
                     
-                    # 查询该课程集合：不设数量上限，取该课程内全部文档（检索完整、不遗漏）
-                    results = collection.query(
-                        query_embeddings=query_embedding,
-                        n_results=count,
-                        include=["documents", "metadatas", "distances"]
-                    )
+                    # 查询该课程集合：不设数量上限，取该课程内全部文档（检索完整、不遗漏）；可选按 metadata 过滤
+                    query_params = {
+                        "query_embeddings": query_embedding,
+                        "n_results": count,
+                        "include": ["documents", "metadatas", "distances"]
+                    }
+                    if filter_metadata:
+                        query_params["where"] = filter_metadata
+                    results = collection.query(**query_params)
                     
                     # 格式化结果并添加课程信息（与 search_similar 一致的相似度公式：L2 距离转 0~1）
                     for i in range(len(results['ids'][0])):

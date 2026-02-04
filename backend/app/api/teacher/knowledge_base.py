@@ -169,7 +169,8 @@ class DocumentResponse(BaseModel):
     processed_status: str | None
     error_message: str | None
     created_at: str
-    
+    document_type: str | None = None  # 'outline' | 'material'，用于前端区分大纲与资料
+
     class Config:
         from_attributes = True
 
@@ -561,11 +562,12 @@ async def get_course_documents(
     if not course:
         raise HTTPException(status_code=404, detail="课程不存在或无权限")
     
-    # 查询文档
+    # 查询文档（含 document_type，便于前端区分大纲/资料）
     result = db.execute(
         text("""
-            SELECT id, course_id, file_name, file_type, file_size, 
-                   upload_status, processed_status, error_message, created_at
+            SELECT id, course_id, file_name, file_type, file_size,
+                   upload_status, processed_status, error_message, created_at,
+                   COALESCE(document_type, 'material')
             FROM course_documents
             WHERE course_id = :course_id
             ORDER BY created_at DESC
@@ -585,7 +587,8 @@ async def get_course_documents(
             upload_status=row[5],
             processed_status=row[6],
             error_message=row[7],
-            created_at=str(row[8])
+            created_at=str(row[8]),
+            document_type=row[9] if len(row) > 9 else None
         ))
     
     return CourseDocumentsResponse(

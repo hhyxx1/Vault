@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { surveyApi } from '@/services'
 import { getTeacherClasses } from '@/services/teacher'
+import { getCourseDocuments as getKnowledgeBaseCourseDocuments } from '@/services/teacher'
 import ManualQuestionForm, { QuestionFormData as BaseQuestionFormData } from '@/components/ManualQuestionForm'
 import { Icon, IconName } from '@/components/Icon'
 
@@ -105,6 +106,8 @@ const TeacherSurvey = () => {
   const [questionCount, setQuestionCount] = useState<number>(20)  // 题目数量，默认20道
   const [selectedCourse, setSelectedCourse] = useState<string>('')  // 选中的课程ID（知识库模式必选）
   const [knowledgeSourceType, setKnowledgeSourceType] = useState<'outline' | 'material'>('material')  // 基于大纲知识图谱 / 基于上传资料
+  const [selectedDocumentId, setSelectedDocumentId] = useState<string>('')  // 基于资料时可选：指定某篇资料，空则全部资料
+  const [materialDocuments, setMaterialDocuments] = useState<Array<{id: string, file_name: string}>>([])  // 当前课程下的资料列表（仅 material 类型）
   const [selectedQuestionTypes, setSelectedQuestionTypes] = useState<string[]>(['choice', 'judge', 'essay'])  // 默认三种题型都有
   const [courses, setCourses] = useState<Array<{id: string, course_name: string}>>([])  // 课程列表
   
@@ -130,6 +133,31 @@ const TeacherSurvey = () => {
     }
     loadCourses()
   }, [])
+
+  // 基于资料模式且已选课程时，加载该课程下的文档列表（与课程知识库页同一接口，显示所有已上传文档）
+  useEffect(() => {
+    if (createMode !== 'knowledge_material' || !selectedCourse) {
+      setMaterialDocuments([])
+      setSelectedDocumentId('')
+      return
+    }
+    const load = async () => {
+      try {
+        const res = await getKnowledgeBaseCourseDocuments(selectedCourse)
+        const docs = (res as any).documents ?? (res as any).data?.documents ?? []
+        // 只显示资料（material），不显示大纲（outline）
+        const materialOnly = docs.filter((d: any) => (d.document_type || 'material') === 'material')
+        const list = materialOnly.map((d: any) => ({ id: d.id, file_name: d.file_name || d.fileName || '未命名' }))
+        setMaterialDocuments(list)
+        setSelectedDocumentId('')
+      } catch (e) {
+        console.error('加载资料列表失败:', e)
+        setMaterialDocuments([])
+        setSelectedDocumentId('')
+      }
+    }
+    load()
+  }, [createMode, selectedCourse])
   
   // 获取问卷列表（兼容后端直接返回数组或 { data: [] }）
   const loadSurveys = async () => {
@@ -214,6 +242,7 @@ const TeacherSurvey = () => {
         payload.question_count = 20
         if (selectedCourse) payload.course_id = selectedCourse
         payload.knowledge_source_type = createMode === 'knowledge_outline' ? 'outline' : 'material'
+        if (createMode === 'knowledge_material' && selectedDocumentId) payload.document_id = selectedDocumentId
       }
       
       const token = localStorage.getItem('token')
@@ -1307,25 +1336,47 @@ const TeacherSurvey = () => {
                 <div className="space-y-4">
                   {/* 知识库模式（基于大纲/基于资料）：仅显示课程选择与描述等，来源已在入口卡片选定 */}
                   {isKnowledgeMode && (
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                      <label className="block text-sm font-medium text-yellow-800 mb-2">
-                        <Icon name="book" size={16} className="inline mr-1" />
-                        选择课程（可选）
-                      </label>
-                      <select
-                        value={selectedCourse}
-                        onChange={(e) => setSelectedCourse(e.target.value)}
-                        className="w-full px-4 py-2 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 outline-none"
-                      >
-                        <option value="">不选择（在所有知识库中检索）</option>
-                        {courses.map(course => (
-                          <option key={course.id} value={course.id}>{course.course_name}</option>
-                        ))}
-                      </select>
-                      <p className="mt-2 text-xs text-yellow-600">
-                        💡 不选则在所有知识库中根据描述检索；选择则仅在该课程知识库中检索
-                      </p>
-                    </div>
+                    <>
+                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <label className="block text-sm font-medium text-yellow-800 mb-2">
+                          <Icon name="book" size={16} className="inline mr-1" />
+                          选择课程（可选）
+                        </label>
+                        <select
+                          value={selectedCourse}
+                          onChange={(e) => setSelectedCourse(e.target.value)}
+                          className="w-full px-4 py-2 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 outline-none"
+                        >
+                          <option value="">不选择（在所有知识库中检索）</option>
+                          {courses.map(course => (
+                            <option key={course.id} value={course.id}>{course.course_name}</option>
+                          ))}
+                        </select>
+                        <p className="mt-2 text-xs text-yellow-600">
+                          💡 不选则在所有知识库中根据描述检索；选择则仅在该课程知识库中检索
+                        </p>
+                      </div>
+                      {createMode === 'knowledge_material' && selectedCourse && (
+                        <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
+                          <label className="block text-sm font-medium text-teal-800 mb-2">
+                            选择资料（可选）
+                          </label>
+                          <select
+                            value={selectedDocumentId}
+                            onChange={(e) => setSelectedDocumentId(e.target.value)}
+                            className="w-full px-4 py-2 border border-teal-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
+                          >
+                            <option value="">不指定（该课程下所有资料）</option>
+                            {materialDocuments.map(doc => (
+                              <option key={doc.id} value={doc.id}>{doc.file_name}</option>
+                            ))}
+                          </select>
+                          <p className="mt-2 text-xs text-teal-600">
+                            💡 不指定则从该课程全部资料中检索并筛选重要知识点出题；指定则仅从该篇资料出题
+                          </p>
+                        </div>
+                      )}
+                    </>
                   )}
                   
                   <div>
