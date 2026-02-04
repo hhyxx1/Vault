@@ -32,6 +32,7 @@ export interface Class {
   average_score: number | null
   grade?: string
   major?: string
+  course_ids?: string[]  // 新增：班级关联的所有课程ID列表
 }
 
 export interface StudentInClass {
@@ -60,7 +61,16 @@ export interface ClassDetail {
 
 export interface ClassCreate {
   class_name: string
-  course_id: string
+  course_ids?: string[]  // 支持多个课程
+  course_id?: string     // 兼容旧版单个课程
+  max_students: number
+  academic_year: string
+  allow_self_enroll: boolean
+}
+
+export interface ClassUpdate {
+  class_name: string
+  course_ids?: string[]  // 可选：更新关联的课程
   max_students: number
   academic_year: string
   allow_self_enroll: boolean
@@ -146,6 +156,11 @@ export const createClass = async (classData: ClassCreate): Promise<Class> => {
 // 删除班级
 export const deleteClass = async (classId: string): Promise<void> => {
   return await apiClient.delete(`/teacher/profile/classes/${classId}`)
+}
+
+// 更新班级
+export const updateClass = async (classId: string, classData: ClassUpdate): Promise<Class> => {
+  return await apiClient.put(`/teacher/profile/classes/${classId}`, classData)
 }
 
 // 获取班级学生列表

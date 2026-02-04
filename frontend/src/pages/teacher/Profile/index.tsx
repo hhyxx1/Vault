@@ -4,6 +4,7 @@ import {
   getTeacherClasses, 
   createCourse, 
   createClass,
+  updateClass,
   deleteCourse,
   deleteClass,
   changePassword,
@@ -15,11 +16,13 @@ import {
   Class,
   CourseCreate,
   ClassCreate,
+  ClassUpdate,
   ChangePasswordRequest
 } from '../../../services/teacher'
 import { useNavigate } from 'react-router-dom'
 import CreateCourseDialog from '../../../components/CreateCourseDialog'
 import CreateClassDialog from '../../../components/CreateClassDialog'
+import EditClassDialog from '../../../components/EditClassDialog'
 import ClassDetailDialog from '../../../components/ClassDetailDialog'
 import { Icon } from '../../../components/Icon'
 
@@ -44,6 +47,8 @@ const TeacherProfile = () => {
   const [loading, setLoading] = useState(false)
   const [showCourseDialog, setShowCourseDialog] = useState(false)
   const [showClassDialog, setShowClassDialog] = useState(false)
+  const [showEditClassDialog, setShowEditClassDialog] = useState(false)
+  const [editingClass, setEditingClass] = useState<Class | null>(null)
   const [showClassDetailDialog, setShowClassDetailDialog] = useState(false)
   const [selectedClassId, setSelectedClassId] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -236,6 +241,24 @@ const TeacherProfile = () => {
   const handleCreateClass = async (classData: ClassCreate) => {
     await createClass(classData)
     await loadClasses()
+  }
+
+  // 编辑班级
+  const handleEditClass = (classData: Class) => {
+    setEditingClass(classData)
+    setShowEditClassDialog(true)
+  }
+
+  // 更新班级
+  const handleUpdateClass = async (classId: string, classData: ClassUpdate) => {
+    try {
+      await updateClass(classId, classData)
+      await loadClasses()
+      alert('班级信息已更新！')
+    } catch (error: any) {
+      console.error('更新班级失败:', error)
+      throw error // 重新抛出错误，让EditClassDialog处理
+    }
   }
 
   // 删除课程
@@ -790,16 +813,26 @@ const TeacherProfile = () => {
                               <p className="text-lg font-bold text-gray-900 truncate">
                                 {cls.class_name}
                               </p>
-                              <p className="text-sm text-gray-500 truncate">
-                                {cls.course_name}
+                              <p className="text-sm text-gray-500">
+                                {cls.academic_year}
                               </p>
                             </div>
-                            <button
-                              onClick={() => handleDeleteClass(cls.id)}
-                              className="flex-shrink-0 text-gray-400 hover:text-red-500 transition-colors p-1"
-                            >
-                              <Icon name="close" size={20} />
-                            </button>
+                            <div className="flex-shrink-0 flex items-center space-x-1">
+                              <button
+                                onClick={() => handleEditClass(cls)}
+                                className="px-2 py-1 text-xs font-medium text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                                title="编辑班级"
+                              >
+                                编辑
+                              </button>
+                              <button
+                                onClick={() => handleDeleteClass(cls.id)}
+                                className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                                title="删除班级"
+                              >
+                                <Icon name="close" size={20} />
+                              </button>
+                            </div>
                           </div>
 
                           {/* 邀请码区域 */}
@@ -925,6 +958,14 @@ const TeacherProfile = () => {
         onClose={() => setShowClassDialog(false)}
         onSubmit={handleCreateClass}
         courses={courses}
+      />
+
+      <EditClassDialog
+        isOpen={showEditClassDialog}
+        onClose={() => setShowEditClassDialog(false)}
+        onSubmit={handleUpdateClass}
+        courses={courses}
+        classData={editingClass}
       />
 
       <ClassDetailDialog

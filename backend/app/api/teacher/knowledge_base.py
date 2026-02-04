@@ -361,6 +361,7 @@ async def upload_course_document(
     course_id: str,
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
+    document_type: str = Form('material'),  # 'outline' 或 'material'
     overwrite: bool = Form(False),  # 是否覆盖同名文件
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -371,8 +372,12 @@ async def upload_course_document(
     文档上传后会自动提取内容并向量化存入知识库
     
     参数:
+    - document_type: 文档类型 ('outline': 课程大纲, 'material': 课程资料)
     - overwrite: 是否覆盖已存在的同名文件 (默认: false)
     """
+    # 验证文档类型
+    if document_type not in ['outline', 'material']:
+        raise HTTPException(status_code=400, detail="文档类型必须是 'outline' 或 'material'")
     if current_user.role != 'teacher':
         raise HTTPException(status_code=403, detail="只有教师可以上传文档")
     
@@ -467,9 +472,10 @@ async def upload_course_document(
             db.commit()
             print(f"   ✅ 删除旧数据完成")
         
-        # 创建上传目录
-        backend_dir = Path(__file__).resolve().parent.parent.parent
-        upload_dir = backend_dir / "static" / "course_documents" / str(course_id)
+        # 创建上传目录：与 documents.py 一致，保存到 backend/app/static/course_documents
+        _current = Path(__file__).resolve()
+        app_dir = _current.parent.parent.parent  # app
+        upload_dir = app_dir / "static" / "course_documents" / str(course_id) / document_type
         upload_dir.mkdir(parents=True, exist_ok=True)
         
         # 生成唯一文件名
@@ -486,8 +492,8 @@ async def upload_course_document(
         result = db.execute(
             text("""
                 INSERT INTO course_documents 
-                (course_id, teacher_id, file_name, file_path, file_type, file_size, upload_status, processed_status)
-                VALUES (:course_id, :teacher_id, :file_name, :file_path, :file_type, :file_size, :upload_status, :processed_status)
+                (course_id, teacher_id, file_name, file_path, file_type, file_size, document_type, upload_status, processed_status)
+                VALUES (:course_id, :teacher_id, :file_name, :file_path, :file_type, :file_size, :document_type, :upload_status, :processed_status)
                 RETURNING id, created_at
             """),
             {
@@ -497,6 +503,7 @@ async def upload_course_document(
                 "file_path": str(file_path),
                 "file_type": file_ext,
                 "file_size": file_size,
+                "document_type": document_type,
                 "upload_status": "completed",
                 "processed_status": "processing"
             }

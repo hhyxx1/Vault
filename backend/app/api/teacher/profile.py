@@ -210,7 +210,8 @@ class CourseResponse(BaseModel):
 
 class ClassCreate(BaseModel):
     class_name: str = Field(..., description="班级名称")
-    course_id: str = Field(..., description="课程ID")
+    course_id: str | None = Field(None, description="课程ID（单个，兼容旧版）")
+    course_ids: List[str] | None = Field(None, description="课程ID列表（多个）")
     max_students: int = Field(100, description="最大学生数")
     academic_year: str = Field(..., description="学年")
     allow_self_enroll: bool = Field(False, description="是否允许自主加入")
@@ -227,6 +228,7 @@ class ClassResponse(BaseModel):
     status: str
     student_count: int
     average_score: float | None = None
+    course_ids: List[str] | None = None  # 新增：关联的所有课程ID列表
     
     class Config:
         from_attributes = True
@@ -320,9 +322,6 @@ async def get_teacher_classes(
     
     result = []
     for cls in classes_list:
-        # 获取课程名称
-        course = db.query(Course).filter(Course.id == cls.course_id).first()
-        
         # 获取学生数量和平均成绩
         from sqlalchemy import text
         try:
@@ -355,18 +354,33 @@ async def get_teacher_classes(
             print(f"计算平均成绩失败: {e}")
             average_score = None
         
+        # 获取班级关联的所有课程ID
+        course_ids_list = []
+        try:
+            course_ids_result = db.execute(
+                text("SELECT course_id FROM class_courses WHERE class_id = :class_id"),
+                {"class_id": str(cls.id)}
+            ).fetchall()
+            course_ids_list = [str(row[0]) for row in course_ids_result]
+        except Exception as e:
+            print(f"获取班级课程失败: {e}")
+            # 如果关联表查询失败，使用course_id字段
+            if cls.course_id:
+                course_ids_list = [str(cls.course_id)]
+        
         result.append(ClassResponse(
             id=str(cls.id),
             class_name=cls.class_name,
-            course_id=str(cls.course_id),
-            course_name=course.course_name if course else "未知课程",
+            course_id=str(cls.course_id) if cls.course_id else "",
+            course_name="",  # 不再显示课程名称
             max_students=cls.max_students,
             academic_year=cls.academic_year or '',
             invite_code=cls.invite_code,
             allow_self_enroll=cls.allow_self_enroll,
             status=cls.status,
             student_count=student_count_result or 0,
-            average_score=average_score
+            average_score=average_score,
+            course_ids=course_ids_list if course_ids_list else None
         ))
     
     return result
@@ -381,22 +395,33 @@ async def create_class(
     if current_user.role != 'teacher':
         raise HTTPException(status_code=403, detail="只有教师可以创建班级")
     
-    # 验证课程是否存在且属于当前教师
-    course = db.query(Course).filter(
-        Course.id == class_data.course_id,
+    # 确定要关联的课程ID列表
+    course_ids = []
+    if class_data.course_ids:
+        course_ids = class_data.course_ids
+    elif class_data.course_id:
+        course_ids = [class_data.course_id]
+    else:
+        raise HTTPException(status_code=400, detail="必须提供至少一个课程")
+    
+    # 验证所有课程是否存在且属于当前教师
+    courses = db.query(Course).filter(
+        Course.id.in_(course_ids),
         Course.teacher_id == current_user.id
-    ).first()
-    if not course:
-        raise HTTPException(status_code=404, detail="课程不存在或无权限")
+    ).all()
+    
+    if len(courses) != len(course_ids):
+        raise HTTPException(status_code=404, detail="部分课程不存在或无权限")
     
     # 生成唯一邀请码
     invite_code = generate_invite_code()
     while db.query(Class).filter(Class.invite_code == invite_code).first():
         invite_code = generate_invite_code()
     
+    # 创建班级（course_id设置为第一个课程，保持向后兼容）
     new_class = Class(
         class_name=class_data.class_name,
-        course_id=class_data.course_id,
+        course_id=courses[0].id if courses else None,
         teacher_id=current_user.id,
         max_students=class_data.max_students,
         academic_year=class_data.academic_year,
@@ -406,14 +431,29 @@ async def create_class(
     )
     
     db.add(new_class)
+    db.flush()  # 获取新班级的ID
+    
+    # 在关联表中添加所有课程关系
+    from app.models.course import class_courses
+    for course in courses:
+        db.execute(
+            class_courses.insert().values(
+                class_id=new_class.id,
+                course_id=course.id
+            )
+        )
+    
     db.commit()
     db.refresh(new_class)
+    
+    # 获取课程名称（多个课程用逗号分隔）
+    course_names = ", ".join([c.course_name for c in courses])
     
     return ClassResponse(
         id=str(new_class.id),
         class_name=new_class.class_name,
-        course_id=str(new_class.course_id),
-        course_name=course.course_name,
+        course_id=str(new_class.course_id) if new_class.course_id else "",
+        course_name=course_names,
         max_students=new_class.max_students,
         academic_year=new_class.academic_year,
         invite_code=new_class.invite_code,
@@ -464,6 +504,92 @@ async def delete_class(
         raise HTTPException(status_code=404, detail="班级不存在或无权限")
     
     cls.status = 'inactive'
+    db.commit()
+    
+    return {"message": "班级已删除"}
+
+@router.put("/classes/{class_id}", response_model=ClassResponse)
+async def update_class(
+    class_id: str,
+    class_data: ClassCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """更新班级信息"""
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以更新班级")
+    
+    # 查询班级
+    cls = db.query(Class).filter(
+        Class.id == class_id,
+        Class.teacher_id == current_user.id
+    ).first()
+    
+    if not cls:
+        raise HTTPException(status_code=404, detail="班级不存在或无权限")
+    
+    # 更新基本信息
+    cls.class_name = class_data.class_name
+    cls.max_students = class_data.max_students
+    cls.academic_year = class_data.academic_year
+    cls.allow_self_enroll = class_data.allow_self_enroll
+    
+    # 如果提供了课程列表，更新课程关联
+    if class_data.course_ids:
+        # 验证所有课程是否存在且属于当前教师
+        courses = db.query(Course).filter(
+            Course.id.in_(class_data.course_ids),
+            Course.teacher_id == current_user.id
+        ).all()
+        
+        if len(courses) != len(class_data.course_ids):
+            raise HTTPException(status_code=404, detail="部分课程不存在或无权限")
+        
+        # 删除旧的课程关联
+        from app.models.course import class_courses
+        from sqlalchemy import text
+        db.execute(
+            text("DELETE FROM class_courses WHERE class_id = :class_id"),
+            {"class_id": str(cls.id)}
+        )
+        
+        # 添加新的课程关联
+        for course in courses:
+            db.execute(
+                class_courses.insert().values(
+                    class_id=cls.id,
+                    course_id=course.id
+                )
+            )
+        
+        # 更新course_id为第一个课程
+        cls.course_id = courses[0].id if courses else None
+    
+    db.commit()
+    db.refresh(cls)
+    
+    # 获取学生数量
+    from sqlalchemy import text
+    try:
+        student_count_result = db.execute(
+            text("SELECT COUNT(*) FROM class_students WHERE class_id = :class_id AND status = 'active'"),
+            {"class_id": str(cls.id)}
+        ).scalar()
+    except:
+        student_count_result = 0
+    
+    return ClassResponse(
+        id=str(cls.id),
+        class_name=cls.class_name,
+        course_id=str(cls.course_id) if cls.course_id else "",
+        course_name="",
+        max_students=cls.max_students,
+        academic_year=cls.academic_year,
+        invite_code=cls.invite_code,
+        allow_self_enroll=cls.allow_self_enroll,
+        status=cls.status,
+        student_count=student_count_result or 0
+    )
     db.commit()
     
     return {"message": "班级已删除"}
