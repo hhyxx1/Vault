@@ -1,7 +1,10 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, UploadFile, File, Form, BackgroundTasks
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
+import os
+import time
+from pathlib import Path
 from app.services.qa_service import qa_service
 from app.database import get_db
 from app.utils.auth import get_current_user
@@ -32,6 +35,11 @@ class QAHistoryItem(BaseModel):
     timestamp: str
     course_id: Optional[str] = None
 
+class UploadResponse(BaseModel):
+    message: str
+    file_name: str
+    status: str
+
 @router.post("/ask", response_model=QuestionResponse)
 async def ask_question(
     request: QuestionRequest,
@@ -44,12 +52,7 @@ async def ask_question(
     # 1. 获取历史记录 (用于上下文)
     # 暂时取最近5条
     history_records = await qa_service.get_student_history(db, str(current_user.id), limit=5)
-    history = [
-        {"role": "user", "content": r.question} if i % 2 == 0 else {"role": "assistant", "content": r.answer}
-        for i, r in enumerate(history_records)
-        # 这里逻辑有点简单，理想情况应该是按照问答对来组织，或者 QARecord 本身就包含 Q&A
-        # QARecord: question, answer. 所以一条 record 就是一对。
-    ]
+    
     # 重构 history list
     history_context = []
     for r in reversed(history_records): # 历史记录是按时间倒序查的，这里转为正序
@@ -91,6 +94,56 @@ async def ask_question(
         answer=answer_text,
         question_id=str(record.id) if record else "temp_id",
         sources=sources_resp
+    )
+
+@router.post("/upload", response_model=UploadResponse)
+async def upload_document(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+    course_id: Optional[str] = Form(None),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    学生上传个人文档或代码文件，解析后加入私有知识库
+    """
+    # 1. 验证文件类型
+    file_ext = os.path.splitext(file.filename)[1].lower()
+    allowed_exts = ['.pdf', '.txt', '.md', '.py', '.js', '.ts', '.java', '.c', '.cpp']
+    if file_ext not in allowed_exts:
+        raise HTTPException(status_code=400, detail=f"不支持的文件类型: {file_ext}")
+
+    # 2. 保存文件
+    backend_dir = Path(__file__).resolve().parent.parent.parent.parent
+    upload_dir = backend_dir / "static" / "student_uploads" / str(current_user.id)
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    
+    timestamp = int(time.time() * 1000)
+    safe_filename = f"{timestamp}_{file.filename}"
+    file_path = upload_dir / safe_filename
+    
+    content = await file.read()
+    with open(file_path, "wb") as f:
+        f.write(content)
+
+    # 3. 后台处理：解析并存入向量库
+    metadata = {
+        "student_id": str(current_user.id),
+        "file_name": file.filename,
+        "upload_time": timestamp,
+        "type": "student_personal"
+    }
+    
+    background_tasks.add_task(
+        qa_service.process_and_store_document,
+        file_path=str(file_path),
+        course_id=course_id, # 如果传了 course_id，则关联到课程知识库，否则存入通用集合
+        metadata=metadata
+    )
+
+    return UploadResponse(
+        message="文件已上传，正在后台解析中...",
+        file_name=file.filename,
+        status="processing"
     )
 
 @router.get("/history", response_model=List[QAHistoryItem])

@@ -5,13 +5,30 @@ Word文档解析服务
 支持灵活格式，无需严格格式要求，自动识别题目类型并排序
 """
 from docx import Document
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 import re
+import os
+from docling.datamodel.base_models import InputFormat
+from docling.document_converter import DocumentConverter
 
 
 class DocumentParser:
-    """Word文档解析器 - 支持灵活格式的智能解析"""
+    """文档解析器 - 支持多种格式的智能解析"""
     
+    @staticmethod
+    def parse_pdf(file_path: str) -> str:
+        """
+        使用 Docling 将 PDF 转换为带有层级结构的 Markdown
+        """
+        try:
+            converter = DocumentConverter()
+            result = converter.convert(file_path)
+            # 转换为 markdown
+            markdown_text = result.document.export_to_markdown()
+            return markdown_text
+        except Exception as e:
+            raise Exception(f"Docling 解析 PDF 失败: {str(e)}")
+
     @staticmethod
     def _is_question_indicator(text: str) -> bool:
         """

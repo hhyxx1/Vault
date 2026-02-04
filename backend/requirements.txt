@@ -29,6 +29,7 @@ aiofiles==23.2.1              # 异步文件操作
 python-docx==1.1.0            # Word文档解析
 PyPDF2==3.0.1                 # PDF文档解析
 python-pptx==0.6.23           # PowerPoint文档解析
+docling==1.1.0                # 智能文档解析 (PDF/Word/PPT to Markdown)
 # 可选：安装 LibreOffice 后，课程资料中的 PPTX 可转为 PDF 预览（完整页数）
 # 命令行安装示例：
 #   Windows (PowerShell，需 winget):  winget install TheDocumentFoundation.LibreOffice

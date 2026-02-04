@@ -8,8 +8,11 @@ from app.services.vector_db_service import VectorDBService
 from llama_index.agent.openai import OpenAIAgent
 from llama_index.core.tools import QueryEngineTool, ToolMetadata, FunctionTool
 from llama_index.core.llms import ChatMessage, MessageRole
+from llama_index.core.node_parser import MarkdownNodeParser
+from llama_index.core import Document as LlamaDocument
 from app.skills import AVAILABLE_SKILLS
 from app.services.skill_loader import SkillLoader
+from app.services.document_parser import DocumentParser
 from llama_index.core import Settings
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
@@ -161,16 +164,6 @@ class QAService:
     ) -> Dict[str, Any]:
         """
         调用 AI Agent 获取答案
-        
-        Args:
-            question: 用户问题
-            course_id: 当前课程ID (用于加载对应知识库)
-            history: 历史对话记录List[dict(role, content)]
-            
-        Returns:
-            Dict containing:
-            - answer: str
-            - sources: List[dict] (引用来源)
         """
         try:
             # 1. 准备工具集 (Tools)
@@ -178,10 +171,7 @@ class QAService:
             
             # (A) 知识库工具
             if course_id:
-                # 获取该课程的 CitationQueryEngine
                 query_engine = self.vector_db.get_citation_query_engine(course_id)
-                
-                # 包装成 Tool
                 kb_tool = QueryEngineTool(
                     query_engine=query_engine,
                     metadata=ToolMetadata(
@@ -209,13 +199,12 @@ class QAService:
                     pass
             
             # 2. 初始化 Agent
-            # 使用 OpenAIAgent (利用 GPT 的 Function Calling 能力)
-            system_prompt = (
+            # 获取 QA Expert 技能作为系统提示词
+            qa_expert_skill = self.skill_loader.get_skill_by_name("QA Expert Skill")
+            system_prompt = qa_expert_skill.content if qa_expert_skill else (
                 "你是一个智能教学助手。你的目标是帮助学生解答问题。"
-                "你可以访问课程知识库和其他工具。"
                 "1. 如果问题涉及课程内容，请务必查询知识库，并引用来源。"
-                "2. 如果问题涉及计算，请使用计算工具。"
-                "3. 回答要亲切、准确、有条理。"
+                "2. 回答要亲切、准确、有条理。"
             )
             
             # 转换历史记录格式
@@ -239,18 +228,14 @@ class QAService:
             sources = []
             if hasattr(response, 'source_nodes'):
                 for node in response.source_nodes:
-                    # 提取元数据
                     meta = node.metadata if node.metadata else {}
                     sources.append({
-                        "content": node.node.get_content()[:200] + "...", # 截取一部分内容
+                        "content": node.node.get_content()[:200] + "...",
                         "score": node.score,
                         "file_name": meta.get("file_name", "Unknown"),
                         "page_label": meta.get("page_label", "N/A")
                     })
 
-            # LlamaIndex 的 str(response) 默认已包含格式化的引用，但我们可能想要纯净的回答 + 结构化来源
-            # 这里的 response.response 通常是带引用的文本
-            
             return {
                 "answer": str(response),
                 "sources": sources
@@ -258,11 +243,53 @@ class QAService:
             
         except Exception as e:
             print(f"AI 回答生成失败: {e}")
-            import traceback
-            traceback.print_exc()
             return {
                 "answer": "抱歉，我现在无法回答您的问题，请稍后再试。",
                 "sources": []
             }
+
+    async def process_and_store_document(
+        self, 
+        file_path: str, 
+        course_id: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> bool:
+        """
+        处理上传的文件：使用 Docling 解析并存入向量库
+        
+        工作流 B 实现：
+        1. 使用 Docling 智能解析 PDF/Word/PPT 为 Markdown (保留层级结构)
+        2. 使用 MarkdownNodeParser 进行逻辑切片 (确保上下文完整)
+        3. 存入 LlamaIndex 向量索引 (ChromaDB 驱动)
+        """
+        try:
+            # 1. 使用 Docling 解析文件 (支持 PDF)
+            file_ext = os.path.splitext(file_path)[1].lower()
+            if file_ext == '.pdf':
+                content = DocumentParser.parse_pdf(file_path)
+            else:
+                # 其他格式暂时回退到普通文本读取或报错
+                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+            
+            if not content:
+                return False
+
+            # 2. 自动切片 (使用 MarkdownNodeParser)
+            parser = MarkdownNodeParser()
+            nodes = parser.get_nodes_from_documents([
+                LlamaDocument(text=content, metadata=metadata or {})
+            ])
+            
+            # 3. 存入向量库
+            index = self.vector_db.get_index(course_id)
+            index.insert_nodes(nodes)
+            
+            print(f"✅ 文件已成功处理并存入向量库: {file_path} (Nodes: {len(nodes)})")
+            return True
+            
+        except Exception as e:
+            print(f"❌ 处理文件失败: {e}")
+            return False
 
 qa_service = QAService()
