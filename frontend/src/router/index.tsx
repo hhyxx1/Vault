@@ -4,6 +4,7 @@ import StudentLayout from '@/layouts/StudentLayout'
 import TeacherLayout from '@/layouts/TeacherLayout'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import ForgotPassword from '@/pages/ForgotPassword'
 import StudentQA from '@/pages/student/QA'
 import SharedConversation from '@/pages/student/QA/SharedConversation'
 import StudentSurvey from '@/pages/student/Survey'
@@ -22,6 +23,7 @@ const AppRouter = () => {
       {/* 登录和注册路由（公开访问） */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       
       {/* 分享对话页面（公开访问） */}
       <Route path="/shared/:shareCode" element={<SharedConversation />} />

@@ -4,12 +4,36 @@ import apiClient from './api'
 export const authApi = {
   // 用户注册
   register: async (data: any) => {
-    return apiClient.post('/auth/register', data)
+    const response = await apiClient.post('/auth/register', data)
+    return response.data
   },
   
   // 用户登录
   login: async (username: string, password: string) => {
-    return apiClient.post('/auth/login', { username, password })
+    const response = await apiClient.post('/auth/login', { username, password })
+    return response.data
+  },
+  
+  // 发送密码重置验证码
+  sendResetCode: async (email: string) => {
+    const response = await apiClient.post('/auth/send-reset-code', { email })
+    return response.data
+  },
+  
+  // 验证密码重置验证码
+  verifyResetCode: async (email: string, code: string) => {
+    const response = await apiClient.post('/auth/verify-reset-code', { email, code })
+    return response.data
+  },
+  
+  // 重置密码
+  resetPassword: async (email: string, code: string, newPassword: string) => {
+    const response = await apiClient.post('/auth/reset-password', { 
+      email, 
+      code, 
+      new_password: newPassword 
+    })
+    return response.data
   },
 }
 

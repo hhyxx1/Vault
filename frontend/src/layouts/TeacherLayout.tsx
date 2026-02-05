@@ -16,16 +16,46 @@ const TeacherLayout = () => {
   const [avatarTimestamp, setAvatarTimestamp] = useState(Date.now())
 
   const loadProfile = async () => {
+    // 先尝试从localStorage读取用户信息作为初始值
+    const userStr = localStorage.getItem('user')
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr)
+        console.log('从localStorage读取用户信息:', user)
+        const name = (user.full_name && user.full_name.trim()) || (user.username && user.username.trim()) || '教师用户'
+        const email = (user.email && user.email.trim()) || '未设置邮箱'
+        setUserInfo({
+          name,
+          email,
+          avatar: user.avatar_url || ''
+        })
+      } catch (e) {
+        console.error('Failed to parse user info:', e)
+      }
+    }
+    
+    // 然后尝试从API获取最新信息
     try {
       const data = await getTeacherProfile()
+      console.log('获取教师信息成功:', data)
+      const name = (data.full_name && data.full_name.trim()) || (data.username && data.username.trim()) || '教师用户'
+      const email = (data.email && data.email.trim()) || '未设置邮箱'
       setUserInfo({
-        name: data.full_name || data.username,
-        email: data.email,
+        name,
+        email,
         avatar: data.avatar_url || ''
       })
       setAvatarTimestamp(Date.now())
     } catch (error) {
       console.error('获取用户信息失败:', error)
+      // API失败时保持localStorage的数据，如果都没有则使用默认值
+      if (!userStr) {
+        setUserInfo({
+          name: '教师用户',
+          email: '未设置邮箱',
+          avatar: ''
+        })
+      }
     }
   }
 
@@ -148,27 +178,33 @@ const TeacherLayout = () => {
         {/* 底部信息区域 */}
         <div className="border-t border-gray-200 bg-gray-50/50">
           <div className="p-4 space-y-4">
+            {/* 隐藏的文件上传input */}
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              onChange={handleFileChange} 
+              className="hidden" 
+              accept="image/*"
+            />
+            
             {/* 用户信息 - 移到底部 */}
             <div className={`flex items-center rounded-xl transition-colors group ${
               isCollapsed ? 'justify-center' : 'space-x-3 hover:bg-white/50 p-2'
             }`}>
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleFileChange} 
-                className="hidden" 
-                accept="image/*"
-              />
               <div 
-                className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold group-hover:bg-indigo-200 transition-colors flex-shrink-0 shadow-sm border border-indigo-50 cursor-pointer relative overflow-hidden"
                 onClick={handleAvatarClick}
-                title="点击更换头像"
+                className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold group-hover:bg-indigo-200 transition-colors flex-shrink-0 shadow-sm border border-indigo-50 relative overflow-hidden cursor-pointer"
+                title="点击上传头像"
               >
                 {userInfo.avatar ? (
                   <img src={`${userInfo.avatar}?t=${avatarTimestamp}`} alt="Avatar" className="w-full h-full object-cover" />
                 ) : (
                   <Icon name="user" size={24} className="bg-indigo-600" />
                 )}
+                {/* 悬停提示 */}
+                <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 rounded-full flex items-center justify-center transition-all">
+                  <span className="text-white text-[8px] opacity-0 group-hover:opacity-100 font-medium">上传</span>
+                </div>
               </div>
               <Link 
                 to="/teacher/profile"

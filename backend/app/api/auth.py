@@ -1,19 +1,39 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.user import User, Student, Teacher
 from app.schemas.auth import RegisterRequest, LoginRequest, TokenResponse, UserResponse
 from app.utils.auth import get_password_hash, verify_password, create_access_token, get_current_user
-from datetime import datetime
-from pydantic import BaseModel, Field
+from datetime import datetime, timedelta
+from pydantic import BaseModel, Field, EmailStr
+import random
+import string
 
 router = APIRouter(prefix="/api/auth", tags=["认证"])
+
+# 存储验证码（生产环境应使用Redis）
+password_reset_codes: dict = {}
 
 class ChangePasswordRequest(BaseModel):
     """修改密码请求"""
     current_password: str = Field(..., description="当前密码")
     new_password: str = Field(..., min_length=6, description="新密码")
     confirm_password: str = Field(..., description="确认新密码")
+
+class SendResetCodeRequest(BaseModel):
+    """发送重置密码验证码请求"""
+    email: EmailStr = Field(..., description="注册邮箱")
+
+class VerifyResetCodeRequest(BaseModel):
+    """验证重置密码验证码请求"""
+    email: EmailStr = Field(..., description="注册邮箱")
+    code: str = Field(..., min_length=6, max_length=6, description="验证码")
+
+class ResetPasswordRequest(BaseModel):
+    """重置密码请求"""
+    email: EmailStr = Field(..., description="注册邮箱")
+    code: str = Field(..., min_length=6, max_length=6, description="验证码")
+    new_password: str = Field(..., min_length=6, description="新密码")
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 async def register(request: RegisterRequest, db: Session = Depends(get_db)):
@@ -35,6 +55,38 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
             detail="邮箱已被注册"
         )
     
+    # 在创建用户之前先检查学号/工号是否已存在
+    if request.role == 'student':
+        if not request.student_number:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="学生账号必须提供学号"
+            )
+        # 检查学号是否已存在
+        existing_student = db.query(Student).filter(
+            Student.student_number == request.student_number
+        ).first()
+        if existing_student:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="学号已存在"
+            )
+    elif request.role == 'teacher':
+        if not request.teacher_number:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="教师账号必须提供工号"
+            )
+        # 检查工号是否已存在
+        existing_teacher = db.query(Teacher).filter(
+            Teacher.teacher_number == request.teacher_number
+        ).first()
+        if existing_teacher:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="工号已存在"
+            )
+    
     # 创建用户
     hashed_password = get_password_hash(request.password)
     new_user = User(
@@ -51,22 +103,6 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
     
     # 根据角色创建对应的学生或教师记录
     if request.role == 'student':
-        if not request.student_number:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="学生账号必须提供学号"
-            )
-        
-        # 检查学号是否已存在
-        existing_student = db.query(Student).filter(
-            Student.student_number == request.student_number
-        ).first()
-        if existing_student:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="学号已存在"
-            )
-        
         student = Student(
             user_id=new_user.id,
             student_number=request.student_number,
@@ -76,21 +112,6 @@ async def register(request: RegisterRequest, db: Session = Depends(get_db)):
         db.add(student)
         
     elif request.role == 'teacher':
-        if not request.teacher_number:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="教师账号必须提供工号"
-            )
-        
-        # 检查工号是否已存在
-        existing_teacher = db.query(Teacher).filter(
-            Teacher.teacher_number == request.teacher_number
-        ).first()
-        if existing_teacher:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="工号已存在"
-            )
         
         teacher = Teacher(
             user_id=new_user.id,
@@ -233,3 +254,159 @@ async def change_password(
     db.commit()
     
     return {"message": "密码修改成功"}
+
+def generate_verification_code() -> str:
+    """生成6位数字验证码"""
+    return ''.join(random.choices(string.digits, k=6))
+
+async def send_email_async(email: str, code: str):
+    """
+    发送邮件的异步函数
+    注意：这里是模拟发送邮件，实际生产环境需要配置SMTP服务器
+    """
+    # TODO: 配置实际的邮件发送服务
+    # 可以使用 smtplib, aiosmtplib, 或第三方服务如 SendGrid, AWS SES 等
+    print(f"[模拟邮件] 向 {email} 发送验证码: {code}")
+    # 实际实现示例：
+    # import aiosmtplib
+    # from email.mime.text import MIMEText
+    # msg = MIMEText(f"您的密码重置验证码是：{code}，有效期10分钟。")
+    # msg['Subject'] = '智能教学平台 - 密码重置验证码'
+    # msg['From'] = 'noreply@example.com'
+    # msg['To'] = email
+    # await aiosmtplib.send(msg, hostname='smtp.example.com', port=587)
+
+@router.post("/send-reset-code")
+async def send_reset_code(
+    request: SendResetCodeRequest,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    """发送密码重置验证码"""
+    
+    # 查找用户
+    user = db.query(User).filter(User.email == request.email).first()
+    
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="该邮箱未注册"
+        )
+    
+    # 检查是否在短时间内重复发送
+    if request.email in password_reset_codes:
+        last_sent = password_reset_codes[request.email].get('sent_at')
+        if last_sent and datetime.utcnow() - last_sent < timedelta(seconds=60):
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail="请求过于频繁，请稍后再试"
+            )
+    
+    # 生成验证码
+    code = generate_verification_code()
+    
+    # 存储验证码（有效期10分钟）
+    password_reset_codes[request.email] = {
+        'code': code,
+        'expires_at': datetime.utcnow() + timedelta(minutes=10),
+        'sent_at': datetime.utcnow(),
+        'verified': False
+    }
+    
+    # 异步发送邮件
+    background_tasks.add_task(send_email_async, request.email, code)
+    
+    return {"message": "验证码已发送至您的邮箱"}
+
+@router.post("/verify-reset-code")
+async def verify_reset_code(
+    request: VerifyResetCodeRequest,
+    db: Session = Depends(get_db)
+):
+    """验证密码重置验证码"""
+    
+    # 检查验证码是否存在
+    if request.email not in password_reset_codes:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="请先发送验证码"
+        )
+    
+    stored_data = password_reset_codes[request.email]
+    
+    # 检查验证码是否过期
+    if datetime.utcnow() > stored_data['expires_at']:
+        del password_reset_codes[request.email]
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="验证码已过期，请重新发送"
+        )
+    
+    # 验证验证码
+    if stored_data['code'] != request.code:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="验证码错误"
+        )
+    
+    # 标记验证码已验证
+    password_reset_codes[request.email]['verified'] = True
+    
+    return {"message": "验证成功"}
+
+@router.post("/reset-password")
+async def reset_password(
+    request: ResetPasswordRequest,
+    db: Session = Depends(get_db)
+):
+    """重置密码"""
+    
+    # 检查验证码是否存在且已验证
+    if request.email not in password_reset_codes:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="请先验证邮箱"
+        )
+    
+    stored_data = password_reset_codes[request.email]
+    
+    # 检查验证码是否已验证
+    if not stored_data.get('verified'):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="请先验证邮箱"
+        )
+    
+    # 检查验证码是否过期
+    if datetime.utcnow() > stored_data['expires_at']:
+        del password_reset_codes[request.email]
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="验证码已过期，请重新发送"
+        )
+    
+    # 再次验证验证码
+    if stored_data['code'] != request.code:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="验证码错误"
+        )
+    
+    # 查找用户
+    user = db.query(User).filter(User.email == request.email).first()
+    
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="用户不存在"
+        )
+    
+    # 更新密码
+    user.password_hash = get_password_hash(request.new_password)
+    user.updated_at = datetime.utcnow()
+    db.commit()
+    
+    # 删除已使用的验证码
+    del password_reset_codes[request.email]
+    
+    return {"message": "密码重置成功"}

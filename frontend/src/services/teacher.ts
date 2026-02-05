@@ -131,75 +131,73 @@ export interface DashboardOverview {
 
 // 获取教师个人资料
 export const getTeacherProfile = async (): Promise<TeacherProfile> => {
-  return await apiClient.get('/teacher/profile/')
+  const response = await apiClient.get('/teacher/profile/')
+  return response.data
 }
 
 // 更新教师个人资料
 export const updateTeacherProfile = async (profileData: TeacherProfileUpdate): Promise<TeacherProfile> => {
-  return await apiClient.put('/teacher/profile/', profileData)
+  const response = await apiClient.put('/teacher/profile/', profileData)
+  return response.data
 }
 
 // 上传头像
 export const uploadAvatar = async (file: File): Promise<{ avatar_url: string }> => {
-  console.log('uploadAvatar 函数被调用, 文件:', file.name, file.size, 'bytes')
   const formData = new FormData()
   formData.append('file', file)
   
-  console.log('FormData 内容:', formData.get('file'))
-  console.log('发送POST请求到: /teacher/profile/avatar')
-  
-  try {
-    const response = await apiClient.post('/teacher/profile/avatar', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    console.log('上传响应:', response)
-    return response
-  } catch (error) {
-    console.error('上传请求失败:', error)
-    throw error
-  }
+  const response = await apiClient.post('/teacher/profile/avatar', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  return response.data
 }
 
 // 获取教师的所有课程
 export const getTeacherCourses = async (): Promise<Course[]> => {
-  return await apiClient.get('/teacher/profile/courses')
+  const response = await apiClient.get('/teacher/profile/courses')
+  return response.data
 }
 
 // 创建新课程
 export const createCourse = async (courseData: CourseCreate): Promise<Course> => {
-  return await apiClient.post('/teacher/profile/courses', courseData)
+  const response = await apiClient.post('/teacher/profile/courses', courseData)
+  return response.data
 }
 
 // 删除课程
 export const deleteCourse = async (courseId: string): Promise<void> => {
-  return await apiClient.delete(`/teacher/profile/courses/${courseId}`)
+  await apiClient.delete(`/teacher/profile/courses/${courseId}`)
 }
 
 // 获取教师的所有班级
 export const getTeacherClasses = async (): Promise<Class[]> => {
-  return await apiClient.get('/teacher/profile/classes')
+  const response = await apiClient.get('/teacher/profile/classes')
+  return response.data
 }
 
 // 创建新班级
 export const createClass = async (classData: ClassCreate): Promise<Class> => {
-  return await apiClient.post('/teacher/profile/classes', classData)
+  const response = await apiClient.post('/teacher/profile/classes', classData)
+  return response.data
 }
 
 // 删除班级
 export const deleteClass = async (classId: string): Promise<void> => {
-  return await apiClient.delete(`/teacher/profile/classes/${classId}`)
+  await apiClient.delete(`/teacher/profile/classes/${classId}`)
 }
 
 // 更新班级
 export const updateClass = async (classId: string, classData: ClassUpdate): Promise<Class> => {
-  return await apiClient.put(`/teacher/profile/classes/${classId}`, classData)
+  const response = await apiClient.put(`/teacher/profile/classes/${classId}`, classData)
+  return response.data
 }
 
 // 获取班级学生列表
 export const getClassStudents = async (classId: string): Promise<ClassDetail> => {
-  return await apiClient.get(`/teacher/profile/classes/${classId}/students`)
+  const response = await apiClient.get(`/teacher/profile/classes/${classId}/students`)
+  return response.data
 }
 
 // 修改密码
@@ -210,7 +208,8 @@ export interface ChangePasswordRequest {
 }
 
 export const changePassword = async (passwordData: ChangePasswordRequest): Promise<{ message: string }> => {
-  return await apiClient.post('/auth/change-password', passwordData)
+  const response = await apiClient.post('/auth/change-password', passwordData)
+  return response.data
 }
 
 // ===== 知识库相关 =====
@@ -251,29 +250,33 @@ export const uploadCourseDocument = async (courseId: string, file: File): Promis
   const formData = new FormData()
   formData.append('file', file)
   
-  return await apiClient.post(`/teacher/knowledge-base/courses/${courseId}/upload`, formData, {
+  const response = await apiClient.post(`/teacher/knowledge-base/courses/${courseId}/upload`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
   })
+  return response.data
 }
 
 // 获取课程的所有文档
 export const getCourseDocuments = async (courseId: string): Promise<CourseDocumentsResponse> => {
-  return await apiClient.get(`/teacher/knowledge-base/courses/${courseId}/documents`)
+  const response = await apiClient.get(`/teacher/knowledge-base/courses/${courseId}/documents`)
+  return response.data
 }
 
 // 获取知识库统计信息
 export const getKnowledgeBaseStats = async (): Promise<KnowledgeBaseStats> => {
-  return await apiClient.get('/teacher/knowledge-base/knowledge-base/stats')
+  const response = await apiClient.get('/teacher/knowledge-base/knowledge-base/stats')
+  return response.data
 }
 
 // 删除文档
 export const deleteDocument = async (documentId: string): Promise<void> => {
-  return await apiClient.delete(`/teacher/knowledge-base/documents/${documentId}`)
+  await apiClient.delete(`/teacher/knowledge-base/documents/${documentId}`)
 }
 
 // 获取教师看板概览数据
 export const getDashboardOverview = async (): Promise<DashboardOverview> => {
-  return await apiClient.get('/teacher/dashboard/overview')
+  const response = await apiClient.get('/teacher/dashboard/overview')
+  return response.data
 }

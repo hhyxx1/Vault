@@ -47,12 +47,14 @@ export interface ChangePasswordRequest {
 
 // 获取学生个人资料
 export const getStudentProfile = async (): Promise<StudentProfile> => {
-  return await apiClient.get('/student/profile/')
+  const response = await apiClient.get('/student/profile/')
+  return response.data
 }
 
 // 更新学生个人资料
 export const updateStudentProfile = async (profileData: StudentProfileUpdate): Promise<StudentProfile> => {
-  return await apiClient.put('/student/profile/', profileData)
+  const response = await apiClient.put('/student/profile/', profileData)
+  return response.data
 }
 
 // 上传头像
@@ -71,7 +73,7 @@ export const uploadStudentAvatar = async (file: File): Promise<{ avatar_url: str
       }
     })
     console.log('上传响应:', response)
-    return response
+    return response.data
   } catch (error) {
     console.error('上传请求失败:', error)
     throw error
@@ -80,21 +82,24 @@ export const uploadStudentAvatar = async (file: File): Promise<{ avatar_url: str
 
 // 修改密码
 export const changePassword = async (passwordData: ChangePasswordRequest): Promise<{ message: string }> => {
-  return await apiClient.post('/auth/change-password', passwordData)
+  const response = await apiClient.post('/auth/change-password', passwordData)
+  return response.data
 }
 
 // 学生班级服务
 export const studentClassService = {
   // 通过邀请码加入班级
   joinClass: async (inviteCode: string): Promise<ClassInfo> => {
-    return await apiClient.post('/student/classes/join', {
+    const response = await apiClient.post('/student/classes/join', {
       invite_code: inviteCode
     })
+    return response.data
   },
 
   // 获取我加入的班级列表
   getMyClasses: async (): Promise<ClassInfo[]> => {
-    return await apiClient.get('/student/classes/my-classes')
+    const response = await apiClient.get('/student/classes/my-classes')
+    return response.data || []
   }
 }
 
@@ -119,7 +124,8 @@ export interface CourseDocumentsResponse {
 
 // 获取课程文档列表
 export const getCourseDocuments = async (courseId: string): Promise<CourseDocumentsResponse> => {
-  return await apiClient.get(`/student/courses/${courseId}/documents`)
+  const response = await apiClient.get(`/student/courses/${courseId}/documents`)
+  return response.data
 }
 
 // 通过带认证的请求下载课程文档（返回 Blob，用于触发下载或预览）
@@ -127,11 +133,11 @@ export const downloadCourseDocumentAsBlob = async (
   courseId: string,
   documentId: string
 ): Promise<Blob> => {
-  const data = await apiClient.get(
+  const response = await apiClient.get(
     `/student/courses/${courseId}/documents/${documentId}/download`,
     { responseType: 'blob' }
   )
-  return data as Blob
+  return response.data as Blob
 }
 
 /** 以 PDF 形式预览文档（完整页数）。PPTX 会由服务端转为 PDF（需 LibreOffice）。失败时抛出。 */
@@ -139,11 +145,11 @@ export const getCourseDocumentPreviewPdf = async (
   courseId: string,
   documentId: string
 ): Promise<Blob> => {
-  const data = await apiClient.get(
+  const response = await apiClient.get(
     `/student/courses/${courseId}/documents/${documentId}/preview-pdf`,
     { responseType: 'blob' }
   )
-  return data as Blob
+  return response.data as Blob
 }
 
 // 智能问答相关接口
@@ -241,50 +247,58 @@ export interface FileAnalysisResponse {
 export const studentQAService = {
   // 提问
   ask: async (data: QuestionRequest): Promise<QuestionResponse> => {
-    return await apiClient.post('/student/qa/ask', data)
+    const response = await apiClient.post('/student/qa/ask', data)
+    return response.data
   },
 
   // 上传文件（旧版）
   uploadFile: async (formData: FormData): Promise<UploadFileResponse> => {
-    return await apiClient.post('/student/qa/upload', formData, {
+    const response = await apiClient.post('/student/qa/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
+    return response.data
   },
 
   // 上传文件（增强版 - 支持预览和分析）
   uploadFileEnhanced: async (formData: FormData): Promise<FileUploadEnhancedResponse> => {
-    return await apiClient.post('/student/qa/upload', formData, {
+    const response = await apiClient.post('/student/qa/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
+    return response.data
   },
 
   // 分析文件（代码分析或文档总结）
   analyzeFile: async (data: FileAnalysisRequest): Promise<FileAnalysisResponse> => {
-    return await apiClient.post('/student/qa/analyze-file', data)
+    const response = await apiClient.post('/student/qa/analyze-file', data)
+    return response.data
   },
 
   // 获取历史记录
   getHistory: async (): Promise<any[]> => {
-    return await apiClient.get('/student/qa/history')
+    const response = await apiClient.get('/student/qa/history')
+    return response.data || []
   },
 
   // 创建分享
   createShare: async (sessionId: string): Promise<ShareResponse> => {
-    return await apiClient.post('/student/qa/share', { session_id: sessionId })
+    const response = await apiClient.post('/student/qa/share', { session_id: sessionId })
+    return response.data
   },
 
   // 获取分享的对话
   getSharedConversation: async (shareCode: string): Promise<SharedConversation> => {
-    return await apiClient.get(`/student/qa/shared/${shareCode}`)
+    const response = await apiClient.get(`/student/qa/shared/${shareCode}`)
+    return response.data
   },
 
   // 获取会话消息
   getSessionMessages: async (sessionId: string): Promise<{ messages: any[], session_id: string }> => {
-    return await apiClient.get(`/student/qa/session/${sessionId}/messages`)
+    const response = await apiClient.get(`/student/qa/session/${sessionId}/messages`)
+    return response.data || { messages: [], session_id: sessionId }
   }
 }
 

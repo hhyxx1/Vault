@@ -8,13 +8,22 @@ const Login = () => {
     username: '',
     password: '',
   })
+  const [rememberMe, setRememberMe] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   // 检查是否已登录，如果已登录则跳转到对应页面
+  // 同时加载"记住我"保存的用户名
   useEffect(() => {
     const token = localStorage.getItem('token')
     const userStr = localStorage.getItem('user')
+    
+    // 加载记住的用户名
+    const rememberedUsername = localStorage.getItem('rememberedUsername')
+    if (rememberedUsername) {
+      setFormData(prev => ({ ...prev, username: rememberedUsername }))
+      setRememberMe(true)
+    }
     
     if (token && userStr) {
       try {
@@ -43,6 +52,13 @@ const Login = () => {
       // 保存token和用户信息
       localStorage.setItem('token', data.access_token)
       localStorage.setItem('user', JSON.stringify(data.user))
+      
+      // 处理"记住我"功能
+      if (rememberMe) {
+        localStorage.setItem('rememberedUsername', formData.username)
+      } else {
+        localStorage.removeItem('rememberedUsername')
+      }
       
       // 根据用户角色跳转
       if (data.user.role === 'teacher') {
@@ -120,13 +136,19 @@ const Login = () => {
               <label className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
                   className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
                 />
                 <span className="ml-2 text-sm text-gray-600">记住我</span>
               </label>
-              <a href="#" className="text-sm bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent hover:from-purple-700 hover:to-pink-700 font-medium">
+              <button
+                type="button"
+                onClick={() => navigate('/forgot-password')}
+                className="text-sm bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent hover:from-purple-700 hover:to-pink-700 font-medium"
+              >
                 忘记密码？
-              </a>
+              </button>
             </div>
 
             {/* 错误提示 */}

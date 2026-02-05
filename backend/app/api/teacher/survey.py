@@ -13,6 +13,8 @@ from app.services.document_parser import doc_parser
 from app.services.vector_db_service import get_vector_db
 from app.database import get_db
 from app.models.survey import Survey, Question
+from app.models.user import User
+from app.utils.auth import get_current_user
 
 router = APIRouter()
 
@@ -62,10 +64,17 @@ class PublishSurveyRequest(BaseModel):
     end_time: Optional[datetime] = Field(None, description="结束时间（可选）")
 
 @router.get("", response_model=List[Dict[str, Any]])
-async def get_surveys(db: Session = Depends(get_db)):
+async def get_surveys(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
-    获取教师创建的所有问卷（优化版 - 使用JOIN减少查询次数）
+    获取当前教师创建的所有问卷（优化版 - 使用JOIN减少查询次数）
     """
+    # 验证是否为教师
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
     try:
         # 使用LEFT JOIN一次性获取所有数据，避免N+1查询问题
         from sqlalchemy import func
@@ -75,6 +84,8 @@ async def get_surveys(db: Session = Depends(get_db)):
             func.count(Question.id).label('question_count')
         ).outerjoin(
             Question, Survey.id == Question.survey_id
+        ).filter(
+            Survey.teacher_id == current_user.id  # 只获取当前教师的问卷
         ).group_by(
             Survey.id
         ).order_by(
@@ -102,22 +113,31 @@ async def get_surveys(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("", response_model=Dict[str, Any])
-async def create_survey(survey_data: SaveSurveyRequest, db: Session = Depends(get_db)):
+async def create_survey(
+    survey_data: SaveSurveyRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     创建新问卷（从Word解析后保存）
     """
+    # 验证是否为教师
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以创建问卷")
+    
     try:
         print(f"=" * 70)
         print(f"📝 开始保存问卷")
+        print(f"教师ID: {current_user.id}")
         print(f"标题: {survey_data.title}")
         print(f"描述: {survey_data.description}")
         print(f"题目数量: {len(survey_data.questions)}")
         print(f"=" * 70)
         
-        # 检查问卷名称是否重复
+        # 检查问卷名称是否重复（在当前教师的问卷中）
         existing_survey = db.query(Survey).filter(
             Survey.title == survey_data.title,
-            Survey.teacher_id == "00000000-0000-0000-0000-000000000001"
+            Survey.teacher_id == current_user.id
         ).first()
         if existing_survey:
             raise HTTPException(status_code=400, detail=f"问卷名称 '{survey_data.title}' 已存在，请使用其他名称")
@@ -126,7 +146,7 @@ async def create_survey(survey_data: SaveSurveyRequest, db: Session = Depends(ge
         new_survey = Survey(
             title=survey_data.title,
             description=survey_data.description,
-            teacher_id="00000000-0000-0000-0000-000000000001",  # TODO: 从token获取真实teacher_id
+            teacher_id=current_user.id,  # 使用当前登录教师的ID
             course_id=None,  # 可选字段
             class_id=None,   # 可选字段
             generation_method="word_upload",
@@ -180,6 +200,7 @@ async def create_survey(survey_data: SaveSurveyRequest, db: Session = Depends(ge
 async def publish_survey(
     survey_id: str,
     body: PublishSurveyRequest,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     """
@@ -191,8 +212,14 @@ async def publish_survey(
     - 开始与结束时间之间：学生可以答题
     - 结束时间之后：显示已结束
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以发布问卷")
+    
     try:
-        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        survey = db.query(Survey).filter(
+            Survey.id == survey_id,
+            Survey.teacher_id == current_user.id  # 验证问卷属于当前教师
+        ).first()
         if not survey:
             raise HTTPException(status_code=404, detail="问卷不存在")
         
@@ -231,14 +258,24 @@ async def publish_survey(
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.put("/{survey_id}/unpublish")
-async def unpublish_survey(survey_id: str, db: Session = Depends(get_db)):
+async def unpublish_survey(
+    survey_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     取消发布问卷
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以取消发布问卷")
+    
     try:
-        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        survey = db.query(Survey).filter(
+            Survey.id == survey_id,
+            Survey.teacher_id == current_user.id
+        ).first()
         if not survey:
-            raise HTTPException(status_code=404, detail="问卷不存在")
+            raise HTTPException(status_code=404, detail="问卷不存在或无权限")
         
         survey.status = "draft"
         survey.published_at = None
@@ -252,14 +289,24 @@ async def unpublish_survey(survey_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/{survey_id}", response_model=Dict[str, Any])
-async def get_survey_detail(survey_id: str, db: Session = Depends(get_db)):
+async def get_survey_detail(
+    survey_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     获取问卷详情
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
     try:
-        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        survey = db.query(Survey).filter(
+            Survey.id == survey_id,
+            Survey.teacher_id == current_user.id
+        ).first()
         if not survey:
-            raise HTTPException(status_code=404, detail="问卷不存在")
+            raise HTTPException(status_code=404, detail="问卷不存在或无权限")
         
         # 获取所有题目
         questions = db.query(Question).filter(
@@ -305,14 +352,25 @@ async def get_survey_detail(survey_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.put("/{survey_id}")
-async def update_survey(survey_id: str, survey_data: SaveSurveyRequest, db: Session = Depends(get_db)):
+async def update_survey(
+    survey_id: str,
+    survey_data: SaveSurveyRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     更新问卷内容
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以更新问卷")
+    
     try:
-        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        survey = db.query(Survey).filter(
+            Survey.id == survey_id,
+            Survey.teacher_id == current_user.id
+        ).first()
         if not survey:
-            raise HTTPException(status_code=404, detail="问卷不存在")
+            raise HTTPException(status_code=404, detail="问卷不存在或无权限")
         
         # 更新问卷基本信息
         survey.title = survey_data.title
@@ -356,14 +414,24 @@ async def update_survey(survey_id: str, survey_data: SaveSurveyRequest, db: Sess
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.delete("/{survey_id}")
-async def delete_survey(survey_id: str, db: Session = Depends(get_db)):
+async def delete_survey(
+    survey_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     删除问卷
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以删除问卷")
+    
     try:
-        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        survey = db.query(Survey).filter(
+            Survey.id == survey_id,
+            Survey.teacher_id == current_user.id
+        ).first()
         if not survey:
-            raise HTTPException(status_code=404, detail="问卷不存在")
+            raise HTTPException(status_code=404, detail="问卷不存在或无权限")
         
         db.delete(survey)
         db.commit()
@@ -377,22 +445,31 @@ async def delete_survey(survey_id: str, db: Session = Depends(get_db)):
 
 
 @router.post("/manual", response_model=Dict[str, Any])
-async def create_manual_survey(survey_data: SaveSurveyRequest, db: Session = Depends(get_db)):
+async def create_manual_survey(
+    survey_data: SaveSurveyRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     手动创建问卷（不经过Word解析）
     """
+    # 验证是否为教师
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以创建问卷")
+    
     try:
         print(f"=" * 70)
         print(f"📝 开始创建手动问卷")
+        print(f"教师ID: {current_user.id}")
         print(f"标题: {survey_data.title}")
         print(f"描述: {survey_data.description}")
         print(f"题目数量: {len(survey_data.questions)}")
         print(f"=" * 70)
         
-        # 检查问卷名称是否重复
+        # 检查问卷名称是否重复（在当前教师的问卷中）
         existing_survey = db.query(Survey).filter(
             Survey.title == survey_data.title,
-            Survey.teacher_id == "00000000-0000-0000-0000-000000000001"
+            Survey.teacher_id == current_user.id
         ).first()
         if existing_survey:
             raise HTTPException(status_code=400, detail=f"问卷名称 '{survey_data.title}' 已存在，请使用其他名称")
@@ -401,7 +478,7 @@ async def create_manual_survey(survey_data: SaveSurveyRequest, db: Session = Dep
         new_survey = Survey(
             title=survey_data.title,
             description=survey_data.description,
-            teacher_id="00000000-0000-0000-0000-000000000001",  # TODO: 从token获取真实teacher_id
+            teacher_id=current_user.id,  # 使用当前登录教师的ID
             course_id=None,
             class_id=None,
             generation_method="manual",
@@ -494,16 +571,26 @@ async def upload_reference_file(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"文件上传失败: {str(e)}")
 
 @router.get("/{survey_id}/results")
-async def get_survey_results(survey_id: str, db: Session = Depends(get_db)):
+async def get_survey_results(
+    survey_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     获取问卷统计结果
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以查看问卷结果")
+    
     try:
         from app.models.survey import SurveyResponse, Answer
         
-        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        survey = db.query(Survey).filter(
+            Survey.id == survey_id,
+            Survey.teacher_id == current_user.id
+        ).first()
         if not survey:
-            raise HTTPException(status_code=404, detail="问卷不存在")
+            raise HTTPException(status_code=404, detail="问卷不存在或无权限")
         
         # 获取所有提交记录
         responses = db.query(SurveyResponse).filter(
@@ -902,16 +989,26 @@ class UpdateScoreRequest(BaseModel):
 
 
 @router.get("/{survey_id}/student-scores")
-async def get_student_scores(survey_id: str, db: Session = Depends(get_db)):
+async def get_student_scores(
+    survey_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     获取问卷的学生成绩列表
     返回所有提交该问卷的学生及其成绩
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以查看学生成绩")
+    
     try:
         from app.models.survey import SurveyResponse
-        from app.models.user import User, Student
+        from app.models.user import Student
         
-        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        survey = db.query(Survey).filter(
+            Survey.id == survey_id,
+            Survey.teacher_id == current_user.id
+        ).first()
         if not survey:
             raise HTTPException(status_code=404, detail="问卷不存在")
         
@@ -962,14 +1059,22 @@ async def get_student_scores(survey_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/{survey_id}/student/{student_id}/answers")
-async def get_student_answers(survey_id: str, student_id: str, db: Session = Depends(get_db)):
+async def get_student_answers(
+    survey_id: str,
+    student_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     获取某个学生的答卷详情
     包含每道题的题目、学生答案、正确答案、得分等
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以查看学生答卷")
+    
     try:
         from app.models.survey import SurveyResponse, Answer
-        from app.models.user import User, Student
+        from app.models.user import Student
         import json
         
         survey = db.query(Survey).filter(Survey.id == survey_id).first()
@@ -1059,11 +1164,15 @@ async def update_student_score(
     survey_id: str, 
     student_id: str, 
     request: UpdateScoreRequest,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """
     修改学生的成绩
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以修改学生成绩")
+    
     try:
         from app.models.survey import SurveyResponse
         
@@ -1112,11 +1221,14 @@ async def update_question_score(
     student_id: str,
     score: float,
     comment: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """
     修改学生某道题的分数
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以修改成绩")
     try:
         from app.models.survey import SurveyResponse, Answer
         
@@ -1178,15 +1290,25 @@ async def update_question_score(
 
 
 @router.post("/{survey_id}/publish-scores")
-async def publish_scores(survey_id: str, db: Session = Depends(get_db)):
+async def publish_scores(
+    survey_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     发布成绩
     发布后学生可以查看自己的成绩
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以发布成绩")
+    
     try:
-        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        survey = db.query(Survey).filter(
+            Survey.id == survey_id,
+            Survey.teacher_id == current_user.id
+        ).first()
         if not survey:
-            raise HTTPException(status_code=404, detail="问卷不存在")
+            raise HTTPException(status_code=404, detail="问卷不存在或无权限")
         
         # 设置成绩已发布标志
         survey.score_published = True
@@ -1211,14 +1333,24 @@ async def publish_scores(survey_id: str, db: Session = Depends(get_db)):
 
 
 @router.post("/{survey_id}/unpublish-scores")
-async def unpublish_scores(survey_id: str, db: Session = Depends(get_db)):
+async def unpublish_scores(
+    survey_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     取消发布成绩
     """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以取消发布成绩")
+    
     try:
-        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        survey = db.query(Survey).filter(
+            Survey.id == survey_id,
+            Survey.teacher_id == current_user.id
+        ).first()
         if not survey:
-            raise HTTPException(status_code=404, detail="问卷不存在")
+            raise HTTPException(status_code=404, detail="问卷不存在或无权限")
         
         # 取消成绩发布标志
         survey.score_published = False
