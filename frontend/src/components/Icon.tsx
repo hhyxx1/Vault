@@ -20,6 +20,17 @@ import key from '../assets/icons/key.svg';
 import add from '../assets/icons/add.svg';
 import csv from '../assets/icons/csv.svg';
 import edit from '../assets/icons/edit.svg';
+import checkCircle from '../assets/icons/check-circle.svg';
+import alertTriangle from '../assets/icons/alert-triangle.svg';
+import barChart from '../assets/icons/bar-chart.svg';
+import clock from '../assets/icons/clock.svg';
+import fileText from '../assets/icons/file-text.svg';
+import info from '../assets/icons/info.svg';
+import target from '../assets/icons/target.svg';
+import library from '../assets/icons/library.svg';
+import robot from '../assets/icons/robot.svg';
+import send from '../assets/icons/send.svg';
+import attachment from '../assets/icons/attachment.svg';
 
 const iconMap: Record<string, string> = {
   dashboard,
@@ -41,6 +52,17 @@ const iconMap: Record<string, string> = {
   add,
   csv,
   edit,
+  'check-circle': checkCircle,
+  'alert-triangle': alertTriangle,
+  'bar-chart': barChart,
+  clock,
+  'file-text': fileText,
+  info,
+  target,
+  library,
+  robot,
+  send,
+  attachment,
 };
 
 export type IconName = keyof typeof iconMap;

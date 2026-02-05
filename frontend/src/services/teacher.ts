@@ -95,6 +95,40 @@ export interface TeacherProfileUpdate {
   title: string
 }
 
+// Dashboard 相关接口
+export interface DashboardStats {
+  total_students: number
+  total_questions: number
+  avg_participation_rate: number
+  active_students: number
+}
+
+export interface StudentStatsItem {
+  student_id: string
+  student_name: string
+  question_count: number
+  participation_rate: number
+  avg_score: number
+  last_active_date: string | null
+}
+
+export interface QuestionTrendItem {
+  date: string
+  count: number
+}
+
+export interface CategoryDistributionItem {
+  category: string
+  count: number
+}
+
+export interface DashboardOverview {
+  stats: DashboardStats
+  question_trend: QuestionTrendItem[]
+  category_distribution: CategoryDistributionItem[]
+  student_stats: StudentStatsItem[]
+}
+
 // 获取教师个人资料
 export const getTeacherProfile = async (): Promise<TeacherProfile> => {
   return await apiClient.get('/teacher/profile/')
@@ -237,4 +271,9 @@ export const getKnowledgeBaseStats = async (): Promise<KnowledgeBaseStats> => {
 // 删除文档
 export const deleteDocument = async (documentId: string): Promise<void> => {
   return await apiClient.delete(`/teacher/knowledge-base/documents/${documentId}`)
+}
+
+// 获取教师看板概览数据
+export const getDashboardOverview = async (): Promise<DashboardOverview> => {
+  return await apiClient.get('/teacher/dashboard/overview')
 }

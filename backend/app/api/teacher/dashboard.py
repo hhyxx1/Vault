@@ -2,13 +2,15 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy import text, func
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from uuid import UUID
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from app.database import get_db
 from app.models.user import User
 from app.models.course import Course, Class
+from app.models.qa import QARecord
+from app.models.survey import Survey, SurveyResponse
 from app.utils.auth import get_current_user
 
 router = APIRouter()
@@ -16,9 +18,31 @@ router = APIRouter()
 # 模型定义
 class Stats(BaseModel):
     total_students: int
-    active_questions: int
-    surveys_completed: int
-    average_score: float
+    total_questions: int
+    avg_participation_rate: float
+    active_students: int
+
+class StudentStatsItem(BaseModel):
+    student_id: str
+    student_name: str
+    question_count: int
+    participation_rate: float
+    avg_score: float
+    last_active_date: Optional[str]
+
+class QuestionTrendItem(BaseModel):
+    date: str
+    count: int
+
+class CategoryDistributionItem(BaseModel):
+    category: str
+    count: int
+
+class DashboardOverview(BaseModel):
+    stats: Stats
+    question_trend: List[QuestionTrendItem]
+    category_distribution: List[CategoryDistributionItem]
+    student_stats: List[StudentStatsItem]
 
 class RecentQuestion(BaseModel):
     id: str
@@ -68,39 +92,247 @@ class ClassDetailResponse(BaseModel):
     class Config:
         from_attributes = True
 
+@router.get("/overview", response_model=DashboardOverview)
+async def get_dashboard_overview(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    获取教师看板完整概览数据
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    try:
+        print(f"\n{'='*50}")
+        print(f"[Dashboard] 当前教师ID: {current_user.id}")
+        print(f"[Dashboard] 用户名: {current_user.username}")
+        
+        # 先检查教师有多少班级
+        teacher_classes = db.execute(text("""
+            SELECT id, class_name, status FROM classes WHERE teacher_id = :teacher_id
+        """), {"teacher_id": str(current_user.id)}).fetchall()
+        print(f"[Dashboard] 教师的班级数量: {len(teacher_classes)}")
+        for c in teacher_classes:
+            print(f"  - 班级ID: {c.id}, 名称: {c.class_name}, 状态: {c.status}")
+            # 检查每个班级的学生数
+            student_count = db.execute(text("""
+                SELECT COUNT(*) as cnt, cs.status 
+                FROM class_students cs 
+                WHERE cs.class_id = :class_id 
+                GROUP BY cs.status
+            """), {"class_id": str(c.id)}).fetchall()
+            for sc in student_count:
+                print(f"    学生数(状态={sc.status}): {sc.cnt}")
+        
+        # 检查所有班级（不分教师）
+        all_classes = db.execute(text("SELECT id, class_name, teacher_id FROM classes LIMIT 5")).fetchall()
+        print(f"[Dashboard] 数据库中的班级(前5个):")
+        for ac in all_classes:
+            print(f"  - {ac.class_name}, teacher_id: {ac.teacher_id}")
+        
+        # 1. 获取教师的所有班级的学生
+        class_students = db.execute(text("""
+            SELECT DISTINCT cs.student_id, u.full_name, u.username
+            FROM classes c
+            JOIN class_students cs ON c.id = cs.class_id
+            JOIN users u ON cs.student_id = u.id
+            WHERE c.teacher_id = :teacher_id 
+            AND c.status = 'active' 
+            AND cs.status = 'active'
+        """), {"teacher_id": str(current_user.id)}).fetchall()
+        
+        student_map = {str(s.student_id): s.full_name or s.username for s in class_students}
+        total_students = len(student_map)
+        student_ids_list = list(student_map.keys())
+        print(f"[Dashboard] 学生总数: {total_students}")
+        if student_ids_list:
+            print(f"[Dashboard] 学生列表: {list(student_map.values())}")
+        
+        # 2. 获取QA统计数据
+        qa_stats = []
+        if student_ids_list:
+            # 使用 IN 查询代替 ANY (兼容性更好)
+            # 动态构建参数
+            placeholders = ", ".join([f":id_{i}" for i in range(len(student_ids_list))])
+            params = {f"id_{i}": student_ids_list[i] for i in range(len(student_ids_list))}
+            
+            qa_stats = db.execute(text(f"""
+                SELECT 
+                    student_id,
+                    COUNT(*) as question_count,
+                    MAX(created_at) as last_active
+                FROM qa_records
+                WHERE student_id IN ({placeholders})
+                AND created_at >= NOW() - INTERVAL '30 days'
+                GROUP BY student_id
+            """), params).fetchall()
+            print(f"[Dashboard] QA统计: {len(qa_stats)}条记录")
+        
+        total_questions = sum(s.question_count for s in qa_stats)
+        active_students = len([s for s in qa_stats if s.question_count > 0])
+        
+        # 3. 获取问卷统计
+        survey_stats = db.execute(text("""
+            SELECT 
+                sr.student_id,
+                COUNT(*) as survey_count,
+                AVG(sr.percentage_score) as avg_score
+            FROM survey_responses sr
+            JOIN surveys s ON sr.survey_id = s.id
+            WHERE s.teacher_id = :teacher_id
+            AND sr.status = 'completed'
+            GROUP BY sr.student_id
+        """), {"teacher_id": str(current_user.id)}).fetchall()
+        
+        survey_map = {str(s.student_id): {
+            'count': s.survey_count,
+            'avg_score': float(s.avg_score) if s.avg_score else 0.0
+        } for s in survey_stats}
+        
+        # 4. 计算参与率
+        participation_rate = active_students / total_students if total_students > 0 else 0
+        
+        # 5. 准备学生统计数据
+        student_stats = []
+        for student_id, student_name in student_map.items():
+            qa_data = next((s for s in qa_stats if str(s.student_id) == student_id), None)
+            survey_data = survey_map.get(student_id, {'count': 0, 'avg_score': 0.0})
+            
+            question_count = qa_data.question_count if qa_data else 0
+            last_active = qa_data.last_active.strftime("%Y-%m-%d") if qa_data and qa_data.last_active else None
+            
+            student_stats.append(StudentStatsItem(
+                student_id=student_id,
+                student_name=student_name,
+                question_count=question_count,
+                participation_rate=1.0 if question_count > 0 else 0.0,
+                avg_score=survey_data['avg_score'],
+                last_active_date=last_active
+            ))
+        
+        # 6. 获取近7天的问题趋势
+        question_trend = []
+        for i in range(6, -1, -1):
+            date = (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+            count = 0
+            if student_ids_list:
+                # 使用 IN 查询代替 ANY
+                placeholders_trend = ", ".join([f":sid_{i}" for i in range(len(student_ids_list))])
+                params_trend = {f"sid_{i}": student_ids_list[i] for i in range(len(student_ids_list))}
+                params_trend["date"] = date
+                
+                count_result = db.execute(text(f"""
+                    SELECT COUNT(*) as count
+                    FROM qa_records
+                    WHERE DATE(created_at) = :date
+                    AND student_id IN ({placeholders_trend})
+                """), params_trend).fetchone()
+                count = count_result.count if count_result else 0
+            
+            question_trend.append(QuestionTrendItem(
+                date=date,
+                count=count
+            ))
+        
+        # 7. 模拟分类分布（实际应该从问题标签或分类字段获取）
+        category_distribution = [
+            CategoryDistributionItem(category="课程相关", count=int(total_questions * 0.4)),
+            CategoryDistributionItem(category="作业问题", count=int(total_questions * 0.3)),
+            CategoryDistributionItem(category="考试相关", count=int(total_questions * 0.2)),
+            CategoryDistributionItem(category="其他", count=int(total_questions * 0.1)),
+        ]
+        
+        return DashboardOverview(
+            stats=Stats(
+                total_students=total_students,
+                total_questions=total_questions,
+                avg_participation_rate=participation_rate,
+                active_students=active_students
+            ),
+            question_trend=question_trend,
+            category_distribution=category_distribution,
+            student_stats=student_stats
+        )
+        
+    except Exception as e:
+        print(f"获取看板数据失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"获取看板数据失败: {str(e)}")
+
 @router.get("/stats", response_model=Stats)
-async def get_stats():
+async def get_stats(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
     获取教师看板统计数据
     """
-    # TODO: 从数据库获取真实统计数据
-    return Stats(
-        total_students=128,
-        active_questions=45,
-        surveys_completed=95,
-        average_score=85.5
-    )
+    overview = await get_dashboard_overview(current_user, db)
+    return overview.stats
 
 @router.get("/recent-questions", response_model=List[RecentQuestion])
-async def get_recent_questions():
+async def get_recent_questions(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
     """
-    获取最近的学生提问
+    获取最近的学生提问（从教师班级的学生中获取）
     """
-    # TODO: 从数据库获取最近提问
-    return [
-        RecentQuestion(
-            id="1",
-            student="学生A",
-            question="如何理解React的状态管理？",
-            time="5分钟前"
-        ),
-        RecentQuestion(
-            id="2",
-            student="学生B",
-            question="TypeScript的类型推断如何工作？",
-            time="10分钟前"
-        )
-    ]
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    try:
+        # 获取教师班级中学生的最近提问
+        recent_questions = db.execute(text("""
+            SELECT 
+                q.id,
+                u.full_name,
+                u.username,
+                q.question,
+                q.created_at
+            FROM qa_records q
+            JOIN users u ON q.student_id = u.id
+            WHERE q.student_id IN (
+                SELECT DISTINCT cs.student_id
+                FROM classes c
+                JOIN class_students cs ON c.id = cs.class_id
+                WHERE c.teacher_id = :teacher_id
+                AND c.status = 'active'
+                AND cs.status = 'active'
+            )
+            ORDER BY q.created_at DESC
+            LIMIT 10
+        """), {"teacher_id": str(current_user.id)}).fetchall()
+        
+        result = []
+        now = datetime.now()
+        for q in recent_questions:
+            # 计算时间差
+            time_diff = now - q.created_at
+            if time_diff.days > 0:
+                time_str = f"{time_diff.days}天前"
+            elif time_diff.seconds >= 3600:
+                time_str = f"{time_diff.seconds // 3600}小时前"
+            elif time_diff.seconds >= 60:
+                time_str = f"{time_diff.seconds // 60}分钟前"
+            else:
+                time_str = "刚刚"
+            
+            result.append(RecentQuestion(
+                id=str(q.id),
+                student=q.full_name or q.username,
+                question=q.question[:100] + "..." if len(q.question) > 100 else q.question,
+                time=time_str
+            ))
+        
+        return result
+    except Exception as e:
+        print(f"获取最近提问失败: {e}")
+        import traceback
+        traceback.print_exc()
+        return []
 
 @router.get("/classes", response_model=List[ClassResponse])
 async def get_teacher_classes(

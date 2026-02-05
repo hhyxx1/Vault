@@ -45,3 +45,13 @@ htmlcov/
 
 # Logs
 *.log
+
+# Static files (now unified under app/api/static/)
+app/static/
+static/uploads/
+uploads/
+
+# Keep the unified static directory structure
+!app/api/static/
+app/api/static/*
+!app/api/static/.gitkeep

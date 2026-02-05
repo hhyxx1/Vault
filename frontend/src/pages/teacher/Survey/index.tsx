@@ -90,11 +90,21 @@ const TeacherSurvey = () => {
   const [editingSurvey, setEditingSurvey] = useState<any>(null)
   const [showStatsModal, setShowStatsModal] = useState(false)
   const [statsData, setStatsData] = useState<any>(null)
+  
+  // 学生成绩管理相关状态
+  const [studentScoresData, setStudentScoresData] = useState<any>(null)
+  const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null)
+  const [studentAnswersData, setStudentAnswersData] = useState<any>(null)
+  const [showStudentAnswerModal, setShowStudentAnswerModal] = useState(false)
+  const [editingScore, setEditingScore] = useState<{questionId: string, score: number} | null>(null)
+  const [isPublishingScores, setIsPublishingScores] = useState(false)
   // 发布弹窗：选择班级与发布类型
   const [showPublishModal, setShowPublishModal] = useState(false)
   const [publishSurveyId, setPublishSurveyId] = useState<string | null>(null)
   const [publishClassIds, setPublishClassIds] = useState<string[]>([])
   const [publishReleaseType, setPublishReleaseType] = useState<ReleaseType>('in_class')
+  const [publishStartTime, setPublishStartTime] = useState<string>('')
+  const [publishEndTime, setPublishEndTime] = useState<string>('')
   const [teacherClasses, setTeacherClasses] = useState<Array<{ id: string; class_name: string; course_name?: string }>>([])
   const [loadingClasses, setLoadingClasses] = useState(false)
   
@@ -612,6 +622,8 @@ const TeacherSurvey = () => {
   const openPublishModal = async (surveyId: string) => {
     setPublishSurveyId(surveyId)
     setPublishClassIds([])
+    setPublishStartTime('')
+    setPublishEndTime('')
     const survey = surveys.find((s) => s.id === surveyId)
     // 基于大纲生成的问卷只能发布到「测试能力」
     setPublishReleaseType(survey?.generationMethod === 'knowledge_outline' ? 'ability_test' : 'in_class')
@@ -633,10 +645,23 @@ const TeacherSurvey = () => {
       alert('请至少选择一个班级')
       return
     }
+    
+    // 验证时间设置
+    if (publishStartTime && publishEndTime) {
+      const start = new Date(publishStartTime)
+      const end = new Date(publishEndTime)
+      if (start >= end) {
+        alert('开始时间必须早于结束时间')
+        return
+      }
+    }
+    
     try {
       await surveyApi.publishSurvey(publishSurveyId, {
         classIds: publishClassIds,
         releaseType: publishReleaseType,
+        startTime: publishStartTime || undefined,
+        endTime: publishEndTime || undefined,
       })
       await loadSurveys()
       setShowPublishModal(false)
@@ -848,15 +873,95 @@ const TeacherSurvey = () => {
     }
   }
 
-  // 查看统计
+  // 查看统计 - 获取学生成绩列表
   const handleStats = async (surveyId: string) => {
     try {
-      const data = await surveyApi.getSurveyResults(surveyId)
-      setStatsData(data)
+      // 获取学生成绩列表
+      const scoresData = await surveyApi.getStudentScores(surveyId)
+      setStudentScoresData(scoresData)
+      
+      // 同时获取原有统计数据（题目统计）
+      const statsResult = await surveyApi.getSurveyResults(surveyId)
+      setStatsData(statsResult)
+      
       setShowStatsModal(true)
     } catch (error: any) {
       console.error('获取统计数据失败:', error)
       alert(error.response?.data?.detail || '获取统计数据失败')
+    }
+  }
+  
+  // 查看学生答卷详情
+  const handleViewStudentAnswer = async (studentId: string) => {
+    if (!studentScoresData) return
+    try {
+      const data = await surveyApi.getStudentAnswers(studentScoresData.surveyId, studentId)
+      setStudentAnswersData(data)
+      setSelectedStudentId(studentId)
+      setShowStudentAnswerModal(true)
+    } catch (error: any) {
+      console.error('获取学生答卷失败:', error)
+      alert(error.response?.data?.detail || '获取学生答卷失败')
+    }
+  }
+  
+  // 修改学生某道题的分数
+  const handleUpdateQuestionScore = async (questionId: string, newScore: number) => {
+    if (!studentScoresData || !selectedStudentId) return
+    try {
+      await surveyApi.updateQuestionScore(
+        studentScoresData.surveyId,
+        questionId,
+        selectedStudentId,
+        newScore
+      )
+      // 重新加载学生答卷
+      const data = await surveyApi.getStudentAnswers(studentScoresData.surveyId, selectedStudentId)
+      setStudentAnswersData(data)
+      // 重新加载成绩列表
+      const scoresData = await surveyApi.getStudentScores(studentScoresData.surveyId)
+      setStudentScoresData(scoresData)
+      setEditingScore(null)
+      alert('分数修改成功')
+    } catch (error: any) {
+      console.error('修改分数失败:', error)
+      alert(error.response?.data?.detail || '修改分数失败')
+    }
+  }
+  
+  // 发布成绩
+  const handlePublishScores = async () => {
+    if (!studentScoresData) return
+    setIsPublishingScores(true)
+    try {
+      await surveyApi.publishScores(studentScoresData.surveyId)
+      // 重新加载数据
+      const scoresData = await surveyApi.getStudentScores(studentScoresData.surveyId)
+      setStudentScoresData(scoresData)
+      alert('成绩发布成功！学生现在可以查看成绩了。')
+    } catch (error: any) {
+      console.error('发布成绩失败:', error)
+      alert(error.response?.data?.detail || '发布成绩失败')
+    } finally {
+      setIsPublishingScores(false)
+    }
+  }
+  
+  // 取消发布成绩
+  const handleUnpublishScores = async () => {
+    if (!studentScoresData) return
+    if (!confirm('确定要取消发布成绩吗？学生将无法查看成绩。')) return
+    setIsPublishingScores(true)
+    try {
+      await surveyApi.unpublishScores(studentScoresData.surveyId)
+      const scoresData = await surveyApi.getStudentScores(studentScoresData.surveyId)
+      setStudentScoresData(scoresData)
+      alert('已取消发布成绩')
+    } catch (error: any) {
+      console.error('取消发布成绩失败:', error)
+      alert(error.response?.data?.detail || '取消发布成绩失败')
+    } finally {
+      setIsPublishingScores(false)
     }
   }
 
@@ -1164,7 +1269,7 @@ const TeacherSurvey = () => {
       {/* 发布问卷弹窗：选择班级与发布类型 */}
       {showPublishModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl p-6">
+          <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl p-6 max-h-[90vh] overflow-y-auto">
             <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
               <Icon name="award" size={24} className="text-green-500" />
               发布问卷
@@ -1210,7 +1315,6 @@ const TeacherSurvey = () => {
                           { value: 'in_class' as ReleaseType, label: '课堂检测', icon: '✅' },
                           { value: 'homework' as ReleaseType, label: '课后作业', icon: '📝' },
                           { value: 'practice' as ReleaseType, label: '自主练习', icon: '📚' },
-                          { value: 'ability_test' as ReleaseType, label: '测试能力', icon: '🎯' },
                         ]
                   ).map((opt) => (
                     <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
@@ -1224,6 +1328,38 @@ const TeacherSurvey = () => {
                       <span className="text-sm">{opt.icon} {opt.label}</span>
                     </label>
                   ))}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  ⏰ 答题时间设置 <span className="text-gray-500 text-xs">（可选）</span>
+                </label>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-xs text-gray-600 mb-1">开始时间</label>
+                    <input
+                      type="datetime-local"
+                      value={publishStartTime}
+                      onChange={(e) => setPublishStartTime(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-gray-600 mb-1">结束时间</label>
+                    <input
+                      type="datetime-local"
+                      value={publishEndTime}
+                      onChange={(e) => setPublishEndTime(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 bg-blue-50 p-2 rounded">
+                    💡 设置时间后：<br/>
+                    • 开始时间前：学生只能看到倒计时<br/>
+                    • 时间段内：学生可以答题<br/>
+                    • 结束时间后：显示已结束<br/>
+                    • 不设置时间则立即可答题
+                  </p>
                 </div>
               </div>
             </div>
@@ -2245,20 +2381,21 @@ const TeacherSurvey = () => {
         </div>
       )}
 
-      {/* 统计模态框 */}
-      {showStatsModal && statsData && (
+      {/* 统计模态框 - 学生成绩列表 */}
+      {showStatsModal && studentScoresData && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-            <div className="sticky top-0 bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-6 rounded-t-2xl">
+            <div className="sticky top-0 bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-6 rounded-t-2xl z-10">
               <div className="flex items-center justify-between text-white">
                 <h3 className="text-2xl font-bold flex items-center gap-3">
                   <Icon name="dashboard" size={28} />
-                  问卷统计 - {statsData.title}
+                  成绩管理 - {studentScoresData.surveyTitle}
                 </h3>
                 <button 
                   onClick={() => {
                     setShowStatsModal(false)
                     setStatsData(null)
+                    setStudentScoresData(null)
                   }}
                   className="p-2 hover:bg-white/20 rounded-full transition-colors"
                 >
@@ -2268,67 +2405,375 @@ const TeacherSurvey = () => {
             </div>
             
             <div className="p-8">
+              {/* 顶部操作栏 */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <span className={`px-4 py-2 rounded-full text-sm font-medium ${
+                    studentScoresData.scorePublished 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-yellow-100 text-yellow-700'
+                  }`}>
+                    {studentScoresData.scorePublished ? '✓ 成绩已发布' : '⏳ 成绩未发布'}
+                  </span>
+                  <span className="text-gray-500 text-sm">
+                    满分: {studentScoresData.totalScore}分 | 及格线: {studentScoresData.passScore}分
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  {studentScoresData.scorePublished ? (
+                    <button
+                      onClick={handleUnpublishScores}
+                      disabled={isPublishingScores}
+                      className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-all disabled:opacity-50"
+                    >
+                      取消发布
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handlePublishScores}
+                      disabled={isPublishingScores || studentScoresData.totalStudents === 0}
+                      className="px-6 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium hover:from-green-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    >
+                      {isPublishingScores ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                          处理中...
+                        </>
+                      ) : (
+                        <>
+                          <Icon name="check-circle" size={18} />
+                          发布成绩
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+              </div>
+              
               {/* 总体统计 */}
               <div className="grid grid-cols-4 gap-6 mb-8">
                 <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl">
                   <div className="text-sm text-blue-600 font-medium mb-2">总提交数</div>
-                  <div className="text-3xl font-bold text-blue-700">{statsData.totalResponses}</div>
+                  <div className="text-3xl font-bold text-blue-700">{studentScoresData.totalStudents}</div>
                 </div>
                 <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl">
                   <div className="text-sm text-green-600 font-medium mb-2">平均分</div>
-                  <div className="text-3xl font-bold text-green-700">{statsData.avgScore}</div>
+                  <div className="text-3xl font-bold text-green-700">{statsData?.avgScore || '-'}</div>
                 </div>
                 <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl">
                   <div className="text-sm text-purple-600 font-medium mb-2">通过人数</div>
-                  <div className="text-3xl font-bold text-purple-700">{statsData.passCount}</div>
+                  <div className="text-3xl font-bold text-purple-700">{statsData?.passCount || 0}</div>
                 </div>
                 <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl">
                   <div className="text-sm text-orange-600 font-medium mb-2">通过率</div>
-                  <div className="text-3xl font-bold text-orange-700">{statsData.passRate}%</div>
+                  <div className="text-3xl font-bold text-orange-700">{statsData?.passRate || 0}%</div>
                 </div>
               </div>
 
-              {/* 题目统计 */}
-              <div className="space-y-6">
-                <h4 className="text-xl font-bold text-gray-800 mb-4">题目详细统计</h4>
-                {statsData.questionStats && statsData.questionStats.length > 0 ? (
-                  statsData.questionStats.map((q: any, index: number) => (
-                    <div key={q.questionId} className="bg-gray-50 p-6 rounded-xl">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <div className="text-sm text-gray-500 mb-2">题目 {index + 1}</div>
-                          <div className="text-lg font-medium text-gray-800">{q.questionText}</div>
-                        </div>
-                        <div className="text-right ml-4">
-                          <div className="text-sm text-gray-500">正确率</div>
-                          <div className="text-2xl font-bold text-green-600">{q.correctRate.toFixed(1)}%</div>
-                        </div>
-                      </div>
-                      
-                      {q.optionStats && Object.keys(q.optionStats).length > 0 && (
-                        <div className="mt-4 space-y-2">
-                          <div className="text-sm font-medium text-gray-600 mb-2">选项统计：</div>
-                          {Object.entries(q.optionStats).map(([option, count]: [string, any]) => (
-                            <div key={option} className="flex items-center gap-3">
-                              <div className="w-24 text-sm text-gray-600">{option}:</div>
-                              <div className="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
-                                <div 
-                                  className="bg-gradient-to-r from-blue-500 to-indigo-500 h-full flex items-center justify-end pr-2 text-white text-xs font-medium transition-all"
-                                  style={{ width: `${(count / q.totalAnswers * 100)}%` }}
-                                >
-                                  {count > 0 && `${count}人`}
-                                </div>
-                              </div>
-                              <div className="w-16 text-sm text-gray-600 text-right">{((count / q.totalAnswers) * 100).toFixed(1)}%</div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))
+              {/* 学生成绩列表 */}
+              <div className="space-y-4">
+                <h4 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <Icon name="user" size={24} className="text-gray-600" />
+                  学生成绩列表
+                </h4>
+                
+                {studentScoresData.students && studentScoresData.students.length > 0 ? (
+                  <div className="bg-gray-50 rounded-xl overflow-hidden">
+                    <table className="w-full">
+                      <thead className="bg-gray-100">
+                        <tr>
+                          <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">学号</th>
+                          <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">姓名</th>
+                          <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">提交时间</th>
+                          <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">得分</th>
+                          <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">状态</th>
+                          <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">操作</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        {studentScoresData.students.map((student: any) => (
+                          <tr key={student.responseId} className="hover:bg-white transition-colors">
+                            <td className="px-6 py-4 text-sm text-gray-800 font-medium">{student.studentNumber}</td>
+                            <td className="px-6 py-4 text-sm text-gray-800">{student.studentName}</td>
+                            <td className="px-6 py-4 text-sm text-gray-600 text-center">
+                              {student.submitTime ? new Date(student.submitTime).toLocaleString('zh-CN') : '-'}
+                            </td>
+                            <td className="px-6 py-4 text-center">
+                              <span className={`text-lg font-bold ${
+                                student.isPassed ? 'text-green-600' : 'text-red-600'
+                              }`}>
+                                {student.totalScore !== null ? student.totalScore.toFixed(1) : '-'}
+                              </span>
+                              <span className="text-gray-400 text-sm">/{studentScoresData.totalScore}</span>
+                            </td>
+                            <td className="px-6 py-4 text-center">
+                              {student.isPassed !== null ? (
+                                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                  student.isPassed 
+                                    ? 'bg-green-100 text-green-700' 
+                                    : 'bg-red-100 text-red-700'
+                                }`}>
+                                  {student.isPassed ? '及格' : '不及格'}
+                                </span>
+                              ) : (
+                                <span className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                                  待评分
+                                </span>
+                              )}
+                            </td>
+                            <td className="px-6 py-4 text-center">
+                              <button
+                                onClick={() => handleViewStudentAnswer(student.studentId)}
+                                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100 transition-all"
+                              >
+                                查看答卷
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 ) : (
-                  <div className="text-center text-gray-500 py-8">暂无答题数据</div>
+                  <div className="text-center text-gray-500 py-12 bg-gray-50 rounded-xl">
+                    <Icon name="file-text" size={48} className="text-gray-300 mx-auto mb-4" />
+                    <p>暂无学生提交答卷</p>
+                  </div>
                 )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* 学生答卷详情模态框 */}
+      {showStudentAnswerModal && studentAnswersData && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[60] p-4">
+          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6 rounded-t-2xl z-10">
+              <div className="flex items-center justify-between text-white">
+                <div>
+                  <h3 className="text-xl font-bold flex items-center gap-2">
+                    <Icon name="file-text" size={24} />
+                    {studentAnswersData.studentName} 的答卷
+                  </h3>
+                  <p className="text-blue-100 text-sm mt-1">
+                    学号: {studentAnswersData.studentNumber} | 提交时间: {studentAnswersData.submitTime ? new Date(studentAnswersData.submitTime).toLocaleString('zh-CN') : '-'}
+                  </p>
+                </div>
+                <button 
+                  onClick={() => {
+                    setShowStudentAnswerModal(false)
+                    setStudentAnswersData(null)
+                    setSelectedStudentId(null)
+                    setEditingScore(null)
+                  }}
+                  className="p-2 hover:bg-white/20 rounded-full transition-colors"
+                >
+                  <Icon name="close" size={24} />
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-8">
+              {/* 总分信息 */}
+              <div className="flex items-center justify-between bg-gray-50 rounded-xl p-6 mb-6">
+                <div>
+                  <span className="text-gray-600 text-sm">总分</span>
+                  <div className="text-3xl font-bold text-gray-800">
+                    {studentAnswersData.totalScore !== null ? studentAnswersData.totalScore.toFixed(1) : '-'}
+                    <span className="text-lg text-gray-400 font-normal">/{studentAnswersData.surveyTotalScore}</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-gray-600 text-sm">得分率</span>
+                  <div className={`text-2xl font-bold ${
+                    studentAnswersData.isPassed ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                    {studentAnswersData.percentageScore !== null ? studentAnswersData.percentageScore.toFixed(1) : '-'}%
+                  </div>
+                </div>
+                <div>
+                  {studentAnswersData.isPassed !== null && (
+                    <span className={`px-4 py-2 rounded-full text-sm font-medium ${
+                      studentAnswersData.isPassed 
+                        ? 'bg-green-100 text-green-700' 
+                        : 'bg-red-100 text-red-700'
+                    }`}>
+                      {studentAnswersData.isPassed ? '及格' : '不及格'}
+                    </span>
+                  )}
+                </div>
+              </div>
+              
+              {/* 答题详情 */}
+              <div className="space-y-6">
+                {studentAnswersData.questions?.map((q: any, index: number) => (
+                  <div key={q.questionId} className="bg-gray-50 rounded-xl p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+                            第{index + 1}题
+                          </span>
+                          <span className="px-2 py-1 bg-gray-200 text-gray-600 rounded text-xs">
+                            {q.questionType === 'single_choice' ? '单选题' : 
+                             q.questionType === 'multiple_choice' ? '多选题' :
+                             q.questionType === 'judgment' ? '判断题' :
+                             q.questionType === 'essay' ? '问答题' : q.questionType}
+                          </span>
+                          {q.isCorrect !== null && (
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${
+                              q.isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                            }`}>
+                              {q.isCorrect ? '✓ 正确' : '✗ 错误'}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-gray-800 font-medium">{q.questionText}</p>
+                      </div>
+                      <div className="text-right ml-4">
+                        {editingScore?.questionId === q.questionId ? (
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="number"
+                              min="0"
+                              max={q.maxScore}
+                              step="0.5"
+                              value={editingScore.score}
+                              onChange={(e) => setEditingScore({
+                                ...editingScore,
+                                score: parseFloat(e.target.value) || 0
+                              })}
+                              className="w-20 px-2 py-1 border rounded text-center"
+                            />
+                            <button
+                              onClick={() => handleUpdateQuestionScore(q.questionId, editingScore.score)}
+                              className="px-3 py-1 bg-green-500 text-white rounded text-sm hover:bg-green-600"
+                            >
+                              保存
+                            </button>
+                            <button
+                              onClick={() => setEditingScore(null)}
+                              className="px-3 py-1 bg-gray-300 text-gray-700 rounded text-sm hover:bg-gray-400"
+                            >
+                              取消
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <span className={`text-xl font-bold ${
+                              q.score >= q.maxScore * 0.6 ? 'text-green-600' : 'text-red-600'
+                            }`}>
+                              {q.score}
+                            </span>
+                            <span className="text-gray-400">/{q.maxScore}</span>
+                            <button
+                              onClick={() => setEditingScore({ questionId: q.questionId, score: q.score })}
+                              className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
+                              title="修改分数"
+                            >
+                              <Icon name="edit" size={16} />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* 选项（如果有） */}
+                    {q.options && q.options.length > 0 && (
+                      <div className="mb-4 space-y-2">
+                        {q.options.map((opt: any, optIndex: number) => {
+                          const optionLabel = typeof opt === 'object' ? `${opt.key}. ${opt.value}` : opt
+                          const isSelected = Array.isArray(q.studentAnswer) 
+                            ? q.studentAnswer.some((a: string) => a.startsWith(optionLabel.split('.')[0]))
+                            : q.studentAnswer?.startsWith(optionLabel.split('.')[0])
+                          const isCorrect = Array.isArray(q.correctAnswer)
+                            ? q.correctAnswer.includes(optionLabel.split('.')[0].trim())
+                            : q.correctAnswer === optionLabel.split('.')[0].trim()
+                          
+                          return (
+                            <div
+                              key={optIndex}
+                              className={`p-3 rounded-lg border ${
+                                isSelected && isCorrect ? 'bg-green-50 border-green-300' :
+                                isSelected && !isCorrect ? 'bg-red-50 border-red-300' :
+                                isCorrect ? 'bg-green-50 border-green-200' :
+                                'bg-white border-gray-200'
+                              }`}
+                            >
+                              <span className={`${
+                                isSelected ? 'font-medium' : ''
+                              } ${
+                                isCorrect ? 'text-green-700' : isSelected ? 'text-red-700' : 'text-gray-700'
+                              }`}>
+                                {optionLabel}
+                              </span>
+                              {isSelected && <span className="ml-2 text-sm text-gray-500">(学生选择)</span>}
+                              {isCorrect && <span className="ml-2 text-sm text-green-600">(正确答案)</span>}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+                    
+                    {/* 问答题答案 */}
+                    {q.questionType === 'essay' && (
+                      <div className="space-y-4">
+                        <div className="bg-white rounded-lg p-4 border border-gray-200">
+                          <div className="text-sm text-gray-500 mb-2">学生答案：</div>
+                          <p className="text-gray-800 whitespace-pre-wrap">{q.studentAnswer || '(未作答)'}</p>
+                        </div>
+                        {q.correctAnswer && (
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <div className="text-sm text-green-600 mb-2">参考答案：</div>
+                            <p className="text-green-800 whitespace-pre-wrap">{q.correctAnswer}</p>
+                          </div>
+                        )}
+                        {q.gradingResult && (
+                          <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
+                            <div className="text-sm text-indigo-600 mb-2 font-medium flex items-center gap-2">
+                              <Icon name="sparkles" size={16} className="text-indigo-500" />
+                              AI 评分反馈
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 mb-3">
+                              <div>
+                                <span className="text-gray-500 text-sm">评分等级：</span>
+                                <span className="ml-2 font-medium text-indigo-700">{q.gradingResult.level}</span>
+                              </div>
+                              <div>
+                                <span className="text-gray-500 text-sm">得分：</span>
+                                <span className="ml-2 font-medium text-indigo-700">
+                                  {q.gradingResult.score}/{q.gradingResult.max_score}
+                                </span>
+                              </div>
+                            </div>
+                            {q.gradingResult.strengths && q.gradingResult.strengths.length > 0 && (
+                              <div className="mb-2">
+                                <span className="text-green-600 text-sm font-medium">优点：</span>
+                                <ul className="list-disc list-inside text-sm text-gray-700 mt-1">
+                                  {q.gradingResult.strengths.map((s: string, i: number) => (
+                                    <li key={i}>{s}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {q.gradingResult.improvements && q.gradingResult.improvements.length > 0 && (
+                              <div>
+                                <span className="text-orange-600 text-sm font-medium">改进建议：</span>
+                                <ul className="list-disc list-inside text-sm text-gray-700 mt-1">
+                                  {q.gradingResult.improvements.map((s: string, i: number) => (
+                                    <li key={i}>{s}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

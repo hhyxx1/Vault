@@ -20,12 +20,6 @@ router = APIRouter()
 # __file__ -> .../backend/app/api/teacher/survey.py
 # .parent -> .../backend/app/api/teacher
 # .parent.parent -> .../backend/app/api
-# .parent.parent.parent -> .../backend/app
-# .parent.parent.parent.parent -> .../backend
-# .parent.parent.parent.parent.parent -> .../project
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
-UPLOADS_DIR = PROJECT_ROOT / "uploads"
-
 # 问卷上传的 Word 保存目录：backend/app/api/static/questionnaire_word
 API_STATIC_DIR = Path(__file__).resolve().parent.parent  # backend/app/api
 SURVEY_WORD_UPLOAD_DIR = API_STATIC_DIR / "static" / "questionnaire_word"
@@ -64,6 +58,8 @@ class PublishSurveyRequest(BaseModel):
         default="in_class",
         description="发布类型：in_class=课堂检测, homework=课后作业, practice=自主练习, ability_test=测试能力（基于大纲生成的问卷仅能发布到此）"
     )
+    start_time: Optional[datetime] = Field(None, description="开始时间（可选）")
+    end_time: Optional[datetime] = Field(None, description="结束时间（可选）")
 
 @router.get("", response_model=List[Dict[str, Any]])
 async def get_surveys(db: Session = Depends(get_db)):
@@ -187,23 +183,45 @@ async def publish_survey(
     db: Session = Depends(get_db),
 ):
     """
-    发布问卷：选择发布的班级和发布类型（课堂检测/课后作业/自主练习）。
+    发布问卷：选择发布的班级和发布类型（课堂检测/课后作业/自主练习/测试能力）。
     发布后，对应班级的学生将在问卷检测的对应类型页面看到该问卷。
+    
+    时间控制规则：
+    - 开始时间之前：学生只能看到倒计时
+    - 开始与结束时间之间：学生可以答题
+    - 结束时间之后：显示已结束
     """
     try:
         survey = db.query(Survey).filter(Survey.id == survey_id).first()
         if not survey:
             raise HTTPException(status_code=404, detail="问卷不存在")
+        
         # 基于大纲生成的问卷只能发布到「测试能力」
-        if getattr(survey, "generation_method", None) == "knowledge_outline" and body.release_type != "ability_test":
+        generation_method = getattr(survey, "generation_method", None)
+        if generation_method == "knowledge_outline" and body.release_type != "ability_test":
             raise HTTPException(
                 status_code=400,
                 detail="基于大纲生成的问卷只能发布到「测试能力」，学生将在问卷测验的「测试能力」中看到。"
             )
+        
+        # 非基于大纲生成的问卷不能发布到「测试能力」
+        if generation_method != "knowledge_outline" and body.release_type == "ability_test":
+            raise HTTPException(
+                status_code=400,
+                detail="只有基于大纲生成的问卷才能发布到「测试能力」。"
+            )
+        
+        # 验证时间设置
+        if body.start_time and body.end_time:
+            if body.start_time >= body.end_time:
+                raise HTTPException(status_code=400, detail="开始时间必须早于结束时间")
+        
         survey.status = "published"
         survey.published_at = datetime.now()
         survey.release_type = body.release_type
         survey.target_class_ids = body.class_ids
+        survey.start_time = body.start_time
+        survey.end_time = body.end_time
         db.commit()
         return {"success": True, "message": "问卷发布成功"}
     except HTTPException:
@@ -445,8 +463,8 @@ async def upload_reference_file(file: UploadFile = File(...)):
     上传参考材料文件（用于问答题）
     """
     try:
-        # 创建上传目录
-        upload_dir = UPLOADS_DIR / "references"
+        # 创建上传目录 - 统一到 backend/app/api/static/survey_references
+        upload_dir = API_STATIC_DIR / "static" / "survey_references"
         upload_dir.mkdir(parents=True, exist_ok=True)
         
         # 生成唯一文件名
@@ -461,7 +479,7 @@ async def upload_reference_file(file: UploadFile = File(...)):
             f.write(content)
         
         # 返回文件URL
-        file_url = f"/uploads/references/{filename}"
+        file_url = f"/static/survey_references/{filename}"
         
         return {
             "success": True,
@@ -873,3 +891,351 @@ async def delete_uploaded_file(file_id: str):
             status_code=500,
             detail=f"删除文件失败: {str(e)}"
         )
+
+
+# ==================== 学生成绩管理 API ====================
+
+class UpdateScoreRequest(BaseModel):
+    """修改分数请求"""
+    total_score: float = Field(..., description="修改后的总分")
+    comment: Optional[str] = Field(None, description="教师评语")
+
+
+@router.get("/{survey_id}/student-scores")
+async def get_student_scores(survey_id: str, db: Session = Depends(get_db)):
+    """
+    获取问卷的学生成绩列表
+    返回所有提交该问卷的学生及其成绩
+    """
+    try:
+        from app.models.survey import SurveyResponse
+        from app.models.user import User, Student
+        
+        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        if not survey:
+            raise HTTPException(status_code=404, detail="问卷不存在")
+        
+        # 获取所有提交记录，包含学生信息
+        responses = db.query(SurveyResponse).filter(
+            SurveyResponse.survey_id == survey_id,
+            SurveyResponse.status == 'completed'
+        ).all()
+        
+        student_scores = []
+        for resp in responses:
+            # 获取学生信息
+            user = db.query(User).filter(User.id == resp.student_id).first()
+            student = db.query(Student).filter(Student.user_id == resp.student_id).first()
+            
+            student_scores.append({
+                "responseId": str(resp.id),
+                "studentId": str(resp.student_id),
+                "studentName": user.full_name if user else "未知",
+                "studentNumber": student.student_number if student else "-",
+                "submitTime": resp.submit_time.isoformat() if resp.submit_time else None,
+                "totalScore": float(resp.total_score) if resp.total_score is not None else None,
+                "percentageScore": float(resp.percentage_score) if resp.percentage_score is not None else None,
+                "isPassed": resp.is_passed,
+                "attemptNumber": resp.attempt_number or 1
+            })
+        
+        # 按学号排序
+        student_scores.sort(key=lambda x: x['studentNumber'] or '')
+        
+        return {
+            "surveyId": str(survey.id),
+            "surveyTitle": survey.title,
+            "totalScore": float(survey.total_score) if survey.total_score else 100,
+            "passScore": float(survey.total_score * 0.6) if survey.total_score else 60,  # 及格线 = 总分 * 60%
+            "scorePublished": survey.score_published if hasattr(survey, 'score_published') else False,
+            "totalStudents": len(student_scores),
+            "students": student_scores
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"获取学生成绩列表失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/{survey_id}/student/{student_id}/answers")
+async def get_student_answers(survey_id: str, student_id: str, db: Session = Depends(get_db)):
+    """
+    获取某个学生的答卷详情
+    包含每道题的题目、学生答案、正确答案、得分等
+    """
+    try:
+        from app.models.survey import SurveyResponse, Answer
+        from app.models.user import User, Student
+        import json
+        
+        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        if not survey:
+            raise HTTPException(status_code=404, detail="问卷不存在")
+        
+        # 获取学生信息
+        user = db.query(User).filter(User.id == student_id).first()
+        student = db.query(Student).filter(Student.user_id == student_id).first()
+        
+        # 获取学生的提交记录（取最新一次）
+        response = db.query(SurveyResponse).filter(
+            SurveyResponse.survey_id == survey_id,
+            SurveyResponse.student_id == student_id
+        ).order_by(SurveyResponse.attempt_number.desc()).first()
+        
+        if not response:
+            raise HTTPException(status_code=404, detail="未找到该学生的答卷")
+        
+        # 获取所有题目
+        questions = db.query(Question).filter(
+            Question.survey_id == survey_id
+        ).order_by(Question.question_order).all()
+        
+        # 获取学生的所有答案
+        answers = db.query(Answer).filter(
+            Answer.response_id == response.id
+        ).all()
+        
+        # 构建答案字典
+        answer_dict = {str(a.question_id): a for a in answers}
+        
+        # 构建返回数据
+        question_answers = []
+        for q in questions:
+            ans = answer_dict.get(str(q.id))
+            
+            # 解析 AI 评分结果
+            grading_result = None
+            if ans and ans.teacher_comment:
+                try:
+                    grading_result = json.loads(ans.teacher_comment)
+                except:
+                    pass
+            
+            question_answers.append({
+                "questionId": str(q.id),
+                "questionOrder": q.question_order,
+                "questionText": q.question_text,
+                "questionType": q.question_type,
+                "options": q.options,
+                "correctAnswer": q.correct_answer,
+                "maxScore": float(q.score) if q.score else 0,
+                "studentAnswer": ans.student_answer if ans else None,
+                "isCorrect": ans.is_correct if ans else None,
+                "score": float(ans.score) if ans and ans.score is not None else 0,
+                "teacherComment": ans.teacher_comment if ans else None,
+                "gradingResult": grading_result
+            })
+        
+        return {
+            "surveyId": str(survey.id),
+            "surveyTitle": survey.title,
+            "responseId": str(response.id),
+            "studentId": str(student_id),
+            "studentName": user.full_name if user else "未知",
+            "studentNumber": student.student_number if student else "-",
+            "submitTime": response.submit_time.isoformat() if response.submit_time else None,
+            "totalScore": float(response.total_score) if response.total_score is not None else None,
+            "percentageScore": float(response.percentage_score) if response.percentage_score is not None else None,
+            "isPassed": response.is_passed,
+            "surveyTotalScore": float(survey.total_score) if survey.total_score else 100,
+            "questions": question_answers
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"获取学生答卷详情失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.put("/{survey_id}/student/{student_id}/score")
+async def update_student_score(
+    survey_id: str, 
+    student_id: str, 
+    request: UpdateScoreRequest,
+    db: Session = Depends(get_db)
+):
+    """
+    修改学生的成绩
+    """
+    try:
+        from app.models.survey import SurveyResponse
+        
+        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        if not survey:
+            raise HTTPException(status_code=404, detail="问卷不存在")
+        
+        # 获取学生的提交记录
+        response = db.query(SurveyResponse).filter(
+            SurveyResponse.survey_id == survey_id,
+            SurveyResponse.student_id == student_id
+        ).order_by(SurveyResponse.attempt_number.desc()).first()
+        
+        if not response:
+            raise HTTPException(status_code=404, detail="未找到该学生的答卷")
+        
+        # 更新分数
+        response.total_score = request.total_score
+        response.percentage_score = (request.total_score / survey.total_score * 100) if survey.total_score > 0 else 0
+        response.is_passed = response.percentage_score >= 60  # 百分比得分 >= 60% 为及格
+        
+        db.commit()
+        
+        return {
+            "success": True,
+            "message": "分数修改成功",
+            "studentId": student_id,
+            "newScore": request.total_score,
+            "percentageScore": response.percentage_score,
+            "isPassed": response.is_passed
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"修改学生分数失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.put("/{survey_id}/question/{question_id}/student/{student_id}/score")
+async def update_question_score(
+    survey_id: str,
+    question_id: str,
+    student_id: str,
+    score: float,
+    comment: Optional[str] = None,
+    db: Session = Depends(get_db)
+):
+    """
+    修改学生某道题的分数
+    """
+    try:
+        from app.models.survey import SurveyResponse, Answer
+        
+        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        if not survey:
+            raise HTTPException(status_code=404, detail="问卷不存在")
+        
+        # 获取学生的提交记录
+        response = db.query(SurveyResponse).filter(
+            SurveyResponse.survey_id == survey_id,
+            SurveyResponse.student_id == student_id
+        ).order_by(SurveyResponse.attempt_number.desc()).first()
+        
+        if not response:
+            raise HTTPException(status_code=404, detail="未找到该学生的答卷")
+        
+        # 获取该题的答案记录
+        answer = db.query(Answer).filter(
+            Answer.response_id == response.id,
+            Answer.question_id == question_id
+        ).first()
+        
+        if not answer:
+            raise HTTPException(status_code=404, detail="未找到该题的答案记录")
+        
+        # 计算分数差值
+        old_score = float(answer.score) if answer.score is not None else 0
+        score_diff = score - old_score
+        
+        # 更新题目分数
+        answer.score = score
+        if comment:
+            answer.teacher_comment = comment
+        
+        # 更新总分
+        response.total_score = (response.total_score or 0) + score_diff
+        response.percentage_score = (response.total_score / survey.total_score * 100) if survey.total_score > 0 else 0
+        response.is_passed = response.percentage_score >= 60  # 百分比得分 >= 60% 为及格
+        
+        db.commit()
+        
+        return {
+            "success": True,
+            "message": "题目分数修改成功",
+            "questionId": question_id,
+            "newScore": score,
+            "totalScore": response.total_score,
+            "percentageScore": response.percentage_score,
+            "isPassed": response.is_passed
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"修改题目分数失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/{survey_id}/publish-scores")
+async def publish_scores(survey_id: str, db: Session = Depends(get_db)):
+    """
+    发布成绩
+    发布后学生可以查看自己的成绩
+    """
+    try:
+        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        if not survey:
+            raise HTTPException(status_code=404, detail="问卷不存在")
+        
+        # 设置成绩已发布标志
+        survey.score_published = True
+        survey.score_published_at = datetime.utcnow()
+        
+        db.commit()
+        
+        return {
+            "success": True,
+            "message": "成绩发布成功",
+            "surveyId": survey_id,
+            "publishedAt": survey.score_published_at.isoformat()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"发布成绩失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/{survey_id}/unpublish-scores")
+async def unpublish_scores(survey_id: str, db: Session = Depends(get_db)):
+    """
+    取消发布成绩
+    """
+    try:
+        survey = db.query(Survey).filter(Survey.id == survey_id).first()
+        if not survey:
+            raise HTTPException(status_code=404, detail="问卷不存在")
+        
+        # 取消成绩发布标志
+        survey.score_published = False
+        survey.score_published_at = None
+        
+        db.commit()
+        
+        return {
+            "success": True,
+            "message": "已取消发布成绩",
+            "surveyId": survey_id
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"取消发布成绩失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))

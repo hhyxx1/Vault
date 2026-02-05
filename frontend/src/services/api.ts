@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api',
-  timeout: 10000,
+  timeout: 0,  // 无超时限制
   headers: {
     'Content-Type': 'application/json',
   },
@@ -26,7 +26,8 @@ apiClient.interceptors.request.use(
 // 响应拦截器
 apiClient.interceptors.response.use(
   (response) => {
-    return response.data
+    // 直接返回完整的response，让调用方自己取.data
+    return response
   },
   (error) => {
     // 统一错误处理

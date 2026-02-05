@@ -1,39 +1,110 @@
+import { useState, useEffect } from 'react'
 import { Icon } from '../../../components/Icon'
+import { dashboardApi } from '../../../services'
+
+interface DashboardStats {
+  total_students: number
+  total_questions: number
+  avg_participation_rate: number
+  active_students: number
+}
+
+interface StudentStatsItem {
+  student_id: string
+  student_name: string
+  question_count: number
+  participation_rate: number
+  avg_score: number
+  last_active_date: string | null
+}
+
+interface QuestionTrendItem {
+  date: string
+  count: number
+}
+
+interface DashboardOverview {
+  stats: DashboardStats
+  question_trend: QuestionTrendItem[]
+  student_stats: StudentStatsItem[]
+}
+
+interface ClassInfo {
+  id: string
+  class_name: string
+  course_name: string
+  course_code: string
+  academic_year: string
+  invite_code: string
+  current_students: number
+  max_students: number
+}
+
+interface RecentQuestion {
+  id: string
+  student: string
+  question: string
+  time: string
+}
 
 const TeacherDashboard = () => {
-  const stats = {
-    avgScore: 84.9,
-    passRate: 92,
-    maxScore: 98,
-    completionRate: 100,
-    totalStudents: 45,
-    activeStudents: 42,
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [overview, setOverview] = useState<DashboardOverview | null>(null)
+  const [classes, setClasses] = useState<ClassInfo[]>([])
+  const [recentQuestions, setRecentQuestions] = useState<RecentQuestion[]>([])
+
+  useEffect(() => {
+    fetchDashboardData()
+  }, [])
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      console.log('[Dashboard] 开始获取数据...')
+      
+      // 并行获取所有数据
+      const [overviewRes, classesRes, questionsRes] = await Promise.all([
+        dashboardApi.getOverview(),
+        dashboardApi.getClasses(),
+        dashboardApi.getRecentQuestions()
+      ])
+      
+      console.log('[Dashboard] Overview数据:', overviewRes.data)
+      console.log('[Dashboard] Classes数据:', classesRes.data)
+      console.log('[Dashboard] Questions数据:', questionsRes.data)
+      
+      setOverview(overviewRes.data)
+      setClasses(classesRes.data || [])
+      setRecentQuestions(questionsRes.data || [])
+    } catch (err: any) {
+      console.error('获取看板数据失败:', err)
+      console.error('错误详情:', err.response)
+      setError(err.response?.data?.detail || '获取数据失败')
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const insights = [
-    {
-      question: '这个班最不了解课程概念的同学是谁？',
-      students: ['张伟', '李娜', '王强'],
-      skills: ['选择状态转换错误率达 85%', 'PCB 概念混淆', '未完成相关实验'],
-    },
-    {
-      question: '这个班最活跃的五名同学是谁？',
-      students: ['陈晨', '刘洋', '赵敏', '孙浩', '周杰'],
-      stats: ['平均每周提问 8 次', '完成所有作业', '参与度 98%'],
-    },
-    {
-      question: '本周学习进度落后的学生有哪些？',
-      students: ['林小明', '吴芳'],
-      suggestions: ['建议加强基础知识复习', '推荐观看录播课程', '安排一对一答疑'],
-    },
-  ]
+  // 计算统计数据
+  const stats = overview?.stats
+  const participationRate = stats?.avg_participation_rate 
+    ? Math.round(stats.avg_participation_rate * 100) 
+    : 0
 
-  const recentActivities = [
-    { type: 'submit', student: '张三', content: '提交了《数据结构》作业', time: '10分钟前' },
-    { type: 'question', student: '李四', content: '在智能问答中提出了新问题', time: '25分钟前' },
-    { type: 'complete', student: '王五', content: '完成了期中测验', time: '1小时前' },
-    { type: 'survey', student: '赵六', content: '完成了课程反馈问卷', time: '2小时前' },
-  ]
+  // 获取最活跃的学生（按提问数排序）
+  const topActiveStudents = overview?.student_stats
+    ?.filter(s => s.question_count > 0)
+    ?.sort((a, b) => b.question_count - a.question_count)
+    ?.slice(0, 5) || []
+
+  // 获取平均分最高的学生
+  const topScoreStudents = overview?.student_stats
+    ?.filter(s => s.avg_score > 0)
+    ?.sort((a, b) => b.avg_score - a.avg_score)
+    ?.slice(0, 5) || []
 
   return (
     <div className="h-full bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 overflow-y-auto">
@@ -44,236 +115,310 @@ const TeacherDashboard = () => {
             <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               教师看板
             </h2>
-            <p className="text-gray-500 text-sm mt-2">实时监控班级学情与自定义多维分析</p>
+            <p className="text-gray-500 text-sm mt-2">实时监控班级学情与数据分析</p>
           </div>
-          <div className="flex items-center space-x-3">
-            <select className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
-              <option>数据结构基础2026</option>
-              <option>算法设计与分析</option>
-            </select>
-            <button className="px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all shadow-md text-sm">
-              自定义看板
-            </button>
-          </div>
+          <button
+            onClick={fetchDashboardData}
+            disabled={loading}
+            className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-all flex items-center gap-2"
+          >
+            <Icon name="refresh" size={18} className={loading ? 'animate-spin' : ''} />
+            刷新数据
+          </button>
         </div>
       </div>
 
       {/* 内容区域 */}
       <div className="p-8">
         <div className="max-w-7xl mx-auto space-y-8">
-          {/* 核心数据统计 */}
-          <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
-              <span className="mr-2">
-                <Icon name="dashboard" size={24} className="text-blue-600" />
-              </span>
-              核心数据概览
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5">
-              {/* 班级平均分 */}
-              <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-sm text-gray-600 font-medium">班级平均分</p>
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center">
-                    <Icon name="sparkles" size={24} className="text-white" />
-                  </div>
-                </div>
-                <p className="text-3xl font-bold text-gray-800 mb-1">{stats.avgScore}</p>
-                <p className="text-xs text-green-600 font-medium">↑ 较上周 +1.2</p>
-              </div>
-
-              {/* 及格率 */}
-              <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-sm text-gray-600 font-medium">及格率</p>
-                  <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center">
-                    <Icon name="award" size={24} className="text-white" />
-                  </div>
-                </div>
-                <p className="text-3xl font-bold text-gray-800 mb-1">{stats.passRate}%</p>
-                <div className="w-full bg-gray-200 rounded-full h-1.5 mt-2">
-                  <div
-                    className="bg-gradient-to-r from-green-400 to-emerald-500 h-1.5 rounded-full"
-                    style={{ width: `${stats.passRate}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              {/* 最高分 */}
-              <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-sm text-gray-600 font-medium">最高分</p>
-                  <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-xl flex items-center justify-center">
-                    <Icon name="award" size={24} className="text-white" />
-                  </div>
-                </div>
-                <p className="text-3xl font-bold text-gray-800 mb-1">{stats.maxScore}</p>
-                <p className="text-xs text-gray-500">获得者: 林晓雪</p>
-              </div>
-
-              {/* 作业提交率 */}
-              <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-sm text-gray-600 font-medium">作业提交率</p>
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center">
-                    <Icon name="survey" size={24} className="text-white" />
-                  </div>
-                </div>
-                <p className="text-3xl font-bold text-gray-800 mb-1">{stats.completionRate}%</p>
-                <p className="text-xs text-gray-500">全员已提交</p>
-              </div>
-
-              {/* 学生总数 */}
-              <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-sm text-gray-600 font-medium">学生总数</p>
-                  <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center">
-                    <Icon name="class" size={24} className="text-white" />
-                  </div>
-                </div>
-                <p className="text-3xl font-bold text-gray-800 mb-1">{stats.totalStudents}</p>
-                <p className="text-xs text-gray-500">本学期在读</p>
-              </div>
-
-              {/* 活跃学生 */}
-              <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-sm text-gray-600 font-medium">活跃学生</p>
-                  <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-500 rounded-xl flex items-center justify-center">
-                    <Icon name="sparkles" size={24} className="text-white" />
-                  </div>
-                </div>
-                <p className="text-3xl font-bold text-gray-800 mb-1">{stats.activeStudents}</p>
-                <p className="text-xs text-green-600 font-medium">活跃度 93%</p>
+          {/* 加载状态 */}
+          {loading && (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-center">
+                <Icon name="refresh" size={40} className="text-blue-500 animate-spin mx-auto mb-4" />
+                <p className="text-gray-500">加载数据中...</p>
               </div>
             </div>
-          </div>
+          )}
 
-          {/* AI智能分析 */}
-          <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
-              <span className="mr-2">
-                <Icon name="sparkles" size={24} className="text-purple-600" />
-              </span>
-              AI 智能分析与建议
-            </h3>
+          {/* 错误状态 */}
+          {error && !loading && (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
+              <Icon name="alert-triangle" size={40} className="text-red-500 mx-auto mb-4" />
+              <p className="text-red-700 mb-4">{error}</p>
+              <button
+                onClick={fetchDashboardData}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all"
+              >
+                重试
+              </button>
+            </div>
+          )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {insights.map((insight, index) => (
-                <div key={index} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-md hover:shadow-xl transition-all">
-                  <div className="flex items-start space-x-3 mb-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center">
-                      <Icon name="description" size={24} className="text-white" />
+          {/* 数据展示 */}
+          {!loading && !error && (
+            <>
+              {/* 核心数据统计 */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
+                  <span className="mr-2">
+                    <Icon name="dashboard" size={24} className="text-blue-600" />
+                  </span>
+                  核心数据概览
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                  {/* 学生总数 */}
+                  <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-sm text-gray-600 font-medium">学生总数</p>
+                      <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center">
+                        <Icon name="class" size={24} className="text-white" />
+                      </div>
                     </div>
-                    <h4 className="text-gray-800 font-bold flex-1 text-lg">{insight.question}</h4>
+                    <p className="text-3xl font-bold text-gray-800 mb-1">{stats?.total_students || 0}</p>
+                    <p className="text-xs text-gray-500">本学期在读</p>
                   </div>
 
-                  <div className="space-y-4">
-                    {insight.students && (
-                      <div>
-                        <p className="text-sm text-gray-500 mb-2 font-medium">相关学生：</p>
-                        <div className="flex flex-wrap gap-2">
-                          {insight.students.map((student, idx) => (
-                            <span
-                              key={idx}
-                              className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-xl text-sm border border-blue-200 font-medium"
-                            >
-                              {student}
+                  {/* 活跃学生 */}
+                  <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-sm text-gray-600 font-medium">活跃学生</p>
+                      <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-500 rounded-xl flex items-center justify-center">
+                        <Icon name="sparkles" size={24} className="text-white" />
+                      </div>
+                    </div>
+                    <p className="text-3xl font-bold text-gray-800 mb-1">{stats?.active_students || 0}</p>
+                    <p className="text-xs text-green-600 font-medium">
+                      活跃度 {participationRate}%
+                    </p>
+                  </div>
+
+                  {/* 问题总数 */}
+                  <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-sm text-gray-600 font-medium">问题总数</p>
+                      <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-xl flex items-center justify-center">
+                        <Icon name="description" size={24} className="text-white" />
+                      </div>
+                    </div>
+                    <p className="text-3xl font-bold text-gray-800 mb-1">{stats?.total_questions || 0}</p>
+                    <p className="text-xs text-gray-500">近30天提问</p>
+                  </div>
+
+                  {/* 参与率 */}
+                  <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-200 hover:shadow-xl transition-all">
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-sm text-gray-600 font-medium">参与率</p>
+                      <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center">
+                        <Icon name="award" size={24} className="text-white" />
+                      </div>
+                    </div>
+                    <p className="text-3xl font-bold text-gray-800 mb-1">{participationRate}%</p>
+                    <div className="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                      <div
+                        className="bg-gradient-to-r from-green-400 to-emerald-500 h-1.5 rounded-full"
+                        style={{ width: `${participationRate}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 班级列表和最近提问 */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* 我的班级 */}
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
+                    <span className="mr-2">
+                      <Icon name="class" size={24} className="text-indigo-600" />
+                    </span>
+                    我的班级
+                  </h3>
+                  <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+                    {classes.length > 0 ? (
+                      classes.map((cls) => (
+                        <div
+                          key={cls.id}
+                          className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="font-medium text-gray-800">{cls.class_name}</h4>
+                              <p className="text-sm text-gray-500">{cls.course_name}</p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm font-bold text-indigo-600">
+                                {cls.current_students}/{cls.max_students} 人
+                              </p>
+                              <p className="text-xs text-gray-400">邀请码: {cls.invite_code}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-8 text-center">
+                        <Icon name="class" size={40} className="text-gray-300 mx-auto mb-3" />
+                        <p className="text-gray-500">暂无班级</p>
+                        <p className="text-xs text-gray-400 mt-1">请在个人中心创建班级</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* 最近提问 */}
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
+                    <span className="mr-2">
+                      <Icon name="description" size={24} className="text-purple-600" />
+                    </span>
+                    最近学生提问
+                  </h3>
+                  <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+                    {recentQuestions.length > 0 ? (
+                      recentQuestions.map((q) => (
+                        <div
+                          key={q.id}
+                          className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors"
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                              <Icon name="description" size={16} className="text-purple-600" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="font-medium text-gray-800">{q.student}</span>
+                                <span className="text-xs text-gray-400">{q.time}</span>
+                              </div>
+                              <p className="text-sm text-gray-600 truncate">{q.question}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-8 text-center">
+                        <Icon name="description" size={40} className="text-gray-300 mx-auto mb-3" />
+                        <p className="text-gray-500">暂无提问</p>
+                        <p className="text-xs text-gray-400 mt-1">学生提问后将在此显示</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* 问题趋势图 */}
+              {overview?.question_trend && overview.question_trend.length > 0 && (
+                <div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
+                    <span className="mr-2">
+                      <Icon name="description" size={24} className="text-indigo-600" />
+                    </span>
+                    近7天提问趋势
+                  </h3>
+                  <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+                    <div className="flex items-end justify-between h-40 gap-2">
+                      {overview.question_trend.map((item, index) => {
+                        const maxCount = Math.max(...overview.question_trend.map(t => t.count), 1)
+                        const height = (item.count / maxCount) * 100
+                        return (
+                          <div key={index} className="flex-1 flex flex-col items-center">
+                            <div className="w-full flex flex-col items-center">
+                              <span className="text-xs text-gray-600 mb-1">{item.count}</span>
+                              <div
+                                className="w-full bg-gradient-to-t from-blue-500 to-purple-500 rounded-t-lg transition-all hover:from-blue-600 hover:to-purple-600"
+                                style={{ height: `${Math.max(height, 5)}px`, minHeight: '4px' }}
+                              ></div>
+                            </div>
+                            <span className="text-xs text-gray-500 mt-2">
+                              {item.date.slice(5)}
                             </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {insight.skills && (
-                      <div>
-                        <p className="text-sm text-gray-500 mb-2 font-medium">问题分析：</p>
-                        <div className="space-y-2">
-                          {insight.skills.map((skill, idx) => (
-                            <div key={idx} className="flex items-start space-x-2 text-sm">
-                              <span className="mt-1">
-                                <Icon name="close" size={14} className="text-red-500" />
-                              </span>
-                              <span className="text-gray-700">{skill}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {insight.stats && (
-                      <div>
-                        <p className="text-sm text-gray-500 mb-2 font-medium">表现统计：</p>
-                        <div className="space-y-2">
-                          {insight.stats.map((stat, idx) => (
-                            <div key={idx} className="flex items-start space-x-2 text-sm">
-                              <span className="mt-1">
-                                <Icon name="award" size={14} className="text-green-500" />
-                              </span>
-                              <span className="text-gray-700">{stat}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {insight.suggestions && (
-                      <div>
-                        <p className="text-sm text-gray-500 mb-2 font-medium">改进建议：</p>
-                        <div className="space-y-2">
-                          {insight.suggestions.map((suggestion, idx) => (
-                            <div key={idx} className="flex items-start space-x-2 text-sm">
-                              <span className="mt-1">
-                                <Icon name="chevron-right" size={14} className="text-purple-500" />
-                              </span>
-                              <span className="text-gray-700">{suggestion}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 最近动态 */}
-          <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
-              <span className="mr-2">
-                <Icon name="description" size={24} className="text-blue-600" />
-              </span>
-              最近动态
-            </h3>
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden">
-              <div className="divide-y divide-gray-100">
-                {recentActivities.map((activity, index) => (
-                  <div key={index} className="p-5 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center space-x-4">
-                      <div className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${
-                        activity.type === 'submit' ? 'bg-blue-100' :
-                        activity.type === 'question' ? 'bg-purple-100' :
-                        activity.type === 'complete' ? 'bg-green-100' :
-                        'bg-orange-100'
-                      }`}>
-                        {activity.type === 'submit' && <Icon name="add" size={20} className="text-blue-600" />}
-                        {activity.type === 'question' && <Icon name="description" size={20} className="text-purple-600" />}
-                        {activity.type === 'complete' && <Icon name="award" size={20} className="text-green-600" />}
-                        {activity.type === 'survey' && <Icon name="survey" size={20} className="text-orange-600" />}
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-gray-800 font-medium">
-                          <span className="text-blue-600 font-semibold">{activity.student}</span> {activity.content}
-                        </p>
-                        <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
-                      </div>
+                          </div>
+                        )
+                      })}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
+                </div>
+              )}
+
+              {/* 学生排行 */}
+              {(topActiveStudents.length > 0 || topScoreStudents.length > 0) && (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* 最活跃学生 */}
+                  {topActiveStudents.length > 0 && (
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
+                        <span className="mr-2">
+                          <Icon name="sparkles" size={24} className="text-amber-500" />
+                        </span>
+                        最活跃学生
+                      </h3>
+                      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+                        {topActiveStudents.map((student, index) => (
+                          <div
+                            key={student.student_id}
+                            className="flex items-center justify-between p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                                index === 0 ? 'bg-amber-500' :
+                                index === 1 ? 'bg-gray-400' :
+                                index === 2 ? 'bg-orange-400' :
+                                'bg-blue-400'
+                              }`}>
+                                {index + 1}
+                              </div>
+                              <span className="font-medium text-gray-800">{student.student_name}</span>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm font-bold text-blue-600">{student.question_count} 次提问</p>
+                              {student.last_active_date && (
+                                <p className="text-xs text-gray-500">最近活跃: {student.last_active_date}</p>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 成绩最好的学生 */}
+                  {topScoreStudents.length > 0 && (
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
+                        <span className="mr-2">
+                          <Icon name="award" size={24} className="text-green-500" />
+                        </span>
+                        成绩优秀学生
+                      </h3>
+                      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+                        {topScoreStudents.map((student, index) => (
+                          <div
+                            key={student.student_id}
+                            className="flex items-center justify-between p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                                index === 0 ? 'bg-amber-500' :
+                                index === 1 ? 'bg-gray-400' :
+                                index === 2 ? 'bg-orange-400' :
+                                'bg-green-400'
+                              }`}>
+                                {index + 1}
+                              </div>
+                              <span className="font-medium text-gray-800">{student.student_name}</span>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm font-bold text-green-600">{student.avg_score.toFixed(1)} 分</p>
+                              <p className="text-xs text-gray-500">平均成绩</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

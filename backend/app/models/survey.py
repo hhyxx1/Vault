@@ -33,6 +33,8 @@ class Survey(Base):
     shuffle_questions = Column(Boolean, default=False, nullable=False)
     start_time = Column(DateTime)
     end_time = Column(DateTime)
+    score_published = Column(Boolean, default=False, nullable=False)  # 成绩是否已发布
+    score_published_at = Column(DateTime)  # 成绩发布时间
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
     published_at = Column(DateTime)

@@ -365,4 +365,5 @@ $$ LANGUAGE plpgsql;
 -- =====================================================
 -- 完成
 -- =====================================================
-COMMENT ON DATABASE current_database() IS '智能教学平台数据库 v1.0.0';
+-- COMMENT ON DATABASE current_database() IS '智能教学平台数据库 v1.0.0';
+

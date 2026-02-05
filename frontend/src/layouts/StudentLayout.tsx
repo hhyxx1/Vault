@@ -94,6 +94,7 @@ const StudentLayout = () => {
 
   const navItems: { path: string; label: string; icon: IconName }[] = [
     { path: '/student/qa', label: '智能问答', icon: 'sparkles' },
+    { path: '/student/ability-test', label: '测试能力', icon: 'target' },
     { path: '/student/survey', label: '问卷测验', icon: 'survey' },
   ]
 

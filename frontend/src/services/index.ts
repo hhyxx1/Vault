@@ -52,6 +52,11 @@ export const studentSurveyApi = {
 
 // 教师端 - 看板相关API
 export const dashboardApi = {
+  // 获取完整概览数据
+  getOverview: async () => {
+    return apiClient.get('/teacher/dashboard/overview')
+  },
+  
   // 获取统计数据
   getStats: async () => {
     return apiClient.get('/teacher/dashboard/stats')
@@ -60,6 +65,16 @@ export const dashboardApi = {
   // 获取最近问题
   getRecentQuestions: async () => {
     return apiClient.get('/teacher/dashboard/recent-questions')
+  },
+  
+  // 获取教师班级列表
+  getClasses: async () => {
+    return apiClient.get('/teacher/dashboard/classes')
+  },
+  
+  // 获取班级详情
+  getClassDetail: async (classId: string) => {
+    return apiClient.get(`/teacher/dashboard/classes/${classId}`)
   },
 }
 
@@ -88,7 +103,12 @@ export const surveyApi = {
   // 发布问卷（选择班级与发布类型）- 请求体使用 snake_case 与后端一致
   publishSurvey: async (
     surveyId: string,
-    options?: { classIds: string[]; releaseType: 'in_class' | 'homework' | 'practice' | 'ability_test' }
+    options?: { 
+      classIds: string[]
+      releaseType: 'in_class' | 'homework' | 'practice' | 'ability_test'
+      startTime?: string
+      endTime?: string
+    }
   ) => {
     const opts = options ?? { classIds: [], releaseType: 'in_class' }
     if (!opts.classIds?.length) {
@@ -97,6 +117,8 @@ export const surveyApi = {
     return apiClient.put(`/teacher/surveys/${surveyId}/publish`, {
       class_ids: opts.classIds,
       release_type: opts.releaseType,
+      start_time: opts.startTime,
+      end_time: opts.endTime,
     })
   },
   
@@ -165,7 +187,65 @@ export const surveyApi = {
       },
     })
   },
+  
+  // ========== 学生成绩管理 API ==========
+  
+  // 获取学生成绩列表
+  getStudentScores: async (surveyId: string) => {
+    return apiClient.get(`/teacher/surveys/${surveyId}/student-scores`)
+  },
+  
+  // 获取学生答卷详情
+  getStudentAnswers: async (surveyId: string, studentId: string) => {
+    return apiClient.get(`/teacher/surveys/${surveyId}/student/${studentId}/answers`)
+  },
+  
+  // 修改学生总分
+  updateStudentScore: async (surveyId: string, studentId: string, totalScore: number, comment?: string) => {
+    return apiClient.put(`/teacher/surveys/${surveyId}/student/${studentId}/score`, {
+      total_score: totalScore,
+      comment
+    })
+  },
+  
+  // 修改单题分数
+  updateQuestionScore: async (surveyId: string, questionId: string, studentId: string, score: number, comment?: string) => {
+    return apiClient.put(`/teacher/surveys/${surveyId}/question/${questionId}/student/${studentId}/score`, null, {
+      params: { score, comment }
+    })
+  },
+  
+  // 发布成绩
+  publishScores: async (surveyId: string) => {
+    return apiClient.post(`/teacher/surveys/${surveyId}/publish-scores`)
+  },
+  
+  // 取消发布成绩
+  unpublishScores: async (surveyId: string) => {
+    return apiClient.post(`/teacher/surveys/${surveyId}/unpublish-scores`)
+  },
 }
 
 // 为了保持向后兼容，也导出为teacherSurveyApi
 export const teacherSurveyApi = surveyApi
+
+// 学生端 - 学习计划API
+export const learningPlanApi = {
+  // 获取学习分析数据
+  getAnalysis: async () => {
+    return apiClient.get('/student/learning-plan/analysis')
+  },
+  
+  // 生成学习计划
+  generatePlan: async () => {
+    return apiClient.post('/student/learning-plan/generate')
+  },
+  
+  // 获取薄弱知识点（简化版）
+  getWeakPoints: async () => {
+    return apiClient.get('/student/learning-plan/weak-points')
+  },
+}
+
+// 为了保持向后兼容，导出为learningPlanService
+export const learningPlanService = learningPlanApi

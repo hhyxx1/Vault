@@ -26,10 +26,10 @@ router = APIRouter()
 
 # 文件上传配置 - 动态获取项目路径
 def get_upload_base_dir() -> Path:
-    """获取上传文件的基础目录 (backend/app/static/course_documents)"""
+    """获取上传文件的基础目录 (backend/app/api/static/course_documents)"""
     current_file = Path(__file__).resolve()  # documents.py 的路径
-    backend_app_dir = current_file.parent.parent  # backend/app
-    static_dir = backend_app_dir / "static" / "course_documents"
+    api_dir = current_file.parent.parent  # backend/app/api
+    static_dir = api_dir / "static" / "course_documents"
     static_dir.mkdir(parents=True, exist_ok=True)
     return static_dir
 

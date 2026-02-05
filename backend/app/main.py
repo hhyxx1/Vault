@@ -15,7 +15,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.api.auth import router as auth_router
-from app.api.student import qa as student_qa, survey as student_survey, class_enrollment as student_class, profile as student_profile, course_documents as student_course_docs
+from app.api.student import qa as student_qa, survey as student_survey, class_enrollment as student_class, profile as student_profile, course_documents as student_course_docs, learning_plan as student_learning_plan
 from app.api.teacher import dashboard, survey as teacher_survey, profile as teacher_profile, knowledge_base as teacher_kb, survey_generation, documents as teacher_docs
 
 app = FastAPI(
@@ -27,9 +27,9 @@ app = FastAPI(
 # 请求日志中间件
 @app.middleware("http")
 async def log_requests(request, call_next):
-    print(f"📨 收到请求: {request.method} {request.url.path}")
+    print(f"[REQ] {request.method} {request.url.path}")
     response = await call_next(request)
-    print(f"✅ 响应: {request.method} {request.url.path} - {response.status_code}")
+    print(f"[RES] {request.method} {request.url.path} - {response.status_code}")
     return response
 
 # CORS配置（确保错误响应也带 CORS 头，避免前端报跨域）
@@ -46,8 +46,8 @@ app.add_middleware(
     expose_headers=["*"],
 )
 
-# 静态文件服务 - 指向 app/static 目录
-static_dir = backend_dir / "app" / "static"
+# 静态文件服务 - 统一指向 app/api/static 目录
+static_dir = backend_dir / "app" / "api" / "static"
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 # 注册路由
@@ -57,6 +57,7 @@ app.include_router(student_survey.router, prefix="/api/student/surveys", tags=["
 app.include_router(student_class.router, prefix="/api/student/classes", tags=["学生-班级"])
 app.include_router(student_profile.router, prefix="/api/student/profile", tags=["学生-个人资料"])
 app.include_router(student_course_docs.router, prefix="/api/student/courses", tags=["学生-课程资料"])
+app.include_router(student_learning_plan.router, prefix="/api/student/learning-plan", tags=["学生-学习计划"])
 app.include_router(dashboard.router, prefix="/api/teacher/dashboard", tags=["教师-看板"])
 app.include_router(teacher_survey.router, prefix="/api/teacher/surveys", tags=["教师-问卷"])
 app.include_router(teacher_profile.router, prefix="/api/teacher/profile", tags=["教师-个人资料"])
@@ -78,13 +79,18 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
+    import io
+    # 修复Windows控制台编码问题
+    if sys.platform == 'win32':
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
     print("=" * 70)
-    print("🚀 启动智能教学平台后端服务")
+    print("[*] Starting Intelligent Teaching Platform Backend")
     print("=" * 70)
-    print("📍 服务地址: http://127.0.0.1:8000")
-    print("📚 API文档: http://127.0.0.1:8000/docs")
-    print("🔄 热重载: 已启用")
-    print("💾 向量数据库: 自动初始化中...")
+    print("[>] Server: http://127.0.0.1:8000")
+    print("[>] API Docs: http://127.0.0.1:8000/docs")
+    print("[>] Hot Reload: Enabled")
+    print("[>] Vector DB: Initializing...")
     print("=" * 70)
     uvicorn.run(
         "app.main:app",

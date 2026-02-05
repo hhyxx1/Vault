@@ -473,10 +473,10 @@ async def upload_course_document(
             db.commit()
             print(f"   ✅ 删除旧数据完成")
         
-        # 创建上传目录：与 documents.py 一致，保存到 backend/app/static/course_documents
+        # 创建上传目录：统一保存到 backend/app/api/static/course_documents
         _current = Path(__file__).resolve()
-        app_dir = _current.parent.parent.parent  # app
-        upload_dir = app_dir / "static" / "course_documents" / str(course_id) / document_type
+        api_dir = _current.parent.parent  # backend/app/api
+        upload_dir = api_dir / "static" / "course_documents" / str(course_id) / document_type
         upload_dir.mkdir(parents=True, exist_ok=True)
         
         # 生成唯一文件名

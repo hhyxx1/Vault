@@ -146,4 +146,146 @@ export const getCourseDocumentPreviewPdf = async (
   return data as Blob
 }
 
+// 智能问答相关接口
+export interface QuestionRequest {
+  question: string
+  session_id?: string
+}
+
+export interface QuestionResponse {
+  answer: string
+  session_id: string
+  sources: Array<{
+    filename?: string
+    source?: string
+    page?: number
+    content?: string
+  }>
+  intent?: string
+  skill_used?: string
+}
+
+export interface UploadFileResponse {
+  success: boolean
+  session_id: string
+  file_id: string
+  filename: string
+  file_info: {
+    category: string
+    icon: string
+    color: string
+    extension: string
+    is_code: boolean
+    is_document: boolean
+  }
+  chunk_count: number
+  can_analyze: boolean
+  can_summarize: boolean
+  message: string
+}
+
+export interface ShareResponse {
+  success: boolean
+  share_code?: string
+  share_url?: string
+  message_count?: number
+  error?: string
+}
+
+export interface SharedConversation {
+  success: boolean
+  title?: string
+  messages?: Array<{
+    role: 'user' | 'assistant'
+    content: string
+    sources?: any[]
+    timestamp?: string
+  }>
+  created_at?: string
+  error?: string
+}
+
+export interface FileUploadEnhancedResponse {
+  success: boolean
+  file_id: string
+  filename: string
+  file_info: {
+    category: string
+    icon: string
+    color: string
+    extension: string
+    is_code: boolean
+    is_document: boolean
+  }
+  preview?: string
+  can_analyze: boolean
+  can_summarize: boolean
+  message: string
+}
+
+export interface FileAnalysisRequest {
+  file_id: string
+  analysis_type: 'code_analysis' | 'document_summary'
+  session_id?: string
+}
+
+export interface FileAnalysisResponse {
+  success: boolean
+  answer: string
+  session_id: string
+  filename: string
+  analysis_type: string
+}
+
+// 智能问答服务
+export const studentQAService = {
+  // 提问
+  ask: async (data: QuestionRequest): Promise<QuestionResponse> => {
+    return await apiClient.post('/student/qa/ask', data)
+  },
+
+  // 上传文件（旧版）
+  uploadFile: async (formData: FormData): Promise<UploadFileResponse> => {
+    return await apiClient.post('/student/qa/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  },
+
+  // 上传文件（增强版 - 支持预览和分析）
+  uploadFileEnhanced: async (formData: FormData): Promise<FileUploadEnhancedResponse> => {
+    return await apiClient.post('/student/qa/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  },
+
+  // 分析文件（代码分析或文档总结）
+  analyzeFile: async (data: FileAnalysisRequest): Promise<FileAnalysisResponse> => {
+    return await apiClient.post('/student/qa/analyze-file', data)
+  },
+
+  // 获取历史记录
+  getHistory: async (): Promise<any[]> => {
+    return await apiClient.get('/student/qa/history')
+  },
+
+  // 创建分享
+  createShare: async (sessionId: string): Promise<ShareResponse> => {
+    return await apiClient.post('/student/qa/share', { session_id: sessionId })
+  },
+
+  // 获取分享的对话
+  getSharedConversation: async (shareCode: string): Promise<SharedConversation> => {
+    return await apiClient.get(`/student/qa/shared/${shareCode}`)
+  },
+
+  // 获取会话消息
+  getSessionMessages: async (sessionId: string): Promise<{ messages: any[], session_id: string }> => {
+    return await apiClient.get(`/student/qa/session/${sessionId}/messages`)
+  }
+}
+
 export default studentClassService

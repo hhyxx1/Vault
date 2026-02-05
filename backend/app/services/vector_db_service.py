@@ -17,6 +17,9 @@ import os
 from pathlib import Path
 from datetime import datetime
 
+# 禁用 ChromaDB 遥测
+os.environ["ANONYMIZED_TELEMETRY"] = "False"
+
 
 def _resolve_vector_db_path() -> Path:
     """从配置解析向量数据库路径（支持环境变量与相对路径）"""
@@ -474,6 +477,160 @@ class VectorDBService:
             print(f"全局搜索失败: {e}")
             return []
     
+    def search_relevant_context(
+        self,
+        query: str,
+        n_results: int = 10,
+        similarity_threshold: float = 0.2
+    ) -> List[Dict[str, Any]]:
+        """
+        智能问答专用：从所有知识库（包括课程知识库和QA专属知识库）检索相关内容
+        
+        这是智能问答工作流的核心检索方法，会搜索：
+        1. 所有课程的知识库
+        2. QA专属知识库（用户上传的文档）
+        
+        Args:
+            query: 用户问题
+            n_results: 返回结果数量上限
+            similarity_threshold: 相似度阈值，低于此值的结果会被过滤
+            
+        Returns:
+            相关文档列表，按相似度降序排列
+        """
+        all_results = []
+        
+        try:
+            # 1. 搜索所有课程知识库
+            course_results = self.search_all_courses(query, n_results=n_results)
+            all_results.extend(course_results)
+            
+            # 2. 搜索QA专属知识库（用户上传的文档）
+            qa_results = self.search_qa_knowledge(query, n_results=n_results)
+            all_results.extend(qa_results)
+            
+            # 3. 搜索默认集合（问卷文档等）
+            default_results = self.search_similar(query, n_results=n_results)
+            for r in default_results:
+                r['source_type'] = 'default'
+            all_results.extend(default_results)
+            
+        except Exception as e:
+            print(f"知识检索失败: {e}")
+        
+        # 按相似度排序并去重
+        all_results.sort(key=lambda x: x.get('similarity', 0), reverse=True)
+        
+        # 过滤低相似度结果
+        filtered_results = [
+            r for r in all_results 
+            if r.get('similarity', 0) >= similarity_threshold
+        ]
+        
+        # 返回前n_results条
+        return filtered_results[:n_results]
+    
+    def get_qa_collection(self):
+        """
+        获取或创建智能问答专属知识库集合
+        用于存储用户在问答中上传的文档
+        """
+        if not hasattr(self, '_qa_collection') or self._qa_collection is None:
+            self._qa_collection = self.client.get_or_create_collection(
+                name="qa_knowledge_base",
+                metadata={
+                    "description": "智能问答专属知识库 - 存储用户上传的文档",
+                    "created_at": datetime.now().isoformat()
+                }
+            )
+        return self._qa_collection
+    
+    def add_qa_document(
+        self,
+        doc_id: str,
+        content: str,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> bool:
+        """
+        添加文档到智能问答专属知识库
+        
+        Args:
+            doc_id: 文档ID
+            content: 文档内容
+            metadata: 元数据（文件名、上传者等）
+            
+        Returns:
+            是否添加成功
+        """
+        try:
+            embedding = self.model.encode([content]).tolist()[0]
+            
+            if metadata is None:
+                metadata = {}
+            metadata['indexed_at'] = datetime.now().isoformat()
+            metadata['source_type'] = 'qa_upload'
+            
+            qa_collection = self.get_qa_collection()
+            qa_collection.add(
+                ids=[doc_id],
+                documents=[content],
+                embeddings=[embedding],
+                metadatas=[metadata]
+            )
+            print(f"✅ 文档已添加到QA知识库: {doc_id}")
+            return True
+        except Exception as e:
+            print(f"添加QA文档失败: {e}")
+            return False
+    
+    def search_qa_knowledge(
+        self,
+        query: str,
+        n_results: int = 5
+    ) -> List[Dict[str, Any]]:
+        """
+        在智能问答专属知识库中搜索
+        
+        Args:
+            query: 查询文本
+            n_results: 返回结果数量
+            
+        Returns:
+            搜索结果列表
+        """
+        try:
+            qa_collection = self.get_qa_collection()
+            
+            # 检查集合是否为空
+            if qa_collection.count() == 0:
+                return []
+            
+            query_embedding = self.model.encode([query]).tolist()
+            
+            results = qa_collection.query(
+                query_embeddings=query_embedding,
+                n_results=min(n_results, qa_collection.count()),
+                include=["documents", "metadatas", "distances"]
+            )
+            
+            formatted_results = []
+            for i in range(len(results['ids'][0])):
+                distance = results['distances'][0][i]
+                similarity = 1.0 / (1.0 + distance / 10.0) if distance >= 0 else 0.0
+                
+                formatted_results.append({
+                    "id": results['ids'][0][i],
+                    "content": results['documents'][0][i],
+                    "metadata": results['metadatas'][0][i] if results['metadatas'][0][i] else {},
+                    "similarity": similarity,
+                    "source_type": "qa_upload"
+                })
+            
+            return formatted_results
+        except Exception as e:
+            print(f"搜索QA知识库失败: {e}")
+            return []
+
     def get_global_stats(self) -> Dict[str, Any]:
         """
         获取全局知识库统计信息（所有课程的汇总）

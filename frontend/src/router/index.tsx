@@ -5,9 +5,11 @@ import TeacherLayout from '@/layouts/TeacherLayout'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import StudentQA from '@/pages/student/QA'
+import SharedConversation from '@/pages/student/QA/SharedConversation'
 import StudentSurvey from '@/pages/student/Survey'
 import StudentSurveyTake from '@/pages/student/Survey/Take'
 import StudentSurveyDetail from '@/pages/student/Survey/Detail'
+import StudentAbilityTest from '@/pages/student/AbilityTest'
 import StudentProfile from '@/pages/student/Profile'
 import TeacherDashboard from '@/pages/teacher/Dashboard'
 import TeacherSurvey from '@/pages/teacher/Survey'
@@ -20,6 +22,9 @@ const AppRouter = () => {
       {/* 登录和注册路由（公开访问） */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      
+      {/* 分享对话页面（公开访问） */}
+      <Route path="/shared/:shareCode" element={<SharedConversation />} />
 
       {/* 学生端路由（需要登录且角色为student） */}
       <Route 
@@ -32,6 +37,7 @@ const AppRouter = () => {
       >
         <Route index element={<Navigate to="qa" replace />} />
         <Route path="qa" element={<StudentQA />} />
+        <Route path="ability-test" element={<StudentAbilityTest />} />
         <Route path="survey" element={<StudentSurvey />} />
         <Route path="survey/:surveyId/take" element={<StudentSurveyTake />} />
         <Route path="survey/:surveyId/detail" element={<StudentSurveyDetail />} />
