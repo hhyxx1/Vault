@@ -416,17 +416,47 @@ class WorkflowService:
         
         使用选定的 Skill 和检索到的知识生成回答
         """
-        # 构建 System Prompt
+        # 判断是否有知识库内容
+        has_knowledge = bool(context.knowledge_context and context.knowledge_context.strip())
+        
+        # 构建 System Prompt - 增强格式要求
+        base_format_instructions = """
+## 回答格式要求（非常重要，必须严格遵守）
+你的回答必须层次分明、结构清晰，请严格按照以下格式：
+
+1. **开头概述**：用1-2句话给出核心答案或定义，用**加粗**标注关键概念
+2. **分点阐述**：使用数字编号（1. 2. 3.）分层次展开，每个要点要有小标题
+3. **重点标注**：关键术语、重要概念用**加粗**标注
+4. **举例说明**：适当使用具体例子帮助理解
+5. **总结收尾**：如有必要，最后用"总结"或"综上所述"做简要总结
+
+示例格式：
+---
+**核心概念**是指...（一句话定义）
+
+下面从几个方面详细讲解：
+
+**1. 第一个要点**
+具体内容...
+
+**2. 第二个要点**  
+具体内容...
+
+**总结**
+简要总结...
+---
+"""
+        
         if context.selected_skill:
-            system_prompt = context.selected_skill.content
+            system_prompt = context.selected_skill.content + "\n" + base_format_instructions
         else:
             system_prompt = """你是一个专业的教学助手，能够基于提供的知识库内容回答学生的问题。
-请用清晰、准确、易懂的语言回答，适当举例说明。"""
+请用清晰、准确、易懂的语言回答，适当举例说明。""" + base_format_instructions
         
         # 构建 User Prompt
-        knowledge_section = context.knowledge_context if context.knowledge_context else "未找到相关知识库内容，请基于你的通用知识回答。"
-        
-        user_prompt = f"""请基于以下【参考知识】回答我的问题。
+        if has_knowledge:
+            knowledge_section = context.knowledge_context
+            user_prompt = f"""请基于以下【参考知识】回答我的问题。请确保回答内容准确、层次分明、易于理解。
 
 【参考知识】：
 {knowledge_section}
@@ -434,18 +464,41 @@ class WorkflowService:
 【我的问题】：
 {context.question}
 
-请用专业、清晰的语言回答，如果有代码示例请用 markdown 格式。"""
+请严格按照格式要求回答：
+1. 先给出核心定义或直接答案（加粗关键词）
+2. 分点详细展开（使用数字编号，每点有小标题）
+3. 适当举例说明
+4. 必要时给出总结"""
+        else:
+            # 没有知识库内容，使用通用知识回答
+            user_prompt = f"""请基于你的专业知识回答以下问题。请确保回答内容准确、层次分明、易于理解。
+
+【我的问题】：
+{context.question}
+
+请严格按照格式要求回答：
+1. 先给出核心定义或直接答案（加粗关键词）
+2. 分点详细展开（使用数字编号，每点有小标题）
+3. 适当举例说明
+4. 必要时给出总结"""
+            
+            # 标记为网络知识来源
+            context.knowledge_sources = [{
+                "source_name": "AI通用知识",
+                "source_type": "web_knowledge",
+                "content": "基于AI模型的通用知识回答"
+            }]
 
         # 调用 AI 生成回答
         try:
-            self.logger.info(f"[Workflow] 开始调用 AI 生成回答...")
+            self.logger.info(f"[Workflow] 开始调用 AI 生成回答... (has_knowledge={has_knowledge})")
             response = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
-                temperature=0.7,  # 提高随机性，让每次回答有所不同
+                temperature=0.7,
                 stream=False
             )
             
