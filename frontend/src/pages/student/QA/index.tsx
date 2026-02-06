@@ -131,6 +131,9 @@ const StudentQA = () => {
   const [showSourceModal, setShowSourceModal] = useState(false)
   const [selectedSource, setSelectedSource] = useState<SourceDetail | null>(null)
   const [allSources, setAllSources] = useState<SourceDetail[]>([])
+  // 待发送的附件文件
+  const [pendingFile, setPendingFile] = useState<File | null>(null)
+  const [pendingFileInfo, setPendingFileInfo] = useState<FileInfo | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   
@@ -150,119 +153,152 @@ const StudentQA = () => {
     scrollToBottom()
   }, [messages])
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // 选择文件后，先保存到待发送状态，不立即上传
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
 
-    // 创建文件信息
+    // 创建文件信息（待发送状态）
     const fileInfo: FileInfo = {
       name: file.name,
       size: file.size,
       type: file.type,
-      status: 'uploading'
+      status: 'done' // 待发送状态用 done 表示已选择
     }
 
-    // 先添加带文件卡片的用户消息
-    const fileMessageIndex = messages.length
-    setMessages((prev) => [
-      ...prev,
-      {
-        role: 'user',
-        content: '',
-        file: fileInfo
-      }
-    ])
+    setPendingFile(file)
+    setPendingFileInfo(fileInfo)
+    
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
 
-    setLoading(true)
+  // 移除待发送的附件
+  const handleRemovePendingFile = () => {
+    setPendingFile(null)
+    setPendingFileInfo(null)
+  }
+
+  // 实际上传文件的函数
+  const uploadFileAndProcess = async (file: File): Promise<{ success: boolean; chunkCount?: number; errorMsg?: string }> => {
     const formData = new FormData()
     formData.append('file', file)
     if (sessionId) formData.append('session_id', sessionId)
 
     try {
-      // 更新状态为解析中
-      setMessages((prev) => {
-        const newMessages = [...prev]
-        if (newMessages[fileMessageIndex]?.file) {
-          newMessages[fileMessageIndex] = {
-            ...newMessages[fileMessageIndex],
-            file: { ...newMessages[fileMessageIndex].file!, status: 'parsing' }
-          }
-        }
-        return newMessages
-      })
-
       const response = await studentQAService.uploadFile(formData)
       setSessionId(response.session_id)
-      
-      // 更新文件消息状态为完成
-      setMessages((prev) => {
-        const newMessages = [...prev]
-        if (newMessages[fileMessageIndex]?.file) {
-          newMessages[fileMessageIndex] = {
-            ...newMessages[fileMessageIndex],
-            file: { 
-              ...newMessages[fileMessageIndex].file!, 
-              status: 'done',
-              chunkCount: response.chunk_count || 0
-            }
-          }
-        }
-        // 添加助手回复
-        newMessages.push({
-          role: 'assistant',
-          content: `文件解析完成！已成功提取 ${response.chunk_count || 0} 个知识片段。您现在可以针对「${file.name}」的内容进行提问了。`,
-        })
-        return newMessages
-      })
+      return { success: true, chunkCount: response.chunk_count || 0 }
     } catch (error) {
       console.error('文件上传失败:', error)
-      // 更新状态为错误
-      setMessages((prev) => {
-        const newMessages = [...prev]
-        if (newMessages[fileMessageIndex]?.file) {
-          newMessages[fileMessageIndex] = {
-            ...newMessages[fileMessageIndex],
-            file: { 
-              ...newMessages[fileMessageIndex].file!, 
-              status: 'error',
-              errorMsg: '上传失败，请重试'
-            }
-          }
-        }
-        return newMessages
-      })
-    } finally {
-      setLoading(false)
-      if (fileInputRef.current) fileInputRef.current.value = ''
+      return { success: false, errorMsg: '上传失败，请重试' }
     }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!question.trim() || loading) return
+    
+    // 如果没有文件也没有问题，不提交
+    if (!question.trim() && !pendingFile) return
+    if (loading) return
 
     const userMessage = question.trim()
-    setMessages([...messages, { role: 'user', content: userMessage }])
+    const fileToUpload = pendingFile
+    const fileInfoToShow = pendingFileInfo
+    
+    // 构建用户消息
+    const userMsg: Message = {
+      role: 'user',
+      content: userMessage,
+      file: fileInfoToShow ? { ...fileInfoToShow, status: 'uploading' } : undefined
+    }
+    
+    setMessages([...messages, userMsg])
     setQuestion('')
+    setPendingFile(null)
+    setPendingFileInfo(null)
     setLoading(true)
 
     try {
-      const response = await studentQAService.ask({
-        question: userMessage,
-        session_id: sessionId
-      })
+      // 如果有文件，先上传文件
+      if (fileToUpload && fileInfoToShow) {
+        // 更新文件状态为解析中
+        setMessages((prev) => {
+          const newMessages = [...prev]
+          const lastIdx = newMessages.length - 1
+          if (newMessages[lastIdx]?.file) {
+            newMessages[lastIdx] = {
+              ...newMessages[lastIdx],
+              file: { ...newMessages[lastIdx].file!, status: 'parsing' }
+            }
+          }
+          return newMessages
+        })
+        
+        const uploadResult = await uploadFileAndProcess(fileToUpload)
+        
+        // 更新文件状态
+        setMessages((prev) => {
+          const newMessages = [...prev]
+          const lastUserMsgIdx = newMessages.length - 1
+          if (newMessages[lastUserMsgIdx]?.file) {
+            newMessages[lastUserMsgIdx] = {
+              ...newMessages[lastUserMsgIdx],
+              file: { 
+                ...newMessages[lastUserMsgIdx].file!, 
+                status: uploadResult.success ? 'done' : 'error',
+                chunkCount: uploadResult.chunkCount,
+                errorMsg: uploadResult.errorMsg
+              }
+            }
+          }
+          return newMessages
+        })
+        
+        if (!uploadResult.success) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              role: 'assistant',
+              content: '文件上传失败，请重试。',
+            },
+          ])
+          setLoading(false)
+          return
+        }
+        
+        // 如果只有文件没有问题，显示文件解析完成的消息
+        if (!userMessage) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              role: 'assistant',
+              content: `文件解析完成！已成功提取 ${uploadResult.chunkCount || 0} 个知识片段。您现在可以针对「${fileInfoToShow.name}」的内容进行提问了。`,
+            },
+          ])
+          setLoading(false)
+          return
+        }
+      }
 
-      setSessionId(response.session_id)
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: response.answer,
-          sources: response.sources,
-          intent: response.intent,
-          skill_used: response.skill_used
-        },
-      ])
+      // 发送问答请求
+      if (userMessage) {
+        const response = await studentQAService.ask({
+          question: userMessage,
+          session_id: sessionId
+        })
+
+        setSessionId(response.session_id)
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: 'assistant',
+            content: response.answer,
+            sources: response.sources,
+            intent: response.intent,
+            skill_used: response.skill_used
+          },
+        ])
+      }
     } catch (error) {
       console.error('问答请求失败:', error)
       setMessages((prev) => [
@@ -285,6 +321,8 @@ const StudentQA = () => {
     setQuestion('')
     setSessionId(undefined)
     setShareInfo(null)
+    setPendingFile(null)
+    setPendingFileInfo(null)
   }
 
   const loadHistory = async () => {
@@ -685,10 +723,46 @@ const StudentQA = () => {
           <div className="max-w-3xl mx-auto">
             <form onSubmit={handleSubmit}>
               <div className="relative bg-white rounded-2xl border border-gray-200 shadow-sm focus-within:border-primary-300 focus-within:shadow-md transition-all">
+                {/* 待发送的文件附件预览 */}
+                {pendingFileInfo && (
+                  <div className="px-4 pt-3">
+                    <div className="text-xs text-gray-400 mb-2">仅识别附件中的文字</div>
+                    <div className="inline-flex items-center bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 group">
+                      {(() => {
+                        const typeInfo = getFileTypeInfo(pendingFileInfo.name)
+                        return (
+                          <>
+                            <span className="text-xl mr-2">{typeInfo.icon}</span>
+                            <div className="flex-1 min-w-0 mr-3">
+                              <p className="text-sm text-gray-700 truncate max-w-[200px]" title={pendingFileInfo.name}>
+                                {pendingFileInfo.name}
+                              </p>
+                              <p className="text-xs text-gray-400">
+                                {typeInfo.label} {formatFileSize(pendingFileInfo.size)}
+                              </p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handleRemovePendingFile}
+                              className="p-1 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors"
+                              title="移除附件"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                              </svg>
+                            </button>
+                          </>
+                        )
+                      })()}
+                    </div>
+                  </div>
+                )}
+                
                 <textarea
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
-                  placeholder="请输入您的问题..."
+                  placeholder={pendingFileInfo ? "输入问题，或直接发送解析文件..." : "请输入您的问题..."}
                   className="w-full px-4 py-3 bg-transparent border-none outline-none focus:ring-0 focus:outline-none text-gray-800 placeholder-gray-400 resize-none max-h-32 min-h-[48px]"
                   rows={1}
                   onKeyDown={(e) => {
@@ -704,14 +778,18 @@ const StudentQA = () => {
                     <input
                       type="file"
                       ref={fileInputRef}
-                      onChange={handleFileUpload}
+                      onChange={handleFileSelect}
                       className="hidden"
                       accept=".pdf,.txt,.doc,.docx,.ppt,.pptx,.py,.js,.ts,.tsx,.java,.c,.cpp,.go,.rs,.html,.css,.json,.xml,.md"
                     />
                     <button 
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                      className={`p-2 rounded-lg transition-colors ${
+                        pendingFile 
+                          ? 'text-primary-500 bg-primary-50' 
+                          : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                      }`}
                       title="上传文件"
                       disabled={loading}
                     >
@@ -721,9 +799,9 @@ const StudentQA = () => {
                   
                   <button
                     type="submit"
-                    disabled={!question.trim() || loading}
+                    disabled={(!question.trim() && !pendingFile) || loading}
                     className={`p-2 rounded-lg transition-all ${
-                      !question.trim() || loading 
+                      (!question.trim() && !pendingFile) || loading 
                         ? 'text-gray-300 cursor-not-allowed' 
                         : 'text-white bg-primary-500 hover:bg-primary-600 shadow-sm'
                     }`}

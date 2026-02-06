@@ -176,7 +176,16 @@ async def get_survey_detail(
     )
     if not visible:
         raise HTTPException(status_code=404, detail="问卷不存在或未发布")
-    questions = db.query(QuestionModel).filter(QuestionModel.survey_id == survey_id).order_by(QuestionModel.question_order).all()
+    
+    # 使用 survey.id (UUID类型) 而不是 survey_id (字符串)
+    from uuid import UUID as PyUUID
+    try:
+        survey_uuid = survey.id if hasattr(survey.id, 'hex') else PyUUID(str(survey_id))
+    except:
+        survey_uuid = survey_id
+    
+    questions = db.query(QuestionModel).filter(QuestionModel.survey_id == survey_uuid).order_by(QuestionModel.question_order).all()
+    print(f"[DEBUG] 问卷详情查询 survey_id={survey_id}, survey.id={survey.id}, 找到题目数量: {len(questions)}")
     
     def normalize_options(options, question_type=None):
         """格式化选项，将选项转换为带 A、B、C、D 前缀的字符串格式"""

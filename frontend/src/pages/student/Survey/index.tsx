@@ -264,7 +264,7 @@ const StudentSurvey = () => {
                       <div className="flex flex-col space-y-2 ml-4">
                         {survey.submitted ? (
                           <button
-                            onClick={() => navigate(`/student/survey/${survey.id}/detail`)}
+                            onClick={() => navigate(`/student/survey/${survey.id}/detail`, { state: { from: 'survey' } })}
                             className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-all"
                           >
                             查看结果
@@ -272,13 +272,13 @@ const StudentSurvey = () => {
                         ) : isAvailable ? (
                           <>
                             <button
-                              onClick={() => navigate(`/student/survey/${survey.id}/take`)}
+                              onClick={() => navigate(`/student/survey/${survey.id}/take`, { state: { from: 'survey' } })}
                               className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg"
                             >
                               开始答题
                             </button>
                             <button
-                              onClick={() => navigate(`/student/survey/${survey.id}/detail`)}
+                              onClick={() => navigate(`/student/survey/${survey.id}/detail`, { state: { from: 'survey' } })}
                               className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-all"
                             >
                               查看详情
@@ -293,7 +293,7 @@ const StudentSurvey = () => {
                           </button>
                         ) : (
                           <button
-                            onClick={() => navigate(`/student/survey/${survey.id}/detail`)}
+                            onClick={() => navigate(`/student/survey/${survey.id}/detail`, { state: { from: 'survey' } })}
                             className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-all"
                           >
                             查看详情

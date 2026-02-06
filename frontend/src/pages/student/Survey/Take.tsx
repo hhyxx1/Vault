@@ -36,6 +36,7 @@ const StudentSurveyTake = () => {
   const getBackPath = () => {
     const from = (location.state as any)?.from
     if (from === 'ability-test') return '/student/ability-test'
+    if (from === 'survey') return '/student/survey'
     if (location.pathname.includes('ability')) return '/student/ability-test'
     // 检查 referrer
     const referrer = document.referrer
@@ -44,7 +45,7 @@ const StudentSurveyTake = () => {
   }
 
   const backPath = getBackPath()
-  const backLabel = backPath.includes('ability') ? '返回能力检测' : '返回问卷列表'
+  const backLabel = backPath.includes('ability') ? '返回能力检测' : '返回问卷测验'
 
   useEffect(() => {
     if (!surveyId) return
@@ -80,18 +81,18 @@ const StudentSurveyTake = () => {
   // 获取题目类型颜色
   const getQuestionTypeStyle = (type: string) => {
     if (['single_choice', 'choice'].includes(type)) {
-      return 'bg-blue-100 text-blue-700 border-blue-200'
+      return 'bg-blue-50 text-blue-600 border-blue-100'
     }
     if (['multiple_choice', 'multi_choice'].includes(type)) {
-      return 'bg-purple-100 text-purple-700 border-purple-200'
+      return 'bg-purple-50 text-purple-600 border-purple-100'
     }
     if (['true_false', 'judge', 'judgment'].includes(type)) {
-      return 'bg-green-100 text-green-700 border-green-200'
+      return 'bg-emerald-50 text-emerald-600 border-emerald-100'
     }
     if (['fill_blank'].includes(type)) {
-      return 'bg-orange-100 text-orange-700 border-orange-200'
+      return 'bg-orange-50 text-orange-600 border-orange-100'
     }
-    return 'bg-pink-100 text-pink-700 border-pink-200'
+    return 'bg-indigo-50 text-indigo-600 border-indigo-100'
   }
 
   // 计算答题进度
@@ -99,12 +100,12 @@ const StudentSurveyTake = () => {
     const v = answers[k]
     return v !== undefined && v !== '' && !(Array.isArray(v) && v.length === 0)
   }).length
-  const totalCount = survey?.questions.length || 0
+  const totalCount = survey?.questions?.length || 0
   const progress = totalCount > 0 ? (answeredCount / totalCount) * 100 : 0
 
   const handleSubmit = async () => {
     if (!surveyId || !survey) return
-    const requiredIds = survey.questions.filter((q) => q.required).map((q) => q.id)
+    const requiredIds = (survey.questions || []).filter((q) => q.required).map((q) => q.id)
     const missing = requiredIds.filter((id) => {
       const v = answers[id]
       return v === undefined || v === '' || (Array.isArray(v) && v.length === 0)
@@ -160,7 +161,7 @@ const StudentSurveyTake = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex justify-center items-center">
+      <div className="min-h-screen bg-gray-50 flex justify-center items-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4" />
           <p className="text-gray-500">加载中...</p>
@@ -171,68 +172,70 @@ const StudentSurveyTake = () => {
 
   if (error || !survey) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-8">
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-sm border border-red-200 p-8 text-center">
-            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Icon name="alert-triangle" size={32} className="text-red-500" />
-            </div>
-            <p className="text-red-600 mb-4">{error || '问卷不存在'}</p>
-            <button
-              type="button"
-              onClick={() => navigate(backPath)}
-              className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-            >
-              {backLabel}
-            </button>
+      <div className="min-h-screen bg-gray-50 p-8 flex items-center justify-center">
+        <div className="max-w-md w-full bg-white rounded-3xl shadow-xl p-8 text-center">
+          <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="alert-triangle" size={40} className="text-red-500" />
           </div>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">无法加载问卷</h3>
+          <p className="text-gray-500 mb-8">{error || '问卷不存在或已被删除'}</p>
+          <button
+            type="button"
+            onClick={() => navigate(backPath)}
+            className="w-full px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+          >
+            <Icon name="chevron-left" size={20} />
+            {backLabel}
+          </button>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-[#F8FAFC]">
       {/* 顶部导航栏 */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-20 shadow-sm">
-        <div className="max-w-4xl mx-auto px-6 py-4">
+      <div className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-30">
+        <div className="max-w-5xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <button
               type="button"
               onClick={() => navigate(backPath)}
-              className="flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors"
+              className="flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors group"
             >
-              <Icon name="arrow-left" size={20} />
+              <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-indigo-50 flex items-center justify-center transition-colors">
+                <Icon name="chevron-left" size={20} className="text-gray-500 group-hover:text-indigo-600" />
+              </div>
               <span className="font-medium">{backLabel}</span>
             </button>
             <button
               type="button"
               onClick={() => setShowQuestionModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl text-sm font-medium hover:from-indigo-600 hover:to-purple-600 transition-all shadow-md hover:shadow-lg"
+              className="flex items-center gap-2 px-5 py-2.5 bg-indigo-50 text-indigo-600 rounded-full text-sm font-medium hover:bg-indigo-100 transition-all border border-indigo-100"
             >
-              <Icon name="help-circle" size={16} />
+              <Icon name="robot" size={18} />
               向教师提问
             </button>
           </div>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      <div className="max-w-5xl mx-auto px-6 py-8">
         {/* 问卷标题卡片 */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50" />
-          <div className="relative">
-            <h1 className="text-2xl font-bold text-gray-800 mb-3">{survey.title}</h1>
+        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 mb-8 relative overflow-hidden group hover:shadow-md transition-shadow">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-60" />
+          <div className="relative z-10">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">{survey.title}</h1>
             {survey.description && (
-              <p className="text-gray-500 leading-relaxed">{survey.description}</p>
+              <p className="text-gray-600 leading-relaxed max-w-3xl">{survey.description}</p>
             )}
-            <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
-              <span className="flex items-center gap-1">
+            <div className="flex items-center gap-6 mt-6 text-sm">
+              <span className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-lg text-gray-600 border border-gray-100">
                 <Icon name="file-text" size={16} className="text-indigo-500" />
                 共 {totalCount} 题
               </span>
-              <span className="flex items-center gap-1">
-                <Icon name="check-circle" size={16} className="text-emerald-500" />
+              <span className="flex items-center gap-2 px-3 py-1.5 bg-green-50 rounded-lg text-green-700 border border-green-100">
+                <Icon name="check-circle" size={16} className="text-green-500" />
                 已答 {answeredCount} 题
               </span>
             </div>
@@ -240,22 +243,31 @@ const StudentSurveyTake = () => {
         </div>
 
         {/* 答题进度条 */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-6">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-600">答题进度</span>
-            <span className="text-sm font-bold text-indigo-600">{answeredCount}/{totalCount}</span>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8 sticky top-24 z-20 backdrop-blur-sm bg-white/90">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold text-gray-700">答题进度</span>
+            <span className="text-sm font-bold text-indigo-600">{Math.round(progress)}%</span>
           </div>
-          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500 ease-out"
+              className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(99,102,241,0.3)]"
               style={{ width: `${progress}%` }}
             />
           </div>
         </div>
 
         {/* 题目列表 */}
-        <div className="space-y-5">
-          {survey.questions.map((q, index) => {
+        <div className="space-y-6">
+          {(!survey.questions || survey.questions.length === 0) && (
+            <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 text-center">
+              <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Icon name="file-text" size={40} className="text-gray-300" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">暂无题目</h3>
+              <p className="text-gray-500">该问卷尚未添加题目，请联系教师</p>
+            </div>
+          )}
+          {(survey.questions || []).map((q, index) => {
             const isAnswered = (() => {
               const v = answers[q.id]
               return v !== undefined && v !== '' && !(Array.isArray(v) && v.length === 0)
@@ -264,41 +276,46 @@ const StudentSurveyTake = () => {
             return (
               <div
                 key={q.id}
-                className={`bg-white rounded-2xl shadow-sm border-2 transition-all duration-300 ${
-                  isAnswered ? 'border-emerald-200' : 'border-gray-100 hover:border-indigo-200'
+                className={`bg-white rounded-2xl border-2 transition-all duration-300 ${
+                  isAnswered 
+                    ? 'border-indigo-100 shadow-sm' 
+                    : 'border-transparent shadow-sm hover:shadow-md hover:border-gray-100'
                 }`}
               >
                 {/* 题目头部 */}
-                <div className="px-6 py-4 border-b border-gray-100 flex items-start justify-between gap-4">
-                  <div className="flex items-start gap-3">
-                    <span className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shrink-0 ${
-                      isAnswered ? 'bg-emerald-500 text-white' : 'bg-indigo-100 text-indigo-600'
+                <div className="p-8 pb-4 flex items-start justify-between gap-6">
+                  <div className="flex items-start gap-4 flex-1">
+                    <span className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base shrink-0 transition-colors ${
+                      isAnswered ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-gray-100 text-gray-500'
                     }`}>
                       {index + 1}
                     </span>
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className={`px-2 py-0.5 rounded text-xs font-medium border ${getQuestionTypeStyle(q.type)}`}>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className={`px-2.5 py-1 rounded-md text-xs font-semibold border ${getQuestionTypeStyle(q.type)}`}>
                           {getQuestionTypeName(q.type)}
                         </span>
                         {q.required && (
-                          <span className="px-2 py-0.5 rounded text-xs font-medium bg-red-50 text-red-600 border border-red-200">
+                          <span className="px-2.5 py-1 rounded-md text-xs font-semibold bg-red-50 text-red-600 border border-red-100 flex items-center gap-1">
+                            <Icon name="alert-triangle" size={10} />
                             必答
                           </span>
                         )}
                       </div>
-                      <p className="text-gray-800 font-medium leading-relaxed">{q.text}</p>
+                      <p className="text-lg text-gray-900 font-medium leading-relaxed">{q.text}</p>
                     </div>
                   </div>
                   {isAnswered && (
-                    <div className="shrink-0">
-                      <Icon name="check-circle" size={20} className="text-emerald-500" />
+                    <div className="shrink-0 animate-in fade-in zoom-in duration-300">
+                      <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center">
+                        <Icon name="check-circle" size={20} className="text-green-500" />
+                      </div>
                     </div>
                   )}
                 </div>
 
                 {/* 题目选项/输入区 */}
-                <div className="px-6 py-5">
+                <div className="px-8 pb-8 pt-2 ml-14">
                   {['single_choice', 'choice', 'judge', 'judgment', 'judgement', 'true_false'].includes(q.type) && (q.options?.length || 0) > 0 ? (
                     <div className="space-y-3">
                       {(Array.isArray(q.options) ? q.options : []).map((opt: any) => {
@@ -311,14 +328,14 @@ const StudentSurveyTake = () => {
                         return (
                           <label 
                             key={displayValue} 
-                            className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+                            className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 group ${
                               isSelected 
-                                ? 'bg-indigo-50 border-indigo-300 shadow-sm' 
-                                : 'bg-gray-50 border-gray-200 hover:bg-indigo-50/50 hover:border-indigo-200'
+                                ? 'bg-indigo-50/50 border-indigo-500 shadow-sm' 
+                                : 'bg-white border-gray-100 hover:bg-gray-50 hover:border-gray-200'
                             }`}
                           >
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
-                              isSelected ? 'border-indigo-500 bg-indigo-500' : 'border-gray-300'
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ${
+                              isSelected ? 'border-indigo-500 bg-indigo-500' : 'border-gray-300 group-hover:border-gray-400'
                             }`}>
                               {isSelected && (
                                 <div className="w-2 h-2 rounded-full bg-white" />
@@ -332,7 +349,7 @@ const StudentSurveyTake = () => {
                               onChange={() => setAnswer(q.id, displayValue)}
                               className="sr-only"
                             />
-                            <span className={`flex-1 ${isSelected ? 'text-indigo-700 font-medium' : 'text-gray-700'}`}>
+                            <span className={`text-base ${isSelected ? 'text-indigo-900 font-medium' : 'text-gray-700'}`}>
                               {displayLabel}
                             </span>
                           </label>
@@ -352,17 +369,17 @@ const StudentSurveyTake = () => {
                         return (
                           <label 
                             key={displayValue} 
-                            className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+                            className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 group ${
                               isSelected 
-                                ? 'bg-purple-50 border-purple-300 shadow-sm' 
-                                : 'bg-gray-50 border-gray-200 hover:bg-purple-50/50 hover:border-purple-200'
+                                ? 'bg-purple-50/50 border-purple-500 shadow-sm' 
+                                : 'bg-white border-gray-100 hover:bg-gray-50 hover:border-gray-200'
                             }`}
                           >
-                            <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
-                              isSelected ? 'border-purple-500 bg-purple-500' : 'border-gray-300'
+                            <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all shrink-0 ${
+                              isSelected ? 'border-purple-500 bg-purple-500' : 'border-gray-300 group-hover:border-gray-400'
                             }`}>
                               {isSelected && (
-                                <Icon name="check" size={12} className="text-white" />
+                                <Icon name="check-circle" size={14} className="text-white" />
                               )}
                             </div>
                             <input
@@ -374,7 +391,7 @@ const StudentSurveyTake = () => {
                               }}
                               className="sr-only"
                             />
-                            <span className={`flex-1 ${isSelected ? 'text-purple-700 font-medium' : 'text-gray-700'}`}>
+                            <span className={`text-base ${isSelected ? 'text-purple-900 font-medium' : 'text-gray-700'}`}>
                               {displayLabel}
                             </span>
                           </label>
@@ -382,13 +399,18 @@ const StudentSurveyTake = () => {
                       })}
                     </div>
                   ) : (
-                    <textarea
-                      value={(answers[q.id] as string) || ''}
-                      onChange={(e) => setAnswer(q.id, e.target.value)}
-                      placeholder="请在此输入您的答案..."
-                      className="w-full border-2 border-gray-200 rounded-xl p-4 min-h-[120px] focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 outline-none transition-all resize-none"
-                      rows={4}
-                    />
+                    <div className="relative">
+                      <textarea
+                        value={(answers[q.id] as string) || ''}
+                        onChange={(e) => setAnswer(q.id, e.target.value)}
+                        placeholder="请在此输入您的答案..."
+                        className="w-full border-2 border-gray-100 rounded-xl p-5 min-h-[160px] focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all resize-none text-gray-800 placeholder:text-gray-400 bg-gray-50 focus:bg-white"
+                        rows={4}
+                      />
+                      <div className="absolute bottom-4 right-4 text-gray-400 pointer-events-none">
+                        <Icon name="edit" size={16} />
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>
@@ -397,28 +419,29 @@ const StudentSurveyTake = () => {
         </div>
 
         {/* 提交按钮区 */}
-        <div className="mt-8 flex gap-4 justify-center">
+        <div className="mt-12 pb-12 flex gap-6 justify-center">
           <button
             type="button"
             onClick={() => navigate(backPath)}
-            className="px-8 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+            className="px-8 py-4 bg-white text-gray-700 rounded-2xl font-medium hover:bg-gray-50 transition-colors border border-gray-200 shadow-sm hover:shadow-md flex items-center gap-2 min-w-[160px] justify-center"
           >
+            <Icon name="clock" size={20} className="text-gray-400" />
             暂不提交
           </button>
           <button
             type="button"
             onClick={handleSubmit}
             disabled={submitting}
-            className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3 min-w-[200px] justify-center"
           >
             {submitting ? (
               <>
-                <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
                 提交中...
               </>
             ) : (
               <>
-                <Icon name="send" size={18} />
+                <Icon name="send" size={20} />
                 提交答卷
               </>
             )}
@@ -428,39 +451,59 @@ const StudentSurveyTake = () => {
       
       {/* 向教师提问弹窗 */}
       {showQuestionModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-lg w-full animate-in fade-in zoom-in duration-200">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
-                <Icon name="help-circle" size={20} className="text-indigo-600" />
+        <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-lg w-full animate-in fade-in zoom-in duration-200">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center">
+                  <Icon name="robot" size={24} className="text-indigo-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900">向教师提问</h3>
+                  <p className="text-sm text-gray-500">遇到问题？发送消息给老师</p>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-gray-800">向教师提问</h3>
+              <button 
+                onClick={() => setShowQuestionModal(false)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-400 hover:text-gray-600"
+              >
+                <Icon name="close" size={24} />
+              </button>
             </div>
+            
             <textarea
               value={questionText}
               onChange={(e) => setQuestionText(e.target.value)}
-              placeholder="请描述您在答题过程中遇到的问题..."
-              className="w-full border-2 border-gray-200 rounded-xl p-4 min-h-[150px] focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 outline-none transition-all resize-none mb-4"
+              placeholder="请详细描述您在答题过程中遇到的问题..."
+              className="w-full border-2 border-gray-100 rounded-xl p-4 min-h-[160px] focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all resize-none mb-6 bg-gray-50 focus:bg-white text-gray-800"
               rows={6}
             />
+            
             <div className="flex justify-end gap-3">
               <button
                 type="button"
-                onClick={() => {
-                  setShowQuestionModal(false)
-                  setQuestionText('')
-                }}
-                className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+                onClick={() => setShowQuestionModal(false)}
+                className="px-6 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors"
               >
                 取消
               </button>
               <button
                 type="button"
                 onClick={handleAskQuestion}
-                disabled={submittingQuestion}
-                className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-all disabled:opacity-50 flex items-center gap-2"
+                disabled={submittingQuestion || !questionText.trim()}
+                className="px-6 py-2.5 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-indigo-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
-                {submittingQuestion ? '发送中...' : '发送问题'}
+                {submittingQuestion ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                    发送中
+                  </>
+                ) : (
+                  <>
+                    <Icon name="send" size={16} />
+                    发送问题
+                  </>
+                )}
               </button>
             </div>
           </div>

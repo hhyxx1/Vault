@@ -150,7 +150,7 @@ const CreateCourseDialog = ({ isOpen, onClose, onSubmit }: CreateCourseDialogPro
                   value={formData.semester}
                   onChange={(e) => setFormData({ ...formData, semester: e.target.value })}
                   className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent focus:bg-white transition-all duration-200 outline-none"
-                  placeholder="例如: 2024春季"
+                  placeholder="例如: 2025-2026学年第1学期"
                 />
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-pink-500 pointer-events-none">
                   <Icon name="calendar" className="w-4 h-4" />
@@ -169,6 +169,7 @@ const CreateCourseDialog = ({ isOpen, onClose, onSubmit }: CreateCourseDialogPro
                   required
                   step="0.5"
                   min="0"
+                  max="5"
                   value={formData.credit}
                   onChange={(e) => setFormData({ ...formData, credit: parseFloat(e.target.value) })}
                   className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent focus:bg-white transition-all duration-200 outline-none"

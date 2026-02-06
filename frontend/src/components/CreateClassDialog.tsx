@@ -46,6 +46,17 @@ const CreateClassDialog = ({ isOpen, onClose, onSubmit, courses }: CreateClassDi
     })
   }
 
+  // 当选择课程变化时，自动填充学年
+  useEffect(() => {
+    if (selectedCourses.length > 0) {
+      // 获取第一个选中课程的学期信息
+      const firstSelectedCourse = courses.find(c => c.id === selectedCourses[0])
+      if (firstSelectedCourse && firstSelectedCourse.semester) {
+        setFormData(prev => ({ ...prev, academic_year: firstSelectedCourse.semester }))
+      }
+    }
+  }, [selectedCourses, courses])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')

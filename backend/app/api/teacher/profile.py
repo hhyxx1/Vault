@@ -194,7 +194,7 @@ class CourseCreate(BaseModel):
     course_name: str = Field(..., description="课程名称")
     description: str | None = Field(None, description="课程描述")
     semester: str = Field(..., description="学期")
-    credit: float = Field(..., description="学分")
+    credit: float = Field(..., ge=0, le=5, description="学分(0-5)")
 
 class CourseResponse(BaseModel):
     id: str

@@ -81,7 +81,7 @@ const StudentSurveyDetail = () => {
   }
 
   const backPath = getBackPath()
-  const backLabel = backPath.includes('ability') ? '返回测试能力' : '返回问卷列表'
+  const backLabel = backPath.includes('ability') ? '返回能力检测' : '返回问卷测验'
 
   useEffect(() => {
     if (!surveyId) return
@@ -328,7 +328,7 @@ const StudentSurveyDetail = () => {
             <p className="text-gray-500 mb-8">请先完成该问卷的作答后再查看详情</p>
             <button
               type="button"
-              onClick={() => navigate(`/student/survey/${surveyId}/take`)}
+              onClick={() => navigate(`/student/survey/${surveyId}/take`, { state: location.state })}
               className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
             >
               开始答题

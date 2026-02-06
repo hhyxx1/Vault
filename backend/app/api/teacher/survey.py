@@ -301,10 +301,21 @@ async def get_survey_detail(
         raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
     
     try:
+        print(f"[DEBUG] 获取问卷详情: survey_id={survey_id}, teacher_id={current_user.id}")
+        
+        # 确保 UUID 类型正确
+        from uuid import UUID as PyUUID
+        try:
+            survey_uuid = PyUUID(str(survey_id))
+        except ValueError:
+            raise HTTPException(status_code=400, detail=f"无效的问卷ID格式: {survey_id}")
+        
         survey = db.query(Survey).filter(
-            Survey.id == survey_id,
+            Survey.id == survey_uuid,
             Survey.teacher_id == current_user.id
         ).first()
+        
+        print(f"[DEBUG] 查询结果: survey={'找到' if survey else '未找到'}")
         if not survey:
             raise HTTPException(status_code=404, detail="问卷不存在或无权限")
         

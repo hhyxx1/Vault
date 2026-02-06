@@ -55,22 +55,26 @@ export const studentSurveyApi = {
   // 获取问卷列表（按发布类型：in_class=课堂检测, homework=课后作业, practice=自主练习）
   getSurveys: async (releaseType?: 'in_class' | 'homework' | 'practice' | 'ability_test') => {
     const params = releaseType ? { release_type: releaseType } : {}
-    return apiClient.get('/student/surveys', { params })
+    const response = await apiClient.get('/student/surveys', { params })
+    return response.data
   },
   
   // 获取问卷详情
   getSurveyDetail: async (surveyId: string) => {
-    return apiClient.get(`/student/surveys/${surveyId}`)
+    const response = await apiClient.get(`/student/surveys/${surveyId}`)
+    return response.data
   },
   
   // 提交问卷
   submitSurvey: async (surveyId: string, answers: Record<string, any>) => {
-    return apiClient.post(`/student/surveys/${surveyId}/submit`, { answers })
+    const response = await apiClient.post(`/student/surveys/${surveyId}/submit`, { answers })
+    return response.data
   },
 
   // 获取当前学生在该问卷的作答状态与成绩（查看详情用）
   getMyResult: async (surveyId: string) => {
-    return apiClient.get(`/student/surveys/${surveyId}/my-result`)
+    const response = await apiClient.get(`/student/surveys/${surveyId}/my-result`)
+    return response.data
   },
 }
 
@@ -111,7 +115,8 @@ export const surveyApi = {
   
   // 获取问卷详情
   getSurveyDetail: async (surveyId: string) => {
-    return apiClient.get(`/teacher/surveys/${surveyId}`)
+    const response = await apiClient.get(`/teacher/surveys/${surveyId}`)
+    return response.data
   },
   
   // 创建问卷（保存解析后的问卷）
@@ -166,11 +171,12 @@ export const surveyApi = {
     const formData = new FormData()
     formData.append('file', file)
     
-    return apiClient.post('/teacher/surveys/upload-word', formData, {
+    const response = await apiClient.post('/teacher/surveys/upload-word', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     })
+    return response.data
   },
   
   // 删除上传的文件

@@ -711,7 +711,8 @@ const TeacherSurvey = () => {
       setSurveyDescription(data.description || '')
       
       // 转换题目数据格式（兼容后端 choice/judge 与 single_choice/judgment）
-      const questions = data.questions.map((q: any) => {
+      const questionsData = data.questions || []
+      const questions = questionsData.map((q: any) => {
         const rawType = q.questionType ?? q.question_type
         const normalizedType = rawType === 'choice' ? 'single_choice' : rawType === 'judge' ? 'judgment' : rawType
         const questionData: QuestionFormData = {
@@ -1268,106 +1269,180 @@ const TeacherSurvey = () => {
 
       {/* 发布问卷弹窗：选择班级与发布类型 */}
       {showPublishModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl p-6 max-h-[90vh] overflow-y-auto">
-            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <Icon name="award" size={24} className="text-green-500" />
-              发布问卷
-            </h3>
-            <p className="text-sm text-gray-600 mb-4">
-              {publishSurveyId && surveys.find((s) => s.id === publishSurveyId)?.generationMethod === 'knowledge_outline'
-                ? '基于大纲生成的问卷只能发布到「测试能力」，学生将在问卷测验的「测试能力」中看到。'
-                : '选择要发布的班级和类型后，对应班级的学生将在「问卷测验」的对应页面看到该问卷。'}
-            </p>
-            <div className="space-y-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 backdrop-blur-sm transition-all">
+          <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden transform transition-all scale-100">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-4">
+              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                <Icon name="send" size={24} className="text-white" />
+                发布问卷
+              </h3>
+              <p className="text-green-50 text-sm mt-1 opacity-90">
+                {publishSurveyId && surveys.find((s) => s.id === publishSurveyId)?.generationMethod === 'knowledge_outline'
+                  ? '基于大纲生成的问卷只能发布到「测试能力」'
+                  : '将问卷分发给指定班级的学生'}
+              </p>
+            </div>
+            
+            <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+              {/* 班级选择 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">选择发布的班级 <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-bold text-gray-700 mb-3 flex items-center">
+                  <Icon name="class" size={18} className="mr-2 text-green-600" />
+                  选择班级 <span className="text-red-500 ml-1">*</span>
+                </label>
+                
                 {loadingClasses ? (
-                  <p className="text-gray-500 text-sm">加载班级列表...</p>
+                  <div className="flex items-center justify-center py-8 text-gray-500 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-500 mr-2"></div>
+                    加载班级列表...
+                  </div>
                 ) : teacherClasses.length === 0 ? (
-                  <p className="text-amber-600 text-sm">暂无班级，请先在个人资料中创建班级</p>
+                  <div className="text-center py-8 bg-amber-50 rounded-xl border border-amber-100 text-amber-700">
+                    <Icon name="alert-triangle" size={24} className="mx-auto mb-2 opacity-50" />
+                    <p>暂无班级，请先在个人资料中创建班级</p>
+                  </div>
                 ) : (
-                  <div className="border border-gray-200 rounded-lg max-h-40 overflow-y-auto p-2 space-y-1">
-                    {teacherClasses.map((cls) => (
-                      <label key={cls.id} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                        <input
-                          type="checkbox"
-                          checked={publishClassIds.includes(cls.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) setPublishClassIds([...publishClassIds, cls.id])
-                            else setPublishClassIds(publishClassIds.filter((id) => id !== cls.id))
-                          }}
-                          className="w-4 h-4 rounded border-gray-300"
-                        />
-                        <span className="text-sm">{cls.class_name}{cls.course_name ? `（${cls.course_name}）` : ''}</span>
-                      </label>
-                    ))}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {teacherClasses.map((cls) => {
+                      const isSelected = publishClassIds.includes(cls.id);
+                      return (
+                        <label 
+                          key={cls.id} 
+                          className={`
+                            relative flex items-center p-3 rounded-xl cursor-pointer border-2 transition-all
+                            ${isSelected 
+                              ? 'border-green-500 bg-green-50 shadow-sm' 
+                              : 'border-gray-100 bg-gray-50 hover:bg-white hover:border-gray-200 hover:shadow-sm'
+                            }
+                          `}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={(e) => {
+                              if (e.target.checked) setPublishClassIds([...publishClassIds, cls.id])
+                              else setPublishClassIds(publishClassIds.filter((id) => id !== cls.id))
+                            }}
+                            className="sr-only"
+                          />
+                          <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center transition-colors ${isSelected ? 'border-green-500 bg-green-500' : 'border-gray-300 bg-white'}`}>
+                            {isSelected && <Icon name="check-circle" size={12} className="text-white" />}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className={`text-sm font-medium truncate ${isSelected ? 'text-green-800' : 'text-gray-700'}`}>
+                              {cls.class_name}
+                            </div>
+                            {cls.course_name && (
+                              <div className={`text-xs truncate ${isSelected ? 'text-green-600' : 'text-gray-500'}`}>
+                                {cls.course_name}
+                              </div>
+                            )}
+                          </div>
+                        </label>
+                      );
+                    })}
                   </div>
                 )}
               </div>
+
+              {/* 发布类型 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">发布类型</label>
-                <div className="flex flex-wrap gap-3">
+                <label className="block text-sm font-bold text-gray-700 mb-3 flex items-center">
+                  <Icon name="target" size={18} className="mr-2 text-green-600" />
+                  发布类型
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {(
                     publishSurveyId && surveys.find((s) => s.id === publishSurveyId)?.generationMethod === 'knowledge_outline'
-                      ? [{ value: 'ability_test' as ReleaseType, label: '测试能力', icon: '🎯' }]
+                      ? [{ value: 'ability_test' as ReleaseType, label: '测试能力', icon: 'target', desc: '用于能力评估' }]
                       : [
-                          { value: 'in_class' as ReleaseType, label: '课堂检测', icon: '✅' },
-                          { value: 'homework' as ReleaseType, label: '课后作业', icon: '📝' },
-                          { value: 'practice' as ReleaseType, label: '自主练习', icon: '📚' },
+                          { value: 'in_class' as ReleaseType, label: '课堂检测', icon: 'check-circle', desc: '课上即时反馈' },
+                          { value: 'homework' as ReleaseType, label: '课后作业', icon: 'edit', desc: '课后巩固练习' },
+                          { value: 'practice' as ReleaseType, label: '自主练习', icon: 'book', desc: '学生自由练习' },
                         ]
-                  ).map((opt) => (
-                    <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="releaseType"
-                        checked={publishReleaseType === opt.value}
-                        onChange={() => setPublishReleaseType(opt.value)}
-                        className="w-4 h-4 text-green-600"
-                      />
-                      <span className="text-sm">{opt.icon} {opt.label}</span>
-                    </label>
-                  ))}
+                  ).map((opt) => {
+                    const isSelected = publishReleaseType === opt.value;
+                    return (
+                      <label 
+                        key={opt.value} 
+                        className={`
+                          cursor-pointer rounded-xl border-2 p-3 transition-all flex flex-col items-center text-center
+                          ${isSelected 
+                            ? 'border-green-500 bg-green-50 text-green-700 shadow-md transform scale-105' 
+                            : 'border-gray-100 bg-white text-gray-600 hover:border-gray-200 hover:shadow-sm'
+                          }
+                        `}
+                      >
+                        <input
+                          type="radio"
+                          name="releaseType"
+                          checked={isSelected}
+                          onChange={() => setPublishReleaseType(opt.value)}
+                          className="sr-only"
+                        />
+                        <div className={`p-2 rounded-full mb-2 ${isSelected ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'}`}>
+                          <Icon name={opt.icon as IconName} size={20} />
+                        </div>
+                        <span className="font-bold text-sm mb-0.5">{opt.label}</span>
+                        <span className={`text-xs ${isSelected ? 'text-green-600' : 'text-gray-400'}`}>{opt.desc}</span>
+                      </label>
+                    );
+                  })}
                 </div>
               </div>
+
+              {/* 时间设置 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  ⏰ 答题时间设置 <span className="text-gray-500 text-xs">（可选）</span>
+                <label className="block text-sm font-bold text-gray-700 mb-3 flex items-center">
+                  <Icon name="clock" size={18} className="mr-2 text-green-600" />
+                  答题时间 <span className="text-gray-400 text-xs font-normal ml-2">（可选，不填则立即开放）</span>
                 </label>
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-xs text-gray-600 mb-1">开始时间</label>
-                    <input
-                      type="datetime-local"
-                      value={publishStartTime}
-                      onChange={(e) => setPublishStartTime(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
-                    />
+                
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-gray-500 ml-1">开始时间</label>
+                      <div className="relative">
+                        <input
+                          type="datetime-local"
+                          value={publishStartTime}
+                          onChange={(e) => setPublishStartTime(e.target.value)}
+                          className="w-full pl-3 pr-3 py-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm transition-all"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-medium text-gray-500 ml-1">结束时间</label>
+                      <div className="relative">
+                        <input
+                          type="datetime-local"
+                          value={publishEndTime}
+                          onChange={(e) => setPublishEndTime(e.target.value)}
+                          className="w-full pl-3 pr-3 py-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm transition-all"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-xs text-gray-600 mb-1">结束时间</label>
-                    <input
-                      type="datetime-local"
-                      value={publishEndTime}
-                      onChange={(e) => setPublishEndTime(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
-                    />
+                  
+                  <div className="flex items-start gap-2 text-xs text-gray-500 bg-white p-3 rounded-lg border border-gray-100">
+                    <Icon name="info" size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                    <div className="space-y-1">
+                      <p>未开始：学生只能看到倒计时</p>
+                      <p>进行中：学生可以正常答题</p>
+                      <p>已结束：显示“已结束”状态</p>
+                    </div>
                   </div>
-                  <p className="text-xs text-gray-500 bg-blue-50 p-2 rounded">
-                    💡 设置时间后：<br/>
-                    • 开始时间前：学生只能看到倒计时<br/>
-                    • 时间段内：学生可以答题<br/>
-                    • 结束时间后：显示已结束<br/>
-                    • 不设置时间则立即可答题
-                  </p>
                 </div>
               </div>
             </div>
-            <div className="flex justify-end gap-2 mt-6">
+
+            {/* Footer */}
+            <div className="bg-gray-50 px-6 py-4 flex justify-end gap-3 border-t border-gray-100">
               <button
                 type="button"
                 onClick={() => { setShowPublishModal(false); setPublishSurveyId(null) }}
-                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                className="px-5 py-2.5 text-gray-600 hover:bg-white hover:text-gray-800 hover:shadow-sm rounded-xl font-medium transition-all border border-transparent hover:border-gray-200"
               >
                 取消
               </button>
@@ -1375,8 +1450,9 @@ const TeacherSurvey = () => {
                 type="button"
                 onClick={handlePublishConfirm}
                 disabled={publishClassIds.length === 0 || loadingClasses}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-bold hover:from-green-700 hover:to-emerald-700 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none flex items-center"
               >
+                <Icon name="send" size={18} className="mr-2" />
                 确认发布
               </button>
             </div>
@@ -1489,8 +1565,9 @@ const TeacherSurvey = () => {
                             <option key={course.id} value={course.id}>{course.course_name}</option>
                           ))}
                         </select>
-                        <p className="mt-2 text-xs text-yellow-600">
-                          💡 不选则在所有知识库中根据描述检索；选择则仅在该课程知识库中检索
+                        <p className="mt-2 text-xs text-yellow-600 flex items-start gap-1">
+                          <Icon name="info" size={14} className="mt-0.5 flex-shrink-0" />
+                          <span>不选则在所有知识库中根据描述检索；选择则仅在该课程知识库中检索</span>
                         </p>
                       </div>
                       {createMode === 'knowledge_material' && selectedCourse && (
@@ -1508,8 +1585,9 @@ const TeacherSurvey = () => {
                               <option key={doc.id} value={doc.id}>{doc.file_name}</option>
                             ))}
                           </select>
-                          <p className="mt-2 text-xs text-teal-600">
-                            💡 不指定则从该课程全部资料中检索并筛选重要知识点出题；指定则仅从该篇资料出题
+                          <p className="mt-2 text-xs text-teal-600 flex items-start gap-1">
+                            <Icon name="info" size={14} className="mt-0.5 flex-shrink-0" />
+                            <span>不指定则从该课程全部资料中检索并筛选重要知识点出题；指定则仅从该篇资料出题</span>
                           </p>
                         </div>
                       )}
@@ -1585,12 +1663,16 @@ const TeacherSurvey = () => {
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-800">📋 问题预览与编辑</h3>
+                  <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <Icon name="file-text" size={28} className="text-blue-600" />
+                    问题预览与编辑
+                  </h3>
                   <p className="text-sm text-gray-500 mt-1">
                     共解析出 {parsedQuestions.length} 个问题
                     {parseErrors.length > 0 && (
-                      <span className="text-red-500 ml-2">
-                        ⚠️ {parseErrors.length} 个问题需要修正
+                      <span className="text-red-500 ml-2 flex items-center inline-flex">
+                        <Icon name="alert-triangle" size={16} className="mr-1" />
+                        {parseErrors.length} 个问题需要修正
                       </span>
                     )}
                   </p>
@@ -2408,12 +2490,16 @@ const TeacherSurvey = () => {
               {/* 顶部操作栏 */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
-                  <span className={`px-4 py-2 rounded-full text-sm font-medium ${
+                  <span className={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-1 ${
                     studentScoresData.scorePublished 
                       ? 'bg-green-100 text-green-700' 
                       : 'bg-yellow-100 text-yellow-700'
                   }`}>
-                    {studentScoresData.scorePublished ? '✓ 成绩已发布' : '⏳ 成绩未发布'}
+                    {studentScoresData.scorePublished ? (
+                      <><Icon name="check-circle" size={16} /> 成绩已发布</>
+                    ) : (
+                      <><Icon name="clock" size={16} /> 成绩未发布</>
+                    )}
                   </span>
                   <span className="text-gray-500 text-sm">
                     满分: {studentScoresData.totalScore}分 | 及格线: {studentScoresData.passScore}分
@@ -2623,10 +2709,10 @@ const TeacherSurvey = () => {
                              q.questionType === 'essay' ? '问答题' : q.questionType}
                           </span>
                           {q.isCorrect !== null && (
-                            <span className={`px-2 py-1 rounded text-xs font-medium ${
+                            <span className={`px-2 py-1 rounded text-xs font-medium flex items-center ${
                               q.isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                             }`}>
-                              {q.isCorrect ? '✓ 正确' : '✗ 错误'}
+                              {q.isCorrect ? <><Icon name="check-circle" size={12} className="mr-1" /> 正确</> : <><Icon name="close" size={12} className="mr-1" /> 错误</>}
                             </span>
                           )}
                         </div>
