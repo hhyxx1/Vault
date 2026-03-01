@@ -47,12 +47,23 @@ interface RecentQuestion {
   time: string
 }
 
+interface CustomCard {
+  id: string
+  question: string
+  answer: string
+  created_at: string
+}
+
 const TeacherDashboard = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [overview, setOverview] = useState<DashboardOverview | null>(null)
   const [classes, setClasses] = useState<ClassInfo[]>([])
   const [recentQuestions, setRecentQuestions] = useState<RecentQuestion[]>([])
+  const [customCards, setCustomCards] = useState<CustomCard[]>([])
+  const [showAddCardDialog, setShowAddCardDialog] = useState(false)
+  const [cardQuestion, setCardQuestion] = useState('')
+  const [creatingCard, setCreatingCard] = useState(false)
 
   useEffect(() => {
     fetchDashboardData()
@@ -88,6 +99,27 @@ const TeacherDashboard = () => {
     }
   }
 
+  const handleAddCard = async () => {
+    if (!cardQuestion.trim()) return
+    
+    try {
+      setCreatingCard(true)
+      const response = await dashboardApi.createCustomInsight({ question: cardQuestion })
+      setCustomCards([...customCards, response.data])
+      setShowAddCardDialog(false)
+      setCardQuestion('')
+    } catch (err: any) {
+      console.error('创建卡片失败:', err)
+      alert(err.response?.data?.detail || '创建卡片失败')
+    } finally {
+      setCreatingCard(false)
+    }
+  }
+
+  const handleDeleteCard = (cardId: string) => {
+    setCustomCards(customCards.filter(card => card.id !== cardId))
+  }
+
   // 计算统计数据
   const stats = overview?.stats
   const participationRate = stats?.avg_participation_rate 
@@ -117,14 +149,23 @@ const TeacherDashboard = () => {
             </h2>
             <p className="text-gray-500 text-sm mt-2">实时监控班级学情与数据分析</p>
           </div>
-          <button
-            onClick={fetchDashboardData}
-            disabled={loading}
-            className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-all flex items-center gap-2"
-          >
-            <Icon name="refresh" size={18} className={loading ? 'animate-spin' : ''} />
-            刷新数据
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowAddCardDialog(true)}
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all flex items-center gap-2 shadow-md"
+            >
+              <Icon name="add" size={18} />
+              添加卡片
+            </button>
+            <button
+              onClick={fetchDashboardData}
+              disabled={loading}
+              className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-all flex items-center gap-2"
+            >
+              <Icon name="refresh" size={18} className={loading ? 'animate-spin' : ''} />
+              刷新数据
+            </button>
+          </div>
         </div>
       </div>
 
@@ -315,25 +356,99 @@ const TeacherDashboard = () => {
                     近7天提问趋势
                   </h3>
                   <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-                    <div className="flex items-end justify-between h-40 gap-2">
-                      {overview.question_trend.map((item, index) => {
-                        const maxCount = Math.max(...overview.question_trend.map(t => t.count), 1)
-                        const height = (item.count / maxCount) * 100
-                        return (
-                          <div key={index} className="flex-1 flex flex-col items-center">
-                            <div className="w-full flex flex-col items-center">
-                              <span className="text-xs text-gray-600 mb-1">{item.count}</span>
-                              <div
-                                className="w-full bg-gradient-to-t from-blue-500 to-purple-500 rounded-t-lg transition-all hover:from-blue-600 hover:to-purple-600"
-                                style={{ height: `${Math.max(height, 5)}px`, minHeight: '4px' }}
-                              ></div>
-                            </div>
-                            <span className="text-xs text-gray-500 mt-2">
-                              {item.date.slice(5)}
-                            </span>
+                    <div className="relative h-48">
+                      {/* Y轴刻度 */}
+                      <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-400 pr-2">
+                        {(() => {
+                          const maxCount = Math.max(...overview.question_trend.map(t => t.count), 1)
+                          return [
+                            <span key="max">{maxCount}</span>,
+                            <span key="mid">{Math.round(maxCount / 2)}</span>,
+                            <span key="min">0</span>
+                          ]
+                        })()}
+                      </div>
+                      
+                      {/* 折线图区域 */}
+                      <div className="ml-8 h-full relative">
+                        {/* 网格线 */}
+                        <div className="absolute inset-0 flex flex-col justify-between">
+                          <div className="border-t border-gray-100"></div>
+                          <div className="border-t border-gray-100"></div>
+                          <div className="border-t border-gray-200"></div>
+                        </div>
+                        
+                        {/* SVG折线图 */}
+                        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                          {(() => {
+                            const maxCount = Math.max(...overview.question_trend.map(t => t.count), 1)
+                            const points = overview.question_trend.map((item, index) => {
+                              const x = (index / (overview.question_trend.length - 1)) * 100
+                              const y = 100 - (item.count / maxCount) * 90
+                              return `${x},${y}`
+                            }).join(' ')
+                            
+                            const fillPoints = `0,100 ${points} 100,100`
+                            
+                            return (
+                              <>
+                                {/* 渐变填充区域 */}
+                                <defs>
+                                  <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stopColor="rgb(139, 92, 246)" stopOpacity="0.3" />
+                                    <stop offset="100%" stopColor="rgb(59, 130, 246)" stopOpacity="0.05" />
+                                  </linearGradient>
+                                </defs>
+                                <polygon
+                                  points={fillPoints}
+                                  fill="url(#lineGradient)"
+                                />
+                                {/* 折线 */}
+                                <polyline
+                                  points={points}
+                                  fill="none"
+                                  stroke="url(#lineStroke)"
+                                  strokeWidth="0.8"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <defs>
+                                  <linearGradient id="lineStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stopColor="rgb(139, 92, 246)" />
+                                    <stop offset="100%" stopColor="rgb(59, 130, 246)" />
+                                  </linearGradient>
+                                </defs>
+                                {/* 数据点 */}
+                                {overview.question_trend.map((item, index) => {
+                                  const x = (index / (overview.question_trend.length - 1)) * 100
+                                  const y = 100 - (item.count / maxCount) * 90
+                                  return (
+                                    <circle
+                                      key={index}
+                                      cx={x}
+                                      cy={y}
+                                      r="1.2"
+                                      fill="white"
+                                      stroke="rgb(99, 102, 241)"
+                                      strokeWidth="0.5"
+                                    />
+                                  )
+                                })}
+                              </>
+                            )
+                          })()}
+                        </svg>
+                      </div>
+                      
+                      {/* X轴标签 */}
+                      <div className="ml-8 mt-2 flex justify-between">
+                        {overview.question_trend.map((item, index) => (
+                          <div key={index} className="flex flex-col items-center flex-1">
+                            <span className="text-xs text-gray-500">{item.date.slice(5)}</span>
+                            <span className="text-xs font-medium text-indigo-600 mt-1">{item.count}</span>
                           </div>
-                        )
-                      })}
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -417,10 +532,116 @@ const TeacherDashboard = () => {
                   )}
                 </div>
               )}
+
+              {/* 自定义洞察卡片区域 */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 mb-5 flex items-center">
+                  <span className="mr-2">
+                    <Icon name="sparkles" size={24} className="text-purple-600" />
+                  </span>
+                  智能洞察
+                </h3>
+
+                {customCards.length > 0 && (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {customCards.map((card) => (
+                      <div
+                        key={card.id}
+                        className="bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 rounded-2xl p-6 shadow-md border border-purple-200 hover:shadow-xl transition-all"
+                      >
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex items-start gap-3 flex-1">
+                            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                              <Icon name="sparkles" size={20} className="text-white" />
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-bold text-gray-800 mb-1">{card.question}</h4>
+                              <p className="text-xs text-gray-500">{card.created_at}</p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => handleDeleteCard(card.id)}
+                            className="text-gray-400 hover:text-red-600 transition-colors ml-2"
+                          >
+                            <Icon name="close" size={20} />
+                          </button>
+                        </div>
+                        <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4">
+                          <p className="text-sm text-gray-700 whitespace-pre-line leading-relaxed">
+                            {card.answer}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </>
           )}
         </div>
       </div>
+
+      {/* 自定义卡片添加对话框 */}
+      {showAddCardDialog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                <Icon name="sparkles" size={24} className="text-purple-600" />
+                添加自定义洞察卡片
+              </h3>
+              <button
+                onClick={() => setShowAddCardDialog(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <Icon name="close" size={24} />
+              </button>
+            </div>
+            
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                你想了解什么？
+              </label>
+              <textarea
+                value={cardQuestion}
+                onChange={(e) => setCardQuestion(e.target.value)}
+                placeholder="例如：这个班最不了解进程概念的同学是谁？&#10;这个班最活跃的五名同学是谁？&#10;这个班代码风格最好的同学是谁？"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                rows={4}
+              />
+              <p className="text-xs text-gray-500 mt-2">
+                💡 提示：可以提问关于学生学习情况、活跃度、成绩等问题
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowAddCardDialog(false)}
+                className="flex-1 px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all font-medium"
+              >
+                取消
+              </button>
+              <button
+                onClick={handleAddCard}
+                disabled={!cardQuestion.trim() || creatingCard}
+                className="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {creatingCard ? (
+                  <>
+                    <Icon name="refresh" size={18} className="animate-spin" />
+                    分析中...
+                  </>
+                ) : (
+                  <>
+                    <Icon name="sparkles" size={18} />
+                    创建卡片
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

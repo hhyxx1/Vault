@@ -495,65 +495,95 @@ const StudentSurveyDetail = () => {
                               const studentAnswer = answer?.studentAnswer
                               const correctAnswer = question.correctAnswer
                               
-                              // 灵活匹配学生答案：可能是 key、value、或完整格式
+                              // 灵活匹配答案：支持多种格式
                               const matchAnswer = (ans: any, optKey: string, optValue: string) => {
-                                if (!ans) return false
-                                const ansStr = String(ans).trim()
-                                return ansStr === optKey || 
-                                       ansStr === optValue ||
-                                       ansStr === `${optKey}. ${optValue}` ||
-                                       ansStr === `${optKey}.${optValue}` ||
-                                       ansStr === `${optKey}、${optValue}` ||
-                                       ansStr.toUpperCase() === optKey.toUpperCase()
+                                if (ans === null || ans === undefined) return false
+                                const ansStr = String(ans).trim().toUpperCase()
+                                const keyUpper = optKey.toUpperCase()
+                                const valueUpper = optValue.toUpperCase()
+                                
+                                return ansStr === keyUpper || 
+                                       ansStr === valueUpper ||
+                                       ansStr === `${keyUpper}. ${valueUpper}` ||
+                                       ansStr === `${keyUpper}.${valueUpper}` ||
+                                       ansStr === `${keyUpper}、${valueUpper}` ||
+                                       ansStr.startsWith(`${keyUpper}.`) ||
+                                       ansStr.startsWith(`${keyUpper} `) ||
+                                       ansStr.includes(valueUpper)
                               }
                               
-                              const isSelected = isMultipleChoice(question.questionType)
-                                ? (Array.isArray(studentAnswer) 
-                                    ? studentAnswer.some(a => matchAnswer(a, opt.key, opt.value))
-                                    : false)
-                                : matchAnswer(studentAnswer, opt.key, opt.value)
+                              // 判断学生是否选择了这个选项
+                              const checkSelected = () => {
+                                if (!studentAnswer) return false
+                                if (Array.isArray(studentAnswer)) {
+                                  return studentAnswer.some(a => matchAnswer(a, opt.key, opt.value))
+                                }
+                                return matchAnswer(studentAnswer, opt.key, opt.value)
+                              }
                               
-                              const isCorrectOption = isMultipleChoice(question.questionType)
-                                ? (Array.isArray(correctAnswer) 
-                                    ? correctAnswer.some(a => matchAnswer(a, opt.key, opt.value))
-                                    : false)
-                                : matchAnswer(correctAnswer, opt.key, opt.value)
+                              // 判断这个选项是否是正确答案
+                              const checkCorrect = () => {
+                                if (correctAnswer === null || correctAnswer === undefined) return false
+                                if (Array.isArray(correctAnswer)) {
+                                  return correctAnswer.some(a => matchAnswer(a, opt.key, opt.value))
+                                }
+                                return matchAnswer(correctAnswer, opt.key, opt.value)
+                              }
+                              
+                              const isSelected = checkSelected()
+                              const isCorrectOption = checkCorrect()
                               
                               return (
                                 <div
                                   key={opt.key}
-                                  className={`flex items-start gap-3 p-3 rounded-lg border-2 transition-all ${
+                                  className={`flex items-start gap-3 p-4 rounded-xl border-2 transition-all ${
                                     isCorrectOption && isSelected
-                                      ? 'bg-emerald-50 border-emerald-300'
+                                      ? 'bg-emerald-100 border-emerald-500 shadow-sm'
                                       : isSelected && !isCorrectOption
-                                      ? 'bg-red-50 border-red-300'
+                                      ? 'bg-red-100 border-red-500 shadow-sm'
                                       : isCorrectOption
-                                      ? 'bg-emerald-50 border-emerald-200 border-dashed'
+                                      ? 'bg-emerald-50 border-emerald-400 border-dashed'
                                       : 'bg-gray-50 border-gray-200'
                                   }`}
                                 >
-                                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
-                                    isCorrectOption
+                                  <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
+                                    isCorrectOption && isSelected
                                       ? 'bg-emerald-500 text-white'
-                                      : isSelected
+                                      : isSelected && !isCorrectOption
                                       ? 'bg-red-500 text-white'
+                                      : isCorrectOption
+                                      ? 'bg-emerald-500 text-white'
                                       : 'bg-gray-200 text-gray-600'
                                   }`}>
                                     {opt.key}
                                   </span>
-                                  <span className="text-gray-700 flex-1">{opt.value}</span>
-                                  {isSelected && (
-                                    <span className={`text-xs px-2 py-1 rounded ${
-                                      isCorrectOption ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
-                                    }`}>
-                                      你的选择
-                                    </span>
-                                  )}
-                                  {isCorrectOption && !isSelected && (
-                                    <span className="text-xs px-2 py-1 rounded bg-emerald-100 text-emerald-700">
-                                      正确答案
-                                    </span>
-                                  )}
+                                  <span className={`flex-1 ${
+                                    isCorrectOption ? 'text-emerald-800 font-medium' : 
+                                    isSelected ? 'text-red-800 font-medium' : 'text-gray-700'
+                                  }`}>
+                                    {opt.value}
+                                  </span>
+                                  <div className="flex items-center gap-2">
+                                    {isSelected && (
+                                      <span className={`text-xs px-2 py-1 rounded-full font-medium flex items-center gap-1 ${
+                                        isCorrectOption 
+                                          ? 'bg-emerald-200 text-emerald-800' 
+                                          : 'bg-red-200 text-red-800'
+                                      }`}>
+                                        {isCorrectOption ? '✓' : '✗'} 你的选择
+                                      </span>
+                                    )}
+                                    {isCorrectOption && !isSelected && (
+                                      <span className="text-xs px-2 py-1 rounded-full font-medium bg-emerald-200 text-emerald-800 flex items-center gap-1">
+                                        ✓ 正确答案
+                                      </span>
+                                    )}
+                                    {isCorrectOption && isSelected && (
+                                      <span className="text-xs px-2 py-1 rounded-full font-medium bg-emerald-200 text-emerald-800">
+                                        回答正确
+                                      </span>
+                                    )}
+                                  </div>
                                 </div>
                               )
                             })}
@@ -567,8 +597,8 @@ const StudentSurveyDetail = () => {
                           <p className="text-sm font-medium text-gray-500 mb-2">选项：</p>
                           <div className="grid grid-cols-2 gap-3">
                             {[
-                              { key: true, label: '正确 ✓' },
-                              { key: false, label: '错误 ✗' }
+                              { key: true, label: '正确', icon: '✓' },
+                              { key: false, label: '错误', icon: '✗' }
                             ].map((opt) => {
                               const studentAnswer = answer?.studentAnswer
                               const correctAnswer = question.correctAnswer
@@ -583,9 +613,9 @@ const StudentSurveyDetail = () => {
                                 // 字符串匹配
                                 const ansStr = String(ans).toLowerCase().trim()
                                 if (isTrue) {
-                                  return ['true', '正确', '对', '是', 'yes', '1', 't'].includes(ansStr)
+                                  return ['true', '正确', '对', '是', 'yes', '1', 't', 'a'].includes(ansStr)
                                 } else {
-                                  return ['false', '错误', '错', '否', 'no', '0', 'f'].includes(ansStr)
+                                  return ['false', '错误', '错', '否', 'no', '0', 'f', 'b'].includes(ansStr)
                                 }
                               }
                               
@@ -595,27 +625,48 @@ const StudentSurveyDetail = () => {
                               return (
                                 <div
                                   key={String(opt.key)}
-                                  className={`flex items-center justify-center gap-2 p-4 rounded-lg border-2 ${
+                                  className={`flex flex-col items-center justify-center gap-2 p-5 rounded-xl border-2 transition-all ${
                                     isCorrectOption && isSelected
-                                      ? 'bg-emerald-50 border-emerald-300'
+                                      ? 'bg-emerald-100 border-emerald-500 shadow-sm'
                                       : isSelected && !isCorrectOption
-                                      ? 'bg-red-50 border-red-300'
+                                      ? 'bg-red-100 border-red-500 shadow-sm'
                                       : isCorrectOption
-                                      ? 'bg-emerald-50 border-emerald-200 border-dashed'
+                                      ? 'bg-emerald-50 border-emerald-400 border-dashed'
                                       : 'bg-gray-50 border-gray-200'
                                   }`}
                                 >
-                                  <span className="font-medium text-lg">{opt.label}</span>
+                                  <span className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold ${
+                                    isCorrectOption && isSelected
+                                      ? 'bg-emerald-500 text-white'
+                                      : isSelected && !isCorrectOption
+                                      ? 'bg-red-500 text-white'
+                                      : isCorrectOption
+                                      ? 'bg-emerald-500 text-white'
+                                      : 'bg-gray-200 text-gray-500'
+                                  }`}>
+                                    {opt.icon}
+                                  </span>
+                                  <span className={`font-semibold text-lg ${
+                                    isCorrectOption ? 'text-emerald-700' : 
+                                    isSelected ? 'text-red-700' : 'text-gray-600'
+                                  }`}>
+                                    {opt.label}
+                                  </span>
                                   {isSelected && (
-                                    <span className={`text-xs px-2 py-1 rounded ${
-                                      isCorrectOption ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
+                                    <span className={`text-xs px-3 py-1 rounded-full font-medium ${
+                                      isCorrectOption ? 'bg-emerald-200 text-emerald-800' : 'bg-red-200 text-red-800'
                                     }`}>
-                                      你的选择
+                                      {isCorrectOption ? '✓ 你的选择' : '✗ 你的选择'}
                                     </span>
                                   )}
                                   {isCorrectOption && !isSelected && (
-                                    <span className="text-xs px-2 py-1 rounded bg-emerald-100 text-emerald-700">
-                                      正确答案
+                                    <span className="text-xs px-3 py-1 rounded-full font-medium bg-emerald-200 text-emerald-800">
+                                      ✓ 正确答案
+                                    </span>
+                                  )}
+                                  {isCorrectOption && isSelected && (
+                                    <span className="text-xs px-3 py-1 rounded-full font-medium bg-emerald-200 text-emerald-800">
+                                      回答正确
                                     </span>
                                   )}
                                 </div>

@@ -1015,19 +1015,41 @@ async def get_student_scores(
     try:
         from app.models.survey import SurveyResponse
         from app.models.user import Student
+        from uuid import UUID as PyUUID
+        
+        # 确保 UUID 类型正确
+        try:
+            survey_uuid = PyUUID(str(survey_id))
+        except ValueError:
+            raise HTTPException(status_code=400, detail=f"无效的问卷ID格式: {survey_id}")
+        
+        print(f"[DEBUG] 获取学生成绩: survey_id={survey_id}, teacher_id={current_user.id}")
         
         survey = db.query(Survey).filter(
-            Survey.id == survey_id,
+            Survey.id == survey_uuid,
             Survey.teacher_id == current_user.id
         ).first()
         if not survey:
             raise HTTPException(status_code=404, detail="问卷不存在")
         
-        # 获取所有提交记录，包含学生信息
+        print(f"[DEBUG] 找到问卷: {survey.title}")
+        
+        # 获取所有提交记录，包含学生信息（使用 survey.id 确保类型正确）
+        # 包含 completed 和 grading 状态的记录
         responses = db.query(SurveyResponse).filter(
-            SurveyResponse.survey_id == survey_id,
-            SurveyResponse.status == 'completed'
+            SurveyResponse.survey_id == survey.id,
+            SurveyResponse.status.in_(['completed', 'grading'])
         ).all()
+        
+        print(f"[DEBUG] 找到提交记录数量: {len(responses)}")
+        
+        # 调试：检查所有提交记录（不限状态）
+        all_responses = db.query(SurveyResponse).filter(
+            SurveyResponse.survey_id == survey.id
+        ).all()
+        print(f"[DEBUG] 所有提交记录数量（含未完成）: {len(all_responses)}")
+        for r in all_responses:
+            print(f"[DEBUG]   - response_id={r.id}, student_id={r.student_id}, status={r.status}, submit_time={r.submit_time}")
         
         student_scores = []
         for resp in responses:
@@ -1041,10 +1063,11 @@ async def get_student_scores(
                 "studentName": user.full_name if user else "未知",
                 "studentNumber": student.student_number if student else "-",
                 "submitTime": resp.submit_time.isoformat() if resp.submit_time else None,
-                "totalScore": float(resp.total_score) if resp.total_score is not None else None,
-                "percentageScore": float(resp.percentage_score) if resp.percentage_score is not None else None,
-                "isPassed": resp.is_passed,
-                "attemptNumber": resp.attempt_number or 1
+                "totalScore": float(resp.total_score) if resp.total_score is not None else 0.0,
+                "percentageScore": float(resp.percentage_score) if resp.percentage_score is not None else 0.0,
+                "isPassed": resp.is_passed if resp.is_passed is not None else False,
+                "attemptNumber": resp.attempt_number or 1,
+                "status": resp.status  # 添加状态字段，前端可以显示"评分中"
             })
         
         # 按学号排序

@@ -99,6 +99,11 @@ export const dashboardApi = {
   getClasses: async () => {
     return apiClient.get('/teacher/dashboard/classes')
   },
+
+  // 创建自定义洞察卡片
+  createCustomInsight: async (data: { question: string }) => {
+    return apiClient.post('/teacher/dashboard/custom-insight', data)
+  },
   
   // 获取班级详情
   getClassDetail: async (classId: string) => {
@@ -110,7 +115,8 @@ export const dashboardApi = {
 export const surveyApi = {
   // 获取问卷列表
   getSurveys: async () => {
-    return apiClient.get('/teacher/surveys')
+    const response = await apiClient.get('/teacher/surveys')
+    return response.data
   },
   
   // 获取问卷详情
@@ -163,7 +169,8 @@ export const surveyApi = {
   
   // 获取问卷结果
   getSurveyResults: async (surveyId: string) => {
-    return apiClient.get(`/teacher/surveys/${surveyId}/results`)
+    const response = await apiClient.get(`/teacher/surveys/${surveyId}/results`)
+    return response.data
   },
   
   // 上传Word文档并解析
@@ -222,12 +229,14 @@ export const surveyApi = {
   
   // 获取学生成绩列表
   getStudentScores: async (surveyId: string) => {
-    return apiClient.get(`/teacher/surveys/${surveyId}/student-scores`)
+    const response = await apiClient.get(`/teacher/surveys/${surveyId}/student-scores`)
+    return response.data
   },
   
   // 获取学生答卷详情
   getStudentAnswers: async (surveyId: string, studentId: string) => {
-    return apiClient.get(`/teacher/surveys/${surveyId}/student/${studentId}/answers`)
+    const response = await apiClient.get(`/teacher/surveys/${surveyId}/student/${studentId}/answers`)
+    return response.data
   },
   
   // 修改学生总分
@@ -263,17 +272,20 @@ export const teacherSurveyApi = surveyApi
 export const learningPlanApi = {
   // 获取学习分析数据
   getAnalysis: async () => {
-    return apiClient.get('/student/learning-plan/analysis')
+    const response = await apiClient.get('/student/learning-plan/analysis')
+    return response.data
   },
   
-  // 生成学习计划
-  generatePlan: async () => {
-    return apiClient.post('/student/learning-plan/generate')
+  // 生成学习计划（支持包含所有类型问卷的成绩）
+  generatePlan: async (includeAll: boolean = false) => {
+    const response = await apiClient.post(`/student/learning-plan/generate?include_all=${includeAll}`)
+    return response.data
   },
   
   // 获取薄弱知识点（简化版）
   getWeakPoints: async () => {
-    return apiClient.get('/student/learning-plan/weak-points')
+    const response = await apiClient.get('/student/learning-plan/weak-points')
+    return response.data
   },
 }
 

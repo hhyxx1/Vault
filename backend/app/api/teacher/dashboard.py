@@ -443,3 +443,203 @@ async def get_class_detail(
         students=students,
         created_at=class_obj.created_at.strftime("%Y-%m-%d %H:%M:%S")
     )
+
+
+# 自定义卡片相关
+class CustomCardRequest(BaseModel):
+    question: str
+
+class CustomCardResponse(BaseModel):
+    id: str
+    question: str
+    answer: str
+    created_at: str
+
+@router.post("/custom-insight", response_model=CustomCardResponse)
+async def create_custom_insight(
+    request: CustomCardRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    创建自定义洞察卡片
+    教师可以提出问题，系统基于学生数据生成答案
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    try:
+        # 获取教师的所有班级学生数据
+        from app.models.qa import QARecord, QAShare
+        
+        # 获取教师的班级
+        classes = db.query(Class).filter(Class.teacher_id == current_user.id).all()
+        class_ids = [c.id for c in classes]
+        
+        if not class_ids:
+            # 没有班级，返回默认答案
+            card_id = str(UUID(int=0))
+            return CustomCardResponse(
+                id=card_id,
+                question=request.question,
+                answer="暂无班级数据",
+                created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            )
+        
+        # 通过问卷响应获取学生ID（与overview保持一致）
+        result = db.execute(
+            text("""
+                SELECT DISTINCT sr.student_id 
+                FROM survey_responses sr
+                JOIN surveys s ON sr.survey_id = s.id
+                WHERE s.teacher_id = :teacher_id
+            """),
+            {"teacher_id": str(current_user.id)}
+        )
+        student_ids = [str(row[0]) for row in result]
+        
+        if not student_ids:
+            # 没有学生数据
+            card_id = str(UUID(int=0))
+            return CustomCardResponse(
+                id=card_id,
+                question=request.question,
+                answer="暂无学生提交数据",
+                created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            )
+        
+        # 获取学生信息
+        students = db.query(User).filter(
+            User.id.in_(student_ids),
+            User.role == 'student'
+        ).all()
+        
+        # 获取学生的问答记录
+        qa_records = db.query(QARecord).filter(
+            QARecord.student_id.in_(student_ids)
+        ).all()
+        
+        # 获取学生的问卷成绩
+        survey_responses = db.query(SurveyResponse).filter(
+            SurveyResponse.student_id.in_(student_ids),
+            SurveyResponse.status == 'completed'
+        ).all()
+        
+        # 构建学生数据摘要
+        student_data = []
+        for student in students:
+            student_qa = [qa for qa in qa_records if qa.student_id == student.id]
+            student_surveys = [sr for sr in survey_responses if sr.student_id == student.id]
+            
+            student_info = {
+                "name": student.full_name or student.username,
+                "question_count": len(student_qa),
+                "avg_score": sum(sr.percentage_score or 0 for sr in student_surveys) / len(student_surveys) if student_surveys else 0,
+                "topics": {},
+                "recent_questions": []
+            }
+            
+            # 统计问题主题分布
+            for qa in student_qa[:20]:  # 只取最近20条
+                # 从 knowledge_sources 中提取主题
+                if qa.knowledge_sources and isinstance(qa.knowledge_sources, list):
+                    for source in qa.knowledge_sources:
+                        if isinstance(source, dict) and 'title' in source:
+                            topic = source['title']
+                            student_info["topics"][topic] = student_info["topics"].get(topic, 0) + 1
+                # 使用正确的字段名: question 而不是 question_text
+                if qa.question:
+                    student_info["recent_questions"].append(qa.question[:100])
+            
+            student_data.append(student_info)
+        
+        # 使用AI分析并回答问题
+        from app.services.essay_grading_service import essay_grading_service
+        
+        # 构建提示词
+        data_summary = f"班级总人数: {len(students)}\n\n"
+        data_summary += "学生数据摘要:\n"
+        for i, s in enumerate(student_data[:10], 1):  # 限制在前10名学生
+            data_summary += f"{i}. {s['name']}: 提问{s['question_count']}次, 平均成绩{s['avg_score']:.1f}%, "
+            if s['topics']:
+                top_topics = sorted(s['topics'].items(), key=lambda x: x[1], reverse=True)[:3]
+                data_summary += f"关注话题: {', '.join([f'{t[0]}({t[1]}次)' for t in top_topics])}"
+            data_summary += "\n"
+        
+        prompt = f"""你是一个教学数据分析助手。基于以下班级数据，回答教师的问题。
+
+{data_summary}
+
+教师问题: {request.question}
+
+请给出简洁、有洞察力的回答（150字以内），如果问题涉及具体学生，请列出学生姓名和相关数据。"""
+
+        # 调用AI服务
+        try:
+            import httpx
+            import os
+            import json
+            
+            api_key = os.getenv('DEEPSEEK_API_KEY', '')
+            if not api_key:
+                raise ValueError("未配置DEEPSEEK_API_KEY")
+            
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                response = await client.post(
+                    'https://api.deepseek.com/v1/chat/completions',
+                    headers={
+                        'Authorization': f'Bearer {api_key}',
+                        'Content-Type': 'application/json'
+                    },
+                    json={
+                        'model': 'deepseek-chat',
+                        'messages': [
+                            {'role': 'system', 'content': '你是一个专业的教学数据分析助手，善于从数据中发现洞察。'},
+                            {'role': 'user', 'content': prompt}
+                        ],
+                        'temperature': 0.7,
+                        'max_tokens': 500
+                    }
+                )
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    answer = result['choices'][0]['message']['content'].strip()
+                else:
+                    answer = f"分析失败: {response.text}"
+        except Exception as e:
+            print(f"AI分析失败: {e}")
+            # 简单的规则回退
+            if "活跃" in request.question or "最多" in request.question:
+                top_students = sorted(student_data, key=lambda x: x['question_count'], reverse=True)[:5]
+                answer = "最活跃的学生（按提问数）:\n" + "\n".join([
+                    f"{i+1}. {s['name']}: {s['question_count']}次提问"
+                    for i, s in enumerate(top_students)
+                ])
+            elif "成绩" in request.question:
+                top_students = sorted([s for s in student_data if s['avg_score'] > 0], 
+                                    key=lambda x: x['avg_score'], reverse=True)[:5]
+                answer = "成绩最好的学生:\n" + "\n".join([
+                    f"{i+1}. {s['name']}: 平均{s['avg_score']:.1f}%"
+                    for i, s in enumerate(top_students)
+                ])
+            else:
+                answer = f"共有{len(students)}名学生，总计{len(qa_records)}次提问。建议更具体地描述您的问题。"
+        
+        # 生成卡片ID
+        import hashlib
+        card_id = hashlib.md5(f"{current_user.id}{request.question}{datetime.now()}".encode()).hexdigest()[:16]
+        
+        return CustomCardResponse(
+            id=card_id,
+            question=request.question,
+            answer=answer,
+            created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        )
+        
+    except Exception as e:
+        print(f"创建自定义卡片失败: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+

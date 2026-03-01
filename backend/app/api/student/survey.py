@@ -1,12 +1,14 @@
-from fastapi import APIRouter, HTTPException, Depends, Query
+from fastapi import APIRouter, HTTPException, Depends, Query, BackgroundTasks
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from sqlalchemy.exc import ProgrammingError
 import json
+import asyncio
+from uuid import UUID
 
-from app.database import get_db
+from app.database import get_db, SessionLocal
 from app.models.user import User
 from app.models.survey import Survey as SurveyModel, Question as QuestionModel, SurveyResponse as SurveyResponseModel, Answer as AnswerModel
 from app.utils.auth import get_current_user
@@ -298,11 +300,90 @@ async def get_my_result(
     # 构建答案映射，方便快速查找
     answer_map = {str(ans.question_id): ans for ans in answers}
     
+    # 构建题目映射，用于转换答案显示格式
+    question_map = {str(q.id): q for q in questions}
+    
+    # 辅助函数：将选项字母转换为可读文本
+    def format_student_answer(student_answer, question):
+        """将学生答案（如'A'）转换为可读格式（如'A. 选项内容'）"""
+        if not student_answer or not question:
+            return student_answer
+        
+        question_type = question.question_type
+        options = question.options
+        
+        # 如果不是选择题，直接返回原答案
+        if question_type not in ['single_choice', 'choice', 'multiple_choice', 'multi_choice', 'judge', 'judgment', 'true_false']:
+            return student_answer
+        
+        if not options:
+            return student_answer
+        
+        # 处理判断题
+        if question_type in ['judge', 'judgment', 'true_false']:
+            if str(student_answer).upper() == 'A':
+                return 'A. 正确'
+            elif str(student_answer).upper() == 'B':
+                return 'B. 错误'
+            return student_answer
+        
+        # 构建选项映射 {'A': '选项内容', 'B': '...'}
+        option_map = {}
+        option_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+        
+        if isinstance(options, list):
+            for idx, opt in enumerate(options):
+                letter = option_letters[idx] if idx < len(option_letters) else str(idx)
+                
+                if isinstance(opt, dict):
+                    key = opt.get('key') or opt.get('label') or ''
+                    value = opt.get('value') or opt.get('text') or opt.get('content') or ''
+                    if key and str(key).upper() in option_letters:
+                        option_map[str(key).upper()] = value
+                    elif value:
+                        option_map[letter] = value
+                elif isinstance(opt, str):
+                    # 字符串格式如 "A. xxx"
+                    if len(opt) >= 2 and opt[0].upper() in option_letters and opt[1] in '.、':
+                        option_map[opt[0].upper()] = opt[2:].strip()
+                    elif '. ' in opt and opt.split('. ')[0].upper() in option_letters:
+                        key, value = opt.split('. ', 1)
+                        option_map[key.strip().upper()] = value.strip()
+                    else:
+                        option_map[letter] = opt
+        
+        # 处理多选题（答案是列表）
+        if isinstance(student_answer, list):
+            formatted = []
+            for ans in student_answer:
+                ans_upper = str(ans).upper().strip()
+                if '.' in ans_upper:
+                    ans_upper = ans_upper.split('.')[0].strip()
+                if ans_upper in option_map:
+                    formatted.append(f"{ans_upper}. {option_map[ans_upper]}")
+                else:
+                    formatted.append(ans)
+            return formatted
+        
+        # 处理单选题
+        ans_str = str(student_answer).strip()
+        # 提取字母部分
+        if '.' in ans_str:
+            ans_str = ans_str.split('.')[0].strip()
+        ans_upper = ans_str.upper()
+        
+        if ans_upper in option_map:
+            return f"{ans_upper}. {option_map[ans_upper]}"
+        
+        return student_answer
+    
     detailed_answers = []
     for ans in answers:
+        question = question_map.get(str(ans.question_id))
+        
         answer_data = {
             "questionId": str(ans.question_id),
-            "studentAnswer": ans.student_answer,
+            "studentAnswer": format_student_answer(ans.student_answer, question),
         }
         
         # 只有成绩发布后才显示分数和正确性
@@ -413,11 +494,12 @@ async def get_my_result(
 async def submit_survey(
     survey_id: str,
     submission: SurveySubmission,
+    background_tasks: BackgroundTasks,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     """
-    提交问卷答案。会写入 survey_responses 与 answers；若已有提交记录则更新或按 attempt 追加。
+    提交问卷答案。会立即返回成功响应，然后后台异步打分。
     包含自动打分功能：选择题、判断题、填空题自动判分，问答题使用AI打分。
     """
     print(f"=" * 70)
@@ -497,17 +579,57 @@ async def submit_survey(
     print(f"✅ 多次提交检查通过")
     
     attempt = (existing.attempt_number + 1) if existing else 1
+    
+    # 立即创建提交记录，状态为"grading"（评分中）
     resp = SurveyResponseModel(
         survey_id=UUID(survey_id),
         student_id=sid,
         attempt_number=attempt,
-        status="completed",
+        status="grading",  # 先标记为评分中
         submit_time=datetime.utcnow(),
     )
     db.add(resp)
     db.flush()
     
-    print(f"✅ 创建提交记录: response_id={resp.id}, attempt_number={attempt}")
+    response_id = resp.id
+    print(f"✅ 创建提交记录: response_id={response_id}, attempt_number={attempt}, status=grading")
+    
+    # 保存原始答案（不打分）
+    answers = submission.answers or {}
+    for qid, ans in answers.items():
+        try:
+            a = AnswerModel(
+                response_id=response_id,
+                question_id=UUID(qid),
+                student_answer=ans,
+                is_correct=False,  # 暂时标记为False
+                score=0,  # 暂时为0
+                auto_graded=False,  # 标记为未打分
+            )
+            db.add(a)
+        except Exception as e:
+            print(f"⚠️ 保存答案失败: question_id={qid}, error={e}")
+    
+    db.commit()
+    
+    print(f"✅ 答案保存成功，立即返回响应")
+    print(f"🔄 后台开始异步打分...")
+    
+    # 使用BackgroundTasks添加后台任务，确保任务在响应返回后继续执行
+    # 即使用户关闭页面或导航到其他页面，打分任务仍会完成
+    background_tasks.add_task(grade_survey_async, str(response_id), str(survey_id), answers)
+    
+    print(f"=" * 70)
+    print(f"🎉 问卷提交成功（打分中）")
+    print(f"=" * 70)
+    
+    # 立即返回成功响应
+    return {
+        "message": "问卷提交成功，正在后台评分",
+        "survey_id": survey_id,
+        "response_id": str(response_id),
+        "status": "grading"
+    }
     
     answers = submission.answers or {}
     total_score = 0
@@ -573,10 +695,32 @@ async def submit_survey(
                 if is_correct:
                     score = float(question.score)
         elif question.question_type == 'essay':
-            # 问答题使用AI打分
-            print(f"📝 问答题AI打分: question_type={question.question_type}, survey_type={survey.survey_type}")
+            # 问答题使用AI智能打分（支持动态Skill和知识库检索）
+            print(f"📝 问答题AI智能打分: question_type={question.question_type}, survey_type={survey.survey_type}")
             
             try:
+                # 获取课程名称（用于生成专业评分Skill）
+                course_name = None
+                course_id_str = None
+                if survey.course_id:
+                    course_id_str = str(survey.course_id)
+                    # 尝试获取课程名称
+                    try:
+                        from app.models.course import Course
+                        course = db.query(Course).filter(Course.id == survey.course_id).first()
+                        if course:
+                            course_name = course.name
+                            print(f"📚 关联课程: {course_name}")
+                    except Exception as ce:
+                        print(f"⚠️ 获取课程信息失败: {ce}")
+                
+                # 获取知识点列表
+                knowledge_points = None
+                if hasattr(question, 'knowledge_points') and question.knowledge_points:
+                    knowledge_points = question.knowledge_points
+                    print(f"📖 知识点: {knowledge_points}")
+                
+                # 调用增强版AI打分服务
                 grading_result = await essay_grading_service.grade_essay(
                     question_text=question.question_text,
                     question_type=question.question_type,
@@ -584,14 +728,19 @@ async def submit_survey(
                     grading_criteria=question.grading_criteria,
                     min_word_count=question.min_word_count,
                     student_answer=str(ans) if ans else "",
-                    max_score=float(question.score)
+                    max_score=float(question.score),
+                    # 新增参数：用于更精准的评分
+                    knowledge_points=knowledge_points,
+                    course_name=course_name,
+                    survey_title=survey.title,
+                    course_id=course_id_str
                 )
                 
                 score = grading_result.get('score', 0)
                 is_correct = grading_result.get('percentage', 0) >= 60
                 teacher_comment = json.dumps(grading_result, ensure_ascii=False)
                 
-                print(f"✅ AI打分完成: score={score}, is_correct={is_correct}")
+                print(f"✅ AI智能打分完成: score={score}, percentage={grading_result.get('percentage', 0)}%, is_correct={is_correct}")
                 
             except Exception as e:
                 print(f"❌ AI打分失败: {e}")
@@ -638,3 +787,177 @@ async def submit_survey(
         "percentage_score": resp.percentage_score,
         "is_passed": resp.is_passed
     }
+
+
+# 异步打分函数（后台执行）
+def grade_survey_async(response_id: str, survey_id: str, answers: Dict[str, Any]):
+    """
+    后台异步打分函数的包装器
+    在独立的事件循环中执行实际的打分逻辑
+    """
+    try:
+        # 在新的事件循环中运行异步打分
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            loop.run_until_complete(_grade_survey_async_impl(response_id, survey_id, answers))
+        finally:
+            loop.close()
+    except Exception as e:
+        print(f"❌ 后台打分包装器失败: {e}")
+        import traceback
+        traceback.print_exc()
+
+
+async def _grade_survey_async_impl(response_id: str, survey_id: str, answers: Dict[str, Any]):
+    """
+    后台异步打分函数
+    """
+    print(f"\n{'='*70}")
+    print(f"🔄 后台异步打分开始")
+    print(f"response_id: {response_id}")
+    print(f"survey_id: {survey_id}")
+    print(f"{'='*70}\n")
+    
+    # 创建新的数据库会话（因为原会话已关闭）
+    db = SessionLocal()
+    
+    try:
+        from app.services.essay_grading_service import essay_grading_service
+        
+        # 获取提交记录和问卷信息
+        resp = db.query(SurveyResponseModel).filter(SurveyResponseModel.id == UUID(response_id)).first()
+        if not resp:
+            print(f"❌ 找不到提交记录: {response_id}")
+            return
+        
+        survey = db.query(SurveyModel).filter(SurveyModel.id == UUID(survey_id)).first()
+        if not survey:
+            print(f"❌ 找不到问卷: {survey_id}")
+            return
+        
+        total_score = 0
+        answer_count = 0
+        
+        # 获取所有已保存的答案记录
+        saved_answers = db.query(AnswerModel).filter(AnswerModel.response_id == UUID(response_id)).all()
+        
+        for answer_record in saved_answers:
+            question = db.query(QuestionModel).filter(
+                QuestionModel.id == answer_record.question_id
+            ).first()
+            
+            if not question:
+                continue
+            
+            ans = answer_record.student_answer
+            is_correct = False
+            score = 0
+            teacher_comment = None
+            
+            # 根据题目类型进行自动判分
+            if question.question_type in ['single_choice', 'judgment']:
+                correct_answer = question.correct_answer
+                if correct_answer:
+                    if isinstance(correct_answer, list):
+                        is_correct = ans in correct_answer
+                    else:
+                        student_answer = str(ans).strip()
+                        correct_answer_str = str(correct_answer).strip()
+                        if '.' in student_answer:
+                            student_answer = student_answer.split('.')[0].strip()
+                        is_correct = student_answer == correct_answer_str
+                    if is_correct:
+                        score = float(question.score)
+            
+            elif question.question_type == 'multiple_choice':
+                correct_answer = question.correct_answer
+                if correct_answer and isinstance(ans, list):
+                    if isinstance(correct_answer, list):
+                        student_answers = []
+                        for a in ans:
+                            a_str = str(a).strip()
+                            if '.' in a_str:
+                                a_str = a_str.split('.')[0].strip()
+                            student_answers.append(a_str)
+                        is_correct = set(student_answers) == set(correct_answer)
+                    else:
+                        is_correct = ans == correct_answer
+                    if is_correct:
+                        score = float(question.score)
+            
+            elif question.question_type in ['text', 'fill_blank']:
+                correct_answer = question.correct_answer
+                if correct_answer:
+                    student_answer = str(ans).strip() if ans else ""
+                    
+                    if isinstance(correct_answer, list):
+                        is_correct = student_answer in [str(item).strip() for item in correct_answer]
+                    else:
+                        correct_answer_str = str(correct_answer).strip()
+                        is_correct = student_answer == correct_answer_str
+                    
+                    if is_correct:
+                        score = float(question.score)
+            
+            elif question.question_type == 'essay':
+                # 问答题使用AI打分
+                print(f"📝 问答题AI打分: question_id={question.id}")
+                
+                try:
+                    grading_result = await essay_grading_service.grade_essay(
+                        question_text=question.question_text,
+                        question_type=question.question_type,
+                        reference_answer=question.correct_answer,
+                        grading_criteria=question.grading_criteria,
+                        min_word_count=question.min_word_count,
+                        student_answer=str(ans) if ans else "",
+                        max_score=float(question.score)
+                    )
+                    
+                    score = grading_result.get('score', 0)
+                    is_correct = grading_result.get('percentage', 0) >= 60
+                    teacher_comment = json.dumps(grading_result, ensure_ascii=False)
+                    
+                    print(f"✅ AI打分完成: score={score}, is_correct={is_correct}")
+                    
+                except Exception as e:
+                    print(f"❌ AI打分失败: {e}")
+                    score = 0
+                    is_correct = False
+                    teacher_comment = f"AI打分失败: {str(e)}"
+            
+            # 更新答案记录
+            answer_record.is_correct = is_correct
+            answer_record.score = score
+            answer_record.teacher_comment = teacher_comment
+            answer_record.auto_graded = True
+            
+            total_score += score
+            answer_count += 1
+        
+        # 更新提交记录
+        resp.total_score = total_score
+        resp.percentage_score = (total_score / survey.total_score * 100) if survey.total_score > 0 else 0
+        resp.is_passed = resp.percentage_score >= 60
+        resp.status = "completed"  # 打分完成，更新状态
+        
+        db.commit()
+        
+        print(f"\n{'='*70}")
+        print(f"✅ 后台异步打分完成")
+        print(f"总分: {total_score}, 百分比: {resp.percentage_score}%, 及格: {resp.is_passed}")
+        print(f"{'='*70}\n")
+        
+    except Exception as e:
+        print(f"\n❌ 后台打分失败: {e}")
+        import traceback
+        traceback.print_exc()
+        try:
+            # 即使打分失败，也要更新状态避免一直显示grading
+            resp.status = "completed"
+            db.commit()
+        except:
+            db.rollback()
+    finally:
+        db.close()

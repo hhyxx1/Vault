@@ -320,7 +320,15 @@ const StudentSurveyTake = () => {
                     <div className="space-y-3">
                       {(Array.isArray(q.options) ? q.options : []).map((opt: any) => {
                         const label = typeof opt === 'string' ? opt : (opt?.value ?? opt?.text ?? opt?.label ?? String(opt))
-                        const value = typeof opt === 'string' ? opt : (opt?.key ?? opt?.value ?? opt?.text ?? label)
+                        // 修复：对于字符串格式的选项（如"A. 选项内容"），提取选项字母
+                        let value: string
+                        if (typeof opt === 'string') {
+                          // 从 "A. 选项内容" 中提取 "A"
+                          const match = opt.match(/^([A-Z])[\.\s、]/)
+                          value = match ? match[1] : opt
+                        } else {
+                          value = opt?.key ?? opt?.value ?? opt?.text ?? label
+                        }
                         const displayLabel = String(label)
                         const displayValue = String(value)
                         const isSelected = (answers[q.id] as string) === displayValue
@@ -360,7 +368,15 @@ const StudentSurveyTake = () => {
                     <div className="space-y-3">
                       {(Array.isArray(q.options) ? q.options : []).map((opt: any) => {
                         const label = typeof opt === 'string' ? opt : (opt?.value ?? opt?.text ?? opt?.label ?? String(opt))
-                        const value = typeof opt === 'string' ? opt : (opt?.key ?? opt?.value ?? opt?.text ?? label)
+                        // 修复：对于字符串格式的选项（如"A. 选项内容"），提取选项字母
+                        let value: string
+                        if (typeof opt === 'string') {
+                          // 从 "A. 选项内容" 中提取 "A"
+                          const match = opt.match(/^([A-Z])[\.\s、]/)
+                          value = match ? match[1] : opt
+                        } else {
+                          value = opt?.key ?? opt?.value ?? opt?.text ?? label
+                        }
                         const displayLabel = String(label)
                         const displayValue = String(value)
                         const arr = (answers[q.id] as string[]) || []

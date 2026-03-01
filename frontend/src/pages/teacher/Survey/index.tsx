@@ -922,6 +922,9 @@ const TeacherSurvey = () => {
       // 重新加载成绩列表
       const scoresData = await surveyApi.getStudentScores(studentScoresData.surveyId)
       setStudentScoresData(scoresData)
+      // 同时刷新统计数据（平均分等）
+      const statsResult = await surveyApi.getSurveyResults(studentScoresData.surveyId)
+      setStatsData(statsResult)
       setEditingScore(null)
       alert('分数修改成功')
     } catch (error: any) {
@@ -939,6 +942,9 @@ const TeacherSurvey = () => {
       // 重新加载数据
       const scoresData = await surveyApi.getStudentScores(studentScoresData.surveyId)
       setStudentScoresData(scoresData)
+      // 同时刷新统计数据（平均分等）
+      const statsResult = await surveyApi.getSurveyResults(studentScoresData.surveyId)
+      setStatsData(statsResult)
       alert('成绩发布成功！学生现在可以查看成绩了。')
     } catch (error: any) {
       console.error('发布成绩失败:', error)
@@ -957,6 +963,9 @@ const TeacherSurvey = () => {
       await surveyApi.unpublishScores(studentScoresData.surveyId)
       const scoresData = await surveyApi.getStudentScores(studentScoresData.surveyId)
       setStudentScoresData(scoresData)
+      // 同时刷新统计数据（平均分等）
+      const statsResult = await surveyApi.getSurveyResults(studentScoresData.surveyId)
+      setStatsData(statsResult)
       alert('已取消发布成绩')
     } catch (error: any) {
       console.error('取消发布成绩失败:', error)
@@ -2770,33 +2779,164 @@ const TeacherSurvey = () => {
                     {q.options && q.options.length > 0 && (
                       <div className="mb-4 space-y-2">
                         {q.options.map((opt: any, optIndex: number) => {
-                          const optionLabel = typeof opt === 'object' ? `${opt.key}. ${opt.value}` : opt
-                          const isSelected = Array.isArray(q.studentAnswer) 
-                            ? q.studentAnswer.some((a: string) => a.startsWith(optionLabel.split('.')[0]))
-                            : q.studentAnswer?.startsWith(optionLabel.split('.')[0])
-                          const isCorrect = Array.isArray(q.correctAnswer)
-                            ? q.correctAnswer.includes(optionLabel.split('.')[0].trim())
-                            : q.correctAnswer === optionLabel.split('.')[0].trim()
+                          // 处理选项显示格式
+                          const optionKey = typeof opt === 'object' ? opt.key : String.fromCharCode(65 + optIndex) // A, B, C, D...
+                          const optionValue = typeof opt === 'object' ? opt.value : opt
+                          const optionLabel = `${optionKey}. ${optionValue}`
+                          
+                          // 判断学生是否选择了这个选项
+                          const checkStudentSelected = () => {
+                            if (!q.studentAnswer) return false
+                            const answer = q.studentAnswer
+                            if (Array.isArray(answer)) {
+                              // 多选题
+                              return answer.some((a: string) => {
+                                const aStr = String(a).trim().toUpperCase()
+                                return aStr === optionKey.toUpperCase() || 
+                                       aStr.startsWith(optionKey.toUpperCase() + '.') ||
+                                       aStr === optionValue ||
+                                       aStr.includes(optionValue)
+                              })
+                            } else {
+                              // 单选题
+                              const aStr = String(answer).trim().toUpperCase()
+                              return aStr === optionKey.toUpperCase() || 
+                                     aStr.startsWith(optionKey.toUpperCase() + '.') ||
+                                     aStr === optionValue.toUpperCase() ||
+                                     aStr.includes(optionValue)
+                            }
+                          }
+                          
+                          // 判断这个选项是否是正确答案
+                          const checkIsCorrect = () => {
+                            if (!q.correctAnswer) return false
+                            const correct = q.correctAnswer
+                            if (Array.isArray(correct)) {
+                              // 多选题正确答案
+                              return correct.some((c: string) => {
+                                const cStr = String(c).trim().toUpperCase()
+                                return cStr === optionKey.toUpperCase() || 
+                                       cStr.startsWith(optionKey.toUpperCase() + '.') ||
+                                       cStr === optionValue.toUpperCase()
+                              })
+                            } else {
+                              // 单选题正确答案
+                              const cStr = String(correct).trim().toUpperCase()
+                              return cStr === optionKey.toUpperCase() || 
+                                     cStr.startsWith(optionKey.toUpperCase() + '.') ||
+                                     cStr === optionValue.toUpperCase()
+                            }
+                          }
+                          
+                          const isSelected = checkStudentSelected()
+                          const isCorrect = checkIsCorrect()
                           
                           return (
                             <div
                               key={optIndex}
-                              className={`p-3 rounded-lg border ${
-                                isSelected && isCorrect ? 'bg-green-50 border-green-300' :
-                                isSelected && !isCorrect ? 'bg-red-50 border-red-300' :
-                                isCorrect ? 'bg-green-50 border-green-200' :
-                                'bg-white border-gray-200'
+                              className={`p-3 rounded-lg border-2 transition-all ${
+                                isSelected && isCorrect 
+                                  ? 'bg-green-100 border-green-500 shadow-sm' 
+                                  : isSelected && !isCorrect 
+                                    ? 'bg-red-100 border-red-500 shadow-sm' 
+                                    : isCorrect 
+                                      ? 'bg-green-50 border-green-400 border-dashed' 
+                                      : 'bg-white border-gray-200'
                               }`}
                             >
-                              <span className={`${
-                                isSelected ? 'font-medium' : ''
-                              } ${
-                                isCorrect ? 'text-green-700' : isSelected ? 'text-red-700' : 'text-gray-700'
-                              }`}>
-                                {optionLabel}
-                              </span>
-                              {isSelected && <span className="ml-2 text-sm text-gray-500">(学生选择)</span>}
-                              {isCorrect && <span className="ml-2 text-sm text-green-600">(正确答案)</span>}
+                              <div className="flex items-center justify-between">
+                                <span className={`flex-1 ${
+                                  isSelected ? 'font-semibold' : ''
+                                } ${
+                                  isCorrect ? 'text-green-700' : isSelected ? 'text-red-700' : 'text-gray-700'
+                                }`}>
+                                  {optionLabel}
+                                </span>
+                                <div className="flex items-center gap-2 ml-3">
+                                  {isSelected && (
+                                    <span className={`px-2 py-0.5 rounded text-xs font-medium flex items-center gap-1 ${
+                                      isCorrect ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
+                                    }`}>
+                                      <Icon name={isCorrect ? 'check-circle' : 'close'} size={12} />
+                                      学生选择
+                                    </span>
+                                  )}
+                                  {isCorrect && !isSelected && (
+                                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-200 text-green-800 flex items-center gap-1">
+                                      <Icon name="check-circle" size={12} />
+                                      正确答案
+                                    </span>
+                                  )}
+                                  {isCorrect && isSelected && (
+                                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-200 text-green-800 flex items-center gap-1">
+                                      <Icon name="check-circle" size={12} />
+                                      正确
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+                    
+                    {/* 判断题特殊处理 */}
+                    {q.questionType === 'judgment' && !q.options && (
+                      <div className="mb-4 space-y-2">
+                        {['正确', '错误'].map((option, optIndex) => {
+                          const optionKey = optIndex === 0 ? 'true' : 'false'
+                          const studentAnswerStr = String(q.studentAnswer || '').toLowerCase()
+                          const correctAnswerStr = String(q.correctAnswer || '').toLowerCase()
+                          
+                          const isSelected = studentAnswerStr === optionKey || 
+                                            studentAnswerStr === option ||
+                                            (optIndex === 0 && (studentAnswerStr === '对' || studentAnswerStr === '是')) ||
+                                            (optIndex === 1 && (studentAnswerStr === '错' || studentAnswerStr === '否'))
+                          
+                          const isCorrect = correctAnswerStr === optionKey || 
+                                           correctAnswerStr === option ||
+                                           (optIndex === 0 && (correctAnswerStr === '对' || correctAnswerStr === '是' || correctAnswerStr === 'true')) ||
+                                           (optIndex === 1 && (correctAnswerStr === '错' || correctAnswerStr === '否' || correctAnswerStr === 'false'))
+                          
+                          return (
+                            <div
+                              key={optIndex}
+                              className={`p-3 rounded-lg border-2 transition-all ${
+                                isSelected && isCorrect 
+                                  ? 'bg-green-100 border-green-500 shadow-sm' 
+                                  : isSelected && !isCorrect 
+                                    ? 'bg-red-100 border-red-500 shadow-sm' 
+                                    : isCorrect 
+                                      ? 'bg-green-50 border-green-400 border-dashed' 
+                                      : 'bg-white border-gray-200'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className={`flex-1 ${
+                                  isSelected ? 'font-semibold' : ''
+                                } ${
+                                  isCorrect ? 'text-green-700' : isSelected ? 'text-red-700' : 'text-gray-700'
+                                }`}>
+                                  {option}
+                                </span>
+                                <div className="flex items-center gap-2 ml-3">
+                                  {isSelected && (
+                                    <span className={`px-2 py-0.5 rounded text-xs font-medium flex items-center gap-1 ${
+                                      isCorrect ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
+                                    }`}>
+                                      <Icon name={isCorrect ? 'check-circle' : 'close'} size={12} />
+                                      学生选择
+                                    </span>
+                                  )}
+                                  {isCorrect && !isSelected && (
+                                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-200 text-green-800 flex items-center gap-1">
+                                      <Icon name="check-circle" size={12} />
+                                      正确答案
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
                             </div>
                           )
                         })}

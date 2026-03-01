@@ -30,11 +30,66 @@ interface WeakPoint {
 interface LearningPlan {
   overall_assessment: {
     summary: string
+    ability_analysis?: {
+      strong_abilities: string[]
+      weak_abilities: string[]
+      ability_score?: {
+        concept_understanding?: number
+        application?: number
+        analysis?: number
+        synthesis?: number
+      }
+    }
     strengths: string[]
     weaknesses: string[]
     improvement_potential: string
   }
-  weak_knowledge_points: Array<{
+  learning_outline?: {
+    title: string
+    description: string
+    modules: Array<{
+      module_name: string
+      priority: string
+      knowledge_points: Array<{
+        name: string
+        importance: string
+        current_mastery: string
+        target_mastery: string
+      }>
+      prerequisites?: string[]
+      learning_order: number
+    }>
+  }
+  focus_areas?: {
+    high_priority: Array<{
+      knowledge_point: string
+      accuracy_rate: number
+      reason: string
+      study_method: string
+      resources: string[]
+      practice_type: string
+      estimated_time: string
+    }>
+    medium_priority: Array<{
+      knowledge_point: string
+      accuracy_rate: number
+      reason: string
+      study_method: string
+      resources: string[]
+      practice_type: string
+      estimated_time: string
+    }>
+    consolidation: Array<{
+      knowledge_point: string
+      accuracy_rate: number
+      reason: string
+      study_method: string
+      resources: string[]
+      practice_type: string
+      estimated_time: string
+    }>
+  }
+  weak_knowledge_points?: Array<{
     name: string
     accuracy_rate: number
     priority: string
@@ -48,6 +103,7 @@ interface LearningPlan {
       phase_number: number
       phase_name: string
       duration: string
+      focus?: string
       goals: string[]
       tasks: Array<{
         task_name: string
@@ -63,10 +119,11 @@ interface LearningPlan {
   study_methods: Array<{
     method_name: string
     description: string
-    applicable_scenarios: string
+    applicable_scenarios?: string
+    applicable_for?: string[]
     tips: string[]
   }>
-  practice_recommendations: {
+  practice_recommendations?: {
     question_types: string[]
     difficulty_progression: string
     review_frequency: string
@@ -208,18 +265,39 @@ const AbilityTest = () => {
     setPlanGenerating(true)
     try {
       const result = await learningPlanApi.generatePlan()
+      console.log('学习计划生成结果:', result)
+      
       if (result.success && result.learningPlan) {
         setLearningPlan(result.learningPlan)
         setAnalysisData(result.analysisData)
       } else if (result.rawResponse) {
-        // AI返回了非JSON格式，显示原始响应
-        alert('学习计划生成成功，但格式解析失败。请稍后重试。')
+        // AI返回了非JSON格式，尝试手动解析
+        console.warn('AI返回非标准格式，原始响应:', result.rawResponse)
+        console.warn('解析错误:', result.parseError)
+        
+        // 尝试从原始响应中提取JSON
+        const rawText = result.rawResponse
+        let jsonMatch = rawText.match(/\{[\s\S]*\}/);
+        
+        if (jsonMatch) {
+          try {
+            const parsed = JSON.parse(jsonMatch[0])
+            setLearningPlan(parsed)
+            setAnalysisData(result.analysisData)
+            console.log('成功从原始响应中解析出学习计划')
+          } catch (e) {
+            console.error('手动解析也失败:', e)
+            alert('AI生成的学习计划格式不正确，请重试。如果问题持续，请联系管理员。')
+          }
+        } else {
+          alert('AI生成的学习计划格式不正确，请重试。如果问题持续，请联系管理员。')
+        }
       } else {
-        alert(result.message || '生成学习计划失败')
+        alert(result.message || '生成学习计划失败，请重试')
       }
     } catch (e: any) {
       console.error('生成学习计划失败:', e)
-      alert(e.response?.data?.detail || '生成学习计划失败')
+      alert(e.response?.data?.detail || '生成学习计划失败，请检查网络连接后重试')
     } finally {
       setPlanGenerating(false)
     }
@@ -506,38 +584,122 @@ const AbilityTest = () => {
                   {/* 薄弱知识点 */}
                   {weakPoints.length > 0 && (
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                      <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
                         <Icon name="alert-triangle" size={20} className="text-orange-500" />
                         薄弱知识点分析
                       </h3>
-                      <div className="space-y-3">
-                        {weakPoints.map((point, index) => (
-                          <div key={index} className="bg-gray-50 rounded-lg p-4">
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="font-medium text-gray-800">{point.name}</span>
-                              <span className={`px-2 py-1 rounded text-xs font-medium ${
-                                point.accuracyRate < 0.3 ? 'bg-red-100 text-red-700' :
-                                point.accuracyRate < 0.5 ? 'bg-orange-100 text-orange-700' :
-                                'bg-yellow-100 text-yellow-700'
-                              }`}>
-                                正确率 {(point.accuracyRate * 100).toFixed(0)}%
-                              </span>
+                      
+                      {/* 图表区域 */}
+                      <div className="space-y-6">
+                        {/* 横向柱状图 */}
+                        <div className="grid gap-4">
+                          {weakPoints.map((point, index) => {
+                            const accuracy = point.accuracyRate * 100
+                            const colorClass = 
+                              accuracy < 30 ? 'from-red-500 to-red-600' :
+                              accuracy < 50 ? 'from-orange-500 to-orange-600' :
+                              accuracy < 70 ? 'from-yellow-500 to-yellow-600' :
+                              'from-green-500 to-green-600'
+                            
+                            const bgColorClass = 
+                              accuracy < 30 ? 'bg-red-50 border-red-100' :
+                              accuracy < 50 ? 'bg-orange-50 border-orange-100' :
+                              accuracy < 70 ? 'bg-yellow-50 border-yellow-100' :
+                              'bg-green-50 border-green-100'
+                            
+                            const textColorClass = 
+                              accuracy < 30 ? 'text-red-700' :
+                              accuracy < 50 ? 'text-orange-700' :
+                              accuracy < 70 ? 'text-yellow-700' :
+                              'text-green-700'
+
+                            // 提取纯净的知识点名称，去掉文档名前缀
+                            const cleanName = point.name.includes(' - ') 
+                              ? point.name.split(' - ').slice(1).join(' - ').trim()
+                              : point.name
+
+                            return (
+                              <div key={index} className={`rounded-xl p-4 border transition-all hover:shadow-md ${bgColorClass}`}>
+                                {/* 知识点名称和正确率 */}
+                                <div className="flex items-center justify-between mb-3">
+                                  <div className="flex items-center gap-2">
+                                    <div className={`w-6 h-6 rounded-full bg-gradient-to-r ${colorClass} flex items-center justify-center text-white text-xs font-bold`}>
+                                      {index + 1}
+                                    </div>
+                                    <span className="font-semibold text-gray-800 text-sm">{cleanName}</span>
+                                  </div>
+                                  <div className="flex items-center gap-3">
+                                    <span className="text-xs text-gray-500">
+                                      {point.correctCount}/{point.totalQuestions} 题
+                                    </span>
+                                    <span className={`px-3 py-1 rounded-full text-sm font-bold ${textColorClass}`}>
+                                      {accuracy.toFixed(0)}%
+                                    </span>
+                                  </div>
+                                </div>
+
+                                {/* 可视化柱状图 */}
+                                <div className="relative">
+                                  {/* 背景网格线 */}
+                                  <div className="absolute inset-0 flex justify-between px-0.5">
+                                    {[0, 25, 50, 75, 100].map((val) => (
+                                      <div key={val} className="w-px bg-gray-200 h-full"></div>
+                                    ))}
+                                  </div>
+                                  
+                                  {/* 进度条 */}
+                                  <div className="relative h-8 bg-white/60 rounded-lg overflow-hidden">
+                                    <div 
+                                      className={`h-full bg-gradient-to-r ${colorClass} rounded-lg flex items-center justify-end pr-2 transition-all duration-700 ease-out`}
+                                      style={{ width: `${accuracy}%` }}
+                                    >
+                                      {accuracy > 15 && (
+                                        <span className="text-white text-xs font-bold drop-shadow">
+                                          {accuracy.toFixed(0)}%
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+
+                                  {/* 刻度标签 */}
+                                  <div className="flex justify-between mt-1 px-0.5">
+                                    {[0, 25, 50, 75, 100].map((val) => (
+                                      <span key={val} className="text-xs text-gray-400">{val}</span>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {/* 答题详情 */}
+                                <div className="flex items-center gap-4 mt-3 text-xs">
+                                  <div className="flex items-center gap-1">
+                                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                                    <span className="text-gray-600">答对 <span className="font-semibold text-green-600">{point.correctCount}</span> 题</span>
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                                    <span className="text-gray-600">答错 <span className="font-semibold text-red-600">{point.wrongCount}</span> 题</span>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          })}
+                        </div>
+
+                        {/* 总体分析提示 */}
+                        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 border border-blue-100">
+                          <div className="flex items-start gap-3">
+                            <Icon name="info" size={20} className="text-blue-600 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <p className="text-sm font-medium text-gray-800 mb-1">薄弱知识点建议</p>
+                              <p className="text-xs text-gray-600 leading-relaxed">
+                                正确率低于 <span className="font-semibold text-red-600">30%</span> 需要重点学习，
+                                <span className="font-semibold text-orange-600">30-50%</span> 需要加强练习，
+                                <span className="font-semibold text-yellow-600">50-70%</span> 需要巩固提高。
+                                建议优先复习正确率最低的知识点。
+                              </p>
                             </div>
-                            <div className="w-full bg-gray-200 rounded-full h-2">
-                              <div 
-                                className={`h-2 rounded-full ${
-                                  point.accuracyRate < 0.3 ? 'bg-red-500' :
-                                  point.accuracyRate < 0.5 ? 'bg-orange-500' :
-                                  'bg-yellow-500'
-                                }`}
-                                style={{ width: `${point.accuracyRate * 100}%` }}
-                              />
-                            </div>
-                            <p className="text-sm text-gray-500 mt-2">
-                              共 {point.totalQuestions} 题，答对 {point.correctCount} 题，答错 {point.wrongCount} 题
-                            </p>
                           </div>
-                        ))}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -589,6 +751,63 @@ const AbilityTest = () => {
                             整体评估
                           </h3>
                           <p className="text-gray-700 mb-4">{learningPlan.overall_assessment.summary}</p>
+                          
+                          {/* 能力分析 */}
+                          {learningPlan.overall_assessment.ability_analysis && (
+                            <div className="mb-4 p-4 bg-indigo-50 rounded-lg">
+                              <h4 className="font-medium text-indigo-800 mb-3 flex items-center gap-2">
+                                <Icon name="bar-chart" size={16} className="text-indigo-600" />
+                                能力分析
+                              </h4>
+                              
+                              {/* 能力雷达图数据展示 */}
+                              {learningPlan.overall_assessment.ability_analysis.ability_score && (
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                                  {Object.entries(learningPlan.overall_assessment.ability_analysis.ability_score).map(([key, value]) => {
+                                    const abilityNames: Record<string, string> = {
+                                      concept_understanding: '概念理解',
+                                      application: '应用能力',
+                                      analysis: '分析能力',
+                                      synthesis: '综合能力'
+                                    }
+                                    const color = value >= 70 ? 'text-green-600 bg-green-100' : 
+                                                  value >= 50 ? 'text-yellow-600 bg-yellow-100' : 
+                                                  'text-red-600 bg-red-100'
+                                    return (
+                                      <div key={key} className={`rounded-lg p-3 text-center ${color}`}>
+                                        <p className="text-2xl font-bold">{value}</p>
+                                        <p className="text-xs">{abilityNames[key] || key}</p>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              )}
+
+                              <div className="grid md:grid-cols-2 gap-4">
+                                <div>
+                                  <p className="text-xs font-medium text-indigo-600 mb-2">已具备的能力</p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {learningPlan.overall_assessment.ability_analysis.strong_abilities?.map((a, i) => (
+                                      <span key={i} className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">
+                                        {a}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                                <div>
+                                  <p className="text-xs font-medium text-indigo-600 mb-2">需提升的能力</p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {learningPlan.overall_assessment.ability_analysis.weak_abilities?.map((a, i) => (
+                                      <span key={i} className="px-2 py-1 bg-orange-100 text-orange-700 rounded-full text-xs">
+                                        {a}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
                           <div className="grid md:grid-cols-2 gap-4">
                             <div className="bg-green-50 rounded-lg p-4">
                               <h4 className="font-medium text-green-800 mb-2">掌握较好的方面</h4>
@@ -613,6 +832,168 @@ const AbilityTest = () => {
                               </ul>
                             </div>
                           </div>
+                        </div>
+                      )}
+
+                      {/* 个性化学习大纲 */}
+                      {learningPlan.learning_outline && (
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                          <h3 className="text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
+                            <Icon name="file-text" size={20} className="text-purple-600" />
+                            {learningPlan.learning_outline.title}
+                          </h3>
+                          <p className="text-sm text-gray-500 mb-4">{learningPlan.learning_outline.description}</p>
+                          
+                          <div className="space-y-4">
+                            {learningPlan.learning_outline.modules
+                              .sort((a, b) => a.learning_order - b.learning_order)
+                              .map((module, index) => (
+                              <div key={index} className={`border rounded-lg p-4 ${
+                                module.priority === 'high' ? 'border-red-200 bg-red-50' :
+                                module.priority === 'medium' ? 'border-yellow-200 bg-yellow-50' :
+                                'border-gray-200 bg-gray-50'
+                              }`}>
+                                <div className="flex items-center justify-between mb-3">
+                                  <div className="flex items-center gap-2">
+                                    <span className="w-6 h-6 bg-purple-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                                      {module.learning_order}
+                                    </span>
+                                    <h4 className="font-medium text-gray-800">{module.module_name}</h4>
+                                  </div>
+                                  <span className={`px-2 py-1 rounded text-xs font-medium ${getPriorityColor(module.priority)}`}>
+                                    {getPriorityText(module.priority)}
+                                  </span>
+                                </div>
+                                
+                                {module.prerequisites && module.prerequisites.length > 0 && (
+                                  <p className="text-xs text-gray-500 mb-2">
+                                    前置知识：{module.prerequisites.join('、')}
+                                  </p>
+                                )}
+                                
+                                <div className="space-y-2">
+                                  {module.knowledge_points.map((kp, kpIndex) => (
+                                    <div key={kpIndex} className="flex items-center justify-between bg-white rounded p-2">
+                                      <div className="flex items-center gap-2">
+                                        <span className={`w-2 h-2 rounded-full ${
+                                          kp.importance === '核心' ? 'bg-red-500' :
+                                          kp.importance === '重要' ? 'bg-orange-500' :
+                                          'bg-gray-400'
+                                        }`} />
+                                        <span className="text-sm text-gray-700">{kp.name}</span>
+                                        <span className="text-xs text-gray-400">({kp.importance})</span>
+                                      </div>
+                                      <div className="text-xs text-gray-500">
+                                        <span className="text-red-500">{kp.current_mastery}</span>
+                                        <span className="mx-1">→</span>
+                                        <span className="text-green-600">{kp.target_mastery}</span>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* 重点学习内容 */}
+                      {learningPlan.focus_areas && (
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                          <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <Icon name="target" size={20} className="text-red-600" />
+                            重点学习内容
+                          </h3>
+                          
+                          {/* 高优先级 */}
+                          {learningPlan.focus_areas.high_priority && learningPlan.focus_areas.high_priority.length > 0 && (
+                            <div className="mb-6">
+                              <h4 className="font-medium text-red-700 mb-3 flex items-center gap-2">
+                                <span className="w-3 h-3 bg-red-500 rounded-full"></span>
+                                高优先级 - 必须重点攻克
+                              </h4>
+                              <div className="space-y-3">
+                                {learningPlan.focus_areas.high_priority.map((item, index) => (
+                                  <div key={index} className="border border-red-200 bg-red-50 rounded-lg p-4">
+                                    <div className="flex items-center justify-between mb-2">
+                                      <h5 className="font-medium text-gray-800">{item.knowledge_point}</h5>
+                                      <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">
+                                        正确率 {(item.accuracy_rate * 100).toFixed(0)}%
+                                      </span>
+                                    </div>
+                                    <p className="text-sm text-gray-600 mb-2">{item.reason}</p>
+                                    <div className="grid md:grid-cols-2 gap-3 mt-3 text-sm">
+                                      <div>
+                                        <p className="font-medium text-gray-700">学习方法</p>
+                                        <p className="text-gray-600">{item.study_method}</p>
+                                      </div>
+                                      <div>
+                                        <p className="font-medium text-gray-700">练习类型</p>
+                                        <p className="text-gray-600">{item.practice_type}</p>
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-red-200">
+                                      <div className="flex flex-wrap gap-1">
+                                        {item.resources.map((r, i) => (
+                                          <span key={i} className="text-xs bg-white text-gray-600 px-2 py-1 rounded">
+                                            {r}
+                                          </span>
+                                        ))}
+                                      </div>
+                                      <span className="text-xs text-red-600 font-medium">{item.estimated_time}</span>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* 中优先级 */}
+                          {learningPlan.focus_areas.medium_priority && learningPlan.focus_areas.medium_priority.length > 0 && (
+                            <div className="mb-6">
+                              <h4 className="font-medium text-yellow-700 mb-3 flex items-center gap-2">
+                                <span className="w-3 h-3 bg-yellow-500 rounded-full"></span>
+                                中优先级 - 需要加强
+                              </h4>
+                              <div className="space-y-3">
+                                {learningPlan.focus_areas.medium_priority.map((item, index) => (
+                                  <div key={index} className="border border-yellow-200 bg-yellow-50 rounded-lg p-4">
+                                    <div className="flex items-center justify-between mb-2">
+                                      <h5 className="font-medium text-gray-800">{item.knowledge_point}</h5>
+                                      <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded">
+                                        正确率 {(item.accuracy_rate * 100).toFixed(0)}%
+                                      </span>
+                                    </div>
+                                    <p className="text-sm text-gray-600 mb-2">{item.reason}</p>
+                                    <div className="flex items-center justify-between mt-2">
+                                      <span className="text-xs text-gray-500">学习方法：{item.study_method}</span>
+                                      <span className="text-xs text-yellow-600 font-medium">{item.estimated_time}</span>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* 巩固性 */}
+                          {learningPlan.focus_areas.consolidation && learningPlan.focus_areas.consolidation.length > 0 && (
+                            <div>
+                              <h4 className="font-medium text-green-700 mb-3 flex items-center gap-2">
+                                <span className="w-3 h-3 bg-green-500 rounded-full"></span>
+                                巩固性内容 - 保持复习
+                              </h4>
+                              <div className="flex flex-wrap gap-2">
+                                {learningPlan.focus_areas.consolidation.map((item, index) => (
+                                  <div key={index} className="inline-flex items-center gap-2 border border-green-200 bg-green-50 rounded-lg px-3 py-2">
+                                    <span className="text-sm text-gray-700">{item.knowledge_point}</span>
+                                    <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded">
+                                      {(item.accuracy_rate * 100).toFixed(0)}%
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
 
@@ -753,12 +1134,24 @@ const AbilityTest = () => {
                               <div key={index} className="bg-yellow-50 rounded-lg p-4">
                                 <h4 className="font-medium text-gray-800 mb-2">{method.method_name}</h4>
                                 <p className="text-sm text-gray-600 mb-2">{method.description}</p>
-                                <p className="text-xs text-gray-500 mb-2">适用场景：{method.applicable_scenarios}</p>
+                                {method.applicable_scenarios && (
+                                  <p className="text-xs text-gray-500 mb-2">适用场景：{method.applicable_scenarios}</p>
+                                )}
+                                {method.applicable_for && method.applicable_for.length > 0 && (
+                                  <div className="flex flex-wrap gap-1 mb-2">
+                                    <span className="text-xs text-gray-500">适用于：</span>
+                                    {method.applicable_for.map((item, i) => (
+                                      <span key={i} className="text-xs bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded">
+                                        {item}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
                                 {method.tips && method.tips.length > 0 && (
                                   <ul className="space-y-1">
                                     {method.tips.map((tip, i) => (
                                       <li key={i} className="text-xs text-yellow-700 flex items-start gap-1">
-                                        <span>💡</span>
+                                        <Icon name="info" size={12} className="text-yellow-500 mt-0.5 flex-shrink-0" />
                                         {tip}
                                       </li>
                                     ))}
