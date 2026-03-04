@@ -182,6 +182,7 @@ const AbilityTest = () => {
   const [planLoading, setPlanLoading] = useState(false)
   const [planGenerating, setPlanGenerating] = useState(false)
   const [analysisData, setAnalysisData] = useState<any>(null)
+  const [generatingSeconds, setGeneratingSeconds] = useState(0)
 
   useEffect(() => {
     let cancelled = false
@@ -238,6 +239,15 @@ const AbilityTest = () => {
     }
   }, [activeTab])
 
+  // 生成计划时的计时器
+  useEffect(() => {
+    if (!planGenerating) return
+    const timer = setInterval(() => {
+      setGeneratingSeconds(s => s + 1)
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [planGenerating])
+
   const loadWeakPoints = async () => {
     setPlanLoading(true)
     try {
@@ -263,6 +273,7 @@ const AbilityTest = () => {
   // 生成学习计划
   const handleGeneratePlan = async () => {
     setPlanGenerating(true)
+    setGeneratingSeconds(0)
     try {
       const result = await learningPlanApi.generatePlan()
       console.log('学习计划生成结果:', result)
@@ -707,35 +718,50 @@ const AbilityTest = () => {
                   {/* 生成学习计划按钮 */}
                   {!learningPlan && (
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-                      <Icon name="book" size={48} className="text-purple-400 mx-auto mb-4" />
-                      <h3 className="text-xl font-semibold text-gray-800 mb-2">生成个性化学习计划</h3>
-                      <p className="text-gray-500 mb-6">
-                        AI 将根据您的薄弱知识点，为您制定详细的学习计划和建议
-                      </p>
-                      <button
-                        onClick={handleGeneratePlan}
-                        disabled={planGenerating || weakPoints.length === 0}
-                        className={`px-8 py-3 rounded-lg font-medium transition-all ${
-                          planGenerating || weakPoints.length === 0
-                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                            : 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700 shadow-md hover:shadow-lg'
-                        }`}
-                      >
-                        {planGenerating ? (
-                          <span className="flex items-center gap-2">
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
-                            AI 正在生成学习计划...
-                          </span>
-                        ) : weakPoints.length === 0 ? (
-                          '暂无薄弱知识点需要改进'
-                        ) : (
-                          '生成学习计划'
-                        )}
-                      </button>
-                      {weakPoints.length === 0 && overallStats && (
-                        <p className="text-sm text-green-600 mt-4">
-                          太棒了！您的知识掌握情况良好，继续保持！
-                        </p>
+                      {planGenerating ? (
+                        <>
+                          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4" />
+                          <h3 className="text-xl font-semibold text-gray-800 mb-2">AI 正在生成学习计划...</h3>
+                          <p className="text-gray-500 mb-2">
+                            正在分析您的薄弱知识点并制定个性化学习方案，请耐心等待
+                          </p>
+                          <p className="text-sm text-purple-600 font-medium">
+                            已用时 {Math.floor(generatingSeconds / 60)}:{(generatingSeconds % 60).toString().padStart(2, '0')}
+                            {generatingSeconds < 60 && ' · 预计需要2-3分钟'}
+                            {generatingSeconds >= 60 && generatingSeconds < 120 && ' · 即将完成，请继续等待'}
+                            {generatingSeconds >= 120 && ' · 还需一点时间，请稍候'}
+                          </p>
+                          <div className="mt-4 w-full bg-gray-200 rounded-full h-2">
+                            <div 
+                              className="bg-gradient-to-r from-purple-500 to-indigo-500 h-2 rounded-full transition-all duration-1000"
+                              style={{ width: `${Math.min(95, generatingSeconds / 180 * 100)}%` }}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <Icon name="book" size={48} className="text-purple-400 mx-auto mb-4" />
+                          <h3 className="text-xl font-semibold text-gray-800 mb-2">生成个性化学习计划</h3>
+                          <p className="text-gray-500 mb-6">
+                            AI 将根据您的薄弱知识点，为您制定详细的学习计划和建议
+                          </p>
+                          <button
+                            onClick={handleGeneratePlan}
+                            disabled={weakPoints.length === 0}
+                            className={`px-8 py-3 rounded-lg font-medium transition-all ${
+                              weakPoints.length === 0
+                                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                : 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700 shadow-md hover:shadow-lg'
+                            }`}
+                          >
+                            {weakPoints.length === 0 ? '暂无薄弱知识点需要改进' : '生成学习计划'}
+                          </button>
+                          {weakPoints.length === 0 && overallStats && (
+                            <p className="text-sm text-green-600 mt-4">
+                              太棒了！您的知识掌握情况良好，继续保持！
+                            </p>
+                          )}
+                        </>
                       )}
                     </div>
                   )}

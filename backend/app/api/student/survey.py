@@ -20,13 +20,13 @@ class QuestionResponse(BaseModel):
     id: str
     text: str
     type: str
-    options: List[str] | None = None
+    options: Optional[List[str]] = None
     required: bool = True
 
 class SurveyResponse(BaseModel):
     id: str
     title: str
-    description: str | None = None
+    description: Optional[str] = None
     status: str
     questions: List[QuestionResponse]
 
@@ -630,163 +630,6 @@ async def submit_survey(
         "response_id": str(response_id),
         "status": "grading"
     }
-    
-    answers = submission.answers or {}
-    total_score = 0
-    answer_count = 0
-    
-    # 导入AI打分服务
-    from app.services.essay_grading_service import essay_grading_service
-    
-    for qid, ans in answers.items():
-        question = db.query(QuestionModel).filter(
-            QuestionModel.id == UUID(qid)
-        ).first()
-        
-        if not question:
-            print(f"⚠️ 题目不存在: question_id={qid}")
-            continue
-        
-        is_correct = False
-        score = 0
-        teacher_comment = None
-        
-        # 根据题目类型进行自动判分
-        if question.question_type in ['single_choice', 'judgment']:
-            correct_answer = question.correct_answer
-            if correct_answer:
-                if isinstance(correct_answer, list):
-                    is_correct = ans in correct_answer
-                else:
-                    student_answer = str(ans).strip()
-                    correct_answer_str = str(correct_answer).strip()
-                    # 处理带选项号的答案 (如 "A. 选项内容")
-                    if '.' in student_answer:
-                        student_answer = student_answer.split('.')[0].strip()
-                    is_correct = student_answer == correct_answer_str
-                if is_correct:
-                    score = float(question.score)
-        elif question.question_type == 'multiple_choice':
-            correct_answer = question.correct_answer
-            if correct_answer and isinstance(ans, list):
-                if isinstance(correct_answer, list):
-                    student_answers = []
-                    for a in ans:
-                        a_str = str(a).strip()
-                        if '.' in a_str:
-                            a_str = a_str.split('.')[0].strip()
-                        student_answers.append(a_str)
-                    is_correct = set(student_answers) == set(correct_answer)
-                else:
-                    is_correct = ans == correct_answer
-                if is_correct:
-                    score = float(question.score)
-        elif question.question_type in ['text', 'fill_blank']:
-            correct_answer = question.correct_answer
-            if correct_answer:
-                student_answer = str(ans).strip() if ans else ""
-                
-                if isinstance(correct_answer, list):
-                    is_correct = student_answer in [str(item).strip() for item in correct_answer]
-                else:
-                    correct_answer_str = str(correct_answer).strip()
-                    is_correct = student_answer == correct_answer_str
-                
-                if is_correct:
-                    score = float(question.score)
-        elif question.question_type == 'essay':
-            # 问答题使用AI智能打分（支持动态Skill和知识库检索）
-            print(f"📝 问答题AI智能打分: question_type={question.question_type}, survey_type={survey.survey_type}")
-            
-            try:
-                # 获取课程名称（用于生成专业评分Skill）
-                course_name = None
-                course_id_str = None
-                if survey.course_id:
-                    course_id_str = str(survey.course_id)
-                    # 尝试获取课程名称
-                    try:
-                        from app.models.course import Course
-                        course = db.query(Course).filter(Course.id == survey.course_id).first()
-                        if course:
-                            course_name = course.name
-                            print(f"📚 关联课程: {course_name}")
-                    except Exception as ce:
-                        print(f"⚠️ 获取课程信息失败: {ce}")
-                
-                # 获取知识点列表
-                knowledge_points = None
-                if hasattr(question, 'knowledge_points') and question.knowledge_points:
-                    knowledge_points = question.knowledge_points
-                    print(f"📖 知识点: {knowledge_points}")
-                
-                # 调用增强版AI打分服务
-                grading_result = await essay_grading_service.grade_essay(
-                    question_text=question.question_text,
-                    question_type=question.question_type,
-                    reference_answer=question.correct_answer,
-                    grading_criteria=question.grading_criteria,
-                    min_word_count=question.min_word_count,
-                    student_answer=str(ans) if ans else "",
-                    max_score=float(question.score),
-                    # 新增参数：用于更精准的评分
-                    knowledge_points=knowledge_points,
-                    course_name=course_name,
-                    survey_title=survey.title,
-                    course_id=course_id_str
-                )
-                
-                score = grading_result.get('score', 0)
-                is_correct = grading_result.get('percentage', 0) >= 60
-                teacher_comment = json.dumps(grading_result, ensure_ascii=False)
-                
-                print(f"✅ AI智能打分完成: score={score}, percentage={grading_result.get('percentage', 0)}%, is_correct={is_correct}")
-                
-            except Exception as e:
-                print(f"❌ AI打分失败: {e}")
-                import traceback
-                traceback.print_exc()
-                score = 0
-                is_correct = False
-                teacher_comment = f"AI打分失败: {str(e)}"
-        
-        total_score += score
-        answer_count += 1
-        
-        a = AnswerModel(
-            response_id=resp.id,
-            question_id=UUID(qid),
-            student_answer=ans,
-            is_correct=is_correct,
-            score=score,
-            teacher_comment=teacher_comment,
-            auto_graded=True,
-        )
-        db.add(a)
-    
-    print(f"✅ 保存答案记录: {answer_count} 个答案, 总分: {total_score}")
-    
-    # 计算总分和百分比
-    resp.total_score = total_score
-    resp.percentage_score = (total_score / survey.total_score * 100) if survey.total_score > 0 else 0
-    resp.is_passed = resp.percentage_score >= 60  # 百分比得分 >= 60% 为及格
-    
-    print(f"[SCORE] total={total_score}, percentage={resp.percentage_score}, passed={resp.is_passed}")
-    
-    db.commit()
-    
-    print(f"✅ 数据库提交成功")
-    print(f"=" * 70)
-    print(f"🎉 问卷提交完成")
-    print(f"=" * 70)
-    
-    return {
-        "message": "问卷提交成功",
-        "survey_id": survey_id,
-        "total_score": total_score,
-        "percentage_score": resp.percentage_score,
-        "is_passed": resp.is_passed
-    }
 
 
 # 异步打分函数（后台执行）
@@ -812,6 +655,9 @@ def grade_survey_async(response_id: str, survey_id: str, answers: Dict[str, Any]
 async def _grade_survey_async_impl(response_id: str, survey_id: str, answers: Dict[str, Any]):
     """
     后台异步打分函数
+    分两阶段执行：
+      阶段1：选择题/判断题/多选题/填空题 —— 不依赖外部AI，立即打分并提交
+      阶段2：问答题 —— 调用AI打分，有超时保护，失败不影响阶段1的结果
     """
     print(f"\n{'='*70}")
     print(f"🔄 后台异步打分开始")
@@ -823,8 +669,6 @@ async def _grade_survey_async_impl(response_id: str, survey_id: str, answers: Di
     db = SessionLocal()
     
     try:
-        from app.services.essay_grading_service import essay_grading_service
-        
         # 获取提交记录和问卷信息
         resp = db.query(SurveyResponseModel).filter(SurveyResponseModel.id == UUID(response_id)).first()
         if not resp:
@@ -837,10 +681,12 @@ async def _grade_survey_async_impl(response_id: str, survey_id: str, answers: Di
             return
         
         total_score = 0
-        answer_count = 0
         
         # 获取所有已保存的答案记录
         saved_answers = db.query(AnswerModel).filter(AnswerModel.response_id == UUID(response_id)).all()
+        
+        # ========== 阶段1：客观题自动判分（选择/判断/多选/填空） ==========
+        essay_records = []  # 需要AI打分的问答题
         
         for answer_record in saved_answers:
             question = db.query(QuestionModel).filter(
@@ -855,97 +701,165 @@ async def _grade_survey_async_impl(response_id: str, survey_id: str, answers: Di
             score = 0
             teacher_comment = None
             
-            # 根据题目类型进行自动判分
-            if question.question_type in ['single_choice', 'judgment']:
-                correct_answer = question.correct_answer
-                if correct_answer:
-                    if isinstance(correct_answer, list):
-                        is_correct = ans in correct_answer
-                    else:
+            try:
+                # 根据题目类型进行自动判分
+                if question.question_type in ['single_choice', 'choice', 'judgment', 'judge', 'true_false']:
+                    correct_answer = question.correct_answer
+                    if correct_answer:
                         student_answer = str(ans).strip()
-                        correct_answer_str = str(correct_answer).strip()
+                        correct_answer_str = str(correct_answer).strip() if not isinstance(correct_answer, list) else None
+                        
+                        # 提取字母部分（如 "A. 选项内容" -> "A"）
                         if '.' in student_answer:
                             student_answer = student_answer.split('.')[0].strip()
-                        is_correct = student_answer == correct_answer_str
-                    if is_correct:
-                        score = float(question.score)
-            
-            elif question.question_type == 'multiple_choice':
-                correct_answer = question.correct_answer
-                if correct_answer and isinstance(ans, list):
-                    if isinstance(correct_answer, list):
-                        student_answers = []
-                        for a in ans:
-                            a_str = str(a).strip()
-                            if '.' in a_str:
-                                a_str = a_str.split('.')[0].strip()
-                            student_answers.append(a_str)
-                        is_correct = set(student_answers) == set(correct_answer)
-                    else:
-                        is_correct = ans == correct_answer
-                    if is_correct:
-                        score = float(question.score)
-            
-            elif question.question_type in ['text', 'fill_blank']:
-                correct_answer = question.correct_answer
-                if correct_answer:
-                    student_answer = str(ans).strip() if ans else ""
-                    
-                    if isinstance(correct_answer, list):
-                        is_correct = student_answer in [str(item).strip() for item in correct_answer]
-                    else:
-                        correct_answer_str = str(correct_answer).strip()
-                        is_correct = student_answer == correct_answer_str
-                    
-                    if is_correct:
-                        score = float(question.score)
-            
-            elif question.question_type == 'essay':
-                # 问答题使用AI打分
-                print(f"📝 问答题AI打分: question_id={question.id}")
+                        
+                        # 判断题特殊处理：统一 A/B 与 正确/错误 的映射
+                        if question.question_type in ['judge', 'judgment', 'true_false']:
+                            judge_map = {'A': '正确', 'B': '错误', '正确': 'A', '错误': 'B'}
+                            norm_student = judge_map.get(student_answer.upper(), student_answer)
+                            if correct_answer_str:
+                                norm_correct = judge_map.get(correct_answer_str, correct_answer_str)
+                                is_correct = (
+                                    student_answer.upper() == correct_answer_str.upper()
+                                    or norm_student == correct_answer_str
+                                    or (norm_correct is not None and student_answer.upper() == norm_correct.upper())
+                                )
+                            elif isinstance(correct_answer, list):
+                                is_correct = student_answer in correct_answer or norm_student in correct_answer
+                        else:
+                            # 选择题：直接比较字母
+                            if isinstance(correct_answer, list):
+                                is_correct = student_answer in correct_answer
+                            else:
+                                if '.' in correct_answer_str:
+                                    correct_answer_str = correct_answer_str.split('.')[0].strip()
+                                is_correct = student_answer.upper() == correct_answer_str.upper()
+                        
+                        if is_correct:
+                            score = float(question.score)
                 
-                try:
-                    grading_result = await essay_grading_service.grade_essay(
-                        question_text=question.question_text,
-                        question_type=question.question_type,
-                        reference_answer=question.correct_answer,
-                        grading_criteria=question.grading_criteria,
-                        min_word_count=question.min_word_count,
-                        student_answer=str(ans) if ans else "",
-                        max_score=float(question.score)
-                    )
-                    
-                    score = grading_result.get('score', 0)
-                    is_correct = grading_result.get('percentage', 0) >= 60
-                    teacher_comment = json.dumps(grading_result, ensure_ascii=False)
-                    
-                    print(f"✅ AI打分完成: score={score}, is_correct={is_correct}")
-                    
-                except Exception as e:
-                    print(f"❌ AI打分失败: {e}")
-                    score = 0
-                    is_correct = False
-                    teacher_comment = f"AI打分失败: {str(e)}"
+                elif question.question_type in ['multiple_choice', 'multi_choice']:
+                    correct_answer = question.correct_answer
+                    if correct_answer and isinstance(ans, list):
+                        if isinstance(correct_answer, list):
+                            student_answers = []
+                            for a in ans:
+                                a_str = str(a).strip()
+                                if '.' in a_str:
+                                    a_str = a_str.split('.')[0].strip()
+                                student_answers.append(a_str.upper())
+                            correct_answers = []
+                            for c in correct_answer:
+                                c_str = str(c).strip()
+                                if '.' in c_str:
+                                    c_str = c_str.split('.')[0].strip()
+                                correct_answers.append(c_str.upper())
+                            is_correct = set(student_answers) == set(correct_answers)
+                        else:
+                            is_correct = ans == correct_answer
+                        if is_correct:
+                            score = float(question.score)
+                
+                elif question.question_type in ['text', 'fill_blank']:
+                    correct_answer = question.correct_answer
+                    if correct_answer:
+                        student_answer = str(ans).strip() if ans else ""
+                        if isinstance(correct_answer, list):
+                            is_correct = student_answer in [str(item).strip() for item in correct_answer]
+                        else:
+                            correct_answer_str = str(correct_answer).strip()
+                            is_correct = student_answer == correct_answer_str
+                        if is_correct:
+                            score = float(question.score)
+                
+                elif question.question_type == 'essay':
+                    # 问答题延后到阶段2处理
+                    essay_records.append((answer_record, question))
+                    continue
+                
+            except Exception as e:
+                print(f"⚠️ 题目 {question.id} 自动判分异常: {e}")
+                score = 0
+                is_correct = False
             
             # 更新答案记录
             answer_record.is_correct = is_correct
             answer_record.score = score
             answer_record.teacher_comment = teacher_comment
             answer_record.auto_graded = True
-            
             total_score += score
-            answer_count += 1
+            
+            print(f"  Q{question.question_order}[{question.question_type}] "
+                  f"stu={repr(ans)[:20]} correct={repr(question.correct_answer)[:20]} "
+                  f"=> is_correct={is_correct}, score={score}")
         
-        # 更新提交记录
+        # 先提交客观题的打分结果
         resp.total_score = total_score
-        resp.percentage_score = (total_score / survey.total_score * 100) if survey.total_score > 0 else 0
+        resp.percentage_score = (total_score / survey.total_score * 100) if survey.total_score and survey.total_score > 0 else 0
         resp.is_passed = resp.percentage_score >= 60
-        resp.status = "completed"  # 打分完成，更新状态
-        
+        # 如果没有问答题，直接标记完成；否则暂时标记为completed，AI打分后再更新
+        resp.status = "completed"
         db.commit()
+        print(f"\n✅ 阶段1完成：客观题打分已提交，当前总分={total_score}")
+        
+        # ========== 阶段2：问答题AI打分（有超时保护） ==========
+        if essay_records:
+            print(f"\n🔄 阶段2开始：{len(essay_records)} 道问答题AI打分")
+            
+            try:
+                from app.services.essay_grading_service import essay_grading_service
+            except Exception as e:
+                print(f"❌ 无法导入essay_grading_service: {e}")
+                essay_records = []  # 跳过AI打分
+            
+            for answer_record, question in essay_records:
+                essay_score = 0
+                essay_correct = False
+                essay_comment = None
+                
+                try:
+                    # 为每道问答题设置30秒超时
+                    grading_result = await asyncio.wait_for(
+                        essay_grading_service.grade_essay(
+                            question_text=question.question_text,
+                            question_type=question.question_type,
+                            reference_answer=question.correct_answer,
+                            grading_criteria=question.grading_criteria,
+                            min_word_count=question.min_word_count,
+                            student_answer=str(answer_record.student_answer) if answer_record.student_answer else "",
+                            max_score=float(question.score)
+                        ),
+                        timeout=30.0
+                    )
+                    
+                    essay_score = grading_result.get('score', 0)
+                    essay_correct = grading_result.get('percentage', 0) >= 60
+                    essay_comment = json.dumps(grading_result, ensure_ascii=False)
+                    print(f"  ✅ Q{question.question_order}[essay] AI打分: score={essay_score}")
+                    
+                except asyncio.TimeoutError:
+                    print(f"  ⏰ Q{question.question_order}[essay] AI打分超时(30s)，跳过")
+                    essay_comment = "AI打分超时，请教师手动评分"
+                except Exception as e:
+                    print(f"  ❌ Q{question.question_order}[essay] AI打分失败: {e}")
+                    essay_comment = f"AI打分失败: {str(e)}"
+                
+                # 更新单题结果并立即提交
+                answer_record.is_correct = essay_correct
+                answer_record.score = essay_score
+                answer_record.teacher_comment = essay_comment
+                answer_record.auto_graded = True
+                total_score += essay_score
+            
+            # 更新总分
+            resp.total_score = total_score
+            resp.percentage_score = (total_score / survey.total_score * 100) if survey.total_score and survey.total_score > 0 else 0
+            resp.is_passed = resp.percentage_score >= 60
+            db.commit()
+            print(f"\n✅ 阶段2完成：问答题打分已提交，最终总分={total_score}")
         
         print(f"\n{'='*70}")
-        print(f"✅ 后台异步打分完成")
+        print(f"✅ 后台异步打分全部完成")
         print(f"总分: {total_score}, 百分比: {resp.percentage_score}%, 及格: {resp.is_passed}")
         print(f"{'='*70}\n")
         

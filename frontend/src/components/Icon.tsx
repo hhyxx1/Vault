@@ -31,6 +31,7 @@ import library from '../assets/icons/library.svg';
 import robot from '../assets/icons/robot.svg';
 import send from '../assets/icons/send.svg';
 import attachment from '../assets/icons/attachment.svg';
+import refresh from '../assets/icons/refresh.svg';
 
 const iconMap: Record<string, string> = {
   dashboard,
@@ -63,6 +64,7 @@ const iconMap: Record<string, string> = {
   robot,
   send,
   attachment,
+  refresh,
 };
 
 export type IconName = keyof typeof iconMap;

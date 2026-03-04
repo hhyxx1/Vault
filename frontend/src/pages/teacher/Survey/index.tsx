@@ -127,7 +127,7 @@ const TeacherSurvey = () => {
     const loadCourses = async () => {
       try {
         const token = localStorage.getItem('token')
-        const response = await fetch('http://localhost:8000/api/teacher/profile/courses', {
+        const response = await fetch('/api/teacher/profile/courses', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -257,7 +257,7 @@ const TeacherSurvey = () => {
       }
       
       const token = localStorage.getItem('token')
-      const baseUrl = 'http://localhost:8000/api'
+      const baseUrl = '/api'
       
       try {
         if (createMode === 'ai') {
@@ -500,7 +500,7 @@ const TeacherSurvey = () => {
         const axios = (await import('axios')).default
         const token = localStorage.getItem('token')
         const generationMethod = aiGeneratedData.generationMethod  // 保留 knowledge_outline | knowledge_material | ai，便于分类与发布限制
-        const response = await axios.post(`http://localhost:8000/api/teacher/survey-generation/save`, {
+        const response = await axios.post(`/api/teacher/survey-generation/save`, {
           survey_title: surveyTitle,
           description: surveyDescription,
           questions: questions,

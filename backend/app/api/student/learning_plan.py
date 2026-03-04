@@ -267,185 +267,110 @@ async def generate_learning_plan(
                 "message": analysis.get("message", "没有足够的数据生成学习计划")
             }
         
-        # 读取 skill 文件
-        skill_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-            "skills",
-            "learning_plan_generation.md"
-        )
-        
-        skill_content = ""
-        if os.path.exists(skill_path):
-            with open(skill_path, "r", encoding="utf-8") as f:
-                skill_content = f.read()
-        
         # 获取课程名称列表（从测试结果中提取）
         course_names = list(set(t["surveyTitle"].split("_")[0] if "_" in t["surveyTitle"] else t["surveyTitle"] 
                                for t in analysis["testResults"]))
         
-        # 准备输入数据
-        input_data = {
-            "student_name": analysis["studentName"],
-            "course_names": course_names,
-            "overall_stats": analysis["overallStats"],
-            "test_results": [
-                {
-                    "survey_title": t["surveyTitle"],
-                    "submit_time": t["submitTime"],
-                    "total_score": t["totalScore"],
-                    "percentage_score": t["percentageScore"],
-                    "is_passed": t["isPassed"],
-                    "total_questions": t["totalQuestions"],
-                    "correct_count": t["correctCount"],
-                    "wrong_count": t["wrongCount"],
-                    "wrong_questions": t["wrongQuestions"][:5]  # 限制数量避免太长
-                }
-                for t in analysis["testResults"]
-            ],
-            "knowledge_point_stats": analysis["knowledgePointStats"],
-            "weak_points": analysis["weakPoints"]
-        }
-        
         # 调用 AI 生成学习计划
         from app.services.ai_service import get_ai_response
         
-        prompt = f"""你是一个专业的学习规划师和教育专家。请根据以下学生的测试数据，生成一个**详细的个性化学习计划**。
+        # 精简输入数据，只保留关键信息减少token消耗
+        compact_weak_points = [
+            {"name": wp["name"], "accuracy": wp.get("accuracyRate", 0)}
+            for wp in analysis["weakPoints"][:10]  # 最多10个薄弱点
+        ]
+        compact_test_results = [
+            {
+                "title": t["surveyTitle"],
+                "score": t["percentageScore"],
+                "passed": t["isPassed"],
+                "total": t["totalQuestions"],
+                "wrong": t["wrongCount"],
+            }
+            for t in analysis["testResults"]
+        ]
+        compact_wrong = []
+        for t in analysis["testResults"]:
+            for wq in t["wrongQuestions"][:3]:  # 每份问卷最多3道错题
+                compact_wrong.append({
+                    "q": wq["questionText"][:80],
+                    "type": wq["questionType"],
+                    "kps": wq.get("knowledgePoints", [])[:3],
+                    "correct": str(wq.get("correctAnswer", ""))[:50],
+                })
+        compact_wrong = compact_wrong[:15]  # 总共最多15道错题
 
-## 技能指南
-{skill_content}
+        compact_input = {
+            "student_name": analysis["studentName"],
+            "course_names": course_names,
+            "overall": analysis["overallStats"],
+            "tests": compact_test_results,
+            "weak_points": compact_weak_points,
+            "sample_wrong_questions": compact_wrong
+        }
+        
+        prompt = f"""你是一个专业的学习规划师。请根据以下学生测试数据，生成个性化学习计划。
 
-## 学生测试数据
-{json.dumps(input_data, ensure_ascii=False, indent=2)}
+## 学生数据
+{json.dumps(compact_input, ensure_ascii=False)}
 
-## 特别要求
-
-### 1. 生成个性化学习大纲
-基于学生的薄弱知识点，生成一个系统的学习大纲，包含：
-- 需要掌握的核心概念和定义
-- 知识点之间的关联关系
-- 学习的先后顺序（先学什么，后学什么）
-
-### 2. 能力分析与推荐
-根据测试成绩分析学生的能力水平：
-- 哪些能力已经具备（如：概念理解、应用分析、综合运用等）
-- 哪些能力需要提升
-- 针对每种能力的提升建议
-
-### 3. 重点学习内容
-明确指出学生需要**重点学习**的内容：
-- 高优先级：必须掌握的核心知识点（正确率<50%）
-- 中优先级：需要加强的知识点（正确率50%-70%）
-- 巩固性：已掌握但需要巩固的知识点（正确率>70%）
-
-### 4. 具体学习建议
-针对每个薄弱知识点，给出：
-- 学习方法（怎么学）
-- 学习资源（看什么）
-- 练习建议（做什么题）
-- 预计时间（需要多久）
-
-## 输出格式要求
-请严格按照以下 JSON 格式输出：
+## 输出要求
+严格输出以下JSON格式（不要输出其他内容）：
 
 ```json
 {{
   "overall_assessment": {{
-    "summary": "整体评估（200字左右，包含能力分析）",
+    "summary": "整体评估(200字)",
     "ability_analysis": {{
-      "strong_abilities": ["已具备的能力1", "已具备的能力2"],
-      "weak_abilities": ["需提升的能力1", "需提升的能力2"],
-      "ability_score": {{
-        "concept_understanding": 80,
-        "application": 65,
-        "analysis": 70,
-        "synthesis": 55
-      }}
+      "strong_abilities": ["已具备能力"],
+      "weak_abilities": ["需提升能力"],
+      "ability_score": {{"concept_understanding": 80, "application": 65, "analysis": 70, "synthesis": 55}}
     }},
-    "strengths": ["掌握较好的方面1", "掌握较好的方面2"],
-    "weaknesses": ["薄弱点1", "薄弱点2"],
+    "strengths": ["优势"],
+    "weaknesses": ["劣势"],
     "improvement_potential": "high/medium/low"
   }},
   "learning_outline": {{
-    "title": "个性化学习大纲",
-    "description": "大纲说明",
+    "title": "学习大纲标题",
+    "description": "说明",
     "modules": [
       {{
-        "module_name": "模块名称",
+        "module_name": "模块名",
         "priority": "high/medium/low",
-        "knowledge_points": [
-          {{
-            "name": "知识点名称",
-            "importance": "核心/重要/基础",
-            "current_mastery": "掌握程度描述",
-            "target_mastery": "目标掌握程度"
-          }}
-        ],
-        "prerequisites": ["前置知识点"],
+        "knowledge_points": [{{"name": "知识点", "importance": "核心/重要/基础", "current_mastery": "当前掌握", "target_mastery": "目标"}}],
+        "prerequisites": ["前置知识"],
         "learning_order": 1
       }}
     ]
   }},
   "focus_areas": {{
-    "high_priority": [
-      {{
-        "knowledge_point": "知识点名称",
-        "accuracy_rate": 0.3,
-        "reason": "为什么需要重点学习",
-        "study_method": "具体学习方法",
-        "resources": ["推荐资源1", "推荐资源2"],
-        "practice_type": "建议的练习类型",
-        "estimated_time": "预计学习时间"
-      }}
-    ],
+    "high_priority": [{{"knowledge_point": "名称", "accuracy_rate": 0.3, "reason": "原因", "study_method": "方法", "resources": ["资源"], "practice_type": "练习类型", "estimated_time": "时间"}}],
     "medium_priority": [],
     "consolidation": []
   }},
   "learning_plan": {{
-    "total_duration": "建议学习总时长",
-    "daily_time": "每日建议学习时间",
+    "total_duration": "总时长",
+    "daily_time": "每日时间",
     "phases": [
       {{
         "phase_number": 1,
-        "phase_name": "阶段名称",
-        "duration": "阶段时长",
-        "focus": "本阶段重点",
-        "goals": ["阶段目标1", "阶段目标2"],
-        "tasks": [
-          {{
-            "task_name": "任务名称",
-            "description": "详细描述怎么做",
-            "knowledge_points": ["相关知识点"],
-            "estimated_time": "预计用时",
-            "resources": ["推荐资源"],
-            "practice_suggestions": "练习建议"
-          }}
-        ],
-        "milestone": "阶段里程碑"
+        "phase_name": "阶段名",
+        "duration": "时长",
+        "focus": "重点",
+        "goals": ["目标"],
+        "tasks": [{{"task_name": "任务", "description": "描述", "knowledge_points": ["知识点"], "estimated_time": "时间", "resources": ["资源"], "practice_suggestions": "建议"}}],
+        "milestone": "里程碑"
       }}
     ]
   }},
-  "study_methods": [
-    {{
-      "method_name": "学习方法名称",
-      "description": "方法详细描述",
-      "applicable_for": ["适用的知识点"],
-      "tips": ["技巧1", "技巧2"]
-    }}
-  ],
-  "motivation_message": "鼓励性话语（给学生信心和动力，200字左右）"
+  "study_methods": [{{"method_name": "方法名", "description": "描述", "applicable_for": ["适用知识点"], "tips": ["技巧"]}}],
+  "motivation_message": "鼓励性话语(200字)"
 }}
-```
-
-## 注意事项
-1. 只输出JSON，不要有其他内容
-2. 语言要亲切、鼓励性
-3. 计划要具体可执行
-4. 重点突出薄弱知识点的改进方案
-
-请生成学习计划："""
+```"""
 
         try:
-            ai_response = await get_ai_response(prompt)
+            # 学习计划需要生成大量JSON，给更长的超时(180秒)，不重试避免总时间过长
+            ai_response = await get_ai_response(prompt, temperature=0.7, max_tokens=4000, timeout=180.0, max_retries=1)
             
             # 尝试解析 JSON
             response_text = ai_response.strip()

@@ -29,7 +29,7 @@ SURVEY_WORD_UPLOAD_DIR = API_STATIC_DIR / "static" / "questionnaire_word"
 # 模型定义
 class SurveyCreate(BaseModel):
     title: str
-    description: str | None = None
+    description: Optional[str] = None
     questions: List[Dict[str, Any]]
 
 class SaveSurveyRequest(BaseModel):
@@ -636,7 +636,7 @@ async def get_survey_results(
             option_stats = {}
             correct_count = 0
             
-            if q.question_type in ['single_choice', 'multiple_choice']:
+            if q.question_type in ['single_choice', 'choice', 'multiple_choice', 'multi_choice', 'judge', 'judgment', 'true_false']:
                 for answer in answers:
                     if answer.student_answer:
                         answer_value = answer.student_answer
@@ -689,7 +689,7 @@ async def upload_word_document(file: UploadFile = File(...)):
     save_path = None
     try:
         # 验证文件类型
-        if not file.filename.endswith(('.docx', '.doc')):
+        if not file.filename or not file.filename.endswith(('.docx', '.doc')):
             raise HTTPException(
                 status_code=400, 
                 detail="仅支持Word文档格式 (.docx, .doc)"

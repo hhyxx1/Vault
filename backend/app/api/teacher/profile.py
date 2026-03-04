@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from typing import List
+from typing import List, Optional
 from uuid import UUID
 import random
 import string
@@ -24,11 +24,11 @@ class TeacherProfileResponse(BaseModel):
     username: str
     full_name: str
     email: str
-    avatar_url: str | None
+    avatar_url: Optional[str]
     teacher_number: str
-    department: str | None
-    title: str | None
-    join_date: str | None
+    department: Optional[str]
+    title: Optional[str]
+    join_date: Optional[str]
 
     class Config:
         from_attributes = True
@@ -192,7 +192,7 @@ async def upload_avatar(
 class CourseCreate(BaseModel):
     course_code: str = Field(..., description="课程代码")
     course_name: str = Field(..., description="课程名称")
-    description: str | None = Field(None, description="课程描述")
+    description: Optional[str] = Field(None, description="课程描述")
     semester: str = Field(..., description="学期")
     credit: float = Field(..., ge=0, le=5, description="学分(0-5)")
 
@@ -200,7 +200,7 @@ class CourseResponse(BaseModel):
     id: str
     course_code: str
     course_name: str
-    description: str | None
+    description: Optional[str]
     semester: str
     credit: float
     status: str
@@ -210,8 +210,8 @@ class CourseResponse(BaseModel):
 
 class ClassCreate(BaseModel):
     class_name: str = Field(..., description="班级名称")
-    course_id: str | None = Field(None, description="课程ID（单个，兼容旧版）")
-    course_ids: List[str] | None = Field(None, description="课程ID列表（多个）")
+    course_id: Optional[str] = Field(None, description="课程ID（单个，兼容旧版）")
+    course_ids: Optional[List[str]] = Field(None, description="课程ID列表（多个）")
     max_students: int = Field(100, description="最大学生数")
     academic_year: str = Field(..., description="学年")
     allow_self_enroll: bool = Field(False, description="是否允许自主加入")
@@ -227,8 +227,8 @@ class ClassResponse(BaseModel):
     allow_self_enroll: bool
     status: str
     student_count: int
-    average_score: float | None = None
-    course_ids: List[str] | None = None  # 新增：关联的所有课程ID列表
+    average_score: Optional[float] = None
+    course_ids: Optional[List[str]] = None  # 新增：关联的所有课程ID列表
     
     class Config:
         from_attributes = True
@@ -600,8 +600,8 @@ class StudentInClass(BaseModel):
     full_name: str
     email: str
     student_number: str
-    major: str | None
-    grade: str | None
+    major: Optional[str]
+    grade: Optional[str]
     enrollment_date: str
     
     class Config:

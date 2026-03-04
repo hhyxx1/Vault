@@ -18,14 +18,14 @@ class StudentProfileResponse(BaseModel):
     username: str
     full_name: str
     email: str
-    avatar_url: str | None
+    avatar_url: Optional[str]
     student_number: str
-    major: str | None
-    grade: str | None
-    class_name: str | None
+    major: Optional[str]
+    grade: Optional[str]
+    class_name: Optional[str]
     total_questions: int
     total_scores: float
-    join_date: str | None
+    join_date: Optional[str]
 
     class Config:
         from_attributes = True

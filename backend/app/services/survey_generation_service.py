@@ -184,8 +184,8 @@ class SurveyGenerationService:
         - document_id 指定（仅 material 时有效）：仅从该篇资料的片段中检索。
         - 结果少时做扩展查询合并去重。
         """
-        vec = self._get_vector_service()
         try:
+            vec = self._get_vector_service()
             print(f"   ➡️ 检索查询: {query[:80]}...")
             filter_metadata = None
             if document_id and course_id:

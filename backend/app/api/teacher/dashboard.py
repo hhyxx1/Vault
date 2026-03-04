@@ -469,20 +469,19 @@ async def create_custom_insight(
         raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
     
     try:
-        # 获取教师的所有班级学生数据
         from app.models.qa import QARecord, QAShare
+        import uuid as uuid_mod
         
         # 获取教师的班级
         classes = db.query(Class).filter(Class.teacher_id == current_user.id).all()
         class_ids = [c.id for c in classes]
         
         if not class_ids:
-            # 没有班级，返回默认答案
-            card_id = str(UUID(int=0))
+            card_id = str(uuid_mod.uuid4())
             return CustomCardResponse(
                 id=card_id,
                 question=request.question,
-                answer="暂无班级数据",
+                answer="暂无班级数据，请先创建班级并邀请学生加入",
                 created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             )
         
@@ -499,12 +498,11 @@ async def create_custom_insight(
         student_ids = [str(row[0]) for row in result]
         
         if not student_ids:
-            # 没有学生数据
-            card_id = str(UUID(int=0))
+            card_id = str(uuid_mod.uuid4())
             return CustomCardResponse(
                 id=card_id,
                 question=request.question,
-                answer="暂无学生提交数据",
+                answer="暂无学生提交数据，学生提交问卷后即可使用智能分析",
                 created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             )
         
@@ -539,27 +537,21 @@ async def create_custom_insight(
                 "recent_questions": []
             }
             
-            # 统计问题主题分布
-            for qa in student_qa[:20]:  # 只取最近20条
-                # 从 knowledge_sources 中提取主题
+            for qa in student_qa[:20]:
                 if qa.knowledge_sources and isinstance(qa.knowledge_sources, list):
                     for source in qa.knowledge_sources:
                         if isinstance(source, dict) and 'title' in source:
                             topic = source['title']
                             student_info["topics"][topic] = student_info["topics"].get(topic, 0) + 1
-                # 使用正确的字段名: question 而不是 question_text
                 if qa.question:
                     student_info["recent_questions"].append(qa.question[:100])
             
             student_data.append(student_info)
         
-        # 使用AI分析并回答问题
-        from app.services.essay_grading_service import essay_grading_service
-        
         # 构建提示词
         data_summary = f"班级总人数: {len(students)}\n\n"
         data_summary += "学生数据摘要:\n"
-        for i, s in enumerate(student_data[:10], 1):  # 限制在前10名学生
+        for i, s in enumerate(student_data[:10], 1):
             data_summary += f"{i}. {s['name']}: 提问{s['question_count']}次, 平均成绩{s['avg_score']:.1f}%, "
             if s['topics']:
                 top_topics = sorted(s['topics'].items(), key=lambda x: x[1], reverse=True)[:3]
@@ -574,39 +566,18 @@ async def create_custom_insight(
 
 请给出简洁、有洞察力的回答（150字以内），如果问题涉及具体学生，请列出学生姓名和相关数据。"""
 
-        # 调用AI服务
+        # 使用统一的AI服务（与其他模块一致，使用已配置好的API密钥）
         try:
-            import httpx
-            import os
-            import json
+            from app.services.ai_service import ai_service
             
-            api_key = os.getenv('DEEPSEEK_API_KEY', '')
-            if not api_key:
-                raise ValueError("未配置DEEPSEEK_API_KEY")
-            
-            async with httpx.AsyncClient(timeout=30.0) as client:
-                response = await client.post(
-                    'https://api.deepseek.com/v1/chat/completions',
-                    headers={
-                        'Authorization': f'Bearer {api_key}',
-                        'Content-Type': 'application/json'
-                    },
-                    json={
-                        'model': 'deepseek-chat',
-                        'messages': [
-                            {'role': 'system', 'content': '你是一个专业的教学数据分析助手，善于从数据中发现洞察。'},
-                            {'role': 'user', 'content': prompt}
-                        ],
-                        'temperature': 0.7,
-                        'max_tokens': 500
-                    }
-                )
-                
-                if response.status_code == 200:
-                    result = response.json()
-                    answer = result['choices'][0]['message']['content'].strip()
-                else:
-                    answer = f"分析失败: {response.text}"
+            answer = await ai_service.chat(
+                messages=[
+                    {'role': 'system', 'content': '你是一个专业的教学数据分析助手，善于从数据中发现洞察。'},
+                    {'role': 'user', 'content': prompt}
+                ],
+                temperature=0.7,
+                max_tokens=500
+            )
         except Exception as e:
             print(f"AI分析失败: {e}")
             # 简单的规则回退
@@ -626,9 +597,8 @@ async def create_custom_insight(
             else:
                 answer = f"共有{len(students)}名学生，总计{len(qa_records)}次提问。建议更具体地描述您的问题。"
         
-        # 生成卡片ID
-        import hashlib
-        card_id = hashlib.md5(f"{current_user.id}{request.question}{datetime.now()}".encode()).hexdigest()[:16]
+        # 生成唯一卡片ID
+        card_id = str(uuid_mod.uuid4())
         
         return CustomCardResponse(
             id=card_id,

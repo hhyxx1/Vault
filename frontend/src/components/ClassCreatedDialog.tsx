@@ -1,3 +1,4 @@
+import React from 'react'
 import { Icon } from './Icon'
 
 interface ClassCreatedDialogProps {
@@ -9,10 +10,28 @@ interface ClassCreatedDialogProps {
 }
 
 const ClassCreatedDialog = ({ isOpen, onClose, className, inviteCode, courseName }: ClassCreatedDialogProps) => {
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText(inviteCode)
-    // 可以添加一个Toast提示，这里暂时用alert
-    // alert('邀请码已复制到剪贴板！')
+  const [copied, setCopied] = React.useState(false)
+
+  const handleCopyCode = async () => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(inviteCode)
+      } else {
+        const textArea = document.createElement('textarea')
+        textArea.value = inviteCode
+        textArea.style.position = 'fixed'
+        textArea.style.left = '-9999px'
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+      }
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error('复制失败:', err)
+      prompt('自动复制失败，请手动复制邀请码：', inviteCode)
+    }
   }
 
   if (!isOpen) return null
@@ -65,10 +84,12 @@ const ClassCreatedDialog = ({ isOpen, onClose, className, inviteCode, courseName
               </div>
               <button
                 onClick={handleCopyCode}
-                className="mt-4 inline-flex items-center px-4 py-1.5 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 text-xs font-bold rounded-lg transition-colors duration-200 gap-1.5"
+                className={`mt-4 inline-flex items-center px-4 py-1.5 text-xs font-bold rounded-lg transition-colors duration-200 gap-1.5 ${
+                  copied ? 'bg-green-100 text-green-700' : 'bg-indigo-100 hover:bg-indigo-200 text-indigo-700'
+                }`}
               >
                 <Icon name="code" className="w-3.5 h-3.5" />
-                复制邀请码
+                {copied ? '已复制 ✓' : '复制邀请码'}
               </button>
             </div>
           </div>

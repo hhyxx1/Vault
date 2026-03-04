@@ -287,9 +287,27 @@ const TeacherProfile = () => {
   }
 
   // 复制邀请码
-  const handleCopyInviteCode = (inviteCode: string) => {
-    navigator.clipboard.writeText(inviteCode)
-    alert('邀请码已复制到剪贴板！')
+  const handleCopyInviteCode = async (inviteCode: string) => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(inviteCode)
+      } else {
+        // 降级方案：使用临时textarea
+        const textArea = document.createElement('textarea')
+        textArea.value = inviteCode
+        textArea.style.position = 'fixed'
+        textArea.style.left = '-9999px'
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+      }
+      alert('邀请码已复制到剪贴板！')
+    } catch (err) {
+      console.error('复制失败:', err)
+      // 最终降级：提示用户手动复制
+      prompt('自动复制失败，请手动复制邀请码：', inviteCode)
+    }
   }
 
   // 修改密码

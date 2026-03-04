@@ -9,9 +9,6 @@
 - 支持课程内搜索、多课程搜索、全局搜索
 - 自动创建和管理课程集合
 """
-import chromadb
-from chromadb.config import Settings
-from sentence_transformers import SentenceTransformer
 from typing import List, Dict, Any, Optional
 import os
 from pathlib import Path
@@ -19,6 +16,25 @@ from datetime import datetime
 
 # 禁用 ChromaDB 遥测
 os.environ["ANONYMIZED_TELEMETRY"] = "False"
+
+# 延迟导入 chromadb 和 sentence_transformers（兼容 Python 3.14）
+chromadb = None
+Settings = None
+SentenceTransformer = None
+
+def _lazy_import_chromadb():
+    global chromadb, Settings
+    if chromadb is None:
+        import chromadb as _chromadb
+        from chromadb.config import Settings as _Settings
+        chromadb = _chromadb
+        Settings = _Settings
+
+def _lazy_import_sentence_transformer():
+    global SentenceTransformer
+    if SentenceTransformer is None:
+        from sentence_transformers import SentenceTransformer as _ST
+        SentenceTransformer = _ST
 
 
 def _resolve_vector_db_path() -> Path:
@@ -43,6 +59,9 @@ class VectorDBService:
     
     def __init__(self):
         try:
+            _lazy_import_chromadb()
+            _lazy_import_sentence_transformer()
+            
             db_path = _resolve_vector_db_path()
             print(f"向量数据库路径: {db_path}")
             
@@ -665,10 +684,23 @@ class VectorDBService:
 
 # 创建全局实例（懒加载）
 _vector_db_instance = None
+_vector_db_disabled = False
 
-def get_vector_db() -> VectorDBService:
-    """获取向量数据库实例（单例模式）"""
-    global _vector_db_instance
+def get_vector_db() -> Optional[VectorDBService]:
+    """获取向量数据库实例（单例模式）
+    如果 chromadb 不可用（如 Python 3.14 兼容性问题），返回 None
+    """
+    global _vector_db_instance, _vector_db_disabled
+    if _vector_db_disabled:
+        return None
     if _vector_db_instance is None:
-        _vector_db_instance = VectorDBService()
+        try:
+            _vector_db_instance = VectorDBService()
+        except Exception as e:
+            import logging
+            logger = logging.getLogger("vector_db_service")
+            logger.warning(f"[WARNING] Vector DB unavailable (chromadb incompatible with current Python): {e}")
+            logger.warning("[WARNING] Vector search and knowledge base features will be disabled")
+            _vector_db_disabled = True
+            return None
     return _vector_db_instance

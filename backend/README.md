@@ -2,7 +2,7 @@
 
 ## 环境要求
 - Python 3.12 或更高版本
-- PostgreSQL 18
+- PostgreSQL 14+（推荐 15/16）
 - pip 包管理器
 
 ## 安装步骤
@@ -42,9 +42,16 @@ CREATE DATABASE app_project;
 ```
 
 #### 初始化数据库表
-执行项目根目录下的 `init.sql` 文件：
-- 使用pgAdmin 4：打开Query Tool → 粘贴SQL → 执行
-- 使用命令行：`psql -U postgres -d app_project -f ../init.sql`
+执行 `backend/database/` 目录中的SQL：
+- 完整集合：`backend/database/full_export.sql`
+- 仅初始化结构：`backend/database/init.sql`
+
+示例（在 `backend` 目录执行）：
+- `psql -U postgres -d app_project -f .\database\full_export.sql`
+- 或 `psql -U postgres -d app_project -f .\database\init.sql`
+
+> 注意：`full_export.sql` 中包含 `gen_random_uuid()`，若导入前未启用扩展，请先执行：
+> `CREATE EXTENSION IF NOT EXISTS pgcrypto;`
 
 ### 3. 启动服务
 
@@ -52,7 +59,7 @@ CREATE DATABASE app_project;
 # 方式1：直接运行
 python app/main.py
 
-# 方式2：使用uvicorn（推荐生产环境）
+# 方式2：使用uvicorn（本地开发推荐）
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
@@ -93,12 +100,12 @@ backend/
 ├── app/
 │   ├── api/              # API路由层
 │   │   ├── auth.py       # ✅ 认证API（登录/注册）- 已完成
-│   │   ├── student/      # 学生端API
-│   │   │   ├── qa.py     # ⏳ 问答API - TODO
-│   │   │   └── survey.py # ⏳ 问卷API - TODO
-│   │   └── teacher/      # 教师端API
-│   │       ├── dashboard.py # ⏳ 看板API - TODO
-│   │       └── survey.py    # ⏳ 问卷API - TODO
+│   │   ├── student/      # 学生端API（已接入）
+│   │   │   ├── qa.py     # ✅ 问答API
+│   │   │   └── survey.py # ✅ 问卷API
+│   │   └── teacher/      # 教师端API（已接入）
+│   │       ├── dashboard.py # ✅ 看板API
+│   │       └── survey.py    # ✅ 问卷API
 │   │
 │   ├── config/           # 配置
 │   │   └── settings.py   # ✅ 应用配置
@@ -112,10 +119,10 @@ backend/
 │   │   └── auth.py       # ✅ 认证相关Schema
 │   │
 │   ├── services/         # 业务逻辑层
-│   │   ├── qa_service.py            # ⏳ 问答服务 - TODO
-│   │   ├── knowledge_base_service.py # ⏳ 知识库服务 - TODO
-│   │   ├── survey_service.py         # ⏳ 问卷服务 - TODO
-│   │   └── dashboard_service.py      # ⏳ 看板服务 - TODO
+│   │   ├── qa_service.py             # ✅ 问答服务
+│   │   ├── knowledge_base_service.py # ✅ 知识库服务
+│   │   ├── survey_service.py         # ✅ 问卷服务
+│   │   └── dashboard_service.py      # ✅ 看板服务
 │   │
 │   ├── utils/            # 工具函数
 │   │   ├── auth.py       # ✅ 密码加密/JWT生成

@@ -32,11 +32,27 @@ const ClassDetailDialog = ({ isOpen, onClose, classId }: ClassDetailDialogProps)
     }
   }
 
-  const handleCopyInviteCode = () => {
+  const handleCopyInviteCode = async () => {
     if (classDetail?.invite_code) {
-      navigator.clipboard.writeText(classDetail.invite_code)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(classDetail.invite_code)
+        } else {
+          const textArea = document.createElement('textarea')
+          textArea.value = classDetail.invite_code
+          textArea.style.position = 'fixed'
+          textArea.style.left = '-9999px'
+          document.body.appendChild(textArea)
+          textArea.select()
+          document.execCommand('copy')
+          document.body.removeChild(textArea)
+        }
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      } catch (err) {
+        console.error('复制失败:', err)
+        prompt('自动复制失败，请手动复制邀请码：', classDetail.invite_code)
+      }
     }
   }
 

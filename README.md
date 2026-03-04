@@ -6,7 +6,7 @@
 
 ### 后端
 - **框架**: FastAPI 0.109.0
-- **数据库**: PostgreSQL 18
+- **数据库**: PostgreSQL 14+（推荐 15/16）
 - **ORM**: SQLAlchemy 2.0.25
 - **认证**: JWT (python-jose) + bcrypt
 - **Python版本**: 3.12+
@@ -22,11 +22,11 @@
 
 ### 1. 环境要求
 - Python 3.12+
-- Node.js 16+
-- PostgreSQL 18
+- Node.js 18+
+- PostgreSQL 14+（推荐 15/16）
 
 ### 2. 安装PostgreSQL
-1. 下载PostgreSQL 18：https://www.postgresql.org/download/
+1. 下载 PostgreSQL（推荐 15/16）：https://www.postgresql.org/download/
 2. 安装时设置密码（例如：123456）
 3. 记住端口号（默认：5432）
 
@@ -36,7 +36,9 @@
 CREATE DATABASE app_project;
 ```
 
-然后执行数据库初始化脚本（位于项目根目录的 `init.sql`）。
+然后执行数据库脚本（位于 `backend/database/` 目录）：
+- 优先使用 `backend/database/full_export.sql`（完整导出集合）
+- 若仅需初始化结构，使用 `backend/database/init.sql`
 
 ### 4. 后端启动
 
@@ -135,24 +137,19 @@ project/
 │   │   └── types/          # TypeScript类型
 │   └── package.json        # 前端依赖
 │
-└── init.sql                # 数据库初始化脚本
+└── backend/database/       # 数据库脚本目录（含 full_export.sql / init.sql）
 ```
 
 ## 功能模块
 
-### 已实现
-- ✅ 用户注册（学生/教师）
-- ✅ 用户登录（JWT认证）
-- ✅ 角色权限控制
-- ✅ 密码加密存储
-- ✅ 响应式UI设计
+### 当前已包含（按代码现状）
+- ✅ 用户注册/登录（JWT）
+- ✅ 学生端：问答、问卷、能力测试、个人资料
+- ✅ 教师端：看板、问卷管理、课程资料、知识库
+- ✅ 文档上传与解析（Word/PDF/PPT）
+- ✅ AI相关服务（问卷生成、作文评分、知识提取等）
 
-### 待实现
-- ⏳ 学生问答系统
-- ⏳ 教师管理面板
-- ⏳ 问卷调查功能
-- ⏳ 知识库管理
-- ⏳ 数据统计分析
+> 说明：README功能清单已按当前代码结构更新，具体可用性以实际接口与环境配置为准。
 
 ## 常见问题
 

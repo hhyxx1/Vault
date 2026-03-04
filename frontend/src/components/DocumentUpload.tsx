@@ -29,7 +29,7 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({ courseId, onUploadCompl
         try {
           const token = localStorage.getItem('token');
           const response = await fetch(
-            `http://localhost:8000/api/teacher/documents/${upload.documentId}/progress`,
+            `/api/teacher/documents/${upload.documentId}/progress`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -151,7 +151,7 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({ courseId, onUploadCompl
         ));
       });
 
-      xhr.open('POST', `http://localhost:8000/api/teacher/courses/${courseId}/documents/upload`);
+      xhr.open('POST', `/api/teacher/courses/${courseId}/documents/upload`);
       xhr.setRequestHeader('Authorization', `Bearer ${token}`);
       xhr.send(formData);
 

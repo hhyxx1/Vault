@@ -13,7 +13,7 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, BackgroundTasks
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from typing import List
+from typing import List, Optional
 import os
 import shutil
 from pathlib import Path
@@ -166,10 +166,10 @@ class DocumentResponse(BaseModel):
     file_type: str
     file_size: int
     upload_status: str
-    processed_status: str | None
-    error_message: str | None
+    processed_status: Optional[str]
+    error_message: Optional[str]
     created_at: str
-    document_type: str | None = None  # 'outline' | 'material'，用于前端区分大纲与资料
+    document_type: Optional[str] = None  # 'outline' | 'material'，用于前端区分大纲与资料
 
     class Config:
         from_attributes = True
@@ -190,7 +190,7 @@ class CourseCollectionInfo(BaseModel):
     course_name: str
     collection_name: str
     vector_count: int
-    created_at: str | None
+    created_at: Optional[str]
 
 class GlobalSearchResult(BaseModel):
     id: str
@@ -198,7 +198,7 @@ class GlobalSearchResult(BaseModel):
     metadata: dict
     similarity: float
     course_id: str
-    course_name: str | None
+    course_name: Optional[str]
     collection_name: str
 
 class GlobalKnowledgeBaseStats(BaseModel):

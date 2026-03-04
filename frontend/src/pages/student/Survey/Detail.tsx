@@ -193,19 +193,22 @@ const StudentSurveyDetail = () => {
   const formatAnswer = (answer: any, questionType: string, options?: Array<{ key: string; value: string }>) => {
     if (answer === null || answer === undefined) return '未作答'
     
-    if (questionType === 'true_false') {
-      return answer === true || answer === 'true' ? '正确 ✓' : '错误 ✗'
+    if (['true_false', 'judge', 'judgment'].includes(questionType)) {
+      const ansStr = String(answer).toUpperCase()
+      if (ansStr === 'A' || answer === true || answer === 'true' || answer === '正确') return 'A. 正确'
+      if (ansStr === 'B' || answer === false || answer === 'false' || answer === '错误') return 'B. 错误'
+      return String(answer)
     }
     
-    if (questionType === 'single_choice' && options) {
-      const option = options.find(o => o.key === answer)
-      return option ? `${answer}. ${option.value}` : answer
+    if (['single_choice', 'choice'].includes(questionType) && options) {
+      const option = options.find(o => o.key === answer || o.key === String(answer))
+      return option ? `${option.key}. ${option.value}` : String(answer)
     }
     
-    if (questionType === 'multiple_choice' && options) {
+    if (['multiple_choice', 'multi_choice'].includes(questionType) && options) {
       const selected = Array.isArray(answer) ? answer : [answer]
       return selected.map(key => {
-        const option = options.find(o => o.key === key)
+        const option = options.find(o => o.key === key || o.key === String(key))
         return option ? `${key}. ${option.value}` : key
       }).join('、')
     }
@@ -218,19 +221,22 @@ const StudentSurveyDetail = () => {
   const formatCorrectAnswer = (correctAnswer: any, questionType: string, options?: Array<{ key: string; value: string }>) => {
     if (correctAnswer === null || correctAnswer === undefined) return null
     
-    if (questionType === 'true_false') {
-      return correctAnswer === true || correctAnswer === 'true' ? '正确 ✓' : '错误 ✗'
+    if (['true_false', 'judge', 'judgment'].includes(questionType)) {
+      const ansStr = String(correctAnswer).toUpperCase()
+      if (ansStr === 'A' || correctAnswer === true || correctAnswer === 'true' || correctAnswer === '正确') return 'A. 正确'
+      if (ansStr === 'B' || correctAnswer === false || correctAnswer === 'false' || correctAnswer === '错误') return 'B. 错误'
+      return String(correctAnswer)
     }
     
-    if (questionType === 'single_choice' && options) {
-      const option = options.find(o => o.key === correctAnswer)
-      return option ? `${correctAnswer}. ${option.value}` : correctAnswer
+    if (['single_choice', 'choice'].includes(questionType) && options) {
+      const option = options.find(o => o.key === correctAnswer || o.key === String(correctAnswer))
+      return option ? `${correctAnswer}. ${option.value}` : String(correctAnswer)
     }
     
-    if (questionType === 'multiple_choice' && options) {
+    if (['multiple_choice', 'multi_choice'].includes(questionType) && options) {
       const selected = Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer]
       return selected.map(key => {
-        const option = options.find(o => o.key === key)
+        const option = options.find(o => o.key === key || o.key === String(key))
         return option ? `${key}` : key
       }).join('、')
     }

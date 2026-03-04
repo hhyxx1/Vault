@@ -1,7 +1,7 @@
 # 前端安装与运行指南
 
 ## 环境要求
-- Node.js 16.0 或更高版本
+- Node.js 18.0 或更高版本
 - npm 或 yarn 包管理器
 
 ## 快速开始
@@ -9,7 +9,7 @@
 ### 1. 检查Node.js版本
 
 ```bash
-node --version  # 应显示 v16.x.x 或更高
+node --version  # 应显示 v18.x.x 或更高
 npm --version   # 应显示 8.x.x 或更高
 ```
 
@@ -38,15 +38,17 @@ yarn install
 
 ### 3. 配置API地址
 
-前端默认连接到 `http://localhost:8000`
+前端默认连接到 `http://localhost:8000/api`。
 
-如需修改，编辑 `src/services/api.ts`：
-```typescript
-const api = axios.create({
-  baseURL: 'http://localhost:8000',  // 修改为你的后端地址
-  timeout: 10000,
-})
+如需修改，可设置环境变量（推荐）：
+
+1) 在 `frontend` 目录创建 `.env.local`
+2) 写入：
+```env
+VITE_API_BASE_URL=http://localhost:8000/api
 ```
+
+代码读取位置：`src/services/api.ts` 中的 `import.meta.env.VITE_API_BASE_URL`。
 
 ### 4. 启动开发服务器
 
@@ -70,11 +72,9 @@ npm run build
 
 ```
 frontend/
-├── public/              # 静态资源
 ├── src/
 │   ├── assets/          # 图片、图标等资源
 │   ├── components/      # 可复用组件
-│   ├── hooks/           # 自定义React Hooks
 │   ├── layouts/         # 布局组件
 │   │   ├── StudentLayout.tsx  # 学生端布局
 │   │   └── TeacherLayout.tsx  # 教师端布局
@@ -141,13 +141,7 @@ npm run build
 # 预览生产构建
 npm run preview
 
-# TypeScript类型检查
-npm run type-check
-
-# 代码格式化（如配置了Prettier）
-npm run format
-
-# 代码检查（如配置了ESLint）
+# 代码检查（ESLint）
 npm run lint
 ```
 
@@ -220,7 +214,7 @@ allow_origins=[
 
 登录后过一段时间无法访问API，返回401错误。
 
-**原因**: JWT Token过期（默认30分钟）
+**原因**: JWT Token过期（当前后端默认60分钟）
 
 **解决方案**:
 - 重新登录
@@ -302,12 +296,12 @@ npm run build
 
 创建 `.env.production`:
 ```
-VITE_API_URL=https://api.your-domain.com
+VITE_API_BASE_URL=https://api.your-domain.com/api
 ```
 
 代码中使用：
 ```typescript
-const baseURL = import.meta.env.VITE_API_URL
+const baseURL = import.meta.env.VITE_API_BASE_URL
 ```
 
 ## 联系与支持

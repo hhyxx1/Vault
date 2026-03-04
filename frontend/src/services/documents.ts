@@ -110,7 +110,7 @@ export const uploadDocument = async (
     });
 
     const token = localStorage.getItem('token');
-    xhr.open('POST', `http://localhost:8000/api/teacher/courses/${courseId}/documents/upload`);
+    xhr.open('POST', `/api/teacher/courses/${courseId}/documents/upload`);
     xhr.setRequestHeader('Authorization', `Bearer ${token}`);
     xhr.send(formData);
   });
