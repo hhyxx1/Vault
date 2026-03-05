@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 from sqlalchemy import text, func
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from uuid import UUID
 from datetime import datetime, timedelta
+import asyncio
 
 from app.database import get_db
 from app.models.user import User
@@ -453,39 +454,57 @@ class CustomCardResponse(BaseModel):
     id: str
     question: str
     answer: str
+    status: str = 'completed'  # analyzing, completed, failed
     created_at: str
 
-@router.post("/custom-insight", response_model=CustomCardResponse)
-async def create_custom_insight(
-    request: CustomCardRequest,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """
-    创建自定义洞察卡片
-    教师可以提出问题，系统基于学生数据生成答案
-    """
-    if current_user.role != 'teacher':
-        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+
+def _strip_markdown(text_content: str) -> str:
+    """去除AI生成文本中的Markdown格式符号"""
+    import re
+    # 去除粗体 **text** 或 __text__
+    text_content = re.sub(r'\*\*(.+?)\*\*', r'\1', text_content)
+    text_content = re.sub(r'__(.+?)__', r'\1', text_content)
+    # 去除斜体 *text* 或 _text_
+    text_content = re.sub(r'(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)', r'\1', text_content)
+    # 去除标题标记 ### text
+    text_content = re.sub(r'^#{1,6}\s+', '', text_content, flags=re.MULTILINE)
+    # 去除行内代码 `code`
+    text_content = re.sub(r'`(.+?)`', r'\1', text_content)
+    # 去除列表标记但保留文本
+    text_content = re.sub(r'^\s*[-*+]\s+', '• ', text_content, flags=re.MULTILINE)
+    # 去除数字列表标记
+    text_content = re.sub(r'^\s*\d+\.\s+', '', text_content, flags=re.MULTILINE)
+    return text_content.strip()
+
+
+def _run_ai_analysis_sync(card_id: str, teacher_id: str, question: str, db_url: str):
+    """在后台线程中运行AI分析并更新卡片（同步版本）"""
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+    import os
+    os.environ['PGCLIENTENCODING'] = 'UTF8'
+    
+    engine = create_engine(db_url, connect_args={'client_encoding': 'utf8', 'options': '-c client_encoding=utf8'})
+    SessionLocal = sessionmaker(bind=engine)
+    db = SessionLocal()
     
     try:
-        from app.models.qa import QARecord, QAShare
-        import uuid as uuid_mod
-        
         # 获取教师的班级
-        classes = db.query(Class).filter(Class.teacher_id == current_user.id).all()
-        class_ids = [c.id for c in classes]
+        classes_result = db.execute(
+            text("SELECT id FROM classes WHERE teacher_id = :tid"),
+            {"tid": teacher_id}
+        ).fetchall()
+        class_ids = [str(r[0]) for r in classes_result]
         
         if not class_ids:
-            card_id = str(uuid_mod.uuid4())
-            return CustomCardResponse(
-                id=card_id,
-                question=request.question,
-                answer="暂无班级数据，请先创建班级并邀请学生加入",
-                created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            db.execute(
+                text("UPDATE teacher_insight_cards SET answer = :answer, status = 'completed', updated_at = NOW() WHERE id = CAST(:cid AS uuid)"),
+                {"answer": "暂无班级数据，请先创建班级并邀请学生加入", "cid": card_id}
             )
+            db.commit()
+            return
         
-        # 通过问卷响应获取学生ID（与overview保持一致）
+        # 通过问卷获取学生ID
         result = db.execute(
             text("""
                 SELECT DISTINCT sr.student_id 
@@ -493,62 +512,64 @@ async def create_custom_insight(
                 JOIN surveys s ON sr.survey_id = s.id
                 WHERE s.teacher_id = :teacher_id
             """),
-            {"teacher_id": str(current_user.id)}
+            {"teacher_id": teacher_id}
         )
         student_ids = [str(row[0]) for row in result]
         
         if not student_ids:
-            card_id = str(uuid_mod.uuid4())
-            return CustomCardResponse(
-                id=card_id,
-                question=request.question,
-                answer="暂无学生提交数据，学生提交问卷后即可使用智能分析",
-                created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            db.execute(
+                text("UPDATE teacher_insight_cards SET answer = :answer, status = 'completed', updated_at = NOW() WHERE id = CAST(:cid AS uuid)"),
+                {"answer": "暂无学生提交数据，学生提交问卷后即可使用智能分析", "cid": card_id}
             )
+            db.commit()
+            return
         
         # 获取学生信息
-        students = db.query(User).filter(
-            User.id.in_(student_ids),
-            User.role == 'student'
-        ).all()
+        placeholders = ", ".join([f":sid_{i}" for i in range(len(student_ids))])
+        params = {f"sid_{i}": student_ids[i] for i in range(len(student_ids))}
+        students = db.execute(
+            text(f"SELECT id, full_name, username FROM users WHERE id IN ({placeholders}) AND role = 'student'"),
+            params
+        ).fetchall()
         
-        # 获取学生的问答记录
-        qa_records = db.query(QARecord).filter(
-            QARecord.student_id.in_(student_ids)
-        ).all()
+        # 获取QA记录
+        qa_records = db.execute(
+            text(f"SELECT student_id, question, knowledge_sources FROM qa_records WHERE student_id IN ({placeholders})"),
+            params
+        ).fetchall()
         
-        # 获取学生的问卷成绩
-        survey_responses = db.query(SurveyResponse).filter(
-            SurveyResponse.student_id.in_(student_ids),
-            SurveyResponse.status == 'completed'
-        ).all()
+        # 获取问卷成绩
+        survey_responses = db.execute(
+            text(f"SELECT student_id, percentage_score FROM survey_responses WHERE student_id IN ({placeholders}) AND status = 'completed'"),
+            params
+        ).fetchall()
         
         # 构建学生数据摘要
         student_data = []
         for student in students:
-            student_qa = [qa for qa in qa_records if qa.student_id == student.id]
-            student_surveys = [sr for sr in survey_responses if sr.student_id == student.id]
+            s_id = str(student[0])
+            s_name = student[1] or student[2]
+            s_qa = [q for q in qa_records if str(q[0]) == s_id]
+            s_surveys = [sr for sr in survey_responses if str(sr[0]) == s_id]
             
-            student_info = {
-                "name": student.full_name or student.username,
-                "question_count": len(student_qa),
-                "avg_score": sum(sr.percentage_score or 0 for sr in student_surveys) / len(student_surveys) if student_surveys else 0,
-                "topics": {},
-                "recent_questions": []
-            }
+            avg_score = sum(float(sr[1] or 0) for sr in s_surveys) / len(s_surveys) if s_surveys else 0
             
-            for qa in student_qa[:20]:
-                if qa.knowledge_sources and isinstance(qa.knowledge_sources, list):
-                    for source in qa.knowledge_sources:
+            topics = {}
+            for qa in s_qa[:20]:
+                if qa[2] and isinstance(qa[2], list):
+                    for source in qa[2]:
                         if isinstance(source, dict) and 'title' in source:
                             topic = source['title']
-                            student_info["topics"][topic] = student_info["topics"].get(topic, 0) + 1
-                if qa.question:
-                    student_info["recent_questions"].append(qa.question[:100])
+                            topics[topic] = topics.get(topic, 0) + 1
             
-            student_data.append(student_info)
+            student_data.append({
+                "name": s_name,
+                "question_count": len(s_qa),
+                "avg_score": avg_score,
+                "topics": topics
+            })
         
-        # 构建提示词
+        # 构建AI提示词
         data_summary = f"班级总人数: {len(students)}\n\n"
         data_summary += "学生数据摘要:\n"
         for i, s in enumerate(student_data[:10], 1):
@@ -562,49 +583,199 @@ async def create_custom_insight(
 
 {data_summary}
 
-教师问题: {request.question}
+教师问题: {question}
 
-请给出简洁、有洞察力的回答（150字以内），如果问题涉及具体学生，请列出学生姓名和相关数据。"""
+请给出简洁、有洞察力的回答（150字以内），如果问题涉及具体学生，请列出学生姓名和相关数据。
+注意：回答中不要使用任何Markdown格式，不要使用**加粗**、# 标题、- 列表等标记符号，只使用纯文本。"""
 
-        # 使用统一的AI服务（与其他模块一致，使用已配置好的API密钥）
+        # 调用AI
+        answer = None
         try:
             from app.services.ai_service import ai_service
+            import httpx
             
-            answer = await ai_service.chat(
+            # 同步调用: 使用sync client
+            response = ai_service.client.chat.completions.create(
+                model=ai_service.model_name,
                 messages=[
-                    {'role': 'system', 'content': '你是一个专业的教学数据分析助手，善于从数据中发现洞察。'},
+                    {'role': 'system', 'content': '你是一个专业的教学数据分析助手，善于从数据中发现洞察。回答时只使用纯文本，不要使用Markdown格式。'},
                     {'role': 'user', 'content': prompt}
                 ],
                 temperature=0.7,
                 max_tokens=500
             )
+            answer = response.choices[0].message.content
         except Exception as e:
             print(f"AI分析失败: {e}")
-            # 简单的规则回退
-            if "活跃" in request.question or "最多" in request.question:
-                top_students = sorted(student_data, key=lambda x: x['question_count'], reverse=True)[:5]
+            # 规则回退
+            if "活跃" in question or "最多" in question:
+                top = sorted(student_data, key=lambda x: x['question_count'], reverse=True)[:5]
                 answer = "最活跃的学生（按提问数）:\n" + "\n".join([
                     f"{i+1}. {s['name']}: {s['question_count']}次提问"
-                    for i, s in enumerate(top_students)
+                    for i, s in enumerate(top)
                 ])
-            elif "成绩" in request.question:
-                top_students = sorted([s for s in student_data if s['avg_score'] > 0], 
-                                    key=lambda x: x['avg_score'], reverse=True)[:5]
+            elif "成绩" in question:
+                top = sorted([s for s in student_data if s['avg_score'] > 0],
+                            key=lambda x: x['avg_score'], reverse=True)[:5]
                 answer = "成绩最好的学生:\n" + "\n".join([
                     f"{i+1}. {s['name']}: 平均{s['avg_score']:.1f}%"
-                    for i, s in enumerate(top_students)
+                    for i, s in enumerate(top)
                 ])
             else:
                 answer = f"共有{len(students)}名学生，总计{len(qa_records)}次提问。建议更具体地描述您的问题。"
         
-        # 生成唯一卡片ID
-        card_id = str(uuid_mod.uuid4())
+        # 清理markdown格式
+        answer = _strip_markdown(answer)
         
+        db.execute(
+            text("UPDATE teacher_insight_cards SET answer = :answer, status = 'completed', updated_at = NOW() WHERE id = CAST(:cid AS uuid)"),
+            {"answer": answer, "cid": card_id}
+        )
+        db.commit()
+        
+    except Exception as e:
+        print(f"后台AI分析失败: {e}")
+        import traceback
+        traceback.print_exc()
+        try:
+            db.execute(
+                text("UPDATE teacher_insight_cards SET answer = :answer, status = 'failed', updated_at = NOW() WHERE id = CAST(:cid AS uuid)"),
+                {"answer": f"分析失败: {str(e)[:100]}", "cid": card_id}
+            )
+            db.commit()
+        except:
+            pass
+    finally:
+        db.close()
+        engine.dispose()
+
+
+@router.get("/custom-insights", response_model=List[CustomCardResponse])
+async def get_custom_insights(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    获取教师的所有自定义洞察卡片
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    rows = db.execute(
+        text("SELECT id, question, answer, status, created_at FROM teacher_insight_cards WHERE teacher_id = :tid ORDER BY created_at DESC"),
+        {"tid": str(current_user.id)}
+    ).fetchall()
+    
+    return [
+        CustomCardResponse(
+            id=str(r[0]),
+            question=r[1],
+            answer=r[2] or '',
+            status=r[3],
+            created_at=r[4].strftime("%Y-%m-%d %H:%M:%S") if r[4] else ''
+        ) for r in rows
+    ]
+
+
+@router.get("/custom-insight/{card_id}", response_model=CustomCardResponse)
+async def get_custom_insight(
+    card_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    获取单个洞察卡片（用于轮询状态）
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    row = db.execute(
+        text("SELECT id, question, answer, status, created_at FROM teacher_insight_cards WHERE id = CAST(:cid AS uuid) AND teacher_id = :tid"),
+        {"cid": card_id, "tid": str(current_user.id)}
+    ).fetchone()
+    
+    if not row:
+        raise HTTPException(status_code=404, detail="卡片不存在")
+    
+    return CustomCardResponse(
+        id=str(row[0]),
+        question=row[1],
+        answer=row[2] or '',
+        status=row[3],
+        created_at=row[4].strftime("%Y-%m-%d %H:%M:%S") if row[4] else ''
+    )
+
+
+@router.delete("/custom-insight/{card_id}")
+async def delete_custom_insight(
+    card_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    删除洞察卡片
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    result = db.execute(
+        text("DELETE FROM teacher_insight_cards WHERE id = CAST(:cid AS uuid) AND teacher_id = :tid"),
+        {"cid": card_id, "tid": str(current_user.id)}
+    )
+    db.commit()
+    
+    if result.rowcount == 0:
+        raise HTTPException(status_code=404, detail="卡片不存在")
+    
+    return {"message": "删除成功"}
+
+
+@router.post("/custom-insight", response_model=CustomCardResponse)
+async def create_custom_insight(
+    request: CustomCardRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    创建自定义洞察卡片
+    立即保存到数据库并返回，AI分析在后台线程中进行
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+    
+    try:
+        import uuid as uuid_mod
+        
+        card_id = str(uuid_mod.uuid4())
+        now = datetime.now()
+        
+        # 立即保存到数据库，status='analyzing'
+        db.execute(
+            text("""
+                INSERT INTO teacher_insight_cards (id, teacher_id, question, answer, status, created_at, updated_at)
+                VALUES (CAST(:id AS uuid), CAST(:tid AS uuid), :question, '', 'analyzing', :now, :now)
+            """),
+            {"id": card_id, "tid": str(current_user.id), "question": request.question, "now": now}
+        )
+        db.commit()
+        
+        # 在后台线程运行AI分析
+        from app.config.settings import settings
+        import threading
+        thread = threading.Thread(
+            target=_run_ai_analysis_sync,
+            args=(card_id, str(current_user.id), request.question, settings.DATABASE_URL),
+            daemon=True
+        )
+        thread.start()
+        
+        # 立即返回卡片（状态为analyzing）
         return CustomCardResponse(
             id=card_id,
             question=request.question,
-            answer=answer,
-            created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            answer='',
+            status='analyzing',
+            created_at=now.strftime("%Y-%m-%d %H:%M:%S")
         )
         
     except Exception as e:

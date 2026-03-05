@@ -104,6 +104,21 @@ export const dashboardApi = {
   createCustomInsight: async (data: { question: string }) => {
     return apiClient.post('/teacher/dashboard/custom-insight', data)
   },
+
+  // 获取所有自定义洞察卡片
+  getCustomInsights: async () => {
+    return apiClient.get('/teacher/dashboard/custom-insights')
+  },
+
+  // 获取单个洞察卡片（用于轮询状态）
+  getCustomInsight: async (cardId: string) => {
+    return apiClient.get(`/teacher/dashboard/custom-insight/${cardId}`)
+  },
+
+  // 删除洞察卡片
+  deleteCustomInsight: async (cardId: string) => {
+    return apiClient.delete(`/teacher/dashboard/custom-insight/${cardId}`)
+  },
   
   // 获取班级详情
   getClassDetail: async (classId: string) => {

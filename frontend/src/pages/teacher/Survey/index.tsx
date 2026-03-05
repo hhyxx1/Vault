@@ -114,12 +114,10 @@ const TeacherSurvey = () => {
   const [isGenerating, setIsGenerating] = useState(false)
   const [generateProgress, setGenerateProgress] = useState(0)
   const [generateStage, setGenerateStage] = useState('')
-  const [questionCount, setQuestionCount] = useState<number>(20)  // 题目数量，默认20道
   const [selectedCourse, setSelectedCourse] = useState<string>('')  // 选中的课程ID（知识库模式必选）
   const [knowledgeSourceType, setKnowledgeSourceType] = useState<'outline' | 'material'>('material')  // 基于大纲知识图谱 / 基于上传资料
   const [selectedDocumentId, setSelectedDocumentId] = useState<string>('')  // 基于资料时可选：指定某篇资料，空则全部资料
   const [materialDocuments, setMaterialDocuments] = useState<Array<{id: string, file_name: string}>>([])  // 当前课程下的资料列表（仅 material 类型）
-  const [selectedQuestionTypes, setSelectedQuestionTypes] = useState<string[]>(['choice', 'judge', 'essay'])  // 默认三种题型都有
   const [courses, setCourses] = useState<Array<{id: string, course_name: string}>>([])  // 课程列表
   
   // 加载课程列表
@@ -249,8 +247,7 @@ const TeacherSurvey = () => {
         auto_save: false
       }
       if (createMode !== 'ai') {
-        // 基于大纲/基于资料：题型与数量由描述决定，未写则后端默认 20 道、三种题型
-        payload.question_count = 20
+        // 知识库模式：题型与数量由描述解析，未写则后端默认 20 道、三种题型
         if (selectedCourse) payload.course_id = selectedCourse
         payload.knowledge_source_type = createMode === 'knowledge_outline' ? 'outline' : 'material'
         if (createMode === 'knowledge_material' && selectedDocumentId) payload.document_id = selectedDocumentId
@@ -1612,14 +1609,15 @@ const TeacherSurvey = () => {
                       onChange={(e) => setAiDescription(e.target.value)}
                       placeholder={
                         createMode === 'ai'
-                          ? '例如：帮我生成一套关于操作系统的测试题...（可在描述中写明题目数量、题型，未写则默认20题、选择题+判断题+问答题）'
-                          : '例如：涵盖进程管理、内存管理相关知识点，生成测验。未写题型和数量则默认20道、三种题型。'
+                          ? '例如：生成10道关于操作系统的选择题\n例如：生成5道判断题+5道选择题，关于Python基础语法\n不写数量和题型则默认20题、选择题+判断题+问答题'
+                          : '例如：生成15道选择题，涵盖进程管理和内存管理\n不写数量和题型则默认20题、三种题型'
                       }
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none min-h-[150px] resize-none"
                     />
                   </div>
-                  <p className="text-xs text-gray-500">
-                    {isKnowledgeMode && '可在描述中写明题型和题目数量，未写则默认 20 道题、选择题+判断题+问答题三种题型。'}
+                  <p className="text-xs text-gray-500 flex items-start gap-1">
+                    <span>💡</span>
+                    <span>可在描述中指定题目数量和题型，例如"生成10道选择题"、"5道判断题+5道问答题"。不指定则默认生成20题，包含选择题、判断题、问答题。</span>
                   </p>
                 </div>
               )}

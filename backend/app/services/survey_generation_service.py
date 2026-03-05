@@ -321,25 +321,34 @@ class SurveyGenerationService:
         question_count: Optional[int] = None,
         include_types: Optional[List[str]] = None
     ) -> str:
-        """构建AI生成的用户提示。未传题目数量/题型时仅给描述，由 skill 规定：描述未写则默认20题、三种题型。"""
+        """构建AI生成的用户提示。从描述中智能解析题数和题型，未指定则默认20题+三种题型。"""
         prompt_parts = [
             "请根据以下描述生成一份问卷：",
             "",
             f"描述: {description}",
+            "",
         ]
         if question_count is not None:
-            prompt_parts.append(f"题目数量: {question_count}题（若描述中已写数量，以描述为准）")
+            prompt_parts.append(f"⚠️【题目数量】：必须生成恰好 {question_count} 道题目，不能多也不能少！")
         else:
-            prompt_parts.append("题目数量与题型: 请从描述中解析；若描述中未明确写题目数量则默认20道，未明确写题型则默认包含选择题、判断题、问答题三种。")
-            prompt_parts.append("【重要】若描述中未指定题目数量，你必须生成恰好20道题目，不能少于20道也不能多于20道。")
+            prompt_parts.append("⚠️【题目数量规则】：")
+            prompt_parts.append("  - 请仔细分析描述，从中提取用户要求的题目数量。")
+            prompt_parts.append("  - 例如描述写\"生成10道\"就生成10道，\"5道选择题+5道判断题\"就生成10道，\"15道题\"就生成15道。")
+            prompt_parts.append("  - 如果描述中完全没有提及任何数量，则默认生成恰好20道题目。")
+            prompt_parts.append("  - 必须严格遵守数量要求，不能多也不能少！")
+        prompt_parts.append("")
         if include_types:
             types_map = {"choice": "选择题", "judge": "判断题", "essay": "问答题"}
             types_str = "、".join([types_map.get(t, t) for t in include_types])
-            prompt_parts.append(f"题型要求: 【严格限制】只能生成{types_str}，不能生成其他题型")
+            prompt_parts.append(f"⚠️【题型要求】：【严格限制】只能生成 {types_str}，绝对不能生成其他题型！")
             if question_count is not None:
-                prompt_parts.append(f"⚠️ 重要：必须严格遵守题型限制，生成的{question_count}道题目必须全部是指定的题型")
+                prompt_parts.append(f"  生成的 {question_count} 道题目必须全部是 {types_str}。")
         elif question_count is None:
-            prompt_parts.append("题型要求: 从描述中解析；若描述未指定题型，则选择题、判断题、问答题合理分布。")
+            prompt_parts.append("⚠️【题型规则】：")
+            prompt_parts.append("  - 请仔细分析描述，从中提取用户要求的题型。")
+            prompt_parts.append("  - 例如\"选择题\"就只生成choice，\"判断题+选择题\"就只生成judge和choice，\"问答题\"就只生成essay。")
+            prompt_parts.append("  - 如果描述中完全没有提及任何题型，则默认包含选择题、判断题、问答题三种，合理分布。")
+            prompt_parts.append("  - 必须严格遵守题型要求，说什么题型就只生成什么题型！")
         else:
             prompt_parts.append("题型要求: 选择题、判断题、问答题合理分布")
         prompt_parts.extend([
@@ -374,9 +383,14 @@ class SurveyGenerationService:
             f"请基于知识库内容和深度思考生成问卷：",
             f"",
             f"用户需求: {description}",
-            f"题目数量: {question_count}题（描述未说明时默认20道）",
-            f"【题目唯一性】每次生成题目必须不同：变换问法、考查角度或表述，不要与常见题或以往生成雷同。本次生成标识: {int(time.time())}，请在问法、选项顺序或考查侧重点上做适当变化，确保题目新颖。",
             f"",
+            f"⚠️【题目数量规则】：",
+            f"  - 请仔细分析用户需求，从中提取用户要求的题目数量。",
+            f"  - 例如描述写\"生成10道\"就生成10道，\"5道选择题+5道判断题\"就生成10道。",
+            f"  - 如果用户需求中完全没有提及任何数量，则默认生成恰好 {question_count} 道题目。",
+            f"  - 必须严格遵守数量要求，不能多也不能少！",
+            f"",
+            f"⚠️【题型规则】：",
         ]
         
         if include_types:
@@ -386,10 +400,14 @@ class SurveyGenerationService:
                 "essay": "问答题"
             }
             types_str = "、".join([types_map.get(t, t) for t in include_types])
-            prompt_parts.append(f"题型要求: 【严格限制】只能生成{types_str}，不能生成其他题型")
-            prompt_parts.append(f"⚠️ 重要：必须严格遵守题型限制，生成的{question_count}道题目必须全部是指定的题型")
+            prompt_parts.append(f"  【严格限制】只能生成 {types_str}，绝对不能生成其他题型！")
         else:
-            prompt_parts.append(f"题型要求: 选择题、判断题、问答题合理分布（描述未说明时默认三种题型）")
+            prompt_parts.append(f"  - 请仔细分析用户需求，从中提取用户要求的题型。")
+            prompt_parts.append(f"  - 例如\"选择题\"就只生成choice，\"判断题+选择题\"就只生成judge和choice。")
+            prompt_parts.append(f"  - 如果用户需求中完全没有提及任何题型，则默认包含选择题、判断题、问答题三种，合理分布。")
+            prompt_parts.append(f"  - 必须严格遵守题型要求，说什么题型就只生成什么题型！")
+        prompt_parts.append(f"")
+        prompt_parts.append(f"【题目唯一性】每次生成题目必须不同：变换问法、考查角度或表述，不要与常见题或以往生成雷同。本次生成标识: {int(time.time())}，请在问法、选项顺序或考查侧重点上做适当变化，确保题目新颖。")
         
         # 题目表述禁止带「基于xx生成」前缀
         prompt_parts.extend([

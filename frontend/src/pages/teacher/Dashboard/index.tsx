@@ -51,6 +51,7 @@ interface CustomCard {
   id: string
   question: string
   answer: string
+  status: 'analyzing' | 'completed' | 'failed'
   created_at: string
 }
 
@@ -67,7 +68,39 @@ const TeacherDashboard = () => {
 
   useEffect(() => {
     fetchDashboardData()
+    fetchCustomCards()
   }, [])
+
+  // 轮询状态为analyzing的卡片
+  useEffect(() => {
+    const analyzingCards = customCards.filter(c => c.status === 'analyzing')
+    if (analyzingCards.length === 0) return
+
+    const timer = setInterval(async () => {
+      for (const card of analyzingCards) {
+        try {
+          const res = await dashboardApi.getCustomInsight(card.id)
+          const updated = res.data
+          if (updated.status !== 'analyzing') {
+            setCustomCards(prev => prev.map(c => c.id === card.id ? updated : c))
+          }
+        } catch {
+          // ignore poll errors
+        }
+      }
+    }, 3000)
+
+    return () => clearInterval(timer)
+  }, [customCards])
+
+  const fetchCustomCards = async () => {
+    try {
+      const res = await dashboardApi.getCustomInsights()
+      setCustomCards(res.data || [])
+    } catch (err) {
+      console.error('获取洞察卡片失败:', err)
+    }
+  }
 
   const fetchDashboardData = async () => {
     try {
@@ -104,10 +137,15 @@ const TeacherDashboard = () => {
     
     try {
       setCreatingCard(true)
-      const response = await dashboardApi.createCustomInsight({ question: cardQuestion })
-      setCustomCards([...customCards, response.data])
+      // 关闭对话框并清空输入
       setShowAddCardDialog(false)
+      const questionText = cardQuestion
       setCardQuestion('')
+      
+      // 调用后端创建卡片（立即返回，status=analyzing）
+      const response = await dashboardApi.createCustomInsight({ question: questionText })
+      // 卡片立即添加到页面上
+      setCustomCards(prev => [response.data, ...prev])
     } catch (err: any) {
       console.error('创建卡片失败:', err)
       alert(err.response?.data?.detail || '创建卡片失败')
@@ -116,8 +154,15 @@ const TeacherDashboard = () => {
     }
   }
 
-  const handleDeleteCard = (cardId: string) => {
-    setCustomCards(customCards.filter(card => card.id !== cardId))
+  const handleDeleteCard = async (cardId: string) => {
+    try {
+      await dashboardApi.deleteCustomInsight(cardId)
+      setCustomCards(prev => prev.filter(card => card.id !== cardId))
+    } catch (err: any) {
+      console.error('删除卡片失败:', err)
+      // 即使后端失败，也从本地移除
+      setCustomCards(prev => prev.filter(card => card.id !== cardId))
+    }
   }
 
   // 计算统计数据
@@ -547,12 +592,28 @@ const TeacherDashboard = () => {
                     {customCards.map((card) => (
                       <div
                         key={card.id}
-                        className="bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 rounded-2xl p-6 shadow-md border border-purple-200 hover:shadow-xl transition-all"
+                        className={`rounded-2xl p-6 shadow-md border hover:shadow-xl transition-all ${
+                          card.status === 'analyzing'
+                            ? 'bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-50 border-yellow-200'
+                            : card.status === 'failed'
+                            ? 'bg-gradient-to-br from-red-50 via-pink-50 to-rose-50 border-red-200'
+                            : 'bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 border-purple-200'
+                        }`}
                       >
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-start gap-3 flex-1">
-                            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                              <Icon name="sparkles" size={20} className="text-white" />
+                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                              card.status === 'analyzing'
+                                ? 'bg-gradient-to-br from-yellow-400 to-orange-500'
+                                : card.status === 'failed'
+                                ? 'bg-gradient-to-br from-red-400 to-pink-500'
+                                : 'bg-gradient-to-br from-purple-500 to-blue-500'
+                            }`}>
+                              {card.status === 'analyzing' ? (
+                                <Icon name="refresh" size={20} className="text-white animate-spin" />
+                              ) : (
+                                <Icon name="sparkles" size={20} className="text-white" />
+                              )}
                             </div>
                             <div className="flex-1">
                               <h4 className="font-bold text-gray-800 mb-1">{card.question}</h4>
@@ -567,9 +628,22 @@ const TeacherDashboard = () => {
                           </button>
                         </div>
                         <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4">
-                          <p className="text-sm text-gray-700 whitespace-pre-line leading-relaxed">
-                            {card.answer}
-                          </p>
+                          {card.status === 'analyzing' ? (
+                            <div className="flex items-center gap-3">
+                              <div className="flex space-x-1">
+                                <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                              </div>
+                              <p className="text-sm text-orange-600">正在分析中，请稍候...</p>
+                            </div>
+                          ) : card.status === 'failed' ? (
+                            <p className="text-sm text-red-600">{card.answer || '分析失败，请重新尝试'}</p>
+                          ) : (
+                            <p className="text-sm text-gray-700 whitespace-pre-line leading-relaxed">
+                              {card.answer}
+                            </p>
+                          )}
                         </div>
                       </div>
                     ))}
