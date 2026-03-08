@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Icon } from '../../../components/Icon'
 import { dashboardApi } from '../../../services'
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 
 interface DashboardStats {
   total_students: number
@@ -65,6 +66,7 @@ const TeacherDashboard = () => {
   const [showAddCardDialog, setShowAddCardDialog] = useState(false)
   const [cardQuestion, setCardQuestion] = useState('')
   const [creatingCard, setCreatingCard] = useState(false)
+  const [refreshingCardIds, setRefreshingCardIds] = useState<string[]>([])
 
   useEffect(() => {
     fetchDashboardData()
@@ -162,6 +164,20 @@ const TeacherDashboard = () => {
       console.error('删除卡片失败:', err)
       // 即使后端失败，也从本地移除
       setCustomCards(prev => prev.filter(card => card.id !== cardId))
+    }
+  }
+
+  const handleRefreshCard = async (cardId: string) => {
+    if (refreshingCardIds.includes(cardId)) return
+    try {
+      setRefreshingCardIds(prev => [...prev, cardId])
+      const response = await dashboardApi.refreshCustomInsight(cardId)
+      setCustomCards(prev => prev.map(card => card.id === cardId ? response.data : card))
+    } catch (err: any) {
+      console.error('刷新卡片失败:', err)
+      alert(err.response?.data?.detail || '刷新卡片失败')
+    } finally {
+      setRefreshingCardIds(prev => prev.filter(id => id !== cardId))
     }
   }
 
@@ -401,99 +417,43 @@ const TeacherDashboard = () => {
                     近7天提问趋势
                   </h3>
                   <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-                    <div className="relative h-48">
-                      {/* Y轴刻度 */}
-                      <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-400 pr-2">
-                        {(() => {
-                          const maxCount = Math.max(...overview.question_trend.map(t => t.count), 1)
-                          return [
-                            <span key="max">{maxCount}</span>,
-                            <span key="mid">{Math.round(maxCount / 2)}</span>,
-                            <span key="min">0</span>
-                          ]
-                        })()}
-                      </div>
-                      
-                      {/* 折线图区域 */}
-                      <div className="ml-8 h-full relative">
-                        {/* 网格线 */}
-                        <div className="absolute inset-0 flex flex-col justify-between">
-                          <div className="border-t border-gray-100"></div>
-                          <div className="border-t border-gray-100"></div>
-                          <div className="border-t border-gray-200"></div>
-                        </div>
-                        
-                        {/* SVG折线图 */}
-                        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                          {(() => {
-                            const maxCount = Math.max(...overview.question_trend.map(t => t.count), 1)
-                            const points = overview.question_trend.map((item, index) => {
-                              const x = (index / (overview.question_trend.length - 1)) * 100
-                              const y = 100 - (item.count / maxCount) * 90
-                              return `${x},${y}`
-                            }).join(' ')
-                            
-                            const fillPoints = `0,100 ${points} 100,100`
-                            
-                            return (
-                              <>
-                                {/* 渐变填充区域 */}
-                                <defs>
-                                  <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stopColor="rgb(139, 92, 246)" stopOpacity="0.3" />
-                                    <stop offset="100%" stopColor="rgb(59, 130, 246)" stopOpacity="0.05" />
-                                  </linearGradient>
-                                </defs>
-                                <polygon
-                                  points={fillPoints}
-                                  fill="url(#lineGradient)"
-                                />
-                                {/* 折线 */}
-                                <polyline
-                                  points={points}
-                                  fill="none"
-                                  stroke="url(#lineStroke)"
-                                  strokeWidth="0.8"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                                <defs>
-                                  <linearGradient id="lineStroke" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stopColor="rgb(139, 92, 246)" />
-                                    <stop offset="100%" stopColor="rgb(59, 130, 246)" />
-                                  </linearGradient>
-                                </defs>
-                                {/* 数据点 */}
-                                {overview.question_trend.map((item, index) => {
-                                  const x = (index / (overview.question_trend.length - 1)) * 100
-                                  const y = 100 - (item.count / maxCount) * 90
-                                  return (
-                                    <circle
-                                      key={index}
-                                      cx={x}
-                                      cy={y}
-                                      r="1.2"
-                                      fill="white"
-                                      stroke="rgb(99, 102, 241)"
-                                      strokeWidth="0.5"
-                                    />
-                                  )
-                                })}
-                              </>
-                            )
-                          })()}
-                        </svg>
-                      </div>
-                      
-                      {/* X轴标签 */}
-                      <div className="ml-8 mt-2 flex justify-between">
-                        {overview.question_trend.map((item, index) => (
-                          <div key={index} className="flex flex-col items-center flex-1">
-                            <span className="text-xs text-gray-500">{item.date.slice(5)}</span>
-                            <span className="text-xs font-medium text-indigo-600 mt-1">{item.count}</span>
-                          </div>
-                        ))}
-                      </div>
+                    <div className="h-64">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart
+                          data={overview.question_trend.map(item => ({
+                            ...item,
+                            shortDate: item.date.slice(5)
+                          }))}
+                          margin={{ top: 16, right: 16, left: 0, bottom: 8 }}
+                        >
+                          <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                          <XAxis
+                            dataKey="shortDate"
+                            tick={{ fontSize: 12, fill: '#6B7280' }}
+                            axisLine={{ stroke: '#D1D5DB' }}
+                            tickLine={false}
+                          />
+                          <YAxis
+                            allowDecimals={false}
+                            tick={{ fontSize: 12, fill: '#6B7280' }}
+                            axisLine={{ stroke: '#D1D5DB' }}
+                            tickLine={false}
+                            width={32}
+                          />
+                          <Tooltip
+                            formatter={(value: any) => [`${value} 次`, '提问数']}
+                            labelFormatter={(label) => `日期: ${label}`}
+                          />
+                          <Line
+                            type="monotone"
+                            dataKey="count"
+                            stroke="#6366F1"
+                            strokeWidth={3}
+                            dot={{ r: 4, strokeWidth: 2, fill: '#FFFFFF' }}
+                            activeDot={{ r: 6 }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
                     </div>
                   </div>
                 </div>
@@ -620,12 +580,27 @@ const TeacherDashboard = () => {
                               <p className="text-xs text-gray-500">{card.created_at}</p>
                             </div>
                           </div>
-                          <button
-                            onClick={() => handleDeleteCard(card.id)}
-                            className="text-gray-400 hover:text-red-600 transition-colors ml-2"
-                          >
-                            <Icon name="close" size={20} />
-                          </button>
+                          <div className="flex items-center gap-1 ml-2">
+                            <button
+                              onClick={() => handleRefreshCard(card.id)}
+                              disabled={refreshingCardIds.includes(card.id) || card.status === 'analyzing'}
+                              className="text-gray-400 hover:text-blue-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                              title="刷新洞察"
+                            >
+                              <Icon
+                                name="refresh"
+                                size={18}
+                                className={refreshingCardIds.includes(card.id) ? 'animate-spin' : ''}
+                              />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteCard(card.id)}
+                              className="text-gray-400 hover:text-red-600 transition-colors"
+                              title="删除卡片"
+                            >
+                              <Icon name="close" size={20} />
+                            </button>
+                          </div>
                         </div>
                         <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4">
                           {card.status === 'analyzing' ? (

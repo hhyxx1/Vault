@@ -115,6 +115,11 @@ export const dashboardApi = {
     return apiClient.get(`/teacher/dashboard/custom-insight/${cardId}`)
   },
 
+  // 刷新洞察卡片（基于最新学生数据重新分析）
+  refreshCustomInsight: async (cardId: string) => {
+    return apiClient.post(`/teacher/dashboard/custom-insight/${cardId}/refresh`)
+  },
+
   // 删除洞察卡片
   deleteCustomInsight: async (cardId: string) => {
     return apiClient.delete(`/teacher/dashboard/custom-insight/${cardId}`)

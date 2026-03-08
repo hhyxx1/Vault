@@ -730,6 +730,52 @@ async def delete_custom_insight(
     return {"message": "删除成功"}
 
 
+@router.post("/custom-insight/{card_id}/refresh", response_model=CustomCardResponse)
+async def refresh_custom_insight(
+    card_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    刷新洞察卡片：基于最新学生数据重新分析
+    """
+    if current_user.role != 'teacher':
+        raise HTTPException(status_code=403, detail="只有教师可以访问此接口")
+
+    row = db.execute(
+        text("SELECT id, question, created_at FROM teacher_insight_cards WHERE id = CAST(:cid AS uuid) AND teacher_id = :tid"),
+        {"cid": card_id, "tid": str(current_user.id)}
+    ).fetchone()
+
+    if not row:
+        raise HTTPException(status_code=404, detail="卡片不存在")
+
+    # 先将卡片状态置为 analyzing，清空旧答案
+    db.execute(
+        text("UPDATE teacher_insight_cards SET answer = '', status = 'analyzing', updated_at = NOW() WHERE id = CAST(:cid AS uuid) AND teacher_id = :tid"),
+        {"cid": card_id, "tid": str(current_user.id)}
+    )
+    db.commit()
+
+    # 后台线程重新分析
+    from app.config.settings import settings
+    import threading
+    thread = threading.Thread(
+        target=_run_ai_analysis_sync,
+        args=(str(row[0]), str(current_user.id), row[1], settings.DATABASE_URL),
+        daemon=True
+    )
+    thread.start()
+
+    return CustomCardResponse(
+        id=str(row[0]),
+        question=row[1],
+        answer='',
+        status='analyzing',
+        created_at=row[2].strftime("%Y-%m-%d %H:%M:%S") if row[2] else ''
+    )
+
+
 @router.post("/custom-insight", response_model=CustomCardResponse)
 async def create_custom_insight(
     request: CustomCardRequest,
