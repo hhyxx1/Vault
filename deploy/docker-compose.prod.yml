@@ -1,0 +1,76 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ai4teaching-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: app_project
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d app_project"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    command: ["postgres", "-c", "max_connections=50", "-c", "shared_buffers=128MB", "-c", "work_mem=4MB"]
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  backend:
+    build:
+      context: ..
+      dockerfile: deploy/backend.Dockerfile
+    container_name: ai4teaching-backend
+    restart: unless-stopped
+    environment:
+      DEBUG: "False"
+      HOST: 0.0.0.0
+      PORT: 8000
+      DATABASE_URL: postgresql+psycopg://postgres:${POSTGRES_PASSWORD}@db:5432/app_project
+      ASYNC_DATABASE_URL: postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@db:5432/app_project
+      SECRET_KEY: ${SECRET_KEY}
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
+      VECTOR_DB_PATH: /app/data/chroma_db
+      HF_HUB_OFFLINE: 1
+      TRANSFORMERS_OFFLINE: 1
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - backend_data:/app/data
+      - backend_static:/app/app/static
+    ports:
+      - "18000:8000"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: deploy/frontend.Dockerfile
+      args:
+        VITE_API_BASE_URL: https://ai4teaching.cn/api
+    container_name: ai4teaching-frontend
+    restart: unless-stopped
+    ports:
+      - "18080:80"
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 256M
+
+volumes:
+  db_data:
+  backend_data:
+  backend_static:

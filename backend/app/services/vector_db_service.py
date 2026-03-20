@@ -17,24 +17,20 @@ from datetime import datetime
 # 禁用 ChromaDB 遥测
 os.environ["ANONYMIZED_TELEMETRY"] = "False"
 
-# 延迟导入 chromadb 和 sentence_transformers（兼容 Python 3.14）
+# 延迟导入 chromadb（兼容运行环境，避免启动阶段硬失败）
 chromadb = None
 Settings = None
-SentenceTransformer = None
+embedding_functions = None
 
 def _lazy_import_chromadb():
-    global chromadb, Settings
+    global chromadb, Settings, embedding_functions
     if chromadb is None:
         import chromadb as _chromadb
         from chromadb.config import Settings as _Settings
+        from chromadb.utils import embedding_functions as _embedding_functions
         chromadb = _chromadb
         Settings = _Settings
-
-def _lazy_import_sentence_transformer():
-    global SentenceTransformer
-    if SentenceTransformer is None:
-        from sentence_transformers import SentenceTransformer as _ST
-        SentenceTransformer = _ST
+        embedding_functions = _embedding_functions
 
 
 def _resolve_vector_db_path() -> Path:
@@ -60,7 +56,6 @@ class VectorDBService:
     def __init__(self):
         try:
             _lazy_import_chromadb()
-            _lazy_import_sentence_transformer()
             
             db_path = _resolve_vector_db_path()
             print(f"向量数据库路径: {db_path}")
@@ -71,15 +66,16 @@ class VectorDBService:
                 settings=Settings(anonymized_telemetry=False)
             )
             
-            # 加载向量化模型（支持中文）
-            print("正在加载向量化模型...")
-            self.model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
-            print("向量化模型加载完成")
+            # 使用 Chroma 内置 ONNX 向量化，避免 sentence-transformers/torch 的重依赖
+            print("正在初始化向量化函数...")
+            self.embedding_function = embedding_functions.DefaultEmbeddingFunction()
+            print("向量化函数初始化完成")
             
             # 创建问卷文档集合
             self.survey_collection = self.client.get_or_create_collection(
                 name="survey_documents",
-                metadata={"description": "问卷文档知识库"}
+                metadata={"description": "问卷文档知识库"},
+                embedding_function=self.embedding_function
             )
             
             # 课程集合缓存（用于存储已创建的课程集合）
@@ -118,7 +114,8 @@ class VectorDBService:
                     "description": f"课程 {course_id} 的专属知识库",
                     "course_id": course_id,
                     "created_at": datetime.now().isoformat()
-                }
+                },
+                embedding_function=self.embedding_function
             )
             
             # 缓存集合
@@ -151,9 +148,6 @@ class VectorDBService:
             是否添加成功
         """
         try:
-            # 生成向量
-            embedding = self.model.encode([content]).tolist()[0]
-            
             # 准备元数据
             if metadata is None:
                 metadata = {}
@@ -171,7 +165,6 @@ class VectorDBService:
             collection.add(
                 ids=[doc_id],
                 documents=[content],
-                embeddings=[embedding],
                 metadatas=[metadata]
             )
             return True
@@ -199,12 +192,9 @@ class VectorDBService:
             相似文档列表
         """
         try:
-            # 生成查询向量
-            query_embedding = self.model.encode([query]).tolist()
-            
             # 构建查询参数
             query_params = {
-                "query_embeddings": query_embedding,
+                "query_texts": [query],
                 "n_results": n_results,
                 "include": ["documents", "metadatas", "distances"]
             }
@@ -445,9 +435,6 @@ class VectorDBService:
                                 "course_id": course_id
                             })
             
-            # 在每个课程集合中搜索
-            query_embedding = self.model.encode([query]).tolist()
-            
             for coll_info in collections_to_search:
                 collection = coll_info["collection"]
                 course_id = coll_info["course_id"]
@@ -460,7 +447,7 @@ class VectorDBService:
                     
                     # 查询该课程集合：不设数量上限，取该课程内全部文档（检索完整、不遗漏）；可选按 metadata 过滤
                     query_params = {
-                        "query_embeddings": query_embedding,
+                        "query_texts": [query],
                         "n_results": count,
                         "include": ["documents", "metadatas", "distances"]
                     }
@@ -560,7 +547,8 @@ class VectorDBService:
                 metadata={
                     "description": "智能问答专属知识库 - 存储用户上传的文档",
                     "created_at": datetime.now().isoformat()
-                }
+                },
+                embedding_function=self.embedding_function
             )
         return self._qa_collection
     
@@ -582,8 +570,6 @@ class VectorDBService:
             是否添加成功
         """
         try:
-            embedding = self.model.encode([content]).tolist()[0]
-            
             if metadata is None:
                 metadata = {}
             metadata['indexed_at'] = datetime.now().isoformat()
@@ -593,7 +579,6 @@ class VectorDBService:
             qa_collection.add(
                 ids=[doc_id],
                 documents=[content],
-                embeddings=[embedding],
                 metadatas=[metadata]
             )
             print(f"✅ 文档已添加到QA知识库: {doc_id}")
@@ -624,10 +609,8 @@ class VectorDBService:
             if qa_collection.count() == 0:
                 return []
             
-            query_embedding = self.model.encode([query]).tolist()
-            
             results = qa_collection.query(
-                query_embeddings=query_embedding,
+                query_texts=[query],
                 n_results=min(n_results, qa_collection.count()),
                 include=["documents", "metadatas", "distances"]
             )

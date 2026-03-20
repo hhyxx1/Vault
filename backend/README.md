@@ -1,5 +1,11 @@
 # 后端安装与运行指南
 
+## 文档同步状态
+
+- 同步时间：2026-03-20
+- 同步来源：`8.159.151.36:4598` 的 `/opt/ai4teaching/backend`
+- 当前结论：本 README 在代码同步完成后重写，内容以当前仓库代码为准
+
 ## 环境要求
 - Python 3.12 或更高版本
 - PostgreSQL 14+（推荐 15/16）
@@ -219,6 +225,28 @@ allow_origins=["https://your-production-domain.com"]
 4. 配置NGINX作为反向代理
 5. 启用HTTPS
 6. 设置合理的数据库连接池大小
+
+## 生产部署（当前项目）
+
+基于 `deploy/docker-compose.prod.yml`：
+- 容器名：`ai4teaching-backend`
+- 容器端口：`8000`
+- 宿主机端口：`18000`
+- 数据库容器：`ai4teaching-db`
+- 健康检查：`GET /health`
+
+常用运维命令（项目根目录执行）：
+
+```bash
+# 启动生产环境
+docker compose -f deploy/docker-compose.prod.yml up -d --build
+
+# 查看后端日志
+docker logs -f ai4teaching-backend
+
+# 检查服务健康
+curl http://127.0.0.1:18000/health
+```
 
 ## 联系与支持
 如遇到问题，请查看项目根目录的README.md或提交Issue。

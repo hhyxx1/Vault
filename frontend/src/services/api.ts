@@ -34,7 +34,13 @@ apiClient.interceptors.response.use(
     console.error('API Error:', error)
     
     // 处理401未授权错误（token过期或无效）
-    if (error.response && error.response.status === 401) {
+    // 登录/注册/找回密码接口本身的401应交给页面展示错误，不应强制跳转导致"刷新"。
+    const requestUrl = String(error?.config?.url || '')
+    const isAuthApi = requestUrl.includes('/auth/login') || requestUrl.includes('/auth/register') || requestUrl.includes('/auth/forgot-password')
+    const path = window.location.pathname
+    const isAuthPage = path === '/login' || path === '/register' || path === '/forgot-password'
+
+    if (error.response && error.response.status === 401 && !isAuthApi && !isAuthPage) {
       console.warn('Token过期或无效，跳转到登录页')
       // 清除本地存储
       localStorage.removeItem('token')

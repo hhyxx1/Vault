@@ -220,7 +220,7 @@ const StudentSurveyTake = () => {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 py-8">
+              <div className="max-w-5xl mx-auto px-4 md:px-6 py-6 md:py-8">
         {/* 问卷标题卡片 */}
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 mb-8 relative overflow-hidden group hover:shadow-md transition-shadow">
           <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-60" />
@@ -283,7 +283,7 @@ const StudentSurveyTake = () => {
                 }`}
               >
                 {/* 题目头部 */}
-                <div className="p-8 pb-4 flex items-start justify-between gap-6">
+                <div className="p-4 md:p-8 pb-4 flex items-start justify-between gap-4 md:gap-6">
                   <div className="flex items-start gap-4 flex-1">
                     <span className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base shrink-0 transition-colors ${
                       isAnswered ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-gray-100 text-gray-500'
@@ -315,7 +315,7 @@ const StudentSurveyTake = () => {
                 </div>
 
                 {/* 题目选项/输入区 */}
-                <div className="px-8 pb-8 pt-2 ml-14">
+                <div className="px-4 md:px-8 pb-4 md:pb-8 pt-2 ml-10 md:ml-14">
                   {['single_choice', 'choice', 'judge', 'judgment', 'judgement', 'true_false'].includes(q.type) && (q.options?.length || 0) > 0 ? (
                     <div className="space-y-3">
                       {(Array.isArray(q.options) ? q.options : []).map((opt: any) => {
@@ -435,11 +435,11 @@ const StudentSurveyTake = () => {
         </div>
 
         {/* 提交按钮区 */}
-        <div className="mt-12 pb-12 flex gap-6 justify-center">
+        <div className="mt-8 md:mt-12 pb-8 md:pb-12 flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center px-4 md:px-0">
           <button
             type="button"
             onClick={() => navigate(backPath)}
-            className="px-8 py-4 bg-white text-gray-700 rounded-2xl font-medium hover:bg-gray-50 transition-colors border border-gray-200 shadow-sm hover:shadow-md flex items-center gap-2 min-w-[160px] justify-center"
+            className="px-6 md:px-8 py-3 md:py-4 bg-white text-gray-700 rounded-2xl font-medium hover:bg-gray-50 transition-colors border border-gray-200 shadow-sm hover:shadow-md flex items-center gap-2 w-full sm:w-auto sm:min-w-[160px] justify-center"
           >
             <Icon name="clock" size={20} className="text-gray-400" />
             暂不提交
@@ -448,7 +448,7 @@ const StudentSurveyTake = () => {
             type="button"
             onClick={handleSubmit}
             disabled={submitting}
-            className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3 min-w-[200px] justify-center"
+            className="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3 w-full sm:w-auto sm:min-w-[200px] justify-center"
           >
             {submitting ? (
               <>

@@ -1,0 +1,12 @@
+**/node_modules
+**/.venv
+**/dist
+venv39
+**/__pycache__
+*.pyc
+.git
+.gitignore
+backend/data/chroma_db
+backend/test_output.txt
+backend/backend_log.txt
+backend/backend_err.txt

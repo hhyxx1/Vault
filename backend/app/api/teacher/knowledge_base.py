@@ -10,7 +10,7 @@
 - 实现课程间的知识库完全隔离，同时支持全局知识整合
 - 支持课程内搜索、多课程搜索、全局搜索三种模式
 """
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, BackgroundTasks, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from typing import List, Optional
@@ -207,6 +207,12 @@ class GlobalKnowledgeBaseStats(BaseModel):
     average_docs_per_course: float
     course_collections: List[dict]
 
+
+class GlobalSearchRequest(BaseModel):
+    query: str
+    n_results: int = 10
+    course_ids: Optional[List[str]] = None
+
 @router.get("/global/stats", response_model=GlobalKnowledgeBaseStats)
 async def get_global_knowledge_base_stats(
     current_user: User = Depends(get_current_user),
@@ -217,6 +223,13 @@ async def get_global_knowledge_base_stats(
         raise HTTPException(status_code=403, detail="只有教师可以查看")
     
     vector_db = get_vector_db()
+    if not vector_db or not hasattr(vector_db, "get_global_stats"):
+        return GlobalKnowledgeBaseStats(
+            total_documents=0,
+            total_courses=0,
+            average_docs_per_course=0.0,
+            course_collections=[]
+        )
     
     try:
         stats = vector_db.get_global_stats()
@@ -252,9 +265,7 @@ async def get_global_knowledge_base_stats(
 
 @router.post("/global/search")
 async def search_global_knowledge_base(
-    query: str = Form(...),
-    n_results: int = Form(10),
-    course_ids: List[str] = Form(None),
+    request: Request,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -268,8 +279,51 @@ async def search_global_knowledge_base(
     """
     if current_user.role != 'teacher':
         raise HTTPException(status_code=403, detail="只有教师可以搜索")
+
+    content_type = request.headers.get("content-type", "")
+    query = ""
+    n_results = 10
+    course_ids: Optional[List[str]] = None
+
+    try:
+        # 兼容两种调用方式：JSON(body) 和 Form(multipart/x-www-form-urlencoded)
+        if "application/json" in content_type:
+            raw_payload = await request.json()
+            payload = GlobalSearchRequest(**raw_payload)
+            query = payload.query.strip()
+            n_results = payload.n_results
+            course_ids = payload.course_ids
+        else:
+            form = await request.form()
+            query = str(form.get("query", "")).strip()
+
+            n_results_raw = form.get("n_results", 10)
+            n_results = int(n_results_raw)
+
+            # FormData 允许重复键: course_ids=1&course_ids=2
+            if hasattr(form, "getlist"):
+                course_ids = form.getlist("course_ids") or None
+            else:
+                single_course_id = form.get("course_ids")
+                course_ids = [single_course_id] if single_course_id else None
+    except ValueError:
+        raise HTTPException(status_code=422, detail="n_results 必须是整数")
+    except Exception:
+        raise HTTPException(status_code=422, detail="请求体格式不正确")
+
+    if not query:
+        raise HTTPException(status_code=422, detail="query 字段不能为空")
+    if n_results <= 0:
+        raise HTTPException(status_code=422, detail="n_results 必须大于 0")
     
     vector_db = get_vector_db()
+    if not vector_db or not hasattr(vector_db, "search_all_courses"):
+        # 与 global/stats 一致：服务不可用时优雅降级为空结果，避免前端直接报错
+        return {
+            "query": query,
+            "total_results": 0,
+            "results": []
+        }
     
     try:
         # 如果指定了课程ID，验证权限

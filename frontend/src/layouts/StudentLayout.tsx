@@ -108,9 +108,9 @@ const StudentLayout = () => {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* 左侧导航栏 */}
+      {/* 左侧导航栏 - 仅桌面端显示 */}
       <aside 
-        className={`bg-white border-r border-gray-200 flex flex-col relative z-20 shadow-sm transition-all duration-300 ease-in-out ${
+        className={`hidden md:flex md:flex-col bg-white border-r border-gray-200 relative z-20 shadow-sm transition-all duration-300 ease-in-out ${
           isCollapsed ? 'w-20' : 'w-72'
         }`}
       >
@@ -159,7 +159,7 @@ const StudentLayout = () => {
                 <Icon 
                   name={item.icon} 
                   size={24} 
-                  className={`flex-shrink-0 ${isActive ? 'bg-indigo-600' : 'bg-gray-400 group-hover:bg-gray-600'}`} 
+                  className={`flex-shrink-0 ${isActive ? 'text-indigo-600' : 'text-gray-400 group-hover:text-gray-500'}`} 
                 />
                 <span className={`font-medium text-base whitespace-nowrap overflow-hidden transition-all duration-300 ${
                   isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100 block'
@@ -195,7 +195,7 @@ const StudentLayout = () => {
                 {userInfo.avatar ? (
                   <img src={userInfo.avatar} alt="Avatar" className="w-full h-full object-cover" />
                 ) : (
-                  <Icon name="user" size={24} className="bg-indigo-600" />
+                  <Icon name="user" size={24} className="text-indigo-600" />
                 )}
                 {/* 悬停提示 */}
                 <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 rounded-full flex items-center justify-center transition-all">
@@ -232,9 +232,52 @@ const StudentLayout = () => {
       </aside>
 
       {/* 右侧主内容区域 */}
-      <main className="flex-1 overflow-y-auto bg-gray-50 relative">
+      <main className="flex-1 overflow-y-auto bg-gray-50 relative pt-14 pb-16 md:pt-0 md:pb-0">
         <Outlet />
       </main>
+
+      {/* 手机端顶部标题栏 */}
+      <header className="md:hidden fixed top-0 left-0 right-0 h-14 bg-white border-b border-gray-200 flex items-center justify-between px-4 z-30 shadow-sm">
+        <div className="flex items-center gap-2 text-indigo-600">
+          <svg className="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="text-lg font-bold text-indigo-600">Vault CS</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <Link to="/student/profile" className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center overflow-hidden flex-shrink-0">
+            {userInfo.avatar ? (
+              <img src={userInfo.avatar} alt="Avatar" className="w-full h-full object-cover" />
+            ) : (
+              <Icon name="user" size={18} className="text-indigo-600" />
+            )}
+          </Link>
+          <button onClick={handleLogout} className="p-1.5 text-gray-500 hover:text-red-500 transition-colors">
+            <Icon name="logout" size={20} />
+          </button>
+        </div>
+      </header>
+
+      {/* 手机端底部Tab导航 */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30 flex safe-area-bottom">
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition-colors ${
+                isActive ? 'text-indigo-600' : 'text-gray-400'
+              }`}
+            >
+              <Icon name={item.icon} size={22} />
+              <span className="text-[11px] font-medium">{item.label}</span>
+            </Link>
+          )
+        })}
+      </nav>
     </div>
   )
 }

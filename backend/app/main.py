@@ -38,7 +38,11 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:3000",
-        "http://localhost:3001"
+        "http://localhost:3001",
+        "http://8.159.151.36:18080",
+        "https://ai4teaching.cn",
+        "https://www.ai4teaching.cn",
+        "https://demo.ai4teaching.cn"
     ],
     allow_credentials=True,
     allow_methods=["*"],

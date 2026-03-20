@@ -126,7 +126,7 @@ const StudentQA = () => {
   const [shareInfo, setShareInfo] = useState<{ code: string; url: string } | null>(null)
   const [shareLoading, setShareLoading] = useState(false)
   const [copySuccess, setCopySuccess] = useState(false)
-  const [showHistory, setShowHistory] = useState(true)
+  const [showHistory, setShowHistory] = useState(() => window.innerWidth >= 768)
   const [history, setHistory] = useState<any[]>([])
   const [showSourceModal, setShowSourceModal] = useState(false)
   const [selectedSource, setSelectedSource] = useState<SourceDetail | null>(null)
@@ -423,10 +423,17 @@ const StudentQA = () => {
   }, [messages, sessionId])
 
   return (
-    <div className="h-full flex bg-white">
+    <div className="h-full flex bg-white relative">
+      {/* 手机端历史记录遗层 */}
+      {showHistory && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/40 z-40"
+          onClick={() => setShowHistory(false)}
+        />
+      )}
       {/* 左侧历史记录侧边栏 */}
       {showHistory && (
-        <div className="w-64 border-r border-gray-200 flex flex-col bg-white">
+        <div className="w-64 border-r border-gray-200 flex flex-col bg-white md:relative fixed inset-y-0 left-0 z-50 shadow-xl md:shadow-none">
           {/* 顶部标题 */}
           <div className="px-4 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-2">

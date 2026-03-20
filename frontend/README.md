@@ -1,5 +1,11 @@
 # 前端安装与运行指南
 
+## 文档同步状态
+
+- 同步时间：2026-03-20
+- 同步来源：`8.159.151.36:4598` 的 `/opt/ai4teaching/frontend`
+- 当前结论：本 README 在代码同步完成后重写，内容以当前路由与配置为准
+
 ## 环境要求
 - Node.js 18.0 或更高版本
 - npm 或 yarn 包管理器
@@ -81,12 +87,9 @@ frontend/
 │   ├── pages/           # 页面组件
 │   │   ├── Login/       # ✅ 登录页 - 已完成
 │   │   ├── Register/    # ✅ 注册页 - 已完成
-│   │   ├── student/     # 学生端页面
-│   │   │   ├── QA/      # ⏳ 问答页 - TODO
-│   │   │   └── Survey/  # ⏳ 问卷页 - TODO
-│   │   └── teacher/     # 教师端页面
-│   │       ├── Dashboard/ # ⏳ 看板页 - TODO
-│   │       └── Survey/    # ⏳ 问卷管理页 - TODO
+│   │   ├── ForgotPassword/ # ✅ 忘记密码页
+│   │   ├── student/     # ✅ 学生端页面（问答/问卷/能力测试/资料）
+│   │   └── teacher/     # ✅ 教师端页面（看板/问卷/资料/知识库）
 │   ├── router/          # 路由配置
 │   │   └── index.tsx    # ✅ 路由定义
 │   ├── services/        # API服务
@@ -152,12 +155,20 @@ npm run lint
 | `/` | 首页（重定向到/login） | ✅ | 公开 |
 | `/login` | 登录页 | ✅ | 公开 |
 | `/register` | 注册页 | ✅ | 公开 |
-| `/student` | 学生端首页 | ⏳ | 学生 |
-| `/student/qa` | 学生问答 | ⏳ | 学生 |
-| `/student/survey` | 学生问卷 | ⏳ | 学生 |
-| `/teacher` | 教师端首页 | ⏳ | 教师 |
-| `/teacher/dashboard` | 教师看板 | ⏳ | 教师 |
-| `/teacher/survey` | 问卷管理 | ⏳ | 教师 |
+| `/forgot-password` | 忘记密码 | ✅ | 公开 |
+| `/shared/:shareCode` | 分享对话 | ✅ | 公开 |
+| `/student` | 学生端首页（重定向到qa） | ✅ | 学生 |
+| `/student/qa` | 学生问答 | ✅ | 学生 |
+| `/student/ability-test` | 学生能力测试 | ✅ | 学生 |
+| `/student/survey` | 学生问卷列表 | ✅ | 学生 |
+| `/student/survey/:surveyId/take` | 学生问卷作答 | ✅ | 学生 |
+| `/student/survey/:surveyId/detail` | 学生问卷详情 | ✅ | 学生 |
+| `/student/profile` | 学生个人资料 | ✅ | 学生 |
+| `/teacher` | 教师端首页（重定向到dashboard） | ✅ | 教师 |
+| `/teacher/dashboard` | 教师看板 | ✅ | 教师 |
+| `/teacher/survey` | 教师问卷管理 | ✅ | 教师 |
+| `/teacher/profile` | 教师个人资料 | ✅ | 教师 |
+| `/teacher/course/:courseId/knowledge-base` | 课程知识库 | ✅ | 教师 |
 
 ## 常见问题
 
@@ -266,13 +277,20 @@ npm run build
 
 ### 部署选项
 
-1. **静态托管**（推荐）:
+1. **当前生产部署（已使用）**:
+  - 前端容器：`ai4teaching-frontend`
+  - 宿主机端口：`18080`
+  - 对外域名：`https://ai4teaching.cn`
+  - API 入口：`https://ai4teaching.cn/api`
+  - 关键配置：`deploy/docker-compose.prod.yml`、`deploy/nginx-ai4teaching.conf`
+
+2. **静态托管**:
    - Vercel
    - Netlify
    - GitHub Pages
    - CloudFlare Pages
 
-2. **传统服务器**:
+3. **传统服务器**:
    - Nginx配置示例：
      ```nginx
      server {
@@ -286,7 +304,7 @@ npm run build
      }
      ```
 
-3. **Docker容器**:
+4. **Docker容器**:
    ```dockerfile
    FROM nginx:alpine
    COPY dist/ /usr/share/nginx/html
