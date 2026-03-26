@@ -34,7 +34,7 @@ class QAService:
         self.skill_loader.load_skills()
         
         # AI 客户端配置
-        self.api_key = "sk-11fe906e92c84e0f95c9f04ae6ed1565"
+        self.api_key = "sk-e1b6f5b89a324964bd117ee31af5f281"
         self.base_url = "https://api.deepseek.com/v1"
         self.model_name = "deepseek-chat"
         self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)

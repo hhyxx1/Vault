@@ -24,3 +24,7 @@ Thumbs.db
 
 # 日志
 *.log
+ 
+# Keep OpenMAIC local only
+OpenMAIC/
+openmaic.tar.gz

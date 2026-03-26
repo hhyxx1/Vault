@@ -16,7 +16,7 @@ class AIService:
     def __init__(self):
         """初始化AI服务"""
         # DeepSeek API配置
-        self.api_key = "sk-11fe906e92c84e0f95c9f04ae6ed1565"
+        self.api_key = "sk-e1b6f5b89a324964bd117ee31af5f281"
         self.base_url = "https://api.deepseek.com/v1"
         self.model_name = "deepseek-chat"
         self.max_retries = 3  # 最大重试次数

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { studentSurveyApi, learningPlanApi } from '@/services'
 import { Icon } from '@/components/Icon'
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 interface Survey {
   id: string
@@ -251,20 +252,23 @@ const AbilityTest = () => {
   const loadWeakPoints = async () => {
     setPlanLoading(true)
     try {
-      const result = await learningPlanApi.getWeakPoints()
+      const result = await learningPlanApi.getAnalysis()
       console.log('学习分析数据:', result)
       if (result.hasData) {
         setWeakPoints(result.weakPoints || [])
         setOverallStats(result.overallStats || null)
+        setAnalysisData(result)
       } else {
         // 没有数据时重置状态
         setWeakPoints([])
         setOverallStats(null)
+        setAnalysisData(null)
       }
     } catch (e: any) {
-      console.error('加载薄弱知识点失败:', e)
+      console.error('加载学习分析失败:', e)
       setWeakPoints([])
       setOverallStats(null)
+      setAnalysisData(null)
     } finally {
       setPlanLoading(false)
     }
@@ -362,7 +366,7 @@ const AbilityTest = () => {
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              学习计划
+              学情看板
             </button>
           </div>
         </div>
@@ -564,31 +568,119 @@ const AbilityTest = () => {
                 </div>
               ) : (
                 <div className="space-y-6">
-                  {/* 整体统计 */}
+                  {/* 核心数据看板 */}
                   {overallStats && (
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                       <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                         <Icon name="bar-chart" size={20} className="text-indigo-600" />
                         学习数据概览
                       </h3>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="bg-indigo-50 rounded-lg p-4 text-center">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div className="bg-indigo-50 rounded-lg p-4 text-center shadow-sm hover:shadow transition-shadow">
                           <p className="text-2xl font-bold text-indigo-600">{overallStats.totalTests}</p>
-                          <p className="text-sm text-gray-600">已完成测试</p>
+                          <p className="text-sm text-gray-600">已完成测试(次)</p>
                         </div>
-                        <div className="bg-green-50 rounded-lg p-4 text-center">
+                        <div className="bg-green-50 rounded-lg p-4 text-center shadow-sm hover:shadow transition-shadow">
                           <p className="text-2xl font-bold text-green-600">{overallStats.totalCorrect}</p>
-                          <p className="text-sm text-gray-600">答对题数</p>
+                          <p className="text-sm text-gray-600">累计答对(题)</p>
                         </div>
-                        <div className="bg-red-50 rounded-lg p-4 text-center">
+                        <div className="bg-red-50 rounded-lg p-4 text-center shadow-sm hover:shadow transition-shadow">
                           <p className="text-2xl font-bold text-red-600">{overallStats.totalWrong}</p>
-                          <p className="text-sm text-gray-600">答错题数</p>
+                          <p className="text-sm text-gray-600">累计答错(题)</p>
                         </div>
-                        <div className="bg-purple-50 rounded-lg p-4 text-center">
+                        <div className="bg-purple-50 rounded-lg p-4 text-center shadow-sm hover:shadow transition-shadow">
                           <p className="text-2xl font-bold text-purple-600">{(overallStats.overallAccuracy * 100).toFixed(0)}%</p>
-                          <p className="text-sm text-gray-600">正确率</p>
+                          <p className="text-sm text-gray-600">平均正确率</p>
                         </div>
                       </div>
+
+                      {/* 可视化图表 */}
+                      {analysisData && (
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                          {/* 雷达图：知识点掌握情况 */}
+                          <div className="border border-gray-100 bg-gray-50/50 rounded-xl p-5 shadow-sm">
+                            <h4 className="text-md font-bold text-gray-700 text-center mb-4 flex items-center justify-center gap-2">
+                              <Icon name="target" size={18} className="text-purple-500" />
+                              高频知识点掌握度
+                            </h4>
+                            <div className="h-64 w-full">
+                              {(() => {
+                                const rawData = analysisData.knowledgePointStats || {};
+                                const kpsRaw = Object.keys(rawData).map(k => ({ name: k, ...rawData[k] }));
+                                // 取测试次数最多的前8个知识点展示，避免雷达图太拥挤
+                                kpsRaw.sort((a, b) => b.total_questions - a.total_questions);
+                                const radarData = kpsRaw.slice(0, 8).map(kp => {
+                                  let shortName = kp.name.includes(' - ') ? kp.name.split(' - ').slice(1).join(' ').trim() : kp.name;
+                                  if (shortName.length > 8) shortName = shortName.substring(0, 8) + '...';
+                                  return {
+                                    subject: shortName,
+                                    A: Math.round(kp.accuracy_rate * 100),
+                                    fullMark: 100
+                                  };
+                                });
+
+                                return radarData.length > 2 ? (
+                                  <ResponsiveContainer width="100%" height="100%">
+                                    <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
+                                      <PolarGrid stroke="#e5e7eb" />
+                                      <PolarAngleAxis dataKey="subject" tick={{ fill: '#4b5563', fontSize: 12 }} />
+                                      <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 10 }} />
+                                      <Radar name="正确率(%)" dataKey="A" stroke="#8b5cf6" fill="#8b5cf6" fillOpacity={0.5} />
+                                      <Tooltip />
+                                    </RadarChart>
+                                  </ResponsiveContainer>
+                                ) : (
+                                  <div className="flex bg-white rounded-lg h-full border border-dashed border-gray-300 items-center justify-center text-gray-400 text-sm">
+                                    数据过少，至少需要做3个知识点才能分析雷达图
+                                  </div>
+                                );
+                              })()}
+                            </div>
+                          </div>
+
+                          {/* 折线图：近期测试趋势 */}
+                          <div className="border border-gray-100 bg-gray-50/50 rounded-xl p-5 shadow-sm">
+                            <h4 className="text-md font-bold text-gray-700 text-center mb-4 flex items-center justify-center gap-2">
+                              <Icon name="activity" size={18} className="text-indigo-500" />
+                              近期能力测试得分趋势
+                            </h4>
+                            <div className="h-64 w-full">
+                              {(() => {
+                                const lineData = [...(analysisData.testResults || [])]
+                                  .sort((a: any, b: any) => new Date(a.submitTime).getTime() - new Date(b.submitTime).getTime())
+                                  .map((item: any) => {
+                                    let shortName = item.surveyTitle;
+                                    if (shortName.length > 6) shortName = shortName.substring(0, 6) + '...';
+                                    return {
+                                      name: shortName,
+                                      score: item.percentageScore,
+                                      fullTitle: item.surveyTitle
+                                    };
+                                  });
+
+                                return lineData.length > 0 ? (
+                                  <ResponsiveContainer width="100%" height="100%">
+                                    <LineChart data={lineData} margin={{ top: 10, right: 20, left: -20, bottom: 0 }}>
+                                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                                      <XAxis dataKey="name" tick={{ fontSize: 12, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+                                      <YAxis domain={[0, 100]} tick={{ fontSize: 12, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+                                      <Tooltip
+                                        contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                        labelStyle={{ color: '#374151', fontWeight: 'bold', marginBottom: '4px' }}
+                                      />
+                                      <Line type="monotone" dataKey="score" name="得分" stroke="#4f46e5" strokeWidth={3} activeDot={{ r: 6, strokeWidth: 0 }} />
+                                    </LineChart>
+                                  </ResponsiveContainer>
+                                ) : (
+                                  <div className="flex bg-white rounded-lg h-full border border-dashed border-gray-300 items-center justify-center text-gray-400 text-sm">
+                                    暂无能力测试历史成绩
+                                  </div>
+                                );
+                              })()}
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
 
