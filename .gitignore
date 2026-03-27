@@ -28,3 +28,11 @@ Thumbs.db
 # Keep OpenMAIC local only
 OpenMAIC/
 openmaic.tar.gz
+
+# Cleanup: exclude unnecessary files
+*.csv
+*.sh
+*.tar.gz
+*.log
+*.err
+*.txt
