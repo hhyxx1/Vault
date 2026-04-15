@@ -22,9 +22,7 @@ services:
           memory: 512M
 
   backend:
-    build:
-      context: ..
-      dockerfile: deploy/backend.Dockerfile
+    image: deploy-backend:latest
     container_name: ai4teaching-backend
     restart: unless-stopped
     environment:
@@ -53,11 +51,7 @@ services:
           memory: 1G
 
   frontend:
-    build:
-      context: ..
-      dockerfile: deploy/frontend.Dockerfile
-      args:
-        VITE_API_BASE_URL: https://ai4teaching.cn/api
+    image: deploy-frontend:latest
     container_name: ai4teaching-frontend
     restart: unless-stopped
     ports:
