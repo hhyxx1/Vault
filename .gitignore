@@ -17,6 +17,7 @@ venv39/
 backend/*.db
 backend/*.sqlite3
 backend/.env
+backend/static/avatars/
 
 # IDE
 .vscode/

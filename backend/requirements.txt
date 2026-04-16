@@ -1,5 +1,5 @@
 # 智能教学平台 - 后端依赖清单
-# Python 3.12+ 所需包
+# Python 3.10+ 所需包
 # 首次安装命令: pip install -r requirements.txt
 
 # ============ 核心框架 ============
@@ -15,8 +15,7 @@ numpy==1.24.3                 # Chroma 0.4.22 与 NumPy 2.x 不兼容
 # ============ 数据库 ============
 sqlalchemy==2.0.25            # ORM框架
 psycopg[binary]==3.3.2        # PostgreSQL驱动（psycopg3，支持中文路径）
-asyncpg==0.29.0               # 异步PostgreSQL驱动
-
+asyncpg==0.29.0               # 异步PostgreSQL驱动（与生产容器一致）
 # ============ 认证与安全 ============
 python-jose[cryptography]==3.3.0  # JWT令牌
 passlib[bcrypt]==1.7.4            # 密码加密
