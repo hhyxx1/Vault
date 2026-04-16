@@ -121,12 +121,10 @@ const StudentLayout = () => {
           <div className={`flex items-center w-full ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
             <div className={`flex items-center gap-3 text-indigo-600 ${isCollapsed ? 'hidden' : 'flex'}`}>
               <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 6.253v13M12 6.253C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               <h1 className="text-2xl font-bold whitespace-nowrap overflow-hidden text-indigo-600">
-                Vault CS
+                Vault
               </h1>
             </div>
             
@@ -244,7 +242,7 @@ const StudentLayout = () => {
             <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span className="text-lg font-bold text-indigo-600">Vault CS</span>
+          <span className="text-lg font-bold text-indigo-600">Vault</span>
         </div>
         <div className="flex items-center gap-3">
           <Link to="/student/profile" className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center overflow-hidden flex-shrink-0">
