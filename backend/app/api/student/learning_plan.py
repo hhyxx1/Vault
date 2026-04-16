@@ -8,12 +8,14 @@ from sqlalchemy import and_
 from typing import Optional
 import json
 import os
+import re
 from datetime import datetime
 from decimal import Decimal
 
 from app.database import get_db
 from app.models.survey import Survey, Question, SurveyResponse, Answer
 from app.models.user import User, Student
+from app.models.learning_plan import StudentLearningPlan
 from app.utils.auth import get_current_user
 
 router = APIRouter(tags=["学习计划"])
@@ -24,6 +26,29 @@ def decimal_to_float(obj):
     if isinstance(obj, Decimal):
         return float(obj)
     return obj
+
+
+def _extract_json_from_ai_response(ai_response: str):
+    """尽量从 AI 响应中提取 JSON，避免代码块包裹导致解析失败。"""
+    response_text = ai_response.strip()
+    if response_text.startswith("```json"):
+        response_text = response_text[7:]
+    if response_text.startswith("```"):
+        response_text = response_text[3:]
+    if response_text.endswith("```"):
+        response_text = response_text[:-3]
+    response_text = response_text.strip()
+
+    try:
+        return json.loads(response_text)
+    except json.JSONDecodeError:
+        pass
+
+    json_match = re.search(r"\{[\s\S]*\}", response_text)
+    if json_match:
+        return json.loads(json_match.group(0))
+
+    raise json.JSONDecodeError("无法从 AI 响应中提取有效 JSON", response_text, 0)
 
 
 def _get_learning_analysis_impl(db: Session, student_id: str, include_all_types: bool = False):
@@ -244,6 +269,38 @@ async def get_learning_analysis(
         raise HTTPException(status_code=500, detail=f"获取学习分析失败: {str(e)}")
 
 
+@router.get("/current")
+async def get_current_learning_plan(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """获取当前账号最近一次成功生成并保存的学习计划。"""
+    try:
+        student_id = str(current_user.id)
+        plan_record = db.query(StudentLearningPlan).filter(
+            StudentLearningPlan.student_id == student_id
+        ).first()
+
+        if not plan_record:
+            return {
+                "hasPlan": False,
+                "learningPlan": None,
+                "analysisData": None,
+                "generatedAt": None
+            }
+
+        return {
+            "hasPlan": True,
+            "learningPlan": plan_record.learning_plan,
+            "analysisData": plan_record.analysis_data,
+            "generatedAt": plan_record.generated_at.isoformat() if plan_record.generated_at else None
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"获取学习计划失败: {str(e)}")
+
+
 @router.post("/generate")
 async def generate_learning_plan(
     include_all: bool = False,
@@ -372,17 +429,27 @@ async def generate_learning_plan(
             # 学习计划需要生成大量JSON，给更长的超时(180秒)，不重试避免总时间过长
             ai_response = await get_ai_response(prompt, temperature=0.7, max_tokens=4000, timeout=180.0, max_retries=1)
             
-            # 尝试解析 JSON
-            response_text = ai_response.strip()
-            if response_text.startswith("```json"):
-                response_text = response_text[7:]
-            if response_text.startswith("```"):
-                response_text = response_text[3:]
-            if response_text.endswith("```"):
-                response_text = response_text[:-3]
-            response_text = response_text.strip()
-            
-            learning_plan = json.loads(response_text)
+            # 仅在解析成功后才覆盖已有计划，避免“重新生成失败把旧计划清空”
+            learning_plan = _extract_json_from_ai_response(ai_response)
+
+            plan_record = db.query(StudentLearningPlan).filter(
+                StudentLearningPlan.student_id == student_id
+            ).first()
+
+            if plan_record:
+                plan_record.learning_plan = learning_plan
+                plan_record.analysis_data = analysis
+                plan_record.generated_at = datetime.utcnow()
+            else:
+                plan_record = StudentLearningPlan(
+                    student_id=student_id,
+                    learning_plan=learning_plan,
+                    analysis_data=analysis,
+                    generated_at=datetime.utcnow()
+                )
+                db.add(plan_record)
+
+            db.commit()
             
             return {
                 "success": True,
@@ -392,9 +459,10 @@ async def generate_learning_plan(
             }
             
         except json.JSONDecodeError as e:
-            # 如果 AI 返回的不是有效 JSON，返回原始文本
+            db.rollback()
+            # AI 返回的不是有效 JSON：不覆盖已有学习计划
             return {
-                "success": True,
+                "success": False,
                 "learningPlan": None,
                 "rawResponse": ai_response,
                 "analysisData": analysis,
@@ -402,6 +470,7 @@ async def generate_learning_plan(
                 "parseError": str(e)
             }
         except Exception as e:
+            db.rollback()
             # AI 服务调用失败，返回基础分析
             return {
                 "success": False,

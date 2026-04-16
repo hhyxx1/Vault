@@ -613,6 +613,21 @@ CREATE TABLE public.students (
 
 
 --
+-- Name: student_learning_plans; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_learning_plans (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    student_id uuid NOT NULL,
+    learning_plan jsonb NOT NULL,
+    analysis_data jsonb,
+    generated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
 -- Name: survey_responses; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -972,6 +987,22 @@ ALTER TABLE ONLY public.students
 
 ALTER TABLE ONLY public.students
     ADD CONSTRAINT students_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: student_learning_plans student_learning_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_learning_plans
+    ADD CONSTRAINT student_learning_plans_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student_learning_plans student_learning_plans_student_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_learning_plans
+    ADD CONSTRAINT student_learning_plans_student_id_key UNIQUE (student_id);
 
 
 --
@@ -1475,6 +1506,20 @@ CREATE INDEX idx_students_user ON public.students USING btree (user_id);
 
 
 --
+-- Name: idx_student_learning_plans_generated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_student_learning_plans_generated_at ON public.student_learning_plans USING btree (generated_at DESC);
+
+
+--
+-- Name: idx_student_learning_plans_student_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_student_learning_plans_student_id ON public.student_learning_plans USING btree (student_id);
+
+
+--
 -- Name: idx_submissions_student; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1640,6 +1685,13 @@ CREATE TRIGGER update_questions_updated_at BEFORE UPDATE ON public.questions FOR
 --
 
 CREATE TRIGGER update_students_updated_at BEFORE UPDATE ON public.students FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- Name: student_learning_plans update_student_learning_plans_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER update_student_learning_plans_updated_at BEFORE UPDATE ON public.student_learning_plans FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
 
 --
@@ -1924,6 +1976,14 @@ ALTER TABLE ONLY public.questions
 
 ALTER TABLE ONLY public.students
     ADD CONSTRAINT students_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: student_learning_plans student_learning_plans_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_learning_plans
+    ADD CONSTRAINT student_learning_plans_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --

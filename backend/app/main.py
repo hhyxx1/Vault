@@ -40,6 +40,7 @@ app.add_middleware(
         "http://localhost:3000",
         "http://localhost:3001",
         "http://8.159.151.36:18080",
+        "https://8.159.151.36",
         "https://ai4teaching.cn",
         "https://www.ai4teaching.cn",
         "https://demo.ai4teaching.cn"

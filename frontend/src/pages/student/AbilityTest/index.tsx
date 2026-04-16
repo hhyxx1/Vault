@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { studentSurveyApi, learningPlanApi } from '@/services'
 import { Icon } from '@/components/Icon'
@@ -132,6 +132,50 @@ interface LearningPlan {
   motivation_message: string
 }
 
+interface PersistedLearningPlan {
+  learningPlan: LearningPlan
+  analysisData?: any
+  generatedAt: string
+}
+
+const getCurrentStudentPlanStorageKey = () => {
+  try {
+    const userStr = localStorage.getItem('user')
+    if (!userStr) return 'student_learning_plan:anonymous'
+
+    const user = JSON.parse(userStr)
+    const accountId = user?.id || user?.username || user?.email || 'anonymous'
+    return `student_learning_plan:${accountId}`
+  } catch {
+    return 'student_learning_plan:anonymous'
+  }
+}
+
+const loadPersistedLearningPlan = (storageKey: string): PersistedLearningPlan | null => {
+  try {
+    const raw = localStorage.getItem(storageKey)
+    if (!raw) return null
+
+    const parsed = JSON.parse(raw)
+    if (!parsed?.learningPlan) return null
+    return parsed as PersistedLearningPlan
+  } catch {
+    return null
+  }
+}
+
+const savePersistedLearningPlan = (storageKey: string, payload: PersistedLearningPlan | null) => {
+  try {
+    if (!payload) {
+      localStorage.removeItem(storageKey)
+      return
+    }
+    localStorage.setItem(storageKey, JSON.stringify(payload))
+  } catch {
+    // 忽略存储异常，避免影响页面主流程
+  }
+}
+
 // 倒计时组件
 const Countdown = ({ targetTime }: { targetTime: string }) => {
   const [timeLeft, setTimeLeft] = useState('')
@@ -171,6 +215,7 @@ const Countdown = ({ targetTime }: { targetTime: string }) => {
 
 const AbilityTest = () => {
   const navigate = useNavigate()
+  const planStorageKey = useMemo(() => getCurrentStudentPlanStorageKey(), [])
   const [surveys, setSurveys] = useState<Survey[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -184,6 +229,27 @@ const AbilityTest = () => {
   const [planGenerating, setPlanGenerating] = useState(false)
   const [analysisData, setAnalysisData] = useState<any>(null)
   const [generatingSeconds, setGeneratingSeconds] = useState(0)
+
+  // 页面初始化时优先恢复当前账号的已保存学习计划
+  useEffect(() => {
+    const persisted = loadPersistedLearningPlan(planStorageKey)
+    if (!persisted?.learningPlan) return
+
+    setLearningPlan(persisted.learningPlan)
+    if (persisted.analysisData) {
+      setAnalysisData(persisted.analysisData)
+    }
+  }, [planStorageKey])
+
+  // 学习计划变化后按账号持久化，保证切页/重新登录后仍可恢复
+  useEffect(() => {
+    if (!learningPlan) return
+    savePersistedLearningPlan(planStorageKey, {
+      learningPlan,
+      analysisData,
+      generatedAt: new Date().toISOString()
+    })
+  }, [planStorageKey, learningPlan, analysisData])
 
   useEffect(() => {
     let cancelled = false
@@ -252,17 +318,28 @@ const AbilityTest = () => {
   const loadWeakPoints = async () => {
     setPlanLoading(true)
     try {
-      const result = await learningPlanApi.getAnalysis()
-      console.log('学习分析数据:', result)
-      if (result.hasData) {
-        setWeakPoints(result.weakPoints || [])
-        setOverallStats(result.overallStats || null)
-        setAnalysisData(result)
+      const [analysisResult, currentPlanResult] = await Promise.all([
+        learningPlanApi.getAnalysis(),
+        learningPlanApi.getCurrentPlan().catch(() => ({ hasPlan: false }))
+      ])
+
+      console.log('学习分析数据:', analysisResult)
+      if (analysisResult.hasData) {
+        setWeakPoints(analysisResult.weakPoints || [])
+        setOverallStats(analysisResult.overallStats || null)
+        setAnalysisData(analysisResult)
       } else {
-        // 没有数据时重置状态
+        // 没有分析数据时仅重置分析相关状态，避免误清空已保存学习计划
         setWeakPoints([])
         setOverallStats(null)
         setAnalysisData(null)
+      }
+
+      if (currentPlanResult?.hasPlan && currentPlanResult.learningPlan) {
+        setLearningPlan(currentPlanResult.learningPlan)
+        if (currentPlanResult.analysisData) {
+          setAnalysisData(currentPlanResult.analysisData)
+        }
       }
     } catch (e: any) {
       console.error('加载学习分析失败:', e)
@@ -276,6 +353,8 @@ const AbilityTest = () => {
 
   // 生成学习计划
   const handleGeneratePlan = async () => {
+    const previousPlan = learningPlan
+    const previousAnalysisData = analysisData
     setPlanGenerating(true)
     setGeneratingSeconds(0)
     try {
@@ -285,6 +364,11 @@ const AbilityTest = () => {
       if (result.success && result.learningPlan) {
         setLearningPlan(result.learningPlan)
         setAnalysisData(result.analysisData)
+        savePersistedLearningPlan(planStorageKey, {
+          learningPlan: result.learningPlan,
+          analysisData: result.analysisData,
+          generatedAt: result.generatedAt || new Date().toISOString()
+        })
       } else if (result.rawResponse) {
         // AI返回了非JSON格式，尝试手动解析
         console.warn('AI返回非标准格式，原始响应:', result.rawResponse)
@@ -299,20 +383,33 @@ const AbilityTest = () => {
             const parsed = JSON.parse(jsonMatch[0])
             setLearningPlan(parsed)
             setAnalysisData(result.analysisData)
+            savePersistedLearningPlan(planStorageKey, {
+              learningPlan: parsed,
+              analysisData: result.analysisData,
+              generatedAt: result.generatedAt || new Date().toISOString()
+            })
             console.log('成功从原始响应中解析出学习计划')
           } catch (e) {
             console.error('手动解析也失败:', e)
-            alert('AI生成的学习计划格式不正确，请重试。如果问题持续，请联系管理员。')
+            setLearningPlan(previousPlan)
+            setAnalysisData(previousAnalysisData)
+            alert('重新生成失败，已保留原学习计划。请稍后重试。')
           }
         } else {
-          alert('AI生成的学习计划格式不正确，请重试。如果问题持续，请联系管理员。')
+          setLearningPlan(previousPlan)
+          setAnalysisData(previousAnalysisData)
+          alert('重新生成失败，已保留原学习计划。请稍后重试。')
         }
       } else {
+        setLearningPlan(previousPlan)
+        setAnalysisData(previousAnalysisData)
         alert(result.message || '生成学习计划失败，请重试')
       }
     } catch (e: any) {
       console.error('生成学习计划失败:', e)
-      alert(e.response?.data?.detail || '生成学习计划失败，请检查网络连接后重试')
+      setLearningPlan(previousPlan)
+      setAnalysisData(previousAnalysisData)
+      alert(e.response?.data?.detail || '重新生成失败，已保留原学习计划。请检查网络后重试。')
     } finally {
       setPlanGenerating(false)
     }
@@ -1335,7 +1432,7 @@ const AbilityTest = () => {
                   )}
 
                   {/* 无数据提示 */}
-                  {!overallStats && !planLoading && (
+                  {!overallStats && !planLoading && !learningPlan && (
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
                       <Icon name="info" size={48} className="text-gray-300 mx-auto mb-4" />
                       <h3 className="text-xl font-semibold text-gray-800 mb-2">暂无学习数据</h3>

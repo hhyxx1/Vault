@@ -4,6 +4,7 @@ from .user import User, Student, Teacher
 from .qa import QARecord
 from .survey import Survey, Question
 from .course import Course, Class
+from .learning_plan import StudentLearningPlan
 
 __all__ = [
     "User",
@@ -14,4 +15,5 @@ __all__ = [
     "Question",
     "Course",
     "Class",
+    "StudentLearningPlan",
 ]

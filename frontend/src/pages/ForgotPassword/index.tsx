@@ -341,10 +341,6 @@ const ForgotPassword = () => {
           )}
         </div>
 
-        {/* 页脚 */}
-        <div className="mt-8 text-center text-sm text-gray-500">
-          <p>© 2026 智能教学平台. All rights reserved.</p>
-        </div>
       </div>
     </div>
   )

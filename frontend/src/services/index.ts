@@ -295,6 +295,12 @@ export const learningPlanApi = {
     const response = await apiClient.get('/student/learning-plan/analysis')
     return response.data
   },
+
+  // 获取当前账号最近一次保存的学习计划（跨设备同步）
+  getCurrentPlan: async () => {
+    const response = await apiClient.get('/student/learning-plan/current')
+    return response.data
+  },
   
   // 生成学习计划（支持包含所有类型问卷的成绩）
   generatePlan: async (includeAll: boolean = false) => {
