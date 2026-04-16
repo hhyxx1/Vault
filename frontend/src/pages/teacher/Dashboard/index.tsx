@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Icon } from '../../../components/Icon'
 import { dashboardApi } from '../../../services'
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
@@ -62,6 +62,10 @@ const TeacherDashboard = () => {
   const [overview, setOverview] = useState<DashboardOverview | null>(null)
   const [classes, setClasses] = useState<ClassInfo[]>([])
   const [recentQuestions, setRecentQuestions] = useState<RecentQuestion[]>([])
+  const [recentQuestionsExpanded, setRecentQuestionsExpanded] = useState(false)
+  const [expandedStudents, setExpandedStudents] = useState<Record<string, boolean>>({})
+  const [studentVisibleQuestionCount, setStudentVisibleQuestionCount] = useState<Record<string, number>>({})
+  const [visibleStudentCount, setVisibleStudentCount] = useState(8)
   const [customCards, setCustomCards] = useState<CustomCard[]>([])
   const [showAddCardDialog, setShowAddCardDialog] = useState(false)
   const [cardQuestion, setCardQuestion] = useState('')
@@ -198,6 +202,52 @@ const TeacherDashboard = () => {
     ?.filter(s => s.avg_score > 0)
     ?.sort((a, b) => b.avg_score - a.avg_score)
     ?.slice(0, 5) || []
+
+  const groupedRecentQuestions = useMemo(() => {
+    const groupMap: Record<string, RecentQuestion[]> = {}
+    recentQuestions.forEach((q) => {
+      const student = q.student || '未知学生'
+      if (!groupMap[student]) {
+        groupMap[student] = []
+      }
+      groupMap[student].push(q)
+    })
+
+    return Object.entries(groupMap)
+      .map(([student, questions]) => ({
+        student,
+        questions,
+        count: questions.length,
+        lastTime: questions[0]?.time || ''
+      }))
+      .sort((a, b) => b.count - a.count)
+  }, [recentQuestions])
+
+  const compactRecentQuestions = recentQuestions.slice(0, 3)
+  const visibleStudentGroups = groupedRecentQuestions.slice(0, visibleStudentCount)
+
+  const toggleStudentQuestions = (student: string) => {
+    setExpandedStudents((prev) => {
+      const nextExpanded = !prev[student]
+      if (nextExpanded) {
+        setStudentVisibleQuestionCount((curr) => ({
+          ...curr,
+          [student]: curr[student] || 3
+        }))
+      }
+      return {
+        ...prev,
+        [student]: nextExpanded
+      }
+    })
+  }
+
+  const handleLoadMoreStudentQuestions = (student: string) => {
+    setStudentVisibleQuestionCount((prev) => ({
+      ...prev,
+      [student]: (prev[student] || 3) + 5
+    }))
+  }
 
   return (
     <div className="h-full bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 overflow-y-auto">
@@ -377,25 +427,113 @@ const TeacherDashboard = () => {
                   </h3>
                   <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
                     {recentQuestions.length > 0 ? (
-                      recentQuestions.map((q) => (
-                        <div
-                          key={q.id}
-                          className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors"
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                              <Icon name="description" size={16} className="text-purple-600" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center justify-between mb-1">
-                                <span className="font-medium text-gray-800">{q.student}</span>
-                                <span className="text-xs text-gray-400">{q.time}</span>
-                              </div>
-                              <p className="text-sm text-gray-600 truncate">{q.question}</p>
-                            </div>
-                          </div>
+                      <>
+                        <div className="px-4 py-3 border-b border-gray-100 bg-purple-50/40 flex items-center justify-between">
+                          <p className="text-sm text-gray-600">
+                            共 {recentQuestions.length} 条提问，涉及 {groupedRecentQuestions.length} 位学生
+                          </p>
+                          <button
+                            onClick={() => setRecentQuestionsExpanded((prev) => !prev)}
+                            className="inline-flex items-center gap-1 text-sm text-purple-700 hover:text-purple-800 font-medium"
+                          >
+                            <span>{recentQuestionsExpanded ? '收起详情' : '展开详情'}</span>
+                            <Icon
+                              name="chevron-right"
+                              size={16}
+                              className={recentQuestionsExpanded ? 'text-purple-700 rotate-90 transition-transform' : 'text-purple-700 transition-transform'}
+                            />
+                          </button>
                         </div>
-                      ))
+
+                        {!recentQuestionsExpanded && (
+                          <div>
+                            {compactRecentQuestions.map((q) => (
+                              <div
+                                key={q.id}
+                                className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors"
+                              >
+                                <div className="flex items-start gap-3">
+                                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <Icon name="description" size={16} className="text-purple-600" />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center justify-between mb-1">
+                                      <span className="font-medium text-gray-800">{q.student}</span>
+                                      <span className="text-xs text-gray-400">{q.time}</span>
+                                    </div>
+                                    <p className="text-sm text-gray-600 truncate">{q.question}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        {recentQuestionsExpanded && (
+                          <div className="max-h-[520px] overflow-y-auto">
+                            {visibleStudentGroups.map((group) => {
+                              const isExpanded = !!expandedStudents[group.student]
+                              const visibleCount = studentVisibleQuestionCount[group.student] || 3
+                              const visibleQuestions = group.questions.slice(0, visibleCount)
+                              const hasMoreQuestions = group.questions.length > visibleCount
+
+                              return (
+                                <div key={group.student} className="border-b border-gray-100 last:border-b-0">
+                                  <button
+                                    onClick={() => toggleStudentQuestions(group.student)}
+                                    className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                                  >
+                                    <div className="text-left min-w-0">
+                                      <p className="font-medium text-gray-800 truncate">{group.student}</p>
+                                      <p className="text-xs text-gray-500 mt-0.5">{group.count} 条提问 · 最近 {group.lastTime}</p>
+                                    </div>
+                                    <div className="inline-flex items-center gap-2 flex-shrink-0">
+                                      <span className="text-xs text-purple-700 bg-purple-100 px-2 py-1 rounded-full">{group.count}</span>
+                                      <Icon
+                                        name="chevron-right"
+                                        size={16}
+                                        className={isExpanded ? 'text-gray-500 rotate-90 transition-transform' : 'text-gray-500 transition-transform'}
+                                      />
+                                    </div>
+                                  </button>
+
+                                  {isExpanded && (
+                                    <div className="px-4 pb-3 space-y-2">
+                                      {visibleQuestions.map((q) => (
+                                        <div key={q.id} className="bg-gray-50 rounded-lg p-3">
+                                          <div className="flex items-center justify-between mb-1">
+                                            <span className="text-xs text-gray-400">{q.time}</span>
+                                          </div>
+                                          <p className="text-sm text-gray-700 leading-6 break-words">{q.question}</p>
+                                        </div>
+                                      ))}
+                                      {hasMoreQuestions && (
+                                        <button
+                                          onClick={() => handleLoadMoreStudentQuestions(group.student)}
+                                          className="text-sm text-purple-700 hover:text-purple-800 font-medium"
+                                        >
+                                          查看更多该学生提问（剩余 {group.questions.length - visibleCount} 条）
+                                        </button>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              )
+                            })}
+
+                            {groupedRecentQuestions.length > visibleStudentCount && (
+                              <div className="p-4 border-t border-gray-100 bg-white sticky bottom-0">
+                                <button
+                                  onClick={() => setVisibleStudentCount((prev) => prev + 8)}
+                                  className="w-full py-2 text-sm font-medium text-purple-700 hover:text-purple-800 border border-purple-200 rounded-lg hover:bg-purple-50 transition-colors"
+                                >
+                                  加载更多学生（剩余 {groupedRecentQuestions.length - visibleStudentCount} 位）
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </>
                     ) : (
                       <div className="p-8 text-center">
                         <Icon name="description" size={40} className="text-gray-300 mx-auto mb-3" />
