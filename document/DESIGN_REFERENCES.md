@@ -21,6 +21,7 @@
 | 题目与核验 | PrairieLearn | 参数化变式、题目生命周期、外部评分、实验工作区 | 任务规格、作品提交、测试与评分分别保存；同目标生成不同任务；工作区保存与正式提交分开 |
 | 多语言执行 | Judge0 | 提交标识、队列、状态查询、语言列表、多文件与执行结果 | 统一异步执行任务契约；编译、运行和答案检查分别记录 |
 | 执行引擎 | Piston | 语言与版本目录、编译／运行阶段结果、沙箱和资源限制 | 执行器只输出真实运行事实，判题逻辑在外层处理 |
+| 受限执行 | isolate | Linux 命名空间、资源与元结果，专用执行环境要求 | 用成熟沙箱配薄控制层，编译与运行均隔离，账号与访客生命周期分别实现 |
 | 测试与重判 | DOMjudge | 提交与判题记录分离，按测试点比较，可重新判题 | 测试集和检查器版本化；修正测试后保留旧结果并重新核验 |
 | 数据与 AI 实验 | JupyterLab | Notebook 组合文本、公式、代码、输出与图表，内核状态独立管理 | 保留实验文档与运行环境，核验时在干净环境重新执行 |
 | Agent 协作与恢复 | LangGraph | 状态图、持久检查点、跨会话存储、中断与恢复 | 明确角色交接与等待学生状态；会话运行状态和长期学习事实分开 |
@@ -43,6 +44,8 @@ Piston 可参考运行时版本与编译／运行阶段结果。其执行输出�
 DOMjudge 可参考多个测试点、比较器、判题记录与重新判题。学习反馈应告诉学生实际失败条件和后续可做什么，不能只保留竞赛式总结果。[判题流程](https://github.com/DOMjudge/domjudge/blob/main/doc/manual/judging.rst)
 
 SQL 另配隔离数据库和结果比较；Web 服务、系统和网络实验另配受控适配器。通用编译器支持一种语言，不意味着已经覆盖所有用该语言完成的实验。
+
+isolate 官方当前建议专用 Linux 执行环境，cgroup 模式要求 v2，不推荐容器运行。推荐主方案为独立 VM 原生 isolate 配自有任务控制层；Piston 和 Judge0 作为有明确触发条件的替代方案。具体版本、限制、部署边界和测量方法见 [默认方案建议](DECISION_RECOMMENDATIONS.md)。这仍是研究建议，没有安装或验证。[官方手册](https://www.ucw.cz/isolate/isolate.1.html)
 
 ### 2.3 实验文档、协作和复习
 
@@ -76,14 +79,14 @@ py-fsrs 可参考记忆性内容的复习日志与排程。其卡片回忆状态
 
 | 类别 | 需要保存的信息 |
 |---|---|
-| 归属 | 学生、课程、任务和尝试 ID，权限与幂等键 |
+| 归属 | 访客本地空间或账号所有者、课程、任务和尝试标识，权限与幂等键 |
 | 产物 | 源码或作品版本，允许的文件结构，输入 |
 | 环境 | 语言、编译器／解释器版本、镜像或环境版本、依赖和资源配置 |
 | 执行 | 排队及运行时间、编译输出、标准输出和错误、退出码或信号、截断及资源状态 |
 | 核验 | 测试集和检查器版本、每个测试点结果、失败原因与适用条件 |
 | 恢复 | 当前状态、取消、重试关系及迟到结果处理 |
 
-源代码编辑、执行与正式核验分别留痕。异步任务由持久队列或等效机制管理；沙箱生命周期、取消和清理需要后续实际验证，不能只从参考项目说明推断安全或稳定。
+源代码编辑、执行与正式核验分别留痕。账号异步任务由持久队列或等效机制管理；访客任务仅短期处理，结果回到本地，远端按期限清理。沙箱生命周期、取消和清理需要后续实际验证，不能只从参考项目说明推断安全或稳定。
 
 ### 3.4 多 Agent 的交接与等待
 
@@ -91,7 +94,7 @@ py-fsrs 可参考记忆性内容的复习日志与排程。其卡片回忆状态
 
 提出目标草案后等待本人确认；给提示后等待尝试或解释；提交后等待实际核验；失败则恢复到修改与重试。状态更新由明确规则和数据服务控制，角色不能根据对话自行跳过学生操作或核验。
 
-角色数量和运行框架后置选择。先在一个真实学习流程验证必要协作，再扩展职责，观察学习价值、等待时间和成本。
+默认建议采用规划与诊断、辅导、实践任务、核验四项职责，并使用自托管 LangGraph 开源库编排。先在一个真实学习流程验证必要协作，观察学习价值、等待时间和成本，再调整配置；具体实现与版本仍待评审，见 [默认方案建议](DECISION_RECOMMENDATIONS.md)。
 
 ### 3.5 持续学习与复习
 
@@ -110,6 +113,7 @@ py-fsrs 可参考记忆性内容的复习日志与排程。其卡片回忆状态
 | Docling | 代码 MIT；实际使用的解析模型另核对对应许可 | [LICENSE](https://github.com/docling-project/docling/blob/main/LICENSE) |
 | Judge0 | GPL-3.0-or-later；README 简称 GPL v3 | [LICENSE](https://github.com/judge0/judge0/blob/master/LICENSE) |
 | Piston | MIT；公共 API 使用条件另行规定 | [仓库及 LICENSE](https://github.com/engineer-man/piston) |
+| isolate | GPL-2.0-or-later | [LICENSE](https://github.com/ioi/isolate/blob/master/LICENSE) |
 | DOMjudge | GPL-2.0-or-later | [官方仓库](https://github.com/DOMjudge/domjudge) |
 | PrairieLearn | 当前社区版 AGPL-3.0；企业版另有协议，部分贡献有单独 MIT 授权 | [LICENSE](https://github.com/PrairieLearn/PrairieLearn/blob/master/LICENSE) |
 | JupyterLab | BSD-3-Clause | [LICENSE](https://github.com/jupyterlab/jupyterlab/blob/main/LICENSE) |
