@@ -1,45 +1,44 @@
-# 项目 Git 忽略配置
+# 本地配置与凭据；示例配置可提交
+.env*
+!.env.example
+!.env.*.example
 
-# 前端相关
-frontend/node_modules/
-frontend/dist/
-frontend/.env.local
-
-# 根目录依赖产物
+# 依赖、构建产物与缓存
 node_modules/
-npm-debug.log*
-
-# 后端相关
-backend/__pycache__/
-backend/venv/
-backend/venv39/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
 venv39/
-backend/*.db
-backend/*.sqlite3
-backend/.env
-backend/static/avatars/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.coverage
+htmlcov/
 
-# IDE
+# 本地运行数据库与日志
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.log
+*.err
+
+# IDE 与系统文件
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# 系统文件
 .DS_Store
 Thumbs.db
 
-# 日志
-*.log
- 
-# Keep OpenMAIC local only
-OpenMAIC/
-openmaic.tar.gz
-
-# Cleanup: exclude unnecessary files
-*.csv
-*.sh
+# 本地下载压缩包
 *.tar.gz
-*.log
-*.err
-*.txt
