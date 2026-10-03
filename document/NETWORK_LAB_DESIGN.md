@@ -1,8 +1,8 @@
 # 网络课程实验工作台设计
 
-日期：2026 年 10 月 2 日。
+日期：2026 年 10 月 3 日。
 
-状态：设计方案与官方资料研究，尚未部署、运行或验证。基础实操与证据要求纳入 PRD v1.0；底座、镜像、具体协议模板与资源配置仍待原型选择，不因需求定版视作该设计已验收。
+状态：已选containerlab＋Linux／FRR的开发设计，尚未部署、运行或验证。基础实操要求按PRD v1.3；公开每实验租约独立VM、内部单租约专用VM，安全和模板验收见 [部署](DEPLOYMENT.md)。以下保留备选研究，不表示同时接入。
 
 ## 1 学生只用浏览器，实验在服务端运行
 
@@ -24,7 +24,7 @@ flowchart LR
 
 纯网页动画适合展示协议原理，应标明模拟规则；它与服务端真实协议栈和流量实验分别标识。只画出拓扑或让 AI 生成命令输出，不计为实操。
 
-## 2 候选底座与适用范围
+## 2 选定底座与备选研究
 
 | 候选方案 | 官方能力 | 本项目适合借鉴的部分 | 需要补充或注意 |
 |---|---|---|---|
@@ -34,7 +34,7 @@ flowchart LR
 
 依据：[containerlab GUI 与运行端](https://containerlab.dev/manual/gui/)、[Kathara](https://github.com/KatharaFramework/Kathara)、[Lab Checker](https://github.com/KatharaFramework/kathara-lab-checker)、[Mininet 概览](https://mininet.org/overview/)、[Mininet 隔离说明](https://mininet.org/walkthrough/)。
 
-建议先用 Linux 节点和开放路由组件做小拓扑，比较 Kathara 的课程检查契约与 containerlab 的浏览器接入；不同时集成全部底座。FRR 可用于路由协议配置与观察，具体协议和版本需按模板验收。[FRR OSPF 文档](https://docs.frrouting.org/en/latest/ospfd.html)
+选containerlab管理模板／节点生命周期，平台自行做xterm.js终端、快照、定向抓包和checker；只允许白名单模板、固定镜像和受控字段，学生不能提交任意宿主参数。先用Linux／FRR小拓扑验证；不同时集成其他底座。FRR 可用于路由协议配置与观察，具体协议和版本需按模板验收。[FRR OSPF 文档](https://docs.frrouting.org/en/latest/ospfd.html)
 
 底座的开放许可不自动包含厂商镜像的使用权，实际采用组件、镜像和远程软件时分别核对版本与许可。本次未引入其代码或镜像。
 

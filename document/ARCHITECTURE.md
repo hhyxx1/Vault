@@ -1,8 +1,8 @@
 # 系统架构与信任边界
 
-版本：v0.2
+版本：v1.0
 
-状态：开发前逻辑架构草案；语言、供应商、数据库和托管细节须经实现约束验证。对应产品范围见 [PRD](PRD.md)。
+状态：已选定的逻辑架构与技术基线，尚未实现或验收。具体依赖、物理数据／接口与部署见 [技术基线](TECHNOLOGY_BASELINE.md)、[物理／API契约](TECHNICAL_DATA_CONTRACT.md)、[部署设计](DEPLOYMENT.md)。
 
 ## 1 设计目标
 
@@ -89,10 +89,18 @@ flowchart LR
 
 ## 6 运行与扩展决策
 
-Web、本地存储、API、模型调度器、课程审核工具、隔离执行器和对象存储均需保留可替换边界。LangGraph 为候选自托管编排实现，须在 [架构决策记录](ARCHITECTURE_DECISIONS.md) 核对恢复、人工等待、并发、版本兼容和许可后锁定。MVP 与第一阶段里程碑按 [开发计划](DEVELOPMENT_PLAN.md)；13 门全量课程是第一阶段门槛。
+Web、本地存储、API、模型调度器、课程审核工具、隔离执行器和对象存储均需保留可替换边界。已选自托管 Python LangGraph；账号检查点存独立PG表组，访客按短期lease／本地恢复。小型SQLite原型已测试，生产PG、取消、版本与权限须实测；依据见 [ADR](ARCHITECTURE_DECISIONS.md) 和 [验证记录](TECHNICAL_VALIDATION.md)。MVP 与第一阶段里程碑按 [开发计划](DEVELOPMENT_PLAN.md)；13 门全量课程是第一阶段门槛。
 
 精确编程语言补丁、隔离技术、并发与运行时限、数据库及云端实现以架构决策记录和验收结果为准，本文件不表示它们已经部署。
 
-课程与检索模块不得将 CS01–CS13 硬编码为合法课程全集。解析器、切片策略、全文／向量索引与 ACL 存储具体产品仍待架构决策；任何选型必须验证课程级授权、撤权即时拒绝及全链路防泄漏。
+课程与检索模块不得将 CS01–CS13 硬编码为合法课程全集。已选Docling／受控Office转换、bge-m3 dense1024＋固定jieba／PG GIN和PG权威ACL；先授权集精确检索。检索相关性、课程级授权、撤权与全链路拒绝仍须按B04实测。
 
 受控答案在资料、切片和派生产物上保留原发布实例／策略关联，课程问答无任务、改换任务、下载及导出均按该关联检查；无关联自学不受扩大限制。独立审阅发布物校验自身发布授权，未发布摘要／缓存继承全部受限来源；原件撤回只失效原件及未独立发布依赖，界面提供同步撤回相关独立发布物的选择。
+
+## 7 具体实现与访客运行
+
+Web采用React／Vite／Dexie；业务Python3.13／FastAPI模块化单体，PG18／pgvector为权威，Celery／Valkey与PG outbox调度账号长任务。默认DeepSeek模型经独立网关；资料CPU worker、原生isolate、SQL实验库和网络containerlab运行于业务之外。
+
+访客没有永久learning_space或PG checkpoint。guest lease在独立不持久化临时服务管理，idle30min／absolute2h为开发初值；输入和结果回到本地，收到本地保存确认、取消或超时后清理。重启／到期显示失效，再按本地作品重建；不得把访客载荷送入主broker AOF、PG WAL、备份或正文日志。访客仅可检索本人临时材料和平台公开内容，教师受众资料要求有效认证。
+
+fetch SSE支持刷新后显式游标；每个输出／回放批次查session／账号revision／期限或guest lease及全部来源策略。claim发请求前写固定本人journal，服务端成功但响应丢失保持pending，只本人能查询／重试，不向另一账号转移。

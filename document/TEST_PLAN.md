@@ -1,8 +1,8 @@
 # 综合测试与需求追踪计划
 
-版本：v0.4
+版本：v0.5
 
-状态：按 PRD v1.2 对齐的测试设计，尚未执行；不代表任何 P0／课程已经通过。课程专项策略沿用 [课程与多 Agent 验证方案](COURSE_VALIDATION_PLAN.md) 和 [课程支持矩阵](COURSE_SUPPORT.md)。
+状态：按 PRD v1.3 对齐的测试设计，尚未执行；不代表任何 P0／课程已经通过。课程专项策略沿用 [课程与多 Agent 验证方案](COURSE_VALIDATION_PLAN.md) 和 [课程支持矩阵](COURSE_SUPPORT.md)。
 
 ## 1 验证目标
 
@@ -141,3 +141,9 @@ NFR-UI01 → P00–P10／UF01–UF09 → QT-09 → VQ-01–VQ-08。八项当前�
 - FR44–FR46 发布前必须有自建课与资料 RAG 权限测试证据，越权／受限答案泄露属阻断项；索引清理未完成不能成为继续提供失效资料的理由。
 - 第一阶段发布必须无未批准阻断缺陷，P0 FR 全部有通过证据，所有性能／留存／恢复阈值经过负责人评审，运行基线可回滚；P1 延期有显式记录。
 - 前端交付必须通过 QT-09 八维自检和独立复核，覆盖全部交付页面、适用状态和设备矩阵；不得留下明显可提升之处，也不能以课程验收或功能通过替代前端品质验收。
+
+## 10 选型后的实现验证
+
+后端B01–B06见 [物理／API基线](TECHNICAL_DATA_CONTRACT.md)，前端工具和实际浏览器覆盖见 [前端实现](FRONTEND_IMPLEMENTATION.md)，执行／恢复见 [部署](DEPLOYMENT.md)。这些门仍待测；本轮LangGraph小原型记录单列，不改变本计划任何TC／QT为通过。
+
+补充到对应TC：TC-31访客Agent/RAG/runner租约到期、保存确认、重启及清理不入PG/WAL/AOF/备份；TC-32claim响应丢失／journal未绑定只本人恢复；TC-34身份epoch与旧fetch流迟到；TC-35／46长流中session撤销／到期、来源撤权及回放；QT-03刷新显式Last-Event-ID、应用成功后游标及过期快照；QT-02／TC-25每网络租约VM回收重建；QT-05真实PG／对象备份恢复及RPO/RTO。教师pending私人备课／verified发布边界列TC-30／44，核实不扩大TC-35授权。
