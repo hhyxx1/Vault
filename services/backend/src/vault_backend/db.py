@@ -1,5 +1,3 @@
-import sys
-
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 
@@ -7,10 +5,6 @@ from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 def create_engine(url: str) -> AsyncEngine:
     if not url.startswith("postgresql+psycopg://"):
         raise ValueError("Only PostgreSQL with psycopg is supported")
-    if sys.platform == "win32":
-        # psycopg does not support the default Windows Proactor loop.
-        # The command entrypoint installs Selector policy before uvicorn starts.
-        pass
     return create_async_engine(url, pool_pre_ping=True, pool_size=5, max_overflow=5)
 
 

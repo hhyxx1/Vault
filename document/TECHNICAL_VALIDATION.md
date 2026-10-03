@@ -73,7 +73,7 @@
 | 检查 | 实际结果与边界 |
 |---|---|
 | 运行时 | Node24.19.0、CPython3.13.16、npm、uv0.12.22；独立本机PG18.1；现有Chrome154 headless |
-| 后端 | 48项pytest通过，其中10项真实PG：互斥profile、跨空间／作品／父版本FK、无ctx和跨owner RLS拒绝、连接池ctx不残留、claim owner、版本冻结及双连接发布竞争、访客正文不写永久表 |
+| 后端 | 49项pytest通过，其中11项真实PG：互斥profile、跨空间／作品／父版本FK、无ctx和跨owner RLS拒绝、连接池ctx不残留、claim owner、版本冻结及双连接发布竞争、访客正文不写永久表 |
 | 租约／核验 | HTTP／领域测试覆盖Origin／POSTnonce、凭据隔离、TTL、请求大小／严格字段、幂等／丢失响应、等待输入、取消／确认清理、SSE恢复与连接上限、确定性执行和不假报mastery |
 | 迁移 | 实际库 upgrade→downgrade→upgrade、alembic check零差异，随后恢复非superuser／非bypass运行角色表授权。仅针对本任务创建的可销毁库 |
 | Python代码与契约 | Ruff check／format通过；FastAPI实际导出OpenAPI的check通过；前端生成类型的check通过 |
@@ -86,3 +86,9 @@
 这些检查验证一个固定栈活动和工程数据边界。RLS基线测试不等于完成账号会话／教师授权／受控资料／同步安全；编辑器不等于隔离编译。LangGraph／模型质量、检索、所有课程和运营容量仍未验证。完整第一阶段13门范围与PRD46项保持不变。
 
 复现步骤见 [开发运行说明](DEVELOPMENT_GUIDE.md)。PG测试须同时设置两个独立URL与 `VAULT_TEST_DATABASE_IS_DISPOSABLE=1`，否则跳过不能算通过。当前所有试验记录为合成技术测试，没有个人课程实测或统计效果。
+
+## 6 实际命令启动与Linux CI补充
+
+首个提交 `fc6d4ce` 的GitHub Actions三job均成功：[真实运行记录](https://github.com/hhyxx1/Vault/actions/runs/37162518249)。该记录覆盖初版的LinuxPG／迁移、Web构建与Chromium浏览器测试；随后追加的命令启动修正需要对应的新commit回归，不能以旧运行替代。
+
+最后的Windows实际API ready检查发现：当前Uvicorn使用自己的loop factory，忽略旧的WindowsSelectorEventLoopPolicy，导致已配置PG仍503。入口改用显式自定义工厂，Windows创建Selector实例，Linux沿用Uvicorn自动工厂。增加第11项真实PG检查：启动 `python -m vault_backend` 独立进程，通过回环HTTP等待数据库ready，退出并清理自己的测试进程。最终本机49项pytest／Ruff全过；此项覆盖命令启动，避免仅靠ASGI夹具或独立psycopg测试漏检。

@@ -27,7 +27,7 @@ uv sync --frozen --python 3.13.16
 uv run --frozen python -m vault_backend
 ```
 
-API：`http://127.0.0.1:8000`，接口文档：`/api/v1/docs`。默认只绑定回环地址。
+API：`http://127.0.0.1:8000`，接口文档：`/api/v1/docs`。默认只绑定回环地址。使用该模块入口启动；它在Windows显式选择psycopg所需Selector loop，不以旧全局policy假定Uvicorn会沿用。
 
 `GET /api/v1/health/live` 用于进程存活检查；`health/ready` 检查 PG 和 feature flags，没有配置 PG 时返回 503／partial，仍可使用访客栈核验。账号等未实现能力始终显示关闭。
 
