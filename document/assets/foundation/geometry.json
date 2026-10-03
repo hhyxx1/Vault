@@ -1,0 +1,182 @@
+[
+  {
+    "width": 1440,
+    "route": "/",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "horizontalOverflow": false,
+    "minInputHeight": null,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "route": "/atlas",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "horizontalOverflow": false,
+    "minInputHeight": 44,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "route": "/learn/CS03-STACK-01",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "horizontalOverflow": false,
+    "minInputHeight": 15,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "route": "/teacher",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "horizontalOverflow": false,
+    "minInputHeight": 43,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "route": "/local",
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "horizontalOverflow": false,
+    "minInputHeight": 36,
+    "errors": []
+  },
+  {
+    "width": 768,
+    "route": "/",
+    "viewport": 768,
+    "pageWidth": 768,
+    "horizontalOverflow": false,
+    "minInputHeight": null,
+    "errors": []
+  },
+  {
+    "width": 768,
+    "route": "/atlas",
+    "viewport": 768,
+    "pageWidth": 768,
+    "horizontalOverflow": false,
+    "minInputHeight": 44,
+    "errors": []
+  },
+  {
+    "width": 768,
+    "route": "/learn/CS03-STACK-01",
+    "viewport": 768,
+    "pageWidth": 768,
+    "horizontalOverflow": false,
+    "minInputHeight": 15,
+    "errors": []
+  },
+  {
+    "width": 768,
+    "route": "/teacher",
+    "viewport": 768,
+    "pageWidth": 768,
+    "horizontalOverflow": false,
+    "minInputHeight": 43,
+    "errors": []
+  },
+  {
+    "width": 768,
+    "route": "/local",
+    "viewport": 768,
+    "pageWidth": 768,
+    "horizontalOverflow": false,
+    "minInputHeight": 36,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "route": "/",
+    "viewport": 390,
+    "pageWidth": 390,
+    "horizontalOverflow": false,
+    "minInputHeight": null,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "route": "/atlas",
+    "viewport": 390,
+    "pageWidth": 390,
+    "horizontalOverflow": false,
+    "minInputHeight": 44,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "route": "/learn/CS03-STACK-01",
+    "viewport": 390,
+    "pageWidth": 390,
+    "horizontalOverflow": false,
+    "minInputHeight": 15,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "route": "/teacher",
+    "viewport": 390,
+    "pageWidth": 390,
+    "horizontalOverflow": false,
+    "minInputHeight": 45,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "route": "/local",
+    "viewport": 390,
+    "pageWidth": 390,
+    "horizontalOverflow": false,
+    "minInputHeight": 36,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "route": "/",
+    "viewport": 320,
+    "pageWidth": 320,
+    "horizontalOverflow": false,
+    "minInputHeight": null,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "route": "/atlas",
+    "viewport": 320,
+    "pageWidth": 320,
+    "horizontalOverflow": false,
+    "minInputHeight": 44,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "route": "/learn/CS03-STACK-01",
+    "viewport": 320,
+    "pageWidth": 320,
+    "horizontalOverflow": false,
+    "minInputHeight": 15,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "route": "/teacher",
+    "viewport": 320,
+    "pageWidth": 320,
+    "horizontalOverflow": false,
+    "minInputHeight": 45,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "route": "/local",
+    "viewport": 320,
+    "pageWidth": 320,
+    "horizontalOverflow": false,
+    "minInputHeight": 36,
+    "errors": []
+  }
+]

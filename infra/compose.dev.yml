@@ -1,0 +1,23 @@
+name: vault-development
+
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.7-pg18-bookworm@sha256:ad249f9fb9572979643a47694e59b9a8cdcdf6abc6accebf49bb80ad5f20ff9b
+    platform: linux/amd64
+    environment:
+      POSTGRES_DB: vault_dev
+      POSTGRES_USER: vault_dev
+      POSTGRES_PASSWORD: ${VAULT_POSTGRES_PASSWORD:?Set a random VAULT_POSTGRES_PASSWORD}
+      POSTGRES_INITDB_ARGS: --data-checksums --auth-host=scram-sha-256
+    ports:
+      - "127.0.0.1:${VAULT_POSTGRES_PORT:-5442}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vault_dev -d vault_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  postgres-data:

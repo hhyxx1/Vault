@@ -1,0 +1,15 @@
+**
+!services/
+!services/backend/
+!services/backend/**
+!content/
+!content/courses/
+!content/courses/**
+services/backend/.venv/
+services/backend/__pycache__/
+services/backend/**/__pycache__/
+services/backend/.pytest_cache/
+services/backend/.ruff_cache/
+services/backend/.hypothesis/
+services/backend/.env*
+services/backend/*.log

@@ -1,0 +1,157 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Link, useBlocker, useParams } from 'react-router-dom'
+import { TRACE_OBJECTIVE, IMPLEMENT_OBJECTIVE, traceOperations, parseTrace, criterionLabels, currentTraceEvidence, evidenceMatchesDraft, type Draft, type EvidenceRecord, type ArtifactRevision } from '../domain/learning'
+import { database, loadDraft, saveDraft, saveRevision, recordEvidence } from '../local/database'
+import { useLocal } from '../local/LocalProvider'
+import { verifyTrace } from '../api/verification'
+import CodeEditor from './CodeEditor'
+
+const correctRows = [
+  { stack: '[8]', output: '—', underflow: false }, { stack: '[8, 3]', output: '—', underflow: false },
+  { stack: '[8]', output: '3', underflow: false }, { stack: '[8, 5]', output: '—', underflow: false },
+  { stack: '[8]', output: '5', underflow: false }, { stack: '[]', output: '8', underflow: false },
+  { stack: '[]', output: '—', underflow: true },
+]
+
+export default function Workspace() {
+  const { objectiveId = TRACE_OBJECTIVE } = useParams()
+  const isTrace = objectiveId === TRACE_OBJECTIVE
+  const { spaceId, help, evidence, refresh } = useLocal()
+  const [draft, setDraft] = useState<Draft | null>(null)
+  const [saveState, setSaveState] = useState<'loading' | 'dirty' | 'saving' | 'saved' | 'failed'>('loading')
+  const [message, setMessage] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [theoryTab, setTheoryTab] = useState<'concept' | 'hint' | 'answer'>('concept')
+  const [tab, setTab] = useState<'practice' | 'theory' | 'result'>('practice')
+  const [result, setResult] = useState<EvidenceRecord | null>(null)
+  const generation = useRef(0)
+  const saveQueue = useRef<Promise<unknown>>(Promise.resolve())
+  const mounted = useRef(true)
+  const retry = useRef<{ revision: ArtifactRevision; key: string; helpEventIds: string[]; submittedAt: string } | null>(null)
+  const lastSaved = useRef('')
+  const draftRef = useRef<Draft | null>(null)
+  draftRef.current = draft
+  const abortRequest = useRef<AbortController | null>(null)
+  const navigationFlush = useRef(false)
+  const blocker = useBlocker(({ currentLocation, nextLocation }) => currentLocation.pathname !== nextLocation.pathname && (busy || saveState === 'dirty' || saveState === 'saving' || saveState === 'failed'))
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false } }, [])
+  useEffect(() => {
+    if (!spaceId) return
+    const current = ++generation.current
+    abortRequest.current?.abort(); abortRequest.current = null
+    setDraft(null); setBusy(false); setSaveState('loading'); setResult(null); setTheoryTab('concept'); retry.current = null
+    loadDraft(objectiveId, spaceId).then(value => { if (generation.current === current) { lastSaved.current = JSON.stringify(value); setDraft(value); setSaveState('saved'); setResult(objectiveId === TRACE_OBJECTIVE ? currentTraceEvidence(evidence) ?? null : null) } }).catch(() => { setSaveState('failed'); setMessage('无法读取本地作品，请检查存储权限后重试。') })
+    return () => { abortRequest.current?.abort() }
+  }, [spaceId, objectiveId])
+
+  const persist = useCallback((value: Draft) => {
+    const current = generation.current
+    setSaveState('saving')
+    const action = saveQueue.current.catch(() => undefined).then(() => saveDraft(value))
+    saveQueue.current = action
+    return action.then(() => { if (mounted.current && generation.current === current) { lastSaved.current = JSON.stringify(value); setSaveState(JSON.stringify(draftRef.current) === lastSaved.current ? 'saved' : 'dirty') } }).catch(error => { if (mounted.current && generation.current === current) { setSaveState('failed'); setMessage('本地保存失败，当前修改尚未保存。请导出作品或重试。') } throw error })
+  }, [])
+  useEffect(() => {
+    if (!draft || JSON.stringify(draft) === lastSaved.current) return
+    setSaveState('dirty')
+    // Every change enters the ordered write queue immediately. Route changes also
+    // flush the newest snapshot before leaving, rather than cancelling a debounce.
+    persist(draft).catch(() => undefined)
+  }, [draft, persist])
+  useEffect(() => {
+    if (blocker.state !== 'blocked') { navigationFlush.current = false; return }
+    if (busy) { setMessage('核验正在进行。请等待完成，或取消核验后继续离开。'); return }
+    if (navigationFlush.current) return
+    navigationFlush.current = true
+    const value = draftRef.current
+    if (!value) { blocker.proceed(); return }
+    persist(value).then(() => blocker.proceed()).catch(() => { blocker.reset(); navigationFlush.current = false; setMessage('离开前保存失败，已保留当前页面。请重试或导出作品。') })
+  }, [blocker, busy, persist])
+  useEffect(() => {
+    if (!busy && saveState !== 'dirty' && saveState !== 'saving' && saveState !== 'failed') return
+    const beforeUnload = (event: BeforeUnloadEvent) => { event.preventDefault(); event.returnValue = '' }
+    window.addEventListener('beforeunload', beforeUnload)
+    return () => window.removeEventListener('beforeunload', beforeUnload)
+  }, [saveState, busy])
+
+  function update(values: Partial<Draft>) {
+    retry.current = null
+    setDraft(current => current ? { ...current, ...values, updatedAt: new Date().toISOString() } : current)
+  }
+
+  async function disclose(kind: 'hint' | 'answer') {
+    if (!spaceId) return
+    try {
+      await database.transaction('rw', database.help, database.meta, async () => {
+        const owner = await database.meta.get('spaceId')
+        if (owner?.value !== spaceId) throw new Error('本地空间已切换。')
+        await database.help.add({ id: crypto.randomUUID(), spaceId, objectiveId, kind, disclosureVersion: isTrace ? 'stack-trace-help-v1' : 'bracket-help-v1', createdAt: new Date().toISOString() })
+      })
+      setTheoryTab(kind); setTab('theory'); await refresh()
+    } catch { setMessage('帮助使用记录无法保存，暂未打开此帮助。请检查本地存储后重试。') }
+  }
+
+  async function keepVersion() {
+    if (!draft) return
+    setMessage('')
+    try { await persist(draft); await saveQueue.current; const version = await saveRevision(draft); await refresh(); setMessage(`作品版本 ${version.version} 已保存在本地。`) } catch { setMessage('保存版本失败，当前修改尚不能保证保留。请重试或导出。') }
+  }
+
+  async function verify() {
+    if (!draft || busy) return
+    setMessage(''); setBusy(true)
+    abortRequest.current = new AbortController()
+    const current = generation.current
+    const submittedAt = new Date().toISOString()
+    try {
+      if (!draft.goalConfirmed) throw new Error('请先确认本次目标，或修改成适合自己的范围。')
+      const predictions = parseTrace(draft.trace)
+      if (!draft.explanation.trim()) throw new Error('请写下你对后进先出与空栈情况的解释；解释会保留为待复核作品。')
+      if (draft.explanation.length > 4000) throw new Error('本次解释最多4000个字符。请先保留或导出完整作品，再缩小提交范围。')
+      await persist(draft); await saveQueue.current
+      if (!retry.current) {
+        const usedHelp = await database.help.where('objectiveId').equals(objectiveId).toArray()
+        retry.current = { revision: await saveRevision(draft), key: crypto.randomUUID(), submittedAt, helpEventIds: usedHelp.filter(item => item.spaceId === spaceId && item.createdAt <= submittedAt).map(item => item.id) }
+      }
+      const request = retry.current
+      const response = await verifyTrace(request.revision, predictions, request.key, abortRequest.current.signal)
+      const record: EvidenceRecord = { id: response.operation.result.verification_id, spaceId, objectiveId, revisionId: request.revision.revisionId, revisionVersion: request.revision.version, submittedAt: request.submittedAt, submittedWork: { trace: predictions, explanation: request.revision.explanation }, createdAt: new Date().toISOString(), result: response.operation.result, helpEventIds: request.helpEventIds }
+      await recordEvidence(record)
+      // Acknowledge only after the complete result is durably written to IndexedDB.
+      const ackFailed = await response.acknowledge().then(() => false).catch(() => true)
+      retry.current = null
+      if (mounted.current && generation.current === current) { setResult(record); setTab('result'); setMessage(ackFailed ? '核验已保存在本地；服务端临时结果的清理确认暂未送达，将按租约期限清理。' : '真实核验已保存在本地，并已请求清理服务端临时结果。'); await refresh() }
+    } catch (error) {
+      if (mounted.current && generation.current === current) setMessage(error instanceof DOMException && error.name === 'AbortError' ? '已取消等待核验结果；作品仍保存在本地，临时服务数据按租约期限清理。' : error instanceof Error ? error.message : '临时核验未完成，请检查网络后重试。作品保留在本地。')
+    } finally { if (mounted.current && generation.current === current) setBusy(false) }
+  }
+
+  function exportCurrent() {
+    if (!draft) return
+    const url = URL.createObjectURL(new Blob([JSON.stringify({ kind: 'qionglong-local-work', schemaVersion: '1', draft }, null, 2)], { type: 'application/json' }))
+    const link = document.createElement('a'); link.href = url; link.download = `${objectiveId}-work.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000)
+  }
+
+  if (![TRACE_OBJECTIVE, IMPLEMENT_OBJECTIVE].includes(objectiveId)) return <div className="page"><h1>这个目标尚未开放</h1><Link to="/atlas">返回图谱</Link></div>
+  if (!draft) return <div className="page page-loading" role="status">{saveState === 'failed' ? message : '正在恢复本地作品…'}</div>
+  const objectiveHelp = help.filter(item => item.objectiveId === objectiveId)
+  const latestCurrent = result && !evidenceMatchesDraft(result, draft)
+  return <div className="workspace-page page"><div className="workspace-top"><div><Link className="breadcrumb" to="/atlas">数据结构 / 栈及括号匹配 <span aria-hidden="true">↗</span></Link><h1>{isTrace ? '把栈的每一步推演出来。' : '让括号找到它的另一半。'}</h1></div><div className={`save-state ${saveState}`} role="status"><span className="status-dot"/>{({ loading: '正在恢复', dirty: '有未保存修改', saving: '正在本地保存', saved: '本地已保存', failed: '本地保存失败' }[saveState])}</div></div>
+    <div className="workspace-meta"><span className="small-tag">局部工程样例 · 内容待审校</span><span>未登录学习 · 本设备存储</span><Link to="/evidence">作品与核验记录 ↗</Link></div>
+    {!draft.goalConfirmed && <section className="goal-confirm"><div><span className="eyebrow">开始之前 · 确认自己的目标</span><h2>这次练习，你想做到什么？</h2><label className="sr-only" htmlFor="learning-goal">本次学习目标</label><textarea id="learning-goal" value={draft.goal} onChange={event => update({ goal: event.target.value })} rows={2}/><p>这是你的短期练习范围，不会改变整门课程的目标。</p></div><button className="button primary" disabled={!draft.goal.trim()} onClick={() => update({ goalConfirmed: true })}>确认目标，开始尝试 <span aria-hidden="true">→</span></button></section>}
+    {draft.goalConfirmed && <div className="confirmed-goal"><span className="eyebrow">本次目标</span><p>{draft.goal}</p><button className="text-link" onClick={() => update({ goalConfirmed: false })}>修改</button></div>}
+    <nav className="workspace-mobile-tabs" aria-label="工作区面板">{(['practice', 'theory', 'result'] as const).map(value => <button key={value} aria-pressed={tab === value} onClick={() => setTab(value)}>{value === 'practice' ? '动手实践' : value === 'theory' ? '原理与帮助' : '实际核验'}</button>)}</nav>
+    <div className="studio-grid"><section className={`practice-panel mobile-${tab === 'practice' ? 'shown' : 'hidden'}`}><div className="panel-heading"><div><span className="eyebrow">01 / YOUR PRACTICE</span><h2>{isTrace ? '先预测，再核对。' : '先限定问题，再写程序。'}</h2></div><span className="step-count">{isTrace ? '7 STEPS' : 'PYTHON'}</span></div>
+      {isTrace ? <><p className="practice-intro">栈底在左、栈顶在右。<code>push(x)</code> 入栈；<code>pop()</code> 返回并移除栈顶。空栈出栈记为下溢，栈保持空、无输出。请亲自填写每一步。</p><div className="trace-table-wrap"><table className="trace-table"><thead><tr><th scope="col">步 / 操作</th><th scope="col">操作后的栈</th><th scope="col">输出</th><th scope="col">下溢</th></tr></thead><tbody>{traceOperations.map((operation, index) => <tr key={index}><th scope="row"><span>{String(index + 1).padStart(2, '0')}</span><code>{operation.label}</code></th><td><input aria-label={`第${index + 1}步操作后的栈`} value={draft.trace[index].stack} placeholder="如 [8, 3] 或 []" onChange={event => update({ trace: draft.trace.map((row, position) => position === index ? { ...row, stack: event.target.value } : row) })}/></td><td><input aria-label={`第${index + 1}步输出`} value={draft.trace[index].output} placeholder="无输出留空" onChange={event => update({ trace: draft.trace.map((row, position) => position === index ? { ...row, output: event.target.value } : row) })}/></td><td><label className="checkbox-label"><input type="checkbox" aria-label={`第${index + 1}步发生下溢`} checked={draft.trace[index].underflow} onChange={event => update({ trace: draft.trace.map((row, position) => position === index ? { ...row, underflow: event.target.checked } : row) })}/><span className="sr-only">发生下溢</span></label></td></tr>)}</tbody></table></div><p className="field-note">栈内容使用数组，例如 [8, 3]；无输出留空。这里没有自动填入答案。</p></> : <><p className="practice-intro">限定输入为 <code>()[]{'{}'}</code> 这三种括号；空输入应匹配。先实现自己的思路，再考虑嵌套、多余闭括号和结束时残留左括号。</p><CodeEditor value={draft.code} onChange={code => update({ code })}/><div className="tool-unavailable"><span className="small-tag">代码运行尚未开放</span><p>源码可以本地编辑、保存和导出。目前不会生成编译输出或自动通过记录。</p></div></>}
+      <div className="explanation-field"><label htmlFor="work-explanation">把你的解释也留下来 <span>这是作品的一部分</span></label><textarea id="work-explanation" rows={4} placeholder={isTrace ? '为什么输出按这个顺序出现？最后一次 pop 与之前有何不同？' : '为什么闭括号应该匹配最近的左括号？如何处理各类边界？'} value={draft.explanation} onChange={event => update({ explanation: event.target.value })}/><p className="field-note">解释与独立新条件应用仍需人工复核；状态推演正确不会自动证明全部掌握。</p></div><div className="practice-actions"><button className="button secondary" onClick={keepVersion} disabled={busy}>保存作品版本</button>{isTrace && <button className="button primary" disabled={busy || !spaceId} onClick={verify}>{busy ? '正在真实核验…' : '提交临时核验'}<span aria-hidden="true">↗</span></button>}{busy && <button className="text-link" onClick={() => abortRequest.current?.abort()}>取消核验</button>}<button className="text-link" onClick={exportCurrent}>导出作品 ↓</button></div>{isTrace && <p className="processing-note">提交将临时发送本次推演与解释到核验服务；学习档案保存在本设备。</p>}
+    </section>
+    <aside className={`theory-panel mobile-${tab === 'theory' ? 'shown' : 'hidden'}`}><div className="panel-heading"><div><span className="eyebrow">02 / THINK & TRY</span><h2>原理，随时回来。</h2></div><span className="mini-orbit" aria-hidden="true">◌</span></div><div className="theory-tabs" role="group" aria-label="原理与帮助"><button aria-pressed={theoryTab === 'concept'} onClick={() => setTheoryTab('concept')}>必要原理</button><button aria-pressed={theoryTab === 'hint'} onClick={() => disclose('hint')}>提示</button><button aria-pressed={theoryTab === 'answer'} onClick={() => disclose('answer')}>参考答案</button></div>
+      {theoryTab === 'concept' && <div className="theory-content"><h3>最近放入的，先被取出。</h3><p>栈只在同一端添加和移除元素。这个端叫栈顶，因此最后入栈的元素会先出栈。</p><div className="stack-visual" aria-label="示意栈：栈底8，栈顶3；与当前作品无关"><div className="stack-level top">3 <span>← 栈顶</span></div><div className="stack-level">8</div><span className="stack-base">栈底 · 概念示意</span></div><p>状态推演要同时关注栈中的元素、操作的输出和边界。输出与栈当前内容是两件事。</p><h4>{isTrace ? '用动作检验概念' : '把概念用于匹配'}</h4><p>{isTrace ? '先填两次 push，再观察一次 pop。回到定义，解释为什么被取走的是最近放入的元素。' : '遇到左括号时入栈；遇到右括号时，检查栈顶是否为同种左括号。栈为空或类型不同都应拒绝。'}</p><a className="source-link" href="https://opendsa-server.cs.vt.edu/ODSA/Books/umw/cpsc340/fall-2024/CPSC340_F24/html/StackArray.html" target="_blank" rel="noreferrer">概念出处：OpenDSA · Stacks ↗</a><p className="field-note">本页解释为工程样例自写内容，教学审校尚未完成。</p></div>}
+      {theoryTab === 'hint' && <div className="theory-content"><span className="small-tag">已记录提示使用</span><h3>盯住最右侧的元素。</h3><p>{isTrace ? '两次入栈后，3 在 8 的右边。执行 pop 时，只移除右侧这一项。接着请独立推演后续操作。最后一步先检查栈是否为空。' : '先为每种右括号定义对应的左括号。弹出栈顶之前，判断栈是否为空；遍历结束后再检查有没有残留。'}</p><button className="text-link" onClick={() => setTab('practice')}>带着提示回去尝试 →</button></div>}
+      {theoryTab === 'answer' && <div className="theory-content"><span className="small-tag">自学答案 · 已记录查看</span><h3>{isTrace ? '对照结果，也对照原因。' : '一种参考思路。'}</h3>{isTrace ? <><ol className="answer-list">{correctRows.map((row, index) => <li key={index}><code>{traceOperations[index].label}</code><span>栈 {row.stack} · 输出 {row.output}{row.underflow ? ' · 下溢' : ''}</span></li>)}</ol><p>输出依次为 3、5、8。最后一次出栈发生下溢，不能凭空产生一个输出；栈仍为空。</p></> : <><pre className="reference-code">{'pairs = {\')\': \'(\', \']\': \'[\', \'}\': \'{\'}\nstack = []\nfor char in text:\n    if char in "([{":\n        stack.append(char)\n    elif not stack or stack.pop() != pairs[char]:\n        return False\nreturn not stack'}</pre><p>这段思路只处理本活动限定的括号输入；尚未在执行服务中运行。参考答案不替代你自己的代码测试和解释。</p></>}<p className="field-note">查看答案不会增加达标目标数。核验记录会保留此前使用的帮助。</p></div>}
+      <div className="help-summary">本目标已记录 {objectiveHelp.filter(event => event.kind === 'hint').length} 次提示、{objectiveHelp.filter(event => event.kind === 'answer').length} 次答案查看。<span>Agent 辅导连接尚未开放。</span></div>
+    </aside>
+    <section className={`result-panel mobile-${tab === 'result' ? 'shown' : 'hidden'}`} aria-labelledby="actual-result-title"><div className="panel-heading"><div><span className="eyebrow">03 / ACTUAL EVIDENCE</span><h2 id="actual-result-title">让结果说明下一步。</h2></div><Link className="text-link" to="/evidence">查看记录 ↗</Link></div>{result ? <><div className={`result-summary ${result.result.trace_correct ? 'partial' : 'consolidate'}`}><strong>{result.result.trace_correct ? '七步推演核验通过，完整目标仍待复核。' : '有步骤需要修正。'}</strong><p>{result.result.summary}</p>{latestCurrent && <p className="stale-note">这是已提交作品版本的结论；当前编辑尚未重新核验。</p>}</div><div className="criterion-results">{result.result.criteria.map(criterion => <div className="criterion-row" key={criterion.id}><span className={`criterion-icon ${criterion.status}`}>{criterion.status === 'met' ? '✓' : criterion.status === 'not_met' ? '↻' : '◌'}</span><div><strong>{criterionLabels[criterion.id] ?? criterion.id}</strong><p>{criterion.reason}</p></div><span>{criterion.status === 'met' ? '满足' : criterion.status === 'not_met' ? '未满足' : '待人工复核'}</span></div>)}</div>{!result.result.trace_correct && <div className="row-feedback">{result.result.rows.filter(row => !row.correct).map(row => <p key={row.index}>第 {row.index} 步：{row.issues.join('；')}</p>)}</div>}<div className="next-action"><p>{result.result.trace_correct ? '下一步：补充独立新条件的推演；解释等待真实人工复核。你也可以先尝试括号匹配。' : '下一步：回到不一致的步骤，查看必要原理，修改后重新核验。'}</p><Link className="text-link" to={result.result.trace_correct ? `/learn/${IMPLEMENT_OBJECTIVE}` : '/atlas'}>{result.result.trace_correct ? '尝试括号匹配 →' : '回到目标图谱 →'}</Link></div></> : <div className="result-empty"><span aria-hidden="true">◌</span><div><strong>这里等待你实际提交的作品。</strong><p>{isTrace ? '填写推演和解释后提交。没有核验时，目标保持尚未有效评估。' : '代码执行与人工复核尚未开放，当前作品保持未核验。'}</p></div></div>}</section>
+    </div>{message && <div className="workspace-message" role="status"><span>{message}</span><button aria-label="关闭反馈" onClick={() => setMessage('')}>×</button></div>}
+  </div>
+}

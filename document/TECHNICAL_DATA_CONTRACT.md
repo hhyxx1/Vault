@@ -1,6 +1,6 @@
 # 后端、物理数据与 API 技术基线
 
-版本：v1.0
+版本：v1.1
 
 更新日期：2026 年 10 月 3 日
 
@@ -299,3 +299,11 @@ ACL 变更、outbox 和相应 workflow invalidation 持久化同事务；消费�
 | B06 异步／访客 | worker 崩溃／lease 超时、outbox 重投、cancel／迟到结果、fetch SSE 刷新显式游标、账号／lease 切换、匿名 Agent/RAG/runner 全程、guest 清理及永久存储／备份无正文检查 | 不以 mock 状态冒充可恢复工作流；guest 清理须通过 D09 后开放 |
 
 本文已选定技术、字段与接口方向；B01–B06 是必须实施的检查，不是继续待选方案，也不是本轮已通过的测试。生产容量、具体付费配额、用户告知的资料／日志／备份留存数值在发布前测量并冻结，不能仅因数据库支持该字段就称运营准备完成。
+
+## 当前物理实现与预认证调整
+
+首个 Alembic `0001_foundation` 已在独立 PostgreSQL18.1 实际运行，12表和复合约束／RLS／发布冻结／并发父锁经过测试；完整域、账号／claim端点和发布工作流尚未实现。实际可调用接口与模型以 `packages/contracts/openapi.json` 为准，生成文件不替代尚未实现的设计端点。
+
+Web 预认证使用 **POST `/api/v1/guest-nonce`**：创建短期内存凭据必须校验浏览器明确 Origin，与创建租约的 Origin 一致；不依赖反代改写后的 Host 或不可信 X-Forwarded。原 GET 保留给直接同源兼容，不用于新版 Web 主链。开发代理显式 `changeOrigin:false`，不放宽白名单。代理等效请求／恶意来源／缺失 Origin 和真实浏览器均有回归。
+
+现有 guest operation 的 `artifact_hash` 是 `kind=stack_trace_with_explanation`、trace 和 explanation 的规范 JSON SHA256；客户端artifact/revision UUID、活动／课程／标准版本另外绑定并校验。JSON键ASCII排序、无空白、UTF8／非ASCII不转义，与前端实现有固定中文向量测试。hash只用于一致性和绑定，不能单独证明独立能力或防御被控制的客户端。

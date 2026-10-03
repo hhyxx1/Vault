@@ -1,0 +1,91 @@
+from datetime import datetime
+from typing import Literal
+from uuid import UUID
+
+from pydantic import BaseModel, Field
+
+
+class NonceResponse(BaseModel):
+    nonce: str
+    expires_at: datetime
+
+
+class LeaseResponse(BaseModel):
+    lease_id: UUID
+    token: str
+    created_at: datetime
+    idle_expires_at: datetime
+    absolute_expires_at: datetime
+    allowed_operations: list[Literal["verify_trace"]]
+    storage: Literal["ephemeral_memory"]
+
+
+class Criterion(BaseModel):
+    id: Literal["state_trace", "boundary_condition", "explanation", "independent_transfer"]
+    status: Literal["met", "not_met", "needs_review"]
+    reason: str
+
+
+class TraceFeedback(BaseModel):
+    index: int
+    correct: bool
+    issues: list[str]
+
+
+class VerificationResult(BaseModel):
+    verification_id: UUID
+    course_id: UUID
+    course_version_id: UUID
+    activity_id: UUID
+    activity_version_id: UUID
+    objective_ids: list[UUID]
+    course_code: Literal["CS03"]
+    course_version: str
+    activity_version: str
+    standard_version: str
+    client_artifact_id: UUID
+    client_revision_id: UUID
+    artifact_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
+    checker_version: str
+    runtime: str
+    provenance: Literal["server_deterministic_checker"]
+    trace_correct: bool
+    rows: list[TraceFeedback]
+    criteria: list[Criterion]
+    objective_state: Literal["evidence_pending_review", "practicing"]
+    mastery_asserted: Literal[False]
+    summary: str
+
+
+class OperationResponse(BaseModel):
+    operation_id: UUID
+    lease_id: UUID
+    kind: Literal["verify_trace"]
+    status: Literal["awaiting_input", "completed", "cancelled", "acknowledged"]
+    revision: str
+    result: VerificationResult | None
+    storage: Literal["ephemeral_memory"]
+    acknowledged: bool
+
+
+class CatalogCourse(BaseModel):
+    id: UUID
+    code: str
+    title: str
+    version_id: UUID
+    version: str
+    origin_kind: Literal["platform_default"]
+    content_state: Literal["planned", "engineering_example"]
+    full_course_available: Literal[False]
+    scope_note: str
+    activities_scope: str
+    verification_scope: str
+    environment_boundary: str
+    count_scope: Literal["not_available", "engineering_example"]
+    objective_count: int | None
+
+
+class CourseCatalog(BaseModel):
+    schema_version: str
+    catalog_version: str
+    courses: list[CatalogCourse]

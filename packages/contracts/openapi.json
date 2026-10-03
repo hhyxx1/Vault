@@ -1,0 +1,1381 @@
+{
+  "components": {
+    "schemas": {
+      "CatalogCourse": {
+        "properties": {
+          "activities_scope": {
+            "title": "Activities Scope",
+            "type": "string"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "content_state": {
+            "enum": [
+              "planned",
+              "engineering_example"
+            ],
+            "title": "Content State",
+            "type": "string"
+          },
+          "count_scope": {
+            "enum": [
+              "not_available",
+              "engineering_example"
+            ],
+            "title": "Count Scope",
+            "type": "string"
+          },
+          "environment_boundary": {
+            "title": "Environment Boundary",
+            "type": "string"
+          },
+          "full_course_available": {
+            "const": false,
+            "title": "Full Course Available",
+            "type": "boolean"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "objective_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Objective Count"
+          },
+          "origin_kind": {
+            "const": "platform_default",
+            "title": "Origin Kind",
+            "type": "string"
+          },
+          "scope_note": {
+            "title": "Scope Note",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "verification_scope": {
+            "title": "Verification Scope",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          },
+          "version_id": {
+            "format": "uuid",
+            "title": "Version Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "title",
+          "version_id",
+          "version",
+          "origin_kind",
+          "content_state",
+          "full_course_available",
+          "scope_note",
+          "activities_scope",
+          "verification_scope",
+          "environment_boundary",
+          "count_scope",
+          "objective_count"
+        ],
+        "title": "CatalogCourse",
+        "type": "object"
+      },
+      "CourseCatalog": {
+        "properties": {
+          "catalog_version": {
+            "title": "Catalog Version",
+            "type": "string"
+          },
+          "courses": {
+            "items": {
+              "$ref": "#/components/schemas/CatalogCourse"
+            },
+            "title": "Courses",
+            "type": "array"
+          },
+          "schema_version": {
+            "title": "Schema Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "schema_version",
+          "catalog_version",
+          "courses"
+        ],
+        "title": "CourseCatalog",
+        "type": "object"
+      },
+      "Criterion": {
+        "properties": {
+          "id": {
+            "enum": [
+              "state_trace",
+              "boundary_condition",
+              "explanation",
+              "independent_transfer"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "met",
+              "not_met",
+              "needs_review"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "reason"
+        ],
+        "title": "Criterion",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "LeaseRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "course_code": {
+            "const": "CS03",
+            "default": "CS03",
+            "title": "Course Code",
+            "type": "string"
+          },
+          "nonce": {
+            "maxLength": 128,
+            "minLength": 32,
+            "title": "Nonce",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nonce"
+        ],
+        "title": "LeaseRequest",
+        "type": "object"
+      },
+      "LeaseResponse": {
+        "properties": {
+          "absolute_expires_at": {
+            "format": "date-time",
+            "title": "Absolute Expires At",
+            "type": "string"
+          },
+          "allowed_operations": {
+            "items": {
+              "const": "verify_trace",
+              "type": "string"
+            },
+            "title": "Allowed Operations",
+            "type": "array"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "idle_expires_at": {
+            "format": "date-time",
+            "title": "Idle Expires At",
+            "type": "string"
+          },
+          "lease_id": {
+            "format": "uuid",
+            "title": "Lease Id",
+            "type": "string"
+          },
+          "storage": {
+            "const": "ephemeral_memory",
+            "title": "Storage",
+            "type": "string"
+          },
+          "token": {
+            "title": "Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "lease_id",
+          "token",
+          "created_at",
+          "idle_expires_at",
+          "absolute_expires_at",
+          "allowed_operations",
+          "storage"
+        ],
+        "title": "LeaseResponse",
+        "type": "object"
+      },
+      "NonceResponse": {
+        "properties": {
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "nonce": {
+            "title": "Nonce",
+            "type": "string"
+          }
+        },
+        "required": [
+          "nonce",
+          "expires_at"
+        ],
+        "title": "NonceResponse",
+        "type": "object"
+      },
+      "OperationInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_revision": {
+            "maxLength": 20,
+            "pattern": "^[1-9][0-9]*$",
+            "title": "Expected Revision",
+            "type": "string"
+          },
+          "explanation": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Explanation",
+            "type": "string"
+          },
+          "op_id": {
+            "format": "uuid",
+            "title": "Op Id",
+            "type": "string"
+          },
+          "trace": {
+            "items": {
+              "$ref": "#/components/schemas/TraceStep"
+            },
+            "maxItems": 7,
+            "minItems": 7,
+            "title": "Trace",
+            "type": "array"
+          }
+        },
+        "required": [
+          "op_id",
+          "expected_revision",
+          "trace"
+        ],
+        "title": "OperationInput",
+        "type": "object"
+      },
+      "OperationResponse": {
+        "properties": {
+          "acknowledged": {
+            "title": "Acknowledged",
+            "type": "boolean"
+          },
+          "kind": {
+            "const": "verify_trace",
+            "title": "Kind",
+            "type": "string"
+          },
+          "lease_id": {
+            "format": "uuid",
+            "title": "Lease Id",
+            "type": "string"
+          },
+          "operation_id": {
+            "format": "uuid",
+            "title": "Operation Id",
+            "type": "string"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VerificationResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "revision": {
+            "title": "Revision",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "awaiting_input",
+              "completed",
+              "cancelled",
+              "acknowledged"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "storage": {
+            "const": "ephemeral_memory",
+            "title": "Storage",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation_id",
+          "lease_id",
+          "kind",
+          "status",
+          "revision",
+          "result",
+          "storage",
+          "acknowledged"
+        ],
+        "title": "OperationResponse",
+        "type": "object"
+      },
+      "RevisionCommand": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_revision": {
+            "maxLength": 20,
+            "pattern": "^[1-9][0-9]*$",
+            "title": "Expected Revision",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expected_revision"
+        ],
+        "title": "RevisionCommand",
+        "type": "object"
+      },
+      "TraceFeedback": {
+        "properties": {
+          "correct": {
+            "title": "Correct",
+            "type": "boolean"
+          },
+          "index": {
+            "title": "Index",
+            "type": "integer"
+          },
+          "issues": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Issues",
+            "type": "array"
+          }
+        },
+        "required": [
+          "index",
+          "correct",
+          "issues"
+        ],
+        "title": "TraceFeedback",
+        "type": "object"
+      },
+      "TraceStep": {
+        "additionalProperties": false,
+        "properties": {
+          "after_stack": {
+            "items": {
+              "maximum": 1000000.0,
+              "minimum": -1000000.0,
+              "type": "integer"
+            },
+            "maxItems": 16,
+            "title": "After Stack",
+            "type": "array"
+          },
+          "output": {
+            "anyOf": [
+              {
+                "maximum": 1000000.0,
+                "minimum": -1000000.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output"
+          },
+          "underflow": {
+            "title": "Underflow",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "after_stack",
+          "output",
+          "underflow"
+        ],
+        "title": "TraceStep",
+        "type": "object"
+      },
+      "TraceSubmission": {
+        "additionalProperties": false,
+        "properties": {
+          "activity_version": {
+            "const": "CS03-STACK-01-TRACE@0.1.0",
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "course_code": {
+            "const": "CS03",
+            "default": "CS03",
+            "title": "Course Code",
+            "type": "string"
+          },
+          "explanation": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Explanation",
+            "type": "string"
+          },
+          "kind": {
+            "const": "verify_trace",
+            "default": "verify_trace",
+            "title": "Kind",
+            "type": "string"
+          },
+          "standard_version": {
+            "const": "stack-trace-v1",
+            "title": "Standard Version",
+            "type": "string"
+          },
+          "trace": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/TraceStep"
+                },
+                "maxItems": 7,
+                "minItems": 7,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trace"
+          }
+        },
+        "required": [
+          "activity_version",
+          "standard_version",
+          "client_artifact_id",
+          "client_revision_id"
+        ],
+        "title": "TraceSubmission",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "VerificationResult": {
+        "properties": {
+          "activity_id": {
+            "format": "uuid",
+            "title": "Activity Id",
+            "type": "string"
+          },
+          "activity_version": {
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "activity_version_id": {
+            "format": "uuid",
+            "title": "Activity Version Id",
+            "type": "string"
+          },
+          "artifact_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Artifact Hash",
+            "type": "string"
+          },
+          "checker_version": {
+            "title": "Checker Version",
+            "type": "string"
+          },
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "course_code": {
+            "const": "CS03",
+            "title": "Course Code",
+            "type": "string"
+          },
+          "course_id": {
+            "format": "uuid",
+            "title": "Course Id",
+            "type": "string"
+          },
+          "course_version": {
+            "title": "Course Version",
+            "type": "string"
+          },
+          "course_version_id": {
+            "format": "uuid",
+            "title": "Course Version Id",
+            "type": "string"
+          },
+          "criteria": {
+            "items": {
+              "$ref": "#/components/schemas/Criterion"
+            },
+            "title": "Criteria",
+            "type": "array"
+          },
+          "mastery_asserted": {
+            "const": false,
+            "title": "Mastery Asserted",
+            "type": "boolean"
+          },
+          "objective_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Objective Ids",
+            "type": "array"
+          },
+          "objective_state": {
+            "enum": [
+              "evidence_pending_review",
+              "practicing"
+            ],
+            "title": "Objective State",
+            "type": "string"
+          },
+          "provenance": {
+            "const": "server_deterministic_checker",
+            "title": "Provenance",
+            "type": "string"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/TraceFeedback"
+            },
+            "title": "Rows",
+            "type": "array"
+          },
+          "runtime": {
+            "title": "Runtime",
+            "type": "string"
+          },
+          "standard_version": {
+            "title": "Standard Version",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "trace_correct": {
+            "title": "Trace Correct",
+            "type": "boolean"
+          },
+          "verification_id": {
+            "format": "uuid",
+            "title": "Verification Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "verification_id",
+          "course_id",
+          "course_version_id",
+          "activity_id",
+          "activity_version_id",
+          "objective_ids",
+          "course_code",
+          "course_version",
+          "activity_version",
+          "standard_version",
+          "client_artifact_id",
+          "client_revision_id",
+          "artifact_hash",
+          "checker_version",
+          "runtime",
+          "provenance",
+          "trace_correct",
+          "rows",
+          "criteria",
+          "objective_state",
+          "mastery_asserted",
+          "summary"
+        ],
+        "title": "VerificationResult",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "穹隆 API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/courses": {
+      "get": {
+        "operationId": "courses_api_v1_courses_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseCatalog"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Courses",
+        "tags": [
+          "Courses"
+        ]
+      }
+    },
+    "/api/v1/courses/{course_id}/versions/{version_id}": {
+      "get": {
+        "operationId": "course_version_api_v1_courses__course_id__versions__version_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "course_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Course Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "version_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Version Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Course Version",
+        "tags": [
+          "Courses"
+        ]
+      }
+    },
+    "/api/v1/execution-jobs": {
+      "post": {
+        "operationId": "execution_job_api_v1_execution_jobs_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Execution Job",
+        "tags": [
+          "Execution"
+        ]
+      }
+    },
+    "/api/v1/guest-leases": {
+      "post": {
+        "operationId": "create_lease_api_v1_guest_leases_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeaseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaseResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Lease",
+        "tags": [
+          "Guest"
+        ]
+      }
+    },
+    "/api/v1/guest-leases/{lease_id}/operations": {
+      "post": {
+        "operationId": "create_operation_api_v1_guest_leases__lease_id__operations_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lease_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Lease Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TraceSubmission"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Operation",
+        "tags": [
+          "Guest"
+        ]
+      }
+    },
+    "/api/v1/guest-leases/{lease_id}/operations/{operation_id}": {
+      "get": {
+        "operationId": "operation_snapshot_api_v1_guest_leases__lease_id__operations__operation_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lease_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Lease Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "operation_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Operation Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Operation Snapshot",
+        "tags": [
+          "Guest"
+        ]
+      }
+    },
+    "/api/v1/guest-leases/{lease_id}/operations/{operation_id}/ack": {
+      "post": {
+        "operationId": "operation_ack_api_v1_guest_leases__lease_id__operations__operation_id__ack_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lease_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Lease Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "operation_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Operation Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevisionCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Operation Ack",
+        "tags": [
+          "Guest"
+        ]
+      }
+    },
+    "/api/v1/guest-leases/{lease_id}/operations/{operation_id}/cancel": {
+      "post": {
+        "operationId": "operation_cancel_api_v1_guest_leases__lease_id__operations__operation_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lease_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Lease Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "operation_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Operation Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevisionCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Operation Cancel",
+        "tags": [
+          "Guest"
+        ]
+      }
+    },
+    "/api/v1/guest-leases/{lease_id}/operations/{operation_id}/events": {
+      "get": {
+        "operationId": "operation_events_api_v1_guest_leases__lease_id__operations__operation_id__events_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lease_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Lease Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "operation_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Operation Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          },
+          {
+            "in": "header",
+            "name": "last-event-id",
+            "required": false,
+            "schema": {
+              "default": "0",
+              "title": "Last-Event-Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Operation Events",
+        "tags": [
+          "Guest"
+        ]
+      }
+    },
+    "/api/v1/guest-leases/{lease_id}/operations/{operation_id}/inputs": {
+      "post": {
+        "operationId": "operation_input_api_v1_guest_leases__lease_id__operations__operation_id__inputs_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lease_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Lease Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "operation_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Operation Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OperationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Operation Input",
+        "tags": [
+          "Guest"
+        ]
+      }
+    },
+    "/api/v1/guest-nonce": {
+      "get": {
+        "operationId": "guest_nonce_api_v1_guest_nonce_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NonceResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Guest Nonce",
+        "tags": [
+          "Guest"
+        ]
+      },
+      "post": {
+        "operationId": "guest_nonce_create_api_v1_guest_nonce_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NonceResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Guest Nonce Create",
+        "tags": [
+          "Guest"
+        ]
+      }
+    },
+    "/api/v1/health/live": {
+      "get": {
+        "operationId": "live_api_v1_health_live_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Live",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/api/v1/health/ready": {
+      "get": {
+        "operationId": "ready_api_v1_health_ready_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Ready",
+        "tags": [
+          "Health"
+        ]
+      }
+    }
+  }
+}

@@ -42,3 +42,9 @@ Thumbs.db
 
 # 本地下载压缩包
 *.tar.gz
+
+# New foundation test artifacts
+.hypothesis/
+test-results/
+playwright-report/
+blob-report/

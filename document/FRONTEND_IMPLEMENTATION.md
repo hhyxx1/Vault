@@ -1,6 +1,6 @@
 # 前端实现基线
 
-版本：v1.0
+版本：v1.1
 
 更新日期：2026 年 10 月 3 日
 
@@ -36,7 +36,7 @@
 
 只读检查得到本机 Node 为 v22.20.0。它满足 Vite 8 与 Vitest 5 文档中的 Node ≥22.12 数值门槛；React Router 8 文档要求 Node ≥22.22，因此第一阶段选 7 系列。以上只证明声明的版本门槛，未安装／构建／测试，不代表整个依赖组合已经兼容。
 
-开发与 CI 统一采用 Node 24 LTS 的当期维护补丁并记录 .node-version／engine 条件；本机现有 22.20 可用于初始兼容性验证，正式 CI 和发布不长期停在旧补丁。采用 npm 和单个 package-lock.json；不同时维护多个包管理器锁文件。
+开发与 CI 统一采用 Node 24 LTS 的当期维护补丁并记录 .node-version／engine 条件；本机现有 22.20 可用于初始兼容性验证，正式 CI 和发布不长期停在旧补丁。应用采用 npm 和 `apps/web/package-lock.json`。契约工具因 openapi-typescript 7 的 TypeScript 5 peer 约束单独安装在 `packages/contracts/tooling/`，具有独立 npm 锁；应用仍使用 TypeScript 6，不使用 force／legacy-peer-deps。此兼容性例外见 ADR-0007；不混用包管理器。
 
 浏览器基线以当前稳定 Chrome、Edge、Firefox 和 Safari 的实际验收为准。Tailwind 4 核心技术最低依赖 Chrome 111、Safari 16.4、Firefox 128；最低依赖不是对这些旧版本的完整产品验收承诺。iOS Safari 和 Android Chrome 补充真机编辑、触摸、软键盘和存储测试。视口、320 px、200% 缩放、减少动态效果和八维检查按前端品质标准执行。
 
@@ -150,3 +150,9 @@ Motion 不负责改变学习结果或显示假进度。运行排队、解析、�
 初始原型最先证明：P03 编辑保存与刷新恢复、P01 图谱增量更新与等价树视图、P08 归属承接和串号拒绝、P10 私有资料与真实学生预览。其后扩展全部 P00–P10 和 UF01–UF09，不以原型测试代替 13 门课程完整交付和实际学习证据验收。
 
 本次只完成选型与职责划分；精确依赖组合、数据库迁移、前端构建、浏览器兼容、性能、权限拒绝和获奖级品质均尚未验证。
+
+## 当前实施记录
+
+2026 年 10 月 3 日建立 React／Router Data Mode、原创 CSS、Cytoscape、CodeMirror、Dexie；其他选定工具按实际功能需要逐步集成。公开课程目录／版本／操作序列由 `content/courses/` 同源派生，访客核验使用生成类型，当前不实现账号数据归属或远端缓存伪装。
+
+本机 Node24.19.0 的 typecheck、13项单元测试、24项桌面／手机真实浏览器测试与 build 通过。保存版本不回写编辑稿；迟到结果和帮助记录绑定提交快照；当前活动的 hash／版本／来源验证后才落本地事务。应用的账号、上传／资料、Agent、同步和执行功能仍未开放。可复现命令与品质证据见 [开发运行说明](DEVELOPMENT_GUIDE.md)、[技术验证](TECHNICAL_VALIDATION.md)、[八维记录](FRONTEND_QUALITY_REVIEW.md)。

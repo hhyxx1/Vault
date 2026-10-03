@@ -1,6 +1,6 @@
 # 技术选型与工程基线
 
-版本：v1.0
+版本：v1.1
 
 日期：2026 年 10 月 3 日
 
@@ -86,7 +86,7 @@ document/                 # 所有项目说明与设计文档
 
 ## 5 当前环境与实施门
 
-本机已有 Node 22.20.0、Python 环境与 Docker CLI；Docker Engine 未运行。LangGraph 小型原型使用隔离 TEMP venv 的 Python 3.12.14，不是生产 Python 3.13 兼容证明。没有创建新版应用、运行 Linux 全栈构建或生成依赖 lockfile。
+本机已有 Node 22.20.0、Python 环境与 Docker CLI；Docker Engine 未运行。LangGraph 小型原型使用隔离 TEMP venv 的 Python 3.12.14，不是生产 Python 3.13 兼容证明。上述是选型时的历史观察。当前已使用 Node24.19.0／Python3.13.16 建立新版切片和依赖锁，并验证临时PG18.1与真实Chrome；Linux容器全栈构建和发布仍未验证，见 [技术记录](TECHNICAL_VALIDATION.md)。
 
 旧服务器本轮只读观测为 2 逻辑 CPU、约 1.6 GiB OS 可见内存、根盘约 8.3 GiB 可用。新业务、CPU OCR／embedding 和实验不合并挤入该宿主；按独立新环境及分类型资源预算做原型。没有修改旧服务，也没有采购新节点。
 
@@ -94,7 +94,7 @@ document/                 # 所有项目说明与设计文档
 
 ## 6 主源与许可核对
 
-本轮仅研究和小型 LangGraph 依赖验证，没有复制参考项目代码。前端许可见 [前端实现](FRONTEND_IMPLEMENTATION.md)；执行／资料依赖见 [部署设计](DEPLOYMENT.md)。建工程生成直接与传递依赖及模型／字体／镜像许可清单，保留需分发的声明。
+设计阶段仅研究和小型 LangGraph 依赖验证；开发阶段新增原创工程代码，没有复制参考项目实现。前端许可见 [前端实现](FRONTEND_IMPLEMENTATION.md)；执行／资料依赖见 [部署设计](DEPLOYMENT.md)。建工程生成直接与传递依赖及模型／字体／镜像许可清单，保留需分发的声明。
 
 - [Python 生命周期](https://devguide.python.org/versions/)、[uv 锁文件](https://docs.astral.sh/uv/concepts/projects/sync/)、[FastAPI](https://fastapi.tiangolo.com/)、[SQLAlchemy psycopg](https://docs.sqlalchemy.org/en/20/dialects/postgresql.html#module-sqlalchemy.dialects.postgresql.psycopg)。
 - [PG 维护策略](https://www.postgresql.org/support/versioning/)、[pgvector](https://github.com/pgvector/pgvector)、[BAAI 模型卡／MIT](https://huggingface.co/BAAI/bge-m3)。
@@ -102,3 +102,9 @@ document/                 # 所有项目说明与设计文档
 - [isolate GPL-2.0](https://github.com/ioi/isolate/blob/master/LICENSE)、[containerlab BSD](https://github.com/srl-labs/containerlab/blob/main/LICENSE)、[Docling MIT](https://github.com/docling-project/docling/blob/main/LICENSE)。服务调用边界不取消对实际修改／分发软件的许可义务；厂商镜像不随开源底座取得许可。
 
 主源核对日为 2026 年 10 月 3 日；上游维护状态发生变化时复审对应 ADR。接受技术设计、集成通过、课程通过与允许发布是四个不同状态。
+
+## 7 首个工程切片
+
+当前工程锁定实际使用的依赖，库存见 [依赖记录](DEPENDENCY_INVENTORY.md)。React／FastAPI、公开课程包、设备作品、访客固定栈核验、图谱恢复和12表迁移已经运行。账号／claim、LangGraph／模型、RAG／资料、隔离编译与全13门课程仍是后续范围。TypeScript 6 应用与 TypeScript 5 契约生成工具隔离的必要例外记入 ADR-0007；不降级应用，也不忽略 peer 检查。
+
+PGvector 固定镜像已核对 manifest 并通过 Compose 配置解析；本机 Engine 未启动，未运行镜像／向量扩展测试。没有生产部署或真实学习效果数据。

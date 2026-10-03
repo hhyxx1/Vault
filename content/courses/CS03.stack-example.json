@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "course_id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+  "course_version_id": "0648205a-6d3f-4c7c-b889-5b79c60bf0d4",
+  "course_code": "CS03",
+  "version": "CS03-example-0.1.0",
+  "status": "engineering_example",
+  "title": "栈：从变化过程理解后进先出",
+  "scope_note": "仅为两个目标的开发样例，不代表数据结构整课已完成或已通过教研验收。",
+  "curriculum_review_state": "pending",
+  "objectives": [
+    {
+      "id": "e790d0f5-ea0a-4924-a482-06b9ff8ab944",
+      "code": "CS03-STACK-01",
+      "title": "解释并推演栈的后进先出行为",
+      "criteria": [
+        {
+          "id": "state_trace",
+          "title": "正确推演每一步栈状态与输出",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "boundary_condition",
+          "title": "按本活动约定处理空栈出栈",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释空栈边界和后进先出的理由",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新情境中推演并解释栈行为",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e9a64c86-00b2-45e5-8597-3d7717d88643",
+      "code": "CS03-STACK-02",
+      "title": "用栈设计括号匹配方法",
+      "criteria": [
+        {
+          "id": "implementation",
+          "title": "形成可执行作品并核验边界输入",
+          "verification": "isolated_runner_pending"
+        },
+        {
+          "id": "reasoning",
+          "title": "解释嵌套与类型不匹配的处理",
+          "verification": "independent_review_pending"
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "CS03-STACK-01",
+      "to": "CS03-STACK-02",
+      "kind": "mandatory_prerequisite",
+      "source": "engineering_example_pending_review"
+    }
+  ],
+  "activities": [
+    {
+      "id": "e331a9ea-73aa-4ab9-a674-5f1433e6d4f5",
+      "version_id": "cdb42b71-8b4c-4109-87cc-86d80925c826",
+      "code": "CS03-STACK-01-TRACE",
+      "version": "CS03-STACK-01-TRACE@0.1.0",
+      "objective_codes": [
+        "CS03-STACK-01"
+      ],
+      "standard_version": "stack-trace-v1",
+      "student_action": "预测每一步栈内容、弹出值和空栈边界，再说明理由。",
+      "theory": [
+        "栈只从同一端加入和取出元素；这端称为栈顶。最近加入且尚未取出的元素先被取出。",
+        "本活动从空栈开始，用数组从左到右表示栈底到栈顶。push(x)在右端加入x；pop取出右端元素。",
+        "本活动约定空栈pop返回空值并报告underflow，栈仍为空。空栈行为是题目约定，需要与实际实现区分。"
+      ],
+      "operations": [
+        {
+          "kind": "push",
+          "value": 8
+        },
+        {
+          "kind": "push",
+          "value": 3
+        },
+        {
+          "kind": "pop"
+        },
+        {
+          "kind": "push",
+          "value": 5
+        },
+        {
+          "kind": "pop"
+        },
+        {
+          "kind": "pop"
+        },
+        {
+          "kind": "pop"
+        }
+      ],
+      "artifact_kind": "stack_trace_with_explanation",
+      "checker": "deterministic_stack_trace",
+      "answer_policy": "self_study_on_request",
+      "explanation_review": "pending_independent_review",
+      "completion_limit": "执行核验只证明本次轨迹符合约定，不能证明整目标独立达标、迁移或长期保持。"
+    }
+  ]
+}

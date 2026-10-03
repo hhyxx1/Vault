@@ -61,3 +61,13 @@
 - 后果：VM／模板生命周期、取消清理和安全审核；厂商镜像另授权，FRR不替代专有CLI。精确工具链和公开并发以实测锁定。
 - 运维：pgBackRest独立POSIX repository＋OSS隔离备份，RPO15min／RTO4h待测；未采购或改旧服务器。[部署设计](DEPLOYMENT.md)。
 - 复审：隔离、峰值、恢复、成本与私有交付。失败阻止开放对应能力，不用模拟结果代替实操。
+
+## ADR-0007：契约生成工具的 TypeScript 隔离
+
+- 状态：接受，2026 年 10 月 3 日的实际依赖安装结果。
+- 问题：openapi-typescript 7.13.0 的 peer 要求 TypeScript 5，与应用选定的 TypeScript 6.0.3 合并安装发生 ERESOLVE；当时没有可用正式版8。
+- 决定：应用继续 TypeScript6；契约工具独立位于 `packages/contracts/tooling/`，锁定 openapi-typescript7.13.0＋TypeScript5.9.3。两个目录均使用npm和精确lock，每个环境先npmci；生成结果是应用可编译的普通类型文件。
+- 备选：把应用降至5、force／legacy-peer-deps忽略、手写所有接口类型；分别改变既定基线、掩盖不兼容或造成漂移。
+- 后果：多一个工具依赖锁，CI显式安装并检查；后端实际OpenAPI与前端生成类型均需审阅，禁用手改生成文件。
+- 验证：Node24真实安装／生成／check通过，TypeScript6应用typecheck和构建通过。
+- 复审：上游正式支持TS6后评估合并工具链，附相同契约回归，不仅看包版本。

@@ -1,0 +1,43 @@
+{
+  "name": "@qionglong/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "contracts:generate": "node ../../packages/contracts/tooling/generate.mjs",
+    "contracts:check": "node ../../packages/contracts/tooling/generate.mjs --check",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@codemirror/lang-python": "^6.2.1",
+    "@codemirror/state": "^6.5.2",
+    "@codemirror/view": "^6.38.1",
+    "codemirror": "^6.0.2",
+    "cytoscape": "^3.34.0",
+    "dexie": "4.4.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-router-dom": "^7.9.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/cytoscape": "^3.21.9",
+    "@types/node": "^24.19.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^6.0.0",
+    "fake-indexeddb": "^6.2.4",
+    "typescript": "~6.0.0",
+    "vite": "8.3.2",
+    "vitest": "^5.0.0"
+  }
+}
