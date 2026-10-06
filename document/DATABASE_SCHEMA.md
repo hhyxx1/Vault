@@ -120,4 +120,6 @@ erDiagram
 
 首迁移后的 `0002_auth` 建立 account_auth_state／auth_email_token；`0003_sync` 建立 sync_object、sync_operation_receipt、sync_batch_receipt、sync_change、sync_conflict、sync_cursor，复用 account／profile／auth_session／learning_space／sync_claim。实际表与 CHECK、复合 FK、RLS、追加回执和删除约束以 Alembic、SQLAlchemy metadata 及真实数据库测试为准。
 
+`0004_agent_run` 增加账号 Agent 运行账本基础，只保存账号／空间／版本／作品引用、状态及调用预算，并以复合 FK、RLS 和不可改写触发器保护。它尚未接入账号 Agent API 或 LangGraph checkpoint；恢复时仍须在业务服务重验引用和权限。真实可销毁 PG18 库的迁移、模型零差异及受限角色测试见 [技术验证](TECHNICAL_VALIDATION.md)。
+
 同一 origin 的学习空间归属唯一；多个 claim 请求回执可映射同一本人空间，不能转给另一账号。同步记录经过逐类型结构校验且保留 client_reported 来源，不插入平台可信核验事件。已有0001升级、空库建表、降级再升级及零差异已验证。完整课程、教师关系、资料、Agent和附件领域仍未全部建成，详见 [账号同步实现](ACCOUNT_SYNC_IMPLEMENTATION.md)。
