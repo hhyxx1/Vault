@@ -57,6 +57,22 @@ export async function openLocalSpace(db = database) {
     return spaceId
   })
 }
+export async function clearGuestSpace(spaceId: string, db = database) {
+  return db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.syncItems, db.claims, db.batches], async () => {
+    const active = await db.meta.get('spaceId')
+    const space = await db.spaces.get(spaceId)
+    if (active?.value !== spaceId || !space || space.ownerId || space.pendingOwnerId || space.serverId) throw new Error('仅可清理当前未关联账号的访客空间。')
+    if (await db.claims.where('originLocalSpaceId').equals(spaceId).count() || await db.batches.where('spaceId').equals(spaceId).count()) throw new Error('此空间存在待确认的账号关联，不能在本机清理。')
+    for (const table of [db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.syncItems]) await table.where('spaceId').equals(spaceId).delete()
+    await db.meta.delete(`position:${spaceId}`)
+    await db.meta.delete(`position-time:${spaceId}`)
+    await db.spaces.delete(spaceId)
+    const nextId = crypto.randomUUID()
+    await db.spaces.add({ id: nextId, ownerId: null, pendingOwnerId: null, serverId: null, cursor: null, createdAt: new Date().toISOString() })
+    await db.meta.put({ key: 'spaceId', value: nextId })
+    return nextId
+  })
+}
 export async function activateSpace(accountId: string | null, freshGuest = false, db = database, isCurrent: () => boolean = () => true) {
   await openLocalSpace(db)
   return db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts], async () => {

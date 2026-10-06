@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto'
 import { afterEach, describe, expect, it } from 'vitest'
-import { LearningDatabase, openLocalSpace, recordEvidence, saveDraft, saveRevision } from './database'
+import { LearningDatabase, clearGuestSpace, openLocalSpace, recordEvidence, saveDraft, saveRevision } from './database'
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 
 const databases: LearningDatabase[] = []
@@ -44,5 +44,34 @@ describe('local durable repository', () => {
     const invalid = { ...sampleEvidence(), spaceId, revisionId: revision.revisionId }
     await expect(recordEvidence(invalid, db)).rejects.toThrow('版本与提交不一致')
     expect(await db.evidence.count()).toBe(1)
+  })
+  it('clears only the active unbound guest space and rejects stale writes', async () => {
+    const db = createDatabase(); const id = await openLocalSpace(db)
+    const draft = completeDraft(id); await saveDraft(draft, db)
+    const revision = await saveRevision(draft, db)
+    const evidence = { ...sampleEvidence(), spaceId: id, revisionId: revision.revisionId, revisionVersion: revision.version }
+    evidence.result.client_revision_id = revision.revisionId; evidence.result.client_artifact_id = revision.artifactId
+    await recordEvidence(evidence, db)
+    const next = await clearGuestSpace(id, db)
+    expect(next).not.toBe(id)
+    expect((await db.meta.get('spaceId'))?.value).toBe(next)
+    expect(await db.spaces.get(id)).toBeUndefined()
+    expect(await db.drafts.where('spaceId').equals(id).count()).toBe(0)
+    expect(await db.revisions.where('spaceId').equals(id).count()).toBe(0)
+    expect(await db.evidence.where('spaceId').equals(id).count()).toBe(0)
+    expect(await db.syncItems.where('spaceId').equals(id).count()).toBe(0)
+    await expect(saveDraft(draft, db)).rejects.toThrow('不属于当前本地空间')
+  })
+  it('refuses to clear claimed, pending or inactive spaces', async () => {
+    const db = createDatabase(); const id = await openLocalSpace(db)
+    await db.spaces.update(id, { pendingOwnerId: crypto.randomUUID() })
+    await expect(clearGuestSpace(id, db)).rejects.toThrow('未关联账号')
+    expect(await db.spaces.get(id)).toBeDefined()
+    await db.spaces.update(id, { pendingOwnerId: null })
+    await db.claims.put({ claimId: crypto.randomUUID(), expectedAccountId: crypto.randomUUID(), originLocalSpaceId: id, manifestHash: 'fixed', manifest: [], state: 'pending' })
+    await expect(clearGuestSpace(id, db)).rejects.toThrow('待确认')
+    expect(await db.spaces.get(id)).toBeDefined()
+    await db.claims.clear()
+    await expect(clearGuestSpace(crypto.randomUUID(), db)).rejects.toThrow('未关联账号')
   })
 })

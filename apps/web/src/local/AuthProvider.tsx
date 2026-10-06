@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { AccountApiError, accountRequest, authenticatedRequest, authNonce, type Account } from '../api/accounts'
 import { activateSpace, database } from './database'
-import { flushBeforeIdentityChange } from './identity'
+import { flushBeforeIdentityChange, localTabId } from './identity'
 type AuthValue = { account: Account | null; epoch: number; ready: boolean; offline: boolean; error: string | null; login: (email: string, password: string) => Promise<void>; register: (email: string, password: string, displayName: string, type: 'student' | 'teacher') => Promise<void>; verifyEmail: (token: string) => Promise<void>; requestPasswordReset: (email: string) => Promise<void>; confirmPasswordReset: (token: string, password: string) => Promise<void>; logout: () => Promise<void>; refreshSession: () => Promise<void> }
 const AuthContext = createContext<AuthValue | null>(null)
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -40,7 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     refreshSession().catch(() => { setError('账号与本地空间暂时无法打开，请检查浏览器存储。'); setReady(true) })
     if (typeof BroadcastChannel === 'undefined') return
     const bus = new BroadcastChannel('qionglong-identity'); channel.current = bus
-    bus.onmessage = () => { ++request.current; setReady(false); setEpoch(current => current + 1); refreshSession().catch(() => undefined) }
+    bus.onmessage = event => { if (event.data?.sender === localTabId) return; ++request.current; setReady(false); setEpoch(current => current + 1); refreshSession().catch(() => undefined) }
     return () => { ++request.current; bus.close(); channel.current = null }
   }, [refreshSession])
   useEffect(() => { const online = () => refreshSession().catch(() => undefined); window.addEventListener('online', online); return () => window.removeEventListener('online', online) }, [refreshSession])

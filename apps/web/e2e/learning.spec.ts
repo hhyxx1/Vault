@@ -51,6 +51,26 @@ test('flushes edits before an immediate SPA departure and resumes the actual las
   await expect(page.getByLabel('把你的解释也留下来', { exact: false })).toHaveValue('这是括号匹配工作台的最新位置。')
 })
 
+test('clears only the current guest device space after an explicit confirmation', async ({ page }) => {
+  await page.goto(tracePath)
+  const explanationField = page.getByLabel('把你的解释也留下来', { exact: false })
+  await explanationField.fill('待清理的访客学习记录。')
+  await page.goto('/local')
+  await expect(page.getByRole('button', { name: '清除此设备的访客记录' })).toBeVisible()
+  page.once('dialog', dialog => dialog.dismiss())
+  await page.getByRole('button', { name: '清除此设备的访客记录' }).click()
+  await page.goto(tracePath)
+  await expect(explanationField).toHaveValue('待清理的访客学习记录。')
+  await page.goto('/local')
+  page.once('dialog', dialog => dialog.accept())
+  await page.getByRole('button', { name: '清除此设备的访客记录' }).click()
+  await expect(page.getByText('当前访客空间已从本机清除，已建立新的空白空间。')).toBeVisible()
+  await page.goto(tracePath)
+  await expect(explanationField).toHaveValue('')
+  await page.reload()
+  await expect(explanationField).toHaveValue('')
+})
+
 test('records requested self-study answers and preserves a real verification without claiming mastery', async ({ page, isMobile }) => {
   await openAndComplete(page)
   if (isMobile) await page.getByRole('button', { name: '原理与帮助', exact: true }).click()
