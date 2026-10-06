@@ -302,7 +302,7 @@ ACL 变更、outbox 和相应 workflow invalidation 持久化同事务；消费�
 
 ## 当前物理实现与预认证调整
 
-初始 `0001_foundation` 在独立 PostgreSQL 18.1 实际建立 12 张表；复合约束、RLS、发布冻结和并发父锁经过测试。后续 `0002_auth` 与 `0003_sync` 增加身份及同步切片，详见本节下文。完整领域与教师发布工作流仍待实施。当前实际 API／模型以 `packages/contracts/openapi.json` 为准，其他设计端点不代表已实现。
+初始 `0001_foundation` 在独立 PostgreSQL 18.1 实际建立 12 张表；复合约束、RLS、发布冻结和并发父锁经过测试。后续 `0002_auth`、`0003_sync` 与 `0004_agent_run` 增加身份、同步和账号 Agent 运行账本基础，详见本节下文。完整领域与教师发布工作流仍待实施。当前实际 API／模型以 `packages/contracts/openapi.json` 为准，其他设计端点不代表已实现。
 
 Web 预认证使用 **POST `/api/v1/guest-nonce`**：创建短期内存凭据必须校验浏览器明确 Origin，与创建租约的 Origin 一致；不依赖反代改写后的 Host 或不可信 X-Forwarded。原 GET 保留给直接同源兼容，不用于新版 Web 主链。开发代理显式 `changeOrigin:false`，不放宽白名单。代理等效请求／恶意来源／缺失 Origin 和真实浏览器均有回归。
 
@@ -315,5 +315,7 @@ Web 预认证使用 **POST `/api/v1/guest-nonce`**：创建短期内存凭据必
 账号、claim 与同步已在独立 PG18 实测，实际接口、认证 cookie、字段与范围见 [实现记录](ACCOUNT_SYNC_IMPLEMENTATION.md) 和生成 `packages/contracts/openapi.json`。生产环境仍禁止当前捕获邮件认证。设计中的生产 `__Host-vault_session` 与 HTTPS 门没有因开发 HTTP cookie 启用而自动通过。
 
 当前 sync_object 是经严格 schema 检查的传输投影，具有 RLS／复合 FK／稳定映射／版本及 tombstone／追加回执约束，不能替代全部领域表。客户端导入历史不会写平台 verification_event；附件返回明确不支持。B03／B05／B06 的已测子集见技术验证，完整生产门仍待完成。
+
+`0004_agent_run` 只建立账号 Agent 的权威运行账本：固定 owner／个人空间、活动与作品修订引用、图版本、状态和调用预算；复合 FK 阻止空间和所有者错配，RLS 只允许当前账号读写，触发器禁止改写身份、预算、已用额度回退及终态。它不存学生正文，不代表业务接口已经调用 checkpoint，也不把 checkpoint 视为授权或证据。账号工作流恢复时仍须核对引用所指的同步版本、权限和预算，再执行模型或外部动作。
 
 浏览器草稿保存会在 IndexedDB 同一事务核对 UI 持有的内容基准。云端更新被应用后，清洁页面实时恢复；编辑中的旧基准保存拒绝且保留输入，必须显式读取新版本或解决冲突。空间选择与会话切换通过身份代次、缓存账号和活动空间事务校验阻止迟到操作。

@@ -21,6 +21,6 @@
 
 真实 DeepSeek 请求没有在这轮开发中运行或验证，仓库／本机未配置有效 API Key。CI 与本地假传输覆盖请求格式、结构化响应解析和失败边界。当前本机离线缓存没有 LangGraph 所需的 `langsmith` 轮子，因此完整图路由用例在本地跳过；CI 安装锁文件依赖时会执行该用例。
 
-本切片没有 PG LangGraph checkpoint、跨进程／重启恢复、跨请求服务端多轮会话历史、教师 Agent、自建课程资料 RAG、用户自定义或上传 Skill，也没有对其他 12 门课接入。调用次数预算当前以临时租约为界，不代表长期账号配额或生产容量策略。模型答复可能有错误，仍应配合学生的独立尝试与固定核验。
+本切片没有接入账号 Agent API 或 PG LangGraph checkpoint，也没有跨进程／重启恢复、跨请求服务端多轮会话历史、教师 Agent、自建课程资料 RAG、用户自定义或上传 Skill，亦未对其他 12 门课接入。`0004_agent_run` 只提供账号运行账本的归属、引用与预算数据库边界；现有访客学习助手不读取或写入该表。调用次数预算当前以临时租约为界，不代表长期账号配额或生产容量策略。模型答复可能有错误，仍应配合学生的独立尝试与固定核验。
 
 DeepSeek 请求契约参考：[Responses API](https://api-docs.deepseek.com/api/create-response/)；技术选型、数据与工具边界见 [技术基线](TECHNOLOGY_BASELINE.md)。

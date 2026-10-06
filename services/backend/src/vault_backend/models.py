@@ -7,6 +7,7 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     ForeignKeyConstraint,
+    Index,
     LargeBinary,
     String,
     Text,
@@ -113,6 +114,47 @@ class LearningSpace(Base):
         DateTime(timezone=True), server_default=text("now()")
     )
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class AgentRun(Base):
+    """Account-owned run authority; a LangGraph checkpoint is only resumable state."""
+
+    __tablename__ = "agent_run"
+    __table_args__ = (
+        Index("ix_agent_run_owner_created", "owner_account_id", "created_at"),
+        ForeignKeyConstraint(
+            ["space_id", "owner_account_id"],
+            ["learning_space.id", "learning_space.owner_account_id"],
+            name="fk_agent_run_space_owner",
+        ),
+        CheckConstraint(
+            "status IN ('pending','running','waiting','completed','failed','cancelled')",
+            name="ck_agent_run_status",
+        ),
+        CheckConstraint(
+            "call_budget > 0 AND calls_used >= 0 AND calls_used <= call_budget",
+            name="ck_agent_run_budget",
+        ),
+        CheckConstraint(
+            "graph_version <> '' AND activity_version <> ''", name="ck_agent_run_versions"
+        ),
+    )
+    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    space_id: Mapped[UUID] = mapped_column()
+    owner_account_id: Mapped[UUID] = mapped_column()
+    activity_version: Mapped[str] = mapped_column(String(120))
+    artifact_id: Mapped[UUID] = mapped_column()
+    revision_id: Mapped[UUID] = mapped_column()
+    graph_version: Mapped[str] = mapped_column(String(80))
+    status: Mapped[str] = mapped_column(String(16), server_default="pending")
+    call_budget: Mapped[int] = mapped_column(server_default="1")
+    calls_used: Mapped[int] = mapped_column(server_default="0")
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=text("now()")
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=text("now()")
+    )
 
 
 class Course(Base):

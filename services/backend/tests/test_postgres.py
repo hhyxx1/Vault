@@ -29,7 +29,7 @@ def db():
         )
         assert (
             connection.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0003_sync"
+            == "0004_agent_run"
         )
         # All synthetic mutations remain in one transaction and are rolled back.
         yield connection
@@ -130,6 +130,39 @@ def test_private_rls_denies_no_context_and_cross_owner(db):
             artifact(db, space_b)
     set_context(db, b)
     assert db.execute("SELECT id FROM learning_space").fetchall() == [(space_b,)]
+    db.execute("RESET ROLE")
+
+
+def test_agent_run_is_account_scoped_and_checkpoint_is_not_authority(db):
+    a, b = account(db), account(db)
+    a_space, b_space = space(db, a), space(db, b)
+    run = uuid4()
+    db.execute("GRANT SELECT,INSERT,UPDATE,DELETE ON agent_run TO vault_api")
+    db.execute("SET LOCAL ROLE vault_api")
+    assert db.execute("SELECT id FROM agent_run").fetchall() == []
+    set_context(db, a)
+    db.execute(
+        "INSERT INTO agent_run "
+        "(id,space_id,owner_account_id,activity_version,artifact_id,revision_id,graph_version) "
+        "VALUES (%s,%s,%s,'activity@1',%s,%s,'graph@1')",
+        (run, a_space, a, uuid4(), uuid4()),
+    )
+    with pytest.raises(psycopg.errors.ForeignKeyViolation):
+        with db.transaction():
+            db.execute(
+                "INSERT INTO agent_run "
+                "(id,space_id,owner_account_id,activity_version,"
+                "artifact_id,revision_id,graph_version) "
+                "VALUES (%s,%s,%s,'activity@1',%s,%s,'graph@1')",
+                (uuid4(), b_space, a, uuid4(), uuid4()),
+            )
+    with pytest.raises(psycopg.errors.CheckViolation):
+        with db.transaction():
+            db.execute("UPDATE agent_run SET call_budget=100 WHERE id=%s", (run,))
+    db.execute("UPDATE agent_run SET status='waiting',calls_used=1 WHERE id=%s", (run,))
+    set_context(db, b)
+    assert db.execute("SELECT id FROM agent_run").fetchall() == []
+    assert db.execute("UPDATE agent_run SET status='completed' WHERE id=%s", (run,)).rowcount == 0
     db.execute("RESET ROLE")
 
 

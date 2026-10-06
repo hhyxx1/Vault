@@ -48,7 +48,10 @@ def urls():
 async def cloud(tmp_path):
     owner_url, api_url = urls()
     with psycopg.connect(owner_url) as conn:
-        assert conn.execute("SELECT version_num FROM alembic_version").fetchone()[0] == "0003_sync"
+        assert (
+            conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
+            == "0004_agent_run"
+        )
     settings = Settings(
         environment="test",
         database_url=api_url,
