@@ -1,6 +1,6 @@
 # 技术选型验证记录
 
-版本：v1.2
+版本：v1.3
 
 更新日期：2026 年 10 月 6 日；第1–6节保留之前验证的历史范围。
 
@@ -118,3 +118,9 @@
 2026 年 10 月 6 日在 CS03 栈工程样例实现默认关闭的 LangGraph 意图路由、DeepSeek Responses API 结构化网关和学习帮助记录。实现范围、数据边界及未验证项见 [学习助手实现切片](LEARNING_ASSIST_IMPLEMENTATION.md)。
 
 本机验证使用假模型，不访问 DeepSeek：后端 47 项通过、48 项跳过（47 项需隔离 PostgreSQL；LangGraph 路由测试因当前离线缓存缺少 `langsmith` 未执行）；Ruff 通过。前端生产构建、23 项 Vitest 和契约检查通过；桌面与移动 Chrome 的 26 项 E2E 通过，含按次同意、Agent 答复刷新恢复、返回当前作品、修改后刷新仍可恢复，且成功提示不遮挡作品。真实账号邮箱 E2E 因未设置 `VAULT_E2E_MAIL_CAPTURE_DIR` 未执行。真实模型调用、响应质量、实际费用和生产隐私配置均未验证；CI 会按 `uv.lock` 安装 LangGraph 依赖并执行路由测试。
+
+## 10 PostgreSQL checkpoint 架构验证
+
+2026 年 10 月 6 日加入锁定依赖 `langgraph-checkpoint-postgres==3.1.2`，使用 [PG 检查点探针](technical_validation/langgraph_postgres_probe.py) 在本机 PostgreSQL 18 的**新建可销毁数据库**及独立 `agent_checkpoint` schema 中运行。两个独立 Python 进程先后执行 `prepare` 和 `resume`：两个合成运行都停在等待学生输入；重启进程后只恢复 A，B 仍等待；恢复结果只产生待复核建议，不写学习证据。测试后删除该探针数据库。探针 state 只保存 owner、活动和作品修订的合成引用，启用严格 msgpack 反序列化；不含学生正文或模型请求。CI 后端 job 也在独立可销毁数据库重复这组验证。
+
+上述结果只证明 LangGraph 1.2.12／PG checkpointer 3.1.2 在当前 Python 3.13 和 PG18 环境可持久化、跨进程恢复及隔离两个 thread。**尚未**接入账号 Agent API、权威 owner／空间／版本／撤权复核、业务幂等与预算账本，也未验证取消竞态、负载、真实模型或生产迁移。访客 Agent 仍不得使用永久 PG checkpoint；此探针不能作为账号工作流已完成的证明。

@@ -47,6 +47,15 @@ jobs:
         run: psql -h 127.0.0.1 -U vault_ci -d vault_ci -v ON_ERROR_STOP=1 -f ../../infra/ci_database_roles.sql
       - run: uv run --frozen alembic check
       - run: uv run --frozen pytest -q
+      - name: Verify PostgreSQL LangGraph restart recovery
+        env:
+          PGPASSWORD: ci-ephemeral-only
+          VAULT_PG_PROBE_DATABASE_URL: postgresql://vault_ci:ci-ephemeral-only@127.0.0.1:5432/vault_checkpoint_probe
+        run: |
+          createdb -h 127.0.0.1 -U vault_ci vault_checkpoint_probe
+          trap 'dropdb --if-exists --force -h 127.0.0.1 -U vault_ci vault_checkpoint_probe' EXIT
+          uv run --frozen python ../../document/technical_validation/langgraph_postgres_probe.py prepare
+          uv run --frozen python ../../document/technical_validation/langgraph_postgres_probe.py resume
       - run: uv run --frozen python -m vault_backend.export_openapi --output ../../packages/contracts/openapi.json --check
       - name: Disposable database migration round trip
         run: |
