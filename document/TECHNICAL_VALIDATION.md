@@ -123,7 +123,7 @@
 
 2026 年 10 月 6 日加入锁定依赖 `langgraph-checkpoint-postgres==3.1.2`，使用 [PG 检查点探针](technical_validation/langgraph_postgres_probe.py) 在本机 PostgreSQL 18 的**新建可销毁数据库**及独立 `agent_checkpoint` schema 中运行。两个独立 Python 进程先后执行 `prepare` 和 `resume`：两个合成运行都停在等待学生输入；重启进程后只恢复 A，B 仍等待；恢复结果只产生待复核建议，不写学习证据。测试后删除该探针数据库。探针 state 只保存 owner、活动和作品修订的合成引用，启用严格 msgpack 反序列化；不含学生正文或模型请求。CI 后端 job 也在独立可销毁数据库重复这组验证。
 
-上述结果只证明 LangGraph 1.2.12／PG checkpointer 3.1.2 在当前 Python 3.13 和 PG18 环境可持久化、跨进程恢复及隔离两个 thread。**尚未**接入账号 Agent API、权威 owner／空间／版本／撤权复核、业务幂等与预算账本，也未验证取消竞态、负载、真实模型或生产迁移。访客 Agent 仍不得使用永久 PG checkpoint；此探针不能作为账号工作流已完成的证明。
+上述结果只证明 LangGraph 1.2.12／PG checkpointer 3.1.2 在当前 Python 3.13 和 PG18 环境可持久化、跨进程恢复及隔离两个 thread。更新锁文件后，还在**另一新建可销毁 PG18 数据库**完成迁移并使用受限 API 角色运行后端完整测试，97 项通过；数据库随后删除。**尚未**接入账号 Agent API、权威 owner／空间／版本／撤权复核、业务幂等与预算账本，也未验证取消竞态、负载、真实模型或生产迁移。访客 Agent 仍不得使用永久 PG checkpoint；此探针不能作为账号工作流已完成的证明。
 
 ## 11 访客本机清理回归
 
