@@ -141,6 +141,14 @@ jobs:
           exit 1
       - run: npm run test:e2e
         working-directory: apps/web
+      - name: Verify production app shell after offline restart
+        working-directory: apps/web
+        run: |
+          npm run build
+          node ./node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 4174 --strictPort &
+          preview_pid=$!
+          trap 'kill "$preview_pid"' EXIT
+          npm run test:offline
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         if: failure()
         with:

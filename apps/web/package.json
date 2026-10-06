@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:offline": "playwright test --config playwright.offline.config.ts",
     "contracts:generate": "node ../../packages/contracts/tooling/generate.mjs",
     "contracts:check": "node ../../packages/contracts/tooling/generate.mjs --check",
     "preview": "vite preview --host 127.0.0.1"
