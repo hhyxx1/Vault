@@ -8,7 +8,7 @@ from datetime import datetime
 from typing import Annotated, Any, Literal
 from uuid import UUID
 
-from pydantic import ConfigDict, Field, StrictBool, StrictInt, field_validator
+from pydantic import ConfigDict, Field, StrictBool, StrictInt, field_validator, model_validator
 
 from vault_backend.responses import Criterion, TraceFeedback, VerificationResult
 from vault_backend.schemas import TraceStep, WriteModel
@@ -66,9 +66,37 @@ class RevisionPayload(DraftPayload):
 class HelpPayload(LocalPayload):
     id: UUID
     objectiveId: ObjectiveId
-    kind: Literal["hint", "answer"]
+    kind: Literal["hint", "answer", "agent_assist"]
     disclosureVersion: str = Field(min_length=1, max_length=100)
     createdAt: Timestamp
+    intent: Literal["diagnose", "explain", "hint", "practice", "result_feedback"] | None = None
+    question: str | None = Field(default=None, max_length=1200)
+    reply: str | None = Field(default=None, max_length=2500)
+    nextAction: str | None = Field(default=None, max_length=500)
+    revisionId: UUID | None = None
+    artifactId: UUID | None = None
+    courseVersion: str | None = Field(default=None, max_length=100)
+    activityVersion: str | None = Field(default=None, max_length=100)
+
+    @model_validator(mode="after")
+    def validate_agent_record(self):
+        fields = (
+            self.intent,
+            self.question,
+            self.reply,
+            self.nextAction,
+            self.revisionId,
+            self.artifactId,
+            self.courseVersion,
+            self.activityVersion,
+        )
+        if self.kind == "agent_assist" and any(value is None for value in fields):
+            raise ValueError(
+                "agent assistance records must retain request, reply and revision context"
+            )
+        if self.kind != "agent_assist" and any(value is not None for value in fields):
+            raise ValueError("agent fields require kind=agent_assist")
+        return self
 
 
 class ImportedCriterion(Criterion):

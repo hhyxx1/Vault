@@ -221,6 +221,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/guest-leases/{lease_id}/learning-assist": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Learning Assist */
+        post: operations["learning_assist_api_v1_guest_leases__lease_id__learning_assist_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/guest-leases/{lease_id}/operations": {
         parameters: {
             query?: never;
@@ -795,6 +812,86 @@ export interface components {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
         };
+        /** LearningAssistReply */
+        LearningAssistReply: {
+            /**
+             * Mastery Asserted
+             * @default false
+             * @constant
+             */
+            mastery_asserted: false;
+            /** Message */
+            message: string;
+            /** Next Action */
+            next_action: string;
+        };
+        /** LearningAssistRequest */
+        LearningAssistRequest: {
+            /**
+             * Activity Version
+             * @constant
+             */
+            activity_version: "CS03-STACK-01-TRACE@0.1.0";
+            /**
+             * Artifact Id
+             * Format: uuid
+             */
+            artifact_id: string;
+            /**
+             * Course Code
+             * @constant
+             */
+            course_code: "CS03";
+            /**
+             * Course Version
+             * @constant
+             */
+            course_version: "CS03-example-0.1.0";
+            /**
+             * Disclosure Accepted
+             * @constant
+             */
+            disclosure_accepted: true;
+            /**
+             * Explanation
+             * @default
+             */
+            explanation: string;
+            /** Goal */
+            goal: string;
+            /**
+             * Intent
+             * @enum {string}
+             */
+            intent: "diagnose" | "explain" | "hint" | "practice" | "result_feedback";
+            /**
+             * Objective Code
+             * @constant
+             */
+            objective_code: "CS03-STACK-01";
+            /** Operation Id */
+            operation_id?: string | null;
+            /**
+             * Question
+             * @default
+             */
+            question: string;
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            request_id: string;
+            /**
+             * Revision Id
+             * Format: uuid
+             */
+            revision_id: string;
+            /**
+             * Work Excerpt
+             * @default
+             */
+            work_excerpt: string;
+        };
         /** LeaseRequest */
         LeaseRequest: {
             /**
@@ -814,7 +911,7 @@ export interface components {
              */
             absolute_expires_at: string;
             /** Allowed Operations */
-            allowed_operations: "verify_trace"[];
+            allowed_operations: ("verify_trace" | "learning_assist")[];
             /**
              * Created At
              * Format: date-time
@@ -1543,6 +1640,43 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["LeaseResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    learning_assist_api_v1_guest_leases__lease_id__learning_assist_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path: {
+                lease_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningAssistRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningAssistReply"];
                 };
             };
             /** @description Validation Error */

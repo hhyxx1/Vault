@@ -47,8 +47,11 @@ export type Draft = {
 }
 export type ArtifactRevision = Draft & { artifactId: string; revisionId: string; version: string }
 export type HelpEvent = {
-  id: string; spaceId: string; objectiveId: string; kind: 'hint' | 'answer'
+  id: string; spaceId: string; objectiveId: string; kind: 'hint' | 'answer' | 'agent_assist'
   disclosureVersion: string; createdAt: string
+  intent?: "diagnose" | "explain" | "hint" | "practice" | "result_feedback"
+  question?: string; reply?: string; nextAction?: string
+  revisionId?: string; artifactId?: string; courseVersion?: string; activityVersion?: string
 }
 export type EvidenceRecord = {
   id: string; spaceId: string; objectiveId: string; revisionId: string

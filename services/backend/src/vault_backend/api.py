@@ -2,7 +2,7 @@ import asyncio
 import contextlib
 import json
 from contextlib import asynccontextmanager
-from typing import Annotated
+from typing import Annotated, Any
 from uuid import UUID, uuid4
 
 from fastapi import FastAPI, Header, Request
@@ -12,13 +12,17 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from vault_backend import __version__
+from vault_backend.agent_gateway import DeepSeekResponsesGateway
 from vault_backend.auth import AuthService
 from vault_backend.auth import router as auth_router
+from vault_backend.checker import canonical_hash
 from vault_backend.config import Settings
 from vault_backend.content import CourseRepository
 from vault_backend.db import create_engine, database_ready
 from vault_backend.errors import ApiError
 from vault_backend.guests import GuestLeaseStore
+from vault_backend.learning_assist import LearningAssistWorkflow
+from vault_backend.learning_assist_schemas import LearningAssistReply, LearningAssistRequest
 from vault_backend.responses import CourseCatalog, LeaseResponse, NonceResponse, OperationResponse
 from vault_backend.schemas import LeaseRequest, OperationInput, RevisionCommand, TraceSubmission
 from vault_backend.sync import router as sync_router
@@ -53,10 +57,23 @@ def mutation_origin(request: Request) -> str:
     return origin
 
 
-def create_app(settings: Settings | None = None, store: GuestLeaseStore | None = None) -> FastAPI:
+def create_app(
+    settings: Settings | None = None,
+    store: GuestLeaseStore | None = None,
+    assist_runner: Any | None = None,
+) -> FastAPI:
     settings = settings or Settings()
     content = CourseRepository(settings.course_catalog_path)
     store = store or GuestLeaseStore(settings, trace_context=content.trace_context)
+    if settings.agent_enabled and assist_runner is None:
+        assert settings.deepseek_api_key is not None
+        gateway = DeepSeekResponsesGateway(
+            settings.deepseek_api_key.get_secret_value(),
+            settings.deepseek_model,
+            settings.agent_timeout_seconds,
+            settings.agent_max_inflight,
+        )
+        assist_runner = LearningAssistWorkflow(gateway)
     engine: AsyncEngine | None = (
         create_engine(settings.database_url) if settings.database_url else None
     )
@@ -76,6 +93,8 @@ def create_app(settings: Settings | None = None, store: GuestLeaseStore | None =
             with contextlib.suppress(asyncio.CancelledError):
                 await cleaner
             await store.close()
+            if assist_runner is not None and hasattr(assist_runner, "close"):
+                await assist_runner.close()
             if engine is not None:
                 await engine.dispose()
 
@@ -87,6 +106,7 @@ def create_app(settings: Settings | None = None, store: GuestLeaseStore | None =
         docs_url="/api/v1/docs",
     )
     app.state.settings, app.state.guest_store, app.state.engine = settings, store, engine
+    app.state.agent = assist_runner
     app.state.auth = AuthService(engine, settings)
     app.include_router(auth_router)
     app.include_router(sync_router)
@@ -170,7 +190,7 @@ def create_app(settings: Settings | None = None, store: GuestLeaseStore | None =
                     "guest_trace": settings.guest_enabled and content.trace_context is not None,
                     "accounts": ready and settings.auth_enabled,
                     "sync": ready and settings.auth_enabled,
-                    "agent": False,
+                    "agent": settings.agent_enabled and assist_runner is not None,
                     "isolated_execution": False,
                     "rag": False,
                 },
@@ -327,6 +347,67 @@ def create_app(settings: Settings | None = None, store: GuestLeaseStore | None =
             media_type="text/event-stream",
             headers={"Cache-Control": "no-store", "X-Accel-Buffering": "no"},
         )
+
+    @app.post(
+        "/api/v1/guest-leases/{lease_id}/learning-assist",
+        tags=["Learning"],
+        response_model=LearningAssistReply,
+    )
+    async def learning_assist(
+        request: Request,
+        lease_id: UUID,
+        body: LearningAssistRequest,
+        authorization: Annotated[str | None, Header()] = None,
+    ):
+        agent = app.state.agent
+        if not settings.agent_enabled or agent is None:
+            raise ApiError(503, "AGENT_UNAVAILABLE", "学习助手尚未配置；作品仍保存在本地。")
+        token, origin = credential(authorization), mutation_origin(request)
+        if (body.intent == "result_feedback") != (body.operation_id is not None):
+            raise ApiError(
+                422, "VERIFICATION_REFERENCE_REQUIRED", "结果解读必须关联本次已完成的核验。"
+            )
+        payload_hash = canonical_hash(body.model_dump(mode="json"))
+        cached = await store.begin_assist(lease_id, token, origin, body.request_id, payload_hash)
+        if cached is not None:
+            return cached
+        completed = False
+        try:
+            verification = None
+            if body.intent == "result_feedback":
+                operation = await store.snapshot(lease_id, token, body.operation_id)
+                result = operation.get("result")
+                if operation.get("status") != "completed" or not result:
+                    raise ApiError(
+                        409, "VERIFICATION_NOT_COMPLETE", "只能解读已完成且仍可访问的核验结果。"
+                    )
+                if (
+                    result.get("client_artifact_id") != str(body.artifact_id)
+                    or result.get("client_revision_id") != str(body.revision_id)
+                    or result.get("course_version") != body.course_version
+                    or result.get("activity_version") != body.activity_version
+                    or "e790d0f5-ea0a-4924-a482-06b9ff8ab944" not in result.get("objective_ids", [])
+                ):
+                    raise ApiError(
+                        409,
+                        "VERIFICATION_REFERENCE_MISMATCH",
+                        "核验结果与当前作品版本或目标不匹配。",
+                    )
+                verification = {
+                    "trace_correct": result["trace_correct"],
+                    "summary": result["summary"],
+                    "criteria": result["criteria"],
+                    "mastery_asserted": False,
+                    "provenance": "server_deterministic_checker",
+                }
+            reply = await agent.run(body, verification)
+            value = reply.model_dump(mode="json")
+            await store.complete_assist(lease_id, token, body.request_id, payload_hash, value)
+            completed = True
+            return value
+        finally:
+            if not completed:
+                await store.fail_assist(lease_id, token, body.request_id, payload_hash)
 
     @app.post("/api/v1/execution-jobs", tags=["Execution"])
     async def execution_job():

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pydantic import Field, model_validator
+from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -21,9 +21,15 @@ class Settings(BaseSettings):
     guest_absolute_seconds: int = Field(default=7200, ge=1, le=7200)
     guest_max_leases: int = Field(default=256, ge=1, le=10000)
     guest_max_operations: int = Field(default=20, ge=1, le=100)
+    guest_max_agent_requests: int = Field(default=6, ge=1, le=20)
     guest_max_streams: int = Field(default=64, ge=1, le=512)
     guest_streams_per_lease: int = Field(default=2, ge=1, le=4)
     guest_enabled: bool = True
+    agent_enabled: bool = False
+    deepseek_api_key: SecretStr | None = None
+    deepseek_model: str = Field(default="deepseek-flash", min_length=1, max_length=80)
+    agent_timeout_seconds: int = Field(default=30, ge=5, le=90)
+    agent_max_inflight: int = Field(default=8, ge=1, le=64)
     max_request_bytes: int = Field(default=65536, ge=4096, le=1048576)
     auth_enabled: bool = False
     mail_capture_dir: Path | None = None
@@ -42,6 +48,12 @@ class Settings(BaseSettings):
             raise ValueError("Guest service needs cleanup/privacy acceptance before production")
         if self.environment == "production" and self.auth_enabled:
             raise ValueError("Authentication requires a real mail adapter before production")
+        if self.agent_enabled and (
+            not self.deepseek_api_key or not self.deepseek_api_key.get_secret_value().strip()
+        ):
+            raise ValueError("VAULT_AGENT_ENABLED requires VAULT_DEEPSEEK_API_KEY")
+        if self.agent_enabled and self.deepseek_api_key is not None:
+            self.deepseek_api_key = SecretStr(self.deepseek_api_key.get_secret_value().strip())
         if self.auth_enabled and (not self.database_url or self.mail_capture_dir is None):
             raise ValueError("Authentication requires PostgreSQL and private mail capture")
         if self.mail_capture_dir is not None:

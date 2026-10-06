@@ -651,6 +651,141 @@
         "title": "HTTPValidationError",
         "type": "object"
       },
+      "LearningAssistReply": {
+        "additionalProperties": false,
+        "properties": {
+          "mastery_asserted": {
+            "const": false,
+            "default": false,
+            "title": "Mastery Asserted",
+            "type": "boolean"
+          },
+          "message": {
+            "maxLength": 2500,
+            "minLength": 1,
+            "title": "Message",
+            "type": "string"
+          },
+          "next_action": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Next Action",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "next_action"
+        ],
+        "title": "LearningAssistReply",
+        "type": "object"
+      },
+      "LearningAssistRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "activity_version": {
+            "const": "CS03-STACK-01-TRACE@0.1.0",
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "course_code": {
+            "const": "CS03",
+            "title": "Course Code",
+            "type": "string"
+          },
+          "course_version": {
+            "const": "CS03-example-0.1.0",
+            "title": "Course Version",
+            "type": "string"
+          },
+          "disclosure_accepted": {
+            "const": true,
+            "title": "Disclosure Accepted",
+            "type": "boolean"
+          },
+          "explanation": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Explanation",
+            "type": "string"
+          },
+          "goal": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Goal",
+            "type": "string"
+          },
+          "intent": {
+            "enum": [
+              "diagnose",
+              "explain",
+              "hint",
+              "practice",
+              "result_feedback"
+            ],
+            "title": "Intent",
+            "type": "string"
+          },
+          "objective_code": {
+            "const": "CS03-STACK-01",
+            "title": "Objective Code",
+            "type": "string"
+          },
+          "operation_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operation Id"
+          },
+          "question": {
+            "default": "",
+            "maxLength": 1200,
+            "title": "Question",
+            "type": "string"
+          },
+          "request_id": {
+            "format": "uuid",
+            "title": "Request Id",
+            "type": "string"
+          },
+          "revision_id": {
+            "format": "uuid",
+            "title": "Revision Id",
+            "type": "string"
+          },
+          "work_excerpt": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Work Excerpt",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "course_code",
+          "course_version",
+          "activity_version",
+          "objective_code",
+          "intent",
+          "disclosure_accepted",
+          "artifact_id",
+          "revision_id",
+          "goal"
+        ],
+        "title": "LearningAssistRequest",
+        "type": "object"
+      },
       "LeaseRequest": {
         "additionalProperties": false,
         "properties": {
@@ -682,7 +817,10 @@
           },
           "allowed_operations": {
             "items": {
-              "const": "verify_trace",
+              "enum": [
+                "verify_trace",
+                "learning_assist"
+              ],
               "type": "string"
             },
             "title": "Allowed Operations",
@@ -1982,6 +2120,75 @@
         "summary": "Create Lease",
         "tags": [
           "Guest"
+        ]
+      }
+    },
+    "/api/v1/guest-leases/{lease_id}/learning-assist": {
+      "post": {
+        "operationId": "learning_assist_api_v1_guest_leases__lease_id__learning_assist_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lease_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Lease Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningAssistRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningAssistReply"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Learning Assist",
+        "tags": [
+          "Learning"
         ]
       }
     },

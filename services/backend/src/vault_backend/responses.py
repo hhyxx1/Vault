@@ -16,7 +16,7 @@ class LeaseResponse(BaseModel):
     created_at: datetime
     idle_expires_at: datetime
     absolute_expires_at: datetime
-    allowed_operations: list[Literal["verify_trace"]]
+    allowed_operations: list[Literal["verify_trace", "learning_assist"]]
     storage: Literal["ephemeral_memory"]
 
 

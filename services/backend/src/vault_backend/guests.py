@@ -43,6 +43,8 @@ class Lease:
     operations: dict[UUID, Operation] = field(default_factory=dict)
     operation_keys: dict[UUID, UUID] = field(default_factory=dict)
     stream_ids: set[UUID] = field(default_factory=set)
+    agent_requests: int = 0
+    agent_results: dict[UUID, tuple[str, dict[str, Any] | None]] = field(default_factory=dict)
 
 
 class GuestLeaseStore:
@@ -133,7 +135,9 @@ class GuestLeaseStore:
                 "created_at": now.isoformat(),
                 "idle_expires_at": lease.idle_expires_at.isoformat(),
                 "absolute_expires_at": lease.absolute_expires_at.isoformat(),
-                "allowed_operations": ["verify_trace"],
+                "allowed_operations": ["verify_trace", "learning_assist"]
+                if self.settings.agent_enabled
+                else ["verify_trace"],
                 "storage": "ephemeral_memory",
             }
 
@@ -159,6 +163,58 @@ class GuestLeaseStore:
         if not op:
             raise ApiError(404, "OPERATION_UNAVAILABLE", "该操作不存在或当前不可访问。")
         return op
+
+    async def begin_assist(
+        self, lease_id: UUID, token: str, origin: str, request_id: UUID, payload_hash: str
+    ) -> dict[str, Any] | None:
+        async with self.lock:
+            lease = self._lease(lease_id, token, origin)
+            previous = lease.agent_results.get(request_id)
+            if previous is not None:
+                if previous[0] != payload_hash:
+                    raise ApiError(
+                        409, "IDEMPOTENCY_CONFLICT", "同一请求标识不能用于不同学习内容。"
+                    )
+                if previous[1] is None:
+                    raise ApiError(
+                        409,
+                        "ASSIST_IN_PROGRESS",
+                        "这条学习请求仍在处理，请稍后重试。",
+                        retryable=True,
+                    )
+                return previous[1]
+            if lease.agent_requests >= self.settings.guest_max_agent_requests:
+                raise ApiError(429, "AGENT_BUDGET_EXCEEDED", "本次学习会话的助手请求次数已用完。")
+            lease.agent_requests += 1
+            lease.agent_results[request_id] = (payload_hash, None)
+            self._touch(lease)
+            return None
+
+    async def complete_assist(
+        self,
+        lease_id: UUID,
+        token: str,
+        request_id: UUID,
+        payload_hash: str,
+        result: dict[str, Any],
+    ) -> None:
+        async with self.lock:
+            lease = self._lease(lease_id, token)
+            current = lease.agent_results.get(request_id)
+            if current is None or current[0] != payload_hash or current[1] is not None:
+                raise ApiError(409, "ASSIST_STATE_CONFLICT", "学习请求状态已变化，请重新发起。")
+            lease.agent_results[request_id] = (payload_hash, result)
+            self._touch(lease)
+
+    async def fail_assist(
+        self, lease_id: UUID, token: str, request_id: UUID, payload_hash: str
+    ) -> None:
+        async with self.lock:
+            lease = self._lease(lease_id, token)
+            current = lease.agent_results.get(request_id)
+            if current is not None and current[0] == payload_hash and current[1] is None:
+                del lease.agent_results[request_id]
+                lease.agent_requests = max(0, lease.agent_requests - 1)
 
     def _snapshot(self, lease: Lease, op: Operation) -> dict[str, Any]:
         return {

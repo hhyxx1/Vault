@@ -22,8 +22,8 @@
 | 账号 | 自托管邮箱／密码、Argon2id、不透明 PostgreSQL session | 两类互斥账号；Cookie 会话、CSRF、撤销、教师核实与最小授权 |
 | 权威存储 | PostgreSQL 18＋pgvector 0.8；正式附件使用私有 OSS | 业务、证据、ACL、同步、任务和账号检查点；文件以不可变版本引用管理 |
 | 异步 | Celery 5＋Valkey 8；PG outbox／租约／幂等账本 | 至少一次投递；权威任务事实与额度记录在 PG，取消、重投和迟到结果可对账 |
-| Agent | 自托管 Python LangGraph；模型网关使用 httpx 适配供应商 | 四项学习职责＋按需设计职责，按条件交接、等待学生及恢复；不采用外部托管编排 |
-| 默认生成模型 | DeepSeek 的 deepseek-flash；高级模型自动切换关闭 | 第一家供应商适配器，全职责按需调用；没有真实调用、质量或成本测试结果 |
+| Agent | 自托管 Python LangGraph；模型网关使用 httpx 适配供应商 | CS03 样例已实现按意图路由诊断／辅导／练习／核验解读；PG checkpoint、多轮等待／恢复及教师职责仍未完成 |
+| 默认生成模型 | DeepSeek 的 deepseek-flash；高级模型自动切换关闭 | 仅实现默认关闭的 CS03 样例接口和假传输测试；没有真实调用、质量或成本验证 |
 | 资料／检索 | Docling、受控 LibreOffice 转换、python-pptx／OOXML 检查；BAAI/bge-m3 dense 1024＋jieba 分词／PG GIN | 本地 CPU 解析和向量；学生副本及当前授权先过滤，小授权集先精确检索再融合 |
 | 真实执行 | 原生 isolate 专用 Linux VM；SQL 独立临时 PG18；containerlab＋Linux／FRR 网络 VM | 真实编译／运行、数据库和协议实验；公开网络实验每租约独立 VM |
 | 发布 | Linux、Docker Compose、Caddy 2；pgBackRest 独立备份 repository | 受信业务部署、HTTPS、备份恢复与回滚；不承诺已有服务器能运行整套方案 |
@@ -105,10 +105,10 @@ document/                 # 所有项目说明与设计文档
 
 ## 7 首个工程切片
 
-当前工程锁定实际使用的依赖，库存见 [依赖记录](DEPENDENCY_INVENTORY.md)。React／FastAPI、公开课程包、设备作品、访客固定栈核验、图谱恢复、开发账号／claim／同步与PG迁移已经运行。LangGraph／模型、RAG／资料、隔离编译与全13门课程仍是后续范围。TypeScript 6 应用与 TypeScript 5 契约生成工具隔离的必要例外记入 ADR-0007；不降级应用，也不忽略 peer 检查。
+当前工程锁定实际使用的依赖，库存见 [依赖记录](DEPENDENCY_INVENTORY.md)。React／FastAPI、公开课程包、设备作品、访客固定栈核验、图谱恢复、开发账号／claim／同步与PG迁移已经运行。LangGraph／DeepSeek 已开始用于 CS03 样例辅助切片，但未接入 checkpoint、未做真实模型调用或运营验证；RAG／资料、隔离编译与全13门课程仍是后续范围。TypeScript 6 应用与 TypeScript 5 契约生成工具隔离的必要例外记入 ADR-0007；不降级应用，也不忽略 peer 检查。
 
 PGvector 固定镜像已核对 manifest 并通过 Compose 配置解析；本机 Engine 未启动，未运行镜像／向量扩展测试。没有生产部署或真实学习效果数据。
 
 ## 8 账号与同步开发切片
 
-2026 年 10 月 5 日在现有基线上实现 Argon2id／数据库 opaque session、邮箱确认与重置、CSRF、两类 profile、claim journal 与严格幂等同步；没有更换已选栈。实际迁移为0001–0003，前端使用 Dexie空间复合键，不再把“已选择工具”写作“完成产品”。详见 [当前实现](ACCOUNT_SYNC_IMPLEMENTATION.md)。生产投递、长期容量、教师授权、Agent／Skill、RAG与隔离执行仍按各自门推进。
+2026 年 10 月 5 日在现有基线上实现 Argon2id／数据库 opaque session、邮箱确认与重置、CSRF、两类 profile、claim journal 与严格幂等同步；没有更换已选栈。实际迁移为0001–0003，前端使用 Dexie空间复合键，不再把“已选择工具”写作“完成产品”。详见 [当前实现](ACCOUNT_SYNC_IMPLEMENTATION.md)。生产投递、长期容量、教师授权、Agent checkpoint 与 Skill 生命周期、RAG与隔离执行仍按各自门推进。当前样例边界详见 [学习助手实现切片](LEARNING_ASSIST_IMPLEMENTATION.md)。

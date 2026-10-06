@@ -1,4 +1,4 @@
-import { COURSE_VERSION, STANDARD_VERSION, TRACE_ACTIVITY, type ArtifactRevision, type TracePrediction, type VerificationResult } from '../domain/learning'
+import { COURSE_VERSION, STANDARD_VERSION, TRACE_ACTIVITY, TRACE_OBJECTIVE, type ArtifactRevision, type TracePrediction, type VerificationResult } from '../domain/learning'
 import { artifactContent, canonicalHash, traceSubmission } from '../domain/integrity'
 import type { components } from '../../../../packages/contracts/api.generated'
 
@@ -22,6 +22,37 @@ async function activeLease(signal?: AbortSignal) {
   return lease
 }
 
+
+export type LearningAssistIntent = 'diagnose' | 'explain' | 'hint' | 'practice' | 'result_feedback'
+export type LearningAssistInput = {
+  request_id: string
+  course_code: 'CS03'
+  course_version: typeof COURSE_VERSION
+  activity_version: typeof TRACE_ACTIVITY
+  objective_code: typeof TRACE_OBJECTIVE
+  intent: LearningAssistIntent
+  disclosure_accepted: true
+  artifact_id: string
+  revision_id: string
+  goal: string
+  question: string
+  work_excerpt: string
+  explanation: string
+  operation_id?: string
+}
+export type LearningAssistReply = { message: string; next_action: string; mastery_asserted: false }
+
+export async function requestLearningAssist(input: LearningAssistInput, signal?: AbortSignal): Promise<LearningAssistReply> {
+  const current = await activeLease(signal)
+  signal?.throwIfAborted()
+  const response = await fetch(`/api/v1/guest-leases/${current.lease_id}/learning-assist`, {
+    method: 'POST', credentials: 'same-origin', signal,
+    headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` },
+    body: JSON.stringify(input),
+  })
+  if (response.status === 401 || response.status === 410) lease = null
+  return readJson<LearningAssistReply>(response)
+}
 export async function verifyTrace(revision: ArtifactRevision, trace: TracePrediction[], idempotencyKey: string, signal?: AbortSignal): Promise<{ operation: Operation; acknowledge: () => Promise<void> }> {
   const body = traceSubmission(revision, trace)
   const expectedHash = await canonicalHash(artifactContent(revision, trace))

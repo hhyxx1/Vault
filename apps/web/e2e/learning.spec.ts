@@ -165,3 +165,34 @@ test('storage failure keeps unsaved work visible and blocks unsafe departure unt
   await page.reload()
   await expect(page.getByLabel('把你的解释也留下来', { exact: false })).toHaveValue('存储失败时也不能把我还没有保存的解释清空。')
 })
+
+test('assistant sends nothing before opt-in and restores its reply with the same work revision', async ({ page, isMobile }) => {
+  let sent: Record<string, unknown> | undefined
+  await page.route('**/api/v1/guest-nonce', route => route.fulfill({ json: { nonce: 'x'.repeat(43), expires_at: new Date(Date.now() + 300000).toISOString() } }))
+  await page.route('**/api/v1/guest-leases', route => route.fulfill({ status: 201, json: {
+    lease_id: 'd8fd8e56-f7d4-47a8-9cc2-7adfa7bd7319', token: 't'.repeat(43),
+    created_at: new Date().toISOString(), idle_expires_at: new Date(Date.now() + 1800000).toISOString(),
+    absolute_expires_at: new Date(Date.now() + 7200000).toISOString(), allowed_operations: ['verify_trace'], storage: 'ephemeral_memory',
+  } }))
+  await page.route('**/api/v1/guest-leases/*/learning-assist', async route => {
+    sent = route.request().postDataJSON() as Record<string, unknown>
+    await route.fulfill({ json: { message: '先检查空栈出栈的约定。', next_action: '写下条件后重新推演。', mastery_asserted: false } })
+  })
+  await page.goto(tracePath)
+  await page.getByRole('button', { name: '确认目标，开始尝试' }).click()
+  if (isMobile) await page.getByRole('button', { name: '原理与帮助', exact: true }).click()
+  const request = page.getByRole('button', { name: '请求一次学习帮助', exact: false })
+  await expect(request).toBeDisabled()
+  await page.getByLabel('你的问题').fill('为什么空栈时没有输出？')
+  await page.getByLabel(/我同意将当前目标/).check()
+  await expect(request).toBeEnabled()
+  await request.click()
+  await expect(page.getByText('先检查空栈出栈的约定。', { exact: true })).toBeVisible()
+  expect(sent?.disclosure_accepted).toBe(true)
+  expect(sent?.intent).toBe('hint')
+  expect(sent?.revision_id).toBeTruthy()
+  await page.reload()
+  if (isMobile) await page.getByRole('button', { name: '原理与帮助', exact: true }).click()
+  await expect(page.getByText('先检查空栈出栈的约定。', { exact: true })).toBeVisible()
+  await expect(page.getByText(/关联作品版本/)).toBeVisible()
+})

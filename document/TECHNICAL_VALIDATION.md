@@ -112,3 +112,9 @@
 真实多设备使用通过独立 Playwright 浏览器上下文模拟，而非两台实际设备。接口和数据库不能替代教师关联授权、课程分享、附件、生产邮件、离线重开应用壳与备份灾备验收。账号与数据删除入口尚未完整交付。测试数据为合成数据，没有学习效果或课程掌握率结论。
 
 重现命令与隔离测试库保护要求见 [开发运行说明](DEVELOPMENT_GUIDE.md)。前端页面范围、八维子集复核和截图见 [品质记录](FRONTEND_QUALITY_REVIEW.md)；实际路径和生产禁止边界见 [账号同步实现](ACCOUNT_SYNC_IMPLEMENTATION.md)。
+
+## 9 CS03 学习助手开发切片
+
+2026 年 10 月 6 日在 CS03 栈工程样例实现默认关闭的 LangGraph 意图路由、DeepSeek Responses API 结构化网关和学习帮助记录。实现范围、数据边界及未验证项见 [学习助手实现切片](LEARNING_ASSIST_IMPLEMENTATION.md)。
+
+本机验证使用假模型，不访问 DeepSeek：后端 47 项通过、48 项跳过（47 项需隔离 PostgreSQL；LangGraph 路由测试因当前离线缓存缺少 `langsmith` 未执行）；Ruff 通过。前端生产构建、23 项 Vitest 和契约检查通过；桌面与移动 Chrome 的 26 项 E2E 通过，含按次同意、Agent 答复刷新恢复及消息提示不遮挡主要按钮。真实账号邮箱 E2E 因未设置 `VAULT_E2E_MAIL_CAPTURE_DIR` 未执行。真实模型调用、响应质量、实际费用和生产隐私配置均未验证；CI 会按 `uv.lock` 安装 LangGraph 依赖并执行路由测试。

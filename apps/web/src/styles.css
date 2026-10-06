@@ -1467,11 +1467,13 @@ main:focus {
   max-width: calc(100% - 32px);
   width: 650px;
   z-index: 30;
+  pointer-events: none;
   box-shadow: 0 4px 22px #122e2320;
   font-size: 11px;
   line-height: 1.8;
 }
 .workspace-message button {
+  pointer-events: auto;
   margin-left: auto;
   color: #fff;
   font-size: 20px;
@@ -4046,4 +4048,73 @@ main:focus {
   .account-page .account-form>.button {
     margin-top: 8px;
   }
+}
+
+.learning-assist-card {
+  display: grid;
+  gap: 11px;
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid #bdc9b4;
+  background: #f6f5ee;
+}
+.learning-assist-card > label:not(.assist-consent) {
+  color: #465545;
+  font-size: 10px;
+  font-weight: 600;
+}
+.learning-assist-card select,
+.learning-assist-card textarea {
+  width: 100%;
+  border: 1px solid #bec8b9;
+  border-radius: 2px;
+  padding: 10px 11px;
+  color: #2f3e30;
+  background: #fffefa;
+  font: inherit;
+  font-size: 11px;
+}
+.learning-assist-card textarea { resize: vertical; line-height: 1.7; }
+.assist-consent,
+.agent-feedback-optin {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  align-items: start;
+  gap: 9px;
+  min-width: 0;
+  color: #647064;
+  font-size: 10px;
+  line-height: 1.7;
+}
+.learning-assist-card .assist-consent { grid-column: 1 / -1; width: 100%; }
+.assist-consent input,
+.agent-feedback-optin input {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  margin: 2px 0 0;
+  accent-color: #466c4c;
+}
+.assist-consent span,
+.agent-feedback-optin span {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.learning-assist-card .assistant-answer { grid-column: 1 / -1; min-width: 0; }
+.agent-feedback-optin { width: 100%; max-width: 700px; margin-top: 15px; }
+.assistant-answer {
+  margin-top: 8px;
+  padding: 15px;
+  border-left: 2px solid #6e8e6f;
+  background: #fffefa;
+  color: #465545;
+}
+.assistant-answer p { margin: 8px 0; font-size: 11px; line-height: 1.8; }
+.assistant-answer strong { display: block; margin-top: 12px; font-size: 10px; }
+.assistant-answer small { display: block; margin-top: 12px; color: var(--muted); font-size: 8px; }
+@media (max-width: 700px) {
+  .learning-assist-card { padding: 14px; }
+  .agent-feedback-optin { font-size: 9px; }
 }
