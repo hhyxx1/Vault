@@ -2,7 +2,7 @@
 
 版本：v0.5
 
-状态：按 PRD v1.3 对齐的测试设计，尚未执行；不代表任何 P0／课程已经通过。课程专项策略沿用 [课程与多 Agent 验证方案](COURSE_VALIDATION_PLAN.md) 和 [课程支持矩阵](COURSE_SUPPORT.md)。
+状态：按 PRD v1.3 对齐的测试设计；工程及账号同步切片已执行部分测试，完整 FR／P0／课程验收仍待执行。课程专项策略沿用 [课程与多 Agent 验证方案](COURSE_VALIDATION_PLAN.md) 和 [课程支持矩阵](COURSE_SUPPORT.md)。
 
 ## 1 验证目标
 
@@ -147,3 +147,9 @@ NFR-UI01 → P00–P10／UF01–UF09 → QT-09 → VQ-01–VQ-08。八项当前�
 后端B01–B06见 [物理／API基线](TECHNICAL_DATA_CONTRACT.md)，前端工具和实际浏览器覆盖见 [前端实现](FRONTEND_IMPLEMENTATION.md)，执行／恢复见 [部署](DEPLOYMENT.md)。这些门仍待测；本轮LangGraph小原型记录单列，不改变本计划任何TC／QT为通过。
 
 补充到对应TC：TC-31访客Agent/RAG/runner租约到期、保存确认、重启及清理不入PG/WAL/AOF/备份；TC-32claim响应丢失／journal未绑定只本人恢复；TC-34身份epoch与旧fetch流迟到；TC-35／46长流中session撤销／到期、来源撤权及回放；QT-03刷新显式Last-Event-ID、应用成功后游标及过期快照；QT-02／TC-25每网络租约VM回收重建；QT-05真实PG／对象备份恢复及RPO/RTO。教师pending私人备课／verified发布边界列TC-30／44，核实不扩大TC-35授权。
+
+## 11 已执行切片与尚未完成的验收
+
+2026 年 10 月 5 日的技术测试覆盖 TC-09、TC-30–34 的开发账号／数据子集，包括登录、确认、重置、归属隔离、响应丢失、固定重试、跨设备恢复、草稿冲突、编辑中的外部更新、迟到身份／空间操作、证据信任与删除协议。数量、运行环境及失败修复见 [技术验证](TECHNICAL_VALIDATION.md)。
+
+这些测试不整体关闭对应需求：真实邮件／教师核实与关系、附件、产品删除清理、完整离线启动、公开容量与生产恢复仍待实施。RTM全部46项继续按完整标准验收，13门课程报告仍全部待测；不把合成浏览器测试变成学习效果数据。

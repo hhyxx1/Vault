@@ -12,6 +12,8 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from vault_backend import __version__
+from vault_backend.auth import AuthService
+from vault_backend.auth import router as auth_router
 from vault_backend.config import Settings
 from vault_backend.content import CourseRepository
 from vault_backend.db import create_engine, database_ready
@@ -19,6 +21,7 @@ from vault_backend.errors import ApiError
 from vault_backend.guests import GuestLeaseStore
 from vault_backend.responses import CourseCatalog, LeaseResponse, NonceResponse, OperationResponse
 from vault_backend.schemas import LeaseRequest, OperationInput, RevisionCommand, TraceSubmission
+from vault_backend.sync import router as sync_router
 
 
 def error_response(request: Request, error: ApiError) -> JSONResponse:
@@ -84,6 +87,9 @@ def create_app(settings: Settings | None = None, store: GuestLeaseStore | None =
         docs_url="/api/v1/docs",
     )
     app.state.settings, app.state.guest_store, app.state.engine = settings, store, engine
+    app.state.auth = AuthService(engine, settings)
+    app.include_router(auth_router)
+    app.include_router(sync_router)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.allowed_origins,
@@ -162,8 +168,8 @@ def create_app(settings: Settings | None = None, store: GuestLeaseStore | None =
                 "database": "ready" if ready else "unavailable",
                 "features": {
                     "guest_trace": settings.guest_enabled and content.trace_context is not None,
-                    "accounts": False,
-                    "sync": False,
+                    "accounts": ready and settings.auth_enabled,
+                    "sync": ready and settings.auth_enabled,
                     "agent": False,
                     "isolated_execution": False,
                     "rag": False,

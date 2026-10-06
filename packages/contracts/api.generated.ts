@@ -1,5 +1,158 @@
 // Generated from the implemented FastAPI OpenAPI contract. Do not edit.
 export interface paths {
+    "/api/v1/auth/csrf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Current Csrf */
+        get: operations["current_csrf_api_v1_auth_csrf_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Login */
+        post: operations["login_api_v1_auth_login_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Logout */
+        post: operations["logout_api_v1_auth_logout_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/nonce": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Nonce */
+        post: operations["nonce_api_v1_auth_nonce_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/password-reset/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reset Confirm */
+        post: operations["reset_confirm_api_v1_auth_password_reset_confirm_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/password-reset/request": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reset Request */
+        post: operations["reset_request_api_v1_auth_password_reset_request_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/register": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Register */
+        post: operations["register_api_v1_auth_register_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/session": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Current Session */
+        get: operations["current_session_api_v1_auth_session_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/verify-email": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Verify Email */
+        post: operations["verify_email_api_v1_auth_verify_email_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/courses": {
         parameters: {
             query?: never;
@@ -222,10 +375,172 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/sync/claims": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Claim Local Space */
+        post: operations["claimLocalSpace"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sync/claims/{claim_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Recover Claim */
+        get: operations["recoverLocalClaim"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sync/spaces": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Spaces */
+        get: operations["listSyncSpaces"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sync/spaces/{space_id}/batches": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Sync Batch */
+        post: operations["syncLocalBatch"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sync/spaces/{space_id}/changes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Changes */
+        get: operations["readSyncChanges"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sync/spaces/{space_id}/conflicts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read Conflicts */
+        get: operations["readSyncConflicts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AccountOutput */
+        AccountOutput: {
+            /**
+             * Account Type
+             * @enum {string}
+             */
+            account_type: "student" | "teacher";
+            /** Display Name */
+            display_name: string;
+            /** Email */
+            email: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Teacher Verification State */
+            teacher_verification_state: ("pending" | "verified" | "rejected" | "suspended") | null;
+        };
+        /** AccountSessionOutput */
+        AccountSessionOutput: {
+            account: components["schemas"]["AccountOutput"];
+        };
+        /** BatchRequest */
+        BatchRequest: {
+            /**
+             * Batch Id
+             * Format: uuid
+             */
+            batch_id: string;
+            /**
+             * Expected Account Id
+             * Format: uuid
+             */
+            expected_account_id: string;
+            /** Operations */
+            operations: components["schemas"]["SyncOperation"][];
+        };
+        /** BatchResponse */
+        BatchResponse: {
+            /**
+             * Batch Id
+             * Format: uuid
+             */
+            batch_id: string;
+            /** Cursor */
+            cursor?: null;
+            /** Results */
+            results: components["schemas"]["OperationResult"][];
+            /**
+             * Space Id
+             * Format: uuid
+             */
+            space_id: string;
+        };
+        /** CSRFOutput */
+        CSRFOutput: {
+            /** Csrf Token */
+            csrf_token: string;
+        };
         /** CatalogCourse */
         CatalogCourse: {
             /** Activities Scope */
@@ -275,6 +590,175 @@ export interface components {
              */
             version_id: string;
         };
+        /** ChangeResponse */
+        ChangeResponse: {
+            /** Deleted */
+            deleted: boolean;
+            /** Object Id */
+            object_id: string;
+            /**
+             * Object Type
+             * @enum {string}
+             */
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position";
+            /** Payload */
+            payload: {
+                [key: string]: unknown;
+            } | null;
+            /** Payload Hash */
+            payload_hash: string;
+            /**
+             * Provenance
+             * @default client_reported
+             * @constant
+             */
+            provenance: "client_reported";
+            /** Requires Review */
+            requires_review: boolean;
+            /** Sequence */
+            sequence: string;
+            /**
+             * Server Object Id
+             * Format: uuid
+             */
+            server_object_id: string;
+            /** Version */
+            version: string;
+        };
+        /** ChangesResponse */
+        ChangesResponse: {
+            /** Changes */
+            changes: components["schemas"]["ChangeResponse"][];
+            /** Has More */
+            has_more: boolean;
+            /** Next Cursor */
+            next_cursor: string;
+            /**
+             * Space Id
+             * Format: uuid
+             */
+            space_id: string;
+        };
+        /** ClaimRequest */
+        ClaimRequest: {
+            /**
+             * Claim Id
+             * Format: uuid
+             */
+            claim_id: string;
+            /**
+             * Expected Account Id
+             * Format: uuid
+             */
+            expected_account_id: string;
+            /** Manifest Hash */
+            manifest_hash: string;
+            /**
+             * Origin Local Space Id
+             * Format: uuid
+             */
+            origin_local_space_id: string;
+        };
+        /** ClaimResponse */
+        ClaimResponse: {
+            /**
+             * Claim Id
+             * Format: uuid
+             */
+            claim_id: string;
+            /**
+             * Committed At
+             * Format: date-time
+             */
+            committed_at: string;
+            /**
+             * Expected Account Id
+             * Format: uuid
+             */
+            expected_account_id: string;
+            /** Manifest Hash */
+            manifest_hash: string;
+            /**
+             * Origin Local Space Id
+             * Format: uuid
+             */
+            origin_local_space_id: string;
+            /**
+             * Server Space Id
+             * Format: uuid
+             */
+            server_space_id: string;
+            /**
+             * State
+             * @default committed
+             * @constant
+             */
+            state: "committed";
+        };
+        /** ConfirmationOutput */
+        ConfirmationOutput: {
+            /**
+             * Status
+             * @default confirmation_required
+             * @constant
+             */
+            status: "confirmation_required";
+        };
+        /** ConfirmedOutput */
+        ConfirmedOutput: {
+            /**
+             * Status
+             * @default email_confirmed
+             * @constant
+             */
+            status: "email_confirmed";
+        };
+        /** ConflictResponse */
+        ConflictResponse: {
+            /** Base Version */
+            base_version: string;
+            /**
+             * Conflict Id
+             * Format: uuid
+             */
+            conflict_id: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Current Version */
+            current_version: string;
+            /** Incoming Payload */
+            incoming_payload: {
+                [key: string]: unknown;
+            };
+            /** Object Id */
+            object_id: string;
+            /**
+             * Object Type
+             * @enum {string}
+             */
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position";
+            /** Payload Hash */
+            payload_hash: string;
+            /**
+             * Provenance
+             * @default client_reported
+             * @constant
+             */
+            provenance: "client_reported";
+        };
+        /** ConflictsResponse */
+        ConflictsResponse: {
+            /** Conflicts */
+            conflicts: components["schemas"]["ConflictResponse"][];
+            /**
+             * Space Id
+             * Format: uuid
+             */
+            space_id: string;
+        };
         /** CourseCatalog */
         CourseCatalog: {
             /** Catalog Version */
@@ -298,6 +782,13 @@ export interface components {
              * @enum {string}
              */
             status: "met" | "not_met" | "needs_review";
+        };
+        /** EmailInput */
+        EmailInput: {
+            /** Email */
+            email: string;
+            /** Nonce */
+            nonce: string;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -346,6 +837,26 @@ export interface components {
             storage: "ephemeral_memory";
             /** Token */
             token: string;
+        };
+        /** LoginInput */
+        LoginInput: {
+            /** Email */
+            email: string;
+            /** Nonce */
+            nonce: string;
+            /** Password */
+            password: string;
+        };
+        /** LoginOutput */
+        LoginOutput: {
+            account: components["schemas"]["AccountOutput"];
+            /** Csrf Token */
+            csrf_token: string;
+        };
+        /** NonceOutput */
+        NonceOutput: {
+            /** Nonce */
+            nonce: string;
         };
         /** NonceResponse */
         NonceResponse: {
@@ -407,10 +918,133 @@ export interface components {
              */
             storage: "ephemeral_memory";
         };
+        /** OperationResult */
+        OperationResult: {
+            /** Conflict Id */
+            conflict_id?: string | null;
+            /** Current Version */
+            current_version: string;
+            /** Object Id */
+            object_id: string;
+            /** Object Type */
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position") | "attachment";
+            /**
+             * Op Id
+             * Format: uuid
+             */
+            op_id: string;
+            /** Reason */
+            reason?: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "applied" | "already_applied" | "conflict" | "rejected" | "dependency_pending";
+        };
+        /** PasswordResetOutput */
+        PasswordResetOutput: {
+            /**
+             * Status
+             * @default password_reset
+             * @constant
+             */
+            status: "password_reset";
+        };
+        /** RegisterInput */
+        RegisterInput: {
+            /**
+             * Account Type
+             * @enum {string}
+             */
+            account_type: "student" | "teacher";
+            /** Display Name */
+            display_name: string;
+            /** Email */
+            email: string;
+            /** Nonce */
+            nonce: string;
+            /** Password */
+            password: string;
+        };
+        /** ResetConfirmInput */
+        ResetConfirmInput: {
+            /** Nonce */
+            nonce: string;
+            /** Password */
+            password: string;
+            /** Token */
+            token: string;
+        };
+        /** ResetRequestedOutput */
+        ResetRequestedOutput: {
+            /**
+             * Status
+             * @default reset_requested
+             * @constant
+             */
+            status: "reset_requested";
+        };
         /** RevisionCommand */
         RevisionCommand: {
             /** Expected Revision */
             expected_revision: string;
+        };
+        /** SpaceResponse */
+        SpaceResponse: {
+            /**
+             * Bound At
+             * Format: date-time
+             */
+            bound_at: string;
+            /**
+             * Kind
+             * @constant
+             */
+            kind: "personal";
+            /**
+             * Origin Local Space Id
+             * Format: uuid
+             */
+            origin_local_space_id: string;
+            /**
+             * Space Id
+             * Format: uuid
+             */
+            space_id: string;
+            /** Version */
+            version: string;
+        };
+        /** SpacesResponse */
+        SpacesResponse: {
+            /** Spaces */
+            spaces: components["schemas"]["SpaceResponse"][];
+        };
+        /** SyncOperation */
+        SyncOperation: {
+            /** Base Version */
+            base_version: string;
+            /** Object Id */
+            object_id: string;
+            /** Object Type */
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position") | "attachment";
+            /**
+             * Op Id
+             * Format: uuid
+             */
+            op_id: string;
+            /** Payload */
+            payload: {
+                [key: string]: unknown;
+            };
+            /** Payload Hash */
+            payload_hash: string;
+        };
+        /** TokenInput */
+        TokenInput: {
+            /** Nonce */
+            nonce: string;
+            /** Token */
+            token: string;
         };
         /** TraceFeedback */
         TraceFeedback: {
@@ -574,6 +1208,249 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    current_csrf_api_v1_auth_csrf_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CSRFOutput"];
+                };
+            };
+        };
+    };
+    login_api_v1_auth_login_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoginInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoginOutput"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    logout_api_v1_auth_logout_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    nonce_api_v1_auth_nonce_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NonceOutput"];
+                };
+            };
+        };
+    };
+    reset_confirm_api_v1_auth_password_reset_confirm_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ResetConfirmInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PasswordResetOutput"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reset_request_api_v1_auth_password_reset_request_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EmailInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ResetRequestedOutput"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    register_api_v1_auth_register_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConfirmationOutput"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    current_session_api_v1_auth_session_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AccountSessionOutput"];
+                };
+            };
+        };
+    };
+    verify_email_api_v1_auth_verify_email_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TokenInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConfirmedOutput"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     courses_api_v1_courses_get: {
         parameters: {
             query?: never;
@@ -976,6 +1853,196 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+        };
+    };
+    claimLocalSpace: {
+        parameters: {
+            query?: never;
+            header?: {
+                "idempotency-key"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ClaimRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClaimResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    recoverLocalClaim: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                claim_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClaimResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    listSyncSpaces: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SpacesResponse"];
+                };
+            };
+        };
+    };
+    syncLocalBatch: {
+        parameters: {
+            query?: never;
+            header?: {
+                "idempotency-key"?: string | null;
+            };
+            path: {
+                space_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BatchRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BatchResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    readSyncChanges: {
+        parameters: {
+            query?: {
+                cursor?: string | null;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                space_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChangesResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    readSyncConflicts: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                space_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConflictsResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

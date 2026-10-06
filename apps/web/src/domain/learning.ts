@@ -55,6 +55,7 @@ export type EvidenceRecord = {
   revisionVersion: string; submittedAt: string
   submittedWork: { trace: TracePrediction[]; explanation: string }
   createdAt: string; result: VerificationResult; helpEventIds: string[]
+  trust?: 'client_reported'
 }
 export type TeacherDraft = { id: string; spaceId: string; title: string; outline: string; studentVisible: false; updatedAt: string }
 
@@ -90,7 +91,7 @@ export function evidenceState(result?: VerificationResult): ObjectiveState {
 }
 
 export function currentTraceEvidence(records: EvidenceRecord[]): EvidenceRecord | undefined {
-  return records.filter(record => record.objectiveId === TRACE_OBJECTIVE && record.result.course_version === COURSE_VERSION && record.result.activity_version === TRACE_ACTIVITY && record.result.standard_version === STANDARD_VERSION)
+  return records.filter(record => record.trust !== 'client_reported' && record.objectiveId === TRACE_OBJECTIVE && record.result.course_version === COURSE_VERSION && record.result.activity_version === TRACE_ACTIVITY && record.result.standard_version === STANDARD_VERSION)
     .sort((a, b) => BigInt(a.revisionVersion) < BigInt(b.revisionVersion) ? -1 : BigInt(a.revisionVersion) > BigInt(b.revisionVersion) ? 1 : a.submittedAt.localeCompare(b.submittedAt)).at(-1)
 }
 

@@ -275,7 +275,7 @@ class SyncClaim(Base):
     )
     claim_id: Mapped[UUID] = mapped_column(primary_key=True)
     expected_account_id: Mapped[UUID] = mapped_column(ForeignKey("account.id"))
-    origin_local_space_id: Mapped[UUID] = mapped_column(unique=True)
+    origin_local_space_id: Mapped[UUID] = mapped_column(index=True)
     server_space_id: Mapped[UUID] = mapped_column()
     manifest_hash: Mapped[bytes] = mapped_column(LargeBinary)
     state: Mapped[str] = mapped_column(String(16), server_default="committed")

@@ -1,8 +1,8 @@
 # 当前切片的前端品质复核
 
-日期：2026 年 10 月 3 日。范围：学习入口、栈图谱、推演／代码作品工作台、证据、本地空间、教师设备草稿。依据 [八维正式标准](FRONTEND_DESIGN_STANDARD.md)，第一阶段全部页面的品质目标保持不变。
+更新日期：2026 年 10 月 6 日。第 1–6 节记录 10 月 3 日完成的学习入口、图谱、工作台、证据、本地空间与教师草稿复核；第 7 节追加账号与同步切片的复核。依据 [八维正式标准](FRONTEND_DESIGN_STANDARD.md)，第一阶段全部页面的品质目标保持不变。
 
-这是一份实际检查和修正记录，不能代替获奖官方评审、完整课程教研审校或全产品发布验收。账号／同步、Agent、上传／RAG、完整课程编辑等页面尚未实现，未列为已验收。
+这是一份实际检查和修正记录，不能代替获奖官方评审、完整课程教研审校或全产品发布验收。在 10 月 3 日的复核范围中，账号／同步及 Agent、上传／RAG、完整课程编辑尚未实现；当前只由第 7 节记录新建的账号／同步页面。Agent、上传／RAG 与完整课程编辑仍未实现。
 
 ## 视觉与交互取舍
 
@@ -49,3 +49,23 @@
 - [手机工作台](assets/foundation/workspace-390.png)
 - [真实核验后的工作台](assets/foundation/workspace-success-1440.png)
 - [证据更新后的图谱](assets/foundation/atlas-partial-1440.png)
+
+## 7 账号与同步新增页面（2026 年 10 月 6 日）
+
+新增账号入口、密码找回、本地空间与逐条同步页面。桌面和移动浏览器复核了访客／账号标记、数据边界、确认后同步、冲突两种选择、易读的课程作品／版本名称、按需查看记录编号、教师草稿仅本机提示、恢复的核验结果待复核。身份邮箱与一次性邮件确认码没有作为公开材料保存。
+
+独立浏览器复核账号入口的核心登录操作在 320×740 首屏内完整可见（按钮顶部 y=686px），320、390、718、1440 像素均无页面级横向溢出，布局保留原字体／色彩／间距体系。密码重置按钮和开发环境未投递提示有真实页面证据。此子集完成排版、留白、视觉层级、色彩、动效、微交互、响应式、原创性检查；不会代替 PRD 规定的全页面八维设计验收。登录、跨设备、两个角色及并发更新另由 [26 项浏览器回归](TECHNICAL_VALIDATION.md) 覆盖。
+
+合成测试页面截图不代表学生或教师的真实数据，也不证明整门课或真实学习效果：
+
+- [账号入口（宽屏）](assets/account-sync/account-1440.png)
+- [账号入口（718px）](assets/account-sync/account-718.png)
+- [账号入口视口测量](assets/account-sync/geometry.json)
+- [账号入口（390px）](assets/account-sync/account-390.png)
+- [账号入口（320px）](assets/account-sync/account-320.png)
+- [密码重置入口（390px）](assets/account-sync/password-reset-390.png)
+- [访客本地记录（390px）](assets/account-sync/guest-local-390.png)
+- [学生同步记录（桌面）](assets/account-sync/student-sync-desktop.png)
+- [学生同步记录（手机）](assets/account-sync/student-sync-mobile.png)
+- [跨设备恢复的核验记录（手机，待复核）](assets/account-sync/restored-evidence-mobile.png)
+- [教师私人草稿待审核状态（手机）](assets/account-sync/teacher-pending-mobile.png)

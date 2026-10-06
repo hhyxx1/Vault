@@ -181,7 +181,7 @@ SSE 每个输出 batch 和每次回放都同时复查 session／account status�
 
 | 方法／路径 | API 映射 | 关键行为 |
 |---|---|---|
-| `POST /auth/login`, `POST /auth/logout`, `GET /auth/me`, `GET /auth/csrf` | API-01 | 服务器 session；me 返回账号类型、教师核实状态和当前授权摘要；预认证与已登录 CSRF 分开 |
+| `POST /auth/login`, `POST /auth/logout`, `GET /auth/session`, `GET /auth/csrf` | API-01 | 服务器 session；session 返回账号类型和教师核实状态；其他授权摘要随对应功能实现；预认证与已登录 CSRF 分开 |
 | `GET /courses`, `GET /courses/{id}/versions/{version_id}` | API-02 | 只返回允许目录／蓝图，来源和审阅状态明确 |
 | `POST /spaces/{id}/goals`, `PATCH /spaces/{id}/goals/{goal_id}` | API-03 | 学生确认／变更，版本检查；服务器解析 owner |
 | `POST /spaces/{id}/sessions`, `GET /spaces/{id}/sessions/{session_id}` | API-04 | 恢复明确活动／作品版本与待办 |
@@ -190,7 +190,7 @@ SSE 每个输出 batch 和每次回放都同时复查 session／account status�
 | `POST /execution-jobs`, `POST /execution-jobs/{id}/cancel` | API-07 | 不可信代码只发执行服务，返回真实排队／环境状态 |
 | `POST /spaces/{id}/verification-events` | API-08 | 标准／作品／课程版本固定；异步核验返回 job，客户端状态不具证据权威 |
 | `GET /spaces/{id}/courses/{version_id}/graph` | API-09 | 唯一目标集合、版本、状态和原因，不将 parent 计入分母 |
-| `POST /sync/claims`, `GET /sync/claims/{claim_id}`, `POST /spaces/{id}/sync/batches`, `GET /spaces/{id}/sync/changes?cursor=...` | API-10 | claim 前先写本地 journal；请求和本人恢复查询均固定 claim_id；显式归属后逐操作同步 |
+| `POST /sync/claims`, `GET /sync/claims/{claim_id}`, `POST /sync/spaces/{id}/batches`, `GET /sync/spaces/{id}/changes?cursor=...` | API-10 | claim 前先写本地 journal；请求和本人恢复查询均固定 claim_id；显式归属后逐操作同步 |
 | `/skills`, `/skills/{id}/versions`, `/skills/{id}/reviews` | API-11 | 方法按创建／读取／提交复核定义；Skill 不包含平台权限赋值 |
 | `/teacher-relations`, `/teacher-grants`, `/task-publications` | API-12 | 邀请、关系、授权、发布分别动作；授权修订独立 |
 | `POST /spaces/{id}/exports`, `POST /spaces/{id}/deletion-requests` | API-13 | 202 可查任务；内容和留存／审计边界分别说明 |
@@ -302,8 +302,18 @@ ACL 变更、outbox 和相应 workflow invalidation 持久化同事务；消费�
 
 ## 当前物理实现与预认证调整
 
-首个 Alembic `0001_foundation` 已在独立 PostgreSQL18.1 实际运行，12表和复合约束／RLS／发布冻结／并发父锁经过测试；完整域、账号／claim端点和发布工作流尚未实现。实际可调用接口与模型以 `packages/contracts/openapi.json` 为准，生成文件不替代尚未实现的设计端点。
+初始 `0001_foundation` 在独立 PostgreSQL 18.1 实际建立 12 张表；复合约束、RLS、发布冻结和并发父锁经过测试。后续 `0002_auth` 与 `0003_sync` 增加身份及同步切片，详见本节下文。完整领域与教师发布工作流仍待实施。当前实际 API／模型以 `packages/contracts/openapi.json` 为准，其他设计端点不代表已实现。
 
 Web 预认证使用 **POST `/api/v1/guest-nonce`**：创建短期内存凭据必须校验浏览器明确 Origin，与创建租约的 Origin 一致；不依赖反代改写后的 Host 或不可信 X-Forwarded。原 GET 保留给直接同源兼容，不用于新版 Web 主链。开发代理显式 `changeOrigin:false`，不放宽白名单。代理等效请求／恶意来源／缺失 Origin 和真实浏览器均有回归。
 
 现有 guest operation 的 `artifact_hash` 是 `kind=stack_trace_with_explanation`、trace 和 explanation 的规范 JSON SHA256；客户端artifact/revision UUID、活动／课程／标准版本另外绑定并校验。JSON键ASCII排序、无空白、UTF8／非ASCII不转义，与前端实现有固定中文向量测试。hash只用于一致性和绑定，不能单独证明独立能力或防御被控制的客户端。
+
+## 当前账号与同步切片（2026 年 10 月 5 日）
+
+`0002_auth` 补充确认状态和一次性邮箱令牌；`0003_sync` 补充严格逐类型的同步对象、回执、变化、冲突和游标。复用初始账号／互斥 profile、会话、空间和 claim。当前 claim 可保存同一 origin 的多个本人幂等请求回执，归属全局唯一由空间 origin 保证；账号／空间不可转移。
+
+账号、claim 与同步已在独立 PG18 实测，实际接口、认证 cookie、字段与范围见 [实现记录](ACCOUNT_SYNC_IMPLEMENTATION.md) 和生成 `packages/contracts/openapi.json`。生产环境仍禁止当前捕获邮件认证。设计中的生产 `__Host-vault_session` 与 HTTPS 门没有因开发 HTTP cookie 启用而自动通过。
+
+当前 sync_object 是经严格 schema 检查的传输投影，具有 RLS／复合 FK／稳定映射／版本及 tombstone／追加回执约束，不能替代全部领域表。客户端导入历史不会写平台 verification_event；附件返回明确不支持。B03／B05／B06 的已测子集见技术验证，完整生产门仍待完成。
+
+浏览器草稿保存会在 IndexedDB 同一事务核对 UI 持有的内容基准。云端更新被应用后，清洁页面实时恢复；编辑中的旧基准保存拒绝且保留输入，必须显式读取新版本或解决冲突。空间选择与会话切换通过身份代次、缓存账号和活动空间事务校验阻止迟到操作。

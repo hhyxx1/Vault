@@ -19,7 +19,7 @@ async function openAndComplete(page: Page) {
 test('catalog states its construction scope and narrow pages do not horizontally overflow', async ({ page }) => {
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({ width, height: 900 })
-    for (const path of ['/', '/atlas', tracePath, '/teacher', '/local', '/evidence']) {
+    for (const path of ['/', '/atlas', tracePath, '/teacher', '/local', '/evidence', '/account']) {
       await page.goto(path)
       await expect(page.locator('main')).toBeVisible()
       await page.waitForTimeout(100)
@@ -28,7 +28,7 @@ test('catalog states its construction scope and narrow pages do not horizontally
         await expect(page.locator('.course-row')).toHaveCount(13)
         await expect(page.getByText('13 门默认课程正在建设。', { exact: false })).toBeVisible()
       }
-      if (path === '/teacher') await expect(page.getByText('教师账号、资料上传、AI 建课、学生预览与发布尚未接入。', { exact: false })).toBeVisible()
+      if (path === '/teacher') await expect(page.getByText('教师账号已接入；资料上传、AI 建课、学生预览与发布尚未接入。', { exact: false })).toBeVisible()
     }
   }
 })
@@ -149,7 +149,7 @@ test('storage failure keeps unsaved work visible and blocks unsafe departure unt
     const original = IDBObjectStore.prototype.put
     Object.assign(window, { restoreDraftWrites: () => { IDBObjectStore.prototype.put = original } })
     IDBObjectStore.prototype.put = function (...args: Parameters<IDBObjectStore['put']>) {
-      if (this.name === 'drafts') throw new DOMException('Quota fixture', 'QuotaExceededError')
+      if (this.name === 'workDrafts') throw new DOMException('Quota fixture', 'QuotaExceededError')
       return original.apply(this, args)
     }
   })

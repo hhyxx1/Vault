@@ -77,6 +77,23 @@ jobs:
   browser:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.7-pg18-bookworm@sha256:ad249f9fb9572979643a47694e59b9a8cdcdf6abc6accebf49bb80ad5f20ff9b
+        env:
+          POSTGRES_DB: vault_ci
+          POSTGRES_USER: vault_ci
+          POSTGRES_PASSWORD: ci-ephemeral-only
+        ports: [5432:5432]
+        options: >-
+          --health-cmd "pg_isready -U vault_ci -d vault_ci"
+          --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      VAULT_ENVIRONMENT: test
+      VAULT_DATABASE_URL: postgresql+psycopg://vault_api:ci-runtime-ephemeral-only@127.0.0.1:5432/vault_ci
+      VAULT_AUTH_ENABLED: "1"
+      VAULT_MAIL_CAPTURE_DIR: /tmp/vault-mail
+      VAULT_E2E_MAIL_CAPTURE_DIR: /tmp/vault-mail
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
@@ -94,14 +111,21 @@ jobs:
         working-directory: apps/web
       - run: npx playwright install --with-deps chromium
         working-directory: apps/web
-      - name: Start the guest-only API
+      - name: Migrate the disposable browser database
         working-directory: services/backend
         env:
-          VAULT_ENVIRONMENT: test
+          VAULT_DATABASE_URL: postgresql+psycopg://vault_ci:ci-ephemeral-only@127.0.0.1:5432/vault_ci
+        run: uv run --frozen alembic upgrade head
+      - name: Create the restricted browser runtime role
+        env:
+          PGPASSWORD: ci-ephemeral-only
+        run: psql -h 127.0.0.1 -U vault_ci -d vault_ci -v ON_ERROR_STOP=1 -f infra/ci_database_roles.sql
+      - name: Start the API with real account storage
+        working-directory: services/backend
         run: |
           uv run --frozen python -m vault_backend > /tmp/vault-api.log 2>&1 &
           for i in $(seq 1 40); do
-            if curl --fail --silent http://127.0.0.1:8000/api/v1/health/live > /dev/null; then exit 0; fi
+            if curl --fail --silent http://127.0.0.1:8000/api/v1/health/ready > /dev/null; then exit 0; fi
             sleep 0.5
           done
           cat /tmp/vault-api.log

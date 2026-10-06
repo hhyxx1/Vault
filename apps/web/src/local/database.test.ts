@@ -12,16 +12,16 @@ describe('local durable repository', () => {
     const db = createDatabase(); const spaceId = await openLocalSpace(db)
     expect(await openLocalSpace(db)).toBe(spaceId)
     const draft = completeDraft(spaceId); await saveDraft(draft, db)
-    expect((await db.drafts.get(draft.id))?.explanation).toBe(draft.explanation)
-    expect((await db.meta.get('lastObjective'))?.value).toBe(draft.id)
+    expect((await db.drafts.get([spaceId, draft.id]))?.explanation).toBe(draft.explanation)
+    expect((await db.meta.get('position:'+spaceId))?.value).toBe(draft.id)
   })
   it('preserves immutable versions and rejects a foreign-space write', async () => {
     const db = createDatabase(); const spaceId = await openLocalSpace(db)
     const draft = completeDraft(spaceId); const first = await saveRevision(draft, db)
     draft.explanation = 'new explanation'; await saveDraft(draft, db); const second = await saveRevision(draft, db)
-    expect(second.version).toBe('2'); expect((await db.revisions.get(first.revisionId))?.explanation).not.toBe(draft.explanation)
+    expect(second.version).toBe('2'); expect((await db.revisions.get([spaceId, first.revisionId]))?.explanation).not.toBe(draft.explanation)
     await expect(saveDraft({ ...draft, spaceId: 'other-space' }, db)).rejects.toThrow('不属于')
-    expect((await db.drafts.get(draft.id))?.spaceId).toBe(spaceId)
+    expect((await db.drafts.get([spaceId, draft.id]))?.spaceId).toBe(spaceId)
   })
   it('cannot overwrite a newer live draft when an older submitted snapshot becomes a revision', async () => {
     const db = createDatabase(); const spaceId = await openLocalSpace(db)
@@ -29,8 +29,8 @@ describe('local durable repository', () => {
     const edited = { ...submitted, explanation: 'edited while awaiting verification' }
     await saveDraft(edited, db)
     const revision = await saveRevision(submitted, db)
-    expect((await db.drafts.get(submitted.id))?.explanation).toBe(edited.explanation)
-    expect((await db.revisions.get(revision.revisionId))?.explanation).toBe(submitted.explanation)
+    expect((await db.drafts.get([spaceId, submitted.id]))?.explanation).toBe(edited.explanation)
+    expect((await db.revisions.get([spaceId, revision.revisionId]))?.explanation).toBe(submitted.explanation)
   })
   it('only accepts evidence for the submitted local revision and refuses duplicate evidence', async () => {
     const db = createDatabase(); const spaceId = await openLocalSpace(db)

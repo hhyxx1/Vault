@@ -1,6 +1,6 @@
 # 新版开发与本机运行
 
-版本：v0.1。2026 年 10 月 3 日。适用于 `hyx_dev` 的首个工程切片。
+版本：v0.2。2026 年 10 月 6 日。适用于 `hyx_dev` 的学习与账号同步开发切片。
 
 ## 本次能运行的内容
 
@@ -8,10 +8,10 @@
 - 图谱及等价列表、学习目标确认、理论与操作往返、七步栈推演、Python 作品编辑。
 - IndexedDB 保存草稿、不可变作品版本、求助记录和绑定版本的核验记录；刷新恢复与 JSON 导出。
 - FastAPI 临时访客租约和确定性栈核验。真实执行固定操作、逐项比较；解释和迁移应用保持待复核。
-- 教师设备备课草稿：默认私人保存。它不授予教师身份，尚不能上传、发布或访问学生数据。
+- 教师私人备课草稿：访客先在本机保存，教师账号可同步自己的草稿；学生账号不上传教师草稿。尚不能发布课程或访问学生数据。
 - PostgreSQL 初始迁移与约束、生成 OpenAPI／TypeScript、锁定依赖和 CI 配置。
 
-登录、账号关联和云同步、Agent／Skill、资料处理与 RAG、多语言隔离执行、完整课程发布尚未开放。代码编辑器只保存作品，不能把它当成已经接入编译器。完整第一阶段仍须交付 13 门课程及 PRD 的全部 P0 要求。
+配置独立数据库与私有开发邮件捕获器后，可以注册学生／教师账号、确认邮箱、登录并承接本机记录、逐项同步及跨设备恢复。教师仍待核实，不能发布或读取学生数据。Agent／Skill、资料处理与 RAG、多语言隔离执行、完整课程发布尚未开放。代码编辑器只保存作品，不能把它当成已经接入编译器。完整第一阶段仍须交付 13 门课程及 PRD 的全部 P0 要求。
 
 ## 运行前提
 
@@ -29,7 +29,7 @@ uv run --frozen python -m vault_backend
 
 API：`http://127.0.0.1:8000`，接口文档：`/api/v1/docs`。默认只绑定回环地址。使用该模块入口启动；它在Windows显式选择psycopg所需Selector loop，不以旧全局policy假定Uvicorn会沿用。
 
-`GET /api/v1/health/live` 用于进程存活检查；`health/ready` 检查 PG 和 feature flags，没有配置 PG 时返回 503／partial，仍可使用访客栈核验。账号等未实现能力始终显示关闭。
+`GET /api/v1/health/live` 用于进程存活检查；`health/ready` 检查 PG 和 feature flags，没有配置 PG 时返回 503／partial，仍可使用访客栈核验。账号与同步默认关闭，配置后显式启用；Agent、隔离执行与 RAG 仍关闭。
 
 ### Web
 
@@ -43,7 +43,7 @@ npm run dev -- --port 5173 --strictPort
 
 ## 可选的开发数据库
 
-本机已有 PostgreSQL 时使用独立测试数据库和角色。迁移角色与运行角色分开：运行角色必须是 `NOSUPERUSER NOBYPASSRLS`，只给予所需的 schema／表权限，不用迁移管理员运行 API。RLS 在事务中读取受信业务层设置的 `vault.account_id`；当前未开放任何账号写入接口。
+本机已有 PostgreSQL 时使用独立测试数据库和角色。迁移角色与运行角色分开：运行角色必须是 `NOSUPERUSER NOBYPASSRLS`，只给予所需的 schema／表权限，不用迁移管理员运行 API。RLS 在事务中读取受信业务层设置的 `vault.account_id`；启用开发认证后由真实会话设置，不能由请求正文自授账号身份。
 
 也可使用 `infra/compose.dev.yml` 的 PG18／pgvector 固定镜像。在启用 Docker Engine 的本机生成随机密码后启动：
 
@@ -64,6 +64,28 @@ uv run --frozen alembic check
 
 API 使用另一终端内的运行角色 URL。`VAULT_TEST_DATABASE_URL` 是可销毁测试库迁移 URL，`VAULT_TEST_API_DATABASE_URL` 为同库受限角色 URL。PG 测试还要求显式设置 `VAULT_TEST_DATABASE_IS_DISPOSABLE=1`：并发事务用例会提交合成测试行。只在独立可销毁库运行，测试后重建；迁移 round trip 同样只在该库执行。
 
+## 开发账号与邮箱确认
+
+账号使用独立 PostgreSQL 数据库；先按上一节执行迁移，当前 head 为 `0003_sync`，并为受限运行角色授予新表权限。迁移角色与 API 角色仍分开，不使用超级用户运行 API。个人试用数据库与可销毁测试数据库必须分开，迁移降级测试不能指向已开始使用的账号数据库。
+
+在 API 终端配置运行角色 URL，并添加：
+
+```powershell
+$env:VAULT_AUTH_ENABLED = '1'
+$env:VAULT_MAIL_CAPTURE_DIR = Join-Path $env:TEMP 'vault-private-development-mail'
+uv run --frozen python -m vault_backend
+```
+
+打开 `/account` 注册学生或教师账号。当前没有向真实邮箱投递邮件；确认／重置消息仅保存在上述私有 TEMP 目录。使用相同配置的另一个本机终端读取本人选定的捕获消息：
+
+```powershell
+uv run --frozen python -m vault_backend.auth --email '<本人注册邮箱>' --purpose verify_email
+```
+
+该命令仅供开发者在本机读取选定消息，不挂载为 HTTP 收件箱，也不把输出复制到 Git 或公开日志。在账号页的邮箱确认入口输入消息中的一次性 token；密码重置使用 `--purpose reset_password`。消息为开发捕获，不将“捕获成功”说成真实邮件送达。生产环境禁止启用当前捕获器认证；真实邮件适配及生产验收仍待实施。
+
+登录后，本地空间页分别显示归属、待传、已同步与冲突。保留本地原件；同一账号可以恢复自己的云端空间，其他账号不会获得原账号的待关联或已关联记录。同步导入的核验历史只负责保存，另设备显示待复核，不能因此直接增加掌握进度。具体流程与边界见 [账号同步实现](ACCOUNT_SYNC_IMPLEMENTATION.md)。
+
 ## 检查与契约生成
 
 前端：`npm run typecheck`、`npm test`、`npm run build`。后端：`uv run --frozen ruff check .`、`uv run --frozen pytest -q`。不提供 PG 环境变量时 PG 测试会跳过，不能把跳过写成数据库通过。
@@ -81,14 +103,15 @@ uv run --frozen python -m vault_backend.export_openapi --output ../../packages/c
 ```powershell
 Set-Location apps/web
 npx playwright install chromium
+$env:VAULT_E2E_MAIL_CAPTURE_DIR = Join-Path $env:TEMP 'vault-private-development-mail'
 npm run test:e2e
 ```
 
-本机已安装 Chrome 时，可设置 `$env:PLAYWRIGHT_CHANNEL='chrome'` 使用现有 Chrome；CI 使用 Playwright Chromium。CI 只运行合成作品和临时测试数据库，没有部署步骤。
+本机已安装 Chrome 时，可设置 `$env:PLAYWRIGHT_CHANNEL='chrome'` 使用现有 Chrome；CI 使用 Playwright Chromium。完整浏览器回归使用已迁移的独立测试数据库、启用的开发账号 API 和相同邮件捕获目录，不能用个人试用数据库；访客回归不证明账号回归通过。CI 只运行合成作品和临时测试数据库，没有部署步骤，不上传邮箱捕获文件。
 
 ## 数据与诊断
 
-设备草稿保存在当前浏览器的 IndexedDB。不同浏览器／Origin 有独立数据；清理网站数据会清除学习记录，操作前用“本地空间”导出。导出的作品可能含私人内容，当前没有云端备份。
+设备草稿保存在当前浏览器的 IndexedDB。不同浏览器／Origin 有独立数据；清理网站数据会清除学习记录，操作前用“本地空间”导出。导出的作品可能含私人内容。已登录且逐项确认的记录可以从账号恢复；尚未同步、被拒绝、冲突和附件等记录仍需保留本地原件。当前没有经过生产备份／灾难恢复验收。
 
 核验成功后先在本地事务提交记录，再向短期服务确认清理。API 不保存访客作品到 PG、队列或检查点。默认租约闲置 30 分钟、最长 2 小时；浏览器收到失效响应可从本地版本重建。取消／确认会清理正文，服务器重启清空临时状态。
 

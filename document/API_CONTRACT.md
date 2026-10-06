@@ -111,3 +111,9 @@
 采用/api/v1、UUID、UTC时间、bigint十进制字符串，If-Match与Idempotency-Key分别控制版本和重复动作。账号Cookie＋CSRF，长任务fetch SSE显式Last-Event-ID；终端使用受限WS票据。长期流每批／回放复查session撤销／期限与来源策略。
 
 访客Agent／RAG／执行走guest lease接口，不借用永久账号空间；idle30min／absolute2h为清理测试初值，重启或到期由本地内容重建。访客不能读取需登录的教师受众资料。claim先写本地journal再提交固定claim_id，响应丢失仅本人查询／幂等重试恢复归属。详细路径和约束以TECHNICAL_DATA_CONTRACT为准；这些规则仍待集成测试。
+
+## 10 当前实际账号／同步契约（2026 年 10 月 5 日）
+
+开发切片已提供 `/api/v1/auth/nonce`、register、verify-email、login、session、csrf、logout、password-reset，以及 `/sync/claims`、本人 `/sync/spaces`、batches／changes／conflicts。旧设计路径统一至 [实际端点表](ACCOUNT_SYNC_IMPLEMENTATION.md)；生成 OpenAPI 和 TypeScript 为当前字段权威。
+
+真实 session 决定账号；expected_account_id 仅拒绝过期请求，不能自授所有权。固定 claim／batch／op 及规范正文 hash 支撑丢失响应恢复和幂等；版本冲突保留双方；附件明确不支持；导入核验不会变成平台证据。其他设计端点、长期授权流、教师课程及RAG不是已开放接口。

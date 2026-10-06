@@ -1,8 +1,8 @@
 # 技术选型验证记录
 
-版本：v1.1
+版本：v1.2
 
-日期：2026 年 10 月 3 日
+更新日期：2026 年 10 月 6 日；第1–6节保留之前验证的历史范围。
 
 本记录区分官方研究、小型原型与完整集成。选定技术见 [技术基线](TECHNOLOGY_BASELINE.md)；选型不代表集成／发布验收通过。
 
@@ -68,7 +68,7 @@
 
 ## 5 首个实际工程切片（开发阶段追加）
 
-2026年10月3日，在 `C:\Project\Vault` 的 `hyx_dev` 上复跑最终源文件。前面1–4节保留选型阶段的原型／只读历史观察。本次没有连接或改变旧服务器，没有使用真实学习数据／供应商模型凭据。
+2026年10月3日，在 `C:\Project\Vault` 的 `hyx_dev` 上复跑当时源文件。前面1–4节保留选型阶段的原型／只读历史观察。本次没有连接或改变旧服务器，没有使用真实学习数据／供应商模型凭据。
 
 | 检查 | 实际结果与边界 |
 |---|---|
@@ -92,3 +92,23 @@
 首个提交 `fc6d4ce` 的GitHub Actions三job均成功：[真实运行记录](https://github.com/hhyxx1/Vault/actions/runs/37162518249)。该记录覆盖初版的LinuxPG／迁移、Web构建与Chromium浏览器测试；随后追加的命令启动修正需要对应的新commit回归，不能以旧运行替代。
 
 最后的Windows实际API ready检查发现：当前Uvicorn使用自己的loop factory，忽略旧的WindowsSelectorEventLoopPolicy，导致已配置PG仍503。入口改用显式自定义工厂，Windows创建Selector实例，Linux沿用Uvicorn自动工厂。增加第11项真实PG检查：启动 `python -m vault_backend` 独立进程，通过回环HTTP等待数据库ready，退出并清理自己的测试进程。最终本机49项pytest／Ruff全过；此项覆盖命令启动，避免仅靠ASGI夹具或独立psycopg测试漏检。
+
+## 7 账号与跨设备同步开发切片（2026 年 10 月 6 日）
+
+本节是在上述首个学习切片基础上的增量记录。认证回归用合成账号与独立 PG18 测试库，邮件仅保存于私有 TEMP 捕获目录；没有真实邮箱投递、学生学习数据、模型 API 或旧服务器部署。
+
+| 检查 | 实际结果 | 边界 |
+|---|---|---|
+| 后端 | 最终 `pytest` 88 项通过，其中 47 项使用真实 PostgreSQL；Ruff check／format、Alembic metadata 零差异 | 覆盖开发认证、归属、严格同步、回执、冲突和迁移，不等于上线安全／容量门全部通过 |
+| PostgreSQL 迁移 | 新数据库 base→head；既有版本升级；downgrade→head；各阶段 `alembic check` 零差异 | 仅任务隔离的 PG18.1 disposable／development DB；个人试用数据库单独创建 |
+| OpenAPI／类型 | 从实际 API 导出 OpenAPI `--check` 通过；前端生成 TypeScript `contracts:check` 通过 | 合同检查不替代全功能验收 |
+| Web | TypeScript `typecheck`、23 项 Vitest、Vite production build 通过 | 构建只证明当前客户端可打包 |
+| 浏览器 | Playwright 26 项通过：桌面 Chromium 与 Pixel 7 移动模拟；包含学习旧场景与真实账号切片 | 测试运行于 Windows Chrome；不是 iOS Safari、Linux CI 或真实教学验收 |
+| 学生／教师账号 | 注册、邮箱确认、登录、教师待审核、学生独立空间、密码重置并撤销旧 session；私有草稿不会分享学生 | 邮件为本机捕获，并未发到真实邮箱；教师认证仍未建立人工审核台 |
+| 归属与恢复 | 已承接作品记录、确认逐项同步、跨设备恢复本人空间、丢失 claim 响应后原账号恢复；切 B 后 B 的记录不出现 A 的原件 | 附件不支持；软件更新/设备损坏不代表有生产备份恢复 |
+| 竞态与证据信任 | 打开的学习页拉取另一设备新稿后立即可见；编辑中的陈旧版本不能覆盖；延迟空间切换遇账号改变被取消。恢复核验作为待复核历史，不写入平台可信事件或图谱达标 | 当前仅覆盖已实现的目标／版本数据类型与浏览器切换用例 |
+| CI | 本机验证成功。此次提交后的 Linux GitHub Actions 将在推送后验证并记录链接 | 不以 Windows 通过代替 Linux CI；推送前尚无本次提交的 CI 结果 |
+
+真实多设备使用通过独立 Playwright 浏览器上下文模拟，而非两台实际设备。接口和数据库不能替代教师关联授权、课程分享、附件、生产邮件、离线重开应用壳与备份灾备验收。账号与数据删除入口尚未完整交付。测试数据为合成数据，没有学习效果或课程掌握率结论。
+
+重现命令与隔离测试库保护要求见 [开发运行说明](DEVELOPMENT_GUIDE.md)。前端页面范围、八维子集复核和截图见 [品质记录](FRONTEND_QUALITY_REVIEW.md)；实际路径和生产禁止边界见 [账号同步实现](ACCOUNT_SYNC_IMPLEMENTATION.md)。

@@ -1,6 +1,7 @@
 import { NavLink, Outlet, Link, useLocation, useRouteError } from 'react-router-dom'
 import { useLocal } from '../local/LocalProvider'
 import { useEffect } from 'react'
+import { useAuth } from '../local/AuthProvider'
 
 function Mark() {
   return <svg className="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 29a16 16 0 0 1 32 0M11 29a9 9 0 0 1 18 0"/><path d="M20 7v5"/><circle cx="20" cy="9" r="2"/></svg>
@@ -8,6 +9,7 @@ function Mark() {
 
 export function AppShell() {
   const { error } = useLocal()
+  const { account } = useAuth()
   const location = useLocation()
   useEffect(() => { document.getElementById('main-content')?.focus({ preventScroll: true }); window.scrollTo(0, 0) }, [location.pathname])
   return <>
@@ -17,11 +19,11 @@ export function AppShell() {
       <nav className="main-nav" aria-label="主要导航">
         <NavLink to="/" end>探索</NavLink><NavLink to="/atlas">知识图谱</NavLink><NavLink to="/evidence">学习证据</NavLink><NavLink className="mobile-teacher-link" to="/teacher">教师备课</NavLink>
       </nav>
-      <div className="topbar-actions"><Link className="teacher-link" to="/teacher">教师备课 <span aria-hidden="true">↗</span></Link><Link className="local-indicator" to="/local"><span className="status-dot"/>本地空间</Link></div>
+      <div className="topbar-actions"><Link className="teacher-link" to="/teacher">教师备课 <span aria-hidden="true">↗</span></Link><Link className="local-indicator" to="/local"><span className="status-dot"/>{account ? '我的记录' : '本地空间'}</Link><Link className="account-nav" to="/account">{account ? '账号' : '登录'}</Link></div>
     </header>
     {error && <div className="global-warning" role="alert">{error}</div>}
     <main id="main-content" tabIndex={-1}><Outlet /></main>
-    <footer className="footer"><Link to="/">穹隆 · 让学习留下证据</Link><span>理解 · 实践 · 核验 · 再出发</span><Link to="/local">数据保存在本设备 ↗</Link></footer>
+    <footer className="footer"><Link to="/">穹隆 · 让学习留下证据</Link><span>理解 · 实践 · 核验 · 再出发</span><Link to="/local">{account ? '查看本机与云端记录 ↗' : '数据保存在本设备 ↗'}</Link></footer>
   </>
 }
 

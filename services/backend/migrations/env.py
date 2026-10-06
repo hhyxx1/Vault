@@ -5,6 +5,8 @@ from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import create_async_engine
 
+import vault_backend.sync_models  # noqa: F401
+from vault_backend import auth_models  # noqa: F401 - register authentication metadata
 from vault_backend.models import Base
 
 config = context.config

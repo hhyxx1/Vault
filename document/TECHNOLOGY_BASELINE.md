@@ -105,6 +105,10 @@ document/                 # 所有项目说明与设计文档
 
 ## 7 首个工程切片
 
-当前工程锁定实际使用的依赖，库存见 [依赖记录](DEPENDENCY_INVENTORY.md)。React／FastAPI、公开课程包、设备作品、访客固定栈核验、图谱恢复和12表迁移已经运行。账号／claim、LangGraph／模型、RAG／资料、隔离编译与全13门课程仍是后续范围。TypeScript 6 应用与 TypeScript 5 契约生成工具隔离的必要例外记入 ADR-0007；不降级应用，也不忽略 peer 检查。
+当前工程锁定实际使用的依赖，库存见 [依赖记录](DEPENDENCY_INVENTORY.md)。React／FastAPI、公开课程包、设备作品、访客固定栈核验、图谱恢复、开发账号／claim／同步与PG迁移已经运行。LangGraph／模型、RAG／资料、隔离编译与全13门课程仍是后续范围。TypeScript 6 应用与 TypeScript 5 契约生成工具隔离的必要例外记入 ADR-0007；不降级应用，也不忽略 peer 检查。
 
 PGvector 固定镜像已核对 manifest 并通过 Compose 配置解析；本机 Engine 未启动，未运行镜像／向量扩展测试。没有生产部署或真实学习效果数据。
+
+## 8 账号与同步开发切片
+
+2026 年 10 月 5 日在现有基线上实现 Argon2id／数据库 opaque session、邮箱确认与重置、CSRF、两类 profile、claim journal 与严格幂等同步；没有更换已选栈。实际迁移为0001–0003，前端使用 Dexie空间复合键，不再把“已选择工具”写作“完成产品”。详见 [当前实现](ACCOUNT_SYNC_IMPLEMENTATION.md)。生产投递、长期容量、教师授权、Agent／Skill、RAG与隔离执行仍按各自门推进。
