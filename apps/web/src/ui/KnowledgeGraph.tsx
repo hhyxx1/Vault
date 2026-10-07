@@ -38,12 +38,12 @@ export default function KnowledgeGraph({ definition, states, selected, onSelect 
           label: courseRelationLabels[relation.kind],
         } })),
       },
-      layout: { name: 'breadthfirst', directed: true, roots: [`node[id = "${definition.rootNodeId}"]`], padding: 42, spacingFactor: 1.2, animate: false },
       style: [
-        { selector: 'node', style: { width: 132, height: 54, 'background-color': '#d7ddd5', 'border-width': 1, 'border-color': '#667773', label: 'data(label)', 'text-wrap': 'wrap', 'text-max-width': '118px', 'font-size': '12px', color: '#163b38', 'text-valign': 'center', 'text-halign': 'center', 'font-family': 'system-ui, sans-serif' } },
-        { selector: 'node[kind="course"]', style: { shape: 'round-rectangle', width: 150, height: 62, 'background-color': '#294b45', color: '#ffffff', 'border-color': '#294b45' } },
-        { selector: 'node[kind="chapter"]', style: { shape: 'round-rectangle', width: 142, height: 56, 'background-color': '#7b9d89' } },
-        { selector: 'node[kind="unit"]', style: { width: 136, height: 54, 'background-color': '#aebda9' } },
+        { selector: 'node', style: { width: 236, height: 84, 'background-color': '#d7ddd5', 'border-width': 1, 'border-color': '#667773', label: 'data(label)', 'text-wrap': 'wrap', 'text-max-width': '210px', 'font-size': '12px', color: '#163b38', 'text-valign': 'center', 'text-halign': 'center', 'font-family': 'system-ui, sans-serif' } },
+        { selector: 'node[kind="course"]', style: { shape: 'round-rectangle', width: 260, height: 88, 'text-max-width': '234px', 'background-color': '#294b45', color: '#ffffff', 'border-color': '#294b45' } },
+        { selector: 'node[kind="chapter"]', style: { shape: 'round-rectangle', width: 244, height: 84, 'text-max-width': '218px', 'background-color': '#7b9d89' } },
+        { selector: 'node[kind="unit"]', style: { shape: 'round-rectangle', width: 228, height: 82, 'text-max-width': '202px', 'background-color': '#aebda9' } },
+        { selector: 'node[kind="objective"]', style: { shape: 'round-rectangle', width: 236, height: 84 } },
         { selector: 'edge', style: { width: 1.3, 'line-color': '#6d8173', 'curve-style': 'bezier', 'target-arrow-shape': 'none', label: 'data(label)', color: '#546050', 'font-size': 10, 'text-rotation': 'autorotate', 'text-background-color': '#f3f3eb', 'text-background-opacity': 1, 'text-background-padding': '3px' } },
         { selector: 'edge[kind="mandatory_prerequisite"]', style: { 'line-style': 'dashed', 'target-arrow-shape': 'triangle', 'target-arrow-color': '#a36735', 'line-color': '#a36735', color: '#805732' } },
         { selector: 'edge[kind="conceptual_association"]', style: { 'line-style': 'dotted', 'line-color': '#687c99', 'target-arrow-shape': 'none', color: '#526884' } },
@@ -55,6 +55,36 @@ export default function KnowledgeGraph({ definition, states, selected, onSelect 
         { selector: 'node.current', style: { 'overlay-color': '#235b51', 'overlay-opacity': 0.09, 'overlay-padding': 9 } },
       ],
     })
+    const applyLayout = () => {
+      if (!container.current) return
+      const compact = container.current.clientWidth < 560
+      const sizes = compact
+        ? { courseWidth: 164, chapterWidth: 156, unitWidth: 148, objectiveWidth: 156, textMax: 136, fontSize: '11px' }
+        : { courseWidth: 260, chapterWidth: 244, unitWidth: 228, objectiveWidth: 236, textMax: 210, fontSize: '13px' }
+      cy.nodes().forEach(node => {
+        const kind = node.data('kind') as CourseMapDefinition['nodes'][number]['kind']
+        const width = kind === 'course' ? sizes.courseWidth : kind === 'chapter' ? sizes.chapterWidth : kind === 'unit' ? sizes.unitWidth : sizes.objectiveWidth
+        node.style({ width, 'text-max-width': `${sizes.textMax}px`, 'font-size': sizes.fontSize })
+      })
+      const width = container.current.clientWidth
+      const height = container.current.clientHeight
+      cy.elements()
+        .filter(element => element.isNode() || element.data('kind') === 'contains')
+        .layout({
+          name: 'breadthfirst', directed: true, roots: [definition.rootNodeId],
+          direction: compact ? 'rightward' : 'downward',
+          padding: compact ? 12 : 24,
+          spacingFactor: compact ? 0.9 : 1.15,
+          nodeDimensionsIncludeLabels: true,
+          boundingBox: compact
+            ? { x1: 4, y1: 38, w: Math.max(1, width - 8), h: Math.max(1, height - 104) }
+            : { x1: 28, y1: 38, w: Math.max(1, width - 56), h: Math.max(1, height - 104) },
+          animate: false, fit: false,
+        })
+        .run()
+      cy.fit(undefined, compact ? 8 : 12)
+    }
+    applyLayout()
     cy.on('tap', event => {
       const target = event.target
       if (typeof target.isNode !== 'function' || !target.isNode()) return
@@ -72,10 +102,16 @@ export default function KnowledgeGraph({ definition, states, selected, onSelect 
       })
     })
     graph.current = cy
-    const observer = new ResizeObserver(() => cy.resize())
+    let resizeFrame = 0
+    const observer = new ResizeObserver(() => {
+      if (resizeFrame) cancelAnimationFrame(resizeFrame)
+      resizeFrame = requestAnimationFrame(() => {
+        cy.resize()
+        applyLayout()
+      })
+    })
     observer.observe(container.current)
-    cy.fit(undefined, 42)
-    return () => { observer.disconnect(); cy.destroy(); graph.current = null }
+    return () => { observer.disconnect(); if (resizeFrame) cancelAnimationFrame(resizeFrame); cy.destroy(); graph.current = null }
   }, [definition])
   useEffect(() => {
     const cy = graph.current

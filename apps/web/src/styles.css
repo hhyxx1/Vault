@@ -3635,6 +3635,9 @@ main:focus {
 @media (max-width:760px) {
   .graph-controls {
     margin: 0 12px 14px;
+    width: auto;
+    max-width: calc(100% - 24px);
+    flex-wrap: wrap;
   }
 }
 .trace-table-wrap {
