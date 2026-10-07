@@ -23,7 +23,7 @@
 | 权威存储 | PostgreSQL 18＋pgvector 0.8；正式附件使用私有 OSS | 业务、证据、ACL、同步、任务和账号检查点；文件以不可变版本引用管理 |
 | 异步 | Celery 5＋Valkey 8；PG outbox／租约／幂等账本 | 至少一次投递；权威任务事实与额度记录在 PG，取消、重投和迟到结果可对账 |
 | Agent | 自托管 Python LangGraph；模型网关使用 httpx 适配供应商 | CS03 样例已实现按意图路由诊断／辅导／练习／核验解读；PG checkpoint、多轮等待／恢复及教师职责仍未完成 |
-| 默认生成模型 | DeepSeek 的 deepseek-flash；高级模型自动切换关闭 | 仅实现默认关闭的 CS03 样例接口和假传输测试；没有真实调用、质量或成本验证 |
+| 模型接入 | DeepSeek 为可选默认适配器；开源版支持自定义 OpenAI 兼容 Chat Completions 配置并按职责路由 | 服务器可信部署配置的多 profile 网关已实现；个人配置／密钥保管、真实模型和多模型质量／成本验证仍未完成 |
 | 资料／检索 | Docling、受控 LibreOffice 转换、python-pptx／OOXML 检查；BAAI/bge-m3 dense 1024＋jieba 分词／PG GIN | 本地 CPU 解析和向量；学生副本及当前授权先过滤，小授权集先精确检索再融合 |
 | 真实执行 | 原生 isolate 专用 Linux VM；SQL 独立临时 PG18；containerlab＋Linux／FRR 网络 VM | 真实编译／运行、数据库和协议实验；公开网络实验每租约独立 VM |
 | 发布 | Linux、Docker Compose、Caddy 2；pgBackRest 独立备份 repository | 受信业务部署、HTTPS、备份恢复与回滚；不承诺已有服务器能运行整套方案 |
@@ -35,13 +35,13 @@
 
 ## 2 模型与 Agent 的确定边界
 
-第一家接入选 DeepSeek 原生 HTTP Responses API，默认 deepseek-flash。官方当前将其指向 V4.1-Flash；供应商别名可能升级，记录请求 model、响应实际 model、供应商适配器版本和本项目 model_profile 版本。不能把可变别名冒充不可变权重快照。模型发生变化后跑相同课程／权限／工具回归，再接受新 profile。[官方更新](https://api-docs.deepseek.com/updates/)
+DeepSeek 原生 HTTP Responses API 是首个样例适配器，deepseek-flash 只是可选默认；开源部署也能配置自托管或其他 OpenAI 兼容 Chat Completions 端点，并按职责设置默认 profile。该兼容协议只覆盖共通文本请求，结构化输出仍由本项目校验，不能推定不同模型的工具、视觉、推理或 JSON 能力等价。个人模型连接与密钥管理按 [模型路由设计](MODEL_ROUTING_DESIGN.md) 继续实现。供应商别名可能升级，记录请求 model、响应实际 model、供应商适配器版本和本项目 model_profile 版本。不能把可变别名冒充不可变权重快照。模型发生变化后跑相同课程／权限／工具回归，再接受新 profile。[官方更新](https://api-docs.deepseek.com/updates/)
 
 网关自行管理历史和结构化输出，不把 SDK 的接口兼容当作行为完全一致。DeepSeek 该接口为无状态，developer 消息按 user 处理，因此可信平台规则映射 system，学生材料和检索片段明确作为不可信输入。工具调用只经平台允许列表和 Pydantic 校验；供应商不取得任意 shell、数据库写权限或发布能力。接口文档对响应／对话不存储的描述不能推导供应商零日志或零保留承诺，外部处理条款在公开试用前核对。[官方 API 契约](https://api-docs.deepseek.com/api/create-response/)
 
 四项职责为规划与诊断、解释与辅导、实践任务、核验与反馈；课程与 Skill 设计按需执行。职责和 Skill 版本分别固定，不要求每轮唤起所有角色，也不需要用五个不同模型证明多 Agent。模型可提出活动或核验建议，工具事实、证据准入与发布许可由业务服务独立决定。
 
-默认高级模型切换关闭。未来需要更强模型时通过另一个明确 profile 做质量／成本对照，不以错误重试自动升级或跨供应商发送私有资料。供应商凭据未配置时使用明确标注的模拟适配器做 UI／契约测试，界面不能将模拟输出当成真实辅导或学习证据。
+默认高级模型切换关闭。不同职责可经已配置的 profile 显式选用不同模型，学生亦可在单次请求前选取；不以错误重试自动升级或跨供应商发送私有资料。供应商凭据未配置时使用明确标注的模拟适配器做 UI／契约测试，界面不能将模拟输出当成真实辅导或学习证据。
 
 开发初值：每个学生每次推进最多 6 次模型请求、8 次允许工具调用、模型输出合计最多 12000 token，活跃推进墙钟 180 秒；等待学生时释放 worker，不把等待计作持续模型执行。一个主体同时最多一个可变活动推进；初始 worker 全局模型并发为 2。额度、失败和取消以 PG 记录，接近上限停止并交回学生，不能静默循环。以上是原型保护初值，实际吞吐、延迟、单次成本和订阅额度尚未实测；调整须记录 profile 与回归结果。
 
@@ -105,7 +105,7 @@ document/                 # 所有项目说明与设计文档
 
 ## 7 首个工程切片
 
-当前工程锁定实际使用的依赖，库存见 [依赖记录](DEPENDENCY_INVENTORY.md)。React／FastAPI、公开课程包、设备作品、访客固定栈核验、图谱恢复、开发账号／claim／同步与PG迁移已经运行。LangGraph／DeepSeek 已开始用于 CS03 样例辅助切片，但未接入 checkpoint、未做真实模型调用或运营验证；RAG／资料、隔离编译与全13门课程仍是后续范围。TypeScript 6 应用与 TypeScript 5 契约生成工具隔离的必要例外记入 ADR-0007；不降级应用，也不忽略 peer 检查。
+当前工程锁定实际使用的依赖，库存见 [依赖记录](DEPENDENCY_INVENTORY.md)。React／FastAPI、公开课程包、设备作品、访客固定栈核验、图谱恢复、开发账号／claim／同步与PG迁移已经运行。CS03 样例已有 LangGraph 职责路由、DeepSeek 与 OpenAI 兼容 Chat 的部署级可选网关，但尚未接入账号 checkpoint、个人模型连接，也未做真实模型调用或运营验证；RAG／资料、隔离编译与全13门课程仍是后续范围。TypeScript 6 应用与 TypeScript 5 契约生成工具隔离的必要例外记入 ADR-0007；不降级应用，也不忽略 peer 检查。
 
 PGvector 固定镜像已核对 manifest 并通过 Compose 配置解析；本机 Engine 未启动，未运行镜像／向量扩展测试。没有生产部署或真实学习效果数据。
 

@@ -392,6 +392,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/model-profiles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Model Profiles */
+        get: operations["model_profiles_api_v1_model_profiles_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/sync/claims": {
         parameters: {
             query?: never;
@@ -864,6 +881,8 @@ export interface components {
              * @enum {string}
              */
             intent: "diagnose" | "explain" | "hint" | "practice" | "result_feedback";
+            /** Model Profile Id */
+            model_profile_id?: string | null;
             /**
              * Objective Code
              * @constant
@@ -1046,6 +1065,26 @@ export interface components {
              * @constant
              */
             status: "password_reset";
+        };
+        /** PublicModelCatalog */
+        PublicModelCatalog: {
+            /** Profiles */
+            profiles: components["schemas"]["PublicModelProfile"][];
+            /** Task Defaults */
+            task_defaults: {
+                [key: string]: string;
+            };
+        };
+        /** PublicModelProfile */
+        PublicModelProfile: {
+            /** Capabilities */
+            capabilities: string[];
+            /** Id */
+            id: string;
+            /** Label */
+            label: string;
+            /** Provider */
+            provider: string;
         };
         /** RegisterInput */
         RegisterInput: {
@@ -1987,6 +2026,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+        };
+    };
+    model_profiles_api_v1_model_profiles_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicModelCatalog"];
                 };
             };
         };

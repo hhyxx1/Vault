@@ -731,6 +731,18 @@
             "title": "Intent",
             "type": "string"
           },
+          "model_profile_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-z][a-z0-9_-]{0,39}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Profile Id"
+          },
           "objective_code": {
             "const": "CS03-STACK-01",
             "title": "Objective Code",
@@ -1137,6 +1149,61 @@
           }
         },
         "title": "PasswordResetOutput",
+        "type": "object"
+      },
+      "PublicModelCatalog": {
+        "properties": {
+          "profiles": {
+            "items": {
+              "$ref": "#/components/schemas/PublicModelProfile"
+            },
+            "title": "Profiles",
+            "type": "array"
+          },
+          "task_defaults": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Task Defaults",
+            "type": "object"
+          }
+        },
+        "required": [
+          "profiles",
+          "task_defaults"
+        ],
+        "title": "PublicModelCatalog",
+        "type": "object"
+      },
+      "PublicModelProfile": {
+        "properties": {
+          "capabilities": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Capabilities",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "provider",
+          "capabilities"
+        ],
+        "title": "PublicModelProfile",
         "type": "object"
       },
       "RegisterInput": {
@@ -2729,6 +2796,27 @@
         "summary": "Ready",
         "tags": [
           "Health"
+        ]
+      }
+    },
+    "/api/v1/model-profiles": {
+      "get": {
+        "operationId": "model_profiles_api_v1_model_profiles_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicModelCatalog"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Model Profiles",
+        "tags": [
+          "Learning"
         ]
       }
     },

@@ -188,6 +188,13 @@ test('storage failure keeps unsaved work visible and blocks unsafe departure unt
 
 test('assistant sends nothing before opt-in and restores its reply with the same work revision', async ({ page, isMobile }) => {
   let sent: Record<string, unknown> | undefined
+  await page.route('**/api/v1/model-profiles', route => route.fulfill({ json: {
+    profiles: [
+      { id: 'local_tutor', label: '本地辅导', provider: '本地', capabilities: ['text'] },
+      { id: 'remote_reasoner', label: '推理模型', provider: '自选服务', capabilities: ['text', 'reasoning'] },
+    ],
+    task_defaults: { hint: 'local_tutor', result_feedback: 'remote_reasoner' },
+  } }))
   await page.route('**/api/v1/guest-nonce', route => route.fulfill({ json: { nonce: 'x'.repeat(43), expires_at: new Date(Date.now() + 300000).toISOString() } }))
   await page.route('**/api/v1/guest-leases', route => route.fulfill({ status: 201, json: {
     lease_id: 'd8fd8e56-f7d4-47a8-9cc2-7adfa7bd7319', token: 't'.repeat(43),
@@ -203,6 +210,9 @@ test('assistant sends nothing before opt-in and restores its reply with the same
   if (isMobile) await page.getByRole('button', { name: '原理与帮助', exact: true }).click()
   const request = page.getByRole('button', { name: '请求一次学习帮助', exact: false })
   await expect(request).toBeDisabled()
+  await expect(page.getByLabel('本次使用的模型')).toHaveValue('local_tutor')
+  await page.getByLabel('本次使用的模型').selectOption('remote_reasoner')
+  await expect(page.getByRole('region', { name: '学习助手' }).getByText(/发送给 自选服务/)).toBeVisible()
   await page.getByLabel('你的问题').fill('为什么空栈时没有输出？')
   await page.getByLabel(/我同意将当前目标/).check()
   await expect(request).toBeEnabled()
@@ -210,6 +220,7 @@ test('assistant sends nothing before opt-in and restores its reply with the same
   await expect(page.getByText('先检查空栈出栈的约定。', { exact: true })).toBeVisible()
   expect(sent?.disclosure_accepted).toBe(true)
   expect(sent?.intent).toBe('hint')
+  expect(sent?.model_profile_id).toBe('remote_reasoner')
   expect(sent?.revision_id).toBeTruthy()
   await page.reload()
   if (isMobile) await page.getByRole('button', { name: '原理与帮助', exact: true }).click()

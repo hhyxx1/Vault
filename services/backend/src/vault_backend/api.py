@@ -12,7 +12,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from vault_backend import __version__
-from vault_backend.agent_gateway import DeepSeekResponsesGateway
+from vault_backend.agent_gateway import ModelRouter
 from vault_backend.auth import AuthService
 from vault_backend.auth import router as auth_router
 from vault_backend.checker import canonical_hash
@@ -23,6 +23,7 @@ from vault_backend.errors import ApiError
 from vault_backend.guests import GuestLeaseStore
 from vault_backend.learning_assist import LearningAssistWorkflow
 from vault_backend.learning_assist_schemas import LearningAssistReply, LearningAssistRequest
+from vault_backend.model_profiles import PublicModelCatalog
 from vault_backend.responses import CourseCatalog, LeaseResponse, NonceResponse, OperationResponse
 from vault_backend.schemas import LeaseRequest, OperationInput, RevisionCommand, TraceSubmission
 from vault_backend.sync import router as sync_router
@@ -66,14 +67,7 @@ def create_app(
     content = CourseRepository(settings.course_catalog_path)
     store = store or GuestLeaseStore(settings, trace_context=content.trace_context)
     if settings.agent_enabled and assist_runner is None:
-        assert settings.deepseek_api_key is not None
-        gateway = DeepSeekResponsesGateway(
-            settings.deepseek_api_key.get_secret_value(),
-            settings.deepseek_model,
-            settings.agent_timeout_seconds,
-            settings.agent_max_inflight,
-        )
-        assist_runner = LearningAssistWorkflow(gateway)
+        assist_runner = LearningAssistWorkflow(ModelRouter.from_settings(settings))
     engine: AsyncEngine | None = (
         create_engine(settings.database_url) if settings.database_url else None
     )
@@ -200,6 +194,22 @@ def create_app(
     @app.get("/api/v1/courses", tags=["Courses"], response_model=CourseCatalog)
     async def courses():
         return content.get_catalog()
+
+    @app.get("/api/v1/model-profiles", tags=["Learning"], response_model=PublicModelCatalog)
+    async def model_profiles():
+        agent = app.state.agent
+        if not settings.agent_enabled or agent is None:
+            return PublicModelCatalog(profiles=[], task_defaults={})
+        gateway = getattr(agent, "gateway", None)
+        if not isinstance(gateway, ModelRouter):
+            return PublicModelCatalog(profiles=[], task_defaults={})
+        return PublicModelCatalog(
+            profiles=gateway.profiles,
+            task_defaults={
+                intent: gateway.defaults.get(intent, gateway.first)
+                for intent in ("diagnose", "explain", "hint", "practice", "result_feedback")
+            },
+        )
 
     @app.get("/api/v1/courses/{course_id}/versions/{version_id}", tags=["Courses"])
     async def course_version(course_id: UUID, version_id: UUID):

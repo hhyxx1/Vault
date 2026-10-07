@@ -3,6 +3,8 @@ from pathlib import Path
 from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from vault_backend.model_profiles import ModelProfile
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="VAULT_", env_file=None, extra="ignore")
@@ -28,6 +30,8 @@ class Settings(BaseSettings):
     agent_enabled: bool = False
     deepseek_api_key: SecretStr | None = None
     deepseek_model: str = Field(default="deepseek-flash", min_length=1, max_length=80)
+    model_profiles: list[ModelProfile] = Field(default_factory=list)
+    model_task_defaults: dict[str, str] = Field(default_factory=dict)
     agent_timeout_seconds: int = Field(default=30, ge=5, le=90)
     agent_max_inflight: int = Field(default=8, ge=1, le=64)
     max_request_bytes: int = Field(default=65536, ge=4096, le=1048576)
@@ -48,10 +52,21 @@ class Settings(BaseSettings):
             raise ValueError("Guest service needs cleanup/privacy acceptance before production")
         if self.environment == "production" and self.auth_enabled:
             raise ValueError("Authentication requires a real mail adapter before production")
-        if self.agent_enabled and (
-            not self.deepseek_api_key or not self.deepseek_api_key.get_secret_value().strip()
-        ):
-            raise ValueError("VAULT_AGENT_ENABLED requires VAULT_DEEPSEEK_API_KEY")
+        ids = [profile.id for profile in self.model_profiles]
+        if len(ids) != len(set(ids)):
+            raise ValueError("Model profile IDs must be unique")
+        available = set(ids)
+        if self.deepseek_api_key and self.deepseek_api_key.get_secret_value().strip():
+            available.add("legacy_deepseek")
+        intents = {"diagnose", "explain", "hint", "practice", "result_feedback"}
+        if set(self.model_task_defaults) - intents:
+            raise ValueError("Unknown model task default")
+        if set(self.model_task_defaults.values()) - available:
+            raise ValueError("Model task default references an unavailable profile")
+        if self.agent_enabled and not available:
+            raise ValueError("VAULT_AGENT_ENABLED requires at least one configured model")
+        if "legacy_deepseek" in ids:
+            raise ValueError("legacy_deepseek is a reserved profile ID")
         if self.agent_enabled and self.deepseek_api_key is not None:
             self.deepseek_api_key = SecretStr(self.deepseek_api_key.get_secret_value().strip())
         if self.auth_enabled and (not self.database_url or self.mail_capture_dir is None):

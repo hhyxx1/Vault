@@ -24,8 +24,14 @@ async function activeLease(signal?: AbortSignal) {
 
 
 export type LearningAssistIntent = 'diagnose' | 'explain' | 'hint' | 'practice' | 'result_feedback'
+export type ModelProfile = { id: string; label: string; provider: string; capabilities: string[] }
+export type ModelCatalog = { profiles: ModelProfile[]; task_defaults: Partial<Record<LearningAssistIntent, string>> }
+export async function listModelProfiles(signal?: AbortSignal): Promise<ModelCatalog> {
+  return readJson<ModelCatalog>(await fetch('/api/v1/model-profiles', { credentials: 'same-origin', cache: 'no-store', signal }))
+}
 export type LearningAssistInput = {
   request_id: string
+  model_profile_id?: string
   course_code: 'CS03'
   course_version: typeof COURSE_VERSION
   activity_version: typeof TRACE_ACTIVITY

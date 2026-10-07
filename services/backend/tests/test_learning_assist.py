@@ -5,11 +5,13 @@ import httpx
 import pytest
 from pydantic import SecretStr, ValidationError
 
-from vault_backend.agent_gateway import DeepSeekResponsesGateway
+from vault_backend.agent_gateway import DeepSeekResponsesGateway, ModelRouter, OpenAIChatGateway
 from vault_backend.api import create_app
 from vault_backend.config import Settings
+from vault_backend.errors import ApiError
 from vault_backend.learning_assist import LearningAssistWorkflow
 from vault_backend.learning_assist_schemas import LearningAssistReply, LearningAssistRequest
+from vault_backend.model_profiles import ModelProfile
 from vault_backend.sync_schemas import HelpPayload
 
 ORIGIN = "http://localhost:5173"
@@ -122,9 +124,9 @@ async def test_result_feedback_uses_server_result_and_exact_revision(
 
 def test_agent_is_disabled_by_default_and_requires_a_secret():
     assert Settings(environment="test").agent_enabled is False
-    with pytest.raises(ValidationError, match="VAULT_DEEPSEEK_API_KEY"):
+    with pytest.raises(ValidationError, match="at least one configured model"):
         Settings(environment="test", agent_enabled=True)
-    with pytest.raises(ValidationError, match="VAULT_DEEPSEEK_API_KEY"):
+    with pytest.raises(ValidationError, match="at least one configured model"):
         Settings(environment="test", agent_enabled=True, deepseek_api_key="   ")
 
 
@@ -184,6 +186,139 @@ async def test_deepseek_gateway_sends_schema_and_ignores_reasoning_text():
         assert "tools" not in seen["body"]
     finally:
         await gateway.close()
+
+
+async def test_custom_chat_profile_routes_by_task_and_validates_output():
+    seen = []
+
+    def respond(request):
+        seen.append((str(request.url), json.loads(request.content)))
+        return httpx.Response(
+            200,
+            json={
+                "choices": [
+                    {
+                        "message": {
+                            "content": json.dumps(
+                                {
+                                    "message": "检查下一步。",
+                                    "next_action": "重新提交作品。",
+                                    "mastery_asserted": False,
+                                },
+                                ensure_ascii=False,
+                            )
+                        }
+                    }
+                ]
+            },
+        )
+
+    profile = ModelProfile(
+        id="local_tutor",
+        label="本地辅导模型",
+        provider="本地",
+        protocol="openai_chat",
+        base_url="http://127.0.0.1:11434/v1/",
+        model="my-tutor-model",
+        capabilities={"text"},
+    )
+    gateway = OpenAIChatGateway(profile, None, 5, 1, httpx.MockTransport(respond))
+    router = ModelRouter({"local_tutor": gateway}, [profile], {"hint": "local_tutor"})
+    try:
+        result = await router.complete("system rules", {"intent": "hint", "question": "why"})
+        assert result.mastery_asserted is False
+        assert seen[0][0] == "http://127.0.0.1:11434/v1/chat/completions"
+        assert seen[0][1]["model"] == "my-tutor-model"
+        assert "tools" not in seen[0][1]
+        assert router.select("hint") is gateway
+        assert router.select("practice", "local_tutor") is gateway
+        with pytest.raises(ApiError) as error:
+            router.select("hint", "unknown")
+        assert error.value.code == "MODEL_PROFILE_UNAVAILABLE"
+    finally:
+        await router.close()
+
+
+def test_model_profile_rejects_remote_plain_http_and_duplicate_ids():
+    with pytest.raises(ValidationError):
+        ModelProfile(
+            id="bad",
+            label="Bad",
+            provider="Bad",
+            protocol="openai_chat",
+            base_url="http://remote.example/v1/",
+            model="model",
+            capabilities={"text"},
+        )
+    profile = {
+        "id": "local",
+        "label": "Local",
+        "provider": "Local",
+        "protocol": "openai_chat",
+        "base_url": "http://127.0.0.1:11434/v1/",
+        "model": "test",
+        "capabilities": ["text"],
+    }
+    with pytest.raises(ValidationError, match="unique"):
+        Settings(environment="test", model_profiles=[profile, profile])
+
+
+def test_self_hosted_profile_can_be_loaded_from_environment(monkeypatch):
+    monkeypatch.setenv(
+        "VAULT_MODEL_PROFILES",
+        json.dumps(
+            [
+                {
+                    "id": "local",
+                    "label": "Local",
+                    "provider": "Self-hosted",
+                    "protocol": "openai_chat",
+                    "base_url": "http://127.0.0.1:11434/v1/",
+                    "model": "installed-model",
+                    "capabilities": ["text"],
+                }
+            ]
+        ),
+    )
+    monkeypatch.setenv("VAULT_MODEL_TASK_DEFAULTS", '{"hint":"local"}')
+    settings = Settings(environment="test", agent_enabled=True)
+    assert settings.model_profiles[0].id == "local"
+    assert settings.model_task_defaults["hint"] == "local"
+
+
+async def test_public_profile_listing_omits_endpoint_and_credential_name():
+    settings = Settings(
+        environment="test",
+        agent_enabled=True,
+        model_profiles=[
+            {
+                "id": "local",
+                "label": "我的本地模型",
+                "provider": "本地",
+                "protocol": "openai_chat",
+                "base_url": "http://127.0.0.1:11434/v1/",
+                "model": "private-model",
+                "capabilities": ["text", "reasoning"],
+            }
+        ],
+        model_task_defaults={"hint": "local"},
+    )
+    app = create_app(settings)
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url=ORIGIN) as client:
+        response = await client.get("/api/v1/model-profiles")
+    assert response.status_code == 200
+    assert response.json()["profiles"] == [
+        {
+            "id": "local",
+            "label": "我的本地模型",
+            "provider": "本地",
+            "capabilities": ["reasoning", "text"],
+        }
+    ]
+    assert response.json()["task_defaults"]["hint"] == "local"
+    assert "private-model" not in response.text
+    assert "11434" not in response.text
+    await app.state.agent.close()
 
 
 async def test_langgraph_routes_roles_without_live_provider_calls():

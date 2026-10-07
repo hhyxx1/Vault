@@ -47,7 +47,7 @@
 
 ## ADR-0005：异步、模型与浏览器协议
 
-- 状态：接受，Celery5／Valkey8＋PG outbox、REST v1＋fetch SSE／受限WS、首家生成模型DeepSeek deepseek-flash。
+- 状态：接受，Celery5／Valkey8＋PG outbox、REST v1＋fetch SSE／受限WS；DeepSeek deepseek-flash 为首个可选样例适配器，开源版支持自定义模型与按职责路由。
 - 理由：长任务释放API，至少一次由租约／幂等补偿；刷新可带Last-Event-ID；provider网关隔离协议与替换成本。
 - 备选：仅进程内任务、全部长期WS、供应商SDK全平台；增加崩溃恢复或耦合成本。
 - 后果：事件回放仍授权，长流逐批查session／guest lease；result backend不是证据。高级模型自动切换关闭，alias变化需profile回归；外部处理条款、真实质量／成本和budget待测。无凭据仅明确模拟。
