@@ -3,6 +3,16 @@ import { test, expect, type Page } from '@playwright/test'
 const tracePath = '/learn/CS03-STACK-01'
 const codePath = '/learn/CS03-STACK-02'
 const explanation = '后加入且未取出的元素先取出；空栈不改变并标记下溢。'
+async function graphPaintedPixels(page: Page) {
+  return page.locator('.graph-canvas canvas').evaluateAll(canvases => canvases.reduce((total, canvas) => {
+    const element = canvas as HTMLCanvasElement
+    const context = element.getContext('2d')
+    if (!context || element.width === 0 || element.height === 0) return total
+    const pixels = context.getImageData(0, 0, element.width, element.height).data
+    for (let index = 3; index < pixels.length; index += 4) if (pixels[index] > 0) total += 1
+    return total
+  }, 0))
+}
 async function openAndComplete(page: Page) {
   await page.goto(tracePath)
   await page.getByRole('button', { name: '确认目标，开始尝试' }).click()
@@ -38,25 +48,20 @@ test('knowledge atlas keeps a unique-objective denominator across graph controls
   const map = page.getByRole('img', { name: /课程知识图谱，2 个唯一目标/ })
   await expect(map).toBeVisible()
   await expect(map).toHaveAttribute('aria-label', /0 项有达标证据.*2 项尚未评估/)
-  await expect.poll(async () => page.locator('.graph-canvas canvas').evaluateAll(canvases => canvases.reduce((total, canvas) => {
-    const element = canvas as HTMLCanvasElement
-    const context = element.getContext('2d')
-    if (!context || element.width === 0 || element.height === 0) return total
-    const pixels = context.getImageData(0, 0, element.width, element.height).data
-    for (let index = 3; index < pixels.length; index += 4) if (pixels[index] > 0) total += 1
-    return total
-  }, 0))).toBeGreaterThan(1000)
+  await expect.poll(() => graphPaintedPixels(page)).toBeGreaterThan(1000)
   await expect(page.locator('.scope-total strong')).toContainText('0 / 2')
 
+  const initialPixels = await graphPaintedPixels(page)
+  await page.getByRole('button', { name: '放大图谱' }).click()
+  await expect.poll(() => graphPaintedPixels(page)).toBeGreaterThan(initialPixels)
+  const zoomedPixels = await graphPaintedPixels(page)
+  await page.getByRole('button', { name: '缩小图谱' }).click()
+  await expect.poll(() => graphPaintedPixels(page)).toBeLessThan(zoomedPixels)
+  await page.getByRole('button', { name: '适应画布' }).click()
+  await expect.poll(() => graphPaintedPixels(page)).toBeGreaterThan(1000)
+
   await page.setViewportSize({ width: 390, height: 844 })
-  await expect.poll(async () => page.locator('.graph-canvas canvas').evaluateAll(canvases => canvases.some(canvas => {
-    const element = canvas as HTMLCanvasElement
-    const context = element.getContext('2d')
-    if (!context || element.width === 0 || element.height === 0) return false
-    const pixels = context.getImageData(0, 0, element.width, element.height).data
-    for (let index = 3; index < pixels.length; index += 4) if (pixels[index] > 0) return true
-    return false
-  }))).toBe(true)
+  await expect.poll(() => graphPaintedPixels(page)).toBeGreaterThan(1000)
   expect(await page.evaluate(() => {
     const map = document.querySelector('.atlas-map')?.getBoundingClientRect()
     const controls = document.querySelector('.graph-controls')?.getBoundingClientRect()
