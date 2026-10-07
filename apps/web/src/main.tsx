@@ -13,6 +13,7 @@ const Evidence = React.lazy(() => import('./ui/Evidence'))
 const LocalSpace = React.lazy(() => import('./ui/LocalSpace'))
 const Teacher = React.lazy(() => import('./ui/Teacher'))
 const Account = React.lazy(() => import('./ui/Account'))
+const PersonalCourses = React.lazy(() => import('./ui/PersonalCourses'))
 const pending = (child: React.ReactNode) => <Suspense fallback={<div className="page-loading" role="status">正在打开学习空间…</div>}>{child}</Suspense>
 const router = createBrowserRouter([
   { element: <AuthProvider><LocalProvider><AppShell /></LocalProvider></AuthProvider>, errorElement: <AppError />, children: [
@@ -23,6 +24,8 @@ const router = createBrowserRouter([
     { path: '/local', element: pending(<LocalSpace />) },
     { path: '/teacher', element: pending(<Teacher />) },
     { path: '/account', element: pending(<Account />) },
+    { path: '/my-courses', element: pending(<PersonalCourses />) },
+    { path: '/my-courses/:courseId', element: pending(<PersonalCourses />) },
     { path: '*', element: <div className="page"><h1>这条学习路径暂不存在</h1><a href="/">返回学习入口</a></div> },
   ] },
 ])

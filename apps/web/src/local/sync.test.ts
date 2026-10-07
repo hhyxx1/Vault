@@ -1,12 +1,13 @@
 import 'fake-indexeddb/auto'
 import Dexie from 'dexie'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { activateSpace, LearningDatabase, loadDraft, openLocalSpace, saveDraft, saveRevision, recordEvidence, syncKey } from './database'
+import { activateSpace, LearningDatabase, loadDraft, openLocalSpace, saveDraft, saveRevision, recordEvidence, recordPersonalAttempt, savePersonalCourse, syncKey } from './database'
 import { claimSpace, prepareClaim, pullSpace, syncAccount, chooseRemoteConflict } from './sync'
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 import { canonicalHash, canonicalJson } from '../domain/integrity'
 import { currentTraceEvidence } from '../domain/learning'
 import type { Account } from '../api/accounts'
+import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
 const account: Account = { id: crypto.randomUUID(), email: 'a@example.test', display_name: 'A', account_type: 'student', teacher_verification_state: null }
 const otherAccount = { ...account, id: crypto.randomUUID(), email: 'b@example.test', display_name: 'B' }
 const databases: LearningDatabase[] = []
@@ -121,5 +122,31 @@ describe('account isolation and durable sync', () => {
     await pullSpace(space, { account, isCurrent: () => true, db: other })
     expect((await other.evidence.get([id, record.id]))?.trust).toBe('client_reported')
     expect(currentTraceEvidence(await other.evidence.toArray())).toBeUndefined()
+  })
+  it('uploads personal course before its append-only attempt and restores both in the same account space', async () => {
+    const { db, id, serverId, space } = await boundDb(); const now = new Date().toISOString(); const topicId = crypto.randomUUID()
+    const course: PersonalCourse = { id: crypto.randomUUID(), spaceId: id, title: '数据库系统', goal: '实现并解释事务隔离', topics: [{ id: topicId, title: '并发异常', expectedPerformance: '重现并解释不可重复读' }], createdAt: now, updatedAt: now }
+    const attempt: PersonalAttempt = { id: crypto.randomUUID(), spaceId: id, courseId: course.id, topicId, learningQuestion: '如何重现不可重复读？', theoryNote: '两个事务读写同一行', action: '按顺序运行 SQL', observation: '第二次读到新值', reflection: '事务隔离级别需要检查', nextStep: '改为更高隔离级别重试', createdAt: now }
+    await savePersonalCourse(course, null, db); await recordPersonalAttempt(attempt, db)
+    const submitted: { object_type: string; object_id: string }[][] = []
+    vi.stubGlobal('fetch', vi.fn(async (url: string, options?: RequestInit) => {
+      if (url.endsWith('/auth/csrf')) return json({ csrf_token: 'csrf' })
+      if (url.endsWith('/sync/spaces')) return json({ spaces: [{ space_id: serverId, origin_local_space_id: id, kind: 'personal', bound_at: now }] })
+      if (url.endsWith('/batches')) {
+        const input = JSON.parse(String(options?.body)); submitted.push(input.operations)
+        return json({ batch_id: input.batch_id, space_id: serverId, results: input.operations.map((op: { op_id: string; object_type: string; object_id: string }) => ({ ...op, status: 'applied', current_version: '1', reason: null, conflict_id: null })) })
+      }
+      return json({ space_id: serverId, changes: [], next_cursor: 'c1', has_more: false })
+    }))
+    await syncAccount(id, { account, isCurrent: () => true, db })
+    expect(submitted.flat().map(op => op.object_type)).toEqual(['personal_course', 'personal_attempt'])
+    expect((await db.syncItems.get(syncKey(id, 'personal_course', course.id)))?.status).toBe('synced')
+    expect((await db.syncItems.get(syncKey(id, 'personal_attempt', attempt.id)))?.status).toBe('synced')
+    const restored = createDb(); await openLocalSpace(restored); await restored.spaces.put(space)
+    const changes = await Promise.all([course, attempt].map(async (payload, index) => ({ object_type: index ? 'personal_attempt' : 'personal_course', object_id: payload.id, version: '1', deleted: false, payload, payload_hash: await canonicalHash(payload), provenance: 'client_reported', requires_review: false })))
+    vi.stubGlobal('fetch', vi.fn(async () => json({ space_id: serverId, changes, next_cursor: 'c1', has_more: false })))
+    await pullSpace(space, { account, isCurrent: () => true, db: restored })
+    expect((await restored.personalCourses.get([id, course.id]))?.title).toBe('数据库系统')
+    expect((await restored.personalAttempts.get([id, attempt.id]))?.observation).toBe('第二次读到新值')
   })
 })

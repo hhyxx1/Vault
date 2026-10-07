@@ -17,7 +17,7 @@ export function AppShell() {
     <header className="topbar">
       <Link className="brand" to="/" aria-label="穹隆 学习入口"><Mark /><span>穹隆<small>QIONGLONG</small></span></Link>
       <nav className="main-nav" aria-label="主要导航">
-        <NavLink to="/" end>探索</NavLink><NavLink to="/atlas">知识图谱</NavLink><NavLink to="/evidence">学习证据</NavLink><NavLink className="mobile-teacher-link" to="/teacher">教师备课</NavLink>
+        <NavLink to="/" end>探索</NavLink><NavLink to="/my-courses">我的课程</NavLink><NavLink to="/atlas">知识图谱</NavLink><NavLink to="/evidence">学习证据</NavLink><NavLink className="mobile-teacher-link" to="/teacher">教师备课</NavLink>
       </nav>
       <div className="topbar-actions"><Link className="teacher-link" to="/teacher">教师备课 <span aria-hidden="true">↗</span></Link><Link className="local-indicator" to="/local"><span className="status-dot"/>{account ? '我的记录' : '本地空间'}</Link><Link className="account-nav" to="/account">{account ? '账号' : '登录'}</Link></div>
     </header>

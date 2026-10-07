@@ -61,7 +61,7 @@ erDiagram
 | `account` | `account_id`, `account_type`, `status`, timestamps | 类型由认证与管理员流程授予；仅一种基础角色类型 |
 | `student_profile` / `teacher_profile` | `account_id`, verified/status, profile data | 分角色资料；资料 ID 必须与 account 类型一致 |
 | `learning_space` | `space_id`, `owner_account_id?`, `origin_kind`, `status`, version | 访客时无云端 owner；绑定为不可逆归属事件；支持本地 account cache 映射 |
-| `course` / `course_version` | stable `course_id`, `origin_kind`, `owner_account_id`, optional baseline code, `version_id`, scope/depth/baseline, workflow state, platform review state, provenance, curriculum ref | `platform_default`／`teacher_custom` 分开；平台默认代码不约束自建 ID；发布内容不可变；独立范围计算进度；教师范围发布不等于平台验收或官方收录 |
+| `course` / `course_version` | stable `course_id`, `origin_kind`, `owner_account_id`, optional baseline code, `version_id`, scope/depth/baseline, workflow state, platform review state, provenance, curriculum ref | `platform_default`／`teacher_custom`／`student_personal` 分开；学生个人草案绑定本人空间、默认私有，不具备教师发布或平台验收权限；平台默认代码不约束自建 ID；发布内容不可变；独立范围计算进度，未补全范围单列；教师范围发布不等于平台验收或官方收录 |
 | `course_capability_check` / `course_publication` | course/version, activity/tool/verification requirements, check results, teacher confirmation, audience scope, status, `policy_revision` | 环境实测／外部或人工核验路径与限制逐活动记录；发布固定范围和内容版本，受众授权可独立撤销 |
 | `curriculum_node` | `node_id`, `course_version_id`, parent, node_type, title, ordering, scope tag | 仅组织层级；不得计作额外可检验目标；唯一父关系需无环 |
 | `learning_objective` | `objective_id`, version, node links, statement, necessary criteria, evidence dimensions, scope tag | 稳定目标可跨版本映射；每个版本的准则固定；跨章节重复引用仍唯一 |
@@ -119,6 +119,8 @@ erDiagram
 ## 7 当前物理账号／同步切片（2026 年 10 月 5 日）
 
 首迁移后的 `0002_auth` 建立 account_auth_state／auth_email_token；`0003_sync` 建立 sync_object、sync_operation_receipt、sync_batch_receipt、sync_change、sync_conflict、sync_cursor，复用 account／profile／auth_session／learning_space／sync_claim。实际表与 CHECK、复合 FK、RLS、追加回执和删除约束以 Alembic、SQLAlchemy metadata 及真实数据库测试为准。
+
+`0005_personal_course_sync` 仅扩展同步传输对象的受限类型和历史尝试不可改写约束：本人私人课程草稿及自述尝试可跨设备恢复，不在 `course`／`course_version` 领域表发布，也不产生平台核验事件。上表的完整 `student_personal` 课程版本、图谱、活动与证据领域模型仍属待实现设计。
 
 `0004_agent_run` 增加账号 Agent 运行账本基础，只保存账号／空间／版本／作品引用、状态及调用预算，并以复合 FK、RLS 和不可改写触发器保护。它尚未接入账号 Agent API 或 LangGraph checkpoint；恢复时仍须在业务服务重验引用和权限。真实可销毁 PG18 库的迁移、模型零差异及受限角色测试见 [技术验证](TECHNICAL_VALIDATION.md)。
 

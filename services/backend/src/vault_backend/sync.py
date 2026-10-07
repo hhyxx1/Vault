@@ -42,6 +42,8 @@ from vault_backend.sync_schemas import (
     ConflictsResponse,
     EvidencePayload,
     OperationResult,
+    PersonalAttemptPayload,
+    PersonalCoursePayload,
     RevisionPayload,
     SpaceResponse,
     SpacesResponse,
@@ -253,6 +255,15 @@ def validate_payload(op: SyncOperation, origin: UUID):
 
 
 async def dependencies(session: AsyncSession, space: LearningSpace, model) -> str | None:
+    if isinstance(model, PersonalAttemptPayload):
+        course = await session.get(SyncObject, (space.id, "personal_course", str(model.courseId)))
+        if course is None:
+            return "PERSONAL_COURSE_NOT_SYNCED"
+        if course.deleted_at is not None or course.payload is None:
+            return "PERSONAL_COURSE_DELETED"
+        if str(model.topicId) not in {topic["id"] for topic in course.payload["topics"]}:
+            return "PERSONAL_TOPIC_MISMATCH"
+        return None
     if not isinstance(model, EvidencePayload):
         return None
     revision = await session.get(SyncObject, (space.id, "revision", str(model.revisionId)))
@@ -351,6 +362,15 @@ async def apply_operation(session, space, principal, op):
             op,
             operation_result(op, "rejected", reason="PAYLOAD_HASH_MISMATCH"),
         )
+    if op.object_type in {"personal_course", "personal_attempt"} and op.payload == {
+        "deleted": True
+    }:
+        return await remember_result(
+            session,
+            space.id,
+            op,
+            operation_result(op, "rejected", reason="PERSONAL_RECORD_DELETE_UNSUPPORTED"),
+        )
     model, invalid = validate_payload(op, space.origin_local_id)
     if invalid:
         return await remember_result(
@@ -393,19 +413,38 @@ async def apply_operation(session, space, principal, op):
                 conflict_id=branch.id,
             ),
         )
-    if obj is not None and op.object_type in {"revision", "evidence", "help"} and not deleted:
+    if (
+        obj is not None
+        and op.object_type in {"revision", "evidence", "help", "personal_attempt"}
+        and not deleted
+    ):
         return await remember_result(
             session,
             space.id,
             op,
             operation_result(op, "rejected", current_version, reason="IMMUTABLE_HISTORY"),
         )
+    if obj is not None and isinstance(model, PersonalCoursePayload):
+        old_topics = {topic["id"]: topic for topic in obj.payload["topics"]}
+        new_topics = {str(topic.id): topic.model_dump(mode="json") for topic in model.topics}
+        if obj.payload["createdAt"] != model.createdAt or any(
+            new_topics.get(topic_id) != old_topic for topic_id, old_topic in old_topics.items()
+        ):
+            return await remember_result(
+                session,
+                space.id,
+                op,
+                operation_result(
+                    op, "rejected", current_version, reason="PERSONAL_COURSE_IDENTITY_MISMATCH"
+                ),
+            )
     if not deleted:
         pending = await dependencies(session, space, model)
         if pending:
             status = (
                 "dependency_pending"
-                if pending in {"REVISION_NOT_SYNCED", "HELP_NOT_SYNCED"}
+                if pending
+                in {"REVISION_NOT_SYNCED", "HELP_NOT_SYNCED", "PERSONAL_COURSE_NOT_SYNCED"}
                 else "rejected"
             )
             result = operation_result(op, status, current_version, reason=pending)

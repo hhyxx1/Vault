@@ -2,17 +2,18 @@ import Dexie from 'dexie'
 import { accountRequest, authenticatedRequest, AccountApiError, type Account } from '../api/accounts'
 import { canonicalHash, canonicalJson } from '../domain/integrity'
 import type { Draft, ArtifactRevision, EvidenceRecord, HelpEvent, TeacherDraft } from '../domain/learning'
-import { database, syncKey, type LearningDatabase, type LocalSpaceRecord, type ObjectType, type ClaimJournal, type BatchJournal, type SyncItem } from './database'
+import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
+import { database, syncKey, MAX_SYNC_OPERATION_BYTES, type LearningDatabase, type LocalSpaceRecord, type ObjectType, type ClaimJournal, type BatchJournal, type SyncItem } from './database'
 
 type SyncContext = { account: Account; isCurrent: () => boolean; signal?: AbortSignal; db?: LearningDatabase }
 type ClaimResponse = { claim_id: string; expected_account_id: string; origin_local_space_id: string; manifest_hash: string; server_space_id: string; state: 'committed' }
 type BatchResponse = { batch_id: string; space_id: string; results: { op_id: string; object_type: ObjectType; object_id: string; status: 'applied' | 'already_applied' | 'conflict' | 'rejected' | 'dependency_pending'; current_version: string; reason: string | null; conflict_id: string | null }[] }
 type Change = { object_type: ObjectType; object_id: string; version: string; deleted: boolean; payload: Record<string, unknown> | null; payload_hash: string; provenance: 'client_reported'; requires_review: boolean }
-const types: ObjectType[] = ['draft', 'revision', 'help', 'evidence', 'teacher_draft', 'position']
-export const syncTables = (db: LearningDatabase) => [db.meta, db.spaces, db.claims, db.batches, db.syncItems, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts]
+const types: ObjectType[] = ['draft', 'revision', 'help', 'evidence', 'teacher_draft', 'personal_course', 'personal_attempt', 'position']
+export const syncTables = (db: LearningDatabase) => [db.meta, db.spaces, db.claims, db.batches, db.syncItems, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalAttempts]
 function guard(context: SyncContext) { if (!context.isCurrent() || context.signal?.aborted) throw new DOMException('账号空间已切换，同步等待已取消。', 'AbortError') }
 function tableFor(type: Exclude<ObjectType, 'position'>, db: LearningDatabase) {
-  return { draft: db.drafts, revision: db.revisions, evidence: db.evidence, help: db.help, teacher_draft: db.teacherDrafts }[type]
+  return { draft: db.drafts, revision: db.revisions, evidence: db.evidence, help: db.help, teacher_draft: db.teacherDrafts, personal_course: db.personalCourses, personal_attempt: db.personalAttempts }[type]
 }
 async function allPayloads(spaceId: string, db: LearningDatabase): Promise<{ type: ObjectType; id: string; payload: Record<string, unknown> }[]> {
   const records: { type: ObjectType; id: string; payload: Record<string, unknown> }[] = []
@@ -81,7 +82,7 @@ async function uploadSpace(space: LocalSpaceRecord, context: SyncContext) {
     const operations: BatchJournal['operations'] = []; let bytes = 512
     for (const operation of candidates) {
       const size = new TextEncoder().encode(JSON.stringify(operation)).byteLength + 1
-      if (size > 59000) {
+      if (size > MAX_SYNC_OPERATION_BYTES) {
         await db.syncItems.put({ key: syncKey(space.id, operation.object_type, operation.object_id), spaceId: space.id, objectType: operation.object_type, objectId: operation.object_id, version: operation.base_version, acknowledgedJson: '', status: 'rejected', reason: '此条记录超过单次同步大小限制，已保留本机，请缩小作品或导出。' }); continue
       }
       if (bytes + size > 60000) break
@@ -123,7 +124,7 @@ async function putChange(spaceId: string, change: Change, db: LearningDatabase) 
   const payload = { ...change.payload, spaceId }
   if (change.object_type === 'evidence') (payload as unknown as EvidenceRecord).trust = 'client_reported'
   // Schemas are validated by the API, then written to the matching compound store.
-  await table.put(payload as Draft & ArtifactRevision & EvidenceRecord & HelpEvent & TeacherDraft)
+  await table.put(payload as Draft & ArtifactRevision & EvidenceRecord & HelpEvent & TeacherDraft & PersonalCourse & PersonalAttempt)
 }
 export async function pullSpace(space: LocalSpaceRecord, context: SyncContext) {
   const db = context.db ?? database; let cursor = space.cursor; let more = true

@@ -634,7 +634,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_attempt";
             /** Payload */
             payload: {
                 [key: string]: unknown;
@@ -773,7 +773,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_attempt";
             /** Payload Hash */
             payload_hash: string;
             /**
@@ -1043,7 +1043,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_attempt") | "attachment";
             /**
              * Op Id
              * Format: uuid
@@ -1162,7 +1162,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_attempt") | "attachment";
             /**
              * Op Id
              * Format: uuid

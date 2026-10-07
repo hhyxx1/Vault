@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0004_agent_run"
+            == "0005_personal_course_sync"
         )
     settings = Settings(
         environment="test",
@@ -422,6 +422,230 @@ async def test_teacher_private_drafts_remain_private_and_cannot_publish(cloud):
     assert denied.json()["results"][0]["reason"] == "INVALID_PAYLOAD"
     b, _ = seed("student")
     assert (await b.get(f"/api/v1/sync/spaces/{sid}/changes")).status_code == 404
+
+
+def personal_course(origin, course_id=None, topic_id=None):
+    return {
+        "id": str(course_id or uuid4()),
+        "spaceId": str(origin),
+        "title": "自定的计算机网络课程",
+        "goal": "能解释路由选择并完成可复现的实验",
+        "topics": [
+            {
+                "id": str(topic_id or uuid4()),
+                "title": "路由选择",
+                "expectedPerformance": "提交拓扑、路由表和结果解释",
+            }
+        ],
+        "createdAt": "2026-10-05T12:00:00Z",
+        "updatedAt": "2026-10-05T12:00:00Z",
+    }
+
+
+def personal_attempt(origin, course):
+    return {
+        "id": str(uuid4()),
+        "spaceId": str(origin),
+        "courseId": course["id"],
+        "topicId": course["topics"][0]["id"],
+        "learningQuestion": "为什么默认路由没生效？",
+        "theoryNote": "最长前缀匹配优先于默认路由。",
+        "action": "构造两条静态路由并查看路由表。",
+        "observation": "目标网段命中了更具体的路由。",
+        "reflection": "原先的默认路由假设不适用于这个目标地址。",
+        "nextStep": "修改目标网段后再次验证。",
+        "createdAt": "2026-10-05T12:05:00Z",
+    }
+
+
+async def test_personal_course_and_attempt_claim_are_student_owned_reports(cloud):
+    _, seed, _ = cloud
+    student, account_id = seed("student")
+    mapping, _ = await claim(student, account_id)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    course = personal_course(origin)
+    attempt = personal_attempt(origin, course)
+    pending, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_attempt", attempt["id"], attempt)],
+    )
+    assert pending.json()["results"][0]["reason"] == "PERSONAL_COURSE_NOT_SYNCED"
+    saved, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_course", course["id"], course),
+            operation("personal_attempt", attempt["id"], attempt),
+        ],
+    )
+    assert [row["status"] for row in saved.json()["results"]] == ["applied", "applied"]
+    changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
+    assert [row["object_type"] for row in changes] == ["personal_course", "personal_attempt"]
+    assert all(row["provenance"] == "client_reported" for row in changes)
+    assert changes[1]["payload"] == attempt
+    other_student, _ = seed("student")
+    teacher, _ = seed("teacher")
+    for client in (other_student, teacher):
+        assert (await client.get(f"/api/v1/sync/spaces/{sid}/changes")).status_code == 404
+
+
+async def test_named_personal_course_can_start_before_goal_and_topic_confirmation(cloud):
+    _, seed, _ = cloud
+    student, account_id = seed("student")
+    mapping, _ = await claim(student, account_id)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    detailed = personal_course(origin)
+    named_only = {**detailed, "goal": "", "topics": []}
+    created, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_course", named_only["id"], named_only)],
+    )
+    assert created.json()["results"][0]["status"] == "applied"
+    attempt = personal_attempt(origin, detailed)
+    too_early, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_attempt", attempt["id"], attempt)],
+    )
+    assert too_early.json()["results"][0]["reason"] == "PERSONAL_TOPIC_MISMATCH"
+    confirmed = {**detailed, "updatedAt": "2026-10-05T12:03:00Z"}
+    added, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_course", confirmed["id"], confirmed, "1"),
+            operation("personal_attempt", attempt["id"], attempt),
+        ],
+    )
+    assert [row["status"] for row in added.json()["results"]] == ["applied", "applied"]
+
+
+async def test_personal_learning_rejects_trust_forgery_and_invalid_references(cloud):
+    _, seed, _ = cloud
+    student, account_id = seed("student")
+    mapping, _ = await claim(student, account_id)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    course = personal_course(origin)
+    duplicate = {**course, "topics": [course["topics"][0], course["topics"][0]]}
+    invented_mastery = {**course, "mastered": True}
+    wrong_space = {**course, "spaceId": str(uuid4())}
+    invalid, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_course", course["id"], duplicate),
+            operation("personal_course", course["id"], invented_mastery),
+            operation("personal_course", course["id"], wrong_space),
+            operation("personal_course", str(uuid4()), course),
+        ],
+    )
+    assert [row["reason"] for row in invalid.json()["results"]] == [
+        "INVALID_PAYLOAD",
+        "INVALID_PAYLOAD",
+        "SOURCE_SPACE_MISMATCH",
+        "SOURCE_OBJECT_MISMATCH",
+    ]
+    saved, _ = await batch(
+        student, account_id, sid, [operation("personal_course", course["id"], course)]
+    )
+    assert saved.json()["results"][0]["status"] == "applied"
+    attempt = personal_attempt(origin, course)
+    wrong_topic = {**attempt, "topicId": str(uuid4())}
+    fake_verification = {**attempt, "verified": True}
+    denied, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_attempt", attempt["id"], wrong_topic),
+            operation("personal_attempt", attempt["id"], fake_verification),
+        ],
+    )
+    assert [row["reason"] for row in denied.json()["results"]] == [
+        "PERSONAL_TOPIC_MISMATCH",
+        "INVALID_PAYLOAD",
+    ]
+    teacher, teacher_id = seed("teacher")
+    teacher_mapping, _ = await claim(teacher, teacher_id)
+    foreign = personal_course(teacher_mapping["origin_local_space_id"])
+    teacher_saved, _ = await batch(
+        teacher,
+        teacher_id,
+        teacher_mapping["server_space_id"],
+        [operation("personal_course", foreign["id"], foreign)],
+    )
+    assert teacher_saved.json()["results"][0]["status"] == "applied"
+    teacher_changes = (
+        await teacher.get(f"/api/v1/sync/spaces/{teacher_mapping['server_space_id']}/changes")
+    ).json()["changes"]
+    assert teacher_changes[0]["payload"] == foreign
+    assert teacher_changes[0]["provenance"] == "client_reported"
+    private_read = await student.get(
+        f"/api/v1/sync/spaces/{teacher_mapping['server_space_id']}/changes"
+    )
+    assert private_read.status_code == 404
+
+
+async def test_personal_attempt_history_and_course_topic_identity_are_preserved(cloud):
+    _, seed, owner_url = cloud
+    student, account_id = seed("student")
+    mapping, _ = await claim(student, account_id)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    course = personal_course(origin)
+    attempt = personal_attempt(origin, course)
+    applied, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_course", course["id"], course),
+            operation("personal_attempt", attempt["id"], attempt),
+        ],
+    )
+    assert [row["status"] for row in applied.json()["results"]] == ["applied", "applied"]
+    rewritten = {**attempt, "observation": "事后改写"}
+    removed_topic = {**course, "topics": [{**course["topics"][0], "id": str(uuid4())}]}
+    rewritten_topic = {
+        **course,
+        "topics": [{**course["topics"][0], "expectedPerformance": "改写原有判定标准"}],
+    }
+    results, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_attempt", attempt["id"], rewritten, "1"),
+            operation("personal_course", course["id"], removed_topic, "1"),
+            operation("personal_course", course["id"], rewritten_topic, "1"),
+            operation("personal_attempt", attempt["id"], {"deleted": True}, "1"),
+        ],
+    )
+    assert [row["reason"] for row in results.json()["results"]] == [
+        "IMMUTABLE_HISTORY",
+        "PERSONAL_COURSE_IDENTITY_MISMATCH",
+        "PERSONAL_COURSE_IDENTITY_MISMATCH",
+        "PERSONAL_RECORD_DELETE_UNSUPPORTED",
+    ]
+    assert len((await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]) == 2
+    with psycopg.connect(owner_url) as conn:
+        conn.execute("SET LOCAL ROLE vault_api")
+        conn.execute("SELECT set_config('vault.account_id',%s,true)", (str(account_id),))
+        with pytest.raises(psycopg.errors.CheckViolation):
+            with conn.transaction():
+                conn.execute(
+                    "UPDATE sync_object SET version=version+1,updated_at=now() "
+                    "WHERE space_id=%s AND object_type='personal_attempt' AND object_id=%s",
+                    (sid, attempt["id"]),
+                )
+        conn.rollback()
 
 
 def evidence_bundle(origin, trace_payload):

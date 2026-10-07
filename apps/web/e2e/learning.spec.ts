@@ -26,7 +26,7 @@ test('catalog states its construction scope and narrow pages do not horizontally
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${path} at ${width}px must keep horizontal scrolling inside its own panel`).toBe(true)
       if (path === '/') {
         await expect(page.locator('.course-row')).toHaveCount(13)
-        await expect(page.getByText('13 门默认课程正在建设。', { exact: false })).toBeVisible()
+        await expect(page.getByText('完整建成 0 / 13 门。', { exact: false })).toBeVisible()
       }
       if (path === '/teacher') await expect(page.getByText('教师账号已接入；资料上传、AI 建课、学生预览与发布尚未接入。', { exact: false })).toBeVisible()
     }

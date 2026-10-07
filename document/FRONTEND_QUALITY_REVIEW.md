@@ -69,3 +69,14 @@
 - [学生同步记录（手机）](assets/account-sync/student-sync-mobile.png)
 - [跨设备恢复的核验记录（手机，待复核）](assets/account-sync/restored-evidence-mobile.png)
 - [教师私人草稿待审核状态（手机）](assets/account-sync/teacher-pending-mobile.png)
+
+## 8 学生个人课程入口与学习记录（2026 年 10 月 7 日）
+
+新增“我的课程”入口，使学生可在默认 13 门之外仅凭课程名建立本人私人草稿，随后补目标、学习点和可观察表现，并逐次记录问题、原理、操作、实际观察、反思与下一步。首页明确默认完整课程为 0／13，CS03 仅局部样例；个人课程页面把自建范围、本人自述尝试、未核验与待建设的 AI／执行能力分开。教师账号在自己的私人学习空间也可使用此入口，不构成教师发布。
+
+实际桌面、Pixel 7 模拟与 320px 浏览器检查覆盖空列表、建立课程、详情、记录后的返回及未保存输入保护；个人课程专项 6 项 Playwright 通过，页面未出现整体横向溢出或明显遮挡。以下合成截图用于检查排版、留白、层级和窄屏布局；本轮只完成新增页面的开发切片视觉复核，完整八维独立审阅、真实长内容与所有失败／冲突状态仍按 QT-09 待验收。截图中的自述不代表核验结果或真实学习数据。
+
+- [个人课程列表（宽屏）](assets/personal-course/desktop-list.png)
+- [个人课程详情（宽屏）](assets/personal-course/desktop-detail.png)
+- [个人课程列表（手机）](assets/personal-course/mobile-list.png)
+- [个人课程详情（手机）](assets/personal-course/mobile-detail.png)

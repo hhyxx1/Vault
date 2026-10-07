@@ -256,7 +256,9 @@
               "evidence",
               "help",
               "teacher_draft",
-              "position"
+              "position",
+              "personal_course",
+              "personal_attempt"
             ],
             "title": "Object Type",
             "type": "string"
@@ -502,7 +504,9 @@
               "evidence",
               "help",
               "teacher_draft",
-              "position"
+              "position",
+              "personal_course",
+              "personal_attempt"
             ],
             "title": "Object Type",
             "type": "string"
@@ -1090,7 +1094,9 @@
                   "evidence",
                   "help",
                   "teacher_draft",
-                  "position"
+                  "position",
+                  "personal_course",
+                  "personal_attempt"
                 ],
                 "type": "string"
               },
@@ -1392,7 +1398,9 @@
                   "evidence",
                   "help",
                   "teacher_draft",
-                  "position"
+                  "position",
+                  "personal_course",
+                  "personal_attempt"
                 ],
                 "type": "string"
               },

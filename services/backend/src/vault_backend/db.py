@@ -15,6 +15,6 @@ async def database_ready(engine: AsyncEngine | None) -> bool:
         async with engine.connect() as connection:
             version = await connection.scalar(text("SELECT current_setting('server_version_num')"))
             revision = await connection.scalar(text("SELECT version_num FROM alembic_version"))
-            return int(version) // 10000 == 18 and revision == "0004_agent_run"
+            return int(version) // 10000 == 18 and revision == "0005_personal_course_sync"
     except Exception:
         return False

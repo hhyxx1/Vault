@@ -7,7 +7,7 @@ import { localTabId } from '../local/identity'
 import { chooseLocalConflict, chooseRemoteConflict } from '../local/sync'
 import { TRACE_OBJECTIVE, IMPLEMENT_OBJECTIVE, type ArtifactRevision, type TeacherDraft } from '../domain/learning'
 import { liveQuery } from 'dexie'
-const objectLabels = { draft: '学习作品', revision: '作品版本', evidence: '核验记录', help: '帮助记录', teacher_draft: '备课草稿', position: '学习位置' }
+const objectLabels = { draft: '学习作品', revision: '作品版本', evidence: '核验记录', help: '帮助记录', teacher_draft: '备课草稿', personal_course: '个人课程', personal_attempt: '个人学习尝试', position: '学习位置' }
 const statusLabels = { pending: '等待云端确认', synced: '已同步', conflict: '有修改冲突', rejected: '未同步', dependency_pending: '等待关联记录' }
 const reasonLabels: Record<string, string> = {
   TEACHER_ACCOUNT_REQUIRED: '学生账号的备课草稿仅保留本机，未上传。', ATTACHMENT_UNSUPPORTED: '附件同步尚未开放，请保留本机附件。',
@@ -16,13 +16,19 @@ const reasonLabels: Record<string, string> = {
   REVISION_NOT_SYNCED: '正在等待关联的作品版本同步。', HELP_NOT_SYNCED: '正在等待关联的帮助记录同步。', BASE_OBJECT_NOT_SYNCED: '正在等待此记录的基础版本同步。',
   REVISION_DELETED: '关联的作品版本已删除，当前记录保留本机。', EVIDENCE_REVISION_MISMATCH: '核验记录与作品版本不一致，未上传。', EVIDENCE_CONTENT_MISMATCH: '核验内容与作品不一致，未上传。',
   HELP_REFERENCE_MISMATCH: '帮助引用不属于同一学习范围，未上传。', OBJECT_DELETED: '云端此记录已删除，本机原件已保留。', VERSION_CONFLICT: '云端与本机都有修改，请选择保留哪一版。', IMMUTABLE_HISTORY: '历史版本不能直接修改，请保留原件并创建新版本。',
+  PERSONAL_COURSE_NOT_SYNCED: '正在等待个人课程先同步。', PERSONAL_COURSE_DELETED: '关联的个人课程在云端不可用，尝试仍保留本机。', PERSONAL_TOPIC_MISMATCH: '学习点与云端课程范围不一致，请先处理课程冲突。', PERSONAL_COURSE_IDENTITY_MISMATCH: '已有学习点不能删除或改写；请保留原件并建立新学习点。', PERSONAL_RECORD_DELETE_UNSUPPORTED: '个人课程和尝试的云端删除尚未开放，请保留本机记录。',
 }
-function syncReason(item: SyncItem) { return item.reason ? reasonLabels[item.reason] ?? (/^[A-Z_]+$/.test(item.reason) ? '此记录暂时未能同步，已保留本机，请重试或导出。' : item.reason) : undefined }
+function syncReason(item: SyncItem) {
+  if (item.objectType === 'personal_course' && item.status === 'conflict') return '这门课程在本机和云端都有修改。当前不能自动合并新增学习点；请先导出本机记录，再决定是否采用云端版本。'
+  return item.reason ? reasonLabels[item.reason] ?? (/^[A-Z_]+$/.test(item.reason) ? '此记录暂时未能同步，已保留本机，请重试或导出。' : item.reason) : undefined
+}
 export default function LocalSpace() {
   const local = useLocal(); const auth = useAuth(); const { spaceId, evidence, help, lastObjective, spaces, syncItems, syncing, syncError, syncNow } = local
   const [message, setMessage] = useState(''); const [busy, setBusy] = useState(false)
   const [revisions, setRevisions] = useState<ArtifactRevision[]>([]); const [teacherDrafts, setTeacherDrafts] = useState<TeacherDraft[]>([])
-  useEffect(() => { const subscription = liveQuery(async () => ({ revisions: await database.revisions.where('spaceId').equals(spaceId).toArray(), teacherDrafts: await database.teacherDrafts.where('spaceId').equals(spaceId).toArray() })).subscribe({ next: value => { setRevisions(value.revisions); setTeacherDrafts(value.teacherDrafts) }, error: () => setMessage('暂时无法读取记录名称。') }); return () => subscription.unsubscribe() }, [spaceId])
+  const [personalNames, setPersonalNames] = useState<Record<string, string>>({})
+  useEffect(() => { setRevisions([]); setTeacherDrafts([]); const subscription = liveQuery(async () => ({ revisions: await database.revisions.where('spaceId').equals(spaceId).toArray(), teacherDrafts: await database.teacherDrafts.where('spaceId').equals(spaceId).toArray() })).subscribe({ next: value => { setRevisions(value.revisions); setTeacherDrafts(value.teacherDrafts) }, error: () => setMessage('暂时无法读取记录名称。') }); return () => subscription.unsubscribe() }, [spaceId])
+  useEffect(() => { setPersonalNames({}); const subscription = liveQuery(async () => ({ courses: await database.personalCourses.where('spaceId').equals(spaceId).toArray(), attempts: await database.personalAttempts.where('spaceId').equals(spaceId).toArray() })).subscribe({ next: value => { const names: Record<string, string> = {}; for (const course of value.courses) names[`course:${course.id}`] = course.title; for (const attempt of value.attempts) names[`attempt:${attempt.id}`] = `${names[`course:${attempt.courseId}`] ?? '个人课程'} · 一次学习尝试`; setPersonalNames(names) }, error: () => setMessage('暂时无法读取个人课程记录名称。') }); return () => subscription.unsubscribe() }, [spaceId])
   function objectiveName(id: string) { return id === TRACE_OBJECTIVE ? '栈状态推演' : id === IMPLEMENT_OBJECTIVE ? '括号匹配实现' : '课程学习作品' }
   function recordName(item: SyncItem) {
     if (item.objectType === 'draft') return `${objectiveName(item.objectId)} · 当前作品`
@@ -30,15 +36,17 @@ export default function LocalSpace() {
     if (item.objectType === 'revision') { const revision = revisions.find(record => record.revisionId === item.objectId); return revision ? `${objectiveName(revision.id)} · 作品版本 ${revision.version}` : '已保存的作品版本' }
     if (item.objectType === 'evidence') { const record = evidence.find(record => record.id === item.objectId); return record ? `${objectiveName(record.objectiveId)} · 版本 ${record.revisionVersion} 的核验记录` : '学习核验记录' }
     if (item.objectType === 'help') { const record = help.find(record => record.id === item.objectId); return record ? `${objectiveName(record.objectiveId)} · ${record.kind === 'answer' ? '查看答案' : '使用提示'}` : '学习帮助记录' }
+    if (item.objectType === 'personal_course') return personalNames[`course:${item.objectId}`] ?? '个人课程'
+    if (item.objectType === 'personal_attempt') return personalNames[`attempt:${item.objectId}`] ?? '个人学习尝试'
     return teacherDrafts.find(record => record.id === item.objectId)?.title ?? '私人备课草稿'
   }
   const active = spaces.find(space => space.id === spaceId)
   async function exportSpace() {
     setBusy(true); setMessage('')
     try {
-      const data = await database.transaction('r', [database.drafts, database.revisions, database.evidence, database.help, database.teacherDrafts], async () => ({
-        schemaVersion: '2', kind: 'qionglong-local-export', exportedAt: new Date().toISOString(), spaceId,
-        drafts: await database.drafts.where('spaceId').equals(spaceId).toArray(), revisions: await database.revisions.where('spaceId').equals(spaceId).toArray(), evidence: await database.evidence.where('spaceId').equals(spaceId).toArray(), help: await database.help.where('spaceId').equals(spaceId).toArray(), teacherDrafts: await database.teacherDrafts.where('spaceId').equals(spaceId).toArray(),
+      const data = await database.transaction('r', [database.drafts, database.revisions, database.evidence, database.help, database.teacherDrafts, database.personalCourses, database.personalAttempts], async () => ({
+        schemaVersion: '3', kind: 'qionglong-local-export', exportedAt: new Date().toISOString(), spaceId,
+        drafts: await database.drafts.where('spaceId').equals(spaceId).toArray(), revisions: await database.revisions.where('spaceId').equals(spaceId).toArray(), evidence: await database.evidence.where('spaceId').equals(spaceId).toArray(), help: await database.help.where('spaceId').equals(spaceId).toArray(), teacherDrafts: await database.teacherDrafts.where('spaceId').equals(spaceId).toArray(), personalCourses: await database.personalCourses.where('spaceId').equals(spaceId).toArray(), personalAttempts: await database.personalAttempts.where('spaceId').equals(spaceId).toArray(),
       }))
       const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = `qionglong-local-${new Date().toISOString().slice(0, 10)}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000)
       setMessage('已生成本地导出文件，请妥善保存。其中包含你的作品与学习记录。')
@@ -46,7 +54,7 @@ export default function LocalSpace() {
   }
   async function persistStorage() { try { const accepted = navigator.storage?.persist ? await navigator.storage.persist() : false; setMessage(accepted ? '浏览器已允许持久存储。仍建议定期导出重要作品。' : '浏览器没有授予持久存储。请定期导出，避免浏览器清理造成丢失。') } catch { setMessage('无法申请持久存储。请定期导出重要作品。') } }
   async function clearThisGuestSpace() {
-    if (auth.account || !spaceId || !window.confirm('清除当前浏览器中这个访客空间的全部作品、版本、核验和帮助记录？此操作无法撤销。建议先导出；已关联账号的空间不会被清除。')) return
+    if (auth.account || !spaceId || !window.confirm('清除当前浏览器中这个访客空间的全部作品、课程、尝试、版本、核验和帮助记录？此操作无法撤销。建议先导出；已关联账号的空间不会被清除。')) return
     setBusy(true); setMessage('')
     try {
       await clearGuestSpace(spaceId)
@@ -57,6 +65,7 @@ export default function LocalSpace() {
     finally { setBusy(false) }
   }
   async function resolve(item: SyncItem, choice: 'local' | 'remote') {
+    if (item.objectType === 'personal_course' && choice === 'remote' && !window.confirm('这门个人课程在本机和云端都有修改。采用云端版本会替换本机课程范围，本机新增的学习点可能丢失。请先导出全部本地记录并确认后再继续。')) return
     setBusy(true); setMessage('')
     try { if (choice === 'local') await chooseLocalConflict(item); else await chooseRemoteConflict(item); await local.refresh(); if (choice === 'local') await syncNow(); setMessage(choice === 'local' ? '已选择保留本机版本，正在等待新提交的逐项确认。历史冲突分支仍保留。' : '已采用已下载的云端版本。恢复的核验记录仍为待复核。') }
     catch (failure) { setMessage(failure instanceof Error ? failure.message : '冲突处理未完成。') } finally { setBusy(false) }

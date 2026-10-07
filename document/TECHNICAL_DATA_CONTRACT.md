@@ -92,7 +92,7 @@ PostgreSQL 18 已有官方维护周期，pgvector 官方支持 PostgreSQL 13 及
 
 | 对象 | 关键物理字段 | 必须约束 |
 |---|---|---|
-| `course` | `id uuid PK`, `owner_account_id uuid`, `origin_kind text`, `baseline_code text NULL`, `version bigint` | 来源限 `platform_default/teacher_custom`；教师 API 不能设置 platform_default；默认编号仅对平台课程有唯一索引，不将 13 个编号设为所有课程枚举 |
+| `course` | `id uuid PK`, `owner_account_id uuid`, `origin_kind text`, `baseline_code text NULL`, `version bigint` | 目标来源区分 `platform_default/teacher_custom/student_personal`；教师／学生各不能自行设置平台来源，个人课程仅本人空间可见且不能直接发布；默认编号仅对平台课程有唯一索引，不将 13 个编号设为所有课程枚举 |
 | `course_version` | `id uuid PK`, `course_id uuid`, `version_no bigint`, scope/depth JSON、workflow state、review state、`content_hash bytea` | `UNIQUE(course_id,version_no)`、`UNIQUE(course_id,id)`；course FK；发布后内容不可变 |
 | `course_publication` | `id uuid PK`, `course_id uuid`, `course_version_id uuid`, publisher ID、state、`policy_revision bigint`, audience mode | `(course_id,course_version_id) → course_version(course_id,id)`；`UNIQUE(course_version_id,id)`；发布固定内容版本，受众授权可撤回 |
 | `learning_objective` / `objective_relation` | objective 稳定 UUID、course_version ID、criteria JSON；边 from/to、type、source | objective 版本组合 PK；两端均复合 FK 到同一 course_version；仅目录／强制先修做无环验证，概念／应用关联允许成环 |
@@ -103,6 +103,8 @@ PostgreSQL 18 已有官方维护周期，pgvector 官方支持 PostgreSQL 13 及
 | `content_answer_policy_ref` | 提供对象／切片／派生版本 ID、原 task_publication ID、answer_policy_version ID | 复合 FK 保证 policy 属于原发布实例；只由服务端维护；任务切换或不传 task 不删除关联 |
 
 仅资源 UUID 的单列 FK 不足以校验跨空间的作品引用，带空间／课程版本的关系必须采用复合 FK 或严格同事务验证，不能把这一规则交给客户端。`content_answer_policy_ref` 在迁移中拆成明确的资源版本／切片／派生版本关联表，避免无法验证的万能 `object_type + object_id` 外键；若某资源整体无法可靠分离受控答案，整个提供版本按相关策略检查。
+
+访客个人课程、目标及尝试先保存在当前浏览器空间；登录承接后才属于本人账号。个人课程的草案、已确认范围、缺口和作品版本须独立于平台／教师发布物，不能因课程名称相同或同步成功获得已审内容状态。当前领域 `course` 表与课程服务仍未实现此完整目标模型；即使同步传输增加个人课程记录，也不能据此声称已实现全课程图谱、活动和发布契约。
 
 ### 3.4 解析、检索与谱系
 
@@ -315,6 +317,8 @@ Web 预认证使用 **POST `/api/v1/guest-nonce`**：创建短期内存凭据必
 账号、claim 与同步已在独立 PG18 实测，实际接口、认证 cookie、字段与范围见 [实现记录](ACCOUNT_SYNC_IMPLEMENTATION.md) 和生成 `packages/contracts/openapi.json`。生产环境仍禁止当前捕获邮件认证。设计中的生产 `__Host-vault_session` 与 HTTPS 门没有因开发 HTTP cookie 启用而自动通过。
 
 当前 sync_object 是经严格 schema 检查的传输投影，具有 RLS／复合 FK／稳定映射／版本及 tombstone／追加回执约束，不能替代全部领域表。客户端导入历史不会写平台 verification_event；附件返回明确不支持。B03／B05／B06 的已测子集见技术验证，完整生产门仍待完成。
+
+`0005_personal_course_sync` 为本人私人课程与不可改写的自述尝试增加独立有界同步类型，并扩展类型 CHECK 与数据库历史保护；学生或教师账号均只能承接本人 personal space。已有学习点的名称和可观察表现不能通过后续同步改写，尝试必须引用同空间课程及学习点。客户端的内容不因此进入权威 `course` 发布或 `verification_event`，课程领域模型和完整 FR48 契约仍待实现。
 
 `0004_agent_run` 只建立账号 Agent 的权威运行账本：固定 owner／个人空间、活动与作品修订引用、图版本、状态和调用预算；复合 FK 阻止空间和所有者错配，RLS 只允许当前账号读写，触发器禁止改写身份、预算、已用额度回退及终态。它不存学生正文，不代表业务接口已经调用 checkpoint，也不把 checkpoint 视为授权或证据。账号工作流恢复时仍须核对引用所指的同步版本、权限和预算，再执行模型或外部动作。
 

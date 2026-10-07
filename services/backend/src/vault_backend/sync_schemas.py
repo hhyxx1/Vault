@@ -18,7 +18,16 @@ Version = Annotated[str, Field(pattern=r"^(0|[1-9][0-9]*)$", max_length=19)]
 ObjectId = Annotated[str, Field(pattern=r"^[A-Za-z0-9_.:-]+$", min_length=1, max_length=100)]
 ObjectiveId = Annotated[str, Field(pattern=r"^CS[0-9]{2}-[A-Z0-9-]+$", max_length=80)]
 Timestamp = Annotated[str, Field(min_length=20, max_length=40)]
-ObjectType = Literal["draft", "revision", "evidence", "help", "teacher_draft", "position"]
+ObjectType = Literal[
+    "draft",
+    "revision",
+    "evidence",
+    "help",
+    "teacher_draft",
+    "position",
+    "personal_course",
+    "personal_attempt",
+]
 
 
 class LocalPayload(WriteModel):
@@ -171,6 +180,70 @@ class PositionPayload(LocalPayload):
     updatedAt: Timestamp
 
 
+class PersonalTopic(WriteModel):
+    id: UUID
+    title: str = Field(min_length=1, max_length=120)
+    expectedPerformance: str = Field(min_length=1, max_length=500)
+
+    @field_validator("title", "expectedPerformance")
+    @classmethod
+    def meaningful_text(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("topic text cannot be blank")
+        return value
+
+
+class PersonalCoursePayload(LocalPayload):
+    id: UUID
+    title: str = Field(min_length=1, max_length=120)
+    goal: str = Field(max_length=2000)
+    topics: list[PersonalTopic] = Field(max_length=64)
+    createdAt: Timestamp
+    updatedAt: Timestamp
+
+    @field_validator("title")
+    @classmethod
+    def meaningful_text(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("course text cannot be blank")
+        return value
+
+    @field_validator("goal")
+    @classmethod
+    def optional_goal(cls, value: str) -> str:
+        if value and not value.strip():
+            raise ValueError("course goal must be blank or meaningful")
+        return value
+
+    @model_validator(mode="after")
+    def unique_topics(self):
+        if len({topic.id for topic in self.topics}) != len(self.topics):
+            raise ValueError("topic IDs must be unique within the course")
+        return self
+
+
+class PersonalAttemptPayload(LocalPayload):
+    id: UUID
+    courseId: UUID
+    topicId: UUID
+    learningQuestion: str = Field(min_length=1, max_length=1200)
+    theoryNote: str = Field(min_length=1, max_length=4000)
+    action: str = Field(min_length=1, max_length=4000)
+    observation: str = Field(min_length=1, max_length=4000)
+    reflection: str = Field(min_length=1, max_length=4000)
+    nextStep: str = Field(min_length=1, max_length=4000)
+    createdAt: Timestamp
+
+    @field_validator(
+        "learningQuestion", "theoryNote", "action", "observation", "reflection", "nextStep"
+    )
+    @classmethod
+    def meaningful_text(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("attempt text cannot be blank")
+        return value
+
+
 class TombstonePayload(WriteModel):
     deleted: Literal[True]
 
@@ -182,6 +255,8 @@ PAYLOAD_MODELS = {
     "help": HelpPayload,
     "teacher_draft": TeacherDraftPayload,
     "position": PositionPayload,
+    "personal_course": PersonalCoursePayload,
+    "personal_attempt": PersonalAttemptPayload,
 }
 
 

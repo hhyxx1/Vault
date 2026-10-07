@@ -1,9 +1,17 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { AccountApiError, accountRequest, authenticatedRequest, authNonce, type Account } from '../api/accounts'
-import { activateSpace, database } from './database'
+import { activateSpace, database, type LearningDatabase } from './database'
 import { flushBeforeIdentityChange, localTabId } from './identity'
 type AuthValue = { account: Account | null; epoch: number; ready: boolean; offline: boolean; error: string | null; login: (email: string, password: string) => Promise<void>; register: (email: string, password: string, displayName: string, type: 'student' | 'teacher') => Promise<void>; verifyEmail: (token: string) => Promise<void>; requestPasswordReset: (email: string) => Promise<void>; confirmPasswordReset: (token: string, password: string) => Promise<void>; logout: () => Promise<void>; refreshSession: () => Promise<void> }
 const AuthContext = createContext<AuthValue | null>(null)
+export async function persistIdentitySpace(value: Account | null, freshGuest = false, db: LearningDatabase = database, isCurrent: () => boolean = () => true) {
+  await db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalAttempts], async () => {
+    if (!isCurrent()) throw new DOMException('身份变化已过期。', 'AbortError')
+    await activateSpace(value?.id ?? null, freshGuest, db, isCurrent)
+    await db.meta.put({ key: 'cachedAccount', value: JSON.stringify(value) })
+    if (!isCurrent()) throw new DOMException('身份变化已过期。', 'AbortError')
+  })
+}
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [account, setAccount] = useState<Account | null>(null)
   const [epoch, setEpoch] = useState(0); const [ready, setReady] = useState(false); const [offline, setOffline] = useState(false); const [error, setError] = useState<string | null>(null)
@@ -11,12 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const applyAccount = useCallback(async (value: Account | null, freshGuest = false, transition = request.current) => {
     const isCurrent = () => transition === request.current
     setReady(false); setEpoch(current => current + 1)
-    await database.transaction('rw', [database.meta, database.spaces, database.drafts, database.revisions, database.evidence, database.help, database.teacherDrafts], async () => {
-      if (!isCurrent()) throw new DOMException('身份变化已过期。', 'AbortError')
-      await activateSpace(value?.id ?? null, freshGuest, database, isCurrent)
-      await database.meta.put({ key: 'cachedAccount', value: JSON.stringify(value) })
-      if (!isCurrent()) throw new DOMException('身份变化已过期。', 'AbortError')
-    })
+    await persistIdentitySpace(value, freshGuest, database, isCurrent)
     if (!isCurrent()) return
     identity.current = value?.id ?? null; setAccount(value); setReady(true)
   }, [])
