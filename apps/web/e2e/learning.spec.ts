@@ -33,6 +33,31 @@ test('catalog states its construction scope and narrow pages do not horizontally
   }
 })
 
+test('knowledge atlas keeps a unique-objective denominator across graph controls and offers the same objective in its text view', async ({ page }) => {
+  await page.goto('/atlas?course=CS03')
+  const map = page.getByRole('img', { name: /课程知识图谱，2 个唯一目标/ })
+  await expect(map).toBeVisible()
+  await expect(map).toHaveAttribute('aria-label', /0 项有达标证据.*2 项尚未评估/)
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 2')
+
+  const collapse = page.getByRole('button', { name: '折叠「栈：从变化过程理解后进先出」' })
+  await collapse.click()
+  await expect(page.getByRole('button', { name: '展开「栈：从变化过程理解后进先出」' })).toHaveAttribute('aria-expanded', 'false')
+  await expect(map).toHaveAttribute('aria-label', /2 个唯一目标/)
+  await page.getByRole('button', { name: '展开「栈：从变化过程理解后进先出」' }).click()
+  await expect(page.getByRole('button', { name: '折叠「栈：从变化过程理解后进先出」' })).toHaveAttribute('aria-expanded', 'true')
+
+  const prerequisiteToggle = page.getByRole('button', { name: '隐藏先修关系' })
+  await expect(prerequisiteToggle).toHaveAttribute('aria-pressed', 'true')
+  await prerequisiteToggle.click()
+  await expect(page.getByRole('button', { name: '显示先修关系' })).toHaveAttribute('aria-pressed', 'false')
+  await expect(map).toHaveAttribute('aria-label', /2 个唯一目标/)
+
+  await page.getByRole('button', { name: /用栈设计括号匹配方法/ }).click()
+  await expect(page.getByRole('heading', { name: '用栈设计括号匹配方法' })).toBeVisible()
+  await expect(page.getByRole('button', { name: /用栈设计括号匹配方法/ })).toHaveAttribute('aria-pressed', 'true')
+})
+
 test('flushes edits before an immediate SPA departure and resumes the actual last objective', async ({ page }) => {
   await page.goto(tracePath)
   const field = page.getByLabel('把你的解释也留下来', { exact: false })

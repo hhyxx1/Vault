@@ -1,11 +1,15 @@
 import catalog from '../../../../content/courses/catalog.json'
 import stackExample from '../../../../content/courses/CS03.stack-example.json'
+import { courseMapFromPackage, summarizeObjectiveStates, type ObjectiveState } from './course-map'
+
+export type { ObjectiveState } from './course-map'
 
 export const COURSE_VERSION = stackExample.version
 export const TRACE_ACTIVITY = stackExample.activities[0].version
 export const STANDARD_VERSION = stackExample.activities[0].standard_version
 export const TRACE_OBJECTIVE = stackExample.objectives[0].code
 export const IMPLEMENT_OBJECTIVE = stackExample.objectives[1].code
+export const stackCourseMap = courseMapFromPackage(stackExample)
 
 const coursePresentation = [
   ['CS01', '程序设计基础', '从一行代码，到解决一个问题', '基础'],
@@ -39,7 +43,6 @@ export const traceOperations = stackExample.activities[0].operations.map(operati
 export type TraceInput = { stack: string; output: string; underflow: boolean }
 export type TracePrediction = { after_stack: number[]; output: number | null; underflow: boolean }
 export type CriterionStatus = 'met' | 'not_met' | 'needs_review'
-export type ObjectiveState = 'unknown' | 'partial' | 'consolidate' | 'verified'
 export type VerificationResult = import('../../../../packages/contracts/api.generated').components['schemas']['VerificationResult']
 export type Draft = {
   id: string; spaceId: string; goal: string; goalConfirmed: boolean
@@ -93,18 +96,40 @@ export function evidenceState(result?: VerificationResult): ObjectiveState {
   return 'partial'
 }
 
-export function currentTraceEvidence(records: EvidenceRecord[]): EvidenceRecord | undefined {
-  return records.filter(record => record.trust !== 'client_reported' && record.objectiveId === TRACE_OBJECTIVE && record.result.course_version === COURSE_VERSION && record.result.activity_version === TRACE_ACTIVITY && record.result.standard_version === STANDARD_VERSION)
+function latestObjectiveEvidence(records: EvidenceRecord[], objective: (typeof stackExample.objectives)[number]): EvidenceRecord | undefined {
+  const activities = stackExample.activities.filter(activity => activity.objective_codes.includes(objective.code))
+  const activityVersions = new Set(activities.map(activity => activity.version))
+  const standardVersions = new Set(activities.map(activity => activity.standard_version))
+  return records.filter(record => record.trust !== 'client_reported' && record.objectiveId === objective.code &&
+    record.result.course_version === COURSE_VERSION &&
+    (!activityVersions.size || activityVersions.has(record.result.activity_version)) &&
+    (!standardVersions.size || standardVersions.has(record.result.standard_version)))
     .sort((a, b) => BigInt(a.revisionVersion) < BigInt(b.revisionVersion) ? -1 : BigInt(a.revisionVersion) > BigInt(b.revisionVersion) ? 1 : a.submittedAt.localeCompare(b.submittedAt)).at(-1)
+}
+
+export function currentObjectiveEvidence(records: EvidenceRecord[], objectiveRef: string): EvidenceRecord | undefined {
+  const objective = stackExample.objectives.find(item => item.code === objectiveRef || item.id === objectiveRef)
+  return objective ? latestObjectiveEvidence(records, objective) : undefined
+}
+
+export function currentTraceEvidence(records: EvidenceRecord[]): EvidenceRecord | undefined {
+  return currentObjectiveEvidence(records, TRACE_OBJECTIVE)
 }
 
 export function evidenceMatchesDraft(record: EvidenceRecord, draft: Draft): boolean {
   try { return JSON.stringify({ trace: parseTrace(draft.trace), explanation: draft.explanation }) === JSON.stringify(record.submittedWork) } catch { return false }
 }
 
-export function objectiveSummary(records: EvidenceRecord[]): { total: number; verified: number; partial: number; consolidate: number; unknown: number } {
-  const state = evidenceState(currentTraceEvidence(records)?.result)
-  return { total: 2, verified: state === 'verified' ? 1 : 0, partial: state === 'partial' ? 1 : 0, consolidate: state === 'consolidate' ? 1 : 0, unknown: state === 'unknown' ? 2 : 1 }
+export function objectiveStates(records: EvidenceRecord[]): ReadonlyMap<string, ObjectiveState> {
+  return new Map(stackExample.objectives.map(objective => [
+    objective.id ?? objective.code,
+    evidenceState(latestObjectiveEvidence(records, objective)?.result),
+  ]))
+}
+
+export function objectiveSummary(records: EvidenceRecord[]) {
+  const objectiveIds = stackCourseMap.nodes.flatMap(node => node.kind === 'objective' && node.objectiveId ? [node.objectiveId] : [])
+  return summarizeObjectiveStates(objectiveIds, objectiveStates(records))
 }
 
 export const stateLabels: Record<ObjectiveState, string> = { unknown: '尚未有效评估', partial: '部分条件满足', consolidate: '有条件需要巩固', verified: '有达标证据' }

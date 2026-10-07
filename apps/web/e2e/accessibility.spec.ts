@@ -15,11 +15,11 @@ test('reduced motion keeps every learning page and its main actions usable', asy
 
 test('the graph has an equivalent keyboard route without canvas interaction', async ({ page }) => {
   await page.goto('/atlas')
-  const objective = page.getByRole('button', { name: /实现括号匹配方法/ })
+  const objective = page.getByRole('button', { name: /用栈设计括号匹配方法/ })
   await objective.focus()
   await page.keyboard.press('Enter')
-  await expect(page.locator('.objective-inspector h2')).toHaveText('用栈，识别成对的括号。')
-  const enter = page.getByRole('link', { name: /打开实现工作台/ })
+  await expect(page.locator('.objective-inspector h2')).toHaveText('用栈设计括号匹配方法')
+  const enter = page.getByRole('link', { name: /打开学习工作台/ })
   await enter.focus()
   await page.keyboard.press('Enter')
   await expect(page).toHaveURL('/learn/CS03-STACK-02')
