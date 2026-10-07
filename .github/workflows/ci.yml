@@ -58,7 +58,13 @@ jobs:
           uv run --frozen python ../../document/technical_validation/langgraph_postgres_probe.py resume
       - run: uv run --frozen python -m vault_backend.export_openapi --output ../../packages/contracts/openapi.json --check
       - name: Disposable database migration round trip
+        env:
+          PGPASSWORD: ci-ephemeral-only
+          VAULT_DATABASE_URL: postgresql+psycopg://vault_ci:ci-ephemeral-only@127.0.0.1:5432/vault_migration_roundtrip
         run: |
+          createdb -h 127.0.0.1 -U vault_ci vault_migration_roundtrip
+          trap 'dropdb --if-exists --force -h 127.0.0.1 -U vault_ci vault_migration_roundtrip' EXIT
+          uv run --frozen alembic upgrade head
           uv run --frozen alembic downgrade base
           uv run --frozen alembic upgrade head
           uv run --frozen alembic check
