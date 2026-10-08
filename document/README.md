@@ -14,7 +14,7 @@
 | [依赖库存](DEPENDENCY_INVENTORY.md) | 精确工具链、锁文件和传递依赖许可元数据 | v0.1 实际安装记录 |
 | [技术选型基线](TECHNOLOGY_BASELINE.md) | 已选前后端、账号／数据／模型／检索／执行、工程结构与推进顺序 | v1.1 已选设计；学习／账号同步切片已运行 |
 | [前端实现基线](FRONTEND_IMPLEMENTATION.md) | 原创UI工具、图谱／编辑器、Dexie、同步／SSE／离线及浏览器验证 | v1.1 栈／账号同步切片已实现；其余待实施 |
-| [后端／物理数据／API](TECHNICAL_DATA_CONTRACT.md) | 类型、复合约束、认证、RLS、端点、guest lease、claim及撤权事务 | v1.1 设计；0001–0007 迁移代码及部分 API 已实现，0007 未在真实 PG 验证，完整域待实施 |
+| [后端／物理数据／API](TECHNICAL_DATA_CONTRACT.md) | 类型、复合约束、认证、RLS、端点、guest lease、claim及撤权事务 | v1.1 设计；0001–0007 已在独立 PG18 测试，部分 API 已实现，完整域待实施 |
 | [部署与执行](DEPLOYMENT.md) | Compose、新环境、资料／代码／SQL／网络隔离、配置、备份恢复和回滚 | v1.0 部署设计；未部署或采购 |
 | [技术验证记录](TECHNICAL_VALIDATION.md) | LangGraph小原型、本机／旧机只读观察、真实与未测边界 | v1.2 真实PG／账号浏览器切片验证；全栈未测 |
 | [PRD 定版评审](PRD_REVIEW.md) | 评审发现、修正结论、剩余阶段事项与全课程交付风险 | v1.0 定版记录 |

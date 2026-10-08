@@ -415,11 +415,12 @@ async def apply_operation(session, space, principal, op):
             op,
             operation_result(op, "rejected", reason="PAYLOAD_HASH_MISMATCH"),
         )
-    if (
-        op.object_type
-        in {"personal_course", "personal_course_version", "personal_attempt", "personal_assist"}
-        and op.payload == {"deleted": True}
-    ):
+    if op.object_type in {
+        "personal_course",
+        "personal_course_version",
+        "personal_attempt",
+        "personal_assist",
+    } and op.payload == {"deleted": True}:
         return await remember_result(
             session,
             space.id,
@@ -479,8 +480,12 @@ async def apply_operation(session, space, principal, op):
         obj is not None
         and op.object_type
         in {
-            "revision", "evidence", "help", "personal_course_version",
-            "personal_attempt", "personal_assist",
+            "revision",
+            "evidence",
+            "help",
+            "personal_course_version",
+            "personal_attempt",
+            "personal_assist",
         }
         and not deleted
     ):

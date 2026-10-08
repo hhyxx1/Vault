@@ -4,6 +4,7 @@ Revision ID: 0006_personal_course_scope_versions
 Revises: 0005_personal_course_sync
 """
 
+import sqlalchemy as sa
 from alembic import op
 
 revision = "0006_personal_course_scope_versions"
@@ -13,6 +14,9 @@ depends_on = None
 
 
 def upgrade() -> None:
+    # Alembic's default version column is varchar(32), while this published
+    # revision identifier is longer. Widen it before Alembic records the step.
+    op.alter_column("alembic_version", "version_num", type_=sa.String(length=64))
     op.drop_constraint("ck_sync_object_type", "sync_object", type_="check")
     op.create_check_constraint(
         "ck_sync_object_type",

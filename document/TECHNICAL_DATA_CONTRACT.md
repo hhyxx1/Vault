@@ -320,7 +320,7 @@ Web 预认证使用 **POST `/api/v1/guest-nonce`**：创建短期内存凭据必
 
 `0005_personal_course_sync` 为本人私人课程与自述尝试增加独立有界同步类型。`0006_personal_course_scope_versions` 增加 `personal_course_version`，并在数据库触发器中保护其历史不可改写；范围快照携带目标／学习点及缺口状态，后续变更必须追加新版本。新自述尝试须携带 `scopeVersionId`，由服务端校验课程、空间和学习点都属于被引用的已确认版本；访客本机也保留同样的绑定。学生或教师账号均只能承接本人 personal space。客户端内容仍不进入权威 `course` 发布或 `verification_event`，完整课程领域模型、AI／活动、RAG 和可信核验仍待实现。
 
-`0007_personal_assist` 在同步对象／变更类型约束中加入 `personal_assist`，沿用同一账号空间的 RLS 和追加式历史保护。对象必须引用已同步的 `personal_attempt`，并匹配课程、确认范围版本和学习点；保存的模型建议只有 `client_reported` 语义，不参与达标投影。该迁移目前仅完成代码和 Alembic head 静态检查，尚未在独立可销毁 PostgreSQL 库运行；运行中的后端亦未加载新版。
+`0007_personal_assist` 在同步对象／变更类型约束中加入 `personal_assist`，沿用同一账号空间的 RLS 和追加式历史保护。对象必须引用已同步的 `personal_attempt`，并匹配课程、确认范围版本和学习点；保存的模型建议只有 `client_reported` 语义，不参与达标投影。独立可销毁 PostgreSQL 18 库已完成全迁移升降级往返和受限角色回归；运行中的共享后端尚未加载新版。
 
 `0004_agent_run` 只建立账号 Agent 的权威运行账本：固定 owner／个人空间、活动与作品修订引用、图版本、状态和调用预算；复合 FK 阻止空间和所有者错配，RLS 只允许当前账号读写，触发器禁止改写身份、预算、已用额度回退及终态。它不存学生正文，不代表业务接口已经调用 checkpoint，也不把 checkpoint 视为授权或证据。账号工作流恢复时仍须核对引用所指的同步版本、权限和预算，再执行模型或外部动作。
 

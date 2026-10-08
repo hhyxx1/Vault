@@ -513,12 +513,17 @@ async def test_personal_assist_requires_matching_attempt_and_is_append_only(clou
         student, account_id, sid, [operation("personal_assist", assist["id"], assist)]
     )
     assert missing.json()["results"][0]["reason"] == "PERSONAL_ATTEMPT_NOT_SYNCED"
-    created, _ = await batch(student, account_id, sid, [
-        operation("personal_course", course["id"], course),
-        operation("personal_course_version", scope["id"], scope),
-        operation("personal_attempt", attempt["id"], attempt),
-        operation("personal_assist", assist["id"], assist),
-    ])
+    created, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_course", course["id"], course),
+            operation("personal_course_version", scope["id"], scope),
+            operation("personal_attempt", attempt["id"], attempt),
+            operation("personal_assist", assist["id"], assist),
+        ],
+    )
     assert [row["status"] for row in created.json()["results"]] == ["applied"] * 4
     other = personal_assist(origin, course, scope, attempt)
     other["topicId"] = str(uuid4())
@@ -526,12 +531,18 @@ async def test_personal_assist_requires_matching_attempt_and_is_append_only(clou
         student, account_id, sid, [operation("personal_assist", other["id"], other)]
     )
     assert rejected.json()["results"][0]["reason"] == "PERSONAL_ASSIST_REFERENCE_MISMATCH"
-    changed, _ = await batch(student, account_id, sid, [
-        operation("personal_assist", assist["id"], {**assist, "reply": "rewritten"}, "1"),
-        operation("personal_assist", assist["id"], {"deleted": True}, "1"),
-    ])
+    changed, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_assist", assist["id"], {**assist, "reply": "rewritten"}, "1"),
+            operation("personal_assist", assist["id"], {"deleted": True}, "1"),
+        ],
+    )
     assert [row["reason"] for row in changed.json()["results"]] == [
-        "IMMUTABLE_HISTORY", "PERSONAL_RECORD_DELETE_UNSUPPORTED"
+        "IMMUTABLE_HISTORY",
+        "PERSONAL_RECORD_DELETE_UNSUPPORTED",
     ]
     stranger, _ = seed("student")
     assert (await stranger.get(f"/api/v1/sync/spaces/{sid}/changes")).status_code == 404
@@ -696,7 +707,7 @@ async def test_named_personal_course_can_start_before_goal_and_topic_confirmatio
             ),
         ],
     )
-    assert [row["status"] for row in added.json()["results"]] == ["applied", "applied"]
+    assert [row["status"] for row in added.json()["results"]] == ["applied"] * 3
 
 
 async def test_personal_learning_rejects_trust_forgery_and_invalid_references(cloud):

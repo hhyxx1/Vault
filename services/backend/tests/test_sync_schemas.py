@@ -64,10 +64,6 @@ def test_personal_assist_sync_requires_attempt_reference_and_rejects_mastery_cla
     model = PAYLOAD_MODELS["personal_assist"].model_validate(payload)
     assert model.attemptId is not None
     with pytest.raises(ValidationError):
-        PAYLOAD_MODELS["personal_assist"].model_validate(
-            {**payload, "masteryAsserted": True}
-        )
+        PAYLOAD_MODELS["personal_assist"].model_validate({**payload, "masteryAsserted": True})
     with pytest.raises(ValidationError):
-        PAYLOAD_MODELS["personal_assist"].model_validate(
-            {**payload, "intent": "result_feedback"}
-        )
+        PAYLOAD_MODELS["personal_assist"].model_validate({**payload, "intent": "result_feedback"})
