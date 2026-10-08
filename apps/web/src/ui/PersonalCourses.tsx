@@ -1,13 +1,16 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { Link, useBlocker, useNavigate, useParams } from 'react-router-dom'
 import { liveQuery } from 'dexie'
 import { useLocal } from '../local/LocalProvider'
 import { database, recordPersonalAttempt, savePersonalCourse } from '../local/database'
 import { canonicalJson } from '../domain/integrity'
+import { personalCourseMap, type ObjectiveState } from '../domain/course-map'
 import type { PersonalAttempt, PersonalCourse, PersonalTopic } from '../domain/personal'
+import KnowledgeGraph from './KnowledgeGraph'
 
 const emptyAttempt = { learningQuestion: '', theoryNote: '', action: '', observation: '', reflection: '', nextStep: '' }
 type AttemptInput = typeof emptyAttempt
+const noVerifiedPersonalEvidence = new Map<string, ObjectiveState>()
 
 function errorText(error: unknown, fallback: string) { return error instanceof Error ? error.message : fallback }
 
@@ -80,9 +83,11 @@ function CourseDetail({ course, attempts, spaceId }: { course: PersonalCourse; a
   const [attemptInput, setAttemptInput] = useState<AttemptInput>(emptyAttempt)
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState('')
+  const workRef = useRef<HTMLElement>(null)
   const selectedTopic = course.topics.find(topic => topic.id === topicId) ?? course.topics[0]
   const selectedAttempts = selectedTopic ? attempts.filter(attempt => attempt.topicId === selectedTopic.id).sort((a, b) => b.createdAt.localeCompare(a.createdAt)) : []
   const attemptedTopics = course.topics.filter(topic => attempts.some(attempt => attempt.topicId === topic.id)).length
+  const courseMap = useMemo(() => personalCourseMap(course), [course])
 
   useEffect(() => {
     const currentJson = canonicalJson(course)
@@ -101,6 +106,19 @@ function CourseDetail({ course, attempts, spaceId }: { course: PersonalCourse; a
   const unfinishedTopic = !!topicTitle.trim() || !!performance.trim()
   const unfinishedAttempt = Object.values(attemptInput).some(value => value.trim())
   const hasUnstoredInput = unfinishedCourse || unfinishedTopic || unfinishedAttempt
+  function selectTopic(nextTopicId: string) {
+    if (selectedTopic?.id === nextTopicId) return
+    if (unfinishedAttempt && !window.confirm('这次尝试尚未保存，切换学习点会丢失当前输入。确定切换吗？')) return
+    setTopicId(nextTopicId)
+    setAttemptInput(emptyAttempt)
+    setMessage('')
+  }
+  function continuePractice() {
+    const work = workRef.current
+    if (!work) return
+    work.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })
+    work.focus({ preventScroll: true })
+  }
   const blocker = useBlocker(({ currentLocation, nextLocation }) => hasUnstoredInput && currentLocation.pathname !== nextLocation.pathname)
   useEffect(() => {
     if (blocker.state !== 'blocked') return
@@ -163,10 +181,11 @@ function CourseDetail({ course, attempts, spaceId }: { course: PersonalCourse; a
 
   return <div className="page personal-page"><div className="eyebrow">PERSONAL / {course.title}</div><div className="personal-return"><Link className="text-link" to="/my-courses">← 返回个人课程</Link><span className="small-tag">个人自建 · 未经审校</span></div><div className="page-heading"><div><h1>{course.title}</h1><p>{course.goal || '探索目标待确认。先想一想：学完之后，你希望能解释或做出什么？'}</p></div><div className="personal-count"><strong>{attemptedTopics}<span> / {course.topics.length}</span></strong><small>学习点有自述尝试<br/>0 项完成独立核验</small></div></div>
     <div className="personal-boundary"><span className="status-dot"/><p>下面是你自己提出的课程范围，尚非完整课程知识图谱。未做过的学习点标为“待尝试”；做过的只标为“有自述尝试”，不会自动判定掌握。理论资料、实践标准、先修关系和 AI 辅导需要继续建设与审校。</p></div>
-    <div className="personal-detail-layout"><section className="personal-topics" aria-labelledby="personal-topics-title"><div className="section-heading"><div><span className="eyebrow">PROVISIONAL / MAP</span><h2 id="personal-topics-title">你的学习点</h2></div><span>{course.topics.length} 个</span></div><div className="personal-topic-list">{course.topics.map((topic, index) => { const count = attempts.filter(attempt => attempt.topicId === topic.id).length; return <button type="button" key={topic.id} className={`personal-topic ${selectedTopic?.id === topic.id ? 'selected' : ''}`} onClick={() => { if (selectedTopic?.id !== topic.id && unfinishedAttempt && !window.confirm('这次尝试尚未保存，切换学习点会丢失当前输入。确定切换吗？')) return; setTopicId(topic.id); setAttemptInput(emptyAttempt); setMessage('') }} aria-pressed={selectedTopic?.id === topic.id}><span className="course-number">{String(index + 1).padStart(2, '0')}</span><span><strong>{topic.title}</strong><small>{topic.expectedPerformance}</small><em>{count ? `${count} 次自述尝试 · 未核验` : '待尝试'}</em></span></button> })}</div>{!course.topics.length && <p className="field-note">还没有学习点。先确定一个想理解的问题，以及能亲手尝试的动作。</p>}
+    <section className="personal-map-section" aria-labelledby="personal-map-title"><div className="section-heading"><div><span className="eyebrow">PERSONAL / COURSE MAP</span><h2 id="personal-map-title">你的课程知识图谱</h2></div><span>{course.topics.length} 个学习点</span></div>{course.topics.length ? <div className="personal-map-content"><div className="atlas-map personal-map-visual"><KnowledgeGraph definition={courseMap} states={noVerifiedPersonalEvidence} selected={selectedTopic?.id ?? ''} onSelect={selectTopic} coordinateLabel="个人课程草稿" showCollapseControls={false}/><div className="graph-legend"><span><i className="legend-dot unknown"/>尚未有效评估</span></div><p className="graph-relation">课程包含学习点；图中只呈现你明确添加的范围，不推断章节或先修关系。自述尝试不会自动转成达标证据。</p></div><aside className="personal-map-inspector" aria-label="所选学习点" aria-live="polite">{selectedTopic ? <><span className="eyebrow">当前学习点 / 个人课程</span><p className="personal-map-title">{selectedTopic.title}</p><span className="evidence-pill unknown">尚未有效评估</span><p className="personal-map-performance"><strong>预期表现</strong>{selectedTopic.expectedPerformance}</p><p className="personal-map-evidence">{selectedAttempts.length} 次自述尝试 · 尚无核验</p><button type="button" className="button primary" onClick={continuePractice}>继续实践 <span aria-hidden="true">↗</span></button></> : <><p className="personal-map-title">选择一个学习点</p><p>从课程范围中选择目标，再进入实践并记录结果。</p></>}</aside></div> : <p className="personal-map-empty">添加第一个学习点后，图谱会按你定义的范围展示课程与目标；结构和状态不会由系统擅自补全。</p>}</section>
+     <div className="personal-detail-layout"><section className="personal-topics" aria-labelledby="personal-topics-title"><div className="section-heading"><div><span className="eyebrow">PROVISIONAL / MAP</span><h2 id="personal-topics-title">你的学习点</h2></div><span>{course.topics.length} 个</span></div><div className="personal-topic-list">{course.topics.map((topic, index) => { const count = attempts.filter(attempt => attempt.topicId === topic.id).length; return <button type="button" key={topic.id} className={`personal-topic ${selectedTopic?.id === topic.id ? 'selected' : ''}`} onClick={() => selectTopic(topic.id)} aria-pressed={selectedTopic?.id === topic.id}><span className="course-number">{String(index + 1).padStart(2, '0')}</span><span><strong>{topic.title}</strong><small>{topic.expectedPerformance}</small><em>{count ? `${count} 次自述尝试 · 未核验` : '待尝试'}</em></span></button> })}</div>{!course.topics.length && <p className="field-note">还没有学习点。先确定一个想理解的问题，以及能亲手尝试的动作。</p>}
       <details className="personal-add-topic" open={!course.topics.length}><summary>＋ 加入下一个学习点</summary><form className="personal-form" onSubmit={addTopic}><label htmlFor="personal-topic-title">学习点名称</label><input id="personal-topic-title" required maxLength={120} value={topicTitle} onChange={event => setTopicTitle(event.target.value)} placeholder="例如：虚拟内存与缺页处理"/><label htmlFor="personal-topic-performance">想完成的实践或可观察表现</label><textarea id="personal-topic-performance" required maxLength={500} value={performance} onChange={event => setPerformance(event.target.value)} rows={3} placeholder="例如：模拟页面置换并解释缺页次数。"/><button className="button secondary" disabled={busy}>保存学习点</button></form></details>
       <details className="personal-edit" open={!course.goal}><summary>调整课程名称与目标</summary><form className="personal-form" onSubmit={updateCourse}><label htmlFor="personal-edit-title">课程名称</label><input id="personal-edit-title" required maxLength={120} value={editTitle} onChange={event => setEditTitle(event.target.value)}/><label htmlFor="personal-edit-goal">学习目标</label><textarea id="personal-edit-goal" maxLength={2000} rows={3} value={editGoal} onChange={event => setEditGoal(event.target.value)} placeholder="学习后想解释、构建或解决什么？"/><button className="button secondary" disabled={busy}>保存课程目标</button></form></details>
-    </section><section className="personal-work" aria-labelledby="personal-work-title"><span className="eyebrow">ACTIVE / PRACTICE LOOP</span>{selectedTopic ? <><h2 id="personal-work-title">{selectedTopic.title}</h2><p className="personal-performance">想做出来：{selectedTopic.expectedPerformance}</p><p className="field-note">把读到的原理带进操作，写下实际结果，再判断哪里需要修正。这里保存的是你的原始学习记录；暂时没有针对该课程的自动核验。</p>
+    </section><section ref={workRef} className="personal-work" aria-labelledby="personal-work-title" tabIndex={-1}><span className="eyebrow">ACTIVE / PRACTICE LOOP</span>{selectedTopic ? <><h2 id="personal-work-title">{selectedTopic.title}</h2><p className="personal-performance">想做出来：{selectedTopic.expectedPerformance}</p><p className="field-note">把读到的原理带进操作，写下实际结果，再判断哪里需要修正。这里保存的是你的原始学习记录；暂时没有针对该课程的自动核验。</p>
       <form className="personal-form personal-attempt-form" onSubmit={saveAttempt}>
         {attemptField('learningQuestion', '这次想解决什么问题', '先写一个具体的问题，避免只记录“看完一章”。', 2)}
         {attemptField('theoryNote', '依据的概念或原理', '写下你认为相关的定义、关系或推理；可以注明来源。')}

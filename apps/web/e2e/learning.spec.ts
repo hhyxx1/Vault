@@ -48,6 +48,10 @@ test('knowledge atlas keeps a unique-objective denominator across graph controls
   const map = page.getByRole('img', { name: /课程知识图谱，2 个唯一目标/ })
   await expect(map).toBeVisible()
   await expect(map).toHaveAttribute('aria-label', /0 项有达标证据.*2 项尚未评估/)
+  const relationLegend = page.getByRole('group', { name: '关系类型图例' })
+  await expect(relationLegend.getByText('包含', { exact: true })).toBeVisible()
+  await expect(relationLegend.getByText('严格先修', { exact: true })).toBeVisible()
+  await expect(page.getByText(/连线标签标明/)).toHaveCount(0)
   await expect.poll(() => graphPaintedPixels(page)).toBeGreaterThan(1000)
   await expect(page.locator('.scope-total strong')).toContainText('0 / 2')
 

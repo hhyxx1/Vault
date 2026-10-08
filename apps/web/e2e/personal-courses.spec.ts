@@ -73,6 +73,81 @@ test('personal course entry remains usable at 320px', async ({ page }) => {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true)
 })
 
+test('personal course graph follows declared learning points without treating self-reports as verified evidence', async ({ page }, testInfo) => {
+  await page.goto('/my-courses')
+  await page.getByLabel('课程名称', { exact: true }).fill('操作系统')
+  await page.getByRole('button', { name: '创建个人课程', exact: false }).click()
+  await expect(page).toHaveURL(/\/my-courses\/[0-9a-f-]+$/)
+
+  await page.getByLabel('学习点名称').fill('进程调度')
+  await page.getByLabel('想完成的实践或可观察表现').fill('比较不同调度策略下的等待时间。')
+  await page.getByRole('button', { name: '保存学习点' }).click()
+  await expect(page.getByRole('img', { name: /1 个唯一目标，其中 0 项有达标证据/ })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '你的课程知识图谱' })).toBeVisible()
+  await page.setViewportSize({ width: 320, height: 800 })
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true)
+  await page.getByRole('heading', { name: '你的课程知识图谱' }).scrollIntoViewIfNeeded()
+  await page.screenshot({ path: testInfo.outputPath('personal-course-graph-320.png') })
+  await page.setViewportSize({ width: 1280, height: 800 })
+
+  await page.getByText('＋ 加入下一个学习点', { exact: true }).click()
+  await page.getByLabel('学习点名称').fill('页面置换')
+  await page.getByLabel('想完成的实践或可观察表现').fill('模拟不同页面置换策略并比较缺页次数。')
+  await page.getByRole('button', { name: '保存学习点' }).click()
+  await expect(page.getByRole('img', { name: /2 个唯一目标，其中 0 项有达标证据/ })).toBeVisible()
+  await page.getByRole('heading', { name: '你的课程知识图谱' }).scrollIntoViewIfNeeded()
+  await expect(page.getByText('课程包含学习点', { exact: false })).toBeVisible()
+  const inspector = page.getByRole('complementary', { name: '所选学习点' })
+  await expect(inspector.getByText('页面置换', { exact: true })).toBeVisible()
+  await expect(inspector.getByText('0 次自述尝试 · 尚无核验', { exact: true })).toBeVisible()
+  await expect(inspector.getByRole('button', { name: '继续实践' })).toBeVisible()
+  await page.locator('.personal-map-section').scrollIntoViewIfNeeded()
+  await page.screenshot({ path: testInfo.outputPath('personal-course-graph-desktop.png') })
+  const textViewTopic = page.getByRole('button', { name: /进程调度/ })
+  await textViewTopic.focus()
+  await page.keyboard.press('Enter')
+  await expect(inspector.getByText('进程调度', { exact: true })).toBeVisible()
+  await inspector.getByRole('button', { name: '继续实践' }).click()
+  await expect(page.locator('.personal-work')).toBeInViewport()
+
+  await page.setViewportSize({ width: 320, height: 800 })
+  const portrait = await page.locator('.personal-map-content').evaluate(element => {
+    const map = element.querySelector('.personal-map-visual')?.getBoundingClientRect()
+    const detail = element.querySelector('.personal-map-inspector')?.getBoundingClientRect()
+    const canvas = element.querySelector('.graph-frame')?.getBoundingClientRect()
+    const coordinate = element.querySelector('.graph-coordinate')?.getBoundingClientRect()
+    const graph = element.querySelector('.graph-canvas')?.getBoundingClientRect()
+    return { map, detail, canvas, coordinate, graph, scrollWidth: document.documentElement.scrollWidth, viewport: innerWidth }
+  })
+  expect(portrait.scrollWidth).toBeLessThanOrEqual(portrait.viewport + 1)
+  expect(portrait.canvas!.height).toBeLessThanOrEqual(300)
+  expect(portrait.detail!.top).toBeGreaterThanOrEqual(portrait.map!.bottom - 1)
+  expect(portrait.coordinate!.bottom).toBeLessThanOrEqual(portrait.graph!.top)
+
+  await page.setViewportSize({ width: 844, height: 390 })
+  const landscape = await page.locator('.personal-map-content').evaluate(element => {
+    const map = element.querySelector('.personal-map-visual')!.getBoundingClientRect()
+    const detail = element.querySelector('.personal-map-inspector')!.getBoundingClientRect()
+    return { map, detail, scrollWidth: document.documentElement.scrollWidth, viewport: innerWidth }
+  })
+  expect(landscape.scrollWidth).toBeLessThanOrEqual(landscape.viewport + 1)
+  expect(landscape.detail.left).toBeGreaterThan(landscape.map.left)
+  expect(Math.abs(landscape.detail.top - landscape.map.top)).toBeLessThan(40)
+
+  const attempt = [
+    ['这次想解决什么问题', '时间片大小如何影响等待时间？'],
+    ['依据的概念或原理', '时间片决定每个进程连续占用 CPU 的上限。'],
+    ['亲手做了什么', '手算三个进程在两种时间片下的调度顺序。'],
+    ['实际出现了什么结果', '较短时间片提高切换次数但缩短首次响应。'],
+    ['结果说明了什么', '响应和上下文切换开销之间存在取舍。'],
+    ['下一次怎么改或继续验证', '增加进程数量后重新比较平均等待时间。'],
+  ] as const
+  for (const [label, value] of attempt) await page.getByLabel(label).fill(value)
+  await page.getByRole('button', { name: '保存这次尝试，继续学习', exact: false }).click()
+  await expect(page.getByRole('img', { name: /2 个唯一目标，其中 0 项有达标证据/ })).toBeVisible()
+  await expect(page.getByText('1 次自述尝试 · 未核验')).toBeVisible()
+})
+
 test('keeps draft inputs and requires saving a course edit before appending a topic', async ({ page }) => {
   await page.goto('/my-courses')
   await page.getByLabel('课程名称', { exact: true }).fill('操作系统')

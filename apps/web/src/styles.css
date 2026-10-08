@@ -4140,6 +4140,13 @@ main:focus {
 .personal-boundary { display: flex; align-items: start; gap: 13px; padding: 15px 18px; border: 1px solid #c8d2c4; background: #eef2e9; }
 .personal-boundary .status-dot { flex: none; margin-top: 8px; }
 .personal-boundary p { color: #42584b; font-size: 13px; }
+.personal-map-section { margin-top: 30px; padding: 28px 30px; border: 1px solid #c8d2c4; background: #f1f2eb; }
+.personal-map-section .section-heading { margin-bottom: 18px; }
+.personal-map-section .section-heading>span { color: #526656; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.personal-map-visual { min-width: 0; border-color: #c8d2c4; }
+.personal-map-visual .graph-frame { height: 330px; }
+.personal-map-visual .graph-controls { display: flex; flex-wrap: wrap; max-width: calc(100% - 30px); }
+.personal-map-empty { margin: 0; padding: 22px 20px; border-left: 2px solid var(--teal); background: #edf2e8; color: #51645a; font-size: 13px; line-height: 1.8; }
 .personal-layout,.personal-detail-layout { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.05fr); gap: 32px; margin-top: 34px; }
 .personal-create,.personal-saved,.personal-topics,.personal-work { min-width: 0; padding: 30px; border: 1px solid var(--line); background: #fbfaf5; }
 .personal-create h2,.personal-saved h2,.personal-topics h2,.personal-work h2 { margin: 9px 0 14px; }
@@ -4185,8 +4192,63 @@ main:focus {
 }
 @media (max-width: 600px) {
   .personal-entry { gap: 20px; padding: 25px 21px; margin-top: 0; }
+  .personal-map-section { padding: 21px 17px; }
+  .personal-map-visual .graph-frame { height: 280px; }
+  .personal-map-visual .graph-controls { left: 10px; bottom: 10px; max-width: calc(100% - 20px); gap: 3px; }
+  .personal-map-visual .graph-controls button { padding: 7px 8px; font-size: 9px; }
   .personal-create,.personal-saved,.personal-topics,.personal-work { padding: 23px 19px; }
   .personal-page .page-heading { flex-direction: column; align-items: start; }
   .personal-count { text-align: left; }
   .personal-return { flex-wrap: wrap; }
+}
+
+/* Course graphs use compact content bounds; the canvas no longer spreads a small map across an empty field. */
+.graph-frame { background: #e9ede5; overflow: hidden; }
+.graph-coordinate { color: #58695c; font-size: 9px; letter-spacing: .08em; }
+.graph-canvas { height: calc(100% - 36px); margin-top: 36px; }
+.graph-controls { gap: 6px; margin: 0 16px 14px; flex-wrap: wrap; }
+.graph-controls button { min-height: 36px; padding: 7px 11px; border-radius: 2px; color: #30493d; }
+.graph-controls button:focus-visible { outline: 2px solid #246a5b; outline-offset: 2px; }
+.graph-legend { gap: 10px 16px; padding: 14px 18px 10px; }
+.graph-legend>span { font-size: 10px; }
+.graph-relations { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 5px 18px 10px; border-top: 1px solid #d6ddcd; }
+.graph-relation-key { display: inline-flex; align-items: center; gap: 7px; color: #465a4a; font-size: 10px; line-height: 1.5; }
+.graph-relation-key i { display: inline-block; width: 22px; height: 0; border-top: 2px solid #718276; }
+.graph-relation-key.mandatory_prerequisite i { border-top: 2px dashed #a36735; }
+.graph-relation-key.conceptual_association i { border-top: 2px dotted #687c99; }
+.graph-relation-key.application i { border-top: 2px solid #246a5b; }
+.graph-relation-key.evidence_support i { border-top: 2px dashed #526884; }
+.graph-relation { padding: 0 18px 15px; font-size: 10px; line-height: 1.65; }
+.personal-map-content { display: grid; grid-template-columns: minmax(0,1.45fr) minmax(250px,.75fr); gap: 14px; align-items: stretch; }
+.personal-map-visual .graph-frame { height: 285px; }
+.personal-map-visual .graph-legend { border-top: 1px solid #d6ddcd; }
+.personal-map-visual .graph-relation { padding-top: 0; }
+.personal-map-inspector { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; gap: 13px; padding: 24px 22px; border: 1px solid #c8d2c4; background: #fbfaf5; }
+.personal-map-inspector .eyebrow { color: #687c6a; }
+.personal-map-title { margin: 0; color: #243d34; font-family: var(--serif); font-size: 21px; font-weight: 500; line-height: 1.4; overflow-wrap: anywhere; }
+.personal-map-performance { display: grid; gap: 5px; margin: 0; color: #536454; font-size: 13px; line-height: 1.7; overflow-wrap: anywhere; }
+.personal-map-performance strong { color: #344b3d; font-size: 11px; }
+.personal-map-evidence { margin: 0; color: #776246; font-size: 11px; }
+.personal-map-inspector .button { min-height: 44px; margin-top: auto; }
+.personal-work:focus { outline: 2px solid #246a5b; outline-offset: 4px; }
+@media (max-width: 850px) {
+  .personal-map-content { grid-template-columns: minmax(0,1fr); }
+  .personal-map-inspector { padding: 19px 20px; }
+  .personal-map-inspector .button { margin-top: 0; }
+}
+@media (max-width: 600px) {
+  .graph-controls button { min-height: 44px; }
+  .personal-map-visual .graph-frame { height: 270px; }
+  .personal-map-visual .graph-controls { margin: 0 10px 10px; gap: 5px; }
+  .personal-map-visual .graph-controls button { min-height: 44px; padding: 6px 9px; font-size: 10px; }
+  .personal-map-visual .graph-legend { padding: 12px 12px 9px; }
+  .personal-map-visual .graph-relations { padding-right: 12px; padding-left: 12px; }
+  .personal-map-visual .graph-relation { padding-right: 12px; padding-left: 12px; font-size: 10px; }
+  .personal-map-inspector { gap: 10px; padding: 17px 16px; }
+  .graph-coordinate { left: 12px; top: 12px; }
+}
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 520px) {
+  .personal-map-content { grid-template-columns: minmax(0,1.35fr) minmax(250px,.8fr); gap: 12px; }
+  .personal-map-visual .graph-frame { height: 250px; }
+  .personal-map-inspector { padding: 16px; }
 }

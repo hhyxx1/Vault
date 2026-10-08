@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   courseMapFromPackage,
+  personalCourseMap,
   projectCourseMap,
   type CourseMapDefinition,
   type ObjectiveState,
@@ -31,6 +32,42 @@ const map: CourseMapDefinition = {
 }
 
 describe('course map contract', () => {
+  it('projects only learner-declared topics and keeps their self-reported status unverified', () => {
+    const result = personalCourseMap({
+      id: 'personal-course-1', spaceId: 'space-1', title: '操作系统', goal: '比较调度策略',
+      topics: [
+        { id: 'topic-scheduling', title: '进程调度', expectedPerformance: '比较等待时间' },
+        { id: 'topic-pages', title: '页面置换', expectedPerformance: '比较缺页次数' },
+      ],
+      createdAt: '2026-10-07T10:00:00Z', updatedAt: '2026-10-07T10:00:00Z',
+    })
+    const projection = projectCourseMap(result, new Map())
+
+    expect(result.nodes.map(node => [node.id, node.kind])).toEqual([
+      ['course:personal-course-1:personal-draft', 'course'],
+      ['objective:topic-scheduling', 'objective'],
+      ['objective:topic-pages', 'objective'],
+    ])
+    expect(result.relations.map(relation => [relation.kind, relation.to])).toEqual([
+      ['contains', 'objective:topic-scheduling'],
+      ['contains', 'objective:topic-pages'],
+    ])
+    expect(projection.summary).toEqual({ total: 2, verified: 0, partial: 0, consolidate: 0, unknown: 2 })
+  })
+
+  it('rejects duplicate personal learning point IDs instead of producing an ambiguous graph', () => {
+    const course = {
+      id: 'personal-course-1', spaceId: 'space-1', title: '操作系统', goal: '',
+      topics: [
+        { id: 'topic-1', title: '进程调度', expectedPerformance: '比较等待时间' },
+        { id: 'topic-1', title: '页面置换', expectedPerformance: '比较缺页次数' },
+      ],
+      createdAt: '2026-10-07T10:00:00Z', updatedAt: '2026-10-07T10:00:00Z',
+    }
+
+    expect(() => personalCourseMap(course)).toThrow('Duplicate personal learning point ID: topic-1')
+  })
+
   it('builds map structure only from declared course objectives and relationships', () => {
     const result = courseMapFromPackage({
       course_id: 'CS03',

@@ -1,3 +1,5 @@
+import type { PersonalCourse } from './personal'
+
 export type ObjectiveState = 'unknown' | 'partial' | 'consolidate' | 'verified'
 export type CourseMapNodeKind = 'course' | 'chapter' | 'unit' | 'objective'
 export type CourseRelationKind = 'contains' | 'mandatory_prerequisite' | 'conceptual_association' | 'application' | 'evidence_support'
@@ -117,6 +119,26 @@ export function courseMapFromPackage(course: CoursePackageLike): CourseMapDefini
   }
 
   return { courseId, version: course.version, rootNodeId, nodes, relations }
+}
+
+/** Project only the learner-declared structure; self-reported attempts are not verification evidence. */
+export function personalCourseMap(course: PersonalCourse): CourseMapDefinition {
+  if (!course.id || !course.title.trim()) throw new Error('Personal course map requires a course ID and title.')
+  const rootNodeId = `course:${course.id}:personal-draft`
+  const nodes: CourseMapNode[] = [{ id: rootNodeId, title: course.title, kind: 'course' }]
+  const relations: CourseMapRelation[] = []
+  const topicIds = new Set<string>()
+
+  for (const topic of course.topics) {
+    if (!topic.id || !topic.title.trim()) throw new Error('Each personal learning point needs a stable ID and title.')
+    if (topicIds.has(topic.id)) throw new Error(`Duplicate personal learning point ID: ${topic.id}`)
+    topicIds.add(topic.id)
+    const nodeId = `objective:${topic.id}`
+    nodes.push({ id: nodeId, title: topic.title, kind: 'objective', objectiveId: topic.id, objectiveRef: topic.id })
+    relations.push({ id: `contains:${rootNodeId}:${nodeId}`, from: rootNodeId, to: nodeId, kind: 'contains' })
+  }
+
+  return { courseId: course.id, version: 'personal-draft', rootNodeId, nodes, relations }
 }
 
 export function summarizeObjectiveStates(objectiveIds: Iterable<string>, states: ReadonlyMap<string, ObjectiveState>): ObjectiveSummary {
