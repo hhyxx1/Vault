@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>穹隆 · 知识图谱设计稿</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#canvas-title">跳到知识图谱</a>
+  <div class="prototype-note"><span class="prototype-dot"></span><strong>交互设计稿</strong><span>课程范围、关系与学习记录均为模拟示例</span><a href="../../KNOWLEDGE_GRAPH_DESIGN.md">设计说明</a></div>
+  <header class="app-header">
+    <a class="brand" href="./index.html" aria-label="穹隆知识图谱设计首页"><svg width="31" height="31" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 26a13 13 0 0 1 26 0M9 26a7 7 0 0 1 14 0M16 4v5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="3" r="2" fill="currentColor"/></svg><span>穹隆</span></a>
+    <span class="header-location">我的学习 <span aria-hidden="true">/</span> <strong>知识图谱</strong></span>
+    <span class="local-label"><i></i> 独立演示空间</span>
+  </header>
+  <main>
+    <section class="course-header" aria-labelledby="course-title">
+      <div><div class="course-meta">计算机专业课程 <span>范围示例 v1 · 规则示例 r1</span></div><h1 id="course-title">数据结构<span>知识图谱</span></h1><p>看见知识之间的联系，也看见每一步学习的依据。</p></div>
+      <div class="scope-summary" id="scope-summary"></div>
+    </section>
+    <section class="workspace" aria-label="课程知识图谱工作区">
+      <aside class="outline-panel" aria-label="课程目录与查找">
+        <div class="outline-top"><h2>课程范围</h2><button id="outline-toggle" aria-expanded="false" aria-controls="outline-content">展开目录</button></div>
+        <div id="outline-content">
+          <label class="search-box"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="8" r="5"/><path d="m12 12 5 5"/></svg><input id="search" type="search" name="knowledge-search" placeholder="查找知识点…" autocomplete="off" aria-label="查找知识点"></label>
+          <div id="search-results" aria-label="查找结果" hidden></div>
+          <nav id="course-outline" aria-label="章节目录"></nav>
+          <div class="scope-explanation"><strong>统计当前示例范围</strong><p>32 个独立目标。跨章引用只计一次，未评估不等于不会。</p></div>
+        </div>
+      </aside>
+      <section class="map-panel" aria-labelledby="canvas-title">
+        <div class="map-top"><nav id="breadcrumbs" aria-label="图谱位置"></nav><div class="view-switch" role="group" aria-label="显示方式"><button id="map-view" aria-pressed="true">图谱</button><button id="list-view" aria-pressed="false">目录</button></div></div>
+        <div class="map-heading"><div><h2 id="canvas-title" tabindex="-1">课程全景</h2><p id="view-description"></p></div><button class="continue-button" id="resume">继续栈的推演 <span aria-hidden="true">↗</span></button></div>
+        <div class="map-filters"><label>目标状态<select id="state-filter" aria-label="目标状态"><option value="all">全部状态</option><option value="verified">有达标证据</option><option value="partial">部分满足</option><option value="consolidate">需要巩固</option><option value="unknown">尚未评估</option></select></label><span id="visible-count"></span><button id="clear-filter" hidden>清除筛选</button></div>
+        <div id="map-surface"></div>
+        <div class="relation-controls" id="relation-controls" hidden><span>关系</span><label><input type="checkbox" name="relation" value="prerequisite" checked><i class="line-key prerequisite"></i>严格先修</label><label><input type="checkbox" name="relation" value="association"><i class="line-key association"></i>概念关联</label><label><input type="checkbox" name="relation" value="application"><i class="line-key application"></i>后续应用</label><button id="reset-position">回到焦点</button></div>
+        <div class="map-bottom"><span>状态来自目标证据；点击与连线不会改变掌握判断。</span><button id="show-key" aria-expanded="false" aria-controls="state-key">读图说明</button></div>
+        <div id="state-key" hidden><p><span class="state verified">✓ 有达标证据</span> <span class="state partial">◐ 部分满足</span> <span class="state consolidate">! 需要巩固</span> <span class="state unknown">○ 尚未评估</span></p><p>蓝色外框表示当前选中，与学习状态无关。章节按唯一目标汇总；筛选、折叠不改整课分母。先修有方向，概念关联没有方向；关系来源可在详情中展开。</p></div>
+      </section>
+      <aside class="inspector" id="inspector" aria-label="目标证据与下一步" tabindex="-1"></aside>
+    </section>
+    <section class="simulation-lab" aria-label="模拟核验控制"><div><strong>试一试：证据如何改变图谱</strong><p>只改变“栈的状态推演”目标，不会点亮相邻知识。不会写入真实档案。</p></div><label>模拟核验结果<select id="outcome" aria-label="模拟核验结果"><option value="baseline">初始：提示后完成，待独立核验</option><option value="pass">独立新条件与解释均通过</option><option value="conflict">后续核验出现边界冲突</option></select></label><button id="reset-demo">重置演示</button></section>
+    <p class="design-footer">此页用于确认布局、关系阅读和学习闭环；内容、工具与核验能力仍需按真实课程逐项接入。</p>
+  </main>
+  <div id="announcement" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <dialog id="practice-dialog" aria-labelledby="practice-title"><form method="dialog"><button class="dialog-close" aria-label="关闭学习预览">×</button></form><span class="dialog-tag">学习工作区 · 交互示意</span><h2 id="practice-title">继续一次真实尝试</h2><p id="practice-action"></p><ol class="practice-loop"><li><strong>先尝试</strong><span>保留作品、预测和当前问题</span></li><li><strong>按需理解</strong><span>结合现象补原理，可主动求助</span></li><li><strong>改动与核验</strong><span>对照结果修改，在新条件中再试</span></li><li><strong>带证据返回</strong><span>指出满足的条件与仍需补充的部分</span></li></ol><p class="dialog-note">这里只预览跳转后的流程，不会运行代码或产生学习证据。</p><form method="dialog"><button class="primary">返回原来的图谱位置</button></form></dialog>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
