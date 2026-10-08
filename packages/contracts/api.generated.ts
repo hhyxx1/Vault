@@ -340,6 +340,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/guest-leases/{lease_id}/personal-learning-assist": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Personal Learning Assist */
+        post: operations["personal_learning_assist_api_v1_guest_leases__lease_id__personal_learning_assist_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/guest-nonce": {
         parameters: {
             query?: never;
@@ -634,7 +651,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist";
             /** Payload */
             payload: {
                 [key: string]: unknown;
@@ -773,7 +790,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist";
             /** Payload Hash */
             payload_hash: string;
             /**
@@ -1043,7 +1060,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist") | "attachment";
             /**
              * Op Id
              * Format: uuid
@@ -1065,6 +1082,58 @@ export interface components {
              * @constant
              */
             status: "password_reset";
+        };
+        /** PersonalLearningAssistRequest */
+        PersonalLearningAssistRequest: {
+            /** Attempt Excerpt */
+            attempt_excerpt: string;
+            /**
+             * Attempt Id
+             * Format: uuid
+             */
+            attempt_id: string;
+            /** Course Goal */
+            course_goal: string;
+            /**
+             * Course Id
+             * Format: uuid
+             */
+            course_id: string;
+            /** Course Title */
+            course_title: string;
+            /**
+             * Disclosure Accepted
+             * @constant
+             */
+            disclosure_accepted: true;
+            /** Expected Performance */
+            expected_performance: string;
+            /**
+             * Intent
+             * @enum {string}
+             */
+            intent: "diagnose" | "explain" | "hint" | "practice";
+            /** Model Profile Id */
+            model_profile_id?: string | null;
+            /** Question */
+            question: string;
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            request_id: string;
+            /**
+             * Scope Version Id
+             * Format: uuid
+             */
+            scope_version_id: string;
+            /**
+             * Topic Id
+             * Format: uuid
+             */
+            topic_id: string;
+            /** Topic Title */
+            topic_title: string;
         };
         /** PublicModelCatalog */
         PublicModelCatalog: {
@@ -1162,7 +1231,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist") | "attachment";
             /**
              * Op Id
              * Format: uuid
@@ -1937,6 +2006,43 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["OperationResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    personal_learning_assist_api_v1_guest_leases__lease_id__personal_learning_assist_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string | null;
+            };
+            path: {
+                lease_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PersonalLearningAssistRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningAssistReply"];
                 };
             };
             /** @description Validation Error */

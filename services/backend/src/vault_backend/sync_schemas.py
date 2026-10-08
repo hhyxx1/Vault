@@ -28,6 +28,7 @@ ObjectType = Literal[
     "personal_course",
     "personal_course_version",
     "personal_attempt",
+    "personal_assist",
 ]
 
 
@@ -279,6 +280,29 @@ class PersonalAttemptPayload(LocalPayload):
         return value
 
 
+class PersonalAssistPayload(LocalPayload):
+    id: UUID
+    courseId: UUID
+    scopeVersionId: UUID
+    topicId: UUID
+    attemptId: UUID
+    intent: Literal["diagnose", "explain", "hint", "practice"]
+    question: str = Field(min_length=1, max_length=1200)
+    reply: str = Field(min_length=1, max_length=2500)
+    nextAction: str = Field(min_length=1, max_length=500)
+    modelProfileId: str = Field(pattern=r"^[a-z][a-z0-9_-]{0,39}$")
+    provider: str = Field(min_length=1, max_length=120)
+    disclosureVersion: Literal["personal-learning-assist-v1"]
+    createdAt: Timestamp
+
+    @field_validator("question", "reply", "nextAction", "provider")
+    @classmethod
+    def meaningful_text(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("personal assistance text cannot be blank")
+        return value
+
+
 class TombstonePayload(WriteModel):
     deleted: Literal[True]
 
@@ -293,6 +317,7 @@ PAYLOAD_MODELS = {
     "personal_course": PersonalCoursePayload,
     "personal_course_version": PersonalCourseVersionPayload,
     "personal_attempt": PersonalAttemptPayload,
+    "personal_assist": PersonalAssistPayload,
 }
 
 

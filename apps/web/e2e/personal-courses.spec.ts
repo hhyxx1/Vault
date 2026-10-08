@@ -63,7 +63,7 @@ test('starts outside the default catalog with only a name, then records an unver
   for (const [label, value] of fields.slice(1)) await page.getByLabel(label).fill(value + '第三次验证。')
   await page.getByRole('button', { name: '保存这次尝试，继续学习', exact: false }).click()
   await expect(page.getByText('3 次自述尝试 · 未核验')).toBeVisible()
-  await expect(page.getByText('范围 v2', { exact: false })).toBeVisible()
+  await expect(page.locator('.personal-attempts').getByText('范围 v2', { exact: false }).first()).toBeVisible()
   await page.getByRole('link', { name: '返回个人课程' }).click()
   await expect(page.getByText('编译原理', { exact: true })).toBeVisible()
   await page.getByRole('link', { name: '本地空间' }).click()
@@ -91,6 +91,61 @@ test('personal course entry remains usable at 320px', async ({ page }, testInfo)
   await expect(page.locator('.personal-count')).toContainText('v1 尚未定义学习点')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true)
   await page.screenshot({ path: testInfo.outputPath('personal-scope-ledger-320.png'), fullPage: true })
+})
+
+test('personal assistant keeps provider consent, saved attempt binding and retry after reload', async ({ page }, testInfo) => {
+  await page.route('**/api/v1/model-profiles', route => route.fulfill({ status: 200, json: { profiles: [{ id: 'local', label: '本地模型', provider: '自托管', capabilities: ['text'] }], task_defaults: { practice: 'local' } } }))
+  await page.route('**/api/v1/guest-nonce', route => route.fulfill({ status: 200, json: { nonce: 'test-nonce' } }))
+  await page.route('**/api/v1/guest-leases', route => route.fulfill({ status: 201, json: { lease_id: 'test-lease', token: 'test-token', absolute_expires_at: new Date(Date.now() + 3600000).toISOString() } }))
+  let received: Record<string, unknown> | null = null
+  await page.route('**/api/v1/guest-leases/*/personal-learning-assist', route => {
+    received = route.request().postDataJSON()
+    return route.fulfill({ status: 200, json: { message: '改变输入后再观察路由选择。', next_action: '换一个目标网段并记录路由表。', mastery_asserted: false } })
+  })
+  await page.goto('/my-courses')
+  await page.getByLabel('课程名称', { exact: true }).fill('计算机网络')
+  await page.getByRole('button', { name: '创建个人课程', exact: false }).click()
+  await page.getByLabel('学习目标', { exact: true }).fill('理解路由选择并动手验证')
+  await page.getByRole('button', { name: '保存课程目标' }).click()
+  await page.getByLabel('学习点名称').fill('最长前缀匹配')
+  await page.getByLabel('想完成的实践或可观察表现').fill('构造路由表并解释转发结果')
+  await page.getByRole('button', { name: '保存学习点' }).click()
+  await page.getByRole('button', { name: '确认当前范围 v1' }).click()
+  for (const [label, value] of [
+    ['这次想解决什么问题', '为什么没有走默认路由？'],
+    ['依据的概念或原理', '最长前缀匹配优先。'],
+    ['亲手做了什么', '配置两条静态路由。'],
+    ['实际出现了什么结果', '更具体的路由生效。'],
+    ['结果说明了什么', '目标网段影响选择。'],
+    ['下一次怎么改或继续验证', '改变目标网段后再试。'],
+  ] as const) await page.getByLabel(label).fill(value)
+  await page.getByRole('button', { name: '保存这次尝试，继续学习', exact: false }).click()
+  const panel = page.getByRole('region', { name: '个人课程学习助手' })
+  await expect(panel.getByText('自托管 · 本地模型', { exact: true })).toBeVisible()
+  await panel.getByLabel('你的问题').fill('下一次怎样验证？')
+  const consent = panel.getByRole('checkbox', { name: /我同意将/ })
+  await consent.check()
+  await panel.getByLabel('你的问题').fill('我应该改变哪个条件？')
+  await expect(consent).not.toBeChecked()
+  await consent.check()
+  await panel.getByRole('button', { name: '请求一次学习帮助' }).click()
+  await expect(panel.getByText('改变输入后再观察路由选择。')).toBeVisible()
+  await panel.scrollIntoViewIfNeeded()
+  await page.screenshot({ path: testInfo.outputPath('personal-assistant-desktop.png') })
+  expect(received).toMatchObject({ course_title: '计算机网络', topic_title: '最长前缀匹配', intent: 'hint', question: '我应该改变哪个条件？', disclosure_accepted: true })
+  expect(received?.attempt_id).toBeTruthy()
+  await page.reload()
+  await expect(page.getByRole('region', { name: '个人课程学习助手' }).getByText('改变输入后再观察路由选择。')).toBeVisible()
+  await page.getByRole('button', { name: '用建议开始下一次尝试' }).click()
+  await expect(page.getByLabel('这次想解决什么问题')).toHaveValue('换一个目标网段并记录路由表。')
+  page.once('dialog', dialog => dialog.accept())
+  await page.getByRole('link', { name: '本地空间' }).click()
+  const downloadPromise = page.waitForEvent('download')
+  await page.getByRole('button', { name: '导出全部本地记录', exact: false }).click()
+  const download = await downloadPromise
+  const exported = JSON.parse(await readFile(await download.path(), 'utf8'))
+  expect(exported.personalAssists).toHaveLength(1)
+  expect(exported.personalAssists[0].attemptId).toBe(received?.attempt_id)
 })
 
 test('personal course graph follows declared learning points without treating self-reports as verified evidence', async ({ page }, testInfo) => {

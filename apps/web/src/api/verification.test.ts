@@ -33,4 +33,35 @@ describe('verification client integrity', () => {
     await expect(verifyTrace(revision, correctTrace, 'fixture-key')).rejects.toThrow('来源或作品版本不一致')
     expect(fetchMock).toHaveBeenCalledTimes(3)
   })
+  it('sends personal assistance only after an explicit attempt-scoped request', async () => {
+    const calls: { url: string; body: Record<string, unknown> }[] = []
+    vi.stubGlobal('fetch', vi.fn(async (url: string, options?: RequestInit) => {
+      calls.push({ url, body: options?.body ? JSON.parse(String(options.body)) : {} })
+      if (url.endsWith('/guest-nonce')) return new Response(JSON.stringify({ nonce: 'test-nonce' }), { status: 200 })
+      if (url.endsWith('/guest-leases')) return new Response(JSON.stringify({ lease_id: 'lease', token: 'token', absolute_expires_at: new Date(Date.now() + 3600000).toISOString() }), { status: 201 })
+      return new Response(JSON.stringify({ message: '试另一组输入。', next_action: '记录新结果。', mastery_asserted: false }), { status: 200 })
+    }))
+    const { requestPersonalLearningAssist } = await import('./verification')
+    const input = { request_id: crypto.randomUUID(), course_id: crypto.randomUUID(), scope_version_id: crypto.randomUUID(), topic_id: crypto.randomUUID(), attempt_id: crypto.randomUUID(),
+      course_title: '操作系统', course_goal: '解释调度', topic_title: '时间片', expected_performance: '比较两种调度', attempt_excerpt: '已尝试两种时间片。', question: '接下来怎么改？', intent: 'practice' as const, disclosure_accepted: true as const }
+    const reply = await requestPersonalLearningAssist(input)
+    expect(reply.mastery_asserted).toBe(false)
+    expect(calls[1].body).not.toHaveProperty('course_code')
+    expect(calls[2].url).toContain('/personal-learning-assist')
+    expect(calls[2].body).toMatchObject({ attempt_id: input.attempt_id, scope_version_id: input.scope_version_id, disclosure_accepted: true })
+  })
+  it('rejects a personal assistant reply that asserts mastery', async () => {
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+      if (url.endsWith('/guest-nonce')) return new Response(JSON.stringify({ nonce: 'test-nonce' }), { status: 200 })
+      if (url.endsWith('/guest-leases')) return new Response(JSON.stringify({ lease_id: 'lease', token: 'token', absolute_expires_at: new Date(Date.now() + 3600000).toISOString() }), { status: 201 })
+      return new Response(JSON.stringify({ message: '你已掌握。', next_action: '无需继续。', mastery_asserted: true }), { status: 200 })
+    }))
+    const { requestPersonalLearningAssist } = await import('./verification')
+    await expect(requestPersonalLearningAssist({
+      request_id: crypto.randomUUID(), course_id: crypto.randomUUID(), scope_version_id: crypto.randomUUID(),
+      topic_id: crypto.randomUUID(), attempt_id: crypto.randomUUID(), course_title: '操作系统',
+      course_goal: '解释调度', topic_title: '时间片', expected_performance: '比较两种调度',
+      attempt_excerpt: '已尝试两种时间片。', question: '接下来怎么改？', intent: 'practice', disclosure_accepted: true,
+    })).rejects.toThrow('掌握状态不符合契约')
+  })
 })

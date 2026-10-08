@@ -4201,6 +4201,24 @@ main:focus {
 .personal-attempt dl { margin: 0 0 18px; padding: 5px 18px 18px; background: #f0f3eb; }
 .personal-attempt dt { margin-top: 15px; color: #46634e; font-size: 11px; font-weight: 600; }
 .personal-attempt dd { margin: 5px 0 0; font-size: 13px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.personal-assistant { min-width: 0; margin-top: 42px; padding-top: 24px; border-top: 1px solid #bdc9b4; }
+.personal-assistant .section-heading { gap: 12px; align-items: start; }
+.personal-assistant .section-heading h3 { margin: 7px 0 2px; font-family: var(--serif); font-size: clamp(19px,2.2vw,25px); font-weight: 500; }
+.personal-assistant .section-heading>span { flex: none; color: #776947; font-size: 10px; }
+.personal-assistant>.field-note { max-width: 760px; line-height: 1.75; }
+.personal-assist-empty { margin: 22px 0 0; padding: 18px; background: #f0f3eb; color: #526456; font-size: 12px; line-height: 1.8; }
+.personal-assist-form { display: grid; gap: 10px; min-width: 0; margin-top: 22px; padding: 20px; border: 1px solid #c8d2c4; background: #f6f5ee; }
+.personal-assist-form label:not(.assist-consent) { margin-top: 5px; color: #405a49; font-size: 12px; font-weight: 600; }
+.personal-assist-form select,.personal-assist-form textarea { width: 100%; min-width: 0; border: 1px solid #bec8b9; border-radius: 2px; padding: 10px 11px; background: #fffefa; color: #2f3e30; font: inherit; font-size: 12px; }
+.personal-assist-form textarea { resize: vertical; line-height: 1.7; }
+.personal-assist-form select:focus-visible,.personal-assist-form textarea:focus-visible,.personal-assist-form button:focus-visible { outline: 2px solid #246a5b; outline-offset: 2px; }
+.personal-assist-form .field-note { margin: 0; line-height: 1.7; }
+.personal-assist-form .button { justify-self: start; margin-top: 3px; }
+.personal-assist-source { margin: 0 0 5px; padding: 10px 12px; border-left: 2px solid #6e8e6f; background: #e9eee5; color: #42584b; font-size: 11px; line-height: 1.6; }
+.personal-assist-history { display: grid; gap: 10px; margin-top: 26px; }
+.personal-assist-history h4 { margin: 0; color: #405a49; font-size: 12px; }
+.personal-assist-history .assistant-answer { min-width: 0; overflow-wrap: anywhere; }
+.personal-assist-history .assistant-return { display: block; margin-top: 14px; }
 @media (max-width: 850px) {
   .personal-entry { align-items: start; flex-direction: column; }
   .personal-layout,.personal-detail-layout { grid-template-columns: minmax(0,1fr); }
@@ -4217,6 +4235,8 @@ main:focus {
   .personal-return { flex-wrap: wrap; }
   .personal-scope-ledger { grid-template-columns: minmax(0,1fr); padding: 15px 14px; }
   .personal-scope-ledger>.button { justify-self: start; white-space: normal; }
+  .personal-assist-form { padding: 15px; }
+  .personal-assistant .section-heading { flex-wrap: wrap; }
 }
 
 /* Course graphs use compact content bounds; the canvas no longer spreads a small map across an empty field. */

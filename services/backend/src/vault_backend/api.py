@@ -22,7 +22,11 @@ from vault_backend.db import create_engine, database_ready
 from vault_backend.errors import ApiError
 from vault_backend.guests import GuestLeaseStore
 from vault_backend.learning_assist import LearningAssistWorkflow
-from vault_backend.learning_assist_schemas import LearningAssistReply, LearningAssistRequest
+from vault_backend.learning_assist_schemas import (
+    LearningAssistReply,
+    LearningAssistRequest,
+    PersonalLearningAssistRequest,
+)
 from vault_backend.model_profiles import PublicModelCatalog
 from vault_backend.responses import CourseCatalog, LeaseResponse, NonceResponse, OperationResponse
 from vault_backend.schemas import LeaseRequest, OperationInput, RevisionCommand, TraceSubmission
@@ -411,6 +415,38 @@ def create_app(
                     "provenance": "server_deterministic_checker",
                 }
             reply = await agent.run(body, verification)
+            value = reply.model_dump(mode="json")
+            await store.complete_assist(lease_id, token, body.request_id, payload_hash, value)
+            completed = True
+            return value
+        finally:
+            if not completed:
+                await store.fail_assist(lease_id, token, body.request_id, payload_hash)
+
+    @app.post(
+        "/api/v1/guest-leases/{lease_id}/personal-learning-assist",
+        tags=["Learning"],
+        response_model=LearningAssistReply,
+    )
+    async def personal_learning_assist(
+        request: Request,
+        lease_id: UUID,
+        body: PersonalLearningAssistRequest,
+        authorization: Annotated[str | None, Header()] = None,
+    ):
+        agent = app.state.agent
+        if not settings.agent_enabled or agent is None:
+            raise ApiError(503, "AGENT_UNAVAILABLE", "学习助手尚未配置；个人尝试仍保存在本地。")
+        token, origin = credential(authorization), mutation_origin(request)
+        payload_hash = canonical_hash(
+            {"kind": "personal_learning_assist", **body.model_dump(mode="json")}
+        )
+        cached = await store.begin_assist(lease_id, token, origin, body.request_id, payload_hash)
+        if cached is not None:
+            return cached
+        completed = False
+        try:
+            reply = await agent.run(body, None)
             value = reply.model_dump(mode="json")
             await store.complete_assist(lease_id, token, body.request_id, payload_hash, value)
             completed = True

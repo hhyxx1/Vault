@@ -259,7 +259,8 @@
               "position",
               "personal_course",
               "personal_course_version",
-              "personal_attempt"
+              "personal_attempt",
+              "personal_assist"
             ],
             "title": "Object Type",
             "type": "string"
@@ -508,7 +509,8 @@
               "position",
               "personal_course",
               "personal_course_version",
-              "personal_attempt"
+              "personal_attempt",
+              "personal_assist"
             ],
             "title": "Object Type",
             "type": "string"
@@ -1099,7 +1101,8 @@
                   "position",
                   "personal_course",
                   "personal_course_version",
-                  "personal_attempt"
+                  "personal_attempt",
+                  "personal_assist"
                 ],
                 "type": "string"
               },
@@ -1158,6 +1161,115 @@
           }
         },
         "title": "PasswordResetOutput",
+        "type": "object"
+      },
+      "PersonalLearningAssistRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "attempt_excerpt": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Attempt Excerpt",
+            "type": "string"
+          },
+          "attempt_id": {
+            "format": "uuid",
+            "title": "Attempt Id",
+            "type": "string"
+          },
+          "course_goal": {
+            "maxLength": 2000,
+            "title": "Course Goal",
+            "type": "string"
+          },
+          "course_id": {
+            "format": "uuid",
+            "title": "Course Id",
+            "type": "string"
+          },
+          "course_title": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Course Title",
+            "type": "string"
+          },
+          "disclosure_accepted": {
+            "const": true,
+            "title": "Disclosure Accepted",
+            "type": "boolean"
+          },
+          "expected_performance": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Expected Performance",
+            "type": "string"
+          },
+          "intent": {
+            "enum": [
+              "diagnose",
+              "explain",
+              "hint",
+              "practice"
+            ],
+            "title": "Intent",
+            "type": "string"
+          },
+          "model_profile_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-z][a-z0-9_-]{0,39}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Profile Id"
+          },
+          "question": {
+            "maxLength": 1200,
+            "minLength": 1,
+            "title": "Question",
+            "type": "string"
+          },
+          "request_id": {
+            "format": "uuid",
+            "title": "Request Id",
+            "type": "string"
+          },
+          "scope_version_id": {
+            "format": "uuid",
+            "title": "Scope Version Id",
+            "type": "string"
+          },
+          "topic_id": {
+            "format": "uuid",
+            "title": "Topic Id",
+            "type": "string"
+          },
+          "topic_title": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Topic Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "course_id",
+          "scope_version_id",
+          "topic_id",
+          "attempt_id",
+          "course_title",
+          "course_goal",
+          "topic_title",
+          "expected_performance",
+          "attempt_excerpt",
+          "question",
+          "intent",
+          "disclosure_accepted"
+        ],
+        "title": "PersonalLearningAssistRequest",
         "type": "object"
       },
       "PublicModelCatalog": {
@@ -1404,7 +1516,8 @@
                   "position",
                   "personal_course",
                   "personal_course_version",
-                  "personal_attempt"
+                  "personal_attempt",
+                  "personal_assist"
                 ],
                 "type": "string"
               },
@@ -2730,6 +2843,75 @@
         "summary": "Operation Input",
         "tags": [
           "Guest"
+        ]
+      }
+    },
+    "/api/v1/guest-leases/{lease_id}/personal-learning-assist": {
+      "post": {
+        "operationId": "personal_learning_assist_api_v1_guest_leases__lease_id__personal_learning_assist_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lease_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Lease Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PersonalLearningAssistRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningAssistReply"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Personal Learning Assist",
+        "tags": [
+          "Learning"
         ]
       }
     },

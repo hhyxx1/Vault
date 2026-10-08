@@ -45,3 +45,22 @@ export type PersonalAttempt = {
   nextStep: string
   createdAt: string
 }
+
+// Assistant advice is attached to a saved learner attempt and never changes
+// mastery or the provenance of that attempt.
+export type PersonalAssist = {
+  id: string
+  spaceId: string
+  courseId: string
+  scopeVersionId: string
+  topicId: string
+  attemptId: string
+  intent: 'diagnose' | 'explain' | 'hint' | 'practice'
+  question: string
+  reply: string
+  nextAction: string
+  modelProfileId: string
+  provider: string
+  disclosureVersion: 'personal-learning-assist-v1'
+  createdAt: string
+}

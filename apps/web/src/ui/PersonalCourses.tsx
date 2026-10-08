@@ -5,8 +5,9 @@ import { useLocal } from '../local/LocalProvider'
 import { confirmPersonalCourseScope, database, recordPersonalAttempt, savePersonalCourse } from '../local/database'
 import { canonicalJson } from '../domain/integrity'
 import { personalCourseMap, type ObjectiveState } from '../domain/course-map'
-import type { PersonalAttempt, PersonalCourse, PersonalCourseVersion, PersonalTopic } from '../domain/personal'
+import type { PersonalAssist, PersonalAttempt, PersonalCourse, PersonalCourseVersion, PersonalTopic } from '../domain/personal'
 import KnowledgeGraph from './KnowledgeGraph'
+import PersonalAssistant from './PersonalAssistant'
 
 const emptyAttempt = { learningQuestion: '', theoryNote: '', action: '', observation: '', reflection: '', nextStep: '' }
 type AttemptInput = typeof emptyAttempt
@@ -58,7 +59,7 @@ function PersonalCourseList({ courses, spaceId }: { courses: PersonalCourse[]; s
 
   return <div className="page personal-page"><div className="eyebrow">PERSONAL / LEARNING PATH</div>
     <div className="page-heading"><div><h1>从你要学的课程开始。</h1><p>不限于 13 门默认课程。先定一个真实目标，再把原理、实践和结果逐次连起来。</p></div><span className="small-tag">个人课程 · 自建范围</span></div>
-    <div className="personal-boundary"><span className="status-dot"/><p>这是个人学习草稿入口：课程结构由你提出，尚未经教学审校。记录的尝试是本人自述，不能当作自动核验或掌握证明。针对自建课程的 AI 辅导、资料检索和自动实践核验仍在建设。</p></div>
+    <div className="personal-boundary"><span className="status-dot"/><p>这是个人学习草稿入口：课程结构由你提出，尚未经教学审校。记录的尝试是本人自述，不能当作自动核验或掌握证明。已保存尝试可按次请求有限 AI 建议；资料检索和自动实践核验仍在建设。</p></div>
     <div className="personal-layout"><section className="personal-create" aria-labelledby="personal-create-title"><span className="eyebrow">01 / START</span><h2 id="personal-create-title">建立自己的课程</h2><p>只写课程名称即可开始；目标和学习点会保持“待确认”，不会自动假定你已经选好范围。也可以现在填上一个具体实践。</p>
       <form onSubmit={create} className="personal-form">
         <label htmlFor="personal-title">课程名称</label><input id="personal-title" required maxLength={120} value={title} onChange={event => setTitle(event.target.value)} placeholder="例如：操作系统、编译原理、分布式系统"/>
@@ -76,7 +77,7 @@ function scopeMatchesCourse(course: PersonalCourse, scope?: PersonalCourseVersio
   return !!scope && scope.title === course.title && scope.goal === course.goal && canonicalJson(scope.topics) === canonicalJson(course.topics)
 }
 
-function CourseDetail({ course, attempts, scopeVersions, spaceId }: { course: PersonalCourse; attempts: PersonalAttempt[]; scopeVersions: PersonalCourseVersion[]; spaceId: string }) {
+function CourseDetail({ course, attempts, assists, scopeVersions, spaceId }: { course: PersonalCourse; attempts: PersonalAttempt[]; assists: PersonalAssist[]; scopeVersions: PersonalCourseVersion[]; spaceId: string }) {
   const [editTitle, setEditTitle] = useState(course.title)
   const [editGoal, setEditGoal] = useState(course.goal)
   const [formBaseline, setFormBaseline] = useState(() => canonicalJson(course))
@@ -129,6 +130,11 @@ function CourseDetail({ course, attempts, scopeVersions, spaceId }: { course: Pe
     if (!work) return
     work.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })
     work.focus({ preventScroll: true })
+  }
+  function retryFromAdvice(nextAction: string) {
+    if (unfinishedAttempt && !window.confirm('当前还有未保存的尝试输入。用助手建议开始新尝试会替换这些输入，确定继续吗？')) return
+    setAttemptInput({ ...emptyAttempt, learningQuestion: nextAction })
+    continuePractice()
   }
   const blocker = useBlocker(({ currentLocation, nextLocation }) => hasUnstoredInput && currentLocation.pathname !== nextLocation.pathname)
   useEffect(() => {
@@ -205,7 +211,7 @@ function CourseDetail({ course, attempts, scopeVersions, spaceId }: { course: Pe
   }
 
   return <div className="page personal-page"><div className="eyebrow">PERSONAL / {course.title}</div><div className="personal-return"><Link className="text-link" to="/my-courses">← 返回个人课程</Link><span className="small-tag">个人自建 · 未经审校</span></div><div className="page-heading"><div><h1>{course.title}</h1><p>{course.goal || '探索目标待确认。先想一想：学完之后，你希望能解释或做出什么？'}</p></div><div className="personal-count"><strong>{attemptedTopics}<span> / {scopeDenominator}</span></strong><small>{scopeCountCaption}<br/>0 项完成独立核验</small></div></div>
-    <div className="personal-boundary"><span className="status-dot"/><p>下面是你自己提出的课程范围，尚非完整课程知识图谱。未做过的学习点标为“待尝试”；做过的只标为“有自述尝试”，不会自动判定掌握。理论资料、实践标准、先修关系和 AI 辅导需要继续建设与审校。</p></div>
+    <div className="personal-boundary"><span className="status-dot"/><p>下面是你自己提出的课程范围，尚非完整课程知识图谱。未做过的学习点标为“待尝试”；做过的只标为“有自述尝试”，不会自动判定掌握。已保存尝试可按次请求有限的 AI 建议；理论资料、实践标准、先修关系和完整辅导仍需建设与审校。</p></div>
     <section className={`personal-scope-ledger ${latestScope && !currentScopeMatches ? 'changed' : ''}`} aria-label="个人课程学习范围确认">
       <div className="personal-scope-copy"><span className="eyebrow">学习范围版本</span>
         <strong>{!latestScope ? '尚未确认' : currentScopeMatches ? `已确认 v${latestScope.version}` : `当前修改尚未确认 · 上次为 v${latestScope.version}`}</strong>
@@ -230,6 +236,7 @@ function CourseDetail({ course, attempts, scopeVersions, spaceId }: { course: Pe
         <button className="button primary" disabled={busy || !canPractice}>{busy ? '正在保存…' : '保存这次尝试，继续学习'} <span aria-hidden="true">↗</span></button>
       </form>
       <div className="personal-attempts"><div className="section-heading"><h3>已保存的尝试</h3><span>{selectedAttempts.length} 次 · 自述未核验</span></div>{selectedAttempts.length ? selectedAttempts.map((attempt, index) => <details key={attempt.id} className="personal-attempt"><summary><strong>尝试 {selectedAttempts.length - index} · {attempt.learningQuestion}</strong><span>{attempt.scopeVersionId ? `范围 v${scopeVersions.find(scope => scope.id === attempt.scopeVersionId)?.version ?? '未知'} · ` : ''}{new Date(attempt.createdAt).toLocaleString('zh-CN')}</span></summary><dl><dt>依据的原理</dt><dd>{attempt.theoryNote}</dd><dt>实际操作</dt><dd>{attempt.action}</dd><dt>观察到的结果</dt><dd>{attempt.observation}</dd><dt>目前的理解</dt><dd>{attempt.reflection}</dd><dt>下一次行动</dt><dd>{attempt.nextStep}</dd></dl></details>) : <p className="field-note">这个学习点还没有尝试记录。先动手一次，再记录真实结果。</p>}</div></> : <><h2 id="personal-work-title">先建立一个可做的学习点。</h2><p>当前课程还没有确认的实践目标。你可以先写下探索目标与第一个学习点；系统不会把空白课程算作已学习。</p></>}
+      {selectedTopic && <PersonalAssistant key={`${spaceId}:${selectedTopic.id}`} spaceId={spaceId} scope={latestScope} topic={selectedTopic} attempt={selectedAttempts.find(item => item.scopeVersionId === latestScope?.id)} history={assists.filter(item => item.topicId === selectedTopic.id)} enabled={canPractice} onRetry={retryFromAdvice}/>}
       {message && <p className="inline-message" role="status">{message}</p>}
     </section></div>
   </div>
@@ -241,15 +248,17 @@ export default function PersonalCourses() {
   const [courses, setCourses] = useState<PersonalCourse[]>([])
   const [scopeVersions, setScopeVersions] = useState<PersonalCourseVersion[]>([])
   const [attempts, setAttempts] = useState<PersonalAttempt[]>([])
+  const [assists, setAssists] = useState<PersonalAssist[]>([])
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState('')
   useEffect(() => {
-    setCourses([]); setAttempts([]); setLoading(true); setLoadError('')
+    setCourses([]); setAttempts([]); setAssists([]); setLoading(true); setLoadError('')
     const subscription = liveQuery(async () => ({
       courses: await database.personalCourses.where('spaceId').equals(spaceId).toArray(),
       scopeVersions: await database.personalCourseVersions.where('spaceId').equals(spaceId).toArray(),
       attempts: await database.personalAttempts.where('spaceId').equals(spaceId).toArray(),
-    })).subscribe({ next: value => { setCourses(value.courses.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))); setScopeVersions(value.scopeVersions); setAttempts(value.attempts); setLoading(false) }, error: () => { setLoadError('无法读取本地个人课程，请检查浏览器存储。'); setLoading(false) } })
+      assists: await database.personalAssists.where('spaceId').equals(spaceId).toArray(),
+    })).subscribe({ next: value => { setCourses(value.courses.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))); setScopeVersions(value.scopeVersions); setAttempts(value.attempts); setAssists(value.assists); setLoading(false) }, error: () => { setLoadError('无法读取本地个人课程，请检查浏览器存储。'); setLoading(false) } })
     return () => subscription.unsubscribe()
   }, [spaceId])
   if (loading) return <div className="page page-loading" role="status">正在读取个人课程…</div>
@@ -257,5 +266,5 @@ export default function PersonalCourses() {
   if (!courseId) return <PersonalCourseList courses={courses} spaceId={spaceId}/>
   const course = courses.find(course => course.id === courseId)
   if (!course) return <div className="page"><div className="eyebrow">PERSONAL / NOT FOUND</div><h1>当前空间中没有这门课程</h1><p>它可能属于另一个账号空间，或仅保存在另一台设备且尚未完成同步。</p><Link className="button primary" to="/my-courses">返回个人课程</Link></div>
-  return <CourseDetail key={`${spaceId}:${course.id}`} course={course} attempts={attempts.filter(attempt => attempt.courseId === course.id)} scopeVersions={scopeVersions.filter(scope => scope.courseId === course.id).sort((a, b) => a.version - b.version)} spaceId={spaceId}/>
+  return <CourseDetail key={`${spaceId}:${course.id}`} course={course} attempts={attempts.filter(attempt => attempt.courseId === course.id)} assists={assists.filter(assist => assist.courseId === course.id)} scopeVersions={scopeVersions.filter(scope => scope.courseId === course.id).sort((a, b) => a.version - b.version)} spaceId={spaceId}/>
 }

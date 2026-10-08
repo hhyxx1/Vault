@@ -42,6 +42,7 @@ from vault_backend.sync_schemas import (
     ConflictsResponse,
     EvidencePayload,
     OperationResult,
+    PersonalAssistPayload,
     PersonalAttemptPayload,
     PersonalCoursePayload,
     PersonalCourseVersionPayload,
@@ -256,6 +257,21 @@ def validate_payload(op: SyncOperation, origin: UUID):
 
 
 async def dependencies(session: AsyncSession, space: LearningSpace, model) -> str | None:
+    if isinstance(model, PersonalAssistPayload):
+        attempt = await session.get(
+            SyncObject, (space.id, "personal_attempt", str(model.attemptId))
+        )
+        if attempt is None:
+            return "PERSONAL_ATTEMPT_NOT_SYNCED"
+        if (
+            attempt.deleted_at is not None
+            or attempt.payload is None
+            or attempt.payload["courseId"] != str(model.courseId)
+            or attempt.payload["scopeVersionId"] != str(model.scopeVersionId)
+            or attempt.payload["topicId"] != str(model.topicId)
+        ):
+            return "PERSONAL_ASSIST_REFERENCE_MISMATCH"
+        return None
     if isinstance(model, PersonalCourseVersionPayload):
         course = await session.get(SyncObject, (space.id, "personal_course", str(model.courseId)))
         if course is None:
@@ -400,7 +416,8 @@ async def apply_operation(session, space, principal, op):
             operation_result(op, "rejected", reason="PAYLOAD_HASH_MISMATCH"),
         )
     if (
-        op.object_type in {"personal_course", "personal_course_version", "personal_attempt"}
+        op.object_type
+        in {"personal_course", "personal_course_version", "personal_attempt", "personal_assist"}
         and op.payload == {"deleted": True}
     ):
         return await remember_result(
@@ -461,7 +478,10 @@ async def apply_operation(session, space, principal, op):
     if (
         obj is not None
         and op.object_type
-        in {"revision", "evidence", "help", "personal_course_version", "personal_attempt"}
+        in {
+            "revision", "evidence", "help", "personal_course_version",
+            "personal_attempt", "personal_assist",
+        }
         and not deleted
     ):
         return await remember_result(
@@ -495,6 +515,7 @@ async def apply_operation(session, space, principal, op):
                     "HELP_NOT_SYNCED",
                     "PERSONAL_COURSE_NOT_SYNCED",
                     "PERSONAL_COURSE_VERSION_NOT_SYNCED",
+                    "PERSONAL_ATTEMPT_NOT_SYNCED",
                 }
                 else "rejected"
             )

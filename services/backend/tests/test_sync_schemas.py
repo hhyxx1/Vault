@@ -42,3 +42,32 @@ def test_personal_course_scope_version_cannot_claim_defined_without_goal_and_top
     payload.update(goal="", topics=[], scopeStatus="defined", gaps=["goal", "learning_points"])
     with pytest.raises(ValidationError):
         PAYLOAD_MODELS["personal_course_version"].model_validate(payload)
+
+
+def test_personal_assist_sync_requires_attempt_reference_and_rejects_mastery_claims():
+    payload = {
+        "id": str(uuid4()),
+        "spaceId": str(uuid4()),
+        "courseId": str(uuid4()),
+        "scopeVersionId": str(uuid4()),
+        "topicId": str(uuid4()),
+        "attemptId": str(uuid4()),
+        "intent": "practice",
+        "question": "下一步怎么验证？",
+        "reply": "改变目标网段再观察。",
+        "nextAction": "记录修改后的路由表。",
+        "modelProfileId": "local",
+        "provider": "本人部署的模型",
+        "disclosureVersion": "personal-learning-assist-v1",
+        "createdAt": "2026-10-08T12:00:00Z",
+    }
+    model = PAYLOAD_MODELS["personal_assist"].model_validate(payload)
+    assert model.attemptId is not None
+    with pytest.raises(ValidationError):
+        PAYLOAD_MODELS["personal_assist"].model_validate(
+            {**payload, "masteryAsserted": True}
+        )
+    with pytest.raises(ValidationError):
+        PAYLOAD_MODELS["personal_assist"].model_validate(
+            {**payload, "intent": "result_feedback"}
+        )

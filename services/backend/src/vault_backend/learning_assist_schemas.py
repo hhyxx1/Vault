@@ -1,7 +1,7 @@
 from typing import Literal
 from uuid import UUID
 
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from vault_backend.schemas import WriteModel
 
@@ -22,6 +22,32 @@ class LearningAssistRequest(WriteModel):
     work_excerpt: str = Field(default="", max_length=4000)
     explanation: str = Field(default="", max_length=4000)
     operation_id: UUID | None = None
+
+
+class PersonalLearningAssistRequest(WriteModel):
+    request_id: UUID
+    model_profile_id: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_-]{0,39}$")
+    course_id: UUID
+    scope_version_id: UUID
+    topic_id: UUID
+    attempt_id: UUID
+    course_title: str = Field(min_length=1, max_length=120)
+    course_goal: str = Field(max_length=2000)
+    topic_title: str = Field(min_length=1, max_length=120)
+    expected_performance: str = Field(min_length=1, max_length=500)
+    attempt_excerpt: str = Field(min_length=1, max_length=4000)
+    question: str = Field(min_length=1, max_length=1200)
+    intent: Literal["diagnose", "explain", "hint", "practice"]
+    disclosure_accepted: Literal[True]
+
+    @field_validator(
+        "course_title", "topic_title", "expected_performance", "attempt_excerpt", "question"
+    )
+    @classmethod
+    def meaningful_text(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("personal learning context cannot be blank")
+        return value
 
 
 class LearningAssistReply(WriteModel):

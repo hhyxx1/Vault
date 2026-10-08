@@ -10,7 +10,11 @@ from vault_backend.api import create_app
 from vault_backend.config import Settings
 from vault_backend.errors import ApiError
 from vault_backend.learning_assist import LearningAssistWorkflow
-from vault_backend.learning_assist_schemas import LearningAssistReply, LearningAssistRequest
+from vault_backend.learning_assist_schemas import (
+    LearningAssistReply,
+    LearningAssistRequest,
+    PersonalLearningAssistRequest,
+)
 from vault_backend.model_profiles import ModelProfile
 from vault_backend.sync_schemas import HelpPayload
 
@@ -43,6 +47,26 @@ def assist_payload(**changes):
         "question": "空栈出栈时为什么没有输出？",
         "work_excerpt": "[]",
         "explanation": "",
+    }
+    return {**payload, **changes}
+
+
+def personal_assist_payload(**changes):
+    payload = {
+        "request_id": str(uuid4()),
+        "model_profile_id": None,
+        "course_id": str(uuid4()),
+        "scope_version_id": str(uuid4()),
+        "topic_id": str(uuid4()),
+        "attempt_id": str(uuid4()),
+        "course_title": "计算机网络",
+        "course_goal": "能够解释路由选择并验证配置",
+        "topic_title": "最长前缀匹配",
+        "expected_performance": "构造两条路由并解释转发结果",
+        "attempt_excerpt": "实际操作：配置两条静态路由。观察：更具体的路由生效。",
+        "question": "下一次该改变什么条件？",
+        "intent": "practice",
+        "disclosure_accepted": True,
     }
     return {**payload, **changes}
 
@@ -83,6 +107,36 @@ async def test_learning_assist_is_explicit_idempotent_and_bounded(settings, stor
         assert conflict.status_code == 409
         exhausted = await client.post(path, headers=headers, json=assist_payload())
         assert exhausted.status_code == 429
+    finally:
+        await client.aclose()
+
+
+async def test_personal_course_assist_uses_same_bounded_lease_without_claiming_verification(
+    settings, store
+):
+    client, fake, lease, headers = await make_client(settings, store, cap=1)
+    try:
+        path = f"/api/v1/guest-leases/{lease['lease_id']}/personal-learning-assist"
+        payload = personal_assist_payload()
+        first = await client.post(path, headers=headers, json=payload)
+        replay = await client.post(path, headers=headers, json=payload)
+        assert first.status_code == replay.status_code == 200
+        assert first.json()["mastery_asserted"] is False
+        assert len(fake.calls) == 1
+        assert str(fake.calls[0][0].scope_version_id) == payload["scope_version_id"]
+        assert fake.calls[0][1] is None
+        rejected = await client.post(
+            path, headers=headers, json=personal_assist_payload(intent="result_feedback")
+        )
+        assert rejected.status_code == 422
+        assert (
+            await client.post(
+                path, headers=headers, json=personal_assist_payload(disclosure_accepted=False)
+            )
+        ).status_code == 422
+        assert (
+            await client.post(path, headers=headers, json=personal_assist_payload())
+        ).status_code == 429
     finally:
         await client.aclose()
 
@@ -350,6 +404,33 @@ async def test_langgraph_routes_roles_without_live_provider_calls():
         reply = await workflow.run(LearningAssistRequest.model_validate(payload), {})
         assert reply.mastery_asserted is False
         assert expected in gateway.instructions[-1]
+    await workflow.close()
+
+
+async def test_personal_workflow_labels_learner_context_unverified_and_excludes_account_data():
+    pytest.importorskip("langgraph.graph")
+
+    class FakeGateway:
+        async def complete(self, instructions, context):
+            self.instructions, self.context = instructions, context
+            return LearningAssistReply(
+                message="改变目的网段后再试。", next_action="记录新的路由表。"
+            )
+
+        async def close(self):
+            return None
+
+    gateway = FakeGateway()
+    workflow = LearningAssistWorkflow(gateway)
+    reply = await workflow.run(
+        PersonalLearningAssistRequest.model_validate(personal_assist_payload()), None
+    )
+    assert reply.mastery_asserted is False
+    assert gateway.context["course_title"] == "计算机网络"
+    assert gateway.context["student_attempt_excerpt"].startswith("实际操作")
+    assert gateway.context["verification"] is None
+    assert "未核验" in gateway.instructions
+    assert "account_id" not in gateway.context
     await workflow.close()
 
 

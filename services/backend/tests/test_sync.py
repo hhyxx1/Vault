@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0006_personal_course_scope_versions"
+            == "0007_personal_assist"
         )
     settings = Settings(
         environment="test",
@@ -479,6 +479,73 @@ def personal_course_scope_version(origin, course, version=1):
         "gaps": gaps,
         "confirmedAt": "2026-10-05T12:03:00Z",
     }
+
+
+def personal_assist(origin, course, scope, attempt):
+    return {
+        "id": str(uuid4()),
+        "spaceId": str(origin),
+        "courseId": course["id"],
+        "scopeVersionId": scope["id"],
+        "topicId": course["topics"][0]["id"],
+        "attemptId": attempt["id"],
+        "intent": "practice",
+        "question": "下一步怎么验证？",
+        "reply": "改变目标网段再观察。",
+        "nextAction": "记录修改后的路由表。",
+        "modelProfileId": "local",
+        "provider": "本人部署的模型",
+        "disclosureVersion": "personal-learning-assist-v1",
+        "createdAt": "2026-10-08T12:06:00Z",
+    }
+
+
+async def test_personal_assist_requires_matching_attempt_and_is_append_only(cloud):
+    _, seed, owner_url = cloud
+    student, account_id = seed("student")
+    mapping, _ = await claim(student, account_id)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    course = personal_course(origin)
+    scope = personal_course_scope_version(origin, course)
+    attempt = personal_attempt(origin, course, scope["id"])
+    assist = personal_assist(origin, course, scope, attempt)
+    missing, _ = await batch(
+        student, account_id, sid, [operation("personal_assist", assist["id"], assist)]
+    )
+    assert missing.json()["results"][0]["reason"] == "PERSONAL_ATTEMPT_NOT_SYNCED"
+    created, _ = await batch(student, account_id, sid, [
+        operation("personal_course", course["id"], course),
+        operation("personal_course_version", scope["id"], scope),
+        operation("personal_attempt", attempt["id"], attempt),
+        operation("personal_assist", assist["id"], assist),
+    ])
+    assert [row["status"] for row in created.json()["results"]] == ["applied"] * 4
+    other = personal_assist(origin, course, scope, attempt)
+    other["topicId"] = str(uuid4())
+    rejected, _ = await batch(
+        student, account_id, sid, [operation("personal_assist", other["id"], other)]
+    )
+    assert rejected.json()["results"][0]["reason"] == "PERSONAL_ASSIST_REFERENCE_MISMATCH"
+    changed, _ = await batch(student, account_id, sid, [
+        operation("personal_assist", assist["id"], {**assist, "reply": "rewritten"}, "1"),
+        operation("personal_assist", assist["id"], {"deleted": True}, "1"),
+    ])
+    assert [row["reason"] for row in changed.json()["results"]] == [
+        "IMMUTABLE_HISTORY", "PERSONAL_RECORD_DELETE_UNSUPPORTED"
+    ]
+    stranger, _ = seed("student")
+    assert (await stranger.get(f"/api/v1/sync/spaces/{sid}/changes")).status_code == 404
+    with psycopg.connect(owner_url) as conn:
+        conn.execute("SET LOCAL ROLE vault_api")
+        conn.execute("SELECT set_config('vault.account_id',%s,true)", (str(account_id),))
+        with pytest.raises(psycopg.errors.CheckViolation):
+            with conn.transaction():
+                conn.execute(
+                    "UPDATE sync_object SET version=version+1,updated_at=now() "
+                    "WHERE space_id=%s AND object_type='personal_assist' AND object_id=%s",
+                    (sid, assist["id"]),
+                )
+        conn.rollback()
 
 
 async def test_confirmed_personal_scope_is_immutable_and_attempts_reference_its_version(cloud):

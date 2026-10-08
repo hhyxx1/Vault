@@ -18,7 +18,7 @@ async function readJson<T>(response: Response): Promise<T> {
 async function activeLease(signal?: AbortSignal) {
   if (lease && Date.parse(lease.absolute_expires_at) > Date.now() + 10000) return lease
   const nonce = await readJson<{ nonce: string }>(await fetch('/api/v1/guest-nonce', { method: 'POST', credentials: 'same-origin', cache: 'no-store', signal }))
-  lease = await readJson<Lease>(await fetch('/api/v1/guest-leases', { method: 'POST', credentials: 'same-origin', signal, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nonce: nonce.nonce, course_code: 'CS03' }) }))
+  lease = await readJson<Lease>(await fetch('/api/v1/guest-leases', { method: 'POST', credentials: 'same-origin', signal, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nonce: nonce.nonce }) }))
   return lease
 }
 
@@ -47,6 +47,40 @@ export type LearningAssistInput = {
   operation_id?: string
 }
 export type LearningAssistReply = { message: string; next_action: string; mastery_asserted: false }
+
+export type PersonalLearningAssistInput = {
+  request_id: string
+  model_profile_id?: string
+  course_id: string
+  scope_version_id: string
+  topic_id: string
+  attempt_id: string
+  course_title: string
+  course_goal: string
+  topic_title: string
+  expected_performance: string
+  attempt_excerpt: string
+  question: string
+  intent: Exclude<LearningAssistIntent, 'result_feedback'>
+  disclosure_accepted: true
+}
+
+export async function requestPersonalLearningAssist(input: PersonalLearningAssistInput, signal?: AbortSignal): Promise<LearningAssistReply> {
+  const current = await activeLease(signal)
+  signal?.throwIfAborted()
+  const response = await fetch(`/api/v1/guest-leases/${current.lease_id}/personal-learning-assist`, {
+    method: 'POST', credentials: 'same-origin', signal,
+    headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` },
+    body: JSON.stringify(input),
+  })
+  if (response.status === 401 || response.status === 410) lease = null
+  const reply = await readJson<LearningAssistReply>(response)
+  if (reply.mastery_asserted !== false || typeof reply.message !== 'string' || !reply.message.trim()
+    || typeof reply.next_action !== 'string' || !reply.next_action.trim()) {
+    throw new Error('助手返回的掌握状态不符合契约，建议未保存。')
+  }
+  return reply
+}
 
 export async function requestLearningAssist(input: LearningAssistInput, signal?: AbortSignal): Promise<LearningAssistReply> {
   const current = await activeLease(signal)

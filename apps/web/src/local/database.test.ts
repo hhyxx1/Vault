@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto'
 import { afterEach, describe, expect, it } from 'vitest'
-import { LearningDatabase, activateSpace, clearGuestSpace, confirmPersonalCourseScope, openLocalSpace, recordEvidence, recordPersonalAttempt, saveDraft, savePersonalCourse, saveRevision } from './database'
+import { LearningDatabase, activateSpace, clearGuestSpace, confirmPersonalCourseScope, openLocalSpace, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveDraft, savePersonalCourse, saveRevision } from './database'
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 import { canonicalJson } from '../domain/integrity'
 import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
@@ -124,6 +124,25 @@ describe('local durable repository', () => {
       learningQuestion: '如何复现？', theoryNote: '事务可见性', action: '执行两组事务', observation: '读到旧值', reflection: '隔离级别影响可见性', nextStep: '提高隔离级别复测', createdAt: now }
     await expect(recordPersonalAttempt(attempt, db)).rejects.toThrow('先确认当前学习范围')
     expect(await db.personalAttempts.where('spaceId').equals(spaceId).count()).toBe(0)
+  })
+  it('binds an immutable personal assistant reply to one saved attempt and active space', async () => {
+    const db = createDatabase(); const spaceId = await openLocalSpace(db); const now = new Date().toISOString()
+    const topic = { id: crypto.randomUUID(), title: '路由选择', expectedPerformance: '构造路由表并解释结果' }
+    const course: PersonalCourse = { id: crypto.randomUUID(), spaceId, title: '计算机网络', goal: '理解路由选择', topics: [topic], createdAt: now, updatedAt: now }
+    await savePersonalCourse(course, null, db)
+    const scope = await confirmPersonalCourseScope(spaceId, course.id, canonicalJson(course), db)
+    const attempt: PersonalAttempt = { id: crypto.randomUUID(), spaceId, courseId: course.id, topicId: topic.id, scopeVersionId: scope.id,
+      learningQuestion: '为什么没走默认路由？', theoryNote: '最长前缀匹配', action: '构造两条路由', observation: '更具体的路由生效', reflection: '目标地址决定选择', nextStep: '改变目标网段', createdAt: now }
+    await recordPersonalAttempt(attempt, db)
+    const assist = { id: crypto.randomUUID(), spaceId, courseId: course.id, scopeVersionId: scope.id, topicId: topic.id, attemptId: attempt.id,
+      intent: 'practice' as const, question: '下一步怎么验证？', reply: '试一条不同的目标网段。', nextAction: '记录新的路由表。', modelProfileId: 'local', provider: '本人模型', disclosureVersion: 'personal-learning-assist-v1' as const, createdAt: now }
+    await recordPersonalAssist(assist, db)
+    expect((await db.personalAssists.get([spaceId, assist.id]))?.attemptId).toBe(attempt.id)
+    expect((await db.syncItems.get(`${spaceId}:personal_assist:${assist.id}`))?.status).toBe('pending')
+    await expect(recordPersonalAssist({ ...assist, id: crypto.randomUUID(), topicId: crypto.randomUUID() }, db)).rejects.toThrow('不属于')
+    await expect(recordPersonalAssist(assist, db)).rejects.toThrow()
+    await clearGuestSpace(spaceId, db)
+    expect(await db.personalAssists.where('spaceId').equals(spaceId).count()).toBe(0)
   })
   it('keeps a guest personal course in its space on account claim and removes it with guest clear', async () => {
     const db = createDatabase(); const spaceId = await openLocalSpace(db)
