@@ -120,7 +120,7 @@ erDiagram
 
 首迁移后的 `0002_auth` 建立 account_auth_state／auth_email_token；`0003_sync` 建立 sync_object、sync_operation_receipt、sync_batch_receipt、sync_change、sync_conflict、sync_cursor，复用 account／profile／auth_session／learning_space／sync_claim。实际表与 CHECK、复合 FK、RLS、追加回执和删除约束以 Alembic、SQLAlchemy metadata 及真实数据库测试为准。
 
-`0005_personal_course_sync` 仅扩展同步传输对象的受限类型和历史尝试不可改写约束：本人私人课程草稿及自述尝试可跨设备恢复，不在 `course`／`course_version` 领域表发布，也不产生平台核验事件。上表的完整 `student_personal` 课程版本、图谱、活动与证据领域模型仍属待实现设计。
+`0005_personal_course_sync` 扩展本人个人课程与尝试的受限同步类型。`0006_personal_course_scope_versions` 再增加不可变 `personal_course_version` 传输快照，保存本人明确确认时的课程名、目标、学习点、缺口、状态和确认时间；个人尝试的 `scopeVersionId` 绑定其所依据的快照。版本对象与全部个人记录仍只在 `sync_object` 传输视图跨设备恢复，不写入权威 `course`／`course_version` 教学发布表，不产生平台核验事件。上表完整的 `student_personal` 课程、图谱、活动、内容审校与可信证据领域模型仍属待实现设计。
 
 `0004_agent_run` 增加账号 Agent 运行账本基础，只保存账号／空间／版本／作品引用、状态及调用预算，并以复合 FK、RLS 和不可改写触发器保护。它尚未接入账号 Agent API 或 LangGraph checkpoint；恢复时仍须在业务服务重验引用和权限。真实可销毁 PG18 库的迁移、模型零差异及受限角色测试见 [技术验证](TECHNICAL_VALIDATION.md)。
 

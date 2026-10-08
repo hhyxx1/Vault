@@ -25,7 +25,7 @@ from vault_backend.models import Base
 
 KINDS_SQL = (
     "('draft','revision','evidence','help','teacher_draft','position',"
-    "'personal_course','personal_attempt')"
+    "'personal_course','personal_course_version','personal_attempt')"
 )
 
 

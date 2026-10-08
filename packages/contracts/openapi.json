@@ -258,6 +258,7 @@
               "teacher_draft",
               "position",
               "personal_course",
+              "personal_course_version",
               "personal_attempt"
             ],
             "title": "Object Type",
@@ -506,6 +507,7 @@
               "teacher_draft",
               "position",
               "personal_course",
+              "personal_course_version",
               "personal_attempt"
             ],
             "title": "Object Type",
@@ -1096,6 +1098,7 @@
                   "teacher_draft",
                   "position",
                   "personal_course",
+                  "personal_course_version",
                   "personal_attempt"
                 ],
                 "type": "string"
@@ -1400,6 +1403,7 @@
                   "teacher_draft",
                   "position",
                   "personal_course",
+                  "personal_course_version",
                   "personal_attempt"
                 ],
                 "type": "string"

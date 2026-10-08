@@ -4140,6 +4140,21 @@ main:focus {
 .personal-boundary { display: flex; align-items: start; gap: 13px; padding: 15px 18px; border: 1px solid #c8d2c4; background: #eef2e9; }
 .personal-boundary .status-dot { flex: none; margin-top: 8px; }
 .personal-boundary p { color: #42584b; font-size: 13px; }
+.personal-scope-ledger { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px 24px; align-items: center; margin-top: 18px; padding: 17px 19px; border-block: 1px solid #c8d2c4; background: #f5f5ed; }
+.personal-scope-ledger.changed { border-color: #bb9364; background: #f7f1e7; }
+.personal-scope-copy { display: grid; gap: 5px; min-width: 0; }
+.personal-scope-copy .eyebrow { color: #687c6a; }
+.personal-scope-copy>strong { color: #30493d; font-size: 15px; }
+.personal-scope-copy p { max-width: 760px; margin: 0; color: #526456; font-size: 12px; line-height: 1.7; }
+.personal-scope-ledger>.button { min-height: 44px; white-space: nowrap; }
+.personal-scope-ledger>.button:focus-visible { outline: 2px solid #246a5b; outline-offset: 3px; }
+.personal-scope-history { grid-column: 1 / -1; border-top: 1px solid #d6ddcd; }
+.personal-scope-history>summary { padding-top: 12px; color: #46634e; font-size: 12px; cursor: pointer; }
+.personal-scope-history ol { display: grid; gap: 0; margin: 8px 0 0; padding: 0; list-style: none; }
+.personal-scope-history li { display: grid; gap: 4px; padding: 12px 0; border-top: 1px solid #e0e3d9; }
+.personal-scope-history li strong { color: #30493d; font-size: 12px; }
+.personal-scope-history li span,.personal-scope-history li small { color: #59695b; font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
+.personal-scope-history li small { color: #7b8576; }
 .personal-map-section { margin-top: 30px; padding: 28px 30px; border: 1px solid #c8d2c4; background: #f1f2eb; }
 .personal-map-section .section-heading { margin-bottom: 18px; }
 .personal-map-section .section-heading>span { color: #526656; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -4200,6 +4215,8 @@ main:focus {
   .personal-page .page-heading { flex-direction: column; align-items: start; }
   .personal-count { text-align: left; }
   .personal-return { flex-wrap: wrap; }
+  .personal-scope-ledger { grid-template-columns: minmax(0,1fr); padding: 15px 14px; }
+  .personal-scope-ledger>.button { justify-self: start; white-space: normal; }
 }
 
 /* Course graphs use compact content bounds; the canvas no longer spreads a small map across an empty field. */

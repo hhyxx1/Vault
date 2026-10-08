@@ -1,8 +1,9 @@
 import 'fake-indexeddb/auto'
 import { afterEach, describe, expect, it } from 'vitest'
 import { persistIdentitySpace } from './AuthProvider'
-import { LearningDatabase, openLocalSpace, savePersonalCourse } from './database'
+import { confirmPersonalCourseScope, LearningDatabase, openLocalSpace, savePersonalCourse } from './database'
 import type { Account } from '../api/accounts'
+import { canonicalJson } from '../domain/integrity'
 import type { PersonalCourse } from '../domain/personal'
 
 const databases: LearningDatabase[] = []
@@ -15,12 +16,14 @@ describe('identity space transition', () => {
     const now = new Date().toISOString()
     const course: PersonalCourse = { id: crypto.randomUUID(), spaceId: guest, title: '编译原理', goal: '', topics: [], createdAt: now, updatedAt: now }
     await savePersonalCourse(course, null, db)
+    const scope = await confirmPersonalCourseScope(guest, course.id, canonicalJson(course), db)
     const account: Account = { id: crypto.randomUUID(), email: 'student@example.test', display_name: 'Student', account_type: 'student', teacher_verification_state: null }
 
     await persistIdentitySpace(account, false, db)
     expect((await db.meta.get('spaceId'))?.value).toBe(guest)
     expect((await db.spaces.get(guest))?.pendingOwnerId).toBe(account.id)
     expect((await db.personalCourses.get([guest, course.id]))?.title).toBe(course.title)
+    expect((await db.personalCourseVersions.get([guest, scope.id]))?.scopeStatus).toBe('exploration')
     expect(JSON.parse((await db.meta.get('cachedAccount'))!.value).id).toBe(account.id)
 
     await persistIdentitySpace(null, true, db)

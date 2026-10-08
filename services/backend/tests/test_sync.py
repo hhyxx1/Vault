@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0005_personal_course_sync"
+            == "0006_personal_course_scope_versions"
         )
     settings = Settings(
         environment="test",
@@ -442,8 +442,8 @@ def personal_course(origin, course_id=None, topic_id=None):
     }
 
 
-def personal_attempt(origin, course):
-    return {
+def personal_attempt(origin, course, scope_version_id=None):
+    payload = {
         "id": str(uuid4()),
         "spaceId": str(origin),
         "courseId": course["id"],
@@ -456,6 +456,91 @@ def personal_attempt(origin, course):
         "nextStep": "修改目标网段后再次验证。",
         "createdAt": "2026-10-05T12:05:00Z",
     }
+    if scope_version_id:
+        payload["scopeVersionId"] = str(scope_version_id)
+    return payload
+
+
+def personal_course_scope_version(origin, course, version=1):
+    gaps = []
+    if not course["goal"].strip():
+        gaps.append("goal")
+    if not course["topics"]:
+        gaps.append("learning_points")
+    return {
+        "id": str(uuid4()),
+        "spaceId": str(origin),
+        "courseId": course["id"],
+        "version": version,
+        "title": course["title"],
+        "goal": course["goal"],
+        "topics": course["topics"],
+        "scopeStatus": "exploration" if gaps else "defined",
+        "gaps": gaps,
+        "confirmedAt": "2026-10-05T12:03:00Z",
+    }
+
+
+async def test_confirmed_personal_scope_is_immutable_and_attempts_reference_its_version(cloud):
+    _, seed, _ = cloud
+    student, account_id = seed("student")
+    mapping, _ = await claim(student, account_id)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    course = personal_course(origin)
+    scope = personal_course_scope_version(origin, course)
+    saved_course, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_course", course["id"], course)],
+    )
+    assert saved_course.json()["results"][0]["status"] == "applied"
+
+    attempt = {**personal_attempt(origin, course), "scopeVersionId": scope["id"]}
+    missing_scope, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_attempt", attempt["id"], attempt)],
+    )
+    assert missing_scope.json()["results"][0]["reason"] == "PERSONAL_COURSE_VERSION_NOT_SYNCED"
+
+    saved_scope, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_course_version", scope["id"], scope)],
+    )
+    assert saved_scope.json()["results"][0]["status"] == "applied"
+    duplicate_scope = personal_course_scope_version(origin, course)
+    duplicate_result, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_course_version", duplicate_scope["id"], duplicate_scope)],
+    )
+    assert duplicate_result.json()["results"][0]["reason"] == "PERSONAL_COURSE_VERSION_CONFLICT"
+    saved_attempt, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_attempt", attempt["id"], attempt)],
+    )
+    assert saved_attempt.json()["results"][0]["status"] == "applied"
+
+    rewritten_scope = {**scope, "goal": "事后改写的学习范围"}
+    rewritten, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_course_version", scope["id"], rewritten_scope, "1")],
+    )
+    assert rewritten.json()["results"][0]["reason"] == "IMMUTABLE_HISTORY"
+    changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
+    scope_change = next(row for row in changes if row["object_type"] == "personal_course_version")
+    attempt_change = next(row for row in changes if row["object_type"] == "personal_attempt")
+    assert scope_change["payload"] == scope
+    assert attempt_change["payload"]["scopeVersionId"] == scope["id"]
 
 
 async def test_personal_course_and_attempt_claim_are_student_owned_reports(cloud):
@@ -464,7 +549,8 @@ async def test_personal_course_and_attempt_claim_are_student_owned_reports(cloud
     mapping, _ = await claim(student, account_id)
     sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
     course = personal_course(origin)
-    attempt = personal_attempt(origin, course)
+    scope = personal_course_scope_version(origin, course)
+    attempt = personal_attempt(origin, course, scope["id"])
     pending, _ = await batch(
         student,
         account_id,
@@ -478,14 +564,19 @@ async def test_personal_course_and_attempt_claim_are_student_owned_reports(cloud
         sid,
         [
             operation("personal_course", course["id"], course),
+            operation("personal_course_version", scope["id"], scope),
             operation("personal_attempt", attempt["id"], attempt),
         ],
     )
-    assert [row["status"] for row in saved.json()["results"]] == ["applied", "applied"]
+    assert [row["status"] for row in saved.json()["results"]] == ["applied", "applied", "applied"]
     changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
-    assert [row["object_type"] for row in changes] == ["personal_course", "personal_attempt"]
+    assert [row["object_type"] for row in changes] == [
+        "personal_course",
+        "personal_course_version",
+        "personal_attempt",
+    ]
     assert all(row["provenance"] == "client_reported" for row in changes)
-    assert changes[1]["payload"] == attempt
+    assert changes[2]["payload"] == attempt
     other_student, _ = seed("student")
     teacher, _ = seed("teacher")
     for client in (other_student, teacher):
@@ -506,22 +597,36 @@ async def test_named_personal_course_can_start_before_goal_and_topic_confirmatio
         [operation("personal_course", named_only["id"], named_only)],
     )
     assert created.json()["results"][0]["status"] == "applied"
-    attempt = personal_attempt(origin, detailed)
+    first_scope = personal_course_scope_version(origin, named_only)
+    first_confirmed, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_course_version", first_scope["id"], first_scope)],
+    )
+    assert first_confirmed.json()["results"][0]["status"] == "applied"
+    attempt = personal_attempt(origin, detailed, first_scope["id"])
     too_early, _ = await batch(
         student,
         account_id,
         sid,
         [operation("personal_attempt", attempt["id"], attempt)],
     )
-    assert too_early.json()["results"][0]["reason"] == "PERSONAL_TOPIC_MISMATCH"
+    assert too_early.json()["results"][0]["reason"] == "PERSONAL_COURSE_VERSION_MISMATCH"
     confirmed = {**detailed, "updatedAt": "2026-10-05T12:03:00Z"}
+    second_scope = personal_course_scope_version(origin, confirmed, 2)
     added, _ = await batch(
         student,
         account_id,
         sid,
         [
             operation("personal_course", confirmed["id"], confirmed, "1"),
-            operation("personal_attempt", attempt["id"], attempt),
+            operation("personal_course_version", second_scope["id"], second_scope),
+            operation(
+                "personal_attempt",
+                attempt["id"],
+                {**attempt, "scopeVersionId": second_scope["id"]},
+            ),
         ],
     )
     assert [row["status"] for row in added.json()["results"]] == ["applied", "applied"]
@@ -557,7 +662,23 @@ async def test_personal_learning_rejects_trust_forgery_and_invalid_references(cl
         student, account_id, sid, [operation("personal_course", course["id"], course)]
     )
     assert saved.json()["results"][0]["status"] == "applied"
-    attempt = personal_attempt(origin, course)
+    scope = personal_course_scope_version(origin, course)
+    saved_scope, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_course_version", scope["id"], scope)],
+    )
+    assert saved_scope.json()["results"][0]["status"] == "applied"
+    unscoped_attempt = personal_attempt(origin, course)
+    unscoped, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_attempt", unscoped_attempt["id"], unscoped_attempt)],
+    )
+    assert unscoped.json()["results"][0]["reason"] == "PERSONAL_COURSE_VERSION_REQUIRED"
+    attempt = personal_attempt(origin, course, scope["id"])
     wrong_topic = {**attempt, "topicId": str(uuid4())}
     fake_verification = {**attempt, "verified": True}
     denied, _ = await batch(
@@ -570,7 +691,7 @@ async def test_personal_learning_rejects_trust_forgery_and_invalid_references(cl
         ],
     )
     assert [row["reason"] for row in denied.json()["results"]] == [
-        "PERSONAL_TOPIC_MISMATCH",
+        "PERSONAL_COURSE_VERSION_MISMATCH",
         "INVALID_PAYLOAD",
     ]
     teacher, teacher_id = seed("teacher")
@@ -600,17 +721,19 @@ async def test_personal_attempt_history_and_course_topic_identity_are_preserved(
     mapping, _ = await claim(student, account_id)
     sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
     course = personal_course(origin)
-    attempt = personal_attempt(origin, course)
+    scope = personal_course_scope_version(origin, course)
+    attempt = personal_attempt(origin, course, scope["id"])
     applied, _ = await batch(
         student,
         account_id,
         sid,
         [
             operation("personal_course", course["id"], course),
+            operation("personal_course_version", scope["id"], scope),
             operation("personal_attempt", attempt["id"], attempt),
         ],
     )
-    assert [row["status"] for row in applied.json()["results"]] == ["applied", "applied"]
+    assert [row["status"] for row in applied.json()["results"]] == ["applied", "applied", "applied"]
     rewritten = {**attempt, "observation": "事后改写"}
     removed_topic = {**course, "topics": [{**course["topics"][0], "id": str(uuid4())}]}
     rewritten_topic = {
@@ -634,7 +757,7 @@ async def test_personal_attempt_history_and_course_topic_identity_are_preserved(
         "PERSONAL_COURSE_IDENTITY_MISMATCH",
         "PERSONAL_RECORD_DELETE_UNSUPPORTED",
     ]
-    assert len((await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]) == 2
+    assert len((await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]) == 3
     with psycopg.connect(owner_url) as conn:
         conn.execute("SET LOCAL ROLE vault_api")
         conn.execute("SELECT set_config('vault.account_id',%s,true)", (str(account_id),))
@@ -644,6 +767,14 @@ async def test_personal_attempt_history_and_course_topic_identity_are_preserved(
                     "UPDATE sync_object SET version=version+1,updated_at=now() "
                     "WHERE space_id=%s AND object_type='personal_attempt' AND object_id=%s",
                     (sid, attempt["id"]),
+                )
+        conn.rollback()
+        with pytest.raises(psycopg.errors.CheckViolation):
+            with conn.transaction():
+                conn.execute(
+                    "UPDATE sync_object SET version=version+1,deleted_at=now(),updated_at=now() "
+                    "WHERE space_id=%s AND object_type='personal_course_version' AND object_id=%s",
+                    (sid, scope["id"]),
                 )
         conn.rollback()
 

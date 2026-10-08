@@ -26,6 +26,7 @@ ObjectType = Literal[
     "teacher_draft",
     "position",
     "personal_course",
+    "personal_course_version",
     "personal_attempt",
 ]
 
@@ -43,7 +44,7 @@ class LocalPayload(WriteModel):
     @field_validator("*", mode="after", check_fields=False)
     @classmethod
     def dated_fields(cls, value, info):
-        if info.field_name in {"updatedAt", "createdAt", "submittedAt"}:
+        if info.field_name in {"updatedAt", "createdAt", "submittedAt", "confirmedAt"}:
             instant = datetime.fromisoformat(value.replace("Z", "+00:00"))
             if instant.tzinfo is None:
                 raise ValueError("timezone is required")
@@ -222,10 +223,44 @@ class PersonalCoursePayload(LocalPayload):
         return self
 
 
+class PersonalCourseVersionPayload(LocalPayload):
+    id: UUID
+    courseId: UUID
+    version: StrictInt = Field(ge=1, le=1_000_000)
+    title: str = Field(min_length=1, max_length=120)
+    goal: str = Field(max_length=2000)
+    topics: list[PersonalTopic] = Field(max_length=64)
+    scopeStatus: Literal["exploration", "defined"]
+    gaps: list[Literal["goal", "learning_points"]] = Field(max_length=2)
+    confirmedAt: Timestamp
+
+    @field_validator("title")
+    @classmethod
+    def meaningful_text(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("scope title cannot be blank")
+        return value
+
+    @model_validator(mode="after")
+    def validate_scope_snapshot(self):
+        if len({topic.id for topic in self.topics}) != len(self.topics):
+            raise ValueError("topic IDs must be unique within the course scope version")
+        expected_gaps = []
+        if not self.goal.strip():
+            expected_gaps.append("goal")
+        if not self.topics:
+            expected_gaps.append("learning_points")
+        expected_status = "defined" if not expected_gaps else "exploration"
+        if self.gaps != expected_gaps or self.scopeStatus != expected_status:
+            raise ValueError("scope status and gaps must match the confirmed snapshot")
+        return self
+
+
 class PersonalAttemptPayload(LocalPayload):
     id: UUID
     courseId: UUID
     topicId: UUID
+    scopeVersionId: UUID | None = None
     learningQuestion: str = Field(min_length=1, max_length=1200)
     theoryNote: str = Field(min_length=1, max_length=4000)
     action: str = Field(min_length=1, max_length=4000)
@@ -256,6 +291,7 @@ PAYLOAD_MODELS = {
     "teacher_draft": TeacherDraftPayload,
     "position": PositionPayload,
     "personal_course": PersonalCoursePayload,
+    "personal_course_version": PersonalCourseVersionPayload,
     "personal_attempt": PersonalAttemptPayload,
 }
 

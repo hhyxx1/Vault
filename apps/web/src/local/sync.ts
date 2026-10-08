@@ -2,18 +2,18 @@ import Dexie from 'dexie'
 import { accountRequest, authenticatedRequest, AccountApiError, type Account } from '../api/accounts'
 import { canonicalHash, canonicalJson } from '../domain/integrity'
 import type { Draft, ArtifactRevision, EvidenceRecord, HelpEvent, TeacherDraft } from '../domain/learning'
-import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
+import type { PersonalAttempt, PersonalCourse, PersonalCourseVersion } from '../domain/personal'
 import { database, syncKey, MAX_SYNC_OPERATION_BYTES, type LearningDatabase, type LocalSpaceRecord, type ObjectType, type ClaimJournal, type BatchJournal, type SyncItem } from './database'
 
 type SyncContext = { account: Account; isCurrent: () => boolean; signal?: AbortSignal; db?: LearningDatabase }
 type ClaimResponse = { claim_id: string; expected_account_id: string; origin_local_space_id: string; manifest_hash: string; server_space_id: string; state: 'committed' }
 type BatchResponse = { batch_id: string; space_id: string; results: { op_id: string; object_type: ObjectType; object_id: string; status: 'applied' | 'already_applied' | 'conflict' | 'rejected' | 'dependency_pending'; current_version: string; reason: string | null; conflict_id: string | null }[] }
 type Change = { object_type: ObjectType; object_id: string; version: string; deleted: boolean; payload: Record<string, unknown> | null; payload_hash: string; provenance: 'client_reported'; requires_review: boolean }
-const types: ObjectType[] = ['draft', 'revision', 'help', 'evidence', 'teacher_draft', 'personal_course', 'personal_attempt', 'position']
-export const syncTables = (db: LearningDatabase) => [db.meta, db.spaces, db.claims, db.batches, db.syncItems, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalAttempts]
+const types: ObjectType[] = ['draft', 'revision', 'help', 'evidence', 'teacher_draft', 'personal_course', 'personal_course_version', 'personal_attempt', 'position']
+export const syncTables = (db: LearningDatabase) => [db.meta, db.spaces, db.claims, db.batches, db.syncItems, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts]
 function guard(context: SyncContext) { if (!context.isCurrent() || context.signal?.aborted) throw new DOMException('账号空间已切换，同步等待已取消。', 'AbortError') }
 function tableFor(type: Exclude<ObjectType, 'position'>, db: LearningDatabase) {
-  return { draft: db.drafts, revision: db.revisions, evidence: db.evidence, help: db.help, teacher_draft: db.teacherDrafts, personal_course: db.personalCourses, personal_attempt: db.personalAttempts }[type]
+  return { draft: db.drafts, revision: db.revisions, evidence: db.evidence, help: db.help, teacher_draft: db.teacherDrafts, personal_course: db.personalCourses, personal_course_version: db.personalCourseVersions, personal_attempt: db.personalAttempts }[type]
 }
 async function allPayloads(spaceId: string, db: LearningDatabase): Promise<{ type: ObjectType; id: string; payload: Record<string, unknown> }[]> {
   const records: { type: ObjectType; id: string; payload: Record<string, unknown> }[] = []
@@ -124,7 +124,7 @@ async function putChange(spaceId: string, change: Change, db: LearningDatabase) 
   const payload = { ...change.payload, spaceId }
   if (change.object_type === 'evidence') (payload as unknown as EvidenceRecord).trust = 'client_reported'
   // Schemas are validated by the API, then written to the matching compound store.
-  await table.put(payload as Draft & ArtifactRevision & EvidenceRecord & HelpEvent & TeacherDraft & PersonalCourse & PersonalAttempt)
+  await table.put(payload as Draft & ArtifactRevision & EvidenceRecord & HelpEvent & TeacherDraft & PersonalCourse & PersonalCourseVersion & PersonalAttempt)
 }
 export async function pullSpace(space: LocalSpaceRecord, context: SyncContext) {
   const db = context.db ?? database; let cursor = space.cursor; let more = true

@@ -44,6 +44,7 @@ from vault_backend.sync_schemas import (
     OperationResult,
     PersonalAttemptPayload,
     PersonalCoursePayload,
+    PersonalCourseVersionPayload,
     RevisionPayload,
     SpaceResponse,
     SpacesResponse,
@@ -255,12 +256,48 @@ def validate_payload(op: SyncOperation, origin: UUID):
 
 
 async def dependencies(session: AsyncSession, space: LearningSpace, model) -> str | None:
+    if isinstance(model, PersonalCourseVersionPayload):
+        course = await session.get(SyncObject, (space.id, "personal_course", str(model.courseId)))
+        if course is None:
+            return "PERSONAL_COURSE_NOT_SYNCED"
+        if course.deleted_at is not None or course.payload is None:
+            return "PERSONAL_COURSE_DELETED"
+        versions = await session.scalars(
+            select(SyncObject).where(
+                SyncObject.space_id == space.id,
+                SyncObject.object_type == "personal_course_version",
+                SyncObject.object_id != str(model.id),
+            )
+        )
+        if any(
+            row.payload
+            and row.payload.get("courseId") == str(model.courseId)
+            and row.payload.get("version") == model.version
+            for row in versions
+        ):
+            return "PERSONAL_COURSE_VERSION_CONFLICT"
+        return None
     if isinstance(model, PersonalAttemptPayload):
         course = await session.get(SyncObject, (space.id, "personal_course", str(model.courseId)))
         if course is None:
             return "PERSONAL_COURSE_NOT_SYNCED"
         if course.deleted_at is not None or course.payload is None:
             return "PERSONAL_COURSE_DELETED"
+        if model.scopeVersionId:
+            scope = await session.get(
+                SyncObject,
+                (space.id, "personal_course_version", str(model.scopeVersionId)),
+            )
+            if scope is None:
+                return "PERSONAL_COURSE_VERSION_NOT_SYNCED"
+            if (
+                scope.deleted_at is not None
+                or scope.payload is None
+                or scope.payload["courseId"] != str(model.courseId)
+                or str(model.topicId) not in {topic["id"] for topic in scope.payload["topics"]}
+            ):
+                return "PERSONAL_COURSE_VERSION_MISMATCH"
+            return None
         if str(model.topicId) not in {topic["id"] for topic in course.payload["topics"]}:
             return "PERSONAL_TOPIC_MISMATCH"
         return None
@@ -362,9 +399,10 @@ async def apply_operation(session, space, principal, op):
             op,
             operation_result(op, "rejected", reason="PAYLOAD_HASH_MISMATCH"),
         )
-    if op.object_type in {"personal_course", "personal_attempt"} and op.payload == {
-        "deleted": True
-    }:
+    if (
+        op.object_type in {"personal_course", "personal_course_version", "personal_attempt"}
+        and op.payload == {"deleted": True}
+    ):
         return await remember_result(
             session,
             space.id,
@@ -379,6 +417,13 @@ async def apply_operation(session, space, principal, op):
     obj = await session.get(SyncObject, (space.id, op.object_type, op.object_id))
     current_version = obj.version if obj is not None else 0
     deleted = isinstance(model, TombstonePayload)
+    if obj is None and isinstance(model, PersonalAttemptPayload) and model.scopeVersionId is None:
+        return await remember_result(
+            session,
+            space.id,
+            op,
+            operation_result(op, "rejected", reason="PERSONAL_COURSE_VERSION_REQUIRED"),
+        )
     if obj is not None and obj.deleted_at is not None:
         return await remember_result(
             session,
@@ -415,7 +460,8 @@ async def apply_operation(session, space, principal, op):
         )
     if (
         obj is not None
-        and op.object_type in {"revision", "evidence", "help", "personal_attempt"}
+        and op.object_type
+        in {"revision", "evidence", "help", "personal_course_version", "personal_attempt"}
         and not deleted
     ):
         return await remember_result(
@@ -444,7 +490,12 @@ async def apply_operation(session, space, principal, op):
             status = (
                 "dependency_pending"
                 if pending
-                in {"REVISION_NOT_SYNCED", "HELP_NOT_SYNCED", "PERSONAL_COURSE_NOT_SYNCED"}
+                in {
+                    "REVISION_NOT_SYNCED",
+                    "HELP_NOT_SYNCED",
+                    "PERSONAL_COURSE_NOT_SYNCED",
+                    "PERSONAL_COURSE_VERSION_NOT_SYNCED",
+                }
                 else "rejected"
             )
             result = operation_result(op, status, current_version, reason=pending)

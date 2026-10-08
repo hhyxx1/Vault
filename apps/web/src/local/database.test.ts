@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto'
 import { afterEach, describe, expect, it } from 'vitest'
-import { LearningDatabase, activateSpace, clearGuestSpace, openLocalSpace, recordEvidence, recordPersonalAttempt, saveDraft, savePersonalCourse, saveRevision } from './database'
+import { LearningDatabase, activateSpace, clearGuestSpace, confirmPersonalCourseScope, openLocalSpace, recordEvidence, recordPersonalAttempt, saveDraft, savePersonalCourse, saveRevision } from './database'
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 import { canonicalJson } from '../domain/integrity'
 import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
@@ -86,24 +86,60 @@ describe('local durable repository', () => {
     await expect(recordPersonalAttempt(attempt, db)).rejects.toThrow('学习点已变化')
     const expanded = { ...course, goal: '完成扫描器并解释状态转换', topics: [topic], updatedAt: new Date(Date.now() + 1000).toISOString() }
     await savePersonalCourse(expanded, canonicalJson(course), db)
-    await recordPersonalAttempt(attempt, db)
+    const scope = await confirmPersonalCourseScope(spaceId, course.id, canonicalJson(expanded), db)
+    await recordPersonalAttempt({ ...attempt, scopeVersionId: scope.id }, db)
     expect(await db.personalAttempts.where('spaceId').equals(spaceId).count()).toBe(1)
-    await expect(recordPersonalAttempt(attempt, db)).rejects.toThrow()
+    await expect(recordPersonalAttempt({ ...attempt, scopeVersionId: scope.id }, db)).rejects.toThrow()
     await expect(savePersonalCourse({ ...expanded, goal: 'stale update' }, canonicalJson(course), db)).rejects.toThrow('其他页面')
     await expect(recordPersonalAttempt({ ...attempt, id: crypto.randomUUID(), spaceId: crypto.randomUUID() }, db)).rejects.toThrow('不属于')
+  })
+  it('confirms append-only personal course scope versions and binds attempts to the chosen version', async () => {
+    const db = createDatabase(); const spaceId = await openLocalSpace(db); const now = new Date().toISOString()
+    const topic = { id: crypto.randomUUID(), title: '路由选择', expectedPerformance: '构造路由表并解释转发结果' }
+    const course: PersonalCourse = { id: crypto.randomUUID(), spaceId, title: '计算机网络', goal: '解释并验证路由决策', topics: [topic], createdAt: now, updatedAt: now }
+    await savePersonalCourse(course, null, db)
+    const first = await confirmPersonalCourseScope(spaceId, course.id, canonicalJson(course), db)
+    expect(first.version).toBe(1)
+    expect(first.scopeStatus).toBe('defined')
+
+    const updated = { ...course, goal: '解释路由决策并定位故障', updatedAt: new Date(Date.now() + 1000).toISOString() }
+    await savePersonalCourse(updated, canonicalJson(course), db)
+    const second = await confirmPersonalCourseScope(spaceId, course.id, canonicalJson(updated), db)
+    expect(second.version).toBe(2)
+    expect((await db.personalCourseVersions.get([spaceId, first.id]))?.goal).toBe(course.goal)
+    expect((await db.personalCourseVersions.get([spaceId, second.id]))?.goal).toBe(updated.goal)
+
+    const attempt: PersonalAttempt = { id: crypto.randomUUID(), spaceId, courseId: course.id, topicId: topic.id, scopeVersionId: first.id,
+      learningQuestion: '为什么数据包走了另一条路？', theoryNote: '最长前缀匹配', action: '检查路由表', observation: '命中更具体路由', reflection: '默认路由不是唯一候选', nextStep: '改变目标网段再试', createdAt: now }
+    await recordPersonalAttempt(attempt, db)
+    expect((await db.personalAttempts.get([spaceId, attempt.id]))?.scopeVersionId).toBe(first.id)
+    await expect(confirmPersonalCourseScope(spaceId, course.id, canonicalJson(course), db)).rejects.toThrow('其他页面')
+  })
+  it('does not save a personal attempt without a confirmed scope version', async () => {
+    const db = createDatabase(); const spaceId = await openLocalSpace(db); const now = new Date().toISOString()
+    const topic = { id: crypto.randomUUID(), title: '事务隔离', expectedPerformance: '复现并解释不可重复读' }
+    const course: PersonalCourse = { id: crypto.randomUUID(), spaceId, title: '数据库系统', goal: '解释并发异常', topics: [topic], createdAt: now, updatedAt: now }
+    await savePersonalCourse(course, null, db)
+    const attempt: PersonalAttempt = { id: crypto.randomUUID(), spaceId, courseId: course.id, topicId: topic.id,
+      learningQuestion: '如何复现？', theoryNote: '事务可见性', action: '执行两组事务', observation: '读到旧值', reflection: '隔离级别影响可见性', nextStep: '提高隔离级别复测', createdAt: now }
+    await expect(recordPersonalAttempt(attempt, db)).rejects.toThrow('先确认当前学习范围')
+    expect(await db.personalAttempts.where('spaceId').equals(spaceId).count()).toBe(0)
   })
   it('keeps a guest personal course in its space on account claim and removes it with guest clear', async () => {
     const db = createDatabase(); const spaceId = await openLocalSpace(db)
     const course: PersonalCourse = { id: crypto.randomUUID(), spaceId, title: '计算机网络', goal: '', topics: [], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
     await savePersonalCourse(course, null, db)
+    const scope = await confirmPersonalCourseScope(spaceId, course.id, canonicalJson(course), db)
     const accountId = crypto.randomUUID()
     expect(await activateSpace(accountId, false, db)).toBe(spaceId)
     expect((await db.spaces.get(spaceId))?.pendingOwnerId).toBe(accountId)
     const guest = await activateSpace(null, true, db)
     expect(guest).not.toBe(spaceId)
     expect(await db.personalCourses.where('spaceId').equals(guest).count()).toBe(0)
+    expect(await db.personalCourseVersions.where('spaceId').equals(guest).count()).toBe(0)
     expect(await activateSpace(accountId, false, db)).toBe(spaceId)
     expect((await db.personalCourses.get([spaceId, course.id]))?.title).toBe('计算机网络')
+    expect((await db.personalCourseVersions.get([spaceId, scope.id]))?.scopeStatus).toBe('exploration')
     await activateSpace(null, true, db)
     const currentGuest = (await db.meta.get('spaceId'))!.value
     const disposable = { ...course, spaceId: currentGuest, id: crypto.randomUUID() }
@@ -121,8 +157,10 @@ describe('local durable repository', () => {
 
     const topic = { id: crypto.randomUUID(), title: '事务隔离', expectedPerformance: '重现并解释不可重复读' }
     await savePersonalCourse({ ...course, topics: [topic] }, null, db)
+    const confirmed = { ...course, topics: [topic] }
+    const scope = await confirmPersonalCourseScope(spaceId, course.id, canonicalJson(confirmed), db)
     const attempt: PersonalAttempt = { id: crypto.randomUUID(), spaceId, courseId: course.id, topicId: topic.id,
-      learningQuestion: '如何重现？', theoryNote: '原'.repeat(3500), action: '操'.repeat(3500), observation: '结'.repeat(3500), reflection: '思'.repeat(3500), nextStep: '试'.repeat(3500), createdAt: now }
+      scopeVersionId: scope.id, learningQuestion: '如何重现？', theoryNote: '原'.repeat(3500), action: '操'.repeat(3500), observation: '结'.repeat(3500), reflection: '思'.repeat(3500), nextStep: '试'.repeat(3500), createdAt: now }
     await recordPersonalAttempt(attempt, db)
     await expect(recordPersonalAttempt({ ...attempt, id: crypto.randomUUID(), theoryNote: '原'.repeat(4000), action: '操'.repeat(4000), observation: '结'.repeat(4000), reflection: '思'.repeat(4000), nextStep: '试'.repeat(4000) }, db)).rejects.toThrow('云同步大小限制')
     expect(await db.personalAttempts.where('spaceId').equals(spaceId).count()).toBe(1)
