@@ -1,7 +1,7 @@
 /* Approved knowledge-atlas reference. Geometry follows document/prototypes/knowledge-atlas/style.css.
    Course fixtures and actual evidence remain independent of that prototype's simulated data. */
 .page.atlas-page { max-width:1740px; padding:30px 30px 18px; }
-.atlas-page .atlas-course-header { display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:32px; margin:0 0 28px; }
+.atlas-page .atlas-course-header { display:flex; flex-direction:row; flex-wrap:nowrap; align-items:center; justify-content:space-between; gap:32px; margin:0 0 28px; }
 .atlas-page .course-meta { display:flex; align-items:center; flex-wrap:wrap; gap:18px; margin-bottom:9px; font-size:12px; line-height:16px; color:var(--muted); }
 .atlas-page .course-picker { display:flex; align-items:center; gap:7px; font-size:12px; }
 .atlas-page .course-picker select { font-size:12px; padding:0 18px 0 0; min-height:16px; height:16px; border:0; border-radius:0; background:transparent; box-shadow:none; }

@@ -35,3 +35,12 @@ test('all learning surfaces use the reference typography and page inset', async 
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(245, 247, 251)')
   }
 })
+
+test('tablet course header keeps scope statistics beside the title until the phone breakpoint', async ({ page }) => {
+  await page.setViewportSize({ width: 719, height: 960 })
+  await page.goto('/atlas?course=CS03&chapter=ch-list&goal=CS03-LIST-02')
+  const title = await page.locator('.atlas-course-header>div').first().boundingBox()
+  const scope = await page.locator('.scope-total').boundingBox()
+  expect(Math.abs(title!.y - scope!.y)).toBeLessThan(1)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+})
