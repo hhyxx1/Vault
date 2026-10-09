@@ -145,7 +145,7 @@
 .atlas-map .map-point { position:absolute; z-index:1; min-height:104px; height:auto; text-align:left; padding:14px; display:block; background:white; border:1px solid #cdd7e8; border-radius:9px; box-shadow:0 3px 10px #36558107; transition:border-color 150ms,box-shadow 150ms; }
 .atlas-map .map-point .node-path { font-size:10px; color:var(--muted); display:block; margin-bottom:8px; }
 .atlas-map .map-point strong { display:block; font-weight:600; font-size:13px; line-height:1.6; margin-bottom:9px; }
-.atlas-map .map-point[aria-pressed=true] { border:2px solid #315fe7; padding:13px; box-shadow:0 0 0 5px #315fe710; }
+.atlas-map .map-point[aria-pressed=true] { z-index:2; border:2px solid #315fe7; padding:13px; box-shadow:0 0 0 5px #315fe710; }
 .atlas-map .map-point[aria-pressed=true] strong { color:#315fe7; }
 .atlas-map .map-point .evidence-pill { border:0; font-size:10px; line-height:1.4; padding:4px 6px; }
 .atlas-map .map-point .outside { font-size:9px; color:var(--muted); margin-left:6px; }
@@ -272,3 +272,34 @@
 .atlas-page .atlas-course-header>div:first-child { min-width:0; }
 
 .atlas-page .learn-next .button { width:100%; min-height:43px; margin-top:14px; }
+
+/* Motion follows a student's action; there is no perpetual graph animation. */
+.atlas-map .map-point {
+ transition:left 260ms cubic-bezier(.2,.8,.2,1),top 260ms cubic-bezier(.2,.8,.2,1),width 260ms cubic-bezier(.2,.8,.2,1),border-color 160ms,box-shadow 160ms,background-color 160ms,opacity 160ms,transform 140ms;
+}
+.atlas-map .map-point:hover { background:#fbfcff; box-shadow:0 4px 14px #36558114; transform:translateY(-2px); }
+.atlas-map .map-point[aria-pressed=true]:hover { box-shadow:0 0 0 5px #315fe710,0 4px 14px #36558114; }
+.atlas-map .map-point:active { transform:translateY(0) scale(.99); }
+.atlas-map .map-point:focus-visible { outline:2px solid #315fe7; outline-offset:4px; }
+.atlas-map-plane { transition:transform 240ms cubic-bezier(.2,.8,.2,1); }
+.atlas-map.has-interacted .network-edges>path { animation:atlas-edge-in 260ms ease-out both; }
+.atlas-map.has-interacted .map-point { animation:atlas-node-in 180ms ease-out; }
+.atlas-map.has-interacted .overview-grid { animation:atlas-node-in 180ms ease-out; }
+.atlas-page .directory-units { animation:atlas-node-in 150ms ease-out; }
+.atlas-page .objective-inspector details[open]>:not(summary) { animation:atlas-node-in 150ms ease-out; }
+.atlas-page .unit-node,.atlas-page .directory-chapter,.atlas-page .directory-unit,.atlas-page .view-toggle button,.atlas-page .continue-button,.atlas-page .related-goal-link { transition:background-color 160ms,border-color 160ms,color 160ms,box-shadow 160ms; }
+.atlas-page .unit-node:hover { border-color:#9fb5ee; background:#f8faff; box-shadow:0 2px 8px #315fe70b; }
+.atlas-page .unit-node:active { background:#edf3ff; }
+.atlas-page .objective-inspector .related-goal-link { display:block; margin-top:5px; padding:3px 0; min-height:32px; border:0; background:none; font-size:11px; line-height:1.6; text-align:left; color:#315fe7; }
+.atlas-page .related-goal-link:hover { text-decoration:underline; text-underline-offset:3px; }
+.atlas-page details[open]>summary { color:#315fe7; }
+.atlas-page .atlas-back-map { display:none; }
+@media(max-width:640px) {
+ .atlas-page .atlas-back-map { display:block; width:100%; min-height:44px; margin-top:16px; padding:9px 12px; border:1px solid #d6e0f4; background:#f8faff; color:#315fe7; font-size:12px; border-radius:7px; }
+}
+@keyframes atlas-edge-in { from { opacity:0; } to { opacity:1; } }
+@keyframes atlas-node-in { from { opacity:.45; } to { opacity:1; } }
+@media(prefers-reduced-motion:reduce) {
+ .atlas-page *, .atlas-page *:before, .atlas-page *:after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
+ .atlas-map .map-point:hover,.atlas-map .map-point:active { transform:none; }
+}

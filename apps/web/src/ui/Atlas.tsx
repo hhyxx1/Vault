@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import stackExample from '../../../../content/courses/CS03.stack-example.json'
 import logicExample from '../../../../content/courses/CS05.logic-example.json'
@@ -44,6 +44,7 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
   const { evidence, courseAttempts, help, lastObjective } = useLocal()
   const [directoryOpen, setDirectoryOpen] = useState(false)
   const inspector = useRef<HTMLElement>(null)
+  const canvas = useRef<HTMLDivElement>(null)
   const moveFocus = useRef(false)
   const goals = new Map(data.objectives.map(goal => [goal.code, goal]))
   const chapters = data.outline ?? []
@@ -52,6 +53,17 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
     return placements.find(placement => placement.chapter.id === params.get('chapter')) ?? placements[0]
   }
   const selected = goals.get(params.get('goal') ?? '')
+  const previousSelection = useRef(selected?.code)
+  useLayoutEffect(() => {
+    const changed = previousSelection.current !== selected?.code
+    previousSelection.current = selected?.code
+    if (!changed || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const animation = inspector.current?.animate(
+      [{ opacity: .45, transform: 'translateY(6px)' }, { opacity: 1, transform: 'translateY(0)' }],
+      { duration: 220, easing: 'cubic-bezier(.2,.8,.2,1)' },
+    )
+    return () => animation?.cancel()
+  }, [selected?.code])
   const chapter = selected ? locate(selected.code)?.chapter : chapters.find(item => item.id === params.get('chapter'))
   const currentLogic = courseAttempts.filter(attempt => attempt.result?.course_version === LOGIC_VERSION && attempt.result.activity_version === LOGIC_ACTIVITY && attempt.result.standard_version === LOGIC_STANDARD)
   const states = data.course_code === 'CS03' ? objectiveStates(evidence) : new Map(data.objectives.map(goal => [goal.id, goal.code === LOGIC_OBJECTIVE ? logicObjectiveState(currentLogic) : 'unknown' as ObjectiveState]))
@@ -85,7 +97,7 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
   }
   useEffect(() => {
     if (moveFocus.current && selected && window.matchMedia('(max-width: 640px)').matches) {
-      inspector.current?.scrollIntoView({ block: 'start', behavior: 'auto' }); inspector.current?.focus({ preventScroll: true })
+      inspector.current?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); inspector.current?.focus({ preventScroll: true })
     }
     moveFocus.current = false
   }, [selected?.code])
@@ -121,7 +133,7 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
           <details className="atlas-source"><summary>范围来源与版本</summary><p>{data.version} · 待教研审校</p>{data.content_sources ? <ul>{data.content_sources.map(source => <li key={source}>{source}</li>)}</ul> : <p>工程样例课程包，尚无完整课程来源与审校记录。</p>}</details>
         </div>
       </aside>
-      <div className="scope-canvas">
+      <div className="scope-canvas" ref={canvas}>
         <div className="scope-navigation"><nav className="atlas-breadcrumbs" aria-label="图谱位置"><button onClick={openOverview}>课程全景</button>{chapter && <><span>/</span><strong>{chapter.title}</strong></>}</nav><div className="view-toggle" role="group" aria-label="视图切换"><button aria-pressed={view === 'map'} onClick={() => update({ view: 'map' })}>图谱</button><button aria-pressed={view === 'list'} onClick={() => update({ view: 'list' })}>目录</button></div></div>
         <div className="canvas-heading"><div><h2 id="canvas-title">{chapter?.title ?? (selected ? '目标关系' : '课程全景')}</h2><p>{chapter ? '当前章节的局部关系，跨章节点保留原归属。' : chapters.length ? `${chapters.length} 章 · ${chapters.reduce((n, item) => n + item.children.length, 0)} 单元 · 点击单元进入目标。` : `${summary.total} 个已声明目标 · 未声明章节结构。`}</p></div>{resume && <button className="continue-button" onClick={() => update({ filter: null, goal: resume.code, chapter: locate(resume.code)?.chapter.id ?? null })}>{lastObjective === resume.code ? '继续上次的目标' : '定位可用活动'} <span aria-hidden="true">→</span></button>}</div>
         <div className="scope-toolbar"><label className="scope-filter" htmlFor="atlas-filter">目标状态</label><select id="atlas-filter" value={filter} onChange={event => update({ filter: event.target.value === 'all' ? null : event.target.value })}><option value="all">全部状态</option>{stateOrder.map(state => <option key={state} value={state}>{stateLabels[state]}</option>)}</select><span>范围 {chapter ? summaryOf(chapter.children.flatMap(unit => unit.objective_refs)).total : summary.total} · 匹配 {chapter ? [...new Set(chapter.children.flatMap(unit => unit.objective_refs))].filter(matches).length : visibleGoals.length}</span></div>
@@ -135,8 +147,13 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
           <p className="inspector-description">{canTrace ? '亲自推演每一步栈状态与输出，再解释空栈边界和后进先出的理由。' : canCode ? '用代码实现括号匹配，并解释嵌套、类型不匹配与边界输入的处理。' : canLogic ? '通过真值表核对命题公式，保留推导过程与核验结果。' : `学习重点：${selected.criteria.map(criterion => criterion.title).slice(0, 2).join('；')}。`}</p><h3>必要表现与当前依据</h3><ul className="atlas-criteria">{selected.criteria.map(criterion => { const checked = result?.criteria.find(item => item.id === criterion.id); return <li key={criterion.id}><div><strong>{criterion.title}</strong><span className={checked?.status ?? 'unknown'}>{checked ? criterionStatus[checked.status] : '尚无有效依据'}</span></div>{checked && <p>{checked.reason}</p>}</li> })}</ul>
           <section className="next-action"><h3>下一步可以做什么</h3>{canLearn ? <><p className="inspector-note">{canCode ? '可编辑和保存代码作品；编译执行与自动核验尚未开放。' : result ? '修改作品并重新核验；原理解释与独立新条件仍需复核。' : '先亲自预测与解释，再提交固定活动核验。核验通过也不会自动证明全部掌握。'}</p><Link className="button primary" to={`/learn/${selected.code}`}>{canLogic ? '进入真值表工作台' : '进入学习工作台'}</Link></> : <><span className="small-tag">活动待建设</span><p className="inspector-note">尚未提供这个目标的理论实践活动，也没有可提交的核验路径。目标保留在声明范围内，状态保持未评估。</p><Link className="button primary" to="/my-courses">建立个人课程记录尝试</Link></>}</section>
           <details className="inspector-evidence"><summary>已有作品与核验</summary>{result ? <><p>本机有效核验 · {new Date(selectedEvidence?.createdAt ?? selectedLogic!.updatedAt).toLocaleString('zh-CN')}</p><p>{result.summary}</p><p>帮助范围：{selectedEvidence ? `${submittedHelp.filter(item => item.kind === 'hint').length} 次提示、${submittedHelp.filter(item => item.kind === 'answer').length} 次答案、${submittedHelp.filter(item => item.kind === 'agent_assist').length} 次助手帮助（提交快照）` : '查看记录以核对答案使用与尝试历史。'}</p><details><summary>核验版本</summary><p>课程：{result.course_version}<br/>活动：{result.activity_version}<br/>规则：{result.standard_version}</p></details></> : <p>尚无当前版本的可靠核验。开始尝试或查看既有作品；打开页面、阅读与聊天不增加达标数。</p>}{otherRecords.length > 0 && <p>{otherRecords.length} 条其他历史或账号恢复记录保留在学习证据中，未自动承接到当前状态。</p>}</details>
-          <details className="atlas-relations"><summary>知识关系与来源</summary><div className="focus-relations">{data.relations.filter(r => kinds.has(r.kind as RelationKind) && (r.from === selected.code || r.to === selected.code)).map((r, i) => <div className="focus-relation" key={i}><strong>{relationLabel(r.kind)}：{goals.get(r.from)?.title} {r.kind === 'conceptual_association' ? '↔' : '→'} {goals.get(r.to)?.title}</strong><small>来源：{r.source === 'engineering_example_pending_review' ? '工程关系样例，待教研审校' : r.source ?? '待补充'}</small></div>)}</div></details>
+          <details className="atlas-relations"><summary>知识关系与来源</summary><div className="focus-relations">{data.relations.filter(r => kinds.has(r.kind as RelationKind) && (r.from === selected.code || r.to === selected.code)).map((r, i) => <div className="focus-relation" key={i}><strong>{relationLabel(r.kind)}：{goals.get(r.from)?.title} {r.kind === 'conceptual_association' ? '↔' : '→'} {goals.get(r.to)?.title}</strong><small>来源：{r.source === 'engineering_example_pending_review' ? '工程关系样例，待教研审校' : r.source ?? '待补充'}</small><button type="button" className="related-goal-link" onClick={() => openGoal(r.from === selected.code ? r.to : r.from)}>查看「{goals.get(r.from === selected.code ? r.to : r.from)?.title}」</button></div>)}</div></details>
           <Link className="text-link" to="/evidence">查看已有作品与核验</Link>
+          <button type="button" className="atlas-back-map" onClick={() => {
+            const node = canvas.current?.querySelector<HTMLButtonElement>('.map-point[aria-pressed=true], .goal-pick[aria-pressed=true]')
+            node?.scrollIntoView({ block: 'center', inline: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+            node?.focus({ preventScroll: true })
+          }}>回到局部图谱</button>
         </> : <div className="panorama-stats"><span className="eyebrow">全景阅读</span><svg className="inspector-intro-icon" width="75" height="65" viewBox="0 0 75 65" aria-hidden="true"><path d="M14 48 35 17 63 43M14 48H63" fill="none" stroke="#b8c8ed" strokeWidth="1.5"/><circle cx="35" cy="17" r="10" fill="#edf3ff" stroke="#315fe7"/><circle cx="14" cy="48" r="7" fill="#f4f7fd" stroke="#8ba1ce"/><circle cx="63" cy="43" r="8" fill="#eef7f4" stroke="#16826b"/></svg><h2>先看范围，<br/>再找下一步。</h2><p className="panorama-description">选择章节或目标，查看关系、必要表现、实际证据与可开展的活动。</p><div className="scope-tally">{stateOrder.map(state => <div key={state}><strong>{summary[state]}</strong><span>{stateLabels[state]}</span></div>)}</div><p className="panorama-subtle">这是范围样例，不表示整门课程已完成建设。个人证据与课程结构分开保存。</p>{resume && <section className="learn-next"><h3>{lastObjective === resume.code ? '继续上次的目标' : '从可用活动开始'}</h3><p>{resume.title}</p><button className="button primary" onClick={() => update({ filter: null, goal: resume.code, chapter: locate(resume.code)?.chapter.id ?? null })}>定位学习目标</button></section>}</div>}
       </aside>
     </section>
