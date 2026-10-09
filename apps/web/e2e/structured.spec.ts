@@ -41,6 +41,18 @@ test('CS03 U01 bounded stack trace pinpoints a wrong step, then verifies server-
   await expect(page.getByText('逐格核验通过，完整目标仍待复核。', { exact: true })).toBeVisible()
   await expect(page.locator('.logic-history button')).toHaveCount(1)
   await page.screenshot({ path: testInfo.outputPath('structured-u01-stack.png'), fullPage: true })
+  await page.goto('/atlas?course=CS03&goal=CS03-STACK-01')
+  await expect(page.locator('.atlas-criteria .met')).toHaveCount(2)
+  await expect(page.locator('.atlas-criteria .needs_review')).toHaveCount(2)
+
+  // A later wrong attempt must replace the earlier success in current goal evidence.
+  await page.goto('/practice/CS03-STACK-U01-TRACE@0.1.0')
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  await page.getByLabel(`第2步${stackLabel}`).fill('[99]')
+  await page.getByRole('button', { name: '保存并核验这一版' }).click()
+  await expect(page.getByText('有条件需要修正。', { exact: true })).toBeVisible()
+  await page.goto('/atlas?course=CS03&goal=CS03-STACK-01')
+  await expect(page.locator('.atlas-criteria .not_met')).toHaveCount(1)
 })
 
 test('CS03 U04 bracket judgement flags a wrong verdict, then verifies all six fixed cases', async ({ page }, testInfo) => {
@@ -65,6 +77,9 @@ test('CS03 U04 bracket judgement flags a wrong verdict, then verifies all six fi
   await expect(page.getByText('逐格核验通过，完整目标仍待复核。', { exact: true })).toBeVisible()
   await expect(page.locator('.logic-history button')).toHaveCount(1)
   await page.screenshot({ path: testInfo.outputPath('structured-u04-bracket.png'), fullPage: true })
+  await page.goto('/atlas?course=CS03&goal=CS03-STACK-02')
+  await expect(page.locator('.atlas-criteria .met')).toHaveCount(0)
+  await expect(page.locator('.atlas-criteria').getByText('这里只核对匹配判断，尚未提交并执行括号匹配实现。')).toBeVisible()
 })
 
 test('CS03 ring-queue objective routes through /learn into the data-driven trace workspace', async ({ page }, testInfo) => {

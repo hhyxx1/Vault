@@ -1,0 +1,40 @@
+{
+  "version": "cs03-structured-evidence@0.1.0",
+  "course_version_id": "c47c1551-76d5-4b80-aeae-33cd253d8ca0",
+  "mappings": [
+    {
+      "activities": ["CS03-STACK-U01-TRACE@0.1.0", "CS03-STACK-U05-TRACE@0.1.0"],
+      "objective": "CS03-STACK-01",
+      "conditions": [
+        {"id": "state_trace", "requires": ["stack.order", "stack.bounds"], "coverage": "direct", "requires_correct_trace": true, "reason": "本次固定序列的每一步状态、输出及边界已核对；不代表独立迁移。"},
+        {"id": "boundary_condition", "requires": ["stack.bounds"], "coverage": "direct", "reason": "仅依据本次活动约定的空栈／满栈边界检查。"},
+        {"id": "explanation", "requires": ["explanation"], "coverage": "direct", "reason": "文字解释需要独立复核。"},
+        {"id": "independent_transfer", "requires": ["independent_transfer"], "coverage": "direct", "reason": "固定的新序列不自动证明无帮助的独立迁移。"}
+      ]
+    },
+    {
+      "activities": ["CS03-QUEUE-U02-TRACE@0.1.0"],
+      "objective": "CS03-QUEUE-02",
+      "conditions": [
+        {"id": "fullempty", "requires": ["queue.bounds"], "coverage": "supporting", "reason": "已有空满状态推演；还需核验对判定约定的解释。"},
+        {"id": "wrap", "requires": ["queue.wrap"], "coverage": "supporting", "reason": "已有数组与指针绕回轨迹；还需核验解释和实现。"}
+      ]
+    },
+    {
+      "activities": ["CS03-QUEUE-U03-TRACE@0.1.0"],
+      "objective": "CS03-QUEUE-01",
+      "conditions": [
+        {"id": "fifo", "requires": ["queue.fifo"], "coverage": "supporting", "reason": "已有先进先出的逻辑序列；抽象操作及理由尚待复核。"},
+        {"id": "linkqueue", "requires": ["queue.links"], "coverage": "supporting", "reason": "逻辑序列不证明链式队列实现、头尾指针和结点链接正确。"}
+      ]
+    },
+    {
+      "activities": ["CS03-STACK-U04-JUDGE@0.1.0"],
+      "objective": "CS03-STACK-02",
+      "conditions": [
+        {"id": "implementation", "requires": ["brackets.nesting", "brackets.diagnose"], "coverage": "supporting", "reason": "这里只核对匹配判断，尚未提交并执行括号匹配实现。"},
+        {"id": "reasoning", "requires": ["explanation"], "coverage": "supporting", "reason": "判断结果和自述不能替代对算法理由的独立复核。"}
+      ]
+    }
+  ]
+}
