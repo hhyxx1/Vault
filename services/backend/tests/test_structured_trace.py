@@ -17,11 +17,14 @@ from vault_backend.course_checks.machines import (
     StackMachine,
     Operation,
 )
+from vault_backend.course_checks.brackets import BRACKET_ACTIVITY_VERSION, BRACKET_CASES
 from vault_backend.course_checks.structured_trace import (
     TRUSTED_TRACE_SPECS,
     get_trace_spec,
     verify_structured_trace,
 )
+from vault_backend.config import Settings
+from vault_backend.content import CourseRepository
 
 STACK = get_trace_spec("CS03-STACK-U01-TRACE@0.1.0")
 QUEUE = get_trace_spec("CS03-QUEUE-U02-TRACE@0.1.0")
@@ -314,3 +317,40 @@ def test_registry_only_contains_trusted_versions():
         "CS03-QUEUE-U03-TRACE@0.1.0",
         "CS03-STACK-U05-TRACE@0.1.0",
     }
+
+
+# --- Public package activities must stay aligned with trusted specs ----------
+
+
+def test_public_package_activities_match_trusted_specs():
+    repo = CourseRepository(Settings(environment="test", database_url="").course_catalog_path)
+    assert repo.example is not None, "CS03 example package must load"
+    example = repo.example
+    by_version = {activity["version"]: activity for activity in example["activities"]}
+    objective_ids = {objective["code"]: objective["id"] for objective in example["objectives"]}
+
+    # The legacy demo activity must remain the first entry (legacy checker path).
+    assert example["activities"][0]["version"] == "CS03-STACK-01-TRACE@0.1.0"
+
+    for version, spec in TRUSTED_TRACE_SPECS.items():
+        activity = by_version[version]
+        assert activity["standard_version"] == spec.standard_version
+        assert activity["machine"] == spec.machine
+        assert activity["capacity"] == spec.capacity
+        assert activity["id"] == spec.activity_id
+        assert activity["version_id"] == spec.activity_version_id
+        assert [
+            (operation["kind"], operation.get("value")) for operation in activity["operations"]
+        ] == [(operation.kind, operation.value) for operation in spec.operations]
+        assert (
+            tuple(objective_ids[code] for code in activity["objective_codes"])
+            == spec.objective_ids
+        )
+        # The public package ships the prompt operations, never an answer key.
+        assert not any("expected" in key for key in activity)
+
+    bracket = by_version[BRACKET_ACTIVITY_VERSION]
+    assert bracket["machine"] == "bracket_judgement"
+    assert bracket["cases"] == list(BRACKET_CASES)
+    assert bracket["objective_codes"] == ["CS03-STACK-02"]
+    assert "operations" not in bracket

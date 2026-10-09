@@ -958,6 +958,388 @@
       "answer_policy": "self_study_on_request",
       "explanation_review": "pending_independent_review",
       "completion_limit": "执行核验只证明本次轨迹符合约定，不能证明整目标独立达标、迁移或长期保持。"
+    },
+    {
+      "id": "7c1e5a01-0001-4a00-8000-000000000001",
+      "version_id": "7c1e5a01-0002-4a00-8000-000000000001",
+      "code": "CS03-STACK-U01-TRACE",
+      "version": "CS03-STACK-U01-TRACE@0.1.0",
+      "objective_codes": [
+        "CS03-STACK-01"
+      ],
+      "standard_version": "stack-bounds-trace-v1",
+      "machine": "stack",
+      "capacity": 3,
+      "statuses": [
+        "ok",
+        "underflow",
+        "full"
+      ],
+      "state_fields": [
+        {
+          "name": "items",
+          "label": "操作后的栈（底→顶，右端为栈顶）",
+          "format": "int_list"
+        }
+      ],
+      "criteria": [
+        {
+          "id": "stack.order",
+          "title": "按后进先出推演每一步栈内容与弹出值"
+        },
+        {
+          "id": "stack.bounds",
+          "title": "正确处理空栈出栈与满栈入栈，失败不改变状态"
+        }
+      ],
+      "student_action": "容量为 3：逐步预测每次操作后的栈、输出值以及空栈/满栈状态，并说明失败操作为何不改状态。",
+      "theory": [
+        "容量为 3 的顺序栈仍只在栈顶一端加入和取出，数组从左到右表示栈底到栈顶，右端是栈顶。",
+        "元素个数达到容量 3 时再 push，本题约定返回 full 且栈保持原样，不覆盖也不上溢；空栈 pop 返回 underflow 且栈保持空。",
+        "失败的操作不改变任何状态，这是边界核验的关键。"
+      ],
+      "operations": [
+        {
+          "kind": "pop"
+        },
+        {
+          "kind": "push",
+          "value": 4
+        },
+        {
+          "kind": "push",
+          "value": 7
+        },
+        {
+          "kind": "pop"
+        },
+        {
+          "kind": "push",
+          "value": 9
+        },
+        {
+          "kind": "push",
+          "value": 2
+        },
+        {
+          "kind": "push",
+          "value": 5
+        }
+      ],
+      "artifact_kind": "structured_trace_with_explanation",
+      "checker": "stack-trace-checker@0.2.0",
+      "answer_policy": "self_study_on_request",
+      "explanation_review": "pending_independent_review",
+      "completion_limit": "状态轨迹正确只证明本次操作序列符合栈约定；解释与独立迁移仍需人工复核，不宣称整目标达标。"
+    },
+    {
+      "id": "7c1e5a02-0001-4a00-8000-000000000002",
+      "version_id": "7c1e5a02-0002-4a00-8000-000000000002",
+      "code": "CS03-QUEUE-U02-TRACE",
+      "version": "CS03-QUEUE-U02-TRACE@0.1.0",
+      "objective_codes": [
+        "CS03-QUEUE-02"
+      ],
+      "standard_version": "ring-queue-trace-v1",
+      "machine": "ring_queue",
+      "capacity": 3,
+      "statuses": [
+        "ok",
+        "underflow",
+        "full"
+      ],
+      "state_fields": [
+        {
+          "name": "buffer",
+          "label": "物理数组（空位填 null）",
+          "format": "nullable_int_list"
+        },
+        {
+          "name": "head",
+          "label": "head（下次出队位置）",
+          "format": "int"
+        },
+        {
+          "name": "tail",
+          "label": "tail（下次入队位置）",
+          "format": "int"
+        },
+        {
+          "name": "size",
+          "label": "size（元素个数）",
+          "format": "int"
+        }
+      ],
+      "criteria": [
+        {
+          "id": "queue.fifo",
+          "title": "按先进先出得到正确的出队次序与规模变化"
+        },
+        {
+          "id": "queue.wrap",
+          "title": "处理取模绕回后的物理布局与队满不覆盖"
+        },
+        {
+          "id": "queue.bounds",
+          "title": "正确判定空队/满队，失败操作不改变状态"
+        }
+      ],
+      "student_action": "逐步填写物理数组（空位为 null）、head、tail、size、出队值和空/满状态，并标出取模绕回发生的步骤。",
+      "theory": [
+        "循环队列用一段固定容量（本题为 3）的数组，由 head（下次出队位置）、tail（下次入队位置）和 size 共同描述，空与满由 size 判定，不空一格。",
+        "入队把元素写入 tail 位置后 tail=(tail+1) mod 3；出队从 head 取走后 head=(head+1) mod 3，下标会取模绕回。",
+        "物理数组与逻辑次序要分开：逻辑队列从 head 起按 size 个元素排列。队满入队返回 full 且不覆盖，空队出队返回 underflow。"
+      ],
+      "operations": [
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "enqueue",
+          "value": 1
+        },
+        {
+          "kind": "enqueue",
+          "value": 2
+        },
+        {
+          "kind": "enqueue",
+          "value": 3
+        },
+        {
+          "kind": "enqueue",
+          "value": 4
+        },
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "enqueue",
+          "value": 4
+        },
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "dequeue"
+        }
+      ],
+      "artifact_kind": "structured_trace_with_explanation",
+      "checker": "ring-queue-checker@0.1.0",
+      "answer_policy": "self_study_on_request",
+      "explanation_review": "pending_independent_review",
+      "completion_limit": "状态轨迹正确只证明本次操作序列符合循环队列约定；解释与独立迁移仍需人工复核。"
+    },
+    {
+      "id": "7c1e5a03-0001-4a00-8000-000000000003",
+      "version_id": "7c1e5a03-0002-4a00-8000-000000000003",
+      "code": "CS03-QUEUE-U03-TRACE",
+      "version": "CS03-QUEUE-U03-TRACE@0.1.0",
+      "objective_codes": [
+        "CS03-QUEUE-01"
+      ],
+      "standard_version": "linked-queue-trace-v1",
+      "machine": "linked_queue",
+      "capacity": null,
+      "statuses": [
+        "ok",
+        "underflow"
+      ],
+      "state_fields": [
+        {
+          "name": "sequence",
+          "label": "逻辑队列（队头→队尾）",
+          "format": "int_list"
+        }
+      ],
+      "criteria": [
+        {
+          "id": "queue.fifo",
+          "title": "按先进先出得到正确的出队次序与链上逻辑内容"
+        },
+        {
+          "id": "queue.links",
+          "title": "删除最后一个结点后复位头尾，空队出队失败且重建后仍先进先出"
+        }
+      ],
+      "student_action": "逐步写出队头到队尾的逻辑内容、出队值和空队状态，特别核对删空复位之后再入队的情形。",
+      "theory": [
+        "链式队列用单链表存储，head 指向队头结点、tail 指向队尾结点；入队在尾部链接新结点，出队摘除 head 所指结点。",
+        "删除最后一个结点后队列为空，head 与 tail 都要复位为空；此后再入队建立的是一条新链，出队仍保持先进先出。",
+        "本活动只核验可观察的逻辑次序、出队值与空队边界；指针连接与 C++ 动态内存的诊断属于另一项需要隔离运行环境的证据。"
+      ],
+      "operations": [
+        {
+          "kind": "enqueue",
+          "value": 1
+        },
+        {
+          "kind": "enqueue",
+          "value": 2
+        },
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "enqueue",
+          "value": 3
+        },
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "enqueue",
+          "value": 4
+        },
+        {
+          "kind": "enqueue",
+          "value": 5
+        },
+        {
+          "kind": "dequeue"
+        },
+        {
+          "kind": "dequeue"
+        }
+      ],
+      "artifact_kind": "structured_trace_with_explanation",
+      "checker": "linked-queue-checker@0.1.0",
+      "answer_policy": "self_study_on_request",
+      "explanation_review": "pending_independent_review",
+      "completion_limit": "逻辑轨迹正确只证明本次操作符合链式队列的可观察行为；指针与内存实现、解释和独立迁移仍需隔离环境与人工复核。"
+    },
+    {
+      "id": "7c1e5a04-0001-4a00-8000-000000000004",
+      "version_id": "7c1e5a04-0002-4a00-8000-000000000004",
+      "code": "CS03-STACK-U04-JUDGE",
+      "version": "CS03-STACK-U04-JUDGE@0.1.0",
+      "objective_codes": [
+        "CS03-STACK-02"
+      ],
+      "standard_version": "bracket-judgement-v1",
+      "machine": "bracket_judgement",
+      "criteria": [
+        {
+          "id": "brackets.nesting",
+          "title": "用栈的后进先出正确判断每组括号是否匹配（含空串）"
+        },
+        {
+          "id": "brackets.diagnose",
+          "title": "定位首个失配闭括号或未闭合左括号的索引"
+        }
+      ],
+      "student_action": "对六组固定串分别判断是否匹配；不匹配时给出首个问题括号的索引（失配闭括号或未闭合左括号），索引从 0 开始。",
+      "theory": [
+        "限定输入为英文小括号、中括号、大括号三种，空串视为匹配，字符索引从 0 开始。",
+        "遇到左括号入栈；遇到右括号时，若栈空或栈顶不是同种左括号即失配，这个右括号就是首个问题括号。",
+        "遍历结束若仍有左括号残留，则最早入栈且未匹配的那个左括号是首个问题括号（未闭合）。"
+      ],
+      "cases": [
+        "",
+        "([{}])",
+        "()[]{}",
+        "([)]",
+        ")(",
+        "(()"
+      ],
+      "artifact_kind": "bracket_judgement_with_explanation",
+      "checker": "bracket-checker@0.1.0",
+      "answer_policy": "self_study_on_request",
+      "explanation_review": "pending_independent_review",
+      "completion_limit": "判定正确只覆盖固定六组串的判断与定位；真实代码的隔离运行、解释与独立新串仍需另项证据和人工复核。"
+    },
+    {
+      "id": "7c1e5a05-0001-4a00-8000-000000000005",
+      "version_id": "7c1e5a05-0002-4a00-8000-000000000005",
+      "code": "CS03-STACK-U05-TRACE",
+      "version": "CS03-STACK-U05-TRACE@0.1.0",
+      "objective_codes": [
+        "CS03-STACK-01"
+      ],
+      "standard_version": "stack-bounds-trace-v1",
+      "machine": "stack",
+      "capacity": 3,
+      "statuses": [
+        "ok",
+        "underflow",
+        "full"
+      ],
+      "state_fields": [
+        {
+          "name": "items",
+          "label": "操作后的栈（底→顶，右端为栈顶）",
+          "format": "int_list"
+        }
+      ],
+      "criteria": [
+        {
+          "id": "stack.order",
+          "title": "在新序列中按后进先出推演每一步栈内容与弹出值"
+        },
+        {
+          "id": "stack.bounds",
+          "title": "在新序列中正确处理满栈入栈与空栈出栈，失败不改变状态"
+        }
+      ],
+      "student_action": "在不参考入门活动答案的情况下，独立完成这组全新序列的逐步推演，给出每步栈内容、输出值和空/满状态并解释边界。",
+      "theory": [
+        "这是一组与入门活动不同的全新操作序列，用来检验你能否独立迁移容量受限栈的推演方法。",
+        "仍需同时给出每一步的栈内容、输出值和空/满状态，失败的操作不改变状态。"
+      ],
+      "operations": [
+        {
+          "kind": "push",
+          "value": 1
+        },
+        {
+          "kind": "push",
+          "value": 2
+        },
+        {
+          "kind": "push",
+          "value": 3
+        },
+        {
+          "kind": "push",
+          "value": 4
+        },
+        {
+          "kind": "pop"
+        },
+        {
+          "kind": "pop"
+        },
+        {
+          "kind": "push",
+          "value": 5
+        },
+        {
+          "kind": "pop"
+        },
+        {
+          "kind": "pop"
+        },
+        {
+          "kind": "pop"
+        }
+      ],
+      "artifact_kind": "structured_trace_with_explanation",
+      "checker": "stack-trace-checker@0.2.0",
+      "answer_policy": "self_study_on_request",
+      "explanation_review": "pending_independent_review",
+      "completion_limit": "独立变体轨迹正确仍不能自动证明独立性已达成；该证据与解释一并等待人工复核。"
     }
   ]
 }
