@@ -4,13 +4,15 @@ test.beforeEach(async ({ page }) => {
   await page.route('**/api/v1/auth/session', route => route.fulfill({ status: 401, json: { detail: 'Guest preview' } }))
 })
 
-test('chapter map opens its complete declared network and fit keeps nodes reachable', async ({ page }, testInfo) => {
+test('chapter opens the selected unit and only its direct relations', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 1440, height: 960 })
   await page.goto('/atlas?course=CS03')
   await expect(page.locator('.chapter-region')).toHaveCount(8)
   await page.screenshot({ path: testInfo.outputPath('atlas-panorama.png'), fullPage: true, animations: 'disabled' })
   await page.locator('.chapter-region').filter({ hasText: '栈与队列' }).getByRole('button', { name: /栈与队列/ }).click()
-  await expect(page.locator('.map-point:not(.is-external)')).toHaveCount(4)
+  await expect(page.locator('.map-point:not(.is-external)')).toHaveCount(2)
+  await expect(page.locator('.map-point').filter({ hasText: '实现链队列' })).toHaveCount(0)
+  for (const edge of await page.locator('path[data-relation]').all()) expect(await edge.getAttribute('data-relation')).toContain('CS03-STACK-01')
   await expect(page.locator('.map-point').filter({ hasText: '解释并推演栈' })).toBeVisible()
   await page.getByRole('button', { name: '放大图谱', exact: true }).click()
   await page.getByRole('button', { name: '适应画布', exact: true }).click()

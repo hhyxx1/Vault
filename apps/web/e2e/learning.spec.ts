@@ -33,7 +33,7 @@ test('catalog states its construction scope and narrow pages do not horizontally
   }
 })
 
-test('knowledge atlas expands chapter territories and keeps a unique-objective denominator across graph controls', async ({ page }) => {
+test('knowledge atlas follows the focused unit and keeps a unique-objective denominator across graph controls', async ({ page }) => {
   await page.goto('/atlas?course=CS03')
 
   // Chapters are territories; opening one exposes every declared local goal.
@@ -47,20 +47,20 @@ test('knowledge atlas expands chapter territories and keeps a unique-objective d
   await expect(page.locator('#canvas-title')).toHaveText('栈与队列')
   const network = page.locator('.atlas-map')
   await expect(network).toBeVisible()
-  await expect(network.locator('.map-point:not(.is-external)')).toHaveCount(4)
+  await expect(network.locator('.map-point:not(.is-external)')).toHaveCount(2)
   await expect(network.locator('.map-point.is-external')).toContainText('线性表')
-  await expect(network.locator('.map-point.is-external')).toContainText('跨章引用')
+  await expect(network.locator('.map-point.is-external')).toContainText('跨章关系')
   await network.locator('.map-point').filter({ hasText: '后进先出' }).click()
   await expect(network.locator('.map-point[aria-pressed=true]')).toContainText('后进先出')
   await network.locator('.atlas-relations summary').click()
-  await expect(network.locator('.focus-relation')).toHaveCount(4)
+  await expect(network.locator('.focus-relation')).toHaveCount(2)
   await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
 
   // Relation kind filters change only adjacency, never the denominator.
-  const prereq = network.getByRole('button', { name: '严格先修' })
+  const prereq = network.getByRole('button', { name: '严格先修', exact: true })
   await expect(prereq).toHaveAttribute('aria-pressed', 'true')
-  await network.getByRole('button', { name: '后续应用' }).click()
-  await expect(network.getByRole('button', { name: '后续应用' })).toHaveAttribute('aria-pressed', 'true')
+  await network.getByRole('button', { name: '后续应用', exact: true }).click()
+  await expect(network.getByRole('button', { name: '后续应用', exact: true })).toHaveAttribute('aria-pressed', 'true')
   await prereq.click()
   await expect(prereq).toHaveAttribute('aria-pressed', 'false')
   await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
