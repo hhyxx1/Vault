@@ -17,12 +17,13 @@ from typing import Any, Literal, Optional
 
 from vault_backend.checker import canonical_hash
 from vault_backend.course_checks.machines import (
+    LinkedQueueMachine,
     Operation,
     RingQueueMachine,
     StackMachine,
 )
 
-MachineKind = Literal["stack", "ring_queue"]
+MachineKind = Literal["stack", "ring_queue", "linked_queue"]
 
 FIELD_LABELS = {
     "items": "栈内容（底→顶，右端为栈顶）",
@@ -30,11 +31,13 @@ FIELD_LABELS = {
     "head": "head 指针（下次出队位置）",
     "tail": "tail 指针（下次入队位置）",
     "size": "元素个数 size",
+    "sequence": "链式队列逻辑内容（队头→队尾）",
 }
 STATUS_LABEL = "边界状态（空操作为 underflow、满操作为 full）"
 VALUE_LABELS = {
     "stack": "操作输出（弹出值；入栈或失败时为空）",
     "ring_queue": "操作输出（出队值；入队或失败时为空）",
+    "linked_queue": "操作输出（出队值；入队或失败时为空）",
 }
 
 
@@ -82,10 +85,12 @@ class TraceSpec:
     def expected(self) -> list[dict[str, Any]]:
         if self.machine == "stack":
             snapshots = StackMachine(self.capacity).run(self.operations)
-        else:
+        elif self.machine == "ring_queue":
             if self.capacity is None:
                 raise ValueError("ring queue requires a capacity")
             snapshots = RingQueueMachine(self.capacity).run(self.operations)
+        else:
+            snapshots = LinkedQueueMachine().run(self.operations)
         return [snapshot.__dict__ for snapshot in snapshots]
 
     def expected_submission_steps(self) -> list[dict[str, Any]]:
@@ -339,9 +344,111 @@ def _queue_unit_u02() -> TraceSpec:
     )
 
 
+def _linked_queue_unit_u03() -> TraceSpec:
+    operations = (
+        Operation("enqueue", 1),   # 1 [1]
+        Operation("enqueue", 2),   # 2 [1, 2]
+        Operation("dequeue"),      # 3 -> 1, [2]
+        Operation("enqueue", 3),   # 4 [2, 3]
+        Operation("dequeue"),      # 5 -> 2, [3]
+        Operation("dequeue"),      # 6 -> 3, [] (last node removed; head/tail reset)
+        Operation("dequeue"),      # 7 empty -> underflow, []
+        Operation("enqueue", 4),   # 8 fresh chain [4]
+        Operation("enqueue", 5),   # 9 [4, 5]
+        Operation("dequeue"),      # 10 -> 4, [5]
+        Operation("dequeue"),      # 11 -> 5, []
+    )
+    return TraceSpec(
+        activity_version="CS03-QUEUE-U03-TRACE@0.1.0",
+        standard_version="linked-queue-trace-v1",
+        checker_version="linked-queue-checker@0.1.0",
+        machine="linked_queue",
+        state_fields=("sequence",),
+        operations=operations,
+        criteria=(
+            CriterionRule(
+                id="queue.fifo",
+                title="按先进先出得到正确的出队次序与链上逻辑内容",
+                steps=(3, 5, 10, 11),
+                fields=("sequence",),
+                check_value=True,
+            ),
+            CriterionRule(
+                id="queue.links",
+                title="删除最后一个结点后复位头尾，空队出队失败且重建后仍先进先出",
+                steps=(6, 7, 8, 9, 10),
+                fields=("sequence",),
+                check_value=True,
+                check_status=True,
+            ),
+        ),
+        course_id="e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+        course_version_id="c47c1551-76d6-4b80-aeae-33cd253d8ca0",
+        course_version="CS03-example-0.2.0",
+        activity_id="7c1e5a03-0001-4a00-8000-000000000003",
+        activity_version_id="7c1e5a03-0002-4a00-8000-000000000003",
+        objective_ids=("fd2f8331-999a-419b-8f2f-ab3896cac226",),
+    )
+
+
+def _stack_unit_u05() -> TraceSpec:
+    # Independent transfer: a brand-new bounded-stack sequence the learner has
+    # not traced in U01. A correct fixed trace still cannot prove independence,
+    # so the independent_transfer condition remains needs_review.
+    operations = (
+        Operation("push", 1),       # 1 [1]
+        Operation("push", 2),       # 2 [1, 2]
+        Operation("push", 3),       # 3 [1, 2, 3] full
+        Operation("push", 4),       # 4 rejected -> full, unchanged
+        Operation("pop"),           # 5 -> 3, [1, 2]
+        Operation("pop"),           # 6 -> 2, [1]
+        Operation("push", 5),       # 7 [1, 5]
+        Operation("pop"),           # 8 -> 5, [1]
+        Operation("pop"),           # 9 -> 1, []
+        Operation("pop"),           # 10 empty -> underflow
+    )
+    return TraceSpec(
+        activity_version="CS03-STACK-U05-TRACE@0.1.0",
+        standard_version="stack-bounds-trace-v1",
+        checker_version="stack-trace-checker@0.2.0",
+        machine="stack",
+        capacity=3,
+        state_fields=("items",),
+        operations=operations,
+        criteria=(
+            CriterionRule(
+                id="stack.order",
+                title="在新序列中按后进先出推演每一步栈内容与弹出值",
+                steps=(1, 2, 3, 5, 6, 7, 8, 9),
+                fields=("items",),
+                check_value=True,
+            ),
+            CriterionRule(
+                id="stack.bounds",
+                title="在新序列中正确处理满栈入栈与空栈出栈，失败不改变状态",
+                steps=(4, 10),
+                fields=("items",),
+                check_value=True,
+                check_status=True,
+            ),
+        ),
+        course_id="e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+        course_version_id="c47c1551-76d6-4b80-aeae-33cd253d8ca0",
+        course_version="CS03-example-0.2.0",
+        activity_id="7c1e5a05-0001-4a00-8000-000000000005",
+        activity_version_id="7c1e5a05-0002-4a00-8000-000000000005",
+        objective_ids=("e790d0f5-ea0a-4924-a482-06b9ff8ab944",),
+    )
+
+
 TRUSTED_TRACE_SPECS: dict[str, TraceSpec] = {
     spec.activity_version: spec
-    for spec in (_stack_unit_u01(), _queue_unit_u02())
+    for spec in (
+        _stack_unit_u01(),
+        _queue_unit_u02(),
+        _linked_queue_unit_u03(),
+        _stack_unit_u05(),
+    )
 }
 
 for _spec in TRUSTED_TRACE_SPECS.values():

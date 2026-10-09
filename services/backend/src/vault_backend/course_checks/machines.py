@@ -128,3 +128,45 @@ class RingQueueMachine:
 
     def run(self, operations: tuple[Operation, ...]) -> list[QueueSnapshot]:
         return [self.step(operation) for operation in operations]
+
+
+@dataclass(frozen=True)
+class LinkedQueueSnapshot:
+    """Logical state after one linked-queue operation.
+
+    The singly linked representation (head/tail node pointers, resetting both
+    to null when the last node is removed) is taught in the theory panel. The
+    deterministic checker compares the observable logical front -> rear
+    content, the dequeued value and the boundary status: pointer bookkeeping
+    that produced a wrong logical order would fail exactly there, while C++
+    memory diagnostics stay an isolated, separately-reviewed activity.
+    """
+
+    sequence: tuple[int, ...]  # front -> rear logical content
+    value: Optional[int]  # dequeued value; None for enqueue or underflow
+    status: OpStatus
+
+
+@dataclass
+class LinkedQueueMachine:
+    """Unbounded FIFO queue backed conceptually by a head/tail linked chain."""
+
+    sequence: list[int] = field(default_factory=list)
+
+    def step(self, operation: Operation) -> LinkedQueueSnapshot:
+        if operation.kind == "enqueue":
+            if operation.value is None:
+                raise ValueError("enqueue requires a value")
+            self.sequence.append(operation.value)
+            return LinkedQueueSnapshot(tuple(self.sequence), None, "ok")
+        if operation.kind == "dequeue":
+            if not self.sequence:
+                return LinkedQueueSnapshot((), None, "underflow")
+            value = self.sequence.pop(0)
+            # Removing the only node resets both head and tail, so a later
+            # enqueue starts a fresh chain that still dequeues in FIFO order.
+            return LinkedQueueSnapshot(tuple(self.sequence), value, "ok")
+        raise ValueError(f"unknown linked queue operation: {operation.kind}")
+
+    def run(self, operations: tuple[Operation, ...]) -> list[LinkedQueueSnapshot]:
+        return [self.step(operation) for operation in operations]

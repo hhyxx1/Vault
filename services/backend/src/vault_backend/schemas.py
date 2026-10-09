@@ -68,6 +68,8 @@ class StructuredTraceSubmission(WriteModel):
     activity_version: Literal[
         "CS03-STACK-U01-TRACE@0.1.0",
         "CS03-QUEUE-U02-TRACE@0.1.0",
+        "CS03-QUEUE-U03-TRACE@0.1.0",
+        "CS03-STACK-U05-TRACE@0.1.0",
     ]
     client_artifact_id: UUID
     client_revision_id: UUID

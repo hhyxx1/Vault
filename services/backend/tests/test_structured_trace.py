@@ -11,7 +11,12 @@ from uuid import uuid4
 
 import pytest
 
-from vault_backend.course_checks.machines import RingQueueMachine, StackMachine, Operation
+from vault_backend.course_checks.machines import (
+    LinkedQueueMachine,
+    RingQueueMachine,
+    StackMachine,
+    Operation,
+)
 from vault_backend.course_checks.structured_trace import (
     TRUSTED_TRACE_SPECS,
     get_trace_spec,
@@ -20,6 +25,8 @@ from vault_backend.course_checks.structured_trace import (
 
 STACK = get_trace_spec("CS03-STACK-U01-TRACE@0.1.0")
 QUEUE = get_trace_spec("CS03-QUEUE-U02-TRACE@0.1.0")
+LINKED = get_trace_spec("CS03-QUEUE-U03-TRACE@0.1.0")
+STACK_U05 = get_trace_spec("CS03-STACK-U05-TRACE@0.1.0")
 
 
 def _steps(spec):
@@ -86,6 +93,41 @@ def test_queue_u02_hardcoded_trajectory():
     assert actual == expected
 
 
+def test_linked_queue_u03_hardcoded_trajectory():
+    rows = LinkedQueueMachine().run(LINKED.operations)
+    expected = [
+        ((1,), None, "ok"),
+        ((1, 2), None, "ok"),
+        ((2,), 1, "ok"),
+        ((2, 3), None, "ok"),
+        ((3,), 2, "ok"),
+        ((), 3, "ok"),
+        ((), None, "underflow"),
+        ((4,), None, "ok"),
+        ((4, 5), None, "ok"),
+        ((5,), 4, "ok"),
+        ((), 5, "ok"),
+    ]
+    assert [(r.sequence, r.value, r.status) for r in rows] == expected
+
+
+def test_stack_u05_hardcoded_trajectory():
+    rows = StackMachine(3).run(STACK_U05.operations)
+    expected = [
+        ((1,), None, "ok"),
+        ((1, 2), None, "ok"),
+        ((1, 2, 3), None, "ok"),
+        ((1, 2, 3), None, "full"),
+        ((1, 2), 3, "ok"),
+        ((1,), 2, "ok"),
+        ((1, 5), None, "ok"),
+        ((1,), 5, "ok"),
+        ((), 1, "ok"),
+        ((), None, "underflow"),
+    ]
+    assert [(r.items, r.value, r.status) for r in rows] == expected
+
+
 # --- Correct work passes the deterministic conditions, never full mastery ---
 
 
@@ -109,6 +151,28 @@ def test_correct_queue_u02_passes_without_mastery_assertion():
     assert criteria["queue.fifo"] == "met"
     assert criteria["queue.wrap"] == "met"
     assert criteria["queue.bounds"] == "met"
+    assert criteria["independent_transfer"] == "needs_review"
+
+
+def test_correct_linked_queue_u03_passes_without_mastery_assertion():
+    result = verify_structured_trace(_submission(LINKED, _steps(LINKED)), LINKED)
+    assert result["trace_correct"] is True
+    assert result["mastery_asserted"] is False
+    criteria = _criteria(result)
+    assert criteria["queue.fifo"] == "met"
+    assert criteria["queue.links"] == "met"
+    assert criteria["independent_transfer"] == "needs_review"
+
+
+def test_correct_stack_u05_is_independent_sequence_but_still_pending_review():
+    result = verify_structured_trace(_submission(STACK_U05, _steps(STACK_U05)), STACK_U05)
+    assert result["trace_correct"] is True
+    assert result["mastery_asserted"] is False
+    criteria = _criteria(result)
+    assert criteria["stack.order"] == "met"
+    assert criteria["stack.bounds"] == "met"
+    # A correct second fixed sequence is machine evidence for transfer, but the
+    # system cannot prove the learner worked independently, so it stays pending.
     assert criteria["independent_transfer"] == "needs_review"
 
 
@@ -175,6 +239,55 @@ def test_queue_wrap_error_fails_wrap_criterion_not_just_row():
     assert criteria["queue.wrap"] == "not_met"
 
 
+# --- Linked queue: FIFO and head/tail reset gaming attempts ------------------
+
+
+@pytest.mark.parametrize(
+    "step,mutate",
+    [
+        # LIFO confusion when the rebuilt chain is dequeued
+        (9, lambda s: s.update(value=5)),
+        # after emptying the chain the learner thinks a stale node remains
+        (7, lambda s: s["state"].update(sequence=(3, 4))),
+        # removing the last node is not reported as empty
+        (5, lambda s: s["state"].update(sequence=(3,))),
+        # dequeue on the empty chain is not flagged as underflow
+        (6, lambda s: s.update(status="ok")),
+    ],
+)
+def test_linked_queue_wrong_traces_are_rejected(step, mutate):
+    steps = _steps(LINKED)
+    mutate(steps[step])
+    result = verify_structured_trace(_submission(LINKED, steps), LINKED)
+    assert result["trace_correct"] is False
+    assert result["rows"][step]["correct"] is False
+    assert result["objective_state"] == "practicing"
+
+
+# --- Stack U05 independent sequence: ordering and boundary gaming ------------
+
+
+@pytest.mark.parametrize(
+    "step,mutate",
+    [
+        # the full push overflows the bounded stack
+        (3, lambda s: s["state"].update(items=(1, 2, 3, 4))),
+        (3, lambda s: s.update(status="ok")),
+        # pop returns the bottom instead of the top
+        (4, lambda s: s.update(value=1)),
+        # the final empty pop is not flagged as underflow
+        (9, lambda s: s.update(status="ok")),
+    ],
+)
+def test_stack_u05_wrong_traces_are_rejected(step, mutate):
+    steps = _steps(STACK_U05)
+    mutate(steps[step])
+    result = verify_structured_trace(_submission(STACK_U05, steps), STACK_U05)
+    assert result["trace_correct"] is False
+    assert result["rows"][step]["correct"] is False
+    assert result["objective_state"] == "practicing"
+
+
 # --- Explanation, shape and registry guards ---------------------------------
 
 
@@ -198,4 +311,6 @@ def test_registry_only_contains_trusted_versions():
     assert set(TRUSTED_TRACE_SPECS) == {
         "CS03-STACK-U01-TRACE@0.1.0",
         "CS03-QUEUE-U02-TRACE@0.1.0",
+        "CS03-QUEUE-U03-TRACE@0.1.0",
+        "CS03-STACK-U05-TRACE@0.1.0",
     }

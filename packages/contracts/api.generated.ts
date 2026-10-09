@@ -1371,7 +1371,7 @@ export interface components {
              * Activity Version
              * @enum {string}
              */
-            activity_version: "CS03-STACK-U01-TRACE@0.1.0" | "CS03-QUEUE-U02-TRACE@0.1.0";
+            activity_version: "CS03-STACK-U01-TRACE@0.1.0" | "CS03-QUEUE-U02-TRACE@0.1.0" | "CS03-QUEUE-U03-TRACE@0.1.0" | "CS03-STACK-U05-TRACE@0.1.0";
             /**
              * Client Artifact Id
              * Format: uuid
