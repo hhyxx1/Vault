@@ -4,6 +4,44 @@ test.beforeEach(async ({ page }) => {
   await page.route('**/api/v1/auth/session', route => route.fulfill({ status: 401, json: { detail: 'Guest preview' } }))
 })
 
+test('chapter map opens its complete declared network and fit keeps nodes reachable', async ({ page }, testInfo) => {
+  await page.setViewportSize({ width: 1440, height: 960 })
+  await page.goto('/atlas?course=CS03')
+  await expect(page.locator('.chapter-region')).toHaveCount(8)
+  await page.screenshot({ path: testInfo.outputPath('atlas-panorama.png'), fullPage: true, animations: 'disabled' })
+  await page.locator('.chapter-region').filter({ hasText: '栈与队列' }).getByRole('button', { name: /栈与队列/ }).click()
+  await expect(page.locator('.map-point:not(.is-external)')).toHaveCount(4)
+  await expect(page.locator('.map-point').filter({ hasText: '解释并推演栈' })).toBeVisible()
+  await page.getByRole('button', { name: '放大图谱', exact: true }).click()
+  await page.getByRole('button', { name: '适应画布', exact: true }).click()
+  await page.locator('.map-point').filter({ hasText: '解释并推演栈' }).click()
+  await expect(page.locator('.objective-inspector h2')).toContainText('解释并推演栈')
+  await expect(page.locator('.map-point[aria-pressed=true]')).toHaveCount(1)
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
+})
+
+test('unstructured course panorama is a real small network with no invented chapters', async ({ page }) => {
+  await page.goto('/atlas?course=CS05')
+  await expect(page.locator('.map-point')).toHaveCount(2)
+  await expect(page.locator('.map-point').filter({ hasText: '用真值表比较' })).toBeVisible()
+  await expect(page.locator('.chapter-region')).toHaveCount(0)
+  await page.locator('.map-point').filter({ hasText: '用真值表比较' }).click()
+  await expect(page.getByRole('link', { name: '进入真值表工作台' })).toBeVisible()
+})
+
+test('phone small network fits both declared goals without hiding one offscreen', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/atlas?course=CS05')
+  await expect(page.locator('.map-point')).toHaveCount(2)
+  await page.getByRole('button', { name: '适应画布', exact: true }).click()
+  const canvas = await page.locator('.atlas-map-viewport').boundingBox()
+  for (const point of await page.locator('.map-point').all()) {
+    const box = await point.boundingBox()
+    expect(box!.x).toBeGreaterThanOrEqual(canvas!.x)
+    expect(box!.x + box!.width).toBeLessThanOrEqual(canvas!.x + canvas!.width)
+  }
+})
+
 test('atlas restores an objective, view and relation selection through reload and browser history', async ({ page }) => {
   await page.goto('/atlas?course=CS03&goal=CS03-STACK-01&relations=application&view=map')
   await expect(page.locator('.objective-inspector h2')).toHaveText('解释并推演栈的后进先出行为')
@@ -21,9 +59,10 @@ test('atlas renders directed relation lines and exposes their declared sources',
   await page.goto('/atlas?course=CS03&goal=CS03-STACK-01')
   await expect(page.locator('.network-edges path[data-relation]').first()).toBeAttached()
   await expect(page.locator('.network-edges path[data-kind=mandatory_prerequisite]').first()).toHaveAttribute('marker-end', /.+/)
-  await page.getByText('关系与来源', { exact: true }).click()
+  await page.locator('.atlas-relations summary').click()
   await expect(page.locator('.focus-relations')).toContainText('来源：')
   await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
+  await page.locator('.atlas-relations summary').click()
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
   await page.screenshot({ path: testInfo.outputPath('atlas-stack-desktop.png'), fullPage: true, animations: 'disabled' })

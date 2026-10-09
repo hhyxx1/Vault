@@ -33,10 +33,10 @@ test('catalog states its construction scope and narrow pages do not horizontally
   }
 })
 
-test('knowledge atlas opens the three-column panorama and keeps a unique-objective denominator across graph controls', async ({ page }) => {
+test('knowledge atlas expands chapter territories and keeps a unique-objective denominator across graph controls', async ({ page }) => {
   await page.goto('/atlas?course=CS03')
 
-  // Default surface is the three-column course panorama; no graph is rendered yet.
+  // Chapters are territories; opening one exposes every declared local goal.
   await expect(page.locator('#canvas-title')).toHaveText('课程全景')
   await expect(page.locator('.chapter-region')).toHaveCount(8)
   await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
@@ -45,23 +45,15 @@ test('knowledge atlas opens the three-column panorama and keeps a unique-objecti
   // Enter a chapter to reveal the relation network.
   await page.locator('.overview-grid').getByRole('button', { name: /栈与队列/ }).click()
   await expect(page.locator('#canvas-title')).toHaveText('栈与队列')
-  const network = page.locator('.local-network')
+  const network = page.locator('.atlas-map')
   await expect(network).toBeVisible()
-  await expect(network.locator('.selection-note')).toContainText('聚焦「栈及应用」')
-
-  // Three columns around the selected objective; the denominator is unchanged.
-  const columns = network.locator('.network-column')
-  await expect(columns).toHaveCount(3)
-  await expect(columns.nth(0).locator('h3')).toHaveText('先修准备')
-  await expect(columns.nth(1).locator('h3')).toHaveText('当前学习目标')
-  await expect(columns.nth(2).locator('h3')).toHaveText('同单元目标与相关应用')
-  await expect(network.locator('.network-node')).toHaveCount(3)
-  // The prerequisite belongs to another chapter; the same-unit goal sits right.
-  await expect(columns.nth(0).locator('.network-node')).toContainText('线性表')
-  await expect(columns.nth(0).locator('.outside')).toContainText('跨章关系')
-  await expect(columns.nth(1).locator('.network-node[aria-pressed=true]')).toContainText('后进先出')
-  await expect(columns.nth(2).locator('.network-node')).toContainText('括号匹配')
-  await expect(network.locator('.focus-relation')).toHaveCount(2)
+  await expect(network.locator('.map-point:not(.is-external)')).toHaveCount(4)
+  await expect(network.locator('.map-point.is-external')).toContainText('线性表')
+  await expect(network.locator('.map-point.is-external')).toContainText('跨章引用')
+  await network.locator('.map-point').filter({ hasText: '后进先出' }).click()
+  await expect(network.locator('.map-point[aria-pressed=true]')).toContainText('后进先出')
+  await network.locator('.atlas-relations summary').click()
+  await expect(network.locator('.focus-relation')).toHaveCount(4)
   await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
 
   // Relation kind filters change only adjacency, never the denominator.
@@ -75,7 +67,7 @@ test('knowledge atlas opens the three-column panorama and keeps a unique-objecti
   await prereq.click()
 
   // Select the same-unit goal; the inspector follows it.
-  await columns.nth(2).getByRole('button', { name: /括号匹配/ }).click()
+  await network.locator('.map-point').filter({ hasText: '括号匹配' }).click()
   await expect(page.getByRole('heading', { name: '用栈设计括号匹配方法' })).toBeVisible()
 
   // The chapter lists every goal once, including the queue unit.
@@ -139,6 +131,7 @@ test('records requested self-study answers and preserves a real verification wit
   await page.getByRole('link', { name: '知识图谱', exact: true }).click()
   await expect(page.locator('#canvas-title')).toHaveText('课程全景')
   await page.locator('.overview-grid').getByRole('button', { name: /栈与队列/ }).click()
+  await page.locator('.map-point').filter({ hasText: '后进先出' }).click()
   await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
   await expect(page.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
 })

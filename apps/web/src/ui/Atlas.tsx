@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import stackExample from '../../../../content/courses/CS03.stack-example.json'
 import logicExample from '../../../../content/courses/CS05.logic-example.json'
@@ -6,6 +6,7 @@ import { courses, currentObjectiveEvidence, objectiveStates, stateLabels, TRACE_
 import { summarizeObjectiveStates, courseRelationLabels, type ObjectiveState, type ObjectiveSummary } from '../domain/course-map'
 import { logicObjectiveState, LOGIC_OBJECTIVE, LOGIC_VERSION, LOGIC_ACTIVITY, LOGIC_STANDARD } from '../domain/logic'
 import { useLocal } from '../local/LocalProvider'
+import { AtlasMap } from './AtlasMap'
 
 type Goal = { id: string; code: string; title: string; criteria: Array<{ id: string; title: string; verification: string }> }
 type Unit = { id: string; title: string; objective_refs: string[] }
@@ -75,7 +76,7 @@ function CourseAtlas({ data, title }: { data: AtlasPackage; title: string }) {
   }
   const openChapter = (entry: Chapter, unit?: Unit) => {
     const refs = (unit ? unit.objective_refs : entry.children.flatMap(item => item.objective_refs)).filter(matches)
-    update({ chapter: entry.id, goal: refs[0] ?? null, q: null }); setDirectoryOpen(false)
+    update({ chapter: entry.id, goal: unit ? refs[0] ?? null : null, q: null }); setDirectoryOpen(false)
   }
   const toggleKind = (kind: RelationKind) => {
     const next = new Set(kinds)
@@ -100,12 +101,11 @@ function CourseAtlas({ data, title }: { data: AtlasPackage; title: string }) {
   const canCode = selected?.code === IMPLEMENT_OBJECTIVE
   const canLogic = selected?.code === LOGIC_OBJECTIVE
   const canLearn = canTrace || canCode || canLogic
-  const currentRefs = chapter ? chapter.children.flatMap(item => item.objective_refs) : data.objectives.map(goal => goal.code)
   const goalButton = (code: string) => <button key={code} type="button" className="goal-pick" aria-pressed={selected?.code === code} onClick={() => openGoal(code)}><span>{goals.get(code)?.title}</span><span className={`evidence-pill ${stateOf(code)}`}>{stateLabels[stateOf(code)]}</span></button>
 
   return <>
     <div className="page-heading"><div><h1>{title}<span className="heading-note">知识图谱</span></h1><p>看见知识之间的联系，也看见每一步学习的依据。</p></div><div className="scope-total"><strong>{summary.verified}<span> / {summary.total}</span></strong><span>声明范围内有达标证据的目标</span></div></div>
-    <div className="scope-note"><span className="small-tag">未审校范围样例</span><p>{data.scope_note} 范围版本 {data.version}。同步恢复、自述与旧版本记录不会自动升级为达标证据。</p></div>
+    <details className="scope-note atlas-range-note"><summary><span className="small-tag">未审校范围样例</span><span>范围与证据说明</span></summary><p>{data.scope_note} 范围版本 {data.version}。同步恢复、自述与旧版本记录不会自动升级为达标证据。</p></details>
     <section className="atlas-workspace" aria-label="课程知识图谱工作区">
       <aside className={`course-scope ${directoryOpen ? 'is-open' : ''}`} aria-label="课程目录与查找">
         <div className="outline-top"><h2>课程范围</h2><button type="button" aria-expanded={directoryOpen} aria-controls="atlas-outline" onClick={() => setDirectoryOpen(!directoryOpen)}>{directoryOpen ? '收起目录' : '展开目录'}</button></div>
@@ -124,7 +124,7 @@ function CourseAtlas({ data, title }: { data: AtlasPackage; title: string }) {
         <div className="canvas-heading"><h2 id="canvas-title">{chapter?.title ?? (selected ? '目标关系' : '课程全景')}</h2><p>{chapter ? '当前章节的局部关系，跨章节点保留原归属。' : chapters.length ? `${chapters.length} 章 · ${chapters.reduce((n, item) => n + item.children.length, 0)} 单元 · 点击单元进入目标。` : `${summary.total} 个已声明目标 · 未声明章节结构。`}</p></div>
         <div className="atlas-state-key" aria-label="目标状态图例">{stateOrder.map(state => <span key={state}><i className={`legend-dot ${state}`} />{stateLabels[state]}</span>)}</div>
         {filter !== 'all' && <p className="atlas-boundary" role="status">正在显示 {visibleGoals.length} 个匹配目标；整课统计仍为 {summary.total} 个唯一目标。{selected && !matches(selected.code) ? ' 当前选中目标保留定位，未计入匹配数量。' : ''}</p>}
-        {visibleGoals.length === 0 ? <div className="atlas-empty"><h3>当前筛选没有匹配目标。</h3><p>未评估不等于未掌握；筛选不会改变范围或证据。</p><button className="button" onClick={() => update({ filter: null })}>清除筛选</button></div> : view === 'list' ? <div className="context-list">{chapters.length ? (chapter ? [chapter] : chapters).map(entry => <section className="list-section" key={entry.id}><h3>{entry.title}</h3>{entry.children.map(unit => <section className="list-unit" key={unit.id}><h4>{unit.title}</h4>{unit.objective_refs.filter(matches).map(goalButton)}</section>)}</section>) : visibleGoals.map(goal => goalButton(goal.code))}</div> : selected ? <LocalNetwork data={data} selected={selected} currentRefs={currentRefs} unitRefs={locate(selected.code)?.unit.objective_refs ?? [selected.code]} kinds={kinds} toggleKind={toggleKind} stateOf={stateOf} matches={matches} locate={code => locate(code)?.chapter.title ?? '已声明目标'} onSelect={openGoal} /> : <div className="overview-grid">{chapters.length ? chapters.map((entry, index) => { const cs = summaryOf(entry.children.flatMap(unit => unit.objective_refs)); return <section className="chapter-region" key={entry.id} aria-label={entry.title}><button className="region-heading" onClick={() => openChapter(entry)}><span className="region-mark">{String(index + 1).padStart(2, '0')}</span><strong>{entry.title}</strong><span>{cs.verified} / {cs.total}</span></button><Distribution summary={cs} /><div className="unit-nodes">{entry.children.filter(unit => unit.objective_refs.some(matches)).map(unit => <button className="unit-node" key={unit.id} onClick={() => openChapter(entry, unit)}><strong>{unit.title}</strong><small><span className="dots" aria-hidden="true">{unit.objective_refs.map(code => <i className={stateOf(code)} key={code} />)}</span>{unit.objective_refs.filter(matches).length} 个目标</small></button>)}{!entry.children.some(unit => unit.objective_refs.some(matches)) && <p className="region-empty">此章没有匹配目标</p>}</div></section> }) : visibleGoals.map(goal => goalButton(goal.code))}</div>}
+        {visibleGoals.length === 0 ? <div className="atlas-empty"><h3>当前筛选没有匹配目标。</h3><p>未评估不等于未掌握；筛选不会改变范围或证据。</p><button className="button" onClick={() => update({ filter: null })}>清除筛选</button></div> : view === 'list' ? <div className="context-list">{chapters.length ? (chapter ? [chapter] : chapters).map(entry => <section className="list-section" key={entry.id}><h3>{entry.title}</h3>{entry.children.map(unit => <section className="list-unit" key={unit.id}><h4>{unit.title}</h4>{unit.objective_refs.filter(matches).map(goalButton)}</section>)}</section>) : visibleGoals.map(goal => goalButton(goal.code))}</div> : <AtlasMap goals={data.objectives} chapters={chapters} relations={data.relations} chapter={chapter} selected={selected} kinds={kinds} toggleKind={toggleKind} stateOf={stateOf} matches={matches} onChapter={openChapter} onGoal={openGoal} />}
         <div className="atlas-scope-summary"><Distribution summary={summary} /><p>统计只包含当前范围的唯一目标。章节、重复引用和隐藏关系不增加分母。</p></div>
       </div>
       <aside className="objective-inspector" aria-label="目标证据与下一步" tabIndex={-1} ref={inspector}>
@@ -138,32 +138,4 @@ function CourseAtlas({ data, title }: { data: AtlasPackage; title: string }) {
       </aside>
     </section>
   </>
-}
-
-function LocalNetwork({ data, selected, currentRefs, unitRefs, kinds, toggleKind, stateOf, matches, locate, onSelect }: { data: AtlasPackage; selected: Goal; currentRefs: string[]; unitRefs: string[]; kinds: Set<RelationKind>; toggleKind: (kind: RelationKind) => void; stateOf: (code: string) => ObjectiveState; matches: (code: string) => boolean; locate: (code: string) => string; onSelect: (code: string) => void }) {
-  const markerId = useId().replace(/:/g, '')
-  const viewport = useRef<HTMLDivElement>(null)
-  const [zoom, setZoom] = useState(1)
-  const goals = new Map(data.objectives.map(goal => [goal.code, goal]))
-  const adjacent = data.relations.filter(relation => kinds.has(relation.kind as RelationKind) && (relation.from === selected.code || relation.to === selected.code))
-  const neighbors = [...new Set(adjacent.flatMap(relation => [relation.from, relation.to]))].filter(code => code !== selected.code && matches(code))
-  const incoming = neighbors.filter(code => adjacent.some(relation => relation.from === code && relation.to === selected.code && relation.kind !== 'conceptual_association'))
-  const outgoing = [...new Set([...unitRefs.filter(code => code !== selected.code && !incoming.includes(code) && matches(code)), ...neighbors.filter(code => !incoming.includes(code))])]
-  const columns: Array<[string, string[]]> = [['先修准备', incoming], ['当前学习目标', [selected.code]], ['同单元目标与相关应用', outgoing]]
-  const height = Math.max(incoming.length, outgoing.length, 1) * 168 + 92
-  const position = new Map(columns.flatMap(([, codes], column) => codes.map((code, row) => [code, { x: 18 + column * 260, y: 62 + row * 168 }] as const)))
-  const visibleRelations = adjacent.filter(relation => position.has(relation.from) && position.has(relation.to))
-  const center = () => viewport.current?.scrollTo({ left: Math.max(0, (278 + 110) * zoom - viewport.current.clientWidth / 2), top: 0, behavior: 'auto' })
-  useEffect(() => { center() }, [selected.code, zoom])
-  return <div className="local-network">
-    <p className="selection-note">聚焦「{data.outline?.flatMap(chapter => chapter.children).find(unit => unit.objective_refs.includes(selected.code))?.title ?? '已声明目标'}」· {unitRefs.length} 个目标。跨章节点是引用，不会新增统计目标。</p>
-    <div className="network-kind-toggle" role="group" aria-label="关系类型筛选">{relationTypes.map(kind => <button key={kind} aria-pressed={kinds.has(kind)} onClick={() => toggleKind(kind)}><i className={`relation-line ${kind}`} />{relationLabel(kind)}</button>)}</div>
-    <div className="network-tools"><span>节点可点击，关系可在下方逐条查看</span><button aria-label="缩小图谱" disabled={zoom <= .75} onClick={() => setZoom(value => value - .25)}>−</button><output aria-label="图谱缩放">{Math.round(zoom * 100)}%</output><button aria-label="放大图谱" disabled={zoom >= 1.5} onClick={() => setZoom(value => value + .25)}>＋</button><button onClick={center}>定位当前目标</button></div>
-    <div className="network-scroll" ref={viewport} tabIndex={0} role="region" aria-label="局部知识关系图，可横向滚动"><div style={{ width: 772 * zoom, height: height * zoom }}><div className="network-world" style={{ width: 772, height, transform: `scale(${zoom})` }}>
-      <svg className="network-edges" width="772" height={height} aria-hidden="true"><defs>{relationTypes.filter(kind => kind !== 'conceptual_association').map(kind => <marker key={kind} id={`${markerId}-${kind}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" className={kind} /></marker>)}</defs>{visibleRelations.map((relation, index) => { const from = position.get(relation.from)!; const to = position.get(relation.to)!; const forward = from.x < to.x; const start = from.x + (forward ? 216 : 0); const end = to.x + (forward ? 0 : 216); const mid = (start + end) / 2; return <path key={index} data-relation={`${relation.from}:${relation.to}`} data-kind={relation.kind} className={relation.kind} d={`M ${start} ${from.y + 70} C ${mid} ${from.y + 70}, ${mid} ${to.y + 70}, ${end} ${to.y + 70}`} markerEnd={relation.kind === 'conceptual_association' ? undefined : `url(#${markerId}-${relation.kind})`} /> })}</svg>
-      <div className="network-columns">{columns.map(([title, codes], column) => <div className="network-column" key={title}><h3 style={{ left: 18 + column * 260 }}>{title}</h3>{codes.map(code => { const pos = position.get(code)!; return <button type="button" className="network-node" key={code} style={{ left: pos.x, top: pos.y }} aria-pressed={selected.code === code} onClick={() => onSelect(code)}><span className="node-path">{locate(code)}{!currentRefs.includes(code) && <span className="outside"> · 跨章关系</span>}</span><strong>{goals.get(code)?.title}</strong><span className={`evidence-pill ${stateOf(code)}`}>{stateLabels[stateOf(code)]}</span></button> })}{!codes.length && <p className="empty-note" style={{ left: 18 + column * 260 }}>暂无已声明关系</p>}</div>)}</div>
-    </div></div></div>
-    <details className="atlas-relations"><summary>关系与来源</summary><div className="focus-relations">{visibleRelations.map((relation, index) => <div className="focus-relation" key={index}><strong>{relationLabel(relation.kind)}：{goals.get(relation.from)?.title} {relation.kind === 'conceptual_association' ? '↔' : '→'} {goals.get(relation.to)?.title}</strong><small>来源：{relation.source ?? '课程包未提供来源，待补充'}</small><span>关系不传播掌握状态；同单元并列不自动生成先修。</span></div>)}{!visibleRelations.length && <p>当前关系类型下没有匹配的已声明关系。</p>}</div></details>
-    <details className="other-goals"><summary>{data.outline ? '本章' : '当前范围'}全部 {new Set(currentRefs).size} 个目标</summary><div className="context-list">{[...new Set(currentRefs)].filter(matches).map(code => <button className="goal-pick" key={code} aria-pressed={selected.code === code} onClick={() => onSelect(code)}><span>{goals.get(code)?.title}</span><span className={`evidence-pill ${stateOf(code)}`}>{stateLabels[stateOf(code)]}</span></button>)}</div></details>
-  </div>
 }
