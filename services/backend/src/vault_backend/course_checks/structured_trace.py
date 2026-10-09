@@ -60,6 +60,24 @@ class TraceSpec:
     operations: tuple[Operation, ...]
     criteria: tuple[CriterionRule, ...]
     capacity: Optional[int] = None
+    # Trusted identity used to attach evidence to the right course/objectives.
+    course_code: str = "CS03"
+    course_id: str = ""
+    course_version_id: str = ""
+    course_version: str = ""
+    activity_id: str = ""
+    activity_version_id: str = ""
+    objective_ids: tuple[str, ...] = ()
+
+    @property
+    def context(self) -> dict[str, Any]:
+        return {
+            "course_id": self.course_id,
+            "course_version_id": self.course_version_id,
+            "activity_id": self.activity_id,
+            "activity_version_id": self.activity_version_id,
+            "objective_ids": list(self.objective_ids),
+        }
 
     def expected(self) -> list[dict[str, Any]]:
         if self.machine == "stack":
@@ -69,6 +87,21 @@ class TraceSpec:
                 raise ValueError("ring queue requires a capacity")
             snapshots = RingQueueMachine(self.capacity).run(self.operations)
         return [snapshot.__dict__ for snapshot in snapshots]
+
+    def expected_submission_steps(self) -> list[dict[str, Any]]:
+        """Canonical correct steps in the student submission envelope.
+
+        Server-side only (tests, teacher tooling). The answer envelope must
+        never be shipped to the public client; the client receives operations.
+        """
+        return [
+            {
+                "state": {name: row[name] for name in self.state_fields},
+                "value": row["value"],
+                "status": row["status"],
+            }
+            for row in self.expected()
+        ]
 
 
 def _normalized(value: Any) -> Any:
@@ -176,8 +209,8 @@ def verify_structured_trace(submission: dict[str, Any], spec: TraceSpec) -> dict
     public_rows = [{k: v for k, v in row.items() if not k.startswith("_")} for row in rows]
     return {
         "verification_id": None,
-        "course_code": submission.get("course_code", "CS03"),
-        "course_version": submission.get("course_version"),
+        "course_code": spec.course_code,
+        "course_version": spec.course_version,
         "activity_version": spec.activity_version,
         "standard_version": spec.standard_version,
         "client_artifact_id": str(submission["client_artifact_id"]),
@@ -241,6 +274,12 @@ def _stack_unit_u01() -> TraceSpec:
                 check_status=True,
             ),
         ),
+        course_id="e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+        course_version_id="c47c1551-76d6-4b80-aeae-33cd253d8ca0",
+        course_version="CS03-example-0.2.0",
+        activity_id="7c1e5a01-0001-4a00-8000-000000000001",
+        activity_version_id="7c1e5a01-0002-4a00-8000-000000000001",
+        objective_ids=("e790d0f5-ea0a-4924-a482-06b9ff8ab944",),
     )
 
 
@@ -291,6 +330,12 @@ def _queue_unit_u02() -> TraceSpec:
                 check_status=True,
             ),
         ),
+        course_id="e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+        course_version_id="c47c1551-76d6-4b80-aeae-33cd253d8ca0",
+        course_version="CS03-example-0.2.0",
+        activity_id="7c1e5a02-0001-4a00-8000-000000000002",
+        activity_version_id="7c1e5a02-0002-4a00-8000-000000000002",
+        objective_ids=("c9049f14-1182-406e-a632-d6eeb2c9053c",),
     )
 
 
@@ -298,6 +343,17 @@ TRUSTED_TRACE_SPECS: dict[str, TraceSpec] = {
     spec.activity_version: spec
     for spec in (_stack_unit_u01(), _queue_unit_u02())
 }
+
+for _spec in TRUSTED_TRACE_SPECS.values():
+    if not (
+        _spec.course_id
+        and _spec.course_version_id
+        and _spec.course_version
+        and _spec.activity_id
+        and _spec.activity_version_id
+        and _spec.objective_ids
+    ):
+        raise RuntimeError(f"incomplete trusted trace spec identity: {_spec.activity_version}")
 
 
 def get_trace_spec(activity_version: str) -> TraceSpec:

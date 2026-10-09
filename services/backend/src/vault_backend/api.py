@@ -34,6 +34,7 @@ from vault_backend.schemas import (
     LeaseRequest,
     OperationInput,
     RevisionCommand,
+    StructuredTraceSubmission,
     TraceSubmission,
     TruthTableSubmission,
 )
@@ -257,7 +258,10 @@ def create_app(
     async def create_operation(
         request: Request,
         lease_id: UUID,
-        body: Annotated[TraceSubmission | TruthTableSubmission, Field(discriminator="kind")],
+        body: Annotated[
+            TraceSubmission | TruthTableSubmission | StructuredTraceSubmission,
+            Field(discriminator="kind"),
+        ],
         idempotency_key: Annotated[UUID, Header()],
         authorization: Annotated[str | None, Header()] = None,
     ):

@@ -4,6 +4,7 @@ import httpx
 import pytest
 
 from vault_backend.api import create_app
+from vault_backend.course_checks.structured_trace import get_trace_spec
 
 ORIGIN = "http://localhost:5173"
 
@@ -107,6 +108,96 @@ async def test_logic_table_is_checked_per_cell_without_asserting_mastery(client)
         json={**payload, "mastery_asserted": True},
     )
     assert forged.status_code == 422
+
+
+def _structured_payload(activity_version, *, mutate=None, drop_steps=0):
+    spec = get_trace_spec(activity_version)
+    steps = spec.expected_submission_steps()
+    if drop_steps:
+        steps = steps[:-drop_steps]
+    payload = {
+        "kind": "verify_structured_trace",
+        "course_code": "CS03",
+        "activity_version": activity_version,
+        "client_artifact_id": str(uuid4()),
+        "client_revision_id": str(uuid4()),
+        "steps": steps,
+        "explanation": "我按操作顺序逐步记录每次操作后的状态，失败的出栈/入队不改变状态。",
+    }
+    if mutate is not None:
+        mutate(payload)
+    return payload
+
+
+async def _post_operation(client, lease, payload):
+    return await client.post(
+        f"/api/v1/guest-leases/{lease['lease_id']}/operations",
+        headers={
+            "Origin": ORIGIN,
+            "Authorization": f"GuestLease {lease['token']}",
+            "Idempotency-Key": str(uuid4()),
+        },
+        json=payload,
+    )
+
+
+async def test_structured_trace_stack_and_queue_verified(client):
+    lease = await grant(client)
+    assert "verify_structured_trace" in lease["allowed_operations"]
+
+    stack = await _post_operation(client, lease, _structured_payload("CS03-STACK-U01-TRACE@0.1.0"))
+    assert stack.status_code == 201, stack.text
+    operation = stack.json()
+    assert operation["kind"] == "verify_structured_trace"
+    result = operation["result"]
+    assert result["trace_correct"] is True
+    assert result["mastery_asserted"] is False
+    assert result["course_id"] == "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca"
+    assert result["activity_id"] == "7c1e5a01-0001-4a00-8000-000000000001"
+    assert result["objective_ids"] == ["e790d0f5-ea0a-4924-a482-06b9ff8ab944"]
+    statuses = {criterion["id"]: criterion["status"] for criterion in result["criteria"]}
+    assert statuses["stack.order"] == "met"
+    assert statuses["stack.bounds"] == "met"
+    assert statuses["explanation"] == "needs_review"
+    assert statuses["independent_transfer"] == "needs_review"
+    assert result["objective_state"] == "evidence_pending_review"
+
+    queue = await _post_operation(client, lease, _structured_payload("CS03-QUEUE-U02-TRACE@0.1.0"))
+    assert queue.status_code == 201, queue.text
+    qresult = queue.json()["result"]
+    assert qresult["trace_correct"] is True
+    qstatuses = {criterion["id"]: criterion["status"] for criterion in qresult["criteria"]}
+    assert qstatuses["queue.fifo"] == "met"
+    assert qstatuses["queue.wrap"] == "met"
+    assert qstatuses["queue.bounds"] == "met"
+    assert qresult["objective_ids"] == ["c9049f14-1182-406e-a632-d6eeb2c9053c"]
+
+    # A pop that returns the bottom instead of the top is caught.
+    wrong = _structured_payload(
+        "CS03-STACK-U01-TRACE@0.1.0",
+        mutate=lambda payload: payload["steps"][3].__setitem__("value", 4),
+    )
+    bad = await _post_operation(client, lease, wrong)
+    assert bad.status_code == 201, bad.text
+    assert bad.json()["result"]["trace_correct"] is False
+    assert any(criterion["status"] == "not_met" for criterion in bad.json()["result"]["criteria"])
+
+
+async def test_structured_trace_shape_and_envelope_rejected(client):
+    lease = await grant(client)
+
+    short = _structured_payload("CS03-STACK-U01-TRACE@0.1.0", drop_steps=1)
+    response = await _post_operation(client, lease, short)
+    assert response.status_code == 422
+    assert "TRACE_SHAPE_INVALID" in response.text
+
+    unknown = _structured_payload("CS03-STACK-U01-TRACE@0.1.0")
+    unknown["activity_version"] = "CS99-NOPE@9.9.9"
+    assert (await _post_operation(client, lease, unknown)).status_code == 422
+
+    forged = _structured_payload("CS03-STACK-U01-TRACE@0.1.0")
+    forged["standard_version"] = "forged-standard"
+    assert (await _post_operation(client, lease, forged)).status_code == 422
 
 
 async def test_validation_error_redacts_input(client, trace_payload):

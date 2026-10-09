@@ -845,6 +845,7 @@
               "enum": [
                 "verify_trace",
                 "verify_truth_table",
+                "verify_structured_trace",
                 "learning_assist"
               ],
               "type": "string"
@@ -1193,7 +1194,8 @@
           "kind": {
             "enum": [
               "verify_trace",
-              "verify_truth_table"
+              "verify_truth_table",
+              "verify_structured_trace"
             ],
             "title": "Kind",
             "type": "string"
@@ -1215,6 +1217,9 @@
               },
               {
                 "$ref": "#/components/schemas/LogicVerificationResult"
+              },
+              {
+                "$ref": "#/components/schemas/StructuredVerificationResult"
               },
               {
                 "type": "null"
@@ -1678,6 +1683,299 @@
           "spaces"
         ],
         "title": "SpacesResponse",
+        "type": "object"
+      },
+      "StructuredCriterion": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "met",
+              "not_met",
+              "needs_review"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "status",
+          "reason"
+        ],
+        "title": "StructuredCriterion",
+        "type": "object"
+      },
+      "StructuredTraceStep": {
+        "additionalProperties": false,
+        "properties": {
+          "state": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "State",
+            "type": "object"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "underflow",
+              "full"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": [
+          "state",
+          "value",
+          "status"
+        ],
+        "title": "StructuredTraceStep",
+        "type": "object"
+      },
+      "StructuredTraceSubmission": {
+        "additionalProperties": false,
+        "properties": {
+          "activity_version": {
+            "enum": [
+              "CS03-STACK-U01-TRACE@0.1.0",
+              "CS03-QUEUE-U02-TRACE@0.1.0"
+            ],
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "course_code": {
+            "const": "CS03",
+            "default": "CS03",
+            "title": "Course Code",
+            "type": "string"
+          },
+          "explanation": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Explanation",
+            "type": "string"
+          },
+          "kind": {
+            "const": "verify_structured_trace",
+            "default": "verify_structured_trace",
+            "title": "Kind",
+            "type": "string"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/StructuredTraceStep"
+            },
+            "maxItems": 64,
+            "minItems": 1,
+            "title": "Steps",
+            "type": "array"
+          }
+        },
+        "required": [
+          "activity_version",
+          "client_artifact_id",
+          "client_revision_id",
+          "steps"
+        ],
+        "title": "StructuredTraceSubmission",
+        "type": "object"
+      },
+      "StructuredVerificationResult": {
+        "properties": {
+          "activity_id": {
+            "format": "uuid",
+            "title": "Activity Id",
+            "type": "string"
+          },
+          "activity_version": {
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "activity_version_id": {
+            "format": "uuid",
+            "title": "Activity Version Id",
+            "type": "string"
+          },
+          "artifact_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Artifact Hash",
+            "type": "string"
+          },
+          "checker_version": {
+            "title": "Checker Version",
+            "type": "string"
+          },
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "course_code": {
+            "const": "CS03",
+            "title": "Course Code",
+            "type": "string"
+          },
+          "course_id": {
+            "format": "uuid",
+            "title": "Course Id",
+            "type": "string"
+          },
+          "course_version": {
+            "title": "Course Version",
+            "type": "string"
+          },
+          "course_version_id": {
+            "format": "uuid",
+            "title": "Course Version Id",
+            "type": "string"
+          },
+          "criteria": {
+            "items": {
+              "$ref": "#/components/schemas/StructuredCriterion"
+            },
+            "title": "Criteria",
+            "type": "array"
+          },
+          "mastery_asserted": {
+            "const": false,
+            "title": "Mastery Asserted",
+            "type": "boolean"
+          },
+          "objective_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Objective Ids",
+            "type": "array"
+          },
+          "objective_state": {
+            "enum": [
+              "evidence_pending_review",
+              "practicing"
+            ],
+            "title": "Objective State",
+            "type": "string"
+          },
+          "provenance": {
+            "const": "server_deterministic_checker",
+            "title": "Provenance",
+            "type": "string"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/TraceFeedback"
+            },
+            "title": "Rows",
+            "type": "array"
+          },
+          "runtime": {
+            "title": "Runtime",
+            "type": "string"
+          },
+          "standard_version": {
+            "title": "Standard Version",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "trace_correct": {
+            "title": "Trace Correct",
+            "type": "boolean"
+          },
+          "verification_id": {
+            "format": "uuid",
+            "title": "Verification Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "verification_id",
+          "course_id",
+          "course_version_id",
+          "activity_id",
+          "activity_version_id",
+          "objective_ids",
+          "course_code",
+          "course_version",
+          "activity_version",
+          "standard_version",
+          "client_artifact_id",
+          "client_revision_id",
+          "artifact_hash",
+          "checker_version",
+          "runtime",
+          "provenance",
+          "trace_correct",
+          "rows",
+          "criteria",
+          "objective_state",
+          "mastery_asserted",
+          "summary"
+        ],
+        "title": "StructuredVerificationResult",
         "type": "object"
       },
       "SyncOperation": {
@@ -2777,6 +3075,7 @@
               "schema": {
                 "discriminator": {
                   "mapping": {
+                    "verify_structured_trace": "#/components/schemas/StructuredTraceSubmission",
                     "verify_trace": "#/components/schemas/TraceSubmission",
                     "verify_truth_table": "#/components/schemas/TruthTableSubmission"
                   },
@@ -2788,6 +3087,9 @@
                   },
                   {
                     "$ref": "#/components/schemas/TruthTableSubmission"
+                  },
+                  {
+                    "$ref": "#/components/schemas/StructuredTraceSubmission"
                   }
                 ],
                 "title": "Body"

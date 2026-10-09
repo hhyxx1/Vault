@@ -964,7 +964,7 @@ export interface components {
              */
             absolute_expires_at: string;
             /** Allowed Operations */
-            allowed_operations: ("verify_trace" | "verify_truth_table" | "learning_assist")[];
+            allowed_operations: ("verify_trace" | "verify_truth_table" | "verify_structured_trace" | "learning_assist")[];
             /**
              * Created At
              * Format: date-time
@@ -1138,7 +1138,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "verify_trace" | "verify_truth_table";
+            kind: "verify_trace" | "verify_truth_table" | "verify_structured_trace";
             /**
              * Lease Id
              * Format: uuid
@@ -1150,7 +1150,7 @@ export interface components {
              */
             operation_id: string;
             /** Result */
-            result: components["schemas"]["VerificationResult"] | components["schemas"]["LogicVerificationResult"] | null;
+            result: components["schemas"]["VerificationResult"] | components["schemas"]["LogicVerificationResult"] | components["schemas"]["StructuredVerificationResult"] | null;
             /** Revision */
             revision: string;
             /**
@@ -1336,6 +1336,150 @@ export interface components {
         SpacesResponse: {
             /** Spaces */
             spaces: components["schemas"]["SpaceResponse"][];
+        };
+        /** StructuredCriterion */
+        StructuredCriterion: {
+            /** Id */
+            id: string;
+            /** Reason */
+            reason: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "met" | "not_met" | "needs_review";
+            /** Title */
+            title: string;
+        };
+        /** StructuredTraceStep */
+        StructuredTraceStep: {
+            /** State */
+            state: {
+                [key: string]: number | (number | null)[] | null;
+            };
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "ok" | "underflow" | "full";
+            /** Value */
+            value: number | null;
+        };
+        /** StructuredTraceSubmission */
+        StructuredTraceSubmission: {
+            /**
+             * Activity Version
+             * @enum {string}
+             */
+            activity_version: "CS03-STACK-U01-TRACE@0.1.0" | "CS03-QUEUE-U02-TRACE@0.1.0";
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            /**
+             * Course Code
+             * @default CS03
+             * @constant
+             */
+            course_code: "CS03";
+            /**
+             * Explanation
+             * @default
+             */
+            explanation: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "verify_structured_trace";
+            /** Steps */
+            steps: components["schemas"]["StructuredTraceStep"][];
+        };
+        /** StructuredVerificationResult */
+        StructuredVerificationResult: {
+            /**
+             * Activity Id
+             * Format: uuid
+             */
+            activity_id: string;
+            /** Activity Version */
+            activity_version: string;
+            /**
+             * Activity Version Id
+             * Format: uuid
+             */
+            activity_version_id: string;
+            /** Artifact Hash */
+            artifact_hash: string;
+            /** Checker Version */
+            checker_version: string;
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            /**
+             * Course Code
+             * @constant
+             */
+            course_code: "CS03";
+            /**
+             * Course Id
+             * Format: uuid
+             */
+            course_id: string;
+            /** Course Version */
+            course_version: string;
+            /**
+             * Course Version Id
+             * Format: uuid
+             */
+            course_version_id: string;
+            /** Criteria */
+            criteria: components["schemas"]["StructuredCriterion"][];
+            /**
+             * Mastery Asserted
+             * @constant
+             */
+            mastery_asserted: false;
+            /** Objective Ids */
+            objective_ids: string[];
+            /**
+             * Objective State
+             * @enum {string}
+             */
+            objective_state: "evidence_pending_review" | "practicing";
+            /**
+             * Provenance
+             * @constant
+             */
+            provenance: "server_deterministic_checker";
+            /** Rows */
+            rows: components["schemas"]["TraceFeedback"][];
+            /** Runtime */
+            runtime: string;
+            /** Standard Version */
+            standard_version: string;
+            /** Summary */
+            summary: string;
+            /** Trace Correct */
+            trace_correct: boolean;
+            /**
+             * Verification Id
+             * Format: uuid
+             */
+            verification_id: string;
         };
         /** SyncOperation */
         SyncOperation: {
@@ -2010,7 +2154,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TraceSubmission"] | components["schemas"]["TruthTableSubmission"];
+                "application/json": components["schemas"]["TraceSubmission"] | components["schemas"]["TruthTableSubmission"] | components["schemas"]["StructuredTraceSubmission"];
             };
         };
         responses: {

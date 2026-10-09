@@ -9,8 +9,18 @@ from uuid import UUID, uuid4
 
 from vault_backend.checker import canonical_hash, verify_trace, verify_truth_table
 from vault_backend.config import Settings
+from vault_backend.course_checks.structured_trace import (
+    TRUSTED_TRACE_SPECS,
+    get_trace_spec,
+    verify_structured_trace,
+)
 from vault_backend.errors import ApiError
-from vault_backend.schemas import OperationInput, TraceSubmission, TruthTableSubmission
+from vault_backend.schemas import (
+    OperationInput,
+    StructuredTraceSubmission,
+    TraceSubmission,
+    TruthTableSubmission,
+)
 
 
 def digest(token: str) -> bytes:
@@ -22,7 +32,7 @@ class Operation:
     id: UUID
     request_hash: str
     idempotency_key: UUID
-    submission: TraceSubmission | TruthTableSubmission | None
+    submission: TraceSubmission | TruthTableSubmission | StructuredTraceSubmission | None
     kind: str
     state: str = "awaiting_input"
     revision: int = 1
@@ -141,6 +151,7 @@ class GuestLeaseStore:
                 "allowed_operations": [
                     *(["verify_trace"] if self.trace_context is not None else []),
                     *(["verify_truth_table"] if self.logic_context is not None else []),
+                    *(["verify_structured_trace"] if TRUSTED_TRACE_SPECS else []),
                     *(["learning_assist"] if self.settings.agent_enabled else []),
                 ],
                 "storage": "ephemeral_memory",
@@ -248,7 +259,16 @@ class GuestLeaseStore:
 
     def _complete(self, lease: Lease, op: Operation) -> None:
         assert op.submission is not None
-        if isinstance(op.submission, TraceSubmission):
+        if isinstance(op.submission, StructuredTraceSubmission):
+            spec = get_trace_spec(op.submission.activity_version)
+            try:
+                result = verify_structured_trace(op.submission.model_dump(mode="json"), spec)
+            except ValueError as exc:
+                raise ApiError(
+                    422, "TRACE_SHAPE_INVALID", "提交的轨迹步数或字段与活动操作序列不一致。"
+                ) from exc
+            context = spec.context
+        elif isinstance(op.submission, TraceSubmission):
             result = verify_trace(op.submission)
             context = self.trace_context
         else:
@@ -267,15 +287,16 @@ class GuestLeaseStore:
         token: str,
         origin: str,
         key: UUID,
-        submission: TraceSubmission | TruthTableSubmission,
+        submission: TraceSubmission | TruthTableSubmission | StructuredTraceSubmission,
     ) -> dict[str, Any]:
         async with self.lock:
             lease = self._lease(lease_id, token, origin)
-            context = (
-                self.trace_context
-                if isinstance(submission, TraceSubmission)
-                else self.logic_context
-            )
+            if isinstance(submission, StructuredTraceSubmission):
+                context: dict[str, Any] | None = {"available": True}
+            elif isinstance(submission, TraceSubmission):
+                context = self.trace_context
+            else:
+                context = self.logic_context
             if context is None:
                 raise ApiError(503, "COURSE_CONTENT_UNAVAILABLE", "课程活动或检查器版本尚未就绪。")
             request_hash = canonical_hash(submission.model_dump(mode="json"))
@@ -290,7 +311,10 @@ class GuestLeaseStore:
             op = Operation(uuid4(), request_hash, key, submission, submission.kind)
             lease.operations[op.id], lease.operation_keys[key] = op, op.id
             self._touch(lease)
-            if isinstance(submission, TruthTableSubmission) or submission.trace is not None:
+            if (
+                isinstance(submission, (TruthTableSubmission, StructuredTraceSubmission))
+                or submission.trace is not None
+            ):
                 self._complete(lease, op)
             else:
                 self._event(lease, op, "student.input_required")

@@ -16,7 +16,14 @@ class LeaseResponse(BaseModel):
     created_at: datetime
     idle_expires_at: datetime
     absolute_expires_at: datetime
-    allowed_operations: list[Literal["verify_trace", "verify_truth_table", "learning_assist"]]
+    allowed_operations: list[
+        Literal[
+            "verify_trace",
+            "verify_truth_table",
+            "verify_structured_trace",
+            "learning_assist",
+        ]
+    ]
     storage: Literal["ephemeral_memory"]
 
 
@@ -52,6 +59,38 @@ class VerificationResult(BaseModel):
     trace_correct: bool
     rows: list[TraceFeedback]
     criteria: list[Criterion]
+    objective_state: Literal["evidence_pending_review", "practicing"]
+    mastery_asserted: Literal[False]
+    summary: str
+
+
+class StructuredCriterion(BaseModel):
+    id: str
+    title: str
+    status: Literal["met", "not_met", "needs_review"]
+    reason: str
+
+
+class StructuredVerificationResult(BaseModel):
+    verification_id: UUID
+    course_id: UUID
+    course_version_id: UUID
+    activity_id: UUID
+    activity_version_id: UUID
+    objective_ids: list[UUID]
+    course_code: Literal["CS03"]
+    course_version: str
+    activity_version: str
+    standard_version: str
+    client_artifact_id: UUID
+    client_revision_id: UUID
+    artifact_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
+    checker_version: str
+    runtime: str
+    provenance: Literal["server_deterministic_checker"]
+    trace_correct: bool
+    rows: list[TraceFeedback]
+    criteria: list[StructuredCriterion]
     objective_state: Literal["evidence_pending_review", "practicing"]
     mastery_asserted: Literal[False]
     summary: str
@@ -102,10 +141,12 @@ class LogicVerificationResult(BaseModel):
 class OperationResponse(BaseModel):
     operation_id: UUID
     lease_id: UUID
-    kind: Literal["verify_trace", "verify_truth_table"]
+    kind: Literal["verify_trace", "verify_truth_table", "verify_structured_trace"]
     status: Literal["awaiting_input", "completed", "cancelled", "acknowledged"]
     revision: str
-    result: VerificationResult | LogicVerificationResult | None
+    result: (
+        VerificationResult | LogicVerificationResult | StructuredVerificationResult | None
+    )
     storage: Literal["ephemeral_memory"]
     acknowledged: bool
 
