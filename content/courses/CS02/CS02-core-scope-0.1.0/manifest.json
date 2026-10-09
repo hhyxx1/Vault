@@ -1,0 +1,553 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "d79e8db8-043c-4849-83f6-b1a2e14f3b3f",
+  "course_version_id": "9efbe4e5-98ea-5c40-b875-ab4f450a9647",
+  "course_code": "CS02",
+  "version": "CS02-core-scope-0.1.0",
+  "title": "面向对象程序设计",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "90cf6d87-9a24-5498-9ead-076f3af59467",
+      "code": "CS02-M01-O01",
+      "title": "区分对象和类",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分对象和类",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "de557d6c-8561-5d08-9a5c-2c233816c7f6",
+      "code": "CS02-M01-O02",
+      "title": "设计可见性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "设计可见性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "44c7a88f-0c4f-5ef4-a837-501ed1ecdb69",
+      "code": "CS02-M01-O03",
+      "title": "维持构造与状态不变量",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "维持构造与状态不变量",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "926bdeea-0bee-575e-a740-7a4bc7d5d812",
+      "code": "CS02-M02-O01",
+      "title": "分配对象职责",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分配对象职责",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5e652a4f-68bc-5768-91ad-3bfbd3a1e4df",
+      "code": "CS02-M02-O02",
+      "title": "表达组合关系",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "表达组合关系",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fc1d17ac-be1a-51ff-8660-e0375e14cab1",
+      "code": "CS02-M02-O03",
+      "title": "隔离存储和业务接口",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "隔离存储和业务接口",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6a726006-cd5b-564f-ab4b-0b12ea517d0a",
+      "code": "CS02-M03-O01",
+      "title": "实现接口调用",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现接口调用",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "38c77a7f-8828-55d7-a5c6-838c0640a223",
+      "code": "CS02-M03-O02",
+      "title": "判断替换是否保持契约",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "判断替换是否保持契约",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8d65cd24-4ef8-5a57-b740-44dcec71dc95",
+      "code": "CS02-M03-O03",
+      "title": "比较组合和继承",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较组合和继承",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b1d184f3-d4a4-58a5-bb38-ef4f90a99df5",
+      "code": "CS02-M04-O01",
+      "title": "使用类型安全容器",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "使用类型安全容器",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0e42d056-3eae-5e25-a05b-8d2d93d3d2f1",
+      "code": "CS02-M04-O02",
+      "title": "选择集合语义",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "选择集合语义",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3c5b9ae0-86e0-5e92-9aac-81643a6c7d86",
+      "code": "CS02-M04-O03",
+      "title": "实现相等与哈希契约",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现相等与哈希契约",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "39a5958d-39c8-55c3-85a6-b5b616ca413c",
+      "code": "CS02-M05-O01",
+      "title": "定义异常传播边界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定义异常传播边界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e63a1936-db9a-5da7-8eab-459fe89c1a08",
+      "code": "CS02-M05-O02",
+      "title": "保证失败后对象状态",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "保证失败后对象状态",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "821c164e-fbf1-5e04-907d-c13a32bce350",
+      "code": "CS02-M05-O03",
+      "title": "关闭文件及外部资源",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "关闭文件及外部资源",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "891643c8-0321-5eea-a230-cbbee8cec4d7",
+      "code": "CS02-M06-O01",
+      "title": "表达关联及生命周期",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "表达关联及生命周期",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5fd8c8e2-1aef-5bd7-8993-446b0316a1f1",
+      "code": "CS02-M06-O02",
+      "title": "应用策略或观察者解决实际变化",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "应用策略或观察者解决实际变化",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "29ab2e3e-9b50-55bd-863e-2ef581311ffe",
+      "code": "CS02-M06-O03",
+      "title": "解释模式取舍",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释模式取舍",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "19533a5a-ebfd-51e2-9893-14a022a29af3",
+      "code": "CS02-M07-O01",
+      "title": "转换对象与记录",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "转换对象与记录",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2ba74e0a-cf3b-5cc5-ac3c-ac193e49b507",
+      "code": "CS02-M07-O02",
+      "title": "设计可替换依赖",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "设计可替换依赖",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2c147a3f-f2a8-52fb-9baa-29cfa22efab7",
+      "code": "CS02-M07-O03",
+      "title": "编写单元及集成测试",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "编写单元及集成测试",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "92dddd77-11df-58c9-828c-9ad722a243de",
+      "code": "CS02-M08-O01",
+      "title": "分析变更影响",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析变更影响",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d554313a-1a84-50b8-aeaf-d19f6af675f2",
+      "code": "CS02-M08-O02",
+      "title": "重构并保持行为",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "重构并保持行为",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "10d7f629-28c3-5d2a-bf64-0dd45cee47f1",
+      "code": "CS02-M08-O03",
+      "title": "复核设计约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "复核设计约束",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS02-M01",
+      "title": "对象与封装",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M01-O01-unit",
+          "title": "区分对象和类",
+          "objective_refs": [
+            "CS02-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M01-O02-unit",
+          "title": "设计可见性",
+          "objective_refs": [
+            "CS02-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M01-O03-unit",
+          "title": "维持构造与状态不变量",
+          "objective_refs": [
+            "CS02-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M02",
+      "title": "组合与职责",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M02-O01-unit",
+          "title": "分配对象职责",
+          "objective_refs": [
+            "CS02-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M02-O02-unit",
+          "title": "表达组合关系",
+          "objective_refs": [
+            "CS02-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M02-O03-unit",
+          "title": "隔离存储和业务接口",
+          "objective_refs": [
+            "CS02-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M03",
+      "title": "继承与多态",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M03-O01-unit",
+          "title": "实现接口调用",
+          "objective_refs": [
+            "CS02-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M03-O02-unit",
+          "title": "判断替换是否保持契约",
+          "objective_refs": [
+            "CS02-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M03-O03-unit",
+          "title": "比较组合和继承",
+          "objective_refs": [
+            "CS02-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M04",
+      "title": "泛型与集合",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M04-O01-unit",
+          "title": "使用类型安全容器",
+          "objective_refs": [
+            "CS02-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M04-O02-unit",
+          "title": "选择集合语义",
+          "objective_refs": [
+            "CS02-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M04-O03-unit",
+          "title": "实现相等与哈希契约",
+          "objective_refs": [
+            "CS02-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M05",
+      "title": "异常与资源",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M05-O01-unit",
+          "title": "定义异常传播边界",
+          "objective_refs": [
+            "CS02-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M05-O02-unit",
+          "title": "保证失败后对象状态",
+          "objective_refs": [
+            "CS02-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M05-O03-unit",
+          "title": "关闭文件及外部资源",
+          "objective_refs": [
+            "CS02-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M06",
+      "title": "对象关系与模式",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M06-O01-unit",
+          "title": "表达关联及生命周期",
+          "objective_refs": [
+            "CS02-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M06-O02-unit",
+          "title": "应用策略或观察者解决实际变化",
+          "objective_refs": [
+            "CS02-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M06-O03-unit",
+          "title": "解释模式取舍",
+          "objective_refs": [
+            "CS02-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M07",
+      "title": "持久化与测试",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M07-O01-unit",
+          "title": "转换对象与记录",
+          "objective_refs": [
+            "CS02-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M07-O02-unit",
+          "title": "设计可替换依赖",
+          "objective_refs": [
+            "CS02-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M07-O03-unit",
+          "title": "编写单元及集成测试",
+          "objective_refs": [
+            "CS02-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M08",
+      "title": "综合演进",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M08-O01-unit",
+          "title": "分析变更影响",
+          "objective_refs": [
+            "CS02-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M08-O02-unit",
+          "title": "重构并保持行为",
+          "objective_refs": [
+            "CS02-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M08-O03-unit",
+          "title": "复核设计约束",
+          "objective_refs": [
+            "CS02-M08-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

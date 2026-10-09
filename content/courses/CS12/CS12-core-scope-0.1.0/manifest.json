@@ -1,0 +1,620 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "cb74e6d0-2c7b-4cf9-a42e-de4d6b88a1fc",
+  "course_version_id": "d260853f-9862-5145-8129-cecbb0b050ef",
+  "course_code": "CS12",
+  "version": "CS12-core-scope-0.1.0",
+  "title": "人工智能基础",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "54a6459d-4762-5b29-8160-89155b8bd274",
+      "code": "CS12-M01-O01",
+      "title": "建立状态动作目标",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "建立状态动作目标",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9d4dc70b-ac41-554a-884d-4f555409b070",
+      "code": "CS12-M01-O02",
+      "title": "定义评价准则",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定义评价准则",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f06a7508-d819-5391-98ed-5b3c06f73839",
+      "code": "CS12-M01-O03",
+      "title": "说明环境假设",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "说明环境假设",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "200f766e-183b-5aae-8045-8b1b30862036",
+      "code": "CS12-M02-O01",
+      "title": "实现 BFS/DFS/一致代价",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现 BFS/DFS/一致代价",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3b1f1906-b49e-5cab-9903-f0cb5eb7816a",
+      "code": "CS12-M02-O02",
+      "title": "比较完备性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较完备性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d4bcce2e-dc57-57a9-b3d8-e3eec35ea086",
+      "code": "CS12-M02-O03",
+      "title": "分析时间空间",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析时间空间",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1f790d79-7a83-587f-b513-e846bd10ecbe",
+      "code": "CS12-M03-O01",
+      "title": "构造启发函数",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造启发函数",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f0b6393a-7b55-5575-939e-1c74f23e30d5",
+      "code": "CS12-M03-O02",
+      "title": "检验可采纳与一致条件",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "检验可采纳与一致条件",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1d6e771f-7e51-52d7-978e-d02fc984e6a3",
+      "code": "CS12-M03-O03",
+      "title": "实现 A*",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现 A*",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7e9ab3bc-c4c3-5fc3-ba6b-13695ab7166a",
+      "code": "CS12-M04-O01",
+      "title": "实现 minimax 与剪枝",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现 minimax 与剪枝",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "38633e93-dc52-5225-b17c-7d4323c77971",
+      "code": "CS12-M04-O02",
+      "title": "解释局部极值",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释局部极值",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c5be971c-babb-5a67-abf2-27c598ad5340",
+      "code": "CS12-M04-O03",
+      "title": "比较随机重启",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较随机重启",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2c63bbfd-5eda-5993-ba4a-440a7f03df59",
+      "code": "CS12-M05-O01",
+      "title": "表达变量域约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "表达变量域约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "dad15210-680d-56b8-bde8-1c1b9ff93781",
+      "code": "CS12-M05-O02",
+      "title": "实现约束传播",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现约束传播",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "738aa250-a5ec-58a9-9f19-502abe7ed8fe",
+      "code": "CS12-M05-O03",
+      "title": "回溯求解",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "回溯求解",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3f98da2d-af56-5ffa-81d4-7ad3dba3b95b",
+      "code": "CS12-M06-O01",
+      "title": "选择事实和规则表示",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "选择事实和规则表示",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0f2892b0-06d9-5eea-b201-596a14e72559",
+      "code": "CS12-M06-O02",
+      "title": "执行归结或前向推理",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "执行归结或前向推理",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b832afc2-d833-56cd-b0a4-8832ba6c44be",
+      "code": "CS12-M06-O03",
+      "title": "发现冲突",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "发现冲突",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "87ec6dc7-4fc7-596b-b757-8622e9af1dbb",
+      "code": "CS12-M07-O01",
+      "title": "计算条件概率",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算条件概率",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0ee3c5ef-0f11-5339-bfbb-1eac96d0c15d",
+      "code": "CS12-M07-O02",
+      "title": "构造小贝叶斯网络",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造小贝叶斯网络",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "26bf687d-bb8e-581d-8d7a-2888af9f4d07",
+      "code": "CS12-M07-O03",
+      "title": "解释独立性假设",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释独立性假设",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7dafe547-c666-5bcf-9bf9-ddf56bdbc03f",
+      "code": "CS12-M08-O01",
+      "title": "表达动作前置与效果",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "表达动作前置与效果",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "15bf86b3-5ad3-53a9-ace4-337f9cc0fdfa",
+      "code": "CS12-M08-O02",
+      "title": "搜索计划",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "搜索计划",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8280f925-9570-5965-8253-b2683a1f68dd",
+      "code": "CS12-M08-O03",
+      "title": "区分监督与强化学习问题",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分监督与强化学习问题",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8199ce0c-563f-5e3f-b7f7-1118213afb57",
+      "code": "CS12-M09-O01",
+      "title": "比较系统性能与成本",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较系统性能与成本",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b99e5521-67ad-525c-8b41-b7cd74034416",
+      "code": "CS12-M09-O02",
+      "title": "分析错误及偏差",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析错误及偏差",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6bc94288-9da1-582a-b8bb-4f4a89ffe6e1",
+      "code": "CS12-M09-O03",
+      "title": "解释模型适用边界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释模型适用边界",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS12-M01",
+      "title": "问题与智能体",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M01-O01-unit",
+          "title": "建立状态动作目标",
+          "objective_refs": [
+            "CS12-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M01-O02-unit",
+          "title": "定义评价准则",
+          "objective_refs": [
+            "CS12-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M01-O03-unit",
+          "title": "说明环境假设",
+          "objective_refs": [
+            "CS12-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M02",
+      "title": "无信息搜索",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M02-O01-unit",
+          "title": "实现 BFS/DFS/一致代价",
+          "objective_refs": [
+            "CS12-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M02-O02-unit",
+          "title": "比较完备性",
+          "objective_refs": [
+            "CS12-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M02-O03-unit",
+          "title": "分析时间空间",
+          "objective_refs": [
+            "CS12-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M03",
+      "title": "启发式搜索",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M03-O01-unit",
+          "title": "构造启发函数",
+          "objective_refs": [
+            "CS12-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M03-O02-unit",
+          "title": "检验可采纳与一致条件",
+          "objective_refs": [
+            "CS12-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M03-O03-unit",
+          "title": "实现 A*",
+          "objective_refs": [
+            "CS12-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M04",
+      "title": "对抗与局部搜索",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M04-O01-unit",
+          "title": "实现 minimax 与剪枝",
+          "objective_refs": [
+            "CS12-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M04-O02-unit",
+          "title": "解释局部极值",
+          "objective_refs": [
+            "CS12-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M04-O03-unit",
+          "title": "比较随机重启",
+          "objective_refs": [
+            "CS12-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M05",
+      "title": "约束满足",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M05-O01-unit",
+          "title": "表达变量域约束",
+          "objective_refs": [
+            "CS12-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M05-O02-unit",
+          "title": "实现约束传播",
+          "objective_refs": [
+            "CS12-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M05-O03-unit",
+          "title": "回溯求解",
+          "objective_refs": [
+            "CS12-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M06",
+      "title": "知识表示与逻辑推理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M06-O01-unit",
+          "title": "选择事实和规则表示",
+          "objective_refs": [
+            "CS12-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M06-O02-unit",
+          "title": "执行归结或前向推理",
+          "objective_refs": [
+            "CS12-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M06-O03-unit",
+          "title": "发现冲突",
+          "objective_refs": [
+            "CS12-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M07",
+      "title": "不确定推理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M07-O01-unit",
+          "title": "计算条件概率",
+          "objective_refs": [
+            "CS12-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M07-O02-unit",
+          "title": "构造小贝叶斯网络",
+          "objective_refs": [
+            "CS12-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M07-O03-unit",
+          "title": "解释独立性假设",
+          "objective_refs": [
+            "CS12-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M08",
+      "title": "规划与学习概览",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M08-O01-unit",
+          "title": "表达动作前置与效果",
+          "objective_refs": [
+            "CS12-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M08-O02-unit",
+          "title": "搜索计划",
+          "objective_refs": [
+            "CS12-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M08-O03-unit",
+          "title": "区分监督与强化学习问题",
+          "objective_refs": [
+            "CS12-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M09",
+      "title": "综合与责任边界",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M09-O01-unit",
+          "title": "比较系统性能与成本",
+          "objective_refs": [
+            "CS12-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M09-O02-unit",
+          "title": "分析错误及偏差",
+          "objective_refs": [
+            "CS12-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M09-O03-unit",
+          "title": "解释模型适用边界",
+          "objective_refs": [
+            "CS12-M09-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

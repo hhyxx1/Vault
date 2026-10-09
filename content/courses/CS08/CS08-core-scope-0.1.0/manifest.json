@@ -1,0 +1,687 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "3915babb-09a6-442b-ada7-ec0ef6271995",
+  "course_version_id": "e8f376ad-5477-56a5-a112-7efa9a7e5030",
+  "course_code": "CS08",
+  "version": "CS08-core-scope-0.1.0",
+  "title": "计算机网络",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "1f6b9216-3ce2-5eb9-bb9e-0e2d7182eeea",
+      "code": "CS08-M01-O01",
+      "title": "解释分层封装",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释分层封装",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7c21de63-b333-5a10-bd7b-d716658bbfb1",
+      "code": "CS08-M01-O02",
+      "title": "计算传输传播时延",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算传输传播时延",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "58f79cc0-6c87-5bd8-9af7-6a79107057af",
+      "code": "CS08-M01-O03",
+      "title": "区分吞吐和带宽",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分吞吐和带宽",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c2f4302f-ae92-571c-89ee-3d4217ed1dd1",
+      "code": "CS08-M02-O01",
+      "title": "推演帧边界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演帧边界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e83d2c71-3229-5b85-a3ba-abd427229c34",
+      "code": "CS08-M02-O02",
+      "title": "计算校验及重传",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算校验及重传",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8c5342f1-354d-52f8-a329-eac63403db5c",
+      "code": "CS08-M02-O03",
+      "title": "解释介质访问限制",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释介质访问限制",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b3fb57c2-63ba-57d3-bd8f-14a8f71ce33c",
+      "code": "CS08-M03-O01",
+      "title": "观察 MAC 学习",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "观察 MAC 学习",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8ab4cfd6-79cb-555c-8ab8-d21418ccd5da",
+      "code": "CS08-M03-O02",
+      "title": "配置二层连通及 VLAN",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "配置二层连通及 VLAN",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7d6d4a8a-4c30-53bf-9294-d477a1756577",
+      "code": "CS08-M03-O03",
+      "title": "定位广播与环路问题",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定位广播与环路问题",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "be4df181-9978-5799-870d-66b98506ee0f",
+      "code": "CS08-M04-O01",
+      "title": "规划 IPv4 子网",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "规划 IPv4 子网",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "cd64294c-f622-56e1-a914-e9ca3ac72173",
+      "code": "CS08-M04-O02",
+      "title": "解释 IPv6 地址及邻居发现",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释 IPv6 地址及邻居发现",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c2ced5f4-f21a-5c9e-8782-23c6cfbaf8ee",
+      "code": "CS08-M04-O03",
+      "title": "配置接口和网关",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "配置接口和网关",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6370bb0e-d789-59e1-ad8d-4c5507ff0194",
+      "code": "CS08-M05-O01",
+      "title": "匹配最长前缀",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "匹配最长前缀",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "05ac38f3-45e2-542d-83b1-6806c2eec36f",
+      "code": "CS08-M05-O02",
+      "title": "配置静态路由",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "配置静态路由",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4d3c22b6-41ef-5715-bb69-d719dd93fea4",
+      "code": "CS08-M05-O03",
+      "title": "观察动态路由收敛",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "观察动态路由收敛",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e7d4879e-ab5b-5316-8b44-db16db8c26df",
+      "code": "CS08-M06-O01",
+      "title": "观察 ARP/ICMP",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "观察 ARP/ICMP",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8feffeef-bca4-5ff1-a618-397a42f44615",
+      "code": "CS08-M06-O02",
+      "title": "解释 MTU 和分片条件",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释 MTU 和分片条件",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fe4acd92-72a5-5bd6-82fb-ebe1b6c921f9",
+      "code": "CS08-M06-O03",
+      "title": "配置受控 NAT 与过滤",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "配置受控 NAT 与过滤",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8b720e75-aac2-5d66-aefe-0ce9b7dcfdab",
+      "code": "CS08-M07-O01",
+      "title": "追踪 TCP 建连关闭",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "追踪 TCP 建连关闭",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0c0afa2b-34a2-50d2-81cd-f8e10ad24c37",
+      "code": "CS08-M07-O02",
+      "title": "解释重传流控和拥塞",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释重传流控和拥塞",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "bb983923-3dc3-57ee-a52e-e6023783fc36",
+      "code": "CS08-M07-O03",
+      "title": "比较 UDP 语义",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较 UDP 语义",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "47025049-ba49-50ac-ba9f-7b44bbd7b67d",
+      "code": "CS08-M08-O01",
+      "title": "观察 DNS 解析",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "观察 DNS 解析",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a8c0e214-d5ce-5e9b-9b95-b2ef603ae624",
+      "code": "CS08-M08-O02",
+      "title": "解释 HTTP 请求响应",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释 HTTP 请求响应",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e47f89be-eb02-594f-8a93-fd3a92f5136f",
+      "code": "CS08-M08-O03",
+      "title": "区分 TLS 与应用授权",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分 TLS 与应用授权",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7729304f-6428-5bd6-8c66-368db6a6ca9c",
+      "code": "CS08-M09-O01",
+      "title": "分析无线共享介质",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析无线共享介质",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9b05d4ac-bdf3-5e1f-bb81-c8a8b13f0bed",
+      "code": "CS08-M09-O02",
+      "title": "区分加密认证完整性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分加密认证完整性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e980e657-7be7-5cd7-ba45-a8a38eb1df86",
+      "code": "CS08-M09-O03",
+      "title": "识别协议攻击面",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "识别协议攻击面",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7816af9d-cb7e-593a-b8b4-9ada38486568",
+      "code": "CS08-M10-O01",
+      "title": "按层提出可检验假设",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "按层提出可检验假设",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e516eea6-51ae-5fb5-8de1-02159c62a052",
+      "code": "CS08-M10-O02",
+      "title": "用证据缩小故障",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "用证据缩小故障",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1ff2ab97-95f8-586d-b727-3a99cdce2897",
+      "code": "CS08-M10-O03",
+      "title": "重建并验证拓扑",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "重建并验证拓扑",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS08-M01",
+      "title": "分层与性能",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M01-O01-unit",
+          "title": "解释分层封装",
+          "objective_refs": [
+            "CS08-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M01-O02-unit",
+          "title": "计算传输传播时延",
+          "objective_refs": [
+            "CS08-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M01-O03-unit",
+          "title": "区分吞吐和带宽",
+          "objective_refs": [
+            "CS08-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M02",
+      "title": "链路与差错",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M02-O01-unit",
+          "title": "推演帧边界",
+          "objective_refs": [
+            "CS08-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M02-O02-unit",
+          "title": "计算校验及重传",
+          "objective_refs": [
+            "CS08-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M02-O03-unit",
+          "title": "解释介质访问限制",
+          "objective_refs": [
+            "CS08-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M03",
+      "title": "以太网与交换",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M03-O01-unit",
+          "title": "观察 MAC 学习",
+          "objective_refs": [
+            "CS08-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M03-O02-unit",
+          "title": "配置二层连通及 VLAN",
+          "objective_refs": [
+            "CS08-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M03-O03-unit",
+          "title": "定位广播与环路问题",
+          "objective_refs": [
+            "CS08-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M04",
+      "title": "IP 与地址",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M04-O01-unit",
+          "title": "规划 IPv4 子网",
+          "objective_refs": [
+            "CS08-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M04-O02-unit",
+          "title": "解释 IPv6 地址及邻居发现",
+          "objective_refs": [
+            "CS08-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M04-O03-unit",
+          "title": "配置接口和网关",
+          "objective_refs": [
+            "CS08-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M05",
+      "title": "转发与路由",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M05-O01-unit",
+          "title": "匹配最长前缀",
+          "objective_refs": [
+            "CS08-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M05-O02-unit",
+          "title": "配置静态路由",
+          "objective_refs": [
+            "CS08-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M05-O03-unit",
+          "title": "观察动态路由收敛",
+          "objective_refs": [
+            "CS08-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M06",
+      "title": "网络控制与边界",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M06-O01-unit",
+          "title": "观察 ARP/ICMP",
+          "objective_refs": [
+            "CS08-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M06-O02-unit",
+          "title": "解释 MTU 和分片条件",
+          "objective_refs": [
+            "CS08-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M06-O03-unit",
+          "title": "配置受控 NAT 与过滤",
+          "objective_refs": [
+            "CS08-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M07",
+      "title": "传输层",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M07-O01-unit",
+          "title": "追踪 TCP 建连关闭",
+          "objective_refs": [
+            "CS08-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M07-O02-unit",
+          "title": "解释重传流控和拥塞",
+          "objective_refs": [
+            "CS08-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M07-O03-unit",
+          "title": "比较 UDP 语义",
+          "objective_refs": [
+            "CS08-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M08",
+      "title": "应用协议",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M08-O01-unit",
+          "title": "观察 DNS 解析",
+          "objective_refs": [
+            "CS08-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M08-O02-unit",
+          "title": "解释 HTTP 请求响应",
+          "objective_refs": [
+            "CS08-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M08-O03-unit",
+          "title": "区分 TLS 与应用授权",
+          "objective_refs": [
+            "CS08-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M09",
+      "title": "无线与安全基础",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M09-O01-unit",
+          "title": "分析无线共享介质",
+          "objective_refs": [
+            "CS08-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M09-O02-unit",
+          "title": "区分加密认证完整性",
+          "objective_refs": [
+            "CS08-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M09-O03-unit",
+          "title": "识别协议攻击面",
+          "objective_refs": [
+            "CS08-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M10",
+      "title": "综合排障与恢复",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M10-O01-unit",
+          "title": "按层提出可检验假设",
+          "objective_refs": [
+            "CS08-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M10-O02-unit",
+          "title": "用证据缩小故障",
+          "objective_refs": [
+            "CS08-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M10-O03-unit",
+          "title": "重建并验证拓扑",
+          "objective_refs": [
+            "CS08-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

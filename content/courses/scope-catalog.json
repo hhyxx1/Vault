@@ -1,0 +1,121 @@
+{
+  "courses": [
+    {
+      "id": "21efb95b-2524-448d-9255-f8f3d239acc5",
+      "code": "CS01",
+      "title": "程序设计基础",
+      "version_id": "3cef2230-83e4-5eec-9e45-bdae0de47f9f",
+      "version": "CS01-core-scope-0.1.0",
+      "package_path": "CS01/CS01-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "d79e8db8-043c-4849-83f6-b1a2e14f3b3f",
+      "code": "CS02",
+      "title": "面向对象程序设计",
+      "version_id": "9efbe4e5-98ea-5c40-b875-ab4f450a9647",
+      "version": "CS02-core-scope-0.1.0",
+      "package_path": "CS02/CS02-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+      "code": "CS03",
+      "title": "数据结构",
+      "version_id": "c86a647a-0e73-5291-bc94-12cd31b18573",
+      "version": "CS03-core-scope-0.1.0",
+      "package_path": "CS03/CS03-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
+      "code": "CS04",
+      "title": "算法设计与分析",
+      "version_id": "0c798f2f-4f10-5892-9b5d-c0caa97282f4",
+      "version": "CS04-core-scope-0.1.0",
+      "package_path": "CS04/CS04-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "a8b2aaf5-25c5-4da6-893a-3e461b4654d5",
+      "code": "CS05",
+      "title": "离散数学",
+      "version_id": "409ded3e-81ec-534c-b79c-70269d8fad62",
+      "version": "CS05-core-scope-0.1.0",
+      "package_path": "CS05/CS05-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "bb42adbc-30f6-4548-8de7-6819e9e6b6b1",
+      "code": "CS06",
+      "title": "计算机组成原理",
+      "version_id": "c627b6af-7b9c-5fce-a36b-12edd5249eae",
+      "version": "CS06-core-scope-0.1.0",
+      "package_path": "CS06/CS06-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "d6041fd1-b631-4503-8e28-b042088ef0c9",
+      "code": "CS07",
+      "title": "操作系统",
+      "version_id": "ce1fdf9d-a940-5d77-8dc3-4924d9941507",
+      "version": "CS07-core-scope-0.1.0",
+      "package_path": "CS07/CS07-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "3915babb-09a6-442b-ada7-ec0ef6271995",
+      "code": "CS08",
+      "title": "计算机网络",
+      "version_id": "e8f376ad-5477-56a5-a112-7efa9a7e5030",
+      "version": "CS08-core-scope-0.1.0",
+      "package_path": "CS08/CS08-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "2e914e04-c891-4380-a0db-7d99709c4b12",
+      "code": "CS09",
+      "title": "数据库",
+      "version_id": "4d789b98-4134-52c1-a625-e9e5758554ab",
+      "version": "CS09-core-scope-0.1.0",
+      "package_path": "CS09/CS09-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "1cf24f1b-317e-4fd5-add9-3362ea55939b",
+      "code": "CS10",
+      "title": "软件工程",
+      "version_id": "be603956-24c0-5b52-a87e-adcb4abc418c",
+      "version": "CS10-core-scope-0.1.0",
+      "package_path": "CS10/CS10-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "bf129bd2-7f6a-48a6-952b-25adb952d028",
+      "code": "CS11",
+      "title": "编译原理",
+      "version_id": "fe0da70d-a404-59c7-91f3-9e1605e5aea9",
+      "version": "CS11-core-scope-0.1.0",
+      "package_path": "CS11/CS11-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "cb74e6d0-2c7b-4cf9-a42e-de4d6b88a1fc",
+      "code": "CS12",
+      "title": "人工智能基础",
+      "version_id": "d260853f-9862-5145-8129-cecbb0b050ef",
+      "version": "CS12-core-scope-0.1.0",
+      "package_path": "CS12/CS12-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "0af5d8ff-4ed7-473f-b977-e21d6eb66ed1",
+      "code": "CS13",
+      "title": "机器学习基础",
+      "version_id": "448beb42-d122-59c8-a564-ab0a515ae21b",
+      "version": "CS13-core-scope-0.1.0",
+      "package_path": "CS13/CS13-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    }
+  ]
+}

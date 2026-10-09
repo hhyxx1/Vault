@@ -1,0 +1,687 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+  "course_version_id": "c86a647a-0e73-5291-bc94-12cd31b18573",
+  "course_code": "CS03",
+  "version": "CS03-core-scope-0.1.0",
+  "title": "数据结构",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "5420c960-ca58-500d-9d24-212a78d11cd2",
+      "code": "CS03-M01-O01",
+      "title": "描述抽象操作契约",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "描述抽象操作契约",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b112ac2b-8a74-51e0-809d-2c32769eade2",
+      "code": "CS03-M01-O02",
+      "title": "区分逻辑与存储结构",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分逻辑与存储结构",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "44ae3088-fa7c-5f07-b873-0dbc3bcbc990",
+      "code": "CS03-M01-O03",
+      "title": "计数基本操作",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计数基本操作",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5d9e0c4f-7e19-5a78-b772-2ea6dd098ae9",
+      "code": "CS03-M02-O01",
+      "title": "实现顺序表插删",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现顺序表插删",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b83ceb19-9766-54ec-acb6-8e6223b82644",
+      "code": "CS03-M02-O02",
+      "title": "实现单链表操作",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现单链表操作",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "cd0d2cc7-5c73-5251-ac12-03905cad96eb",
+      "code": "CS03-M02-O03",
+      "title": "处理循环和双向链接",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理循环和双向链接",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "88b6d706-d7e9-5c4b-adaf-401242f63f7e",
+      "code": "CS03-M03-O01",
+      "title": "推演栈状态和边界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演栈状态和边界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "03dbdded-3b72-523e-8040-9f6768b748e4",
+      "code": "CS03-M03-O02",
+      "title": "实现循环及链式队列",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现循环及链式队列",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a36d1129-432b-5af7-a90e-0f552d138bd5",
+      "code": "CS03-M03-O03",
+      "title": "用栈解决括号匹配",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "用栈解决括号匹配",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "73fd6ad6-5b2c-5170-809d-4e9b003f5c30",
+      "code": "CS03-M04-O01",
+      "title": "实现字符串匹配",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现字符串匹配",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "352db4e4-da50-5153-8187-1275c0729be2",
+      "code": "CS03-M04-O02",
+      "title": "推导 KMP 前缀信息",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推导 KMP 前缀信息",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "16ab616c-f5cc-5685-9d62-f672008ccac4",
+      "code": "CS03-M04-O03",
+      "title": "表示稀疏矩阵和广义表",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "表示稀疏矩阵和广义表",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b60d6775-e8a5-5bd5-8cad-e9b5e4ab0476",
+      "code": "CS03-M05-O01",
+      "title": "转换树的表示",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "转换树的表示",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "02790c09-bd18-5e3b-8614-e3f796455603",
+      "code": "CS03-M05-O02",
+      "title": "实现递归及迭代遍历",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现递归及迭代遍历",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d30c92fa-a51f-54d9-8ce6-b303d29a025b",
+      "code": "CS03-M05-O03",
+      "title": "构建 Huffman 编码",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构建 Huffman 编码",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0db226cf-93c1-5649-9f6c-a7932f525743",
+      "code": "CS03-M06-O01",
+      "title": "实现二叉搜索树",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现二叉搜索树",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "37c51f7d-d759-519d-bcbe-386e3b0d795d",
+      "code": "CS03-M06-O02",
+      "title": "维护平衡约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "维护平衡约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1fcc74b0-fd2b-5fc9-be9b-14c85142f8cd",
+      "code": "CS03-M06-O03",
+      "title": "解释 B/B+ 树查找与更新",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释 B/B+ 树查找与更新",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b3ed33dd-caa5-52f0-a72f-4a34eae6fd0b",
+      "code": "CS03-M07-O01",
+      "title": "建立邻接表示",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "建立邻接表示",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2084e408-44a2-5d3e-91b7-518a1fbf0f6c",
+      "code": "CS03-M07-O02",
+      "title": "实现 DFS/BFS",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现 DFS/BFS",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "48ea1f3e-770d-5355-b20a-8b6e4e6d4bb8",
+      "code": "CS03-M07-O03",
+      "title": "分析连通及生成树",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析连通及生成树",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ba3ce29c-08bf-57cb-9bcd-4b55566d0192",
+      "code": "CS03-M08-O01",
+      "title": "实现最短路",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现最短路",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "356327f9-f42d-5f9e-9f04-b1d05ecf1640",
+      "code": "CS03-M08-O02",
+      "title": "完成拓扑排序",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "完成拓扑排序",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2b451bfb-fa54-5853-ab25-955954843bfd",
+      "code": "CS03-M08-O03",
+      "title": "处理关键路径与适用前提",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理关键路径与适用前提",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "74d6a593-0270-56d8-89d5-592d6c81fc8a",
+      "code": "CS03-M09-O01",
+      "title": "实现散列查找",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现散列查找",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7aea805a-42f3-5a0b-a14b-ca6cd25e4d3a",
+      "code": "CS03-M09-O02",
+      "title": "处理冲突和删除",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理冲突和删除",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4b6ce557-a9f7-5500-815f-133c885e025b",
+      "code": "CS03-M09-O03",
+      "title": "分析装载率影响",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析装载率影响",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a44af9e7-97b9-5ab9-b9ca-6a667563522f",
+      "code": "CS03-M10-O01",
+      "title": "实现内部排序",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现内部排序",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f2393212-a07a-5d31-bf70-735405aa4c06",
+      "code": "CS03-M10-O02",
+      "title": "比较稳定性和复杂度",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较稳定性和复杂度",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "574212aa-1181-5b93-834a-06fe2a9a55fc",
+      "code": "CS03-M10-O03",
+      "title": "解释外部排序及结构选型",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释外部排序及结构选型",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS03-M01",
+      "title": "抽象类型与复杂度",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M01-O01-unit",
+          "title": "描述抽象操作契约",
+          "objective_refs": [
+            "CS03-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M01-O02-unit",
+          "title": "区分逻辑与存储结构",
+          "objective_refs": [
+            "CS03-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M01-O03-unit",
+          "title": "计数基本操作",
+          "objective_refs": [
+            "CS03-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M02",
+      "title": "线性表",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M02-O01-unit",
+          "title": "实现顺序表插删",
+          "objective_refs": [
+            "CS03-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M02-O02-unit",
+          "title": "实现单链表操作",
+          "objective_refs": [
+            "CS03-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M02-O03-unit",
+          "title": "处理循环和双向链接",
+          "objective_refs": [
+            "CS03-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M03",
+      "title": "栈与队列",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M03-O01-unit",
+          "title": "推演栈状态和边界",
+          "objective_refs": [
+            "CS03-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M03-O02-unit",
+          "title": "实现循环及链式队列",
+          "objective_refs": [
+            "CS03-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M03-O03-unit",
+          "title": "用栈解决括号匹配",
+          "objective_refs": [
+            "CS03-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M04",
+      "title": "串与特殊存储",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M04-O01-unit",
+          "title": "实现字符串匹配",
+          "objective_refs": [
+            "CS03-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M04-O02-unit",
+          "title": "推导 KMP 前缀信息",
+          "objective_refs": [
+            "CS03-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M04-O03-unit",
+          "title": "表示稀疏矩阵和广义表",
+          "objective_refs": [
+            "CS03-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M05",
+      "title": "树与二叉树",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M05-O01-unit",
+          "title": "转换树的表示",
+          "objective_refs": [
+            "CS03-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M05-O02-unit",
+          "title": "实现递归及迭代遍历",
+          "objective_refs": [
+            "CS03-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M05-O03-unit",
+          "title": "构建 Huffman 编码",
+          "objective_refs": [
+            "CS03-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M06",
+      "title": "查找树",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M06-O01-unit",
+          "title": "实现二叉搜索树",
+          "objective_refs": [
+            "CS03-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M06-O02-unit",
+          "title": "维护平衡约束",
+          "objective_refs": [
+            "CS03-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M06-O03-unit",
+          "title": "解释 B/B+ 树查找与更新",
+          "objective_refs": [
+            "CS03-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M07",
+      "title": "图与遍历",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M07-O01-unit",
+          "title": "建立邻接表示",
+          "objective_refs": [
+            "CS03-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M07-O02-unit",
+          "title": "实现 DFS/BFS",
+          "objective_refs": [
+            "CS03-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M07-O03-unit",
+          "title": "分析连通及生成树",
+          "objective_refs": [
+            "CS03-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M08",
+      "title": "图的应用",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M08-O01-unit",
+          "title": "实现最短路",
+          "objective_refs": [
+            "CS03-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M08-O02-unit",
+          "title": "完成拓扑排序",
+          "objective_refs": [
+            "CS03-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M08-O03-unit",
+          "title": "处理关键路径与适用前提",
+          "objective_refs": [
+            "CS03-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M09",
+      "title": "散列与索引",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M09-O01-unit",
+          "title": "实现散列查找",
+          "objective_refs": [
+            "CS03-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M09-O02-unit",
+          "title": "处理冲突和删除",
+          "objective_refs": [
+            "CS03-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M09-O03-unit",
+          "title": "分析装载率影响",
+          "objective_refs": [
+            "CS03-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M10",
+      "title": "排序与综合选型",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M10-O01-unit",
+          "title": "实现内部排序",
+          "objective_refs": [
+            "CS03-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M10-O02-unit",
+          "title": "比较稳定性和复杂度",
+          "objective_refs": [
+            "CS03-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M10-O03-unit",
+          "title": "解释外部排序及结构选型",
+          "objective_refs": [
+            "CS03-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

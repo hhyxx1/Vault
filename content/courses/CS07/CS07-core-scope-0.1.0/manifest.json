@@ -1,0 +1,620 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "d6041fd1-b631-4503-8e28-b042088ef0c9",
+  "course_version_id": "ce1fdf9d-a940-5d77-8dc3-4924d9941507",
+  "course_code": "CS07",
+  "version": "CS07-core-scope-0.1.0",
+  "title": "操作系统",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "b297f0d4-1eb7-54b3-b039-977e691829da",
+      "code": "CS07-M01-O01",
+      "title": "区分用户态内核态",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分用户态内核态",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "eded033e-7e96-5bfb-b19a-67cdef793658",
+      "code": "CS07-M01-O02",
+      "title": "解释系统调用",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释系统调用",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "08839f61-dce1-5400-87aa-c4995253e5cc",
+      "code": "CS07-M01-O03",
+      "title": "定位异常中断与返回",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定位异常中断与返回",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "deb00332-aca7-5347-b919-982601a306f3",
+      "code": "CS07-M02-O01",
+      "title": "建立进程状态模型",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "建立进程状态模型",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c19282a4-eefd-54e3-b13c-3ee7bcb5a4bd",
+      "code": "CS07-M02-O02",
+      "title": "创建进程线程及通信",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "创建进程线程及通信",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "49478cd2-d167-575f-860e-211eef9463d9",
+      "code": "CS07-M02-O03",
+      "title": "解释地址空间和共享",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释地址空间和共享",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3ea7ee01-772b-5bd2-86b2-178201b9d3cf",
+      "code": "CS07-M03-O01",
+      "title": "推演主要调度算法",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演主要调度算法",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1f00039f-ccce-56be-8bbd-d4eb5560512c",
+      "code": "CS07-M03-O02",
+      "title": "计算等待响应周转",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算等待响应周转",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "80c0f1d3-1e7f-5300-8a48-d20c7d6e9f89",
+      "code": "CS07-M03-O03",
+      "title": "解释公平与吞吐取舍",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释公平与吞吐取舍",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "62eef1ef-c796-5095-9c7c-db04f6c5b925",
+      "code": "CS07-M04-O01",
+      "title": "发现竞态",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "发现竞态",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "45a79ee8-42e2-5a56-b8b8-e67fab1c75b9",
+      "code": "CS07-M04-O02",
+      "title": "使用锁信号量或条件变量",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "使用锁信号量或条件变量",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a87fa1ba-a734-519f-b8d1-38c1f72c87f5",
+      "code": "CS07-M04-O03",
+      "title": "解释安全性与活性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释安全性与活性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5f7e5809-98eb-5ec1-a8d1-65cd7bcab2a6",
+      "code": "CS07-M05-O01",
+      "title": "识别必要条件",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "识别必要条件",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "934e215a-e128-565d-9a36-2eeff063f081",
+      "code": "CS07-M05-O02",
+      "title": "构造等待图",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造等待图",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "cc77b375-faa0-5d92-8bfb-7e53c4bb7950",
+      "code": "CS07-M05-O03",
+      "title": "实施避免或检测恢复",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实施避免或检测恢复",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "80ceaa70-605c-5e7e-b6ee-d9b678d8c57b",
+      "code": "CS07-M06-O01",
+      "title": "推演分区与分页",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演分区与分页",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a166ea1a-5a56-58a1-aad8-1a71fefe8e99",
+      "code": "CS07-M06-O02",
+      "title": "计算地址转换",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算地址转换",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7e507bc1-dd9c-5b35-999c-44e6640c2bd1",
+      "code": "CS07-M06-O03",
+      "title": "比较分配与碎片",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较分配与碎片",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4b946b1f-6ace-55bd-88c4-19695b3432d4",
+      "code": "CS07-M07-O01",
+      "title": "模拟缺页与置换",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "模拟缺页与置换",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2099ceda-39c5-56a8-b277-1f27b6ab5d90",
+      "code": "CS07-M07-O02",
+      "title": "解释局部性和抖动",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释局部性和抖动",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "59ee663e-d9bf-50c3-961b-934def01d710",
+      "code": "CS07-M07-O03",
+      "title": "计算工作集影响",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算工作集影响",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "82afdebc-74f3-5b9f-9274-e1d5977316ba",
+      "code": "CS07-M08-O01",
+      "title": "解释文件索引和目录",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释文件索引和目录",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "224c2622-1b27-523b-8c6d-538a01564477",
+      "code": "CS07-M08-O02",
+      "title": "实施权限及文件操作",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实施权限及文件操作",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7252b920-5b52-5593-8145-433e48bdc653",
+      "code": "CS07-M08-O03",
+      "title": "分析缓存与设备调度",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析缓存与设备调度",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e3c19f0e-24ad-5b2c-b3c2-6c82213748b7",
+      "code": "CS07-M09-O01",
+      "title": "区分隔离权限和认证",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分隔离权限和认证",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5e1ca739-35ba-5648-bb60-81b8ed5fcc83",
+      "code": "CS07-M09-O02",
+      "title": "限制进程资源",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "限制进程资源",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a319dc4c-c712-5dec-95da-1c00e99cccde",
+      "code": "CS07-M09-O03",
+      "title": "分析运行故障与恢复",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析运行故障与恢复",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS07-M01",
+      "title": "系统接口",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M01-O01-unit",
+          "title": "区分用户态内核态",
+          "objective_refs": [
+            "CS07-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M01-O02-unit",
+          "title": "解释系统调用",
+          "objective_refs": [
+            "CS07-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M01-O03-unit",
+          "title": "定位异常中断与返回",
+          "objective_refs": [
+            "CS07-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M02",
+      "title": "进程与线程",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M02-O01-unit",
+          "title": "建立进程状态模型",
+          "objective_refs": [
+            "CS07-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M02-O02-unit",
+          "title": "创建进程线程及通信",
+          "objective_refs": [
+            "CS07-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M02-O03-unit",
+          "title": "解释地址空间和共享",
+          "objective_refs": [
+            "CS07-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M03",
+      "title": "调度",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M03-O01-unit",
+          "title": "推演主要调度算法",
+          "objective_refs": [
+            "CS07-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M03-O02-unit",
+          "title": "计算等待响应周转",
+          "objective_refs": [
+            "CS07-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M03-O03-unit",
+          "title": "解释公平与吞吐取舍",
+          "objective_refs": [
+            "CS07-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M04",
+      "title": "同步与互斥",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M04-O01-unit",
+          "title": "发现竞态",
+          "objective_refs": [
+            "CS07-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M04-O02-unit",
+          "title": "使用锁信号量或条件变量",
+          "objective_refs": [
+            "CS07-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M04-O03-unit",
+          "title": "解释安全性与活性",
+          "objective_refs": [
+            "CS07-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M05",
+      "title": "死锁",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M05-O01-unit",
+          "title": "识别必要条件",
+          "objective_refs": [
+            "CS07-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M05-O02-unit",
+          "title": "构造等待图",
+          "objective_refs": [
+            "CS07-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M05-O03-unit",
+          "title": "实施避免或检测恢复",
+          "objective_refs": [
+            "CS07-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M06",
+      "title": "内存管理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M06-O01-unit",
+          "title": "推演分区与分页",
+          "objective_refs": [
+            "CS07-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M06-O02-unit",
+          "title": "计算地址转换",
+          "objective_refs": [
+            "CS07-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M06-O03-unit",
+          "title": "比较分配与碎片",
+          "objective_refs": [
+            "CS07-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M07",
+      "title": "虚拟内存",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M07-O01-unit",
+          "title": "模拟缺页与置换",
+          "objective_refs": [
+            "CS07-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M07-O02-unit",
+          "title": "解释局部性和抖动",
+          "objective_refs": [
+            "CS07-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M07-O03-unit",
+          "title": "计算工作集影响",
+          "objective_refs": [
+            "CS07-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M08",
+      "title": "文件与设备",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M08-O01-unit",
+          "title": "解释文件索引和目录",
+          "objective_refs": [
+            "CS07-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M08-O02-unit",
+          "title": "实施权限及文件操作",
+          "objective_refs": [
+            "CS07-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M08-O03-unit",
+          "title": "分析缓存与设备调度",
+          "objective_refs": [
+            "CS07-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M09",
+      "title": "保护与系统综合",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M09-O01-unit",
+          "title": "区分隔离权限和认证",
+          "objective_refs": [
+            "CS07-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M09-O02-unit",
+          "title": "限制进程资源",
+          "objective_refs": [
+            "CS07-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M09-O03-unit",
+          "title": "分析运行故障与恢复",
+          "objective_refs": [
+            "CS07-M09-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

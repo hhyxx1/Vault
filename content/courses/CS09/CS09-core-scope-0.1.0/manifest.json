@@ -1,0 +1,687 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "2e914e04-c891-4380-a0db-7d99709c4b12",
+  "course_version_id": "4d789b98-4134-52c1-a625-e9e5758554ab",
+  "course_code": "CS09",
+  "version": "CS09-core-scope-0.1.0",
+  "title": "数据库",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "8eb81b8a-5dad-5032-9645-9dfc03108627",
+      "code": "CS09-M01-O01",
+      "title": "定义关系键和约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定义关系键和约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3e830440-85c3-528c-8d46-2d513f8d99b3",
+      "code": "CS09-M01-O02",
+      "title": "推演关系代数",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演关系代数",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d94def12-a931-5a3c-82f2-5f8f5960bbc6",
+      "code": "CS09-M01-O03",
+      "title": "区别集合与多重集",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区别集合与多重集",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ff96166b-9a83-53f4-8b89-a27e245b13a3",
+      "code": "CS09-M02-O01",
+      "title": "绘制实体联系",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "绘制实体联系",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "94bd7471-8ee9-5db0-9c59-d382eb7e396c",
+      "code": "CS09-M02-O02",
+      "title": "转换关系模式",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "转换关系模式",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4cb4336b-8edf-51d0-aa8d-290438a0c7f0",
+      "code": "CS09-M02-O03",
+      "title": "选择主外键和约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "选择主外键和约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "65f697ea-6dfb-5267-8587-fe5855311b38",
+      "code": "CS09-M03-O01",
+      "title": "实现筛选投影排序",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现筛选投影排序",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e64abe88-b686-52be-bd1b-7371c0867295",
+      "code": "CS09-M03-O02",
+      "title": "修改数据",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "修改数据",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "79986043-583a-5014-a6eb-d295ced12672",
+      "code": "CS09-M03-O03",
+      "title": "建立和验证约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "建立和验证约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "90850cac-2019-5450-90b1-b76c2e051ff9",
+      "code": "CS09-M04-O01",
+      "title": "实现多表连接",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现多表连接",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9bde9df6-e2af-531e-9d28-b5527dacc1e3",
+      "code": "CS09-M04-O02",
+      "title": "处理分组聚合",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理分组聚合",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c9ba5ee8-84d7-5445-a8ad-d6282da797b9",
+      "code": "CS09-M04-O03",
+      "title": "使用子查询与窗口",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "使用子查询与窗口",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ba00e42a-5833-571d-b0fc-7e3648f54929",
+      "code": "CS09-M05-O01",
+      "title": "求函数依赖闭包",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "求函数依赖闭包",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "28eb47c3-4132-5230-b349-8cc1357b64cd",
+      "code": "CS09-M05-O02",
+      "title": "判断范式",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "判断范式",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "21a36206-6fee-5889-b78f-a631018ced69",
+      "code": "CS09-M05-O03",
+      "title": "验证分解无损及保持依赖",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "验证分解无损及保持依赖",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4a501fa9-9c99-5958-8d9e-95e831ff7835",
+      "code": "CS09-M06-O01",
+      "title": "选择索引",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "选择索引",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2ab35a29-a584-55e1-a558-641282c67796",
+      "code": "CS09-M06-O02",
+      "title": "解释执行计划",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释执行计划",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "24f8861a-9492-5ea0-9363-83046632056c",
+      "code": "CS09-M06-O03",
+      "title": "比较扫描与连接代价",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较扫描与连接代价",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "bf64f812-9b00-5477-85d4-b31d1d8bf36f",
+      "code": "CS09-M07-O01",
+      "title": "编写原子事务",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "编写原子事务",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "bb3cd18b-d535-5aa9-9ce2-d14961b3f127",
+      "code": "CS09-M07-O02",
+      "title": "重现隔离异常",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "重现隔离异常",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "58f1f69e-0ecf-5418-b6c6-9c0b7c7d58da",
+      "code": "CS09-M07-O03",
+      "title": "处理锁与冲突",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理锁与冲突",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f8e74013-7733-53f7-b09e-905b2fc471e9",
+      "code": "CS09-M08-O01",
+      "title": "解释日志先行原则",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释日志先行原则",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "31339a13-e10e-567f-9643-433637c1799c",
+      "code": "CS09-M08-O02",
+      "title": "推演撤销与重做",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演撤销与重做",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ead02862-57a4-5680-afe3-9e16dd8eab27",
+      "code": "CS09-M08-O03",
+      "title": "验证事务回滚和数据恢复",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "验证事务回滚和数据恢复",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3d1fa489-3858-5e46-bfec-e4d10b2c2ee0",
+      "code": "CS09-M09-O01",
+      "title": "设置最小权限",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "设置最小权限",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "377d2506-87be-56af-8585-e982ebcdc32b",
+      "code": "CS09-M09-O02",
+      "title": "参数化查询",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "参数化查询",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e05b34b2-a189-5f01-92d3-1c0193bdd452",
+      "code": "CS09-M09-O03",
+      "title": "维护视图和应用边界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "维护视图和应用边界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7c68bb5e-7ffa-519a-ad3f-8f079d4ee204",
+      "code": "CS09-M10-O01",
+      "title": "完成模式演进",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "完成模式演进",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3cab1d0b-df54-539b-ab0f-498d13c2b301",
+      "code": "CS09-M10-O02",
+      "title": "说明复制分片及非关系模型取舍",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "说明复制分片及非关系模型取舍",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f495d5a6-bed7-5091-8fa8-177fce0d5d6f",
+      "code": "CS09-M10-O03",
+      "title": "交付可恢复数据项目",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "交付可恢复数据项目",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS09-M01",
+      "title": "关系模型与代数",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M01-O01-unit",
+          "title": "定义关系键和约束",
+          "objective_refs": [
+            "CS09-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M01-O02-unit",
+          "title": "推演关系代数",
+          "objective_refs": [
+            "CS09-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M01-O03-unit",
+          "title": "区别集合与多重集",
+          "objective_refs": [
+            "CS09-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M02",
+      "title": "概念与逻辑设计",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M02-O01-unit",
+          "title": "绘制实体联系",
+          "objective_refs": [
+            "CS09-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M02-O02-unit",
+          "title": "转换关系模式",
+          "objective_refs": [
+            "CS09-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M02-O03-unit",
+          "title": "选择主外键和约束",
+          "objective_refs": [
+            "CS09-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M03",
+      "title": "基本 SQL",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M03-O01-unit",
+          "title": "实现筛选投影排序",
+          "objective_refs": [
+            "CS09-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M03-O02-unit",
+          "title": "修改数据",
+          "objective_refs": [
+            "CS09-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M03-O03-unit",
+          "title": "建立和验证约束",
+          "objective_refs": [
+            "CS09-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M04",
+      "title": "连接与聚合",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M04-O01-unit",
+          "title": "实现多表连接",
+          "objective_refs": [
+            "CS09-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M04-O02-unit",
+          "title": "处理分组聚合",
+          "objective_refs": [
+            "CS09-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M04-O03-unit",
+          "title": "使用子查询与窗口",
+          "objective_refs": [
+            "CS09-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M05",
+      "title": "规范化",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M05-O01-unit",
+          "title": "求函数依赖闭包",
+          "objective_refs": [
+            "CS09-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M05-O02-unit",
+          "title": "判断范式",
+          "objective_refs": [
+            "CS09-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M05-O03-unit",
+          "title": "验证分解无损及保持依赖",
+          "objective_refs": [
+            "CS09-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M06",
+      "title": "索引与执行计划",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M06-O01-unit",
+          "title": "选择索引",
+          "objective_refs": [
+            "CS09-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M06-O02-unit",
+          "title": "解释执行计划",
+          "objective_refs": [
+            "CS09-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M06-O03-unit",
+          "title": "比较扫描与连接代价",
+          "objective_refs": [
+            "CS09-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M07",
+      "title": "事务与并发",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M07-O01-unit",
+          "title": "编写原子事务",
+          "objective_refs": [
+            "CS09-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M07-O02-unit",
+          "title": "重现隔离异常",
+          "objective_refs": [
+            "CS09-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M07-O03-unit",
+          "title": "处理锁与冲突",
+          "objective_refs": [
+            "CS09-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M08",
+      "title": "恢复与日志",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M08-O01-unit",
+          "title": "解释日志先行原则",
+          "objective_refs": [
+            "CS09-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M08-O02-unit",
+          "title": "推演撤销与重做",
+          "objective_refs": [
+            "CS09-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M08-O03-unit",
+          "title": "验证事务回滚和数据恢复",
+          "objective_refs": [
+            "CS09-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M09",
+      "title": "权限与程序接口",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M09-O01-unit",
+          "title": "设置最小权限",
+          "objective_refs": [
+            "CS09-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M09-O02-unit",
+          "title": "参数化查询",
+          "objective_refs": [
+            "CS09-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M09-O03-unit",
+          "title": "维护视图和应用边界",
+          "objective_refs": [
+            "CS09-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M10",
+      "title": "综合与现代数据",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M10-O01-unit",
+          "title": "完成模式演进",
+          "objective_refs": [
+            "CS09-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M10-O02-unit",
+          "title": "说明复制分片及非关系模型取舍",
+          "objective_refs": [
+            "CS09-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M10-O03-unit",
+          "title": "交付可恢复数据项目",
+          "objective_refs": [
+            "CS09-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

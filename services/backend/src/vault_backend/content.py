@@ -117,14 +117,37 @@ class CourseRepository:
         self.catalog = None
         self.example = None
         self.logic_example = None
+        self.packages: dict[tuple[str, str], dict] = {}
+        # A catalog and each course are independent; one damaged package must not
+        # remove every other course or make the public directory unavailable.
+        try:
+            catalog = json.loads(catalog_path.read_text(encoding="utf-8-sig"))
+            entries = catalog["courses"]
+            if not isinstance(entries, list) or not entries:
+                raise ValueError("Course catalog must contain entries")
+            for field in ("id", "code"):
+                if len({entry[field] for entry in entries}) != len(entries):
+                    raise ValueError("Duplicate course identity")
+            for entry in entries:
+                UUID(entry["id"])
+                UUID(entry["version_id"])
+            self.catalog = catalog
+        except (OSError, ValueError, KeyError, TypeError):
+            return
+        self._load_public_packages(catalog_path, entries)
+        scope_path = catalog_path.with_name("scope-catalog.json")
+        if scope_path.is_file():
+            try:
+                scopes = json.loads(scope_path.read_text(encoding="utf-8-sig"))["courses"]
+                self._load_public_packages(scope_path, scopes)
+            except (OSError, ValueError, KeyError, TypeError):
+                pass
         try:
             catalog = json.loads(catalog_path.read_text(encoding="utf-8-sig"))
             example = json.loads(
                 catalog_path.with_name("CS03.stack-example.json").read_text(encoding="utf-8-sig")
             )
             courses = catalog["courses"]
-            if len(courses) != 13 or len({course["code"] for course in courses}) != 13:
-                raise ValueError("Unexpected default catalog")
             selected = next(course for course in courses if course["code"] == "CS03")
             if (
                 selected["id"] != example["course_id"]
@@ -183,6 +206,31 @@ class CourseRepository:
             except (OSError, ValueError, KeyError, TypeError, StopIteration, IndexError):
                 pass
 
+    def _load_public_packages(self, catalog_path: Path, entries: list) -> None:
+        from vault_backend.course_packages import PublicCoursePackage
+
+        root = catalog_path.parent.resolve()
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+            if "package_path" not in entry:
+                continue
+            try:
+                path = (root / entry["package_path"]).resolve()
+                if not path.is_relative_to(root):
+                    raise ValueError("Course package must remain inside the content directory")
+                raw = json.loads(path.read_text(encoding="utf-8-sig"))
+                package = PublicCoursePackage.model_validate(raw)
+                if (package.course_id, package.course_version_id, package.course_code) != (
+                    entry["id"], entry["version_id"], entry["code"]
+                ):
+                    raise ValueError("Course identity does not match catalog")
+                _validate_course_outline(raw)
+                self.packages[(package.course_id, package.course_version_id)] = raw
+            except (OSError, ValueError, KeyError, TypeError, RecursionError):
+                # Fail closed per package; private fields and drafts are never served.
+                continue
+
     @property
     def trace_context(self):
         if self.example is None:
@@ -220,7 +268,27 @@ class CourseRepository:
             raise ApiError(503, "COURSE_CATALOG_UNAVAILABLE", "课程目录尚未加载。")
         return self.catalog
 
+    def get_scope_catalog(self):
+        return {
+            "courses": [
+                {
+                    "id": package["course_id"],
+                    "version_id": package["course_version_id"],
+                    "code": package["course_code"],
+                    "title": package["title"],
+                    "version": package["version"],
+                    "objective_count": len(package["objectives"]),
+                    "chapter_count": len(package["outline"]),
+                    "learning_ready": package["status"] == "learning_ready",
+                }
+                for package in self.packages.values()
+            ]
+        }
+
     def get_version(self, course_id: UUID, version_id: UUID):
+        package = self.packages.get((str(course_id), str(version_id)))
+        if package is not None:
+            return package
         for example in (self.example, self.logic_example):
             if (
                 example is not None

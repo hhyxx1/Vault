@@ -194,3 +194,19 @@ async def test_nonce_post_binds_browser_origin_despite_proxy_host(app):
         missing = await proxied.post("/api/v1/guest-nonce")
         assert missing.status_code == 403
         assert missing.json()["code"] == "ORIGIN_REQUIRED"
+
+
+async def test_full_scope_directory_and_every_version_are_discoverable(client):
+    response = await client.get("/api/v1/course-scopes")
+    assert response.status_code == 200
+    courses = response.json()["courses"]
+    assert len(courses) == 13
+    assert sum(course["objective_count"] for course in courses) == 366
+    for course in courses:
+        assert "package_path" not in course
+        assert course["learning_ready"] is False
+        package = await client.get(
+            f"/api/v1/courses/{course['id']}/versions/{course['version_id']}"
+        )
+        assert package.status_code == 200
+        assert len(package.json()["objectives"]) == course["objective_count"]

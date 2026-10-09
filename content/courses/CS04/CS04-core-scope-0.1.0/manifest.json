@@ -1,0 +1,620 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
+  "course_version_id": "0c798f2f-4f10-5892-9b5d-c0caa97282f4",
+  "course_code": "CS04",
+  "version": "CS04-core-scope-0.1.0",
+  "title": "算法设计与分析",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "60981909-3481-5794-923b-fc2f9027dbce",
+      "code": "CS04-M01-O01",
+      "title": "陈述输入输出契约",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "陈述输入输出契约",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "17581cc2-bf60-5223-b174-effa0dbb18af",
+      "code": "CS04-M01-O02",
+      "title": "使用不变量论证",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "使用不变量论证",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "81c4498a-ca59-5db2-9d45-93a2bd2dd1b3",
+      "code": "CS04-M01-O03",
+      "title": "推导渐近复杂度",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推导渐近复杂度",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9f491f02-37ce-586d-9571-8e9230c8bb56",
+      "code": "CS04-M02-O01",
+      "title": "写出递推关系",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "写出递推关系",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a3484581-3b41-5b03-bed9-b38928cbac89",
+      "code": "CS04-M02-O02",
+      "title": "实现分解和合并",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现分解和合并",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "47f6316a-fbfd-58ea-bbe8-863a825b138d",
+      "code": "CS04-M02-O03",
+      "title": "比较递推求解方法",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较递推求解方法",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e5daf7d1-b34d-5287-88e7-decd26c34db7",
+      "code": "CS04-M03-O01",
+      "title": "识别局部选择",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "识别局部选择",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "bf1c8e51-3b52-54d2-adb3-4715fe26833c",
+      "code": "CS04-M03-O02",
+      "title": "构造交换论证",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造交换论证",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1f1e73c6-a3a9-5c8f-af9f-e2dbbad74ebc",
+      "code": "CS04-M03-O03",
+      "title": "寻找贪心失败反例",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "寻找贪心失败反例",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "21249eca-023d-5fbc-80ad-b303590ef1fb",
+      "code": "CS04-M04-O01",
+      "title": "定义状态含义",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定义状态含义",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e65b10e7-3ffc-559f-87e8-3997389f9587",
+      "code": "CS04-M04-O02",
+      "title": "推导转移及边界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推导转移及边界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "832cab07-e14e-52a6-8893-89a192d4f797",
+      "code": "CS04-M04-O03",
+      "title": "恢复最优方案",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "恢复最优方案",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "861ad9d9-1b28-5839-b26e-00d398cb04ff",
+      "code": "CS04-M05-O01",
+      "title": "构造状态空间",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造状态空间",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c5b7b473-3204-55ec-9d42-60ee2f047819",
+      "code": "CS04-M05-O02",
+      "title": "实现回溯与分支限界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现回溯与分支限界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a345958c-51bf-5ee1-933b-8f93807c90dd",
+      "code": "CS04-M05-O03",
+      "title": "证明剪枝不丢合法解",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "证明剪枝不丢合法解",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f2420505-5371-5d32-8b76-4d47529abd8f",
+      "code": "CS04-M06-O01",
+      "title": "选择最短路前提",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "选择最短路前提",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "87f3d48e-dc6c-560a-9cf5-ed492f21443e",
+      "code": "CS04-M06-O02",
+      "title": "求最小生成树",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "求最小生成树",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "60129404-8143-5856-9498-73ccf8628733",
+      "code": "CS04-M06-O03",
+      "title": "推演网络流增广",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演网络流增广",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f21815ee-7362-5f9a-ac3c-06b4d3a2003f",
+      "code": "CS04-M07-O01",
+      "title": "区分期望和最坏代价",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分期望和最坏代价",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6f5ff340-3ecc-5409-907b-08cecb00d5ba",
+      "code": "CS04-M07-O02",
+      "title": "进行摊还分析",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "进行摊还分析",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9fbd19e7-0a47-559b-b63b-15420edb58a3",
+      "code": "CS04-M07-O03",
+      "title": "设计可复现实验",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "设计可复现实验",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1f3daa72-5bb2-59a5-b905-5192c35a6c9e",
+      "code": "CS04-M08-O01",
+      "title": "描述可验证解",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "描述可验证解",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7be0d6bc-422e-5593-9d26-de71a630002e",
+      "code": "CS04-M08-O02",
+      "title": "构造小型归约",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造小型归约",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "97a80aeb-dbb8-555c-91e2-5eac223a1d2e",
+      "code": "CS04-M08-O03",
+      "title": "检验近似界与限制",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "检验近似界与限制",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3fbfc0d4-c874-532b-ab08-9531f779974c",
+      "code": "CS04-M09-O01",
+      "title": "选择算法范式",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "选择算法范式",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a7bee397-3c0f-5c0e-b587-3ed4cf51b303",
+      "code": "CS04-M09-O02",
+      "title": "说明正确性和资源界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "说明正确性和资源界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "11a34822-9519-541d-92ad-0d78497fec72",
+      "code": "CS04-M09-O03",
+      "title": "定位条件变化后的失效",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定位条件变化后的失效",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS04-M01",
+      "title": "正确性与代价",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M01-O01-unit",
+          "title": "陈述输入输出契约",
+          "objective_refs": [
+            "CS04-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M01-O02-unit",
+          "title": "使用不变量论证",
+          "objective_refs": [
+            "CS04-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M01-O03-unit",
+          "title": "推导渐近复杂度",
+          "objective_refs": [
+            "CS04-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M02",
+      "title": "递推与分治",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M02-O01-unit",
+          "title": "写出递推关系",
+          "objective_refs": [
+            "CS04-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M02-O02-unit",
+          "title": "实现分解和合并",
+          "objective_refs": [
+            "CS04-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M02-O03-unit",
+          "title": "比较递推求解方法",
+          "objective_refs": [
+            "CS04-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M03",
+      "title": "贪心",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M03-O01-unit",
+          "title": "识别局部选择",
+          "objective_refs": [
+            "CS04-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M03-O02-unit",
+          "title": "构造交换论证",
+          "objective_refs": [
+            "CS04-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M03-O03-unit",
+          "title": "寻找贪心失败反例",
+          "objective_refs": [
+            "CS04-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M04",
+      "title": "动态规划",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M04-O01-unit",
+          "title": "定义状态含义",
+          "objective_refs": [
+            "CS04-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M04-O02-unit",
+          "title": "推导转移及边界",
+          "objective_refs": [
+            "CS04-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M04-O03-unit",
+          "title": "恢复最优方案",
+          "objective_refs": [
+            "CS04-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M05",
+      "title": "搜索与剪枝",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M05-O01-unit",
+          "title": "构造状态空间",
+          "objective_refs": [
+            "CS04-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M05-O02-unit",
+          "title": "实现回溯与分支限界",
+          "objective_refs": [
+            "CS04-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M05-O03-unit",
+          "title": "证明剪枝不丢合法解",
+          "objective_refs": [
+            "CS04-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M06",
+      "title": "图算法",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M06-O01-unit",
+          "title": "选择最短路前提",
+          "objective_refs": [
+            "CS04-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M06-O02-unit",
+          "title": "求最小生成树",
+          "objective_refs": [
+            "CS04-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M06-O03-unit",
+          "title": "推演网络流增广",
+          "objective_refs": [
+            "CS04-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M07",
+      "title": "随机与摊还",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M07-O01-unit",
+          "title": "区分期望和最坏代价",
+          "objective_refs": [
+            "CS04-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M07-O02-unit",
+          "title": "进行摊还分析",
+          "objective_refs": [
+            "CS04-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M07-O03-unit",
+          "title": "设计可复现实验",
+          "objective_refs": [
+            "CS04-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M08",
+      "title": "困难性与近似",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M08-O01-unit",
+          "title": "描述可验证解",
+          "objective_refs": [
+            "CS04-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M08-O02-unit",
+          "title": "构造小型归约",
+          "objective_refs": [
+            "CS04-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M08-O03-unit",
+          "title": "检验近似界与限制",
+          "objective_refs": [
+            "CS04-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M09",
+      "title": "综合算法设计",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M09-O01-unit",
+          "title": "选择算法范式",
+          "objective_refs": [
+            "CS04-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M09-O02-unit",
+          "title": "说明正确性和资源界",
+          "objective_refs": [
+            "CS04-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M09-O03-unit",
+          "title": "定位条件变化后的失效",
+          "objective_refs": [
+            "CS04-M09-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

@@ -1,0 +1,620 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "1cf24f1b-317e-4fd5-add9-3362ea55939b",
+  "course_version_id": "be603956-24c0-5b52-a87e-adcb4abc418c",
+  "course_code": "CS10",
+  "version": "CS10-core-scope-0.1.0",
+  "title": "软件工程",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "0102f8cc-36bf-5795-a6e7-d867f1c8e93b",
+      "code": "CS10-M01-O01",
+      "title": "区分生命周期活动",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分生命周期活动",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fa574c8f-9fb5-539f-b021-8fd6b7c9761a",
+      "code": "CS10-M01-O02",
+      "title": "切分增量交付",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "切分增量交付",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b00c7731-dbe2-5d1d-9619-136a6664f695",
+      "code": "CS10-M01-O03",
+      "title": "管理风险与约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "管理风险与约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "266fd970-d6a9-54fc-bf2c-7e8702070b17",
+      "code": "CS10-M02-O01",
+      "title": "提取用户目标",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "提取用户目标",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "102103ba-4d22-5f6a-91f0-394ad66d4c36",
+      "code": "CS10-M02-O02",
+      "title": "写可检验需求",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "写可检验需求",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c27c6c2b-d413-5679-b4c6-492fda35224f",
+      "code": "CS10-M02-O03",
+      "title": "处理冲突和变更",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理冲突和变更",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ae9fc207-ef3b-5e7c-ae44-9d6e18967613",
+      "code": "CS10-M03-O01",
+      "title": "建立领域模型",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "建立领域模型",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "74e1b6dc-4bd6-5a24-9967-4077aae7a267",
+      "code": "CS10-M03-O02",
+      "title": "表达状态和交互",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "表达状态和交互",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "99d4014f-5254-533a-9cce-dcd4db1d5147",
+      "code": "CS10-M03-O03",
+      "title": "维护模型与需求追踪",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "维护模型与需求追踪",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fb9eb922-aaae-5c5b-acd2-209628420adb",
+      "code": "CS10-M04-O01",
+      "title": "分配模块职责",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分配模块职责",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "92ab7f3c-1b2a-5d06-8a30-a8d5f17b38dc",
+      "code": "CS10-M04-O02",
+      "title": "分析质量属性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析质量属性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "255b0d08-45ba-56c0-8ae1-c3b84ee92905",
+      "code": "CS10-M04-O03",
+      "title": "记录架构取舍",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "记录架构取舍",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "36c3339e-77fc-57a1-a789-06c90918a477",
+      "code": "CS10-M05-O01",
+      "title": "定义接口及错误语义",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定义接口及错误语义",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d913cdb8-7920-5184-bc64-1de0af07e69a",
+      "code": "CS10-M05-O02",
+      "title": "实现契约",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现契约",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "af089970-8d64-574d-8ed2-4704617e71d8",
+      "code": "CS10-M05-O03",
+      "title": "控制依赖方向",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "控制依赖方向",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "afc3176e-ca01-5308-8b96-e462536a8b84",
+      "code": "CS10-M06-O01",
+      "title": "设计单元集成验收测试",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "设计单元集成验收测试",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0fcad896-4d1e-5bf8-9392-6a5261530c0d",
+      "code": "CS10-M06-O02",
+      "title": "构造边界与替代路径",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造边界与替代路径",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f738f191-9226-5ea7-be43-5afe5d41180d",
+      "code": "CS10-M06-O03",
+      "title": "评估缺陷检出",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "评估缺陷检出",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f4cbebb2-007f-59fb-aa64-4b56b64427ff",
+      "code": "CS10-M07-O01",
+      "title": "组织版本及评审",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "组织版本及评审",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c1613cf7-0001-54b7-b0d2-4a8d3a32de42",
+      "code": "CS10-M07-O02",
+      "title": "处理冲突",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理冲突",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f45eed24-75ec-5caa-81c2-2e42b428c62a",
+      "code": "CS10-M07-O03",
+      "title": "建立可复现构建",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "建立可复现构建",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "20123f40-a499-5d1c-9b6e-20d2e7617701",
+      "code": "CS10-M08-O01",
+      "title": "设计发布和回滚",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "设计发布和回滚",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "19680f11-01e8-57c0-9d12-030ec7a25e5b",
+      "code": "CS10-M08-O02",
+      "title": "记录运行指标",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "记录运行指标",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3ecd105d-eac5-5dbc-a31d-41d424c5ada7",
+      "code": "CS10-M08-O03",
+      "title": "定位故障",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定位故障",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e6bafa05-d616-5cca-8313-72a6a572c9d6",
+      "code": "CS10-M09-O01",
+      "title": "评估变更影响",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "评估变更影响",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0682f8be-c6d1-5367-8f9a-1b1e02733591",
+      "code": "CS10-M09-O02",
+      "title": "重构保持行为",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "重构保持行为",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f4f136a4-3123-5970-8292-a0cdce04395a",
+      "code": "CS10-M09-O03",
+      "title": "复盘质量与债务",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "复盘质量与债务",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS10-M01",
+      "title": "过程与范围",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS10-M01-O01-unit",
+          "title": "区分生命周期活动",
+          "objective_refs": [
+            "CS10-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M01-O02-unit",
+          "title": "切分增量交付",
+          "objective_refs": [
+            "CS10-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M01-O03-unit",
+          "title": "管理风险与约束",
+          "objective_refs": [
+            "CS10-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS10-M02",
+      "title": "需求工程",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS10-M02-O01-unit",
+          "title": "提取用户目标",
+          "objective_refs": [
+            "CS10-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M02-O02-unit",
+          "title": "写可检验需求",
+          "objective_refs": [
+            "CS10-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M02-O03-unit",
+          "title": "处理冲突和变更",
+          "objective_refs": [
+            "CS10-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS10-M03",
+      "title": "分析建模",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS10-M03-O01-unit",
+          "title": "建立领域模型",
+          "objective_refs": [
+            "CS10-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M03-O02-unit",
+          "title": "表达状态和交互",
+          "objective_refs": [
+            "CS10-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M03-O03-unit",
+          "title": "维护模型与需求追踪",
+          "objective_refs": [
+            "CS10-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS10-M04",
+      "title": "架构与质量",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS10-M04-O01-unit",
+          "title": "分配模块职责",
+          "objective_refs": [
+            "CS10-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M04-O02-unit",
+          "title": "分析质量属性",
+          "objective_refs": [
+            "CS10-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M04-O03-unit",
+          "title": "记录架构取舍",
+          "objective_refs": [
+            "CS10-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS10-M05",
+      "title": "详细设计与接口",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS10-M05-O01-unit",
+          "title": "定义接口及错误语义",
+          "objective_refs": [
+            "CS10-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M05-O02-unit",
+          "title": "实现契约",
+          "objective_refs": [
+            "CS10-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M05-O03-unit",
+          "title": "控制依赖方向",
+          "objective_refs": [
+            "CS10-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS10-M06",
+      "title": "测试与质量",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS10-M06-O01-unit",
+          "title": "设计单元集成验收测试",
+          "objective_refs": [
+            "CS10-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M06-O02-unit",
+          "title": "构造边界与替代路径",
+          "objective_refs": [
+            "CS10-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M06-O03-unit",
+          "title": "评估缺陷检出",
+          "objective_refs": [
+            "CS10-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS10-M07",
+      "title": "协作与配置",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS10-M07-O01-unit",
+          "title": "组织版本及评审",
+          "objective_refs": [
+            "CS10-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M07-O02-unit",
+          "title": "处理冲突",
+          "objective_refs": [
+            "CS10-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M07-O03-unit",
+          "title": "建立可复现构建",
+          "objective_refs": [
+            "CS10-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS10-M08",
+      "title": "交付与运维",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS10-M08-O01-unit",
+          "title": "设计发布和回滚",
+          "objective_refs": [
+            "CS10-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M08-O02-unit",
+          "title": "记录运行指标",
+          "objective_refs": [
+            "CS10-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M08-O03-unit",
+          "title": "定位故障",
+          "objective_refs": [
+            "CS10-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS10-M09",
+      "title": "维护与综合",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS10-M09-O01-unit",
+          "title": "评估变更影响",
+          "objective_refs": [
+            "CS10-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M09-O02-unit",
+          "title": "重构保持行为",
+          "objective_refs": [
+            "CS10-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS10-M09-O03-unit",
+          "title": "复盘质量与债务",
+          "objective_refs": [
+            "CS10-M09-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

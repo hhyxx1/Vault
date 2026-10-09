@@ -2510,6 +2510,25 @@
         ]
       }
     },
+    "/api/v1/course-scopes": {
+      "get": {
+        "operationId": "course_scopes_api_v1_course_scopes_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Course Scopes",
+        "tags": [
+          "Courses"
+        ]
+      }
+    },
     "/api/v1/courses": {
       "get": {
         "operationId": "courses_api_v1_courses_get",

@@ -1,0 +1,687 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "a8b2aaf5-25c5-4da6-893a-3e461b4654d5",
+  "course_version_id": "409ded3e-81ec-534c-b79c-70269d8fad62",
+  "course_code": "CS05",
+  "version": "CS05-core-scope-0.1.0",
+  "title": "离散数学",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "300cb596-3f38-568a-9c93-3143b8ba9d98",
+      "code": "CS05-M01-O01",
+      "title": "计算真值",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算真值",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5b293ec4-783e-5ff0-9e8c-e1f27f90c2cc",
+      "code": "CS05-M01-O02",
+      "title": "验证等价与蕴涵",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "验证等价与蕴涵",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "efc7fcac-764a-5749-aaf9-9aa8b6dc2580",
+      "code": "CS05-M01-O03",
+      "title": "构造反例赋值",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造反例赋值",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "37036fa5-8c17-5696-bbc2-ffb20a452a97",
+      "code": "CS05-M02-O01",
+      "title": "准确表达量词",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "准确表达量词",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b2fb7604-4036-54f4-b624-5cb7ddaec0e0",
+      "code": "CS05-M02-O02",
+      "title": "转换否定",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "转换否定",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "93a99b55-bf68-5009-bf24-8b1ad1ac632d",
+      "code": "CS05-M02-O03",
+      "title": "区分量词作用域",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分量词作用域",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "cb9857e9-3f3c-5911-8ee5-647a27625245",
+      "code": "CS05-M03-O01",
+      "title": "组织直接证明",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "组织直接证明",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3e1c815b-9732-5711-b03f-9ab0759ddb90",
+      "code": "CS05-M03-O02",
+      "title": "构造反证与逆否",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造反证与逆否",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6804e094-7fc4-5bee-b87d-80e7f40e4a85",
+      "code": "CS05-M03-O03",
+      "title": "完成数学归纳",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "完成数学归纳",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ae1f85a2-d855-5202-941e-4fd9b43e3ef1",
+      "code": "CS05-M04-O01",
+      "title": "运算并比较集合",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "运算并比较集合",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8bee48ce-b1a8-5343-83fc-4c4fb2ccd406",
+      "code": "CS05-M04-O02",
+      "title": "判断单射满射双射",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "判断单射满射双射",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fe5f71e3-4a42-598f-b95c-83338826f029",
+      "code": "CS05-M04-O03",
+      "title": "构造复合及逆映射",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造复合及逆映射",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "445ac476-22b2-5da4-b4ad-1d23b786f651",
+      "code": "CS05-M05-O01",
+      "title": "判断关系性质",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "判断关系性质",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "85e3c8f2-77b4-5f11-8009-762580d619af",
+      "code": "CS05-M05-O02",
+      "title": "求等价类",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "求等价类",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f7ddab6f-7c75-577e-b848-1d946f4b1600",
+      "code": "CS05-M05-O03",
+      "title": "构造偏序和 Hasse 图",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造偏序和 Hasse 图",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "38147d6f-5546-5813-8a2e-1a85abe14c1c",
+      "code": "CS05-M06-O01",
+      "title": "应用排列组合",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "应用排列组合",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "dba26ed5-5f38-575b-a8cf-d1dfa3d4a830",
+      "code": "CS05-M06-O02",
+      "title": "使用容斥与鸽巢",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "使用容斥与鸽巢",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9a16be55-a564-5575-a0ad-2bb6c198f3d0",
+      "code": "CS05-M06-O03",
+      "title": "建立递推及求解",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "建立递推及求解",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4141bcec-aed2-57eb-9f93-3ab0200bde6b",
+      "code": "CS05-M07-O01",
+      "title": "检验运算封闭",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "检验运算封闭",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1a630d61-3745-56e7-a5bb-e99862647177",
+      "code": "CS05-M07-O02",
+      "title": "判断群环域的基本条件",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "判断群环域的基本条件",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6bff444f-a444-50ec-bb25-92c4e9f0ec97",
+      "code": "CS05-M07-O03",
+      "title": "比较同态及结构保持",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较同态及结构保持",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b7b88e20-c31f-581b-b56e-0663eb34f641",
+      "code": "CS05-M08-O01",
+      "title": "计算布尔表达式",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算布尔表达式",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2e19ef3e-83af-585d-bb6a-67725c613fc8",
+      "code": "CS05-M08-O02",
+      "title": "化简并验证等价",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "化简并验证等价",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f6d92646-4a2e-5e3f-a671-0ae7290ec8fc",
+      "code": "CS05-M08-O03",
+      "title": "识别格的上下确界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "识别格的上下确界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b908c435-f969-52bf-91bf-229a1cc785b9",
+      "code": "CS05-M09-O01",
+      "title": "识别路径与连通",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "识别路径与连通",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "599829b4-b495-57ec-bc55-7b4d823afd06",
+      "code": "CS05-M09-O02",
+      "title": "检验 Euler/Hamilton 条件",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "检验 Euler/Hamilton 条件",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b85eec02-a6cc-5b0d-8d2e-af17cd687b96",
+      "code": "CS05-M09-O03",
+      "title": "讨论平面性与着色",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "讨论平面性与着色",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e3efd387-2452-5780-a218-680a15e8d5e6",
+      "code": "CS05-M10-O01",
+      "title": "验证树的等价性质",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "验证树的等价性质",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d16960b6-c2e4-51b7-9d09-124d1967a411",
+      "code": "CS05-M10-O02",
+      "title": "构造生成树",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造生成树",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "535d2de4-185a-50a8-a1cf-f1a1574206db",
+      "code": "CS05-M10-O03",
+      "title": "用离散模型解释现实约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "用离散模型解释现实约束",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS05-M01",
+      "title": "命题逻辑",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M01-O01-unit",
+          "title": "计算真值",
+          "objective_refs": [
+            "CS05-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M01-O02-unit",
+          "title": "验证等价与蕴涵",
+          "objective_refs": [
+            "CS05-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M01-O03-unit",
+          "title": "构造反例赋值",
+          "objective_refs": [
+            "CS05-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS05-M02",
+      "title": "谓词逻辑",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M02-O01-unit",
+          "title": "准确表达量词",
+          "objective_refs": [
+            "CS05-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M02-O02-unit",
+          "title": "转换否定",
+          "objective_refs": [
+            "CS05-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M02-O03-unit",
+          "title": "区分量词作用域",
+          "objective_refs": [
+            "CS05-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS05-M03",
+      "title": "证明方法",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M03-O01-unit",
+          "title": "组织直接证明",
+          "objective_refs": [
+            "CS05-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M03-O02-unit",
+          "title": "构造反证与逆否",
+          "objective_refs": [
+            "CS05-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M03-O03-unit",
+          "title": "完成数学归纳",
+          "objective_refs": [
+            "CS05-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS05-M04",
+      "title": "集合与函数",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M04-O01-unit",
+          "title": "运算并比较集合",
+          "objective_refs": [
+            "CS05-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M04-O02-unit",
+          "title": "判断单射满射双射",
+          "objective_refs": [
+            "CS05-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M04-O03-unit",
+          "title": "构造复合及逆映射",
+          "objective_refs": [
+            "CS05-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS05-M05",
+      "title": "关系与偏序",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M05-O01-unit",
+          "title": "判断关系性质",
+          "objective_refs": [
+            "CS05-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M05-O02-unit",
+          "title": "求等价类",
+          "objective_refs": [
+            "CS05-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M05-O03-unit",
+          "title": "构造偏序和 Hasse 图",
+          "objective_refs": [
+            "CS05-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS05-M06",
+      "title": "计数与递推",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M06-O01-unit",
+          "title": "应用排列组合",
+          "objective_refs": [
+            "CS05-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M06-O02-unit",
+          "title": "使用容斥与鸽巢",
+          "objective_refs": [
+            "CS05-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M06-O03-unit",
+          "title": "建立递推及求解",
+          "objective_refs": [
+            "CS05-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS05-M07",
+      "title": "代数结构",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M07-O01-unit",
+          "title": "检验运算封闭",
+          "objective_refs": [
+            "CS05-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M07-O02-unit",
+          "title": "判断群环域的基本条件",
+          "objective_refs": [
+            "CS05-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M07-O03-unit",
+          "title": "比较同态及结构保持",
+          "objective_refs": [
+            "CS05-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS05-M08",
+      "title": "布尔代数与格",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M08-O01-unit",
+          "title": "计算布尔表达式",
+          "objective_refs": [
+            "CS05-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M08-O02-unit",
+          "title": "化简并验证等价",
+          "objective_refs": [
+            "CS05-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M08-O03-unit",
+          "title": "识别格的上下确界",
+          "objective_refs": [
+            "CS05-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS05-M09",
+      "title": "图论",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M09-O01-unit",
+          "title": "识别路径与连通",
+          "objective_refs": [
+            "CS05-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M09-O02-unit",
+          "title": "检验 Euler/Hamilton 条件",
+          "objective_refs": [
+            "CS05-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M09-O03-unit",
+          "title": "讨论平面性与着色",
+          "objective_refs": [
+            "CS05-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS05-M10",
+      "title": "树与综合模型",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS05-M10-O01-unit",
+          "title": "验证树的等价性质",
+          "objective_refs": [
+            "CS05-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M10-O02-unit",
+          "title": "构造生成树",
+          "objective_refs": [
+            "CS05-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS05-M10-O03-unit",
+          "title": "用离散模型解释现实约束",
+          "objective_refs": [
+            "CS05-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

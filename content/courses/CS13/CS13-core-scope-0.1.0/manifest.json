@@ -1,0 +1,687 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "0af5d8ff-4ed7-473f-b977-e21d6eb66ed1",
+  "course_version_id": "448beb42-d122-59c8-a564-ab0a515ae21b",
+  "course_code": "CS13",
+  "version": "CS13-core-scope-0.1.0",
+  "title": "机器学习基础",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "0693a232-91f6-5856-b816-777c5710a505",
+      "code": "CS13-M01-O01",
+      "title": "区分学习任务",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分学习任务",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "200392d5-b98d-57a0-9000-e9904e0ed02c",
+      "code": "CS13-M01-O02",
+      "title": "检查数据来源及标签",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "检查数据来源及标签",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d22e3b4b-af01-5e9c-b44d-bb59130702cd",
+      "code": "CS13-M01-O03",
+      "title": "确定基线和指标",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "确定基线和指标",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "07da72e0-2a58-59b6-b2a2-0a82a19a54a7",
+      "code": "CS13-M02-O01",
+      "title": "划分训练验证测试",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "划分训练验证测试",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ee067b4d-9f1e-53e6-a700-d7c5281bbcae",
+      "code": "CS13-M02-O02",
+      "title": "处理缺失及编码",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理缺失及编码",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "197d4a3e-ee9c-5c2e-ba32-af8e4cb73d28",
+      "code": "CS13-M02-O03",
+      "title": "限制预处理拟合范围",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "限制预处理拟合范围",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f7b46faf-4f6c-57b9-9a1b-0b82d256b4b1",
+      "code": "CS13-M03-O01",
+      "title": "实现线性及逻辑回归",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现线性及逻辑回归",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fa077cf1-84bb-500d-a1e9-31d46109f609",
+      "code": "CS13-M03-O02",
+      "title": "计算损失梯度",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算损失梯度",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f7d13dfc-b320-5465-bef9-74d106eadea0",
+      "code": "CS13-M03-O03",
+      "title": "解释正则化",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释正则化",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "697d1254-b55b-5308-8988-acde29982ecc",
+      "code": "CS13-M04-O01",
+      "title": "分析学习率",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析学习率",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b69bedc0-5ec9-5125-9278-e3b777c17dee",
+      "code": "CS13-M04-O02",
+      "title": "辨认欠拟合过拟合",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "辨认欠拟合过拟合",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fb14b68f-30cc-5f8a-b5d5-bdba737a1c05",
+      "code": "CS13-M04-O03",
+      "title": "使用验证选择超参数",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "使用验证选择超参数",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9d8ad1f0-0ab0-532b-afdb-135bf3938676",
+      "code": "CS13-M05-O01",
+      "title": "构建决策树",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构建决策树",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "dfb19884-3149-53eb-b5bb-84c8bb26d131",
+      "code": "CS13-M05-O02",
+      "title": "比较 bagging 与 boosting",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较 bagging 与 boosting",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "af90d172-019a-55a0-ac42-3e935f03406c",
+      "code": "CS13-M05-O03",
+      "title": "解释复杂度和偏差",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释复杂度和偏差",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1b8a2dc1-a132-5179-991b-17b9f31cff02",
+      "code": "CS13-M06-O01",
+      "title": "实现近邻",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现近邻",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "186d2971-a8de-5de0-9709-c472ed96f3dd",
+      "code": "CS13-M06-O02",
+      "title": "解释尺度影响",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释尺度影响",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6b442700-3b8e-5118-94a3-8270ddcfb331",
+      "code": "CS13-M06-O03",
+      "title": "比较线性及核分类边界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较线性及核分类边界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "36104460-252a-5133-85f9-1af79aff41b0",
+      "code": "CS13-M07-O01",
+      "title": "实施聚类",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实施聚类",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "131a04d6-f5a8-565f-977a-e259fb5ddd73",
+      "code": "CS13-M07-O02",
+      "title": "解释降维",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释降维",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "477a4902-1d2c-5272-9f8d-853dbb8df176",
+      "code": "CS13-M07-O03",
+      "title": "评估无标签结果的限制",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "评估无标签结果的限制",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2bbc467d-7a6a-5d5a-8597-26f69c347487",
+      "code": "CS13-M08-O01",
+      "title": "计算前向与反向",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算前向与反向",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7bfbb9bf-31d6-53fd-b042-c819902db10d",
+      "code": "CS13-M08-O02",
+      "title": "训练小型网络",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "训练小型网络",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "eff9168b-9ddc-5fc3-a2f9-dfbb99bab970",
+      "code": "CS13-M08-O03",
+      "title": "检查数值和形状错误",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "检查数值和形状错误",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c94cfa8e-9dff-5b67-9319-ad605ed10be7",
+      "code": "CS13-M09-O01",
+      "title": "计算分类回归指标",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算分类回归指标",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b4f127d5-0a9a-52d7-bf22-e59da89bd915",
+      "code": "CS13-M09-O02",
+      "title": "处理不平衡",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理不平衡",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9347396a-74c3-5acb-ad03-6a3202d927a7",
+      "code": "CS13-M09-O03",
+      "title": "分析误差和不确定性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析误差和不确定性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "01b27e20-a398-5558-8066-2e0e3b0bd1f5",
+      "code": "CS13-M10-O01",
+      "title": "锁定数据依赖及随机性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "锁定数据依赖及随机性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4bb37f18-315f-57d2-acdc-133e263f5176",
+      "code": "CS13-M10-O02",
+      "title": "保存加载模型",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "保存加载模型",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9ea33a5b-4a52-5820-94c6-570990770b17",
+      "code": "CS13-M10-O03",
+      "title": "识别分布漂移与使用风险",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "识别分布漂移与使用风险",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS13-M01",
+      "title": "任务与数据",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M01-O01-unit",
+          "title": "区分学习任务",
+          "objective_refs": [
+            "CS13-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M01-O02-unit",
+          "title": "检查数据来源及标签",
+          "objective_refs": [
+            "CS13-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M01-O03-unit",
+          "title": "确定基线和指标",
+          "objective_refs": [
+            "CS13-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M02",
+      "title": "划分与预处理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M02-O01-unit",
+          "title": "划分训练验证测试",
+          "objective_refs": [
+            "CS13-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M02-O02-unit",
+          "title": "处理缺失及编码",
+          "objective_refs": [
+            "CS13-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M02-O03-unit",
+          "title": "限制预处理拟合范围",
+          "objective_refs": [
+            "CS13-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M03",
+      "title": "线性模型",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M03-O01-unit",
+          "title": "实现线性及逻辑回归",
+          "objective_refs": [
+            "CS13-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M03-O02-unit",
+          "title": "计算损失梯度",
+          "objective_refs": [
+            "CS13-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M03-O03-unit",
+          "title": "解释正则化",
+          "objective_refs": [
+            "CS13-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M04",
+      "title": "优化与泛化",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M04-O01-unit",
+          "title": "分析学习率",
+          "objective_refs": [
+            "CS13-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M04-O02-unit",
+          "title": "辨认欠拟合过拟合",
+          "objective_refs": [
+            "CS13-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M04-O03-unit",
+          "title": "使用验证选择超参数",
+          "objective_refs": [
+            "CS13-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M05",
+      "title": "树与集成",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M05-O01-unit",
+          "title": "构建决策树",
+          "objective_refs": [
+            "CS13-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M05-O02-unit",
+          "title": "比较 bagging 与 boosting",
+          "objective_refs": [
+            "CS13-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M05-O03-unit",
+          "title": "解释复杂度和偏差",
+          "objective_refs": [
+            "CS13-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M06",
+      "title": "距离与核方法",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M06-O01-unit",
+          "title": "实现近邻",
+          "objective_refs": [
+            "CS13-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M06-O02-unit",
+          "title": "解释尺度影响",
+          "objective_refs": [
+            "CS13-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M06-O03-unit",
+          "title": "比较线性及核分类边界",
+          "objective_refs": [
+            "CS13-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M07",
+      "title": "无监督学习",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M07-O01-unit",
+          "title": "实施聚类",
+          "objective_refs": [
+            "CS13-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M07-O02-unit",
+          "title": "解释降维",
+          "objective_refs": [
+            "CS13-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M07-O03-unit",
+          "title": "评估无标签结果的限制",
+          "objective_refs": [
+            "CS13-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M08",
+      "title": "神经网络基础",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M08-O01-unit",
+          "title": "计算前向与反向",
+          "objective_refs": [
+            "CS13-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M08-O02-unit",
+          "title": "训练小型网络",
+          "objective_refs": [
+            "CS13-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M08-O03-unit",
+          "title": "检查数值和形状错误",
+          "objective_refs": [
+            "CS13-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M09",
+      "title": "评估与解释",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M09-O01-unit",
+          "title": "计算分类回归指标",
+          "objective_refs": [
+            "CS13-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M09-O02-unit",
+          "title": "处理不平衡",
+          "objective_refs": [
+            "CS13-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M09-O03-unit",
+          "title": "分析误差和不确定性",
+          "objective_refs": [
+            "CS13-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M10",
+      "title": "复现与交付",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M10-O01-unit",
+          "title": "锁定数据依赖及随机性",
+          "objective_refs": [
+            "CS13-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M10-O02-unit",
+          "title": "保存加载模型",
+          "objective_refs": [
+            "CS13-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M10-O03-unit",
+          "title": "识别分布漂移与使用风险",
+          "objective_refs": [
+            "CS13-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

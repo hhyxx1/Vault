@@ -1,9 +1,10 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider, useParams } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, useParams, Link } from 'react-router-dom'
 import { AppShell, AppError } from './ui/AppShell'
 import { LocalProvider } from './local/LocalProvider'
 import { AuthProvider } from './local/AuthProvider'
+import { workspaceForObjective } from './domain/course-packages'
 import { Landing } from './ui/Landing'
 import './styles.css'
 import './frontend-refresh.css'
@@ -19,7 +20,9 @@ const PersonalCourses = React.lazy(() => import('./ui/PersonalCourses'))
 const pending = (child: React.ReactNode) => <Suspense fallback={<div className="page-loading" role="status">正在打开学习空间…</div>}>{child}</Suspense>
 function LearningRoute() {
   const { objectiveId } = useParams()
-  return pending(objectiveId?.startsWith('CS05-') ? <LogicWorkspace /> : <Workspace />)
+  const workspace = workspaceForObjective(objectiveId ?? '')
+  if (!workspace) return <div className="page"><h1>这个目标的实践尚未开放</h1><p>未找到已注册的活动。已有作品仍然保留，未开展的核验不计入学习证据。</p><Link className="button primary" to="/atlas">返回课程图谱</Link></div>
+  return pending(workspace === 'truth_table' ? <LogicWorkspace /> : <Workspace />)
 }
 const router = createBrowserRouter([
   { element: <AuthProvider><LocalProvider><AppShell /></LocalProvider></AuthProvider>, errorElement: <AppError />, children: [

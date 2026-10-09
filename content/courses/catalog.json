@@ -48,7 +48,18 @@
       "verification_scope": "行为测试、状态轨迹、边界输入、独立应用",
       "environment_boundary": "动态演示用于辅助理解，不能代替测试",
       "count_scope": "engineering_example",
-      "objective_count": 32
+      "objective_count": 32,
+      "package_path": "CS03.stack-example.json",
+      "workspace_bindings": [
+        {
+          "objective_code": "CS03-STACK-01",
+          "workspace": "stack_trace"
+        },
+        {
+          "objective_code": "CS03-STACK-02",
+          "workspace": "code_draft"
+        }
+      ]
     },
     {
       "id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
@@ -80,7 +91,14 @@
       "verification_scope": "真值表、可复核推导、反例、已核对标准，必要时人工复核",
       "environment_boundary": "自然语言证明不能仅凭模型一句“正确”通过",
       "count_scope": "engineering_example",
-      "objective_count": 2
+      "objective_count": 2,
+      "package_path": "CS05.logic-example.json",
+      "workspace_bindings": [
+        {
+          "objective_code": "CS05-LOGIC-01",
+          "workspace": "truth_table"
+        }
+      ]
     },
     {
       "id": "bb42adbc-30f6-4548-8de7-6819e9e6b6b1",

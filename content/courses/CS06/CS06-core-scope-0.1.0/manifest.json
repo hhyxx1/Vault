@@ -1,0 +1,620 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "bb42adbc-30f6-4548-8de7-6819e9e6b6b1",
+  "course_version_id": "c627b6af-7b9c-5fce-a36b-12edd5249eae",
+  "course_code": "CS06",
+  "version": "CS06-core-scope-0.1.0",
+  "title": "计算机组成原理",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "9a77f336-5982-50c6-8641-83c2660025a2",
+      "code": "CS06-M01-O01",
+      "title": "转换进制及补码",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "转换进制及补码",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "dbb228bd-c6dd-5732-919c-5d84232fccbd",
+      "code": "CS06-M01-O02",
+      "title": "区分数值和位模式",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分数值和位模式",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a4001575-13b9-527e-b3ed-c0b39e44b02a",
+      "code": "CS06-M01-O03",
+      "title": "判断表示范围",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "判断表示范围",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "05cabe12-bb96-5848-baf6-9b3f8db6eefc",
+      "code": "CS06-M02-O01",
+      "title": "执行加减乘除步骤",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "执行加减乘除步骤",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0b945183-a57c-56f9-894c-7808f15adaa5",
+      "code": "CS06-M02-O02",
+      "title": "处理浮点规格化与舍入",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理浮点规格化与舍入",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "bf788cc8-14f5-5cb5-80ce-6dec3af9362c",
+      "code": "CS06-M02-O03",
+      "title": "区分精度与范围",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分精度与范围",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2d942de3-c549-5844-aba1-4efcb71e0d54",
+      "code": "CS06-M03-O01",
+      "title": "建立真值表",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "建立真值表",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6c7ae775-f2bc-5822-ae92-a48b082d8f37",
+      "code": "CS06-M03-O02",
+      "title": "设计加法器与选择器",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "设计加法器与选择器",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "736cd3a6-dac5-534e-837d-8fe0ab18eb94",
+      "code": "CS06-M03-O03",
+      "title": "证明逻辑等价",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "证明逻辑等价",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "71be84b1-c098-537e-b876-b3eaa2c880a9",
+      "code": "CS06-M04-O01",
+      "title": "追踪触发器状态",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "追踪触发器状态",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "61a9dd99-239a-5abc-bf7a-649dd9829f0b",
+      "code": "CS06-M04-O02",
+      "title": "构造寄存器传输",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造寄存器传输",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d93effb1-9f8a-57cc-9fcf-3835b5b54509",
+      "code": "CS06-M04-O03",
+      "title": "解释时钟与时序约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释时钟与时序约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8b70d8eb-eaf0-5533-b380-04c91ca8d36f",
+      "code": "CS06-M05-O01",
+      "title": "解释指令编码",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释指令编码",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "cf45e743-1674-5481-8944-0025215f4811",
+      "code": "CS06-M05-O02",
+      "title": "推演寻址方式",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演寻址方式",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "829b0196-f4fe-58fc-ab84-999dad7f4ebc",
+      "code": "CS06-M05-O03",
+      "title": "将表达式转换为指令序列",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "将表达式转换为指令序列",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6f49b591-c92b-55f6-8382-c19049cb2bae",
+      "code": "CS06-M06-O01",
+      "title": "连接取指执行路径",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "连接取指执行路径",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fece2e86-a015-5773-b8f5-4c101f15a3f2",
+      "code": "CS06-M06-O02",
+      "title": "生成控制信号",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "生成控制信号",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "1cb591ef-ffc2-5174-9acc-209272fe1644",
+      "code": "CS06-M06-O03",
+      "title": "定位控制冲突",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定位控制冲突",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f3270dff-9a04-5808-a27a-8e33a9772214",
+      "code": "CS06-M07-O01",
+      "title": "识别数据和控制冒险",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "识别数据和控制冒险",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "119c0fae-1327-5590-ae46-c28271c7c2b5",
+      "code": "CS06-M07-O02",
+      "title": "插入停顿或转发",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "插入停顿或转发",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "cc9b2aee-4cad-5c24-ad9f-9bc192ef5c1c",
+      "code": "CS06-M07-O03",
+      "title": "计算有效吞吐",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算有效吞吐",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4a92b125-267e-5fb0-94ab-6890d8f13985",
+      "code": "CS06-M08-O01",
+      "title": "计算缓存映射",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算缓存映射",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f72700b6-8d06-5a3b-b35f-df81a8e7d2f3",
+      "code": "CS06-M08-O02",
+      "title": "模拟替换及写策略",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "模拟替换及写策略",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "43cb0115-4434-51e3-b786-ee6558352189",
+      "code": "CS06-M08-O03",
+      "title": "解释主存与虚拟地址关系",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释主存与虚拟地址关系",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5bf6612a-b58b-5634-b296-c6cb3762e624",
+      "code": "CS06-M09-O01",
+      "title": "推演中断和 DMA",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演中断和 DMA",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "347c26fc-78c1-5469-82ee-1c0319b94e10",
+      "code": "CS06-M09-O02",
+      "title": "比较总线传输",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "比较总线传输",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e6f30e46-4999-5f86-91ae-c4cbbf43bcc2",
+      "code": "CS06-M09-O03",
+      "title": "分析瓶颈和性能指标",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析瓶颈和性能指标",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS06-M01",
+      "title": "数制与编码",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS06-M01-O01-unit",
+          "title": "转换进制及补码",
+          "objective_refs": [
+            "CS06-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M01-O02-unit",
+          "title": "区分数值和位模式",
+          "objective_refs": [
+            "CS06-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M01-O03-unit",
+          "title": "判断表示范围",
+          "objective_refs": [
+            "CS06-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS06-M02",
+      "title": "算术与浮点",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS06-M02-O01-unit",
+          "title": "执行加减乘除步骤",
+          "objective_refs": [
+            "CS06-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M02-O02-unit",
+          "title": "处理浮点规格化与舍入",
+          "objective_refs": [
+            "CS06-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M02-O03-unit",
+          "title": "区分精度与范围",
+          "objective_refs": [
+            "CS06-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS06-M03",
+      "title": "组合逻辑",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS06-M03-O01-unit",
+          "title": "建立真值表",
+          "objective_refs": [
+            "CS06-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M03-O02-unit",
+          "title": "设计加法器与选择器",
+          "objective_refs": [
+            "CS06-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M03-O03-unit",
+          "title": "证明逻辑等价",
+          "objective_refs": [
+            "CS06-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS06-M04",
+      "title": "时序与寄存器",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS06-M04-O01-unit",
+          "title": "追踪触发器状态",
+          "objective_refs": [
+            "CS06-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M04-O02-unit",
+          "title": "构造寄存器传输",
+          "objective_refs": [
+            "CS06-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M04-O03-unit",
+          "title": "解释时钟与时序约束",
+          "objective_refs": [
+            "CS06-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS06-M05",
+      "title": "指令系统",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS06-M05-O01-unit",
+          "title": "解释指令编码",
+          "objective_refs": [
+            "CS06-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M05-O02-unit",
+          "title": "推演寻址方式",
+          "objective_refs": [
+            "CS06-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M05-O03-unit",
+          "title": "将表达式转换为指令序列",
+          "objective_refs": [
+            "CS06-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS06-M06",
+      "title": "数据通路与控制",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS06-M06-O01-unit",
+          "title": "连接取指执行路径",
+          "objective_refs": [
+            "CS06-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M06-O02-unit",
+          "title": "生成控制信号",
+          "objective_refs": [
+            "CS06-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M06-O03-unit",
+          "title": "定位控制冲突",
+          "objective_refs": [
+            "CS06-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS06-M07",
+      "title": "流水线",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS06-M07-O01-unit",
+          "title": "识别数据和控制冒险",
+          "objective_refs": [
+            "CS06-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M07-O02-unit",
+          "title": "插入停顿或转发",
+          "objective_refs": [
+            "CS06-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M07-O03-unit",
+          "title": "计算有效吞吐",
+          "objective_refs": [
+            "CS06-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS06-M08",
+      "title": "存储层次",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS06-M08-O01-unit",
+          "title": "计算缓存映射",
+          "objective_refs": [
+            "CS06-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M08-O02-unit",
+          "title": "模拟替换及写策略",
+          "objective_refs": [
+            "CS06-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M08-O03-unit",
+          "title": "解释主存与虚拟地址关系",
+          "objective_refs": [
+            "CS06-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS06-M09",
+      "title": "总线输入输出与性能",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS06-M09-O01-unit",
+          "title": "推演中断和 DMA",
+          "objective_refs": [
+            "CS06-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M09-O02-unit",
+          "title": "比较总线传输",
+          "objective_refs": [
+            "CS06-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS06-M09-O03-unit",
+          "title": "分析瓶颈和性能指标",
+          "objective_refs": [
+            "CS06-M09-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}

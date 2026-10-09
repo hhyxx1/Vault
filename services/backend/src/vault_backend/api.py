@@ -231,6 +231,10 @@ def create_app(
     async def course_version(course_id: UUID, version_id: UUID):
         return content.get_version(course_id, version_id)
 
+    @app.get("/api/v1/course-scopes", tags=["Courses"])
+    async def course_scopes():
+        return content.get_scope_catalog()
+
     @app.get("/api/v1/guest-nonce", tags=["Guest"], response_model=NonceResponse)
     async def guest_nonce(request: Request):
         origin = request.headers.get("origin") or str(request.base_url).rstrip("/")

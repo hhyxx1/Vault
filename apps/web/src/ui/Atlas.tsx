@@ -1,19 +1,12 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import stackExample from '../../../../content/courses/CS03.stack-example.json'
-import logicExample from '../../../../content/courses/CS05.logic-example.json'
-import { courses, currentObjectiveEvidence, objectiveStates, stateLabels, TRACE_OBJECTIVE, IMPLEMENT_OBJECTIVE } from '../domain/learning'
+import { loadCoursePackage, workspaceForObjective, hasCurrentActivityPackage, type AtlasPackage, type AtlasUnit as Unit, type AtlasChapter as Chapter } from '../domain/course-packages'
+import { courses, currentObjectiveEvidence, objectiveStates, stateLabels, TRACE_OBJECTIVE } from '../domain/learning'
 import { summarizeObjectiveStates, courseRelationLabels, type ObjectiveState, type ObjectiveSummary } from '../domain/course-map'
 import { logicObjectiveState, LOGIC_OBJECTIVE, LOGIC_VERSION, LOGIC_ACTIVITY, LOGIC_STANDARD } from '../domain/logic'
 import { useLocal } from '../local/LocalProvider'
 import { AtlasMap } from './AtlasMap'
 
-type Goal = { id: string; code: string; title: string; criteria: Array<{ id: string; title: string; verification: string }> }
-type Unit = { id: string; title: string; objective_refs: string[] }
-type Chapter = { id: string; title: string; children: Unit[] }
-type Relation = { from: string; to: string; kind: string; source?: string }
-type AtlasPackage = { course_code: string; version: string; scope_note: string; objectives: Goal[]; relations: Relation[]; outline?: Chapter[]; content_sources?: string[] }
-const packages: Record<string, AtlasPackage> = { CS03: stackExample, CS05: logicExample }
 const relationTypes = ['mandatory_prerequisite', 'conceptual_association', 'application'] as const
 type RelationKind = typeof relationTypes[number]
 const stateOrder: ObjectiveState[] = ['verified', 'partial', 'consolidate', 'unknown']
@@ -29,10 +22,21 @@ function Distribution({ summary }: { summary: ObjectiveSummary }) {
 export default function Atlas() {
   const [params, setParams] = useSearchParams()
   const course = courses.find(item => item.code === params.get('course')) ?? courses[2]
-  const data = packages[course.code]
+  const edition = params.get('edition') === 'core' ? 'core' : 'current'
+  const [loaded, setLoaded] = useState<{ key: string; data: AtlasPackage | null; error?: string } | null>(null)
+  const key = `${course.code}:${edition}`
+  useEffect(() => {
+    let active = true
+    loadCoursePackage(course.code, edition).then(data => { if (active) setLoaded({ key, data }) })
+      .catch(() => { if (active) setLoaded({ key, data: null, error: '课程内容暂时无法加载，请刷新重试。' }) })
+    return () => { active = false }
+  }, [course.code, edition, key])
+  const data = loaded?.key === key ? loaded.data : null
   const picker = <label className="course-picker">课程 <select value={course.code} onChange={event => setParams({ course: event.target.value })}>{courses.map(item => <option key={item.code} value={item.code}>{item.title}</option>)}</select></label>
+  if (loaded?.key !== key) return <div className="page atlas-page" role="status">正在打开课程图谱…</div>
+  if (loaded.error) return <div className="page atlas-page" role="alert">{loaded.error}</div>
   return <div className="page atlas-page">
-    {data ? <CourseAtlas key={course.code} data={data} title={course.title} picker={picker} /> : <>
+    {data ? <CourseAtlas key={data.course_version_id} data={data} title={course.title} picker={picker} /> : <>
       <div className="page-topline">{picker}</div><div className="page-heading"><div><h1>{course.title}<span className="heading-note">知识图谱</span></h1><p>{course.description}</p></div></div>
       <section className="construction-state"><span className="large-orbit" aria-hidden="true">◌</span><h2>这门课的默认图谱还没有开放</h2><p>完整的理论、实践与核验内容尚未建成。你可以建立个人课程，保留真实学习尝试；自述记录保持未核验。</p><Link className="button primary" to="/my-courses">建立个人课程</Link><Link className="text-link" to="/atlas?course=CS03">查看数据结构范围样例</Link></section>
     </>}
@@ -109,15 +113,16 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
   const result = selectedEvidence?.result ?? selectedLogic?.result
   const otherRecords = selected ? data.course_code === 'CS03' ? evidence.filter(item => item.objectiveId === selected.code && item.id !== selectedEvidence?.id) : courseAttempts.filter(item => item.objectiveId === selected.code && item.result && item.id !== selectedLogic?.id) : []
   const submittedHelp = selectedEvidence ? help.filter(item => selectedEvidence.helpEventIds.includes(item.id)) : []
-  const canTrace = selected?.code === TRACE_OBJECTIVE
-  const canCode = selected?.code === IMPLEMENT_OBJECTIVE
-  const canLogic = selected?.code === LOGIC_OBJECTIVE
+  const selectedWorkspace = workspaceForObjective(selected?.code ?? '')
+  const canTrace = selectedWorkspace === 'stack_trace'
+  const canCode = selectedWorkspace === 'code_draft'
+  const canLogic = selectedWorkspace === 'truth_table'
   const canLearn = canTrace || canCode || canLogic
   const goalButton = (code: string) => <button key={code} type="button" className="goal-pick" aria-pressed={selected?.code === code} onClick={() => openGoal(code)}><span>{goals.get(code)?.title}</span><span className={`evidence-pill ${stateOf(code)}`}>{stateLabels[stateOf(code)]}</span></button>
 
   return <>
     <div className="page-heading atlas-course-header"><div>
-      <div className="course-meta">{picker}<details className="atlas-range-note"><summary>未审校范围样例 · 范围说明</summary><p>{data.scope_note} 范围版本 {data.version}。同步恢复、自述与旧版本记录不会自动升级为达标证据。</p></details></div>
+      <div className="course-meta">{picker}<details className="atlas-range-note"><summary>{data.status === 'structured_validated' ? '核心范围编排 · 范围说明' : '未审校范围样例 · 范围说明'}</summary><p>{data.scope_note} 范围版本 {data.version}。同步恢复、自述与旧版本记录不会自动升级为达标证据。</p>{hasCurrentActivityPackage(data.course_code) && <Link to={`/atlas?course=${data.course_code}${data.status === 'structured_validated' ? '' : '&edition=core'}`}>{data.status === 'structured_validated' ? '查看当前活动版本' : '查看完整核心范围'}</Link>}</details></div>
       <h1>{title}<span className="heading-note">知识图谱</span></h1><p>看见知识之间的联系，也看见每一步学习的依据。</p>
     </div><div className="scope-total"><div className="summary-title"><strong>{summary.verified}<span> / {summary.total}</span></strong><span>目标有达标证据</span><small>声明范围</small></div><Distribution summary={summary} /><div className="atlas-state-key" aria-label="目标状态图例">{stateOrder.map(state => <span key={state}><i className={`legend-dot ${state}`} />{stateLabels[state]} <b>{summary[state]}</b></span>)}</div></div></div>
     <section className="atlas-workspace" aria-label="课程知识图谱工作区">

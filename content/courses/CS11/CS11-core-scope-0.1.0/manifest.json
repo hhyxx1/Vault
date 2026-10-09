@@ -1,0 +1,620 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "bf129bd2-7f6a-48a6-952b-25adb952d028",
+  "course_version_id": "fe0da70d-a404-59c7-91f3-9e1605e5aea9",
+  "course_code": "CS11",
+  "version": "CS11-core-scope-0.1.0",
+  "title": "编译原理",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "已确认本科核心建设范围。当前只开放结构导航，正文、实践与核验逐项建设；不表示整课已可学习或完成专业审校。",
+  "objectives": [
+    {
+      "id": "7eb9919c-e3df-54fe-a5e3-1233d3413cf7",
+      "code": "CS11-M01-O01",
+      "title": "区分编译阶段",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分编译阶段",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "488c77ef-0914-5444-abf7-fd9fc27c801f",
+      "code": "CS11-M01-O02",
+      "title": "定义源语言语义",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定义源语言语义",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "38ed0a91-c054-5a4e-87bc-9823159d2839",
+      "code": "CS11-M01-O03",
+      "title": "定位错误归属",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定位错误归属",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c89c40c7-12e2-5141-9028-9d630cbf8587",
+      "code": "CS11-M02-O01",
+      "title": "定义正则规则",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定义正则规则",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "7ee5a5e2-2b9c-5ddb-9868-7a4dd768b7cd",
+      "code": "CS11-M02-O02",
+      "title": "构造 NFA/DFA",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造 NFA/DFA",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "a36be0ce-ea09-5583-b591-740202dc730b",
+      "code": "CS11-M02-O03",
+      "title": "实现最长匹配",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现最长匹配",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f34b9937-c5ae-5369-a354-fac92e72e9ac",
+      "code": "CS11-M03-O01",
+      "title": "描述上下文无关文法",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "描述上下文无关文法",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e92ed69e-76fd-5e54-ac55-98cdab472945",
+      "code": "CS11-M03-O02",
+      "title": "识别二义性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "识别二义性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "42ffbc52-83c1-5fb7-a69a-e920c7f26486",
+      "code": "CS11-M03-O03",
+      "title": "处理优先级结合性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理优先级结合性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8a0501eb-8cce-5f5c-81f9-c6d14671fd57",
+      "code": "CS11-M04-O01",
+      "title": "计算 FIRST/FOLLOW",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "计算 FIRST/FOLLOW",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "99794d63-48c8-57ed-a2d3-a104741432ce",
+      "code": "CS11-M04-O02",
+      "title": "构造预测表",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造预测表",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ea50f46f-f651-5a10-8f7a-cf41126770b5",
+      "code": "CS11-M04-O03",
+      "title": "实现递归下降",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现递归下降",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0531c3f7-075b-527b-a0c7-632ba24897e9",
+      "code": "CS11-M05-O01",
+      "title": "推演移进归约",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演移进归约",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2e4cd27b-c0bd-5e26-bb05-11a7094e3255",
+      "code": "CS11-M05-O02",
+      "title": "构造 LR 项目",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造 LR 项目",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "329d290c-e281-54c8-a3dc-c1b5e42b741f",
+      "code": "CS11-M05-O03",
+      "title": "定位分析冲突",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定位分析冲突",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "88ae669a-49aa-5b5d-ba3f-5cef371fcd9c",
+      "code": "CS11-M06-O01",
+      "title": "维护符号表",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "维护符号表",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4850eb41-9014-55bb-8d1d-2f93c04ee613",
+      "code": "CS11-M06-O02",
+      "title": "处理作用域",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理作用域",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6eec278d-f2d8-529d-999c-495f9009df32",
+      "code": "CS11-M06-O03",
+      "title": "验证类型约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "验证类型约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0815ff27-5a92-5e23-94ea-e6426a2570ee",
+      "code": "CS11-M07-O01",
+      "title": "生成三地址码",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "生成三地址码",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f2474d9e-6925-59b5-80dd-c367e95e6972",
+      "code": "CS11-M07-O02",
+      "title": "构造控制流图",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造控制流图",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "66b4ca2b-6a4e-5aa5-9da5-19c17cd7aef3",
+      "code": "CS11-M07-O03",
+      "title": "保持表达式与控制语义",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "保持表达式与控制语义",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4bc66973-a56b-53c3-8007-3e5e2db2c825",
+      "code": "CS11-M08-O01",
+      "title": "执行常量传播",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "执行常量传播",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4f81cbd1-c8b7-56fd-b9ef-fffa5d2056e3",
+      "code": "CS11-M08-O02",
+      "title": "分析活跃变量",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分析活跃变量",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b5ef3749-9bbc-5436-b724-507d0baf780d",
+      "code": "CS11-M08-O03",
+      "title": "判断优化前提",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "判断优化前提",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5b75fce1-aaf2-5d5e-afe5-752318612bc6",
+      "code": "CS11-M09-O01",
+      "title": "分配临时存储",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "分配临时存储",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0f45c586-2852-574a-8bdd-188a6af59706",
+      "code": "CS11-M09-O02",
+      "title": "生成教学栈机指令",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "生成教学栈机指令",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "336911a5-ba17-5cde-ae20-cd693dd18e56",
+      "code": "CS11-M09-O03",
+      "title": "定位端到端编译错误",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定位端到端编译错误",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS11-M01",
+      "title": "语言与编译流程",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS11-M01-O01-unit",
+          "title": "区分编译阶段",
+          "objective_refs": [
+            "CS11-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M01-O02-unit",
+          "title": "定义源语言语义",
+          "objective_refs": [
+            "CS11-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M01-O03-unit",
+          "title": "定位错误归属",
+          "objective_refs": [
+            "CS11-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS11-M02",
+      "title": "词法与自动机",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS11-M02-O01-unit",
+          "title": "定义正则规则",
+          "objective_refs": [
+            "CS11-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M02-O02-unit",
+          "title": "构造 NFA/DFA",
+          "objective_refs": [
+            "CS11-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M02-O03-unit",
+          "title": "实现最长匹配",
+          "objective_refs": [
+            "CS11-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS11-M03",
+      "title": "文法与语言",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS11-M03-O01-unit",
+          "title": "描述上下文无关文法",
+          "objective_refs": [
+            "CS11-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M03-O02-unit",
+          "title": "识别二义性",
+          "objective_refs": [
+            "CS11-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M03-O03-unit",
+          "title": "处理优先级结合性",
+          "objective_refs": [
+            "CS11-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS11-M04",
+      "title": "自顶向下分析",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS11-M04-O01-unit",
+          "title": "计算 FIRST/FOLLOW",
+          "objective_refs": [
+            "CS11-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M04-O02-unit",
+          "title": "构造预测表",
+          "objective_refs": [
+            "CS11-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M04-O03-unit",
+          "title": "实现递归下降",
+          "objective_refs": [
+            "CS11-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS11-M05",
+      "title": "自底向上分析",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS11-M05-O01-unit",
+          "title": "推演移进归约",
+          "objective_refs": [
+            "CS11-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M05-O02-unit",
+          "title": "构造 LR 项目",
+          "objective_refs": [
+            "CS11-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M05-O03-unit",
+          "title": "定位分析冲突",
+          "objective_refs": [
+            "CS11-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS11-M06",
+      "title": "语义与类型",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS11-M06-O01-unit",
+          "title": "维护符号表",
+          "objective_refs": [
+            "CS11-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M06-O02-unit",
+          "title": "处理作用域",
+          "objective_refs": [
+            "CS11-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M06-O03-unit",
+          "title": "验证类型约束",
+          "objective_refs": [
+            "CS11-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS11-M07",
+      "title": "中间表示",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS11-M07-O01-unit",
+          "title": "生成三地址码",
+          "objective_refs": [
+            "CS11-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M07-O02-unit",
+          "title": "构造控制流图",
+          "objective_refs": [
+            "CS11-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M07-O03-unit",
+          "title": "保持表达式与控制语义",
+          "objective_refs": [
+            "CS11-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS11-M08",
+      "title": "优化",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS11-M08-O01-unit",
+          "title": "执行常量传播",
+          "objective_refs": [
+            "CS11-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M08-O02-unit",
+          "title": "分析活跃变量",
+          "objective_refs": [
+            "CS11-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M08-O03-unit",
+          "title": "判断优化前提",
+          "objective_refs": [
+            "CS11-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS11-M09",
+      "title": "代码生成与综合",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS11-M09-O01-unit",
+          "title": "分配临时存储",
+          "objective_refs": [
+            "CS11-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M09-O02-unit",
+          "title": "生成教学栈机指令",
+          "objective_refs": [
+            "CS11-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS11-M09-O03-unit",
+          "title": "定位端到端编译错误",
+          "objective_refs": [
+            "CS11-M09-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": []
+}
