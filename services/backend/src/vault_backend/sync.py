@@ -420,6 +420,7 @@ async def apply_operation(session, space, principal, op):
         "personal_course_version",
         "personal_attempt",
         "personal_assist",
+        "course_attempt",
     } and op.payload == {"deleted": True}:
         return await remember_result(
             session,
@@ -449,6 +450,27 @@ async def apply_operation(session, space, principal, op):
             op,
             operation_result(op, "rejected", current_version, reason="OBJECT_DELETED"),
         )
+    if obj is not None and op.object_type == "course_attempt" and not deleted:
+        previous = obj.payload or {}
+        identity = (
+            "id", "spaceId", "artifactId", "objectiveId", "courseCode",
+            "activityVersion", "createdAt",
+        )
+        if (
+            previous.get("result") is not None
+            or any(previous.get(key) != op.payload.get(key) for key in identity)
+            or (
+                previous.get("submittedAt") is not None
+                and any(
+                    previous.get(key) != op.payload.get(key)
+                    for key in ("rows", "explanation", "submittedAt")
+                )
+            )
+        ):
+            return await remember_result(
+                session, space.id, op,
+                operation_result(op, "rejected", current_version, reason="COURSE_ATTEMPT_LOCKED"),
+            )
     if int(op.base_version) != current_version:
         if obj is None:
             return operation_result(op, "dependency_pending", reason="BASE_OBJECT_NOT_SYNCED")
@@ -678,7 +700,7 @@ async def read_changes(
                     deleted=row.deleted,
                     payload=row.payload,
                     payload_hash=row.payload_hash.hex(),
-                    requires_review=row.object_type == "evidence",
+                    requires_review=row.object_type in {"evidence", "course_attempt"},
                 )
                 for row in selected
             ],

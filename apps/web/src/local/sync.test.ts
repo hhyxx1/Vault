@@ -1,13 +1,14 @@
 import 'fake-indexeddb/auto'
 import Dexie from 'dexie'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { activateSpace, confirmPersonalCourseScope, LearningDatabase, loadDraft, openLocalSpace, saveDraft, saveRevision, recordEvidence, recordPersonalAssist, recordPersonalAttempt, savePersonalCourse, syncKey } from './database'
+import { activateSpace, confirmPersonalCourseScope, LearningDatabase, loadDraft, openLocalSpace, saveDraft, saveRevision, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveCourseAttempt, savePersonalCourse, syncKey } from './database'
 import { claimSpace, prepareClaim, pullSpace, syncAccount, chooseRemoteConflict } from './sync'
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 import { canonicalHash, canonicalJson } from '../domain/integrity'
 import { currentTraceEvidence } from '../domain/learning'
 import type { Account } from '../api/accounts'
 import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
+import { logicObjectiveState, newLogicAttempt, type LogicResult } from '../domain/logic'
 const account: Account = { id: crypto.randomUUID(), email: 'a@example.test', display_name: 'A', account_type: 'student', teacher_verification_state: null }
 const otherAccount = { ...account, id: crypto.randomUUID(), email: 'b@example.test', display_name: 'B' }
 const databases: LearningDatabase[] = []
@@ -122,6 +123,30 @@ describe('account isolation and durable sync', () => {
     await pullSpace(space, { account, isCurrent: () => true, db: other })
     expect((await other.evidence.get([id, record.id]))?.trust).toBe('client_reported')
     expect(currentTraceEvidence(await other.evidence.toArray())).toBeUndefined()
+  })
+  it('keeps a local CS05 checker attempt while marking a new-device copy as a client report', async () => {
+    const { db, id, space, serverId } = await boundDb()
+    const draft = newLogicAttempt(id)
+    draft.rows = [
+      { implication: true, contrapositive: true, biconditional: true },
+      { implication: true, contrapositive: true, biconditional: false },
+      { implication: false, contrapositive: false, biconditional: false },
+      { implication: true, contrapositive: true, biconditional: true },
+    ]
+    const record = { ...draft, submittedAt: new Date().toISOString(), result: {
+      client_artifact_id: draft.artifactId, client_revision_id: draft.id,
+      mastery_asserted: false, truth_correct: true,
+    } as LogicResult }
+    await saveCourseAttempt(record, db)
+    const change = { object_type: 'course_attempt', object_id: record.id, version: '1', deleted: false, payload: record, payload_hash: await canonicalHash(record), provenance: 'client_reported', requires_review: true }
+    vi.stubGlobal('fetch', vi.fn(async () => json({ space_id: serverId, changes: [change], next_cursor: 'cursor', has_more: false })))
+    await pullSpace(space, { account, isCurrent: () => true, db })
+    expect((await db.courseAttempts.get([id, record.id]))?.resultTrust).toBeUndefined()
+    expect(logicObjectiveState(await db.courseAttempts.toArray())).toBe('partial')
+    const other = createDb(); await openLocalSpace(other); await other.spaces.put(space)
+    await pullSpace(space, { account, isCurrent: () => true, db: other })
+    expect((await other.courseAttempts.get([id, record.id]))?.resultTrust).toBe('client_reported')
+    expect(logicObjectiveState(await other.courseAttempts.toArray())).toBe('unknown')
   })
   it('uploads course, confirmed scope, attempt and assistant reply in dependency order', async () => {
     const { db, id, serverId, space } = await boundDb(); const now = new Date().toISOString(); const topicId = crypto.randomUUID()

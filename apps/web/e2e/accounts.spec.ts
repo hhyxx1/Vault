@@ -3,6 +3,7 @@ import { mkdir, readdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 test.use({ trace: 'off' })
 const password = 'Temporary-Test-Password-20261005'
+const appOrigin = `http://127.0.0.1:${process.env.VAULT_E2E_PORT ?? 5173}`
 async function capture(page: Page, name: string, mobile: boolean) {
   const directory = process.env.VAULT_E2E_CAPTURE_DIR
   if (!directory) return
@@ -87,13 +88,13 @@ test('real teacher and student accounts claim work, restore across devices, isol
   await page.goto('/teacher'); await expect(page.getByText('还没有保存的备课草稿。', { exact: true })).toBeVisible()
   await completedWork(page); await register(page, a, 'student', '学生 A'); await login(page, a); await confirmedSync(page)
   await capture(page, 'student-sync', isMobile)
-  await page.goto('/atlas'); await expect(page.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
-  const device: BrowserContext = await browser.newContext({ baseURL: 'http://127.0.0.1:5173', viewport: isMobile ? { width: 390, height: 844 } : { width: 1440, height: 900 }, isMobile, hasTouch: isMobile }); const second = await device.newPage()
+  await page.goto('/atlas'); await page.getByRole('button', { name: /栈与队列/ }).first().click(); await expect(page.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
+  const device: BrowserContext = await browser.newContext({ baseURL: appOrigin, viewport: isMobile ? { width: 390, height: 844 } : { width: 1440, height: 900 }, isMobile, hasTouch: isMobile }); const second = await device.newPage()
   try {
     await login(second, a); await confirmedSync(second); await selectRecoveredSpace(second)
     await second.goto('/evidence'); await expect(second.getByText('云端恢复的客户端记录 · 待复核', { exact: true })).toBeVisible()
     await capture(second, 'restored-evidence', isMobile)
-    await second.goto('/atlas'); await expect(second.locator('.objective-inspector .evidence-pill')).toHaveText('尚未有效评估')
+    await second.goto('/atlas'); await second.getByRole('button', { name: /栈与队列/ }).first().click(); await expect(second.locator('.objective-inspector .evidence-pill')).toHaveText('尚未有效评估')
     await second.goto('/learn/CS03-STACK-01'); await expect(second.getByLabel('把你的解释也留下来', { exact: false })).toHaveValue('账户 A 的真实推演；最后入栈者先取出，空栈出栈没有输出并标记下溢。')
     await page.goto('/learn/CS03-STACK-01')
     await second.getByLabel('把你的解释也留下来', { exact: false }).fill('另一设备的新解释，不能被旧屏幕的其他字段修改抹掉。')
@@ -148,7 +149,7 @@ test('real teacher and student accounts claim work, restore across devices, isol
   const spaces = page.locator('#record-space option'); expect(await spaces.count()).toBeGreaterThan(1)
   const oldSession = await browser.newContext({ storageState: await page.context().storageState() })
   try {
-    expect((await oldSession.request.get('http://127.0.0.1:5173/api/v1/auth/session')).status()).toBe(200)
+    expect((await oldSession.request.get(`${appOrigin}/api/v1/auth/session`)).status()).toBe(200)
     await page.goto('/account'); await page.getByRole('button', { name: '重置账号密码', exact: true }).click()
     await page.getByRole('button', { name: '申请密码重置', exact: false }).click()
     await page.getByLabel('密码重置码', { exact: true }).fill(await confirmationToken(a, 'reset_password'))
@@ -156,7 +157,7 @@ test('real teacher and student accounts claim work, restore across devices, isol
     await page.getByLabel('新密码', { exact: false }).fill(newPassword)
     await page.getByRole('button', { name: '确认重置密码', exact: false }).click()
     await expect(page.getByRole('button', { name: '登录并关联本机记录', exact: false })).toBeVisible()
-    expect((await oldSession.request.get('http://127.0.0.1:5173/api/v1/auth/session')).status()).toBe(401)
+    expect((await oldSession.request.get(`${appOrigin}/api/v1/auth/session`)).status()).toBe(401)
     await login(page, a, newPassword)
   } finally { await oldSession.close() }
   await page.goto('/local')

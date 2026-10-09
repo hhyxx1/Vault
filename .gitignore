@@ -49,3 +49,6 @@ Thumbs.db
 test-results/
 playwright-report/
 blob-report/
+.pytest-tmp*/
+.pg-test*/
+apps/web/capture-*.cjs

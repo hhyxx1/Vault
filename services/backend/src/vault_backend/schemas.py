@@ -19,7 +19,7 @@ class TraceStep(WriteModel):
 
 class LeaseRequest(WriteModel):
     nonce: str = Field(min_length=32, max_length=128)
-    course_code: Literal["CS03"] = "CS03"
+    course_code: Literal["CS03", "CS05"] = "CS03"
 
 
 class TraceSubmission(WriteModel):
@@ -30,6 +30,23 @@ class TraceSubmission(WriteModel):
     client_artifact_id: UUID
     client_revision_id: UUID
     trace: list[TraceStep] | None = Field(default=None, min_length=7, max_length=7)
+    explanation: str = Field(default="", max_length=4000)
+
+
+class TruthTableRow(WriteModel):
+    implication: StrictBool
+    contrapositive: StrictBool
+    biconditional: StrictBool
+
+
+class TruthTableSubmission(WriteModel):
+    kind: Literal["verify_truth_table"]
+    course_code: Literal["CS05"]
+    activity_version: Literal["CS05-LOGIC-01-TABLE@0.1.0"]
+    standard_version: Literal["propositional-table-v1"]
+    client_artifact_id: UUID
+    client_revision_id: UUID
+    rows: list[TruthTableRow] = Field(min_length=4, max_length=4)
     explanation: str = Field(default="", max_length=4000)
 
 

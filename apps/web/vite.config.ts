@@ -13,7 +13,10 @@ export default defineConfig({
       this.emitFile({ type: 'asset', fileName: 'sw.js', source: template.replace('__CACHE_NAME__', JSON.stringify(cacheName)).replace('__SHELL_ASSETS__', JSON.stringify(assets)) })
     },
   }],
-  server: { proxy: { '/api': { target: 'http://127.0.0.1:8000', changeOrigin: false } } },
+  server: {
+    allowedHosts: ['.frp-six.com'],
+    proxy: { '/api': { target: process.env.VAULT_API_PROXY_TARGET ?? 'http://127.0.0.1:8000', changeOrigin: false } },
+  },
   build: { target: 'es2022' },
   test: { environment: 'node', include: ['src/**/*.test.ts'] },
 })

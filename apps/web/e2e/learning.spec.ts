@@ -3,16 +3,6 @@ import { test, expect, type Page } from '@playwright/test'
 const tracePath = '/learn/CS03-STACK-01'
 const codePath = '/learn/CS03-STACK-02'
 const explanation = '后加入且未取出的元素先取出；空栈不改变并标记下溢。'
-async function graphPaintedPixels(page: Page) {
-  return page.locator('.graph-canvas canvas').evaluateAll(canvases => canvases.reduce((total, canvas) => {
-    const element = canvas as HTMLCanvasElement
-    const context = element.getContext('2d')
-    if (!context || element.width === 0 || element.height === 0) return total
-    const pixels = context.getImageData(0, 0, element.width, element.height).data
-    for (let index = 3; index < pixels.length; index += 4) if (pixels[index] > 0) total += 1
-    return total
-  }, 0))
-}
 async function openAndComplete(page: Page) {
   await page.goto(tracePath)
   await page.getByRole('button', { name: '确认目标，开始尝试' }).click()
@@ -43,51 +33,55 @@ test('catalog states its construction scope and narrow pages do not horizontally
   }
 })
 
-test('knowledge atlas keeps a unique-objective denominator across graph controls and offers the same objective in its text view', async ({ page }) => {
+test('knowledge atlas opens the three-column panorama and keeps a unique-objective denominator across graph controls', async ({ page }) => {
   await page.goto('/atlas?course=CS03')
-  const map = page.getByRole('img', { name: /课程知识图谱，2 个唯一目标/ })
-  await expect(map).toBeVisible()
-  await expect(map).toHaveAttribute('aria-label', /0 项有达标证据.*2 项尚未评估/)
-  const relationLegend = page.getByRole('group', { name: '关系类型图例' })
-  await expect(relationLegend.getByText('包含', { exact: true })).toBeVisible()
-  await expect(relationLegend.getByText('严格先修', { exact: true })).toBeVisible()
-  await expect(page.getByText(/连线标签标明/)).toHaveCount(0)
-  await expect.poll(() => graphPaintedPixels(page)).toBeGreaterThan(1000)
-  await expect(page.locator('.scope-total strong')).toContainText('0 / 2')
 
-  const initialPixels = await graphPaintedPixels(page)
-  await page.getByRole('button', { name: '放大图谱' }).click()
-  await expect.poll(() => graphPaintedPixels(page)).toBeGreaterThan(initialPixels)
-  const zoomedPixels = await graphPaintedPixels(page)
-  await page.getByRole('button', { name: '缩小图谱' }).click()
-  await expect.poll(() => graphPaintedPixels(page)).toBeLessThan(zoomedPixels)
-  await page.getByRole('button', { name: '适应画布' }).click()
-  await expect.poll(() => graphPaintedPixels(page)).toBeGreaterThan(1000)
+  // Default surface is the three-column course panorama; no graph is rendered yet.
+  await expect(page.locator('#canvas-title')).toHaveText('课程全景')
+  await expect(page.locator('.chapter-region')).toHaveCount(8)
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
+  await expect(page.locator('.panorama-stats h2')).toBeVisible()
 
-  await page.setViewportSize({ width: 390, height: 844 })
-  await expect.poll(() => graphPaintedPixels(page)).toBeGreaterThan(1000)
-  expect(await page.evaluate(() => {
-    const map = document.querySelector('.atlas-map')?.getBoundingClientRect()
-    const controls = document.querySelector('.graph-controls')?.getBoundingClientRect()
-    return !!map && !!controls && controls.left >= map.left - 1 && controls.right <= map.right + 1 && document.documentElement.scrollWidth <= innerWidth + 1
-  })).toBe(true)
+  // Enter a chapter to reveal the relation network.
+  await page.locator('.overview-grid').getByRole('button', { name: /栈与队列/ }).click()
+  await expect(page.locator('#canvas-title')).toHaveText('栈与队列')
+  const network = page.locator('.local-network')
+  await expect(network).toBeVisible()
+  await expect(network.locator('.selection-note')).toContainText('聚焦「栈及应用」')
 
-  const collapse = page.getByRole('button', { name: '折叠「栈：从变化过程理解后进先出」' })
-  await collapse.click()
-  await expect(page.getByRole('button', { name: '展开「栈：从变化过程理解后进先出」' })).toHaveAttribute('aria-expanded', 'false')
-  await expect(map).toHaveAttribute('aria-label', /2 个唯一目标/)
-  await page.getByRole('button', { name: '展开「栈：从变化过程理解后进先出」' }).click()
-  await expect(page.getByRole('button', { name: '折叠「栈：从变化过程理解后进先出」' })).toHaveAttribute('aria-expanded', 'true')
+  // Three columns around the selected objective; the denominator is unchanged.
+  const columns = network.locator('.network-column')
+  await expect(columns).toHaveCount(3)
+  await expect(columns.nth(0).locator('h3')).toHaveText('先修准备')
+  await expect(columns.nth(1).locator('h3')).toHaveText('当前学习目标')
+  await expect(columns.nth(2).locator('h3')).toHaveText('同单元目标与相关应用')
+  await expect(network.locator('.network-node')).toHaveCount(3)
+  // The prerequisite belongs to another chapter; the same-unit goal sits right.
+  await expect(columns.nth(0).locator('.network-node')).toContainText('线性表')
+  await expect(columns.nth(0).locator('.outside')).toContainText('跨章关系')
+  await expect(columns.nth(1).locator('.network-node[aria-pressed=true]')).toContainText('后进先出')
+  await expect(columns.nth(2).locator('.network-node')).toContainText('括号匹配')
+  await expect(network.locator('.focus-relation')).toHaveCount(2)
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
 
-  const prerequisiteToggle = page.getByRole('button', { name: '隐藏先修关系' })
-  await expect(prerequisiteToggle).toHaveAttribute('aria-pressed', 'true')
-  await prerequisiteToggle.click()
-  await expect(page.getByRole('button', { name: '显示先修关系' })).toHaveAttribute('aria-pressed', 'false')
-  await expect(map).toHaveAttribute('aria-label', /2 个唯一目标/)
+  // Relation kind filters change only adjacency, never the denominator.
+  const prereq = network.getByRole('button', { name: '严格先修' })
+  await expect(prereq).toHaveAttribute('aria-pressed', 'true')
+  await network.getByRole('button', { name: '后续应用' }).click()
+  await expect(network.getByRole('button', { name: '后续应用' })).toHaveAttribute('aria-pressed', 'true')
+  await prereq.click()
+  await expect(prereq).toHaveAttribute('aria-pressed', 'false')
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
+  await prereq.click()
 
-  await page.getByRole('button', { name: /用栈设计括号匹配方法/ }).click()
+  // Select the same-unit goal; the inspector follows it.
+  await columns.nth(2).getByRole('button', { name: /括号匹配/ }).click()
   await expect(page.getByRole('heading', { name: '用栈设计括号匹配方法' })).toBeVisible()
-  await expect(page.getByRole('button', { name: /用栈设计括号匹配方法/ })).toHaveAttribute('aria-pressed', 'true')
+
+  // The chapter lists every goal once, including the queue unit.
+  const otherGoals = network.locator('.other-goals')
+  await otherGoals.locator('summary').click()
+  await expect(otherGoals.locator('.goal-pick')).toHaveCount(4)
 })
 
 test('flushes edits before an immediate SPA departure and resumes the actual last objective', async ({ page }) => {
@@ -143,7 +137,9 @@ test('records requested self-study answers and preserves a real verification wit
   await page.reload()
   await expect(page.getByText('状态推演正确 · 目标仍待复核', { exact: true })).toBeVisible()
   await page.getByRole('link', { name: '知识图谱', exact: true }).click()
-  await expect(page.locator('.scope-total strong')).toContainText('0 / 2')
+  await expect(page.locator('#canvas-title')).toHaveText('课程全景')
+  await page.locator('.overview-grid').getByRole('button', { name: /栈与队列/ }).click()
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
   await expect(page.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
 })
 

@@ -651,7 +651,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt";
             /** Payload */
             payload: {
                 [key: string]: unknown;
@@ -790,7 +790,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt";
             /** Payload Hash */
             payload_hash: string;
             /**
@@ -880,7 +880,7 @@ export interface components {
              * Course Version
              * @constant
              */
-            course_version: "CS03-example-0.1.0";
+            course_version: "CS03-example-0.2.0";
             /**
              * Disclosure Accepted
              * @constant
@@ -933,9 +933,9 @@ export interface components {
             /**
              * Course Code
              * @default CS03
-             * @constant
+             * @enum {string}
              */
-            course_code: "CS03";
+            course_code: "CS03" | "CS05";
             /** Nonce */
             nonce: string;
         };
@@ -947,7 +947,7 @@ export interface components {
              */
             absolute_expires_at: string;
             /** Allowed Operations */
-            allowed_operations: ("verify_trace" | "learning_assist")[];
+            allowed_operations: ("verify_trace" | "verify_truth_table" | "learning_assist")[];
             /**
              * Created At
              * Format: date-time
@@ -970,6 +970,101 @@ export interface components {
             storage: "ephemeral_memory";
             /** Token */
             token: string;
+        };
+        /** LogicCriterion */
+        LogicCriterion: {
+            /**
+             * Id
+             * @enum {string}
+             */
+            id: "implication" | "contrapositive" | "biconditional" | "explanation" | "independent_transfer";
+            /** Reason */
+            reason: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "met" | "not_met" | "needs_review";
+        };
+        /** LogicVerificationResult */
+        LogicVerificationResult: {
+            /**
+             * Activity Id
+             * Format: uuid
+             */
+            activity_id: string;
+            /** Activity Version */
+            activity_version: string;
+            /**
+             * Activity Version Id
+             * Format: uuid
+             */
+            activity_version_id: string;
+            /** Artifact Hash */
+            artifact_hash: string;
+            /** Checker Version */
+            checker_version: string;
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            /**
+             * Course Code
+             * @constant
+             */
+            course_code: "CS05";
+            /**
+             * Course Id
+             * Format: uuid
+             */
+            course_id: string;
+            /** Course Version */
+            course_version: string;
+            /**
+             * Course Version Id
+             * Format: uuid
+             */
+            course_version_id: string;
+            /** Criteria */
+            criteria: components["schemas"]["LogicCriterion"][];
+            /**
+             * Mastery Asserted
+             * @constant
+             */
+            mastery_asserted: false;
+            /** Objective Ids */
+            objective_ids: string[];
+            /**
+             * Objective State
+             * @enum {string}
+             */
+            objective_state: "evidence_pending_review" | "practicing";
+            /**
+             * Provenance
+             * @constant
+             */
+            provenance: "server_deterministic_checker";
+            /** Rows */
+            rows: components["schemas"]["TruthTableFeedback"][];
+            /** Runtime */
+            runtime: string;
+            /** Standard Version */
+            standard_version: string;
+            /** Summary */
+            summary: string;
+            /** Truth Correct */
+            truth_correct: boolean;
+            /**
+             * Verification Id
+             * Format: uuid
+             */
+            verification_id: string;
         };
         /** LoginInput */
         LoginInput: {
@@ -1024,9 +1119,9 @@ export interface components {
             acknowledged: boolean;
             /**
              * Kind
-             * @constant
+             * @enum {string}
              */
-            kind: "verify_trace";
+            kind: "verify_trace" | "verify_truth_table";
             /**
              * Lease Id
              * Format: uuid
@@ -1037,7 +1132,8 @@ export interface components {
              * Format: uuid
              */
             operation_id: string;
-            result: components["schemas"]["VerificationResult"] | null;
+            /** Result */
+            result: components["schemas"]["VerificationResult"] | components["schemas"]["LogicVerificationResult"] | null;
             /** Revision */
             revision: string;
             /**
@@ -1060,7 +1156,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt") | "attachment";
             /**
              * Op Id
              * Format: uuid
@@ -1231,7 +1327,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt") | "attachment";
             /**
              * Op Id
              * Format: uuid
@@ -1298,9 +1394,8 @@ export interface components {
              */
             explanation: string;
             /**
-             * Kind
-             * @default verify_trace
-             * @constant
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
              */
             kind: "verify_trace";
             /**
@@ -1310,6 +1405,72 @@ export interface components {
             standard_version: "stack-trace-v1";
             /** Trace */
             trace?: components["schemas"]["TraceStep"][] | null;
+        };
+        /** TruthTableFeedback */
+        TruthTableFeedback: {
+            /** Correct */
+            correct: boolean;
+            /** Expected */
+            expected: {
+                [key: string]: boolean;
+            };
+            /** Index */
+            index: number;
+            /** Issues */
+            issues: ("implication" | "contrapositive" | "biconditional")[];
+            /** P */
+            p: boolean;
+            /** Q */
+            q: boolean;
+        };
+        /** TruthTableRow */
+        TruthTableRow: {
+            /** Biconditional */
+            biconditional: boolean;
+            /** Contrapositive */
+            contrapositive: boolean;
+            /** Implication */
+            implication: boolean;
+        };
+        /** TruthTableSubmission */
+        TruthTableSubmission: {
+            /**
+             * Activity Version
+             * @constant
+             */
+            activity_version: "CS05-LOGIC-01-TABLE@0.1.0";
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            /**
+             * Course Code
+             * @constant
+             */
+            course_code: "CS05";
+            /**
+             * Explanation
+             * @default
+             */
+            explanation: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "verify_truth_table";
+            /** Rows */
+            rows: components["schemas"]["TruthTableRow"][];
+            /**
+             * Standard Version
+             * @constant
+             */
+            standard_version: "propositional-table-v1";
         };
         /** ValidationError */
         ValidationError: {
@@ -1812,7 +1973,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TraceSubmission"];
+                "application/json": components["schemas"]["TraceSubmission"] | components["schemas"]["TruthTableSubmission"];
             };
         };
         responses: {

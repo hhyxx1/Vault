@@ -56,6 +56,14 @@ export type CourseMapProjection = {
   summary: ObjectiveSummary
 }
 
+export type CourseMapObjectiveNavigationEntry = {
+  nodeId: string
+  objectiveRef?: string
+  title: string
+  path: string[]
+  state: ObjectiveState
+}
+
 export const courseRelationLabels: Record<CourseRelationKind, string> = {
   contains: '包含',
   mandatory_prerequisite: '严格先修',
@@ -72,6 +80,17 @@ type CoursePackageLike = {
   title: string
   objectives: Array<{ id?: string; code?: string; title: string }>
   relations?: Array<{ from: string; to: string; kind: string; source?: string }>
+  outline?: CourseOutlineInput[]
+}
+
+type CourseOutlineInput = {
+  // Inputs come from authored JSON packages, where literal kinds widen to string;
+  // appendOutline validates that level 0 is a chapter and level 1 is a unit.
+  kind: string
+  id: string
+  title: string
+  objective_refs?: string[]
+  children?: CourseOutlineInput[]
 }
 
 const relationKinds = new Set<CourseRelationKind>([
@@ -90,21 +109,62 @@ export function courseMapFromPackage(course: CoursePackageLike): CourseMapDefini
   const rootNodeId = `course:${courseId}:${course.version}`
   const nodes: CourseMapNode[] = [{ id: rootNodeId, title: course.title, kind: 'course' }]
   const objectiveNodeByRef = new Map<string, CourseMapNode>()
+  const objectiveIds = new Set<string>()
 
   for (const objective of course.objectives) {
     const objectiveId = objective.id ?? objective.code
     const objectiveRef = objective.code ?? objectiveId
     if (!objectiveId || !objectiveRef || !objective.title) throw new Error('Each objective needs a stable ID, route reference, and title.')
+    if (objectiveIds.has(objectiveId)) throw new Error(`Duplicate course objective ID: ${objectiveId}`)
     if (objectiveNodeByRef.has(objectiveRef)) throw new Error(`Duplicate objective reference: ${objectiveRef}`)
+    if (objectiveNodeByRef.has(objectiveId)) throw new Error(`Duplicate course objective reference: ${objectiveId}`)
     const node: CourseMapNode = { id: `objective:${objectiveId}`, title: objective.title, kind: 'objective', objectiveId, objectiveRef }
     nodes.push(node)
+    objectiveIds.add(objectiveId)
     objectiveNodeByRef.set(objectiveRef, node)
     objectiveNodeByRef.set(objectiveId, node)
   }
 
-  const relations: CourseMapRelation[] = nodes.filter(node => node.kind === 'objective').map(node => ({
-    id: `contains:${rootNodeId}:${node.id}`, from: rootNodeId, to: node.id, kind: 'contains',
-  }))
+  const relations: CourseMapRelation[] = []
+  if (course.outline === undefined) {
+    relations.push(...nodes.filter(node => node.kind === 'objective').map(node => ({
+      id: `contains:${rootNodeId}:${node.id}`, from: rootNodeId, to: node.id, kind: 'contains' as const,
+    })))
+  } else {
+    const placedObjectives = new Set<string>()
+    const outlineNodeIds = new Set<string>()
+    const appendOutline = (entry: CourseOutlineInput, parentId: string, parentKind: CourseMapNodeKind, level: number) => {
+      if (!entry.id?.trim() || !entry.title?.trim()) throw new Error('Course outline nodes require stable IDs and titles.')
+      if (outlineNodeIds.has(entry.id)) throw new Error(`Course outline has a duplicate structure ID: ${entry.id}`)
+      if ((level === 0 && entry.kind !== 'chapter') || (level === 1 && (parentKind !== 'chapter' || entry.kind !== 'unit')) || level > 1) {
+        throw new Error('Course outline may contain chapters and units only, with units directly inside chapters.')
+      }
+      if ((entry.children?.length ?? 0) > 0 && entry.kind !== 'chapter') throw new Error('Course outline units cannot contain other structure nodes.')
+      outlineNodeIds.add(entry.id)
+      const nodeId = `${entry.kind}:${entry.id}`
+      nodes.push({ id: nodeId, title: entry.title, kind: entry.kind as CourseMapNodeKind })
+      relations.push({ id: `contains:${parentId}:${nodeId}`, from: parentId, to: nodeId, kind: 'contains' })
+
+      const localObjectives = new Set<string>()
+      for (const ref of entry.objective_refs ?? []) {
+        const objective = objectiveNodeByRef.get(ref)
+        if (!objective) throw new Error(`Course outline references an unknown objective: ${ref}`)
+        if (localObjectives.has(objective.objectiveId!)) throw new Error(`Course outline repeats an objective in one placement: ${ref}`)
+        localObjectives.add(objective.objectiveId!)
+        placedObjectives.add(objective.objectiveId!)
+        relations.push({ id: `contains:${nodeId}:${objective.id}`, from: nodeId, to: objective.id, kind: 'contains' })
+      }
+
+      for (const child of entry.children ?? []) appendOutline(child, nodeId, entry.kind as CourseMapNodeKind, level + 1)
+      if (!(entry.objective_refs?.length) && !(entry.children?.length)) throw new Error(`Course outline contains an empty ${entry.kind}: ${entry.id}`)
+    }
+
+    for (const chapter of course.outline) appendOutline(chapter, rootNodeId, 'course', 0)
+    const unplaced = [...objectiveNodeByRef.values()]
+      .filter((node, index, all) => all.findIndex(candidate => candidate.id === node.id) === index)
+      .filter(node => !placedObjectives.has(node.objectiveId!))
+    if (unplaced.length) throw new Error(`Course outline must place every declared objective at least once; missing: ${unplaced.map(node => node.objectiveRef).join(', ')}`)
+  }
   for (const relation of course.relations ?? []) {
     const from = objectiveNodeByRef.get(relation.from)
     const to = objectiveNodeByRef.get(relation.to)
@@ -118,6 +178,21 @@ export function courseMapFromPackage(course: CoursePackageLike): CourseMapDefini
     })
   }
 
+  const prerequisiteChildren = new Map<string, string[]>()
+  for (const relation of relations.filter(item => item.kind === 'mandatory_prerequisite')) {
+    prerequisiteChildren.set(relation.from, [...(prerequisiteChildren.get(relation.from) ?? []), relation.to])
+  }
+  const complete = new Set<string>()
+  const active = new Set<string>()
+  const visit = (id: string) => {
+    if (active.has(id)) throw new Error('Strict prerequisite relations must be acyclic.')
+    if (complete.has(id)) return
+    active.add(id)
+    for (const child of prerequisiteChildren.get(id) ?? []) visit(child)
+    active.delete(id)
+    complete.add(id)
+  }
+  for (const id of prerequisiteChildren.keys()) visit(id)
   return { courseId, version: course.version, rootNodeId, nodes, relations }
 }
 
@@ -146,6 +221,52 @@ export function summarizeObjectiveStates(objectiveIds: Iterable<string>, states:
   const summary: ObjectiveSummary = { total: ids.length, verified: 0, partial: 0, consolidate: 0, unknown: 0 }
   for (const id of ids) summary[states.get(id) ?? 'unknown'] += 1
   return summary
+}
+
+/** Provide a keyboard-readable target list that preserves declared chapter/unit context. */
+export function courseMapObjectiveNavigation(
+  definition: CourseMapDefinition,
+  states: ReadonlyMap<string, ObjectiveState>,
+): CourseMapObjectiveNavigationEntry[] {
+  const nodeById = new Map(definition.nodes.map(node => [node.id, node]))
+  const children = new Map<string, string[]>()
+  for (const relation of definition.relations) {
+    if (relation.kind === 'contains' && nodeById.has(relation.from) && nodeById.has(relation.to)) {
+      children.set(relation.from, [...(children.get(relation.from) ?? []), relation.to])
+    }
+  }
+
+  const entries: CourseMapObjectiveNavigationEntry[] = []
+  const visited = new Set<string>()
+  const walk = (parentId: string, path: string[]) => {
+    for (const childId of children.get(parentId) ?? []) {
+      if (visited.has(childId)) continue
+      visited.add(childId)
+      const node = nodeById.get(childId)!
+      if (node.kind === 'objective') {
+        if (node.objectiveId) entries.push({
+          nodeId: node.id,
+          objectiveRef: node.objectiveRef,
+          title: node.title,
+          path,
+          state: states.get(node.objectiveId) ?? 'unknown',
+        })
+      } else {
+        walk(childId, [...path, node.title])
+      }
+    }
+  }
+  walk(definition.rootNodeId, [])
+  for (const node of definition.nodes) {
+    if (node.kind === 'objective' && node.objectiveId && !visited.has(node.id)) entries.push({
+      nodeId: node.id,
+      objectiveRef: node.objectiveRef,
+      title: node.title,
+      path: [],
+      state: states.get(node.objectiveId) ?? 'unknown',
+    })
+  }
+  return entries
 }
 
 export function projectCourseMap(

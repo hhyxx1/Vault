@@ -38,17 +38,17 @@
       "id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
       "code": "CS03",
       "title": "数据结构",
-      "version_id": "0648205a-6d3f-4c7c-b889-5b79c60bf0d4",
-      "version": "0.1.0",
+      "version_id": "c47c1551-76d5-4b80-aeae-33cd253d8ca0",
+      "version": "0.2.0",
       "origin_kind": "platform_default",
       "content_state": "engineering_example",
       "full_course_available": false,
-      "scope_note": "当前开放栈操作工程样例；整门课程内容仍在建设。",
+      "scope_note": "已整理课程范围大纲（8 章 32 目标），其中栈推演具备确定性核验；整门课程内容仍在建设。",
       "activities_scope": "栈队列、树与图的实现、执行过程和错误分析",
       "verification_scope": "行为测试、状态轨迹、边界输入、独立应用",
       "environment_boundary": "动态演示用于辅助理解，不能代替测试",
       "count_scope": "engineering_example",
-      "objective_count": 2
+      "objective_count": 32
     },
     {
       "id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
@@ -73,14 +73,14 @@
       "version_id": "f8618a9b-72fc-4e0d-9d74-7fbdfd3ac79b",
       "version": "0.1.0",
       "origin_kind": "platform_default",
-      "content_state": "planned",
+      "content_state": "engineering_example",
       "full_course_available": false,
-      "scope_note": "完整课程内容建设中。",
+      "scope_note": "仅开放两个命题逻辑目标的局部工程样例；完整课程内容建设中。",
       "activities_scope": "命题逻辑、集合关系、图论和证明",
       "verification_scope": "真值表、可复核推导、反例、已核对标准，必要时人工复核",
       "environment_boundary": "自然语言证明不能仅凭模型一句“正确”通过",
-      "count_scope": "not_available",
-      "objective_count": null
+      "count_scope": "engineering_example",
+      "objective_count": 2
     },
     {
       "id": "bb42adbc-30f6-4548-8de7-6819e9e6b6b1",

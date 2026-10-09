@@ -10,7 +10,7 @@ describe('learning evidence projection', () => {
     expect(evidenceState(result)).toBe('partial')
     result.criteria.forEach(criterion => { criterion.status = 'met' })
     expect(evidenceState(result)).toBe('partial')
-    expect(objectiveSummary([])).toEqual({ total: 2, verified: 0, partial: 0, consolidate: 0, unknown: 2 })
+    expect(objectiveSummary([])).toEqual({ total: 32, verified: 0, partial: 0, consolidate: 0, unknown: 32 })
   })
   it('uses newest submitted revision rather than a delayed old response', () => {
     const old = sampleEvidence('1'); old.createdAt = '2026-10-03T12:00:00Z'

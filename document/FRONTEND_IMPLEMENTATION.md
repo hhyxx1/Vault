@@ -153,6 +153,8 @@ Motion 不负责改变学习结果或显示假进度。运行排队、解析、�
 
 ## 当前实施记录
 
+2026-10-08：默认课程图谱已按用户指定设计稿采用共享 HTML 节点＋SVG 关系视图，提供全景、目录、搜索、局部关系、真实证据详情及 URL 恢复。此取舍用于语义按钮与可读文字、稳定布局、来源检查；个人课程的既有 Cytoscape 图谱继续保留。实际覆盖与验收边界见 [图谱实施记录](FRONTEND_ATLAS_IMPLEMENTATION.md)。
+
 2026 年 10 月 3 日建立 React／Router Data Mode、原创 CSS、Cytoscape、CodeMirror、Dexie；其他选定工具按实际功能需要逐步集成。公开课程目录／版本／操作序列由 `content/courses/` 同源派生，访客核验使用生成类型，当前不实现账号数据归属或远端缓存伪装。
 
 本机 Node24.19.0 的 typecheck、13项单元测试、24项桌面／手机真实浏览器测试与 build 通过。保存版本不回写编辑稿；迟到结果和帮助记录绑定提交快照；当前活动的 hash／版本／来源验证后才落本地事务。应用的账号、上传／资料、Agent、同步和执行功能仍未开放。可复现命令与品质证据见 [开发运行说明](DEVELOPMENT_GUIDE.md)、[技术验证](TECHNICAL_VALIDATION.md)、[八维记录](FRONTEND_QUALITY_REVIEW.md)。

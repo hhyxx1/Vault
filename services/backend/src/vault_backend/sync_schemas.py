@@ -10,7 +10,14 @@ from uuid import UUID
 
 from pydantic import ConfigDict, Field, StrictBool, StrictInt, field_validator, model_validator
 
-from vault_backend.responses import Criterion, TraceFeedback, VerificationResult
+from vault_backend.responses import (
+    Criterion,
+    LogicCriterion,
+    LogicVerificationResult,
+    TraceFeedback,
+    TruthTableFeedback,
+    VerificationResult,
+)
 from vault_backend.schemas import TraceStep, WriteModel
 
 Hash = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
@@ -29,6 +36,7 @@ ObjectType = Literal[
     "personal_course_version",
     "personal_attempt",
     "personal_assist",
+    "course_attempt",
 ]
 
 
@@ -159,6 +167,74 @@ class EvidencePayload(LocalPayload):
     createdAt: Timestamp
     result: ImportedResult
     helpEventIds: list[UUID] = Field(max_length=200)
+
+
+class LocalTruthCell(WriteModel):
+    implication: StrictBool | None
+    contrapositive: StrictBool | None
+    biconditional: StrictBool | None
+
+
+class ImportedTruthTableFeedback(TruthTableFeedback):
+    model_config = ConfigDict(extra="forbid")
+    index: Annotated[StrictInt, Field(ge=1, le=4)]
+    p: StrictBool
+    q: StrictBool
+    correct: StrictBool
+    issues: list[Literal["implication", "contrapositive", "biconditional"]] = Field(max_length=3)
+
+
+class ImportedLogicCriterion(LogicCriterion):
+    model_config = ConfigDict(extra="forbid")
+    reason: str = Field(max_length=2000)
+
+
+class ImportedLogicResult(LogicVerificationResult):
+    model_config = ConfigDict(extra="forbid")
+    objective_ids: list[UUID] = Field(max_length=10)
+    course_version: str = Field(max_length=100)
+    activity_version: str = Field(max_length=100)
+    standard_version: str = Field(max_length=100)
+    checker_version: str = Field(max_length=100)
+    runtime: str = Field(max_length=100)
+    summary: str = Field(max_length=4000)
+    rows: list[ImportedTruthTableFeedback] = Field(min_length=4, max_length=4)
+    criteria: list[ImportedLogicCriterion] = Field(min_length=5, max_length=5)
+    mastery_asserted: Literal[False]
+
+    @field_validator("mastery_asserted", mode="before")
+    @classmethod
+    def no_logic_mastery_claim(cls, value):
+        if value is not False:
+            raise ValueError("historical checker cannot assert mastery")
+        return value
+
+
+class CourseAttemptPayload(LocalPayload):
+    id: UUID
+    artifactId: UUID
+    objectiveId: Literal["CS05-LOGIC-01"]
+    courseCode: Literal["CS05"]
+    activityVersion: Literal["CS05-LOGIC-01-TABLE@0.1.0"]
+    rows: list[LocalTruthCell] = Field(min_length=4, max_length=4)
+    explanation: str = Field(max_length=4000)
+    result: ImportedLogicResult | None = None
+    createdAt: Timestamp
+    updatedAt: Timestamp
+    submittedAt: Timestamp | None = None
+
+    @model_validator(mode="after")
+    def result_matches_attempt(self):
+        if self.result is not None and (
+            self.submittedAt is None
+            or self.result.client_artifact_id != self.artifactId
+            or self.result.client_revision_id != self.id
+            or self.result.course_code != self.courseCode
+            or self.result.activity_version != self.activityVersion
+            or any(value is None for row in self.rows for value in row.model_dump().values())
+        ):
+            raise ValueError("checker result does not match the submitted attempt")
+        return self
 
 
 class TeacherDraftPayload(LocalPayload):
@@ -318,6 +394,7 @@ PAYLOAD_MODELS = {
     "personal_course_version": PersonalCourseVersionPayload,
     "personal_attempt": PersonalAttemptPayload,
     "personal_assist": PersonalAssistPayload,
+    "course_attempt": CourseAttemptPayload,
 }
 
 

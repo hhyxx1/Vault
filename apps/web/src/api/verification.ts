@@ -1,6 +1,7 @@
 import { COURSE_VERSION, STANDARD_VERSION, TRACE_ACTIVITY, TRACE_OBJECTIVE, type ArtifactRevision, type TracePrediction, type VerificationResult } from '../domain/learning'
 import { artifactContent, canonicalHash, traceSubmission } from '../domain/integrity'
 import type { components } from '../../../../packages/contracts/api.generated'
+import { completeLogicRows, LOGIC_ACTIVITY, LOGIC_STANDARD, LOGIC_VERSION, type CourseAttempt, type LogicResult } from '../domain/logic'
 
 type Lease = components['schemas']['LeaseResponse']
 type Operation = components['schemas']['OperationResponse'] & { result: VerificationResult }
@@ -116,5 +117,27 @@ export async function verifyTrace(revision: ArtifactRevision, trace: TracePredic
         method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` }, body: JSON.stringify({ expected_revision: operation.revision }),
       }))
     },
+  }
+}
+
+export async function verifyTruthTable(attempt: CourseAttempt, signal?: AbortSignal): Promise<{ result: LogicResult; acknowledge: () => Promise<void> }> {
+  const rows = completeLogicRows(attempt.rows)
+  const expectedHash = await canonicalHash({ kind: 'truth_table_with_explanation', rows, explanation: attempt.explanation })
+  const current = await activeLease(signal)
+  signal?.throwIfAborted()
+  const response = await fetch(`/api/v1/guest-leases/${current.lease_id}/operations`, {
+    method: 'POST', credentials: 'same-origin', signal,
+    headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}`, 'Idempotency-Key': attempt.id },
+    body: JSON.stringify({ kind: 'verify_truth_table', course_code: 'CS05', activity_version: LOGIC_ACTIVITY, standard_version: LOGIC_STANDARD, client_artifact_id: attempt.artifactId, client_revision_id: attempt.id, rows, explanation: attempt.explanation }),
+  })
+  if (response.status === 401 || response.status === 410) lease = null
+  const operation = await readJson<{ operation_id: string; revision: string; kind: string; result: LogicResult | null }>(response)
+  const result = operation.result
+  if (operation.kind !== 'verify_truth_table' || !result || result.artifact_hash !== expectedHash || result.provenance !== 'server_deterministic_checker' || result.course_code !== 'CS05' || result.course_version !== LOGIC_VERSION || result.standard_version !== LOGIC_STANDARD || result.activity_version !== LOGIC_ACTIVITY || result.client_revision_id !== attempt.id || result.client_artifact_id !== attempt.artifactId || result.mastery_asserted !== false || !Array.isArray(result.criteria) || result.criteria.length !== 5 || result.criteria.some(criterion => !['met', 'not_met', 'needs_review'].includes(criterion.status))) {
+    throw new Error('真值表核验结果的来源或作品版本不一致，已停止写入学习证据。')
+  }
+  return {
+    result,
+    acknowledge: async () => { await readJson(await fetch(`/api/v1/guest-leases/${current.lease_id}/operations/${operation.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` }, body: JSON.stringify({ expected_revision: operation.revision }) })) },
   }
 }

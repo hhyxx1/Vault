@@ -1,15 +1,29 @@
 import 'fake-indexeddb/auto'
 import { afterEach, describe, expect, it } from 'vitest'
-import { LearningDatabase, activateSpace, clearGuestSpace, confirmPersonalCourseScope, openLocalSpace, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveDraft, savePersonalCourse, saveRevision } from './database'
+import { LearningDatabase, activateSpace, clearGuestSpace, confirmPersonalCourseScope, openLocalSpace, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveCourseAttempt, saveDraft, savePersonalCourse, saveRevision } from './database'
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 import { canonicalJson } from '../domain/integrity'
 import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
+import { LOGIC_OBJECTIVE, newLogicAttempt } from '../domain/logic'
 
 const databases: LearningDatabase[] = []
 afterEach(async () => { await Promise.all(databases.splice(0).map(db => db.delete())) })
 function createDatabase() { const db = new LearningDatabase(`unit-test-${crypto.randomUUID()}`); databases.push(db); return db }
 
 describe('local durable repository', () => {
+  it('saves CS05 work and resume position, then freezes submitted cells and clears guest records', async () => {
+    const db = createDatabase(); const spaceId = await openLocalSpace(db)
+    const draft = newLogicAttempt(spaceId)
+    draft.rows[0].implication = false
+    await saveCourseAttempt(draft, db)
+    expect((await db.courseAttempts.get([spaceId, draft.id]))?.rows[0].implication).toBe(false)
+    expect((await db.meta.get(`position:${spaceId}`))?.value).toBe(LOGIC_OBJECTIVE)
+    const submitted = { ...draft, submittedAt: new Date().toISOString() }
+    await saveCourseAttempt(submitted, db)
+    await expect(saveCourseAttempt({ ...submitted, explanation: '事后改写' }, db)).rejects.toThrow('不可改写')
+    await clearGuestSpace(spaceId, db)
+    expect(await db.courseAttempts.where('spaceId').equals(spaceId).count()).toBe(0)
+  })
   it('reuses the same unbound space and atomically keeps recovery position with work', async () => {
     const db = createDatabase(); const spaceId = await openLocalSpace(db)
     expect(await openLocalSpace(db)).toBe(spaceId)

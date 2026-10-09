@@ -9,6 +9,7 @@ from fastapi import FastAPI, Header, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
+from pydantic import Field
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from vault_backend import __version__
@@ -29,7 +30,13 @@ from vault_backend.learning_assist_schemas import (
 )
 from vault_backend.model_profiles import PublicModelCatalog
 from vault_backend.responses import CourseCatalog, LeaseResponse, NonceResponse, OperationResponse
-from vault_backend.schemas import LeaseRequest, OperationInput, RevisionCommand, TraceSubmission
+from vault_backend.schemas import (
+    LeaseRequest,
+    OperationInput,
+    RevisionCommand,
+    TraceSubmission,
+    TruthTableSubmission,
+)
 from vault_backend.sync import router as sync_router
 
 
@@ -69,7 +76,9 @@ def create_app(
 ) -> FastAPI:
     settings = settings or Settings()
     content = CourseRepository(settings.course_catalog_path)
-    store = store or GuestLeaseStore(settings, trace_context=content.trace_context)
+    store = store or GuestLeaseStore(
+        settings, trace_context=content.trace_context, logic_context=content.logic_context
+    )
     if settings.agent_enabled and assist_runner is None:
         assist_runner = LearningAssistWorkflow(ModelRouter.from_settings(settings))
     engine: AsyncEngine | None = (
@@ -186,6 +195,9 @@ def create_app(
                 "database": "ready" if ready else "unavailable",
                 "features": {
                     "guest_trace": settings.guest_enabled and content.trace_context is not None,
+                    "guest_truth_table": (
+                        settings.guest_enabled and content.logic_context is not None
+                    ),
                     "accounts": ready and settings.auth_enabled,
                     "sync": ready and settings.auth_enabled,
                     "agent": settings.agent_enabled and assist_runner is not None,
@@ -241,7 +253,7 @@ def create_app(
     async def create_operation(
         request: Request,
         lease_id: UUID,
-        body: TraceSubmission,
+        body: Annotated[TraceSubmission | TruthTableSubmission, Field(discriminator="kind")],
         idempotency_key: Annotated[UUID, Header()],
         authorization: Annotated[str | None, Header()] = None,
     ):

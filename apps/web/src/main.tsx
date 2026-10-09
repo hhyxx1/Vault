@@ -1,25 +1,31 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, useParams } from 'react-router-dom'
 import { AppShell, AppError } from './ui/AppShell'
 import { LocalProvider } from './local/LocalProvider'
 import { AuthProvider } from './local/AuthProvider'
 import { Landing } from './ui/Landing'
 import './styles.css'
+import './frontend-refresh.css'
 
 const Atlas = React.lazy(() => import('./ui/Atlas'))
 const Workspace = React.lazy(() => import('./ui/Workspace'))
+const LogicWorkspace = React.lazy(() => import('./ui/LogicWorkspace'))
 const Evidence = React.lazy(() => import('./ui/Evidence'))
 const LocalSpace = React.lazy(() => import('./ui/LocalSpace'))
 const Teacher = React.lazy(() => import('./ui/Teacher'))
 const Account = React.lazy(() => import('./ui/Account'))
 const PersonalCourses = React.lazy(() => import('./ui/PersonalCourses'))
 const pending = (child: React.ReactNode) => <Suspense fallback={<div className="page-loading" role="status">正在打开学习空间…</div>}>{child}</Suspense>
+function LearningRoute() {
+  const { objectiveId } = useParams()
+  return pending(objectiveId?.startsWith('CS05-') ? <LogicWorkspace /> : <Workspace />)
+}
 const router = createBrowserRouter([
   { element: <AuthProvider><LocalProvider><AppShell /></LocalProvider></AuthProvider>, errorElement: <AppError />, children: [
     { path: '/', element: <Landing /> },
     { path: '/atlas', element: pending(<Atlas />) },
-    { path: '/learn/:objectiveId', element: pending(<Workspace />) },
+    { path: '/learn/:objectiveId', element: <LearningRoute /> },
     { path: '/evidence', element: pending(<Evidence />) },
     { path: '/local', element: pending(<LocalSpace />) },
     { path: '/teacher', element: pending(<Teacher />) },

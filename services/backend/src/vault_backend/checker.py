@@ -3,7 +3,7 @@ import json
 import platform
 from typing import Any
 
-from vault_backend.schemas import TraceSubmission
+from vault_backend.schemas import TraceSubmission, TruthTableSubmission
 
 OPERATIONS: tuple[tuple[str, int | None], ...] = (
     ("push", 8),
@@ -15,6 +15,9 @@ OPERATIONS: tuple[tuple[str, int | None], ...] = (
     ("pop", None),
 )
 CHECKER_VERSION = "stack-trace-checker@0.1.0"
+STACK_COURSE_VERSION = "CS03-example-0.2.0"
+LOGIC_CHECKER_VERSION = "propositional-table-checker@0.1.0"
+LOGIC_ASSIGNMENTS = ((False, False), (False, True), (True, False), (True, True))
 
 
 def canonical_hash(payload: dict[str, Any]) -> str:
@@ -54,7 +57,7 @@ def verify_trace(submission: TraceSubmission) -> dict[str, Any]:
     return {
         "verification_id": None,  # Assigned only when stored in the short-lived lease.
         "course_code": submission.course_code,
-        "course_version": "CS03-example-0.1.0",
+        "course_version": STACK_COURSE_VERSION,
         "activity_version": submission.activity_version,
         "standard_version": submission.standard_version,
         "client_artifact_id": str(submission.client_artifact_id),
@@ -98,4 +101,82 @@ def verify_trace(submission: TraceSubmission) -> dict[str, Any]:
         "summary": "状态追踪通过；解释和迁移应用仍待核验。"
         if correct
         else "已定位不一致的步骤，修改作品后可以再次核验。",
+    }
+
+
+def verify_truth_table(submission: TruthTableSubmission) -> dict[str, Any]:
+    """Compare each student cell with truth-functional semantics; never evaluate input code."""
+    rows: list[dict[str, Any]] = []
+    for index, ((p, q), prediction) in enumerate(
+        zip(LOGIC_ASSIGNMENTS, submission.rows, strict=True)
+    ):
+        expected = {
+            "implication": (not p) or q,
+            "contrapositive": q or (not p),
+            "biconditional": p == q,
+        }
+        observed = prediction.model_dump()
+        issues = [name for name, value in expected.items() if observed[name] is not value]
+        rows.append(
+            {
+                "index": index + 1,
+                "p": p,
+                "q": q,
+                "correct": not issues,
+                "issues": issues,
+                "expected": expected,
+            }
+        )
+    columns = ("implication", "contrapositive", "biconditional")
+    statuses = {name: all(name not in row["issues"] for row in rows) for name in columns}
+    explanation_present = bool(submission.explanation.strip())
+    return {
+        "verification_id": None,
+        "course_code": submission.course_code,
+        "course_version": "CS05-example-0.1.0",
+        "activity_version": submission.activity_version,
+        "standard_version": submission.standard_version,
+        "client_artifact_id": str(submission.client_artifact_id),
+        "client_revision_id": str(submission.client_revision_id),
+        "artifact_hash": canonical_hash(
+            {
+                "kind": "truth_table_with_explanation",
+                "rows": [row.model_dump(mode="json") for row in submission.rows],
+                "explanation": submission.explanation,
+            }
+        ),
+        "checker_version": LOGIC_CHECKER_VERSION,
+        "runtime": f"CPython {platform.python_version()}",
+        "provenance": "server_deterministic_checker",
+        "truth_correct": all(statuses.values()),
+        "rows": rows,
+        "criteria": [
+            {
+                "id": name,
+                "status": "met" if statuses[name] else "not_met",
+                "reason": "已逐格核对固定赋值下的真值。",
+            }
+            for name in columns
+        ]
+        + [
+            {
+                "id": "explanation",
+                "status": "needs_review" if explanation_present else "not_met",
+                "reason": (
+                    "文字推理尚未独立审阅。"
+                    if explanation_present
+                    else "尚未解释反例和等价关系。"
+                ),
+            },
+            {
+                "id": "independent_transfer",
+                "status": "needs_review",
+                "reason": "同一固定真值表不能证明独立迁移或长期掌握。",
+            },
+        ],
+        "objective_state": "evidence_pending_review" if all(statuses.values()) else "practicing",
+        "mastery_asserted": False,
+        "summary": "真值格已核对；推理解释和新情境应用仍待审阅。"
+        if all(statuses.values())
+        else "已标出不一致的真值格，修改作品后可再次核验。",
     }

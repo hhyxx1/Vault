@@ -36,7 +36,9 @@ def settings():
 def store(settings, clock):
     content = CourseRepository(settings.course_catalog_path)
     assert content.trace_context is not None, "Run tests from the repository with content/courses"
-    return GuestLeaseStore(settings, clock, trace_context=content.trace_context)
+    return GuestLeaseStore(
+        settings, clock, trace_context=content.trace_context, logic_context=content.logic_context
+    )
 
 
 @pytest.fixture

@@ -1,12 +1,17 @@
 {
   "schema_version": "1.0.0",
   "course_id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
-  "course_version_id": "0648205a-6d3f-4c7c-b889-5b79c60bf0d4",
+  "course_version_id": "c47c1551-76d5-4b80-aeae-33cd253d8ca0",
   "course_code": "CS03",
-  "version": "CS03-example-0.1.0",
+  "version": "CS03-example-0.2.0",
   "status": "engineering_example",
-  "title": "栈：从变化过程理解后进先出",
-  "scope_note": "仅为两个目标的开发样例，不代表数据结构整课已完成或已通过教研验收。",
+  "title": "数据结构",
+  "scope_note": "大纲整理自严蔚敏《数据结构(C语言版)》与全国硕士研究生 408 考试大纲，仅为课程范围与开发样例，不代表数据结构整课已完成或已通过教研验收。当前仅栈推演目标具备确定性核验活动。",
+  "content_sources": [
+    "严蔚敏、吴伟民《数据结构(C语言版)》目录",
+    "全国硕士研究生招生考试 408 计算机学科专业基础考试大纲（数据结构部分）",
+    "国家高等教育智慧教育平台数据结构课程大纲"
+  ],
   "curriculum_review_state": "pending",
   "objectives": [
     {
@@ -52,14 +57,858 @@
           "verification": "independent_review_pending"
         }
       ]
+    },
+    {
+      "id": "498d007f-330a-4d7d-9016-e4c70d449c99",
+      "code": "CS03-INTRO-01",
+      "title": "区分数据、数据元素与数据对象",
+      "criteria": [
+        {
+          "id": "terms",
+          "title": "辨认数据、数据元素、数据项与数据对象",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "research",
+          "title": "说明数据结构的研究内容",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "3e3e97d9-5a0a-467e-ba05-0312ed5742e6",
+      "code": "CS03-INTRO-02",
+      "title": "区分逻辑结构与存储结构",
+      "criteria": [
+        {
+          "id": "logical",
+          "title": "区分集合、线性、树形、图状四种基本逻辑结构",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "physical",
+          "title": "说明逻辑结构与物理存储表示的关系",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e1ebcf78-4afa-4236-b653-cd988f49b030",
+      "code": "CS03-INTRO-03",
+      "title": "描述抽象数据类型",
+      "criteria": [
+        {
+          "id": "datatype",
+          "title": "区分数据类型与抽象数据类型",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "adt",
+          "title": "用 ADT 描述一个简单结构",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "463fdf97-74d4-4d9c-845c-c888165cd4c7",
+      "code": "CS03-INTRO-04",
+      "title": "分析算法的时间与空间复杂度",
+      "criteria": [
+        {
+          "id": "algorithm",
+          "title": "说明算法的特性与设计要求",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "complexity",
+          "title": "计算常见算法的时间复杂度与空间复杂度",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "0a2005bf-a29b-437b-8174-17d05b1b9a2f",
+      "code": "CS03-LIST-01",
+      "title": "描述线性表的定义与基本操作",
+      "criteria": [
+        {
+          "id": "definition",
+          "title": "说明线性表的逻辑特征",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "adl",
+          "title": "给出线性表的抽象数据类型",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "96a8bb1d-6eea-4aa3-85b0-36b3618a9579",
+      "code": "CS03-LIST-02",
+      "title": "实现顺序表及其操作",
+      "criteria": [
+        {
+          "id": "insert",
+          "title": "实现顺序表的插入与删除",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "boundary",
+          "title": "处理表满、头尾插入等边界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "bf26a2db-581f-4acb-af0a-2598c3ab07a4",
+      "code": "CS03-LIST-03",
+      "title": "实现单链表及其操作",
+      "criteria": [
+        {
+          "id": "linkops",
+          "title": "实现单链表的插入与删除",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "headnode",
+          "title": "处理头节点、首节点与空表",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "eab69e1e-5767-46f5-9ad0-97262a199a44",
+      "code": "CS03-LIST-04",
+      "title": "使用循环链表与双向链表",
+      "criteria": [
+        {
+          "id": "circular",
+          "title": "说明循环链表的特点与操作",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "doublelink",
+          "title": "实现双向链表的操作",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fd2f8331-999a-419b-8f2f-ab3896cac226",
+      "code": "CS03-QUEUE-01",
+      "title": "实现链队列",
+      "criteria": [
+        {
+          "id": "fifo",
+          "title": "说明队列的抽象数据类型与先进先出",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "linkqueue",
+          "title": "实现链队列的入队与出队",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "c9049f14-1182-406e-a632-d6eeb2c9053c",
+      "code": "CS03-QUEUE-02",
+      "title": "实现循环队列",
+      "criteria": [
+        {
+          "id": "fullempty",
+          "title": "说明循环队列的空满判定约定",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "wrap",
+          "title": "处理取模绕回与队满情形",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5a973fb1-bf2f-4979-ac4d-5ed083ff3b69",
+      "code": "CS03-STRING-01",
+      "title": "描述串类型及其表示",
+      "criteria": [
+        {
+          "id": "stringdef",
+          "title": "说明串的定义与相关概念",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "stringops",
+          "title": "实现串的基本操作",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fda9a1d5-fd17-4ba2-af50-a6f72f02346e",
+      "code": "CS03-STRING-02",
+      "title": "实现串模式匹配",
+      "criteria": [
+        {
+          "id": "naive",
+          "title": "推演朴素模式匹配的比较过程",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "kmp",
+          "title": "说明 KMP 算法与前缀表",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4b48646a-76b8-47be-8f74-904d9cc8aa83",
+      "code": "CS03-STRING-03",
+      "title": "实现数组与特殊矩阵压缩存储",
+      "criteria": [
+        {
+          "id": "arrayaddress",
+          "title": "说明数组的存储与地址计算",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "compress",
+          "title": "对特殊矩阵进行压缩存储",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "2641b014-f007-4557-b5bc-b24d6e074765",
+      "code": "CS03-STRING-04",
+      "title": "描述广义表",
+      "criteria": [
+        {
+          "id": "glistdef",
+          "title": "说明广义表的定义与基本操作",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "glistdiff",
+          "title": "区分广义表与线性表",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5b600844-ac99-43f9-b841-81dd23d43a1b",
+      "code": "CS03-TREE-01",
+      "title": "描述二叉树的性质与存储",
+      "criteria": [
+        {
+          "id": "property",
+          "title": "说明二叉树的定义与重要性质",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "store",
+          "title": "实现二叉树的顺序与链式存储",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b4dd6488-4ea4-48e6-9d27-eab682d8ce83",
+      "code": "CS03-TREE-02",
+      "title": "实现二叉树遍历与线索化",
+      "criteria": [
+        {
+          "id": "traversal",
+          "title": "实现前序、中序、后序遍历",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "thread",
+          "title": "构造线索二叉树",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ce250a67-9342-43d3-9cc6-1d36edc34a06",
+      "code": "CS03-TREE-03",
+      "title": "完成树、森林与二叉树的转换",
+      "criteria": [
+        {
+          "id": "treestore",
+          "title": "说明树的多种存储结构",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "convert",
+          "title": "实现森林与二叉树的相互转换",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "861488c1-0a63-45a5-aa30-38e554ef04bd",
+      "code": "CS03-TREE-04",
+      "title": "应用 Huffman 树与并查集",
+      "criteria": [
+        {
+          "id": "huffman",
+          "title": "构造 Huffman 树与 Huffman 编码",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "ufs",
+          "title": "说明并查集及其应用",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "5556112e-1baa-4b6f-9705-b95ea5061a41",
+      "code": "CS03-GRAPH-01",
+      "title": "描述图的基本概念",
+      "criteria": [
+        {
+          "id": "graphterms",
+          "title": "说明有向图、无向图及相关术语",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "graphadt",
+          "title": "给出图的抽象数据类型",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "07ff2ee0-a5fe-44fc-be79-8b9a8466589d",
+      "code": "CS03-GRAPH-02",
+      "title": "实现图的存储结构",
+      "criteria": [
+        {
+          "id": "matrix",
+          "title": "使用邻接矩阵表示图",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "adjlist",
+          "title": "使用邻接表、十字链表或邻接多重表",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "678ac628-2650-4405-8810-b5880b8689b2",
+      "code": "CS03-GRAPH-03",
+      "title": "实现图的深度与广度遍历",
+      "criteria": [
+        {
+          "id": "dfs",
+          "title": "实现深度优先搜索 DFS",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "bfs",
+          "title": "实现广度优先搜索 BFS",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "cb7eafc1-011a-4591-a499-4e914c4a9faa",
+      "code": "CS03-GRAPH-04",
+      "title": "应用图的经典算法",
+      "criteria": [
+        {
+          "id": "mst_path",
+          "title": "求最小生成树与最短路径",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "topo_critical",
+          "title": "进行拓扑排序与关键路径分析",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "beca3b3a-6a83-44d2-bdc6-2e9d3a8bfbc0",
+      "code": "CS03-SEARCH-01",
+      "title": "实现静态查找",
+      "criteria": [
+        {
+          "id": "seq_block",
+          "title": "实现顺序查找与分块查找",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "binary",
+          "title": "实现折半查找",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9e8a46f4-9b1f-467c-a083-cb37d3e6c5bc",
+      "code": "CS03-SEARCH-02",
+      "title": "使用二叉排序树与平衡二叉树",
+      "criteria": [
+        {
+          "id": "bst",
+          "title": "实现二叉排序树的查找、插入与删除",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "avl",
+          "title": "说明平衡二叉树的旋转",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "26525afc-4850-4f41-864c-5bc8d24bcd1f",
+      "code": "CS03-SEARCH-03",
+      "title": "描述 B 树与 B+ 树",
+      "criteria": [
+        {
+          "id": "btree",
+          "title": "说明 B 树的查找、插入与删除",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "bplus",
+          "title": "区分 B 树与 B+ 树",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "91aa3f57-a953-444b-bdf4-b24c316f614d",
+      "code": "CS03-SEARCH-04",
+      "title": "构造散列表",
+      "criteria": [
+        {
+          "id": "hashfunc",
+          "title": "构造合适的哈希函数",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "collision",
+          "title": "处理冲突并比较装载因子",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b213be65-d1bf-4c0f-802f-f23650177cf3",
+      "code": "CS03-SORT-01",
+      "title": "实现插入类排序",
+      "criteria": [
+        {
+          "id": "insertion",
+          "title": "实现直接插入与折半插入排序",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "shell",
+          "title": "实现希尔排序",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4b4502e7-34bb-4193-af78-8efc96857f9d",
+      "code": "CS03-SORT-02",
+      "title": "实现交换与选择类排序",
+      "criteria": [
+        {
+          "id": "bubble_quick",
+          "title": "实现冒泡排序与快速排序",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "select_heap",
+          "title": "实现简单选择排序与堆排序",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "438a4c57-9d0d-4d21-9727-32a1b1cf2b3b",
+      "code": "CS03-SORT-03",
+      "title": "实现归并、基数与外部排序",
+      "criteria": [
+        {
+          "id": "merge_radix",
+          "title": "实现归并排序与基数排序",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "external",
+          "title": "说明外部排序的过程",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "85f66e5f-8503-4be3-9436-57e6bcce6b65",
+      "code": "CS03-SORT-04",
+      "title": "比较排序算法并做出选择",
+      "criteria": [
+        {
+          "id": "compare",
+          "title": "比较各排序算法的复杂度与稳定性",
+          "verification": "activity_pending"
+        },
+        {
+          "id": "choose",
+          "title": "依据数据规模与约束选择排序方法",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "ch-intro",
+      "title": "绪论",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "u-intro-concept",
+          "title": "基本概念",
+          "objective_refs": [
+            "CS03-INTRO-01",
+            "CS03-INTRO-02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "u-intro-adt",
+          "title": "抽象数据类型与算法分析",
+          "objective_refs": [
+            "CS03-INTRO-03",
+            "CS03-INTRO-04"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "ch-list",
+      "title": "线性表",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "u-list-seq",
+          "title": "顺序表",
+          "objective_refs": [
+            "CS03-LIST-01",
+            "CS03-LIST-02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "u-list-link",
+          "title": "链表",
+          "objective_refs": [
+            "CS03-LIST-03",
+            "CS03-LIST-04"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "ch-stack",
+      "title": "栈与队列",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "u-stack",
+          "title": "栈及应用",
+          "objective_refs": [
+            "CS03-STACK-01",
+            "CS03-STACK-02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "u-queue",
+          "title": "队列",
+          "objective_refs": [
+            "CS03-QUEUE-01",
+            "CS03-QUEUE-02"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "ch-string",
+      "title": "串、数组与广义表",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "u-string",
+          "title": "串与模式匹配",
+          "objective_refs": [
+            "CS03-STRING-01",
+            "CS03-STRING-02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "u-array",
+          "title": "数组与广义表",
+          "objective_refs": [
+            "CS03-STRING-03",
+            "CS03-STRING-04"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "ch-tree",
+      "title": "树与二叉树",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "u-bintree",
+          "title": "二叉树",
+          "objective_refs": [
+            "CS03-TREE-01",
+            "CS03-TREE-02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "u-tree-forest",
+          "title": "树、森林及应用",
+          "objective_refs": [
+            "CS03-TREE-03",
+            "CS03-TREE-04"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "ch-graph",
+      "title": "图",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "u-graph-store",
+          "title": "图的概念与存储",
+          "objective_refs": [
+            "CS03-GRAPH-01",
+            "CS03-GRAPH-02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "u-graph-traverse",
+          "title": "图的遍历与应用",
+          "objective_refs": [
+            "CS03-GRAPH-03",
+            "CS03-GRAPH-04"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "ch-search",
+      "title": "查找",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "u-search-static",
+          "title": "静态查找与二叉排序树",
+          "objective_refs": [
+            "CS03-SEARCH-01",
+            "CS03-SEARCH-02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "u-search-btree",
+          "title": "B 树与散列表",
+          "objective_refs": [
+            "CS03-SEARCH-03",
+            "CS03-SEARCH-04"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "ch-sort",
+      "title": "排序",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "u-sort-methods",
+          "title": "排序方法",
+          "objective_refs": [
+            "CS03-SORT-01",
+            "CS03-SORT-02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "u-sort-compare",
+          "title": "归并基数排序与比较选择",
+          "objective_refs": [
+            "CS03-SORT-03",
+            "CS03-SORT-04"
+          ]
+        }
+      ]
     }
   ],
   "relations": [
+    {
+      "from": "CS03-INTRO-02",
+      "to": "CS03-LIST-01",
+      "kind": "application",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-LIST-01",
+      "to": "CS03-LIST-02",
+      "kind": "mandatory_prerequisite",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-LIST-01",
+      "to": "CS03-LIST-03",
+      "kind": "mandatory_prerequisite",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-LIST-03",
+      "to": "CS03-LIST-04",
+      "kind": "mandatory_prerequisite",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-LIST-01",
+      "to": "CS03-STACK-01",
+      "kind": "mandatory_prerequisite",
+      "source": "栈是操作受限的线性表，依据教材整理"
+    },
+    {
+      "from": "CS03-LIST-01",
+      "to": "CS03-QUEUE-01",
+      "kind": "mandatory_prerequisite",
+      "source": "队列是操作受限的线性表，依据教材整理"
+    },
     {
       "from": "CS03-STACK-01",
       "to": "CS03-STACK-02",
       "kind": "mandatory_prerequisite",
       "source": "engineering_example_pending_review"
+    },
+    {
+      "from": "CS03-STACK-01",
+      "to": "CS03-GRAPH-03",
+      "kind": "application",
+      "source": "图的深度优先遍历借助栈与递归实现，依据严蔚敏教材与408大纲整理"
+    },
+    {
+      "from": "CS03-QUEUE-01",
+      "to": "CS03-QUEUE-02",
+      "kind": "mandatory_prerequisite",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-STRING-01",
+      "to": "CS03-STRING-02",
+      "kind": "mandatory_prerequisite",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-INTRO-02",
+      "to": "CS03-STRING-03",
+      "kind": "application",
+      "source": "数组存储复用结构表示，依据教材整理"
+    },
+    {
+      "from": "CS03-TREE-01",
+      "to": "CS03-TREE-02",
+      "kind": "mandatory_prerequisite",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-TREE-01",
+      "to": "CS03-TREE-03",
+      "kind": "mandatory_prerequisite",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-TREE-02",
+      "to": "CS03-TREE-04",
+      "kind": "application",
+      "source": "Huffman 与并查集为树的应用，依据教材整理"
+    },
+    {
+      "from": "CS03-GRAPH-01",
+      "to": "CS03-GRAPH-02",
+      "kind": "mandatory_prerequisite",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-GRAPH-02",
+      "to": "CS03-GRAPH-03",
+      "kind": "mandatory_prerequisite",
+      "source": "依据教材教学顺序整理，待教研审校"
+    },
+    {
+      "from": "CS03-GRAPH-03",
+      "to": "CS03-GRAPH-04",
+      "kind": "application",
+      "source": "图经典算法为遍历的应用，依据教材整理"
+    },
+    {
+      "from": "CS03-TREE-02",
+      "to": "CS03-SEARCH-02",
+      "kind": "application",
+      "source": "二叉排序树基于二叉树结构，依据教材整理"
+    },
+    {
+      "from": "CS03-TREE-01",
+      "to": "CS03-SEARCH-03",
+      "kind": "conceptual_association",
+      "source": "B 树为多路平衡搜索树，依据教材整理"
+    },
+    {
+      "from": "CS03-SEARCH-01",
+      "to": "CS03-SEARCH-02",
+      "kind": "conceptual_association",
+      "source": "查找方法的结构对照，依据教材整理"
+    },
+    {
+      "from": "CS03-SORT-01",
+      "to": "CS03-SORT-04",
+      "kind": "application",
+      "source": "排序比较与选择，依据教材整理"
+    },
+    {
+      "from": "CS03-SORT-02",
+      "to": "CS03-SORT-04",
+      "kind": "application",
+      "source": "排序比较与选择，依据教材整理"
+    },
+    {
+      "from": "CS03-SORT-03",
+      "to": "CS03-SORT-04",
+      "kind": "application",
+      "source": "排序比较与选择，依据教材整理"
     }
   ],
   "activities": [

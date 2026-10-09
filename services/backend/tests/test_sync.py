@@ -19,10 +19,10 @@ from httpx import ASGITransport, AsyncClient
 
 from vault_backend.api import create_app
 from vault_backend.auth import SESSION_COOKIE, csrf_for, digest
-from vault_backend.checker import verify_trace
+from vault_backend.checker import verify_trace, verify_truth_table
 from vault_backend.config import Settings
 from vault_backend.content import CourseRepository
-from vault_backend.schemas import TraceSubmission
+from vault_backend.schemas import TraceSubmission, TruthTableSubmission
 from vault_backend.sync import payload_hash
 
 pytestmark = pytest.mark.postgres
@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0007_personal_assist"
+            == "0008_course_attempt"
         )
     settings = Settings(
         environment="test",
@@ -899,6 +899,71 @@ def evidence_bundle(origin, trace_payload):
         "helpEventIds": [],
     }
     return revision, evidence
+
+
+async def test_course_attempt_draft_can_finish_once_and_cloud_copy_requires_review(cloud):
+    _, seed, owner_url = cloud
+    student, account_id = seed("student")
+    mapping, _ = await claim(student, account_id)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    stamp = "2026-10-08T12:00:00Z"
+    attempt = {
+        "id": str(uuid4()), "spaceId": origin, "artifactId": str(uuid4()),
+        "objectiveId": "CS05-LOGIC-01", "courseCode": "CS05",
+        "activityVersion": "CS05-LOGIC-01-TABLE@0.1.0",
+        "rows": [
+            {"implication": True, "contrapositive": True, "biconditional": True},
+            {"implication": True, "contrapositive": True, "biconditional": False},
+            {"implication": False, "contrapositive": False, "biconditional": False},
+            {"implication": True, "contrapositive": True, "biconditional": True},
+        ],
+        "explanation": "P 真 Q 假时蕴含为假。",
+        "result": None, "createdAt": stamp, "updatedAt": stamp,
+    }
+    saved, _ = await batch(
+        student, account_id, sid, [operation("course_attempt", attempt["id"], attempt)]
+    )
+    assert saved.json()["results"][0]["status"] == "applied", saved.text
+    context = CourseRepository(
+        Settings(environment="test", database_url="").course_catalog_path
+    ).logic_context
+    assert context is not None
+    submission = TruthTableSubmission.model_validate({
+        "kind": "verify_truth_table", "course_code": "CS05",
+        "activity_version": attempt["activityVersion"],
+        "standard_version": "propositional-table-v1",
+        "client_artifact_id": attempt["artifactId"], "client_revision_id": attempt["id"],
+        "rows": attempt["rows"], "explanation": attempt["explanation"],
+    })
+    result = {**verify_truth_table(submission), **context, "verification_id": str(uuid4())}
+    completed = {**attempt, "submittedAt": stamp, "result": result}
+    finished, _ = await batch(
+        student, account_id, sid, [operation("course_attempt", attempt["id"], completed, "1")]
+    )
+    assert finished.json()["results"][0]["status"] == "applied", finished.text
+    changed = {**completed, "explanation": "事后更改作品"}
+    forged = {**completed, "resultTrust": "server_verified"}
+    denied, _ = await batch(student, account_id, sid, [
+        operation("course_attempt", attempt["id"], changed, "2"),
+        operation("course_attempt", attempt["id"], forged, "2"),
+    ])
+    assert [item["reason"] for item in denied.json()["results"]] == [
+        "COURSE_ATTEMPT_LOCKED", "INVALID_PAYLOAD"
+    ]
+    changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
+    assert changes[-1]["object_type"] == "course_attempt"
+    assert changes[-1]["requires_review"] is True
+    assert changes[-1]["provenance"] == "client_reported"
+    with psycopg.connect(owner_url) as conn:
+        conn.execute("SET LOCAL ROLE vault_api")
+        conn.execute("SELECT set_config('vault.account_id',%s,true)", (str(account_id),))
+        with pytest.raises(psycopg.errors.CheckViolation):
+            with conn.transaction():
+                conn.execute(
+                    "UPDATE sync_object SET version=version+1,updated_at=now() "
+                    "WHERE space_id=%s AND object_type='course_attempt' AND object_id=%s",
+                    (sid, attempt["id"]),
+                )
 
 
 async def test_imported_guest_evidence_pending_dependencies_never_become_platform_trust(

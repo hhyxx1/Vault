@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   courseMapFromPackage,
+  courseMapObjectiveNavigation,
   personalCourseMap,
   projectCourseMap,
   type CourseMapDefinition,
@@ -86,6 +87,92 @@ describe('course map contract', () => {
     expect(result.relations[2].source).toBe('reviewed-plan')
   })
 
+  it('rejects duplicate stable objective IDs so the course denominator cannot collapse silently', () => {
+    expect(() => courseMapFromPackage({
+      course_id: 'CS42', version: 'CS42-1.0.0', title: '算法设计',
+      objectives: [
+        { id: 'goal-duplicate', code: 'CS42-SEARCH', title: '分析搜索' },
+        { id: 'goal-duplicate', code: 'CS42-SORT', title: '比较排序' },
+      ],
+    })).toThrow('Duplicate course objective ID: goal-duplicate')
+  })
+
+  it('rejects objective ID and code collisions that would make outline references ambiguous', () => {
+    expect(() => courseMapFromPackage({
+      course_id: 'CS42', version: 'CS42-1.0.0', title: '算法设计',
+      objectives: [
+        { id: 'goal-search', code: 'CS42-SEARCH', title: '分析搜索' },
+        { id: 'CS42-SEARCH', code: 'CS42-SORT', title: '比较排序' },
+      ],
+    })).toThrow('Duplicate course objective reference: CS42-SEARCH')
+  })
+
+  it('projects authored chapters and units without flattening the course outline', () => {
+    const result = courseMapFromPackage({
+      course_id: 'CS42',
+      version: 'CS42-1.0.0',
+      title: '算法设计',
+      objectives: [
+        { id: 'goal-search', code: 'CS42-SEARCH', title: '分析搜索' },
+        { id: 'goal-sort', code: 'CS42-SORT', title: '比较排序' },
+      ],
+      outline: [
+        { kind: 'chapter', id: 'complexity', title: '复杂度分析', objective_refs: ['CS42-SEARCH'] },
+        { kind: 'chapter', id: 'ordering', title: '排序方法', children: [
+          { kind: 'unit', id: 'comparison-sort', title: '比较排序', objective_refs: ['CS42-SORT'] },
+        ] },
+      ],
+    })
+
+    expect(result.nodes.map(node => [node.id, node.kind])).toEqual([
+      ['course:CS42:CS42-1.0.0', 'course'],
+      ['objective:goal-search', 'objective'],
+      ['objective:goal-sort', 'objective'],
+      ['chapter:complexity', 'chapter'],
+      ['chapter:ordering', 'chapter'],
+      ['unit:comparison-sort', 'unit'],
+    ])
+    expect(result.relations.filter(relation => relation.kind === 'contains').map(relation => [relation.from, relation.to])).toEqual([
+      ['course:CS42:CS42-1.0.0', 'chapter:complexity'],
+      ['chapter:complexity', 'objective:goal-search'],
+      ['course:CS42:CS42-1.0.0', 'chapter:ordering'],
+      ['chapter:ordering', 'unit:comparison-sort'],
+      ['unit:comparison-sort', 'objective:goal-sort'],
+    ])
+    expect(courseMapObjectiveNavigation(result, new Map([['goal-sort', 'partial']]))).toEqual([
+      { nodeId: 'objective:goal-search', objectiveRef: 'CS42-SEARCH', title: '分析搜索', path: ['复杂度分析'], state: 'unknown' },
+      { nodeId: 'objective:goal-sort', objectiveRef: 'CS42-SORT', title: '比较排序', path: ['排序方法', '比较排序'], state: 'partial' },
+    ])
+  })
+
+  it.each([
+    { name: 'missing objectives', outline: [{ kind: 'chapter' as const, id: 'one', title: '第一章', objective_refs: ['CS42-SEARCH'] }] },
+    { name: 'unknown objective reference', outline: [{ kind: 'chapter' as const, id: 'one', title: '第一章', objective_refs: ['CS42-MISSING'] }] },
+    { name: 'empty structure nodes', outline: [{ kind: 'chapter' as const, id: 'one', title: '空章节' }] },
+    { name: 'duplicate structure IDs', outline: [
+      { kind: 'chapter' as const, id: 'same', title: '第一章', objective_refs: ['CS42-SEARCH'] },
+      { kind: 'chapter' as const, id: 'same', title: '第二章', objective_refs: ['CS42-SORT'] },
+    ] },
+    { name: 'invalid nested units', outline: [{ kind: 'chapter' as const, id: 'one', title: '第一章', children: [
+      { kind: 'unit' as const, id: 'unit-one', title: '第一单元', objective_refs: ['CS42-SEARCH'], children: [
+        { kind: 'unit' as const, id: 'unit-two', title: '嵌套单元', objective_refs: ['CS42-SORT'] },
+      ] },
+    ] }] },
+    { name: 'duplicate references within one placement', outline: [
+      { kind: 'chapter' as const, id: 'one', title: '第一章', objective_refs: ['CS42-SEARCH'] },
+      { kind: 'chapter' as const, id: 'two', title: '第二章', objective_refs: ['CS42-SORT', 'CS42-SORT'] },
+    ] },
+  ])('rejects $name in an authored course outline', ({ outline }) => {
+    expect(() => courseMapFromPackage({
+      course_id: 'CS42', version: 'CS42-1.0.0', title: '算法设计',
+      objectives: [
+        { id: 'goal-search', code: 'CS42-SEARCH', title: '分析搜索' },
+        { id: 'goal-sort', code: 'CS42-SORT', title: '比较排序' },
+      ],
+      outline,
+    })).toThrow('Course outline')
+  })
+
   it('deduplicates objective counts and never propagates evidence into parent or relation states', () => {
     const states = new Map<string, ObjectiveState>([['goal-a', 'partial']])
     const result = projectCourseMap(map, states)
@@ -96,6 +183,39 @@ describe('course map contract', () => {
     expect(root?.summary).toEqual(result.summary)
     expect(root?.state).toBeUndefined()
     expect(result.relations.find(relation => relation.id === 'prerequisite-a-b')).not.toHaveProperty('state')
+  })
+
+  it('allows a stable objective in different chapters and counts it only once', () => {
+    const definition = courseMapFromPackage({
+      course_id: 'shared-course', version: '1', title: '重复引用课程',
+      objectives: [{ id: 'stable-goal', code: 'SHARED', title: '共享目标' }],
+      outline: [
+        { kind: 'chapter', id: 'first', title: '第一章', objective_refs: ['SHARED'] },
+        { kind: 'chapter', id: 'second', title: '第二章', objective_refs: ['SHARED'] },
+      ],
+    })
+    const projection = projectCourseMap(definition, new Map([['stable-goal', 'partial']]))
+    expect(projection.summary.total).toBe(1)
+    expect(projection.summary.partial).toBe(1)
+    for (const chapter of projection.nodes.filter(node => node.kind === 'chapter')) {
+      expect(chapter.summary.total).toBe(1)
+      expect(chapter.summary.partial).toBe(1)
+    }
+  })
+
+  it('rejects strict prerequisite cycles while allowing conceptual cycles', () => {
+    const course = {
+      course_id: 'cycle-course', version: '1', title: '关系校验',
+      objectives: [{ code: 'A', title: '目标 A' }, { code: 'B', title: '目标 B' }],
+    }
+    expect(() => courseMapFromPackage({ ...course, relations: [
+      { from: 'A', to: 'B', kind: 'mandatory_prerequisite' },
+      { from: 'B', to: 'A', kind: 'mandatory_prerequisite' },
+    ] })).toThrow('prerequisite')
+    expect(() => courseMapFromPackage({ ...course, relations: [
+      { from: 'A', to: 'B', kind: 'conceptual_association' },
+      { from: 'B', to: 'A', kind: 'conceptual_association' },
+    ] })).not.toThrow()
   })
 
   it('keeps the full denominator when a branch is collapsed or relation types are filtered', () => {

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import { stateLabels } from '../domain/learning'
-import { courseRelationLabels, projectCourseMap, type CourseMapDefinition, type CourseRelationKind, type ObjectiveState } from '../domain/course-map'
+import { courseMapObjectiveNavigation, courseRelationLabels, projectCourseMap, type CourseMapDefinition, type CourseRelationKind, type ObjectiveState } from '../domain/course-map'
 
 export default function KnowledgeGraph({ definition, states, selected, onSelect, coordinateLabel, showCollapseControls = true }: { definition: CourseMapDefinition; states: ReadonlyMap<string, ObjectiveState>; selected: string; onSelect: (id: string) => void; coordinateLabel?: string; showCollapseControls?: boolean }) {
   const container = useRef<HTMLDivElement>(null)
@@ -17,6 +17,7 @@ export default function KnowledgeGraph({ definition, states, selected, onSelect,
     collapsedNodeIds,
     visibleRelationKinds,
   }), [definition, states, collapsedNodeIds, visibleRelationKinds])
+  const navigation = useMemo(() => courseMapObjectiveNavigation(definition, states), [definition, states])
 
   useEffect(() => {
     if (!container.current) return
@@ -38,27 +39,27 @@ export default function KnowledgeGraph({ definition, states, selected, onSelect,
         } })),
       },
       style: [
-        { selector: 'node', style: { width: 236, height: 84, 'background-color': '#d7ddd5', 'border-width': 1, 'border-color': '#667773', label: 'data(label)', 'text-wrap': 'wrap', 'text-max-width': '210px', 'font-size': '12px', color: '#163b38', 'text-valign': 'center', 'text-halign': 'center', 'font-family': 'system-ui, sans-serif' } },
-        { selector: 'node[kind="course"]', style: { shape: 'round-rectangle', width: 260, height: 88, 'text-max-width': '234px', 'background-color': '#294b45', color: '#ffffff', 'border-color': '#294b45' } },
-        { selector: 'node[kind="chapter"]', style: { shape: 'round-rectangle', width: 244, height: 84, 'text-max-width': '218px', 'background-color': '#7b9d89' } },
-        { selector: 'node[kind="unit"]', style: { shape: 'round-rectangle', width: 228, height: 82, 'text-max-width': '202px', 'background-color': '#aebda9' } },
+        { selector: 'node', style: { width: 236, height: 84, 'background-color': '#ffffff', 'border-width': 1, 'border-color': '#cbd5e4', label: 'data(label)', 'text-wrap': 'wrap', 'text-max-width': '210px', 'font-size': '12px', color: '#233550', 'text-valign': 'center', 'text-halign': 'center', 'font-family': 'system-ui, sans-serif' } },
+        { selector: 'node[kind="course"]', style: { shape: 'round-rectangle', width: 260, height: 88, 'text-max-width': '234px', 'background-color': '#233c61', color: '#ffffff', 'border-color': '#233c61' } },
+        { selector: 'node[kind="chapter"]', style: { shape: 'round-rectangle', width: 244, height: 84, 'text-max-width': '218px', 'background-color': '#e8eef9', 'border-color': '#9eafc8' } },
+        { selector: 'node[kind="unit"]', style: { shape: 'round-rectangle', width: 228, height: 82, 'text-max-width': '202px', 'background-color': '#f2f5fa', 'border-color': '#bec9d9' } },
         { selector: 'node[kind="objective"]', style: { shape: 'round-rectangle', width: 236, height: 84 } },
-        { selector: 'edge', style: { width: 2, 'line-color': '#718276', 'curve-style': 'bezier', 'target-arrow-shape': 'none' } },
-        { selector: 'edge[kind="mandatory_prerequisite"]', style: { 'line-style': 'dashed', 'target-arrow-shape': 'triangle', 'target-arrow-color': '#a36735', 'line-color': '#a36735', color: '#805732' } },
-        { selector: 'edge[kind="conceptual_association"]', style: { 'line-style': 'dotted', 'line-color': '#687c99', 'target-arrow-shape': 'none', color: '#526884' } },
-        { selector: 'edge[kind="application"]', style: { 'target-arrow-shape': 'triangle', 'target-arrow-color': '#246a5b', 'line-color': '#246a5b', color: '#246a5b' } },
-        { selector: 'edge[kind="evidence_support"]', style: { 'line-style': 'dashed', 'target-arrow-shape': 'triangle', 'target-arrow-color': '#526884', 'line-color': '#526884', color: '#526884' } },
-        { selector: 'node.evidence-partial', style: { 'background-color': '#91b9a8', 'border-color': '#246a5b', 'border-width': 3 } },
-        { selector: 'node.evidence-consolidate', style: { 'background-color': '#e5c0a3', 'border-color': '#955429', 'border-width': 3 } },
-        { selector: 'node.evidence-verified', style: { 'background-color': '#286957', 'border-color': '#183b33', 'border-width': 3 } },
-        { selector: 'node.current', style: { 'overlay-color': '#235b51', 'overlay-opacity': 0.08, 'overlay-padding': 7, 'border-color': '#246a5b', 'border-width': 3 } },
+        { selector: 'edge', style: { width: 2, 'line-color': '#8795a9', 'curve-style': 'bezier', 'target-arrow-shape': 'none' } },
+        { selector: 'edge[kind="mandatory_prerequisite"]', style: { 'line-style': 'dashed', 'target-arrow-shape': 'triangle', 'target-arrow-color': '#9a671f', 'line-color': '#9a671f', color: '#78521b' } },
+        { selector: 'edge[kind="conceptual_association"]', style: { 'line-style': 'dotted', 'line-color': '#71839f', 'target-arrow-shape': 'none', color: '#526884' } },
+        { selector: 'edge[kind="application"]', style: { 'target-arrow-shape': 'triangle', 'target-arrow-color': '#315fe7', 'line-color': '#315fe7', color: '#315fe7' } },
+        { selector: 'edge[kind="evidence_support"]', style: { 'line-style': 'dashed', 'target-arrow-shape': 'triangle', 'target-arrow-color': '#586c87', 'line-color': '#586c87', color: '#586c87' } },
+        { selector: 'node.evidence-partial', style: { 'background-color': '#fff0cf', 'border-color': '#bd851e', 'border-width': 2 } },
+        { selector: 'node.evidence-consolidate', style: { 'background-color': '#f8e0dc', 'border-color': '#ba5b4b', 'border-width': 2 } },
+        { selector: 'node.evidence-verified', style: { 'background-color': '#d9f0e7', 'border-color': '#25826c', 'border-width': 2 } },
+        { selector: 'node.current', style: { 'overlay-color': '#315fe7', 'overlay-opacity': 0.08, 'overlay-padding': 7, 'border-color': '#315fe7', 'border-width': 3 } },
       ],
     })
     const applyLayout = () => {
       if (!container.current) return
       const compact = container.current.clientWidth < 560
       const sizes = compact
-        ? { courseWidth: 116, chapterWidth: 108, unitWidth: 104, objectiveWidth: 108, textMax: 88, fontSize: '10px', nodeHeight: 76 }
+        ? { courseWidth: 164, chapterWidth: 148, unitWidth: 148, objectiveWidth: 148, textMax: 126, fontSize: '11px', nodeHeight: 96 }
         : { courseWidth: 224, chapterWidth: 212, unitWidth: 204, objectiveWidth: 210, textMax: 184, fontSize: '12px', nodeHeight: 90 }
       cy.nodes().forEach(node => {
         const kind = node.data('kind') as CourseMapDefinition['nodes'][number]['kind']
@@ -91,7 +92,7 @@ export default function KnowledgeGraph({ definition, states, selected, onSelect,
       })
       const tierWidths = Array.from({ length: maxDepth + 1 }, (_, depth) => widthsByDepth.get(depth) ?? 0)
       const tallestTier = Math.max(1, ...peersByDepth.values())
-      const compactTree = maxDepth <= 1 && maxPeers <= 2
+      const compactTree = maxPeers <= 2
       const compactLayout = compact
         ? compactTree
           ? { direction: 'downward' as const, naturalWidth: maxPeers * (maxNodeWidth + 12) + 20, naturalHeight: (maxDepth + 1) * (maxNodeHeight + 10) + 20 }
@@ -147,9 +148,10 @@ export default function KnowledgeGraph({ definition, states, selected, onSelect,
     if (!cy) return
     const visibleNodeIds = new Set(projection.nodes.map(node => node.id))
     const visibleRelationIds = new Set(projection.relations.map(relation => relation.id))
+    const projectedNodeById = new Map(projection.nodes.map(node => [node.id, node]))
     cy.batch(() => {
       cy.nodes().forEach(node => {
-        const projected = projection.nodes.find(item => item.id === node.id())
+        const projected = projectedNodeById.get(node.id())
         if (!projected) { node.style('display', 'none'); return }
         node.style('display', 'element')
         node.removeClass('evidence-unknown evidence-partial evidence-consolidate evidence-verified current')
@@ -170,7 +172,33 @@ export default function KnowledgeGraph({ definition, states, selected, onSelect,
   const hasPrerequisite = definition.relations.some(relation => relation.kind === 'mandatory_prerequisite')
   const mapSummary = projection.summary
   const stateText = `课程知识图谱，${mapSummary.total} 个唯一目标，其中 ${mapSummary.verified} 项有达标证据，${mapSummary.partial} 项部分满足，${mapSummary.consolidate} 项需巩固，${mapSummary.unknown} 项尚未评估。`
-  return <><div className="graph-frame"><div className="graph-coordinate">{coordinateLabel ?? `${definition.courseId.toUpperCase()} / ${definition.version}`}</div><div ref={container} className="graph-canvas" role="img" aria-label={`${stateText}下方文字视图提供相同目标入口。`}/></div><div className="graph-controls"><button onClick={() => graph.current?.fit(undefined, 42)}>适应画布</button>{expandableNodes.map(node => <button key={node.id} aria-expanded={!collapsedNodeIds.has(node.id)} onClick={() => setCollapsedNodeIds(current => { const next = new Set(current); if (next.has(node.id)) next.delete(node.id); else next.add(node.id); return next })}>{collapsedNodeIds.has(node.id) ? '展开' : '折叠'}「{node.title}」</button>)}{hasPrerequisite && <button aria-pressed={showPrerequisites} onClick={() => setShowPrerequisites(value => !value)}>{showPrerequisites ? '隐藏' : '显示'}先修关系</button>}<button onClick={() => graph.current?.zoom({ level: (graph.current?.zoom() ?? 1) * 1.2, renderedPosition: { x: 250, y: 150 } })} aria-label="放大图谱">＋</button><button onClick={() => graph.current?.zoom({ level: (graph.current?.zoom() ?? 1) / 1.2, renderedPosition: { x: 250, y: 150 } })} aria-label="缩小图谱">−</button></div></>
+  return <>
+    <div className="graph-frame">
+      <div className="graph-coordinate">{coordinateLabel ?? `${definition.courseId.toUpperCase()} / ${definition.version}`}</div>
+      <div ref={container} className="graph-canvas" role="img" aria-label={`${stateText}下方提供可键盘操作的文字导航。`} />
+    </div>
+    <div className="graph-controls">
+      <button onClick={() => graph.current?.fit(undefined, 42)}>适应画布</button>
+      {expandableNodes.map(node => <button key={node.id} aria-expanded={!collapsedNodeIds.has(node.id)} onClick={() => setCollapsedNodeIds(current => {
+        const next = new Set(current)
+        if (next.has(node.id)) next.delete(node.id)
+        else next.add(node.id)
+        return next
+      })}>{collapsedNodeIds.has(node.id) ? '展开' : '折叠'}「{node.title}」</button>)}
+      {hasPrerequisite && <button aria-pressed={showPrerequisites} onClick={() => setShowPrerequisites(value => !value)}>{showPrerequisites ? '隐藏' : '显示'}先修关系</button>}
+      <button onClick={() => graph.current?.zoom({ level: (graph.current?.zoom() ?? 1) * 1.2, renderedPosition: { x: 250, y: 150 } })} aria-label="放大图谱">＋</button>
+      <button onClick={() => graph.current?.zoom({ level: (graph.current?.zoom() ?? 1) / 1.2, renderedPosition: { x: 250, y: 150 } })} aria-label="缩小图谱">−</button>
+    </div>
+    <details className="graph-text-navigation">
+      <summary>用文字浏览 {navigation.length} 个目标</summary>
+      <ol>{navigation.map(entry => <li key={entry.nodeId}>
+        <button type="button" className="graph-outline-select" aria-pressed={entry.objectiveRef === selected} disabled={!entry.objectiveRef} onClick={() => entry.objectiveRef && onSelectRef.current(entry.objectiveRef)}>
+          {entry.path.length > 0 && <span className="graph-outline-path">{entry.path.join(' / ')}</span>}
+          <span className="graph-outline-row"><strong>{entry.title}</strong><span className={`evidence-pill ${entry.state}`}>{stateLabels[entry.state]}</span></span>
+        </button>
+      </li>)}</ol>
+    </details>
+  </>
 }
 
 export function GraphRelationLegend({ kinds }: { kinds: Iterable<CourseRelationKind> }) {

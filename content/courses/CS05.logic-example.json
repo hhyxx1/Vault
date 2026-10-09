@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "course_id": "a8b2aaf5-25c5-4da6-893a-3e461b4654d5",
+  "course_version_id": "f8618a9b-72fc-4e0d-9d74-7fbdfd3ac79b",
+  "course_code": "CS05",
+  "version": "CS05-example-0.1.0",
+  "status": "engineering_example",
+  "title": "命题逻辑：从反例辨认真值关系",
+  "scope_note": "仅为命题逻辑两个目标的开发样例，不代表离散数学整门课程已完成或通过教研验收。",
+  "curriculum_review_state": "pending",
+  "objectives": [
+    {
+      "id": "a13b0b71-0c77-4b4a-bcb6-ff11654aba31",
+      "code": "CS05-LOGIC-01",
+      "title": "用真值表比较蕴含、逆否与双条件",
+      "criteria": [
+        {"id": "implication", "title": "逐格判断 P→Q 的真值", "verification": "deterministic_checker"},
+        {"id": "contrapositive", "title": "逐格判断 ¬Q→¬P 的真值", "verification": "deterministic_checker"},
+        {"id": "biconditional", "title": "逐格判断 P↔Q 的真值", "verification": "deterministic_checker"},
+        {"id": "explanation", "title": "解释反例与等价关系", "verification": "independent_review_pending"},
+        {"id": "independent_transfer", "title": "独立新条件下辨认真值关系", "verification": "independent_review_pending"}
+      ]
+    },
+    {
+      "id": "bee7b9f1-cb41-4d2f-9396-9c1d9ccc8652",
+      "code": "CS05-LOGIC-02",
+      "title": "构造反例检验命题推理",
+      "criteria": [
+        {"id": "counterexample", "title": "给出使前提为真而结论为假的赋值", "verification": "activity_pending"},
+        {"id": "reasoning", "title": "解释反例为何否定原推理", "verification": "independent_review_pending"}
+      ]
+    }
+  ],
+  "relations": [
+    {"from": "CS05-LOGIC-01", "to": "CS05-LOGIC-02", "kind": "mandatory_prerequisite", "source": "engineering_example_pending_review"}
+  ],
+  "activities": [
+    {
+      "id": "dad50cb9-ba3a-42c1-9384-4e795be641c6",
+      "version_id": "31efc4bb-9688-490a-a196-9f087c7d841c",
+      "code": "CS05-LOGIC-01-TABLE",
+      "version": "CS05-LOGIC-01-TABLE@0.1.0",
+      "objective_codes": ["CS05-LOGIC-01"],
+      "standard_version": "propositional-table-v1",
+      "student_action": "按固定的四组 P、Q 赋值填写三个命题的真值，再用一个反例说明蕴含何时为假，并比较逆否命题。",
+      "theory": [
+        "P→Q 只有在 P 真且 Q 假时为假；P 假时它为真。这是材料蕴含的真值约定，不是日常语言里的因果断言。",
+        "逆否命题 ¬Q→¬P 与 P→Q 在每组赋值下同真值；逆命题 Q→P 不具有这一保证。",
+        "P↔Q 表示两个方向的蕴含同时成立，只有 P 与 Q 真值相同时为真。"
+      ],
+      "assignments": [[false, false], [false, true], [true, false], [true, true]],
+      "columns": ["implication", "contrapositive", "biconditional"],
+      "artifact_kind": "truth_table_with_explanation",
+      "checker": "deterministic_propositional_table",
+      "answer_policy": "self_study_on_request",
+      "explanation_review": "pending_independent_review",
+      "completion_limit": "固定四行的真值核对不证明独立推理、迁移或长期掌握；解释仍待独立审阅。"
+    }
+  ]
+}

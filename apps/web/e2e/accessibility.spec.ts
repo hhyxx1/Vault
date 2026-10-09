@@ -15,11 +15,14 @@ test('reduced motion keeps every learning page and its main actions usable', asy
 
 test('the graph has an equivalent keyboard route without canvas interaction', async ({ page }) => {
   await page.goto('/atlas')
-  const objective = page.getByRole('button', { name: /用栈设计括号匹配方法/ })
+  const chapter = page.getByRole('button', { name: /栈与队列/ }).first()
+  await chapter.focus()
+  await page.keyboard.press('Enter')
+  const objective = page.locator('.network-node', { hasText: '括号匹配' })
   await objective.focus()
   await page.keyboard.press('Enter')
   await expect(page.locator('.objective-inspector h2')).toHaveText('用栈设计括号匹配方法')
-  const enter = page.getByRole('link', { name: /打开学习工作台/ })
+  const enter = page.getByRole('link', { name: /进入学习工作台/ })
   await enter.focus()
   await page.keyboard.press('Enter')
   await expect(page).toHaveURL('/learn/CS03-STACK-02')
@@ -31,6 +34,7 @@ test('two hundred percent zoom keeps local controls and teacher navigation reach
   await page.setViewportSize({ width: 1280, height: 900 })
   for (const route of ['/', '/atlas', '/learn/CS03-STACK-01', '/teacher', '/local']) {
     await page.goto(route)
+    await expect(page.locator('main')).toBeVisible()
     await page.evaluate(() => { document.documentElement.style.zoom = '2' })
     await expect(page.locator('main')).toBeVisible()
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), route).toBe(true)

@@ -3,6 +3,7 @@ from uuid import UUID
 
 from pydantic import Field, field_validator
 
+from vault_backend.checker import STACK_COURSE_VERSION
 from vault_backend.schemas import WriteModel
 
 
@@ -10,7 +11,7 @@ class LearningAssistRequest(WriteModel):
     request_id: UUID
     model_profile_id: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_-]{0,39}$")
     course_code: Literal["CS03"]
-    course_version: Literal["CS03-example-0.1.0"]
+    course_version: Literal[STACK_COURSE_VERSION]
     activity_version: Literal["CS03-STACK-01-TRACE@0.1.0"]
     objective_code: Literal["CS03-STACK-01"]
     intent: Literal["diagnose", "explain", "hint", "practice", "result_feedback"]

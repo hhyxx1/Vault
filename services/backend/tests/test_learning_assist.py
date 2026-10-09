@@ -7,6 +7,7 @@ from pydantic import SecretStr, ValidationError
 
 from vault_backend.agent_gateway import DeepSeekResponsesGateway, ModelRouter, OpenAIChatGateway
 from vault_backend.api import create_app
+from vault_backend.checker import STACK_COURSE_VERSION
 from vault_backend.config import Settings
 from vault_backend.errors import ApiError
 from vault_backend.learning_assist import LearningAssistWorkflow
@@ -19,6 +20,12 @@ from vault_backend.model_profiles import ModelProfile
 from vault_backend.sync_schemas import HelpPayload
 
 ORIGIN = "http://localhost:5173"
+
+
+def test_assist_accepts_current_course_version_and_rejects_old_scope():
+    LearningAssistRequest.model_validate(assist_payload(course_version="CS03-example-0.2.0"))
+    with pytest.raises(ValidationError):
+        LearningAssistRequest.model_validate(assist_payload(course_version="CS03-example-0.1.0"))
 
 
 class FakeAssist:
@@ -36,7 +43,7 @@ def assist_payload(**changes):
     payload = {
         "request_id": str(uuid4()),
         "course_code": "CS03",
-        "course_version": "CS03-example-0.1.0",
+        "course_version": STACK_COURSE_VERSION,
         "activity_version": "CS03-STACK-01-TRACE@0.1.0",
         "objective_code": "CS03-STACK-01",
         "intent": "hint",

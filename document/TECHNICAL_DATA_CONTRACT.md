@@ -102,6 +102,8 @@ PostgreSQL 18 已有官方维护周期，pgvector 官方支持 PostgreSQL 13 及
 | `answer_policy_version` | policy ID、`task_publication_id uuid`、policy revision、rule JSON | `UNIQUE(task_publication_id,id)`；不可变策略内容引用；改变规则产生新策略版本及当前授权修订 |
 | `content_answer_policy_ref` | 提供对象／切片／派生版本 ID、原 task_publication ID、answer_policy_version ID | 复合 FK 保证 policy 属于原发布实例；只由服务端维护；任务切换或不传 task 不删除关联 |
 
+课程包到图谱的映射支持可选 `outline`：顶层为 `chapter`，章节可包含目标或 `unit`，单元只能包含目标；每个叶节点用 `objective_refs` 引用稳定目标 ID 或课程内唯一代码。稳定目标 ID 和路由代码不得与其他目标的标识冲突；提供目录时所有已声明目标必须恰好归属一次，未知引用、遗漏、重复、空节点和错误层级均拒绝；未提供时保留兼容的课程根节点直连目标，不自动生成章节。相同的包含关系用于可键盘操作的文字导航，状态仍只由目标证据计算。前端投影和 CS03／CS05 静态课程包加载均实施此校验；通用课程作者 API、数据库持久化约束和迁移尚未实现。
+
 仅资源 UUID 的单列 FK 不足以校验跨空间的作品引用，带空间／课程版本的关系必须采用复合 FK 或严格同事务验证，不能把这一规则交给客户端。`content_answer_policy_ref` 在迁移中拆成明确的资源版本／切片／派生版本关联表，避免无法验证的万能 `object_type + object_id` 外键；若某资源整体无法可靠分离受控答案，整个提供版本按相关策略检查。
 
 访客个人课程、目标、不可变的本人确认范围快照、尝试及其 Agent 建议先保存在当前浏览器空间；登录承接后才属于本人账号。当前同步传输已承接 `personal_course`、`personal_course_version`、带范围版本引用的 `personal_attempt` 和绑定尝试的 `personal_assist`；这些记录仍须独立于平台／教师发布物，不能因课程名称相同或同步成功获得已审内容状态。Agent 建议不构成可信核验。当前领域 `course` 表与课程服务仍未实现完整目标模型；已实现同步记录不代表全课程图谱、活动和发布契约就绪。

@@ -1,6 +1,34 @@
 import { expect, test } from '@playwright/test'
 import { readFile } from 'node:fs/promises'
 
+test('personal course graph exposes keyboard-readable target selection without narrow-screen overflow', async ({ page }, testInfo) => {
+  if (testInfo.project.name === 'mobile') await page.setViewportSize({ width: 320, height: 800 })
+  await page.goto('/my-courses')
+  await page.getByLabel('课程名称', { exact: true }).fill(`图谱键盘导航 ${Date.now()}`)
+  await page.getByRole('button', { name: '创建个人课程', exact: false }).click()
+  await page.getByLabel('学习目标', { exact: true }).fill('解释网络协议并用小实验验证连接行为。')
+  await page.getByRole('button', { name: '保存课程目标' }).click()
+  const learningPoints = [
+    ['分层协议', '说明各层职责并判断数据经过的层次。'],
+    ['TCP可靠传输', '通过丢包与重传现象解释可靠传输。'],
+  ] as const
+  for (const [index, [title, performance]] of learningPoints.entries()) {
+    if (index > 0) await page.getByText('＋ 加入下一个学习点').click()
+    await page.getByLabel('学习点名称').fill(title)
+    await page.getByLabel('想完成的实践或可观察表现').fill(performance)
+    await page.getByRole('button', { name: '保存学习点' }).click()
+  }
+  await page.getByRole('button', { name: '确认当前范围 v1' }).click()
+
+  await page.getByText('用文字浏览 2 个目标').click()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true)
+  const target = page.getByRole('button', { name: /TCP可靠传输.*尚未有效评估/ })
+  await expect(target).toBeVisible()
+  await target.focus()
+  await page.keyboard.press('Enter')
+  await expect(page.locator('.personal-map-inspector .personal-map-title')).toHaveText('TCP可靠传输')
+})
+
 test('starts outside the default catalog with only a name, then records an unverified practice and retry', async ({ page }, testInfo) => {
   await page.goto('/')
   await expect(page.getByText('完整建成 0 / 13 门。', { exact: false })).toBeVisible()

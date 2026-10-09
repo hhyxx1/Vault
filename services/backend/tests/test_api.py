@@ -60,6 +60,55 @@ async def test_real_trace_and_sse_resume(client, trace_payload):
     assert "X-Request-ID" in result.headers
 
 
+async def test_logic_table_is_checked_per_cell_without_asserting_mastery(client):
+    lease = await grant(client)
+    path = f"/api/v1/guest-leases/{lease['lease_id']}/operations"
+    headers = {
+        "Origin": ORIGIN,
+        "Authorization": f"GuestLease {lease['token']}",
+        "Idempotency-Key": str(uuid4()),
+    }
+    payload = {
+        "kind": "verify_truth_table",
+        "course_code": "CS05",
+        "activity_version": "CS05-LOGIC-01-TABLE@0.1.0",
+        "standard_version": "propositional-table-v1",
+        "client_artifact_id": str(uuid4()),
+        "client_revision_id": str(uuid4()),
+        "rows": [
+            {"implication": True, "contrapositive": True, "biconditional": True},
+            {"implication": True, "contrapositive": True, "biconditional": False},
+            {"implication": False, "contrapositive": False, "biconditional": False},
+            {"implication": True, "contrapositive": True, "biconditional": True},
+        ],
+        "explanation": "P 真而 Q 假时蕴含为假；逆否命题逐行同值。",
+    }
+    response = await client.post(path, headers=headers, json=payload)
+    assert response.status_code == 201, response.text
+    operation = response.json()
+    assert operation["kind"] == "verify_truth_table"
+    assert operation["result"]["course_code"] == "CS05"
+    assert operation["result"]["rows"][2]["correct"] is True
+    assert operation["result"]["mastery_asserted"] is False
+    assert operation["result"]["criteria"][-1]["status"] == "needs_review"
+    altered = {
+        **payload,
+        "rows": [{**payload["rows"][0], "implication": False}, *payload["rows"][1:]],
+    }
+    changed = await client.post(
+        path, headers={**headers, "Idempotency-Key": str(uuid4())}, json=altered
+    )
+    assert changed.status_code == 201, changed.text
+    assert changed.json()["result"]["rows"][0]["correct"] is False
+    assert changed.json()["result"]["criteria"][0]["status"] == "not_met"
+    forged = await client.post(
+        path,
+        headers={**headers, "Idempotency-Key": str(uuid4())},
+        json={**payload, "mastery_asserted": True},
+    )
+    assert forged.status_code == 422
+
+
 async def test_validation_error_redacts_input(client, trace_payload):
     lease = await grant(client)
     trace_payload["owner_account_id"] = "secret-private-name"
@@ -109,7 +158,9 @@ async def test_catalog_honestly_separates_planned_courses(client):
     courses = response.json()["courses"]
     assert len(courses) == 13
     assert not any(course["full_course_available"] for course in courses)
-    assert sum(course["objective_count"] is not None for course in courses) == 1
+    assert {course["code"] for course in courses if course["objective_count"] is not None} == {
+        "CS03", "CS05"
+    }
 
 
 async def test_origin_is_not_wildcard_cors(client):

@@ -7,10 +7,10 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 from uuid import UUID, uuid4
 
-from vault_backend.checker import canonical_hash, verify_trace
+from vault_backend.checker import canonical_hash, verify_trace, verify_truth_table
 from vault_backend.config import Settings
 from vault_backend.errors import ApiError
-from vault_backend.schemas import OperationInput, TraceSubmission
+from vault_backend.schemas import OperationInput, TraceSubmission, TruthTableSubmission
 
 
 def digest(token: str) -> bytes:
@@ -22,7 +22,8 @@ class Operation:
     id: UUID
     request_hash: str
     idempotency_key: UUID
-    submission: TraceSubmission | None
+    submission: TraceSubmission | TruthTableSubmission | None
+    kind: str
     state: str = "awaiting_input"
     revision: int = 1
     result: dict[str, Any] | None = None
@@ -55,9 +56,11 @@ class GuestLeaseStore:
         settings: Settings,
         now: Callable[[], datetime] | None = None,
         trace_context: dict[str, Any] | None = None,
+        logic_context: dict[str, Any] | None = None,
     ):
         self.settings = settings
         self.trace_context = trace_context
+        self.logic_context = logic_context
         self.now = now or (lambda: datetime.now(UTC))
         self.leases: dict[UUID, Lease] = {}
         self.nonces: dict[bytes, tuple[str, datetime]] = {}
@@ -135,9 +138,11 @@ class GuestLeaseStore:
                 "created_at": now.isoformat(),
                 "idle_expires_at": lease.idle_expires_at.isoformat(),
                 "absolute_expires_at": lease.absolute_expires_at.isoformat(),
-                "allowed_operations": ["verify_trace", "learning_assist"]
-                if self.settings.agent_enabled
-                else ["verify_trace"],
+                "allowed_operations": [
+                    *(["verify_trace"] if self.trace_context is not None else []),
+                    *(["verify_truth_table"] if self.logic_context is not None else []),
+                    *(["learning_assist"] if self.settings.agent_enabled else []),
+                ],
                 "storage": "ephemeral_memory",
             }
 
@@ -220,7 +225,7 @@ class GuestLeaseStore:
         return {
             "operation_id": str(op.id),
             "lease_id": str(lease.id),
-            "kind": "verify_trace",
+            "kind": op.kind,
             "status": op.state,
             "revision": str(op.revision),
             "result": op.result,
@@ -243,20 +248,35 @@ class GuestLeaseStore:
 
     def _complete(self, lease: Lease, op: Operation) -> None:
         assert op.submission is not None
-        result = verify_trace(op.submission)
+        if isinstance(op.submission, TraceSubmission):
+            result = verify_trace(op.submission)
+            context = self.trace_context
+        else:
+            result = verify_truth_table(op.submission)
+            context = self.logic_context
         result["verification_id"] = str(uuid4())
-        assert self.trace_context is not None
-        result.update(self.trace_context)
+        assert context is not None
+        result.update(context)
         op.result, op.state = result, "completed"
         op.submission = None
         self._event(lease, op, "verification.completed")
 
     async def start(
-        self, lease_id: UUID, token: str, origin: str, key: UUID, submission: TraceSubmission
+        self,
+        lease_id: UUID,
+        token: str,
+        origin: str,
+        key: UUID,
+        submission: TraceSubmission | TruthTableSubmission,
     ) -> dict[str, Any]:
         async with self.lock:
             lease = self._lease(lease_id, token, origin)
-            if self.trace_context is None:
+            context = (
+                self.trace_context
+                if isinstance(submission, TraceSubmission)
+                else self.logic_context
+            )
+            if context is None:
                 raise ApiError(503, "COURSE_CONTENT_UNAVAILABLE", "课程活动或检查器版本尚未就绪。")
             request_hash = canonical_hash(submission.model_dump(mode="json"))
             previous_id = lease.operation_keys.get(key)
@@ -267,10 +287,10 @@ class GuestLeaseStore:
                 return self._snapshot(lease, previous)
             if len(lease.operations) >= self.settings.guest_max_operations:
                 raise ApiError(429, "GUEST_BUDGET_EXCEEDED", "本次临时租约的核验次数已用完。")
-            op = Operation(uuid4(), request_hash, key, submission)
+            op = Operation(uuid4(), request_hash, key, submission, submission.kind)
             lease.operations[op.id], lease.operation_keys[key] = op, op.id
             self._touch(lease)
-            if submission.trace is not None:
+            if isinstance(submission, TruthTableSubmission) or submission.trace is not None:
                 self._complete(lease, op)
             else:
                 self._event(lease, op, "student.input_required")
@@ -298,6 +318,7 @@ class GuestLeaseStore:
             if body.expected_revision != str(op.revision):
                 raise ApiError(412, "REVISION_CONFLICT", "操作版本已变化。")
             assert op.submission is not None
+            assert isinstance(op.submission, TraceSubmission)
             op.submission = op.submission.model_copy(
                 update={
                     "trace": body.trace,
