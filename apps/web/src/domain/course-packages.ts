@@ -30,12 +30,13 @@ export async function loadCoursePackage(code: string, edition: 'current' | 'core
   return data
 }
 
-export function workspaceForObjective(objective: string): 'stack_trace' | 'code_draft' | 'truth_table' | null {
+export function workspaceForObjective(objective: string): 'stack_trace' | 'code_draft' | 'truth_table' | 'structured_trace' | null {
   const binding = catalog.courses.flatMap(course => course.workspace_bindings ?? []).find(item => item.objective_code === objective)
   switch (binding?.workspace) {
     case 'stack_trace': return 'stack_trace'
     case 'code_draft': return 'code_draft'
     case 'truth_table': return 'truth_table'
+    case 'structured_trace': return 'structured_trace'
     default: return null
   }
 }

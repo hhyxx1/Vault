@@ -5,7 +5,7 @@ import { flushBeforeIdentityChange, localTabId } from './identity'
 type AuthValue = { account: Account | null; epoch: number; ready: boolean; offline: boolean; error: string | null; login: (email: string, password: string) => Promise<void>; register: (email: string, password: string, displayName: string, type: 'student' | 'teacher') => Promise<void>; verifyEmail: (token: string) => Promise<void>; requestPasswordReset: (email: string) => Promise<void>; confirmPasswordReset: (token: string, password: string) => Promise<void>; logout: () => Promise<void>; refreshSession: () => Promise<void> }
 const AuthContext = createContext<AuthValue | null>(null)
 export async function persistIdentitySpace(value: Account | null, freshGuest = false, db: LearningDatabase = database, isCurrent: () => boolean = () => true) {
-  await db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts], async () => {
+  await db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts], async () => {
     if (!isCurrent()) throw new DOMException('身份变化已过期。', 'AbortError')
     await activateSpace(value?.id ?? null, freshGuest, db, isCurrent)
     await db.meta.put({ key: 'cachedAccount', value: JSON.stringify(value) })

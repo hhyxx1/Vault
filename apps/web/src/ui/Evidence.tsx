@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import { useLocal } from '../local/LocalProvider'
 import { database } from '../local/database'
 import { TRACE_OBJECTIVE, IMPLEMENT_OBJECTIVE, criterionLabels, type ArtifactRevision } from '../domain/learning'
+import { isTraceResult, structuredActivityByVersion, structuredResultCorrect } from '../domain/structured'
 import { liveQuery } from 'dexie'
 
 export default function Evidence() {
-  const { evidence, help, spaceId } = useLocal()
+  const { evidence, structuredAttempts, help, spaceId } = useLocal()
   const [revisions, setRevisions] = useState<ArtifactRevision[]>([])
   const [error, setError] = useState('')
   useEffect(() => { setRevisions([]); if (!spaceId) return; const subscription = liveQuery(() => database.revisions.where('spaceId').equals(spaceId).toArray()).subscribe({ next: value => setRevisions(value.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))), error: () => setError('暂时无法读取作品版本，请重新打开页面。') }); return () => subscription.unsubscribe() }, [spaceId])
@@ -15,6 +16,13 @@ export default function Evidence() {
     <section className="evidence-records">{revisions.map(revision => {
       const related = evidence.filter(record => record.revisionId === revision.revisionId)
       return <article className="evidence-record" key={revision.revisionId}><div className="record-header"><div><span className="eyebrow">作品版本 {revision.version}</span><h2>{revision.id === TRACE_OBJECTIVE ? '栈状态推演' : '括号匹配实现'}</h2></div><span>{new Date(revision.updatedAt).toLocaleString('zh-CN')}</span><Link className="text-link" to={`/learn/${revision.id}`}>继续编辑 ↗</Link></div><p className="record-goal">{revision.goal}</p><details><summary>查看此版本的作品</summary>{revision.id === TRACE_OBJECTIVE ? <div className="artifact-table"><table><thead><tr><th>步骤</th><th>栈内容</th><th>输出</th><th>下溢</th></tr></thead><tbody>{revision.trace.map((row, index) => <tr key={index}><td>{index + 1}</td><td><code>{row.stack || '未填写'}</code></td><td>{row.output || '无输出／未填写'}</td><td>{row.underflow ? '是' : '否'}</td></tr>)}</tbody></table></div> : <pre className="artifact-source">{revision.code}</pre>}<h3>自己的解释</h3><p className="preserve-lines">{revision.explanation || '此版本没有填写解释。'}</p></details>{related.length ? related.map(record => <div className="stored-result" key={record.id}><strong>{record.trust === 'client_reported' ? '云端恢复的客户端记录 · 待复核' : record.result.trace_correct ? '状态推演正确 · 目标仍待复核' : '有核验条件未满足'}</strong>{record.trust === 'client_reported' && <p className="imported-evidence-note">以下内容是历史客户端报告，尚未经云端重新核验，不计入图谱有效评估或达标目标。</p>}<p>{record.result.summary}</p><ul>{record.result.criteria.map(criterion => <li key={criterion.id}><span>{criterionLabels[criterion.id] ?? criterion.id}</span><span className={`criterion-status ${criterion.status}`}>{record.trust === 'client_reported' ? '历史报告 · 待复核' : criterion.status === 'met' ? '满足' : criterion.status === 'not_met' ? '未满足' : '待人工复核'}</span></li>)}</ul><details><summary>核验依据与帮助范围</summary><dl className="provenance"><dt>标准版本</dt><dd>{record.result.standard_version}</dd><dt>检查器</dt><dd>{record.result.checker_version}</dd><dt>真实运行环境</dt><dd>{typeof record.result.runtime === 'string' ? record.result.runtime : JSON.stringify(record.result.runtime)}</dd><dt>作品 hash</dt><dd>{record.result.artifact_hash}</dd><dt>此核验关联帮助</dt><dd>{record.helpEventIds.length} 条</dd><dt>课程内容状态</dt><dd>局部工程样例，尚未完成教学审校</dd></dl>{help.filter(event => record.helpEventIds.includes(event.id)).map(event => <p className="field-note" key={event.id}>{event.kind === 'answer' ? '参考答案' : '提示'} · {new Date(event.createdAt).toLocaleString('zh-CN')} · {event.disclosureVersion}</p>)}</details></div>) : <p className="unverified-note">已保存作品，尚无核验结果。保存本身不增加达标目标数。</p>}</article>
-    })}</section><div className="evidence-bottom"><p>解释和独立应用没有真实复核时，完整目标保持未达标。</p><Link className="text-link" to={`/learn/${IMPLEMENT_OBJECTIVE}`}>继续括号匹配练习 →</Link></div>
+    })}</section>
+    {structuredAttempts.length > 0 && <section className="evidence-records structured-records">{structuredAttempts.slice().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).map(attempt => {
+      const activity = structuredActivityByVersion(attempt.activityVersion)
+      const correct = attempt.result ? structuredResultCorrect(attempt.result) : false
+      const kindLabel = attempt.result ? (isTraceResult(attempt.result) ? '逐条件状态推演' : '括号判定') : '结构化活动'
+      return <article className="evidence-record" key={attempt.id}><div className="record-header"><div><span className="eyebrow">{kindLabel}</span><h2>{activity?.title ?? attempt.activityVersion}</h2></div><span>{new Date(attempt.updatedAt).toLocaleString('zh-CN')}</span><Link className="text-link" to={`/practice/${attempt.activityVersion}`}>继续推演 ↗</Link></div>{attempt.result ? <div className="stored-result"><strong>{attempt.resultTrust ? '本机恢复记录 · 待复核' : correct ? '逐条件核验通过 · 目标仍待复核' : '有核验条件未满足'}</strong><p>{attempt.result.summary}</p><ul>{attempt.result.criteria.map(criterion => <li key={criterion.id}><span>{criterion.title}</span><span className={`criterion-status ${criterion.status}`}>{criterion.status === 'met' ? '满足' : criterion.status === 'not_met' ? '未满足' : '待人工复核'}</span></li>)}</ul></div> : <p className="unverified-note">已保存推演，尚无核验结果。保存本身不增加达标目标数。</p>}</article>
+    })}</section>}
+    <div className="evidence-bottom"><p>解释和独立应用没有真实复核时，完整目标保持未达标。</p><Link className="text-link" to={`/learn/${IMPLEMENT_OBJECTIVE}`}>继续括号匹配练习 →</Link></div>
   </div>
 }

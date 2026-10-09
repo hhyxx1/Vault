@@ -4359,3 +4359,31 @@ main:focus {
   .logic-table td::before { content: attr(data-label); color: #385646; font-size: 12px; font-weight: 600; }
   .logic-table td>small { grid-column: 2; padding: 0; }
 }
+
+/* Data-driven structured trace / bracket judgement workspaces */
+.structured-table th, .structured-table td { white-space: normal; vertical-align: middle; }
+.structured-table td input, .structured-table td select { width: 100%; min-width: 0; }
+.structured-table td[data-label="状态"] select { min-width: 112px; }
+.structured-table td[data-label="输出值"] input { min-width: 78px; }
+/* Wide multi-field machines (ring queue) scroll horizontally with tuned columns. */
+.structured-table-wide { min-width: 900px; }
+.structured-table-wide th:nth-child(1) { width: 80px; }
+.structured-table-wide th:nth-child(2) { width: 158px; }
+.structured-table-wide th:nth-child(3), .structured-table-wide th:nth-child(4), .structured-table-wide th:nth-child(5) { width: 66px; }
+.structured-table-wide th:nth-child(6) { width: 92px; }
+.structured-table-wide th:nth-child(7) { width: 122px; }
+.structured-table-wide td:nth-child(3) input, .structured-table-wide td:nth-child(4) input, .structured-table-wide td:nth-child(5) input { text-align: center; }
+.structured-table .structured-row-wrong th code { color: #9a4a3c; }
+.structured-table td.logic-wrong input, .structured-table td.logic-wrong select { border-color: #c27a6b; background: #fbf1ee; }
+.bracket-table { min-width: 600px; }
+.bracket-table th, .bracket-table td { white-space: normal; }
+.bracket-table td[data-label="是否匹配"] select { min-width: 104px; }
+.bracket-table td[data-label="首个问题括号索引"] input { width: 100%; min-width: 92px; }
+.bracket-table td[data-label="括号串"] code { font-size: 14px; letter-spacing: .04em; }
+.bracket-table td.logic-wrong input, .bracket-table td.logic-wrong select { border-color: #c27a6b; background: #fbf1ee; }
+.structured-entry { margin-top: 8px; }
+.structured-criteria { list-style: none; margin: 10px 0 14px; padding: 0; display: grid; gap: 8px; }
+.structured-criteria li { padding-left: 18px; position: relative; color: #385646; font-size: 13.5px; line-height: 1.55; }
+.structured-criteria li::before { content: "◦"; position: absolute; left: 2px; color: #6f8f7c; }
+.structured-criteria li:last-child { color: #738373; font-style: italic; }
+@media (max-width: 600px) { .structured-table, .structured-table-wide, .bracket-table { min-width: 0; } }

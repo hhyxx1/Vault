@@ -12,6 +12,7 @@ import './frontend-refresh.css'
 const Atlas = React.lazy(() => import('./ui/Atlas'))
 const Workspace = React.lazy(() => import('./ui/Workspace'))
 const LogicWorkspace = React.lazy(() => import('./ui/LogicWorkspace'))
+const StructuredWorkspace = React.lazy(() => import('./ui/StructuredWorkspace'))
 const Evidence = React.lazy(() => import('./ui/Evidence'))
 const LocalSpace = React.lazy(() => import('./ui/LocalSpace'))
 const Teacher = React.lazy(() => import('./ui/Teacher'))
@@ -22,13 +23,19 @@ function LearningRoute() {
   const { objectiveId } = useParams()
   const workspace = workspaceForObjective(objectiveId ?? '')
   if (!workspace) return <div className="page"><h1>这个目标的实践尚未开放</h1><p>未找到已注册的活动。已有作品仍然保留，未开展的核验不计入学习证据。</p><Link className="button primary" to="/atlas">返回课程图谱</Link></div>
-  return pending(workspace === 'truth_table' ? <LogicWorkspace /> : <Workspace />)
+  if (workspace === 'truth_table') return pending(<LogicWorkspace />)
+  if (workspace === 'structured_trace') return pending(<StructuredWorkspace />)
+  return pending(<Workspace />)
+}
+function PracticeRoute() {
+  return pending(<StructuredWorkspace />)
 }
 const router = createBrowserRouter([
   { element: <AuthProvider><LocalProvider><AppShell /></LocalProvider></AuthProvider>, errorElement: <AppError />, children: [
     { path: '/', element: <Landing /> },
     { path: '/atlas', element: pending(<Atlas />) },
     { path: '/learn/:objectiveId', element: <LearningRoute /> },
+    { path: '/practice/:activityVersion', element: <PracticeRoute /> },
     { path: '/evidence', element: pending(<Evidence />) },
     { path: '/local', element: pending(<LocalSpace />) },
     { path: '/teacher', element: pending(<Teacher />) },

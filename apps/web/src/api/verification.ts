@@ -2,6 +2,15 @@ import { COURSE_VERSION, STANDARD_VERSION, TRACE_ACTIVITY, TRACE_OBJECTIVE, type
 import { artifactContent, canonicalHash, traceSubmission } from '../domain/integrity'
 import type { components } from '../../../../packages/contracts/api.generated'
 import { completeLogicRows, LOGIC_ACTIVITY, LOGIC_STANDARD, LOGIC_VERSION, type CourseAttempt, type LogicResult } from '../domain/logic'
+import type {
+  BracketActivityPrompt,
+  BracketJudgement,
+  BracketVerificationResult,
+  StructuredAttempt,
+  StructuredTraceResult,
+  StructuredTraceStep,
+  TraceActivityPrompt,
+} from '../domain/structured'
 
 type Lease = components['schemas']['LeaseResponse']
 type Operation = components['schemas']['OperationResponse'] & { result: VerificationResult }
@@ -136,6 +145,114 @@ export async function verifyTruthTable(attempt: CourseAttempt, signal?: AbortSig
   if (operation.kind !== 'verify_truth_table' || !result || result.artifact_hash !== expectedHash || result.provenance !== 'server_deterministic_checker' || result.course_code !== 'CS05' || result.course_version !== LOGIC_VERSION || result.standard_version !== LOGIC_STANDARD || result.activity_version !== LOGIC_ACTIVITY || result.client_revision_id !== attempt.id || result.client_artifact_id !== attempt.artifactId || result.mastery_asserted !== false || !Array.isArray(result.criteria) || result.criteria.length !== 5 || result.criteria.some(criterion => !['met', 'not_met', 'needs_review'].includes(criterion.status))) {
     throw new Error('真值表核验结果的来源或作品版本不一致，已停止写入学习证据。')
   }
+  return {
+    result,
+    acknowledge: async () => { await readJson(await fetch(`/api/v1/guest-leases/${current.lease_id}/operations/${operation.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` }, body: JSON.stringify({ expected_revision: operation.revision }) })) },
+  }
+}
+
+type StructuredOperationEnvelope = { operation_id: string; revision: string; kind: string }
+
+function assertTrustedResult(result: {
+  provenance: string
+  course_code: string
+  course_version: string
+  standard_version: string
+  activity_version: string
+  client_revision_id: string
+  client_artifact_id: string
+  mastery_asserted: boolean
+  criteria: Array<{ status: string }>
+}, attempt: StructuredAttempt, standardVersion: string): void {
+  if (
+    result.provenance !== 'server_deterministic_checker' ||
+    result.course_code !== 'CS03' ||
+    result.course_version !== COURSE_VERSION ||
+    result.standard_version !== standardVersion ||
+    result.activity_version !== attempt.activityVersion ||
+    result.client_revision_id !== attempt.id ||
+    result.client_artifact_id !== attempt.artifactId ||
+    result.mastery_asserted !== false ||
+    !Array.isArray(result.criteria) ||
+    !result.criteria.length ||
+    result.criteria.some(criterion => !['met', 'not_met', 'needs_review'].includes(criterion.status))
+  ) {
+    throw new Error('核验结果的来源或活动版本不一致，已停止写入学习证据。')
+  }
+}
+
+export async function verifyStructuredTrace(
+  activity: TraceActivityPrompt,
+  attempt: StructuredAttempt,
+  steps: StructuredTraceStep[],
+  signal?: AbortSignal,
+): Promise<{ result: StructuredTraceResult; acknowledge: () => Promise<void> }> {
+  const expectedHash = await canonicalHash({
+    kind: `${activity.machine}_structured_trace_with_explanation`,
+    steps,
+    explanation: attempt.explanation,
+  })
+  const current = await activeLease(signal)
+  signal?.throwIfAborted()
+  const response = await fetch(`/api/v1/guest-leases/${current.lease_id}/operations`, {
+    method: 'POST', credentials: 'same-origin', signal,
+    headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}`, 'Idempotency-Key': attempt.id },
+    body: JSON.stringify({
+      kind: 'verify_structured_trace',
+      course_code: 'CS03',
+      activity_version: activity.version,
+      client_artifact_id: attempt.artifactId,
+      client_revision_id: attempt.id,
+      steps,
+      explanation: attempt.explanation,
+    }),
+  })
+  if (response.status === 401 || response.status === 410) lease = null
+  const operation = await readJson<StructuredOperationEnvelope & { result: StructuredTraceResult | null }>(response)
+  const result = operation.result
+  if (operation.kind !== 'verify_structured_trace' || !result || result.artifact_hash !== expectedHash) {
+    throw new Error('状态推演核验结果的来源或作品版本不一致，已停止写入学习证据。')
+  }
+  assertTrustedResult(result, attempt, activity.standardVersion)
+  return {
+    result,
+    acknowledge: async () => { await readJson(await fetch(`/api/v1/guest-leases/${current.lease_id}/operations/${operation.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` }, body: JSON.stringify({ expected_revision: operation.revision }) })) },
+  }
+}
+
+export async function verifyBracketJudgements(
+  activity: BracketActivityPrompt,
+  attempt: StructuredAttempt,
+  judgements: BracketJudgement[],
+  signal?: AbortSignal,
+): Promise<{ result: BracketVerificationResult; acknowledge: () => Promise<void> }> {
+  const expectedHash = await canonicalHash({
+    kind: 'bracket_judgement_with_explanation',
+    judgements,
+    explanation: attempt.explanation,
+  })
+  const current = await activeLease(signal)
+  signal?.throwIfAborted()
+  const response = await fetch(`/api/v1/guest-leases/${current.lease_id}/operations`, {
+    method: 'POST', credentials: 'same-origin', signal,
+    headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}`, 'Idempotency-Key': attempt.id },
+    body: JSON.stringify({
+      kind: 'verify_bracket_judgement',
+      course_code: 'CS03',
+      activity_version: activity.version,
+      client_artifact_id: attempt.artifactId,
+      client_revision_id: attempt.id,
+      judgements,
+      explanation: attempt.explanation,
+    }),
+  })
+  if (response.status === 401 || response.status === 410) lease = null
+  const operation = await readJson<StructuredOperationEnvelope & { result: BracketVerificationResult | null }>(response)
+  const result = operation.result
+  if (operation.kind !== 'verify_bracket_judgement' || !result || result.artifact_hash !== expectedHash) {
+    throw new Error('括号判定核验结果的来源或作品版本不一致，已停止写入学习证据。')
+  }
+  assertTrustedResult(result, attempt, activity.standardVersion)
   return {
     result,
     acknowledge: async () => { await readJson(await fetch(`/api/v1/guest-leases/${current.lease_id}/operations/${operation.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` }, body: JSON.stringify({ expected_revision: operation.revision }) })) },

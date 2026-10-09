@@ -35,8 +35,13 @@ export const courses = catalog.courses.map(course => ({
   group: coursePresentation.find(item => item.code === course.code)?.group ?? '专业',
 }))
 
-export const traceOperations = stackExample.activities[0].operations.map(operation => ({
-  kind: operation.kind as 'push' | 'pop', value: operation.value,
+// The legacy demo activity is always activities[0]; newer data-driven activities
+// (some without an operations list) must not widen this legacy trace's type.
+const legacyOperations = (stackExample.activities[0] as {
+  operations: Array<{ kind: 'push' | 'pop'; value?: number }>
+}).operations
+export const traceOperations = legacyOperations.map(operation => ({
+  kind: operation.kind, value: operation.value,
   label: operation.kind === 'push' ? `push(${operation.value})` : 'pop()',
 }))
 

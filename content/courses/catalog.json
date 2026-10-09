@@ -58,6 +58,14 @@
         {
           "objective_code": "CS03-STACK-02",
           "workspace": "code_draft"
+        },
+        {
+          "objective_code": "CS03-QUEUE-01",
+          "workspace": "structured_trace"
+        },
+        {
+          "objective_code": "CS03-QUEUE-02",
+          "workspace": "structured_trace"
         }
       ]
     },
