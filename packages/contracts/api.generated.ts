@@ -604,6 +604,142 @@ export interface components {
              */
             space_id: string;
         };
+        /** BracketFeedback */
+        BracketFeedback: {
+            /** Case */
+            case: string;
+            /** Correct */
+            correct: boolean;
+            /** Index */
+            index: number;
+            /** Issues */
+            issues: string[];
+        };
+        /** BracketJudgement */
+        BracketJudgement: {
+            /** Case */
+            case: string;
+            /** Matched */
+            matched: boolean;
+            /** Mismatch Index */
+            mismatch_index: number | null;
+        };
+        /** BracketSubmission */
+        BracketSubmission: {
+            /**
+             * Activity Version
+             * @constant
+             */
+            activity_version: "CS03-STACK-U04-JUDGE@0.1.0";
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            /**
+             * Course Code
+             * @default CS03
+             * @constant
+             */
+            course_code: "CS03";
+            /**
+             * Explanation
+             * @default
+             */
+            explanation: string;
+            /** Judgements */
+            judgements: components["schemas"]["BracketJudgement"][];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "verify_bracket_judgement";
+        };
+        /** BracketVerificationResult */
+        BracketVerificationResult: {
+            /**
+             * Activity Id
+             * Format: uuid
+             */
+            activity_id: string;
+            /** Activity Version */
+            activity_version: string;
+            /**
+             * Activity Version Id
+             * Format: uuid
+             */
+            activity_version_id: string;
+            /** Artifact Hash */
+            artifact_hash: string;
+            /** Bracket Correct */
+            bracket_correct: boolean;
+            /** Checker Version */
+            checker_version: string;
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            /**
+             * Course Code
+             * @constant
+             */
+            course_code: "CS03";
+            /**
+             * Course Id
+             * Format: uuid
+             */
+            course_id: string;
+            /** Course Version */
+            course_version: string;
+            /**
+             * Course Version Id
+             * Format: uuid
+             */
+            course_version_id: string;
+            /** Criteria */
+            criteria: components["schemas"]["StructuredCriterion"][];
+            /**
+             * Mastery Asserted
+             * @constant
+             */
+            mastery_asserted: false;
+            /** Objective Ids */
+            objective_ids: string[];
+            /**
+             * Objective State
+             * @enum {string}
+             */
+            objective_state: "evidence_pending_review" | "practicing";
+            /**
+             * Provenance
+             * @constant
+             */
+            provenance: "server_deterministic_checker";
+            /** Rows */
+            rows: components["schemas"]["BracketFeedback"][];
+            /** Runtime */
+            runtime: string;
+            /** Standard Version */
+            standard_version: string;
+            /** Summary */
+            summary: string;
+            /**
+             * Verification Id
+             * Format: uuid
+             */
+            verification_id: string;
+        };
         /** CSRFOutput */
         CSRFOutput: {
             /** Csrf Token */
@@ -964,7 +1100,7 @@ export interface components {
              */
             absolute_expires_at: string;
             /** Allowed Operations */
-            allowed_operations: ("verify_trace" | "verify_truth_table" | "verify_structured_trace" | "learning_assist")[];
+            allowed_operations: ("verify_trace" | "verify_truth_table" | "verify_structured_trace" | "verify_bracket_judgement" | "learning_assist")[];
             /**
              * Created At
              * Format: date-time
@@ -1138,7 +1274,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "verify_trace" | "verify_truth_table" | "verify_structured_trace";
+            kind: "verify_trace" | "verify_truth_table" | "verify_structured_trace" | "verify_bracket_judgement";
             /**
              * Lease Id
              * Format: uuid
@@ -1150,7 +1286,7 @@ export interface components {
              */
             operation_id: string;
             /** Result */
-            result: components["schemas"]["VerificationResult"] | components["schemas"]["LogicVerificationResult"] | components["schemas"]["StructuredVerificationResult"] | null;
+            result: components["schemas"]["VerificationResult"] | components["schemas"]["LogicVerificationResult"] | components["schemas"]["StructuredVerificationResult"] | components["schemas"]["BracketVerificationResult"] | null;
             /** Revision */
             revision: string;
             /**
@@ -2154,7 +2290,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TraceSubmission"] | components["schemas"]["TruthTableSubmission"] | components["schemas"]["StructuredTraceSubmission"];
+                "application/json": components["schemas"]["TraceSubmission"] | components["schemas"]["TruthTableSubmission"] | components["schemas"]["StructuredTraceSubmission"] | components["schemas"]["BracketSubmission"];
             };
         };
         responses: {

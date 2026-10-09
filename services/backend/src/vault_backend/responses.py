@@ -21,6 +21,7 @@ class LeaseResponse(BaseModel):
             "verify_trace",
             "verify_truth_table",
             "verify_structured_trace",
+            "verify_bracket_judgement",
             "learning_assist",
         ]
     ]
@@ -96,6 +97,38 @@ class StructuredVerificationResult(BaseModel):
     summary: str
 
 
+class BracketFeedback(BaseModel):
+    index: int
+    case: str
+    correct: bool
+    issues: list[str]
+
+
+class BracketVerificationResult(BaseModel):
+    verification_id: UUID
+    course_id: UUID
+    course_version_id: UUID
+    activity_id: UUID
+    activity_version_id: UUID
+    objective_ids: list[UUID]
+    course_code: Literal["CS03"]
+    course_version: str
+    activity_version: str
+    standard_version: str
+    client_artifact_id: UUID
+    client_revision_id: UUID
+    artifact_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
+    checker_version: str
+    runtime: str
+    provenance: Literal["server_deterministic_checker"]
+    bracket_correct: bool
+    rows: list[BracketFeedback]
+    criteria: list[StructuredCriterion]
+    objective_state: Literal["evidence_pending_review", "practicing"]
+    mastery_asserted: Literal[False]
+    summary: str
+
+
 class TruthTableFeedback(BaseModel):
     index: int
     p: bool
@@ -141,11 +174,20 @@ class LogicVerificationResult(BaseModel):
 class OperationResponse(BaseModel):
     operation_id: UUID
     lease_id: UUID
-    kind: Literal["verify_trace", "verify_truth_table", "verify_structured_trace"]
+    kind: Literal[
+        "verify_trace",
+        "verify_truth_table",
+        "verify_structured_trace",
+        "verify_bracket_judgement",
+    ]
     status: Literal["awaiting_input", "completed", "cancelled", "acknowledged"]
     revision: str
     result: (
-        VerificationResult | LogicVerificationResult | StructuredVerificationResult | None
+        VerificationResult
+        | LogicVerificationResult
+        | StructuredVerificationResult
+        | BracketVerificationResult
+        | None
     )
     storage: Literal["ephemeral_memory"]
     acknowledged: bool

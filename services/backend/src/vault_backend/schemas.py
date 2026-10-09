@@ -77,6 +77,25 @@ class StructuredTraceSubmission(WriteModel):
     explanation: str = Field(default="", max_length=4000)
 
 
+class BracketJudgement(WriteModel):
+    case: str = Field(max_length=200)
+    matched: bool
+    mismatch_index: StrictInt | None
+
+
+class BracketSubmission(WriteModel):
+    # Deterministic bracket-judgement activity (CS03 unit U04). The case set is
+    # fixed server-side; the client only returns a verdict and offender index
+    # per case. Source-code execution stays isolated_runner_pending.
+    kind: Literal["verify_bracket_judgement"] = "verify_bracket_judgement"
+    course_code: Literal["CS03"] = "CS03"
+    activity_version: Literal["CS03-STACK-U04-JUDGE@0.1.0"]
+    client_artifact_id: UUID
+    client_revision_id: UUID
+    judgements: list[BracketJudgement] = Field(min_length=1, max_length=64)
+    explanation: str = Field(default="", max_length=4000)
+
+
 class OperationInput(WriteModel):
     op_id: UUID
     expected_revision: str = Field(pattern=r"^[1-9][0-9]*$", max_length=20)

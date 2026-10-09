@@ -9,6 +9,10 @@ from uuid import UUID, uuid4
 
 from vault_backend.checker import canonical_hash, verify_trace, verify_truth_table
 from vault_backend.config import Settings
+from vault_backend.course_checks.brackets import (
+    BRACKET_CONTEXT,
+    verify_bracket_judgements,
+)
 from vault_backend.course_checks.structured_trace import (
     TRUSTED_TRACE_SPECS,
     get_trace_spec,
@@ -16,6 +20,7 @@ from vault_backend.course_checks.structured_trace import (
 )
 from vault_backend.errors import ApiError
 from vault_backend.schemas import (
+    BracketSubmission,
     OperationInput,
     StructuredTraceSubmission,
     TraceSubmission,
@@ -32,7 +37,13 @@ class Operation:
     id: UUID
     request_hash: str
     idempotency_key: UUID
-    submission: TraceSubmission | TruthTableSubmission | StructuredTraceSubmission | None
+    submission: (
+        TraceSubmission
+        | TruthTableSubmission
+        | StructuredTraceSubmission
+        | BracketSubmission
+        | None
+    )
     kind: str
     state: str = "awaiting_input"
     revision: int = 1
@@ -152,6 +163,7 @@ class GuestLeaseStore:
                     *(["verify_trace"] if self.trace_context is not None else []),
                     *(["verify_truth_table"] if self.logic_context is not None else []),
                     *(["verify_structured_trace"] if TRUSTED_TRACE_SPECS else []),
+                    "verify_bracket_judgement",
                     *(["learning_assist"] if self.settings.agent_enabled else []),
                 ],
                 "storage": "ephemeral_memory",
@@ -268,6 +280,14 @@ class GuestLeaseStore:
                     422, "TRACE_SHAPE_INVALID", "提交的轨迹步数或字段与活动操作序列不一致。"
                 ) from exc
             context = spec.context
+        elif isinstance(op.submission, BracketSubmission):
+            try:
+                result = verify_bracket_judgements(op.submission.model_dump(mode="json"))
+            except ValueError as exc:
+                raise ApiError(
+                    422, "BRACKET_SHAPE_INVALID", "提交的判定用例集合或顺序与活动固定用例不一致。"
+                ) from exc
+            context = BRACKET_CONTEXT
         elif isinstance(op.submission, TraceSubmission):
             result = verify_trace(op.submission)
             context = self.trace_context
@@ -287,11 +307,16 @@ class GuestLeaseStore:
         token: str,
         origin: str,
         key: UUID,
-        submission: TraceSubmission | TruthTableSubmission | StructuredTraceSubmission,
+        submission: (
+            TraceSubmission
+            | TruthTableSubmission
+            | StructuredTraceSubmission
+            | BracketSubmission
+        ),
     ) -> dict[str, Any]:
         async with self.lock:
             lease = self._lease(lease_id, token, origin)
-            if isinstance(submission, StructuredTraceSubmission):
+            if isinstance(submission, (StructuredTraceSubmission, BracketSubmission)):
                 context: dict[str, Any] | None = {"available": True}
             elif isinstance(submission, TraceSubmission):
                 context = self.trace_context
@@ -312,7 +337,10 @@ class GuestLeaseStore:
             lease.operations[op.id], lease.operation_keys[key] = op, op.id
             self._touch(lease)
             if (
-                isinstance(submission, (TruthTableSubmission, StructuredTraceSubmission))
+                isinstance(
+                    submission,
+                    (TruthTableSubmission, StructuredTraceSubmission, BracketSubmission),
+                )
                 or submission.trace is not None
             ):
                 self._complete(lease, op)

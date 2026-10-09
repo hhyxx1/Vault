@@ -128,6 +128,267 @@
         "title": "BatchResponse",
         "type": "object"
       },
+      "BracketFeedback": {
+        "properties": {
+          "case": {
+            "title": "Case",
+            "type": "string"
+          },
+          "correct": {
+            "title": "Correct",
+            "type": "boolean"
+          },
+          "index": {
+            "title": "Index",
+            "type": "integer"
+          },
+          "issues": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Issues",
+            "type": "array"
+          }
+        },
+        "required": [
+          "index",
+          "case",
+          "correct",
+          "issues"
+        ],
+        "title": "BracketFeedback",
+        "type": "object"
+      },
+      "BracketJudgement": {
+        "additionalProperties": false,
+        "properties": {
+          "case": {
+            "maxLength": 200,
+            "title": "Case",
+            "type": "string"
+          },
+          "matched": {
+            "title": "Matched",
+            "type": "boolean"
+          },
+          "mismatch_index": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mismatch Index"
+          }
+        },
+        "required": [
+          "case",
+          "matched",
+          "mismatch_index"
+        ],
+        "title": "BracketJudgement",
+        "type": "object"
+      },
+      "BracketSubmission": {
+        "additionalProperties": false,
+        "properties": {
+          "activity_version": {
+            "const": "CS03-STACK-U04-JUDGE@0.1.0",
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "course_code": {
+            "const": "CS03",
+            "default": "CS03",
+            "title": "Course Code",
+            "type": "string"
+          },
+          "explanation": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Explanation",
+            "type": "string"
+          },
+          "judgements": {
+            "items": {
+              "$ref": "#/components/schemas/BracketJudgement"
+            },
+            "maxItems": 64,
+            "minItems": 1,
+            "title": "Judgements",
+            "type": "array"
+          },
+          "kind": {
+            "const": "verify_bracket_judgement",
+            "default": "verify_bracket_judgement",
+            "title": "Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "activity_version",
+          "client_artifact_id",
+          "client_revision_id",
+          "judgements"
+        ],
+        "title": "BracketSubmission",
+        "type": "object"
+      },
+      "BracketVerificationResult": {
+        "properties": {
+          "activity_id": {
+            "format": "uuid",
+            "title": "Activity Id",
+            "type": "string"
+          },
+          "activity_version": {
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "activity_version_id": {
+            "format": "uuid",
+            "title": "Activity Version Id",
+            "type": "string"
+          },
+          "artifact_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Artifact Hash",
+            "type": "string"
+          },
+          "bracket_correct": {
+            "title": "Bracket Correct",
+            "type": "boolean"
+          },
+          "checker_version": {
+            "title": "Checker Version",
+            "type": "string"
+          },
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "course_code": {
+            "const": "CS03",
+            "title": "Course Code",
+            "type": "string"
+          },
+          "course_id": {
+            "format": "uuid",
+            "title": "Course Id",
+            "type": "string"
+          },
+          "course_version": {
+            "title": "Course Version",
+            "type": "string"
+          },
+          "course_version_id": {
+            "format": "uuid",
+            "title": "Course Version Id",
+            "type": "string"
+          },
+          "criteria": {
+            "items": {
+              "$ref": "#/components/schemas/StructuredCriterion"
+            },
+            "title": "Criteria",
+            "type": "array"
+          },
+          "mastery_asserted": {
+            "const": false,
+            "title": "Mastery Asserted",
+            "type": "boolean"
+          },
+          "objective_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Objective Ids",
+            "type": "array"
+          },
+          "objective_state": {
+            "enum": [
+              "evidence_pending_review",
+              "practicing"
+            ],
+            "title": "Objective State",
+            "type": "string"
+          },
+          "provenance": {
+            "const": "server_deterministic_checker",
+            "title": "Provenance",
+            "type": "string"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/BracketFeedback"
+            },
+            "title": "Rows",
+            "type": "array"
+          },
+          "runtime": {
+            "title": "Runtime",
+            "type": "string"
+          },
+          "standard_version": {
+            "title": "Standard Version",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "verification_id": {
+            "format": "uuid",
+            "title": "Verification Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "verification_id",
+          "course_id",
+          "course_version_id",
+          "activity_id",
+          "activity_version_id",
+          "objective_ids",
+          "course_code",
+          "course_version",
+          "activity_version",
+          "standard_version",
+          "client_artifact_id",
+          "client_revision_id",
+          "artifact_hash",
+          "checker_version",
+          "runtime",
+          "provenance",
+          "bracket_correct",
+          "rows",
+          "criteria",
+          "objective_state",
+          "mastery_asserted",
+          "summary"
+        ],
+        "title": "BracketVerificationResult",
+        "type": "object"
+      },
       "CSRFOutput": {
         "properties": {
           "csrf_token": {
@@ -846,6 +1107,7 @@
                 "verify_trace",
                 "verify_truth_table",
                 "verify_structured_trace",
+                "verify_bracket_judgement",
                 "learning_assist"
               ],
               "type": "string"
@@ -1195,7 +1457,8 @@
             "enum": [
               "verify_trace",
               "verify_truth_table",
-              "verify_structured_trace"
+              "verify_structured_trace",
+              "verify_bracket_judgement"
             ],
             "title": "Kind",
             "type": "string"
@@ -1220,6 +1483,9 @@
               },
               {
                 "$ref": "#/components/schemas/StructuredVerificationResult"
+              },
+              {
+                "$ref": "#/components/schemas/BracketVerificationResult"
               },
               {
                 "type": "null"
@@ -3077,6 +3343,7 @@
               "schema": {
                 "discriminator": {
                   "mapping": {
+                    "verify_bracket_judgement": "#/components/schemas/BracketSubmission",
                     "verify_structured_trace": "#/components/schemas/StructuredTraceSubmission",
                     "verify_trace": "#/components/schemas/TraceSubmission",
                     "verify_truth_table": "#/components/schemas/TruthTableSubmission"
@@ -3092,6 +3359,9 @@
                   },
                   {
                     "$ref": "#/components/schemas/StructuredTraceSubmission"
+                  },
+                  {
+                    "$ref": "#/components/schemas/BracketSubmission"
                   }
                 ],
                 "title": "Body"

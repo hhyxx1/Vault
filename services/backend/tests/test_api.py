@@ -4,6 +4,7 @@ import httpx
 import pytest
 
 from vault_backend.api import create_app
+from vault_backend.course_checks.brackets import expected_judgements
 from vault_backend.course_checks.structured_trace import get_trace_spec
 
 ORIGIN = "http://localhost:5173"
@@ -129,6 +130,31 @@ def _structured_payload(activity_version, *, mutate=None, drop_steps=0):
     return payload
 
 
+def _bracket_payload(*, mutate=None, drop=0):
+    judgements = [
+        {
+            "case": row["case"],
+            "matched": row["matched"],
+            "mismatch_index": row["mismatch_index"],
+        }
+        for row in expected_judgements()
+    ]
+    if drop:
+        judgements = judgements[:-drop]
+    payload = {
+        "kind": "verify_bracket_judgement",
+        "course_code": "CS03",
+        "activity_version": "CS03-STACK-U04-JUDGE@0.1.0",
+        "client_artifact_id": str(uuid4()),
+        "client_revision_id": str(uuid4()),
+        "judgements": judgements,
+        "explanation": "闭括号应匹配最近的同种左括号，空串天然匹配；失配或残留都定位到首个括号。",
+    }
+    if mutate is not None:
+        mutate(payload)
+    return payload
+
+
 async def _post_operation(client, lease, payload):
     return await client.post(
         f"/api/v1/guest-leases/{lease['lease_id']}/operations",
@@ -198,6 +224,56 @@ async def test_structured_trace_shape_and_envelope_rejected(client):
     forged = _structured_payload("CS03-STACK-U01-TRACE@0.1.0")
     forged["standard_version"] = "forged-standard"
     assert (await _post_operation(client, lease, forged)).status_code == 422
+
+
+async def test_structured_trace_linked_queue_and_independent_stack_verified(client):
+    lease = await grant(client)
+    for version, objective in (
+        ("CS03-QUEUE-U03-TRACE@0.1.0", "fd2f8331-999a-419b-8f2f-ab3896cac226"),
+        ("CS03-STACK-U05-TRACE@0.1.0", "e790d0f5-ea0a-4924-a482-06b9ff8ab944"),
+    ):
+        response = await _post_operation(client, lease, _structured_payload(version))
+        assert response.status_code == 201, response.text
+        result = response.json()["result"]
+        assert result["trace_correct"] is True
+        assert result["objective_ids"] == [objective]
+        assert result["mastery_asserted"] is False
+        assert result["objective_state"] == "evidence_pending_review"
+
+
+async def test_bracket_judgement_verified(client):
+    lease = await grant(client)
+    assert "verify_bracket_judgement" in lease["allowed_operations"]
+    response = await _post_operation(client, lease, _bracket_payload())
+    assert response.status_code == 201, response.text
+    operation = response.json()
+    assert operation["kind"] == "verify_bracket_judgement"
+    result = operation["result"]
+    assert result["bracket_correct"] is True
+    assert result["mastery_asserted"] is False
+    assert result["activity_id"] == "7c1e5a04-0001-4a00-8000-000000000004"
+    assert result["objective_ids"] == ["e9a64c86-00b2-45e5-8597-3d7717d88643"]
+    statuses = {criterion["id"]: criterion["status"] for criterion in result["criteria"]}
+    assert statuses["brackets.nesting"] == "met"
+    assert statuses["brackets.diagnose"] == "met"
+    assert statuses["explanation"] == "needs_review"
+    assert statuses["independent_transfer"] == "needs_review"
+
+    # A wrong first-offender index fails the diagnose condition, not the verdict.
+    wrong = _bracket_payload(
+        mutate=lambda payload: payload["judgements"][4].__setitem__("mismatch_index", 1)
+    )
+    bad = await _post_operation(client, lease, wrong)
+    assert bad.status_code == 201, bad.text
+    assert bad.json()["result"]["bracket_correct"] is False
+
+
+async def test_bracket_judgement_shape_rejected(client):
+    lease = await grant(client)
+    short = _bracket_payload(drop=1)
+    response = await _post_operation(client, lease, short)
+    assert response.status_code == 422
+    assert "BRACKET_SHAPE_INVALID" in response.text
 
 
 async def test_validation_error_redacts_input(client, trace_payload):

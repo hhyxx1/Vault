@@ -31,6 +31,7 @@ from vault_backend.learning_assist_schemas import (
 from vault_backend.model_profiles import PublicModelCatalog
 from vault_backend.responses import CourseCatalog, LeaseResponse, NonceResponse, OperationResponse
 from vault_backend.schemas import (
+    BracketSubmission,
     LeaseRequest,
     OperationInput,
     RevisionCommand,
@@ -259,7 +260,10 @@ def create_app(
         request: Request,
         lease_id: UUID,
         body: Annotated[
-            TraceSubmission | TruthTableSubmission | StructuredTraceSubmission,
+            TraceSubmission
+            | TruthTableSubmission
+            | StructuredTraceSubmission
+            | BracketSubmission,
             Field(discriminator="kind"),
         ],
         idempotency_key: Annotated[UUID, Header()],
