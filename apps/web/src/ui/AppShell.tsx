@@ -14,6 +14,7 @@ export function AppShell() {
   useEffect(() => { document.getElementById('main-content')?.focus({ preventScroll: true }); window.scrollTo(0, 0) }, [location.pathname])
   return <>
     <a className="skip-link" href="#main-content">跳到主要内容</a>
+    <div className="product-status-strip"><span className="status-dot"/>开发预览 · 默认课程仍在建设 · 可用活动保留真实学习记录</div>
     <header className="topbar">
       <Link className="brand" to="/" aria-label="穹隆 学习入口"><Mark /><span>穹隆<small>QIONGLONG</small></span></Link>
       <nav className="main-nav" aria-label="主要导航">

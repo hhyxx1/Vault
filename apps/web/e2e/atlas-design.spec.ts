@@ -14,6 +14,7 @@ test('chapter opens the selected unit and only its direct relations', async ({ p
   await expect(page.locator('.map-point').filter({ hasText: '实现链队列' })).toHaveCount(0)
   for (const edge of await page.locator('path[data-relation]').all()) expect(await edge.getAttribute('data-relation')).toContain('CS03-STACK-01')
   await expect(page.locator('.map-point').filter({ hasText: '解释并推演栈' })).toBeVisible()
+  await page.locator('.map-tools summary').click()
   await page.getByRole('button', { name: '放大图谱', exact: true }).click()
   await page.getByRole('button', { name: '适应画布', exact: true }).click()
   await page.locator('.map-point').filter({ hasText: '解释并推演栈' }).click()
@@ -35,6 +36,7 @@ test('phone small network fits both declared goals without hiding one offscreen'
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/atlas?course=CS05')
   await expect(page.locator('.map-point')).toHaveCount(2)
+  await page.locator('.map-tools summary').click()
   await page.getByRole('button', { name: '适应画布', exact: true }).click()
   const canvas = await page.locator('.atlas-map-viewport').boundingBox()
   for (const point of await page.locator('.map-point').all()) {

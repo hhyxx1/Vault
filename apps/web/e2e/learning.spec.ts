@@ -36,7 +36,7 @@ test('catalog states its construction scope and narrow pages do not horizontally
 test('knowledge atlas follows the focused unit and keeps a unique-objective denominator across graph controls', async ({ page }) => {
   await page.goto('/atlas?course=CS03')
 
-  // Chapters are territories; opening one exposes every declared local goal.
+  // Panorama shows the declared chapters; focus shows the selected unit.
   await expect(page.locator('#canvas-title')).toHaveText('课程全景')
   await expect(page.locator('.chapter-region')).toHaveCount(8)
   await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
@@ -52,8 +52,8 @@ test('knowledge atlas follows the focused unit and keeps a unique-objective deno
   await expect(network.locator('.map-point.is-external')).toContainText('跨章关系')
   await network.locator('.map-point').filter({ hasText: '后进先出' }).click()
   await expect(network.locator('.map-point[aria-pressed=true]')).toContainText('后进先出')
-  await network.locator('.atlas-relations summary').click()
-  await expect(network.locator('.focus-relation')).toHaveCount(2)
+  await page.locator('.atlas-relations summary').click()
+  await expect(page.locator('.focus-relation')).toHaveCount(2)
   await expect(page.locator('.scope-total strong')).toContainText('0 / 32')
 
   // Relation kind filters change only adjacency, never the denominator.

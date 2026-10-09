@@ -11,7 +11,7 @@ export default function CodeEditor({ value, onChange }: { value: string; onChang
   onChangeRef.current = onChange
   useEffect(() => {
     if (!element.current) return
-    const view = new EditorView({ parent: element.current, state: EditorState.create({ doc: value, extensions: [basicSetup, python(), EditorView.lineWrapping, EditorView.contentAttributes.of({ 'aria-label': '括号匹配 Python 源码' }), EditorView.updateListener.of(update => { if (update.docChanged) onChangeRef.current(update.state.doc.toString()) }), EditorView.theme({ '&': { minHeight: '270px', fontSize: '14px', backgroundColor: '#fbfaf6' }, '.cm-content': { fontFamily: 'Consolas, monospace', padding: '18px 0' }, '.cm-gutters': { backgroundColor: '#f2f1e9', borderRight: '1px solid #deded4', color: '#73766e' }, '&.cm-focused': { outline: '2px solid #327064', outlineOffset: '2px' } })] }) })
+    const view = new EditorView({ parent: element.current, state: EditorState.create({ doc: value, extensions: [basicSetup, python(), EditorView.lineWrapping, EditorView.contentAttributes.of({ 'aria-label': '括号匹配 Python 源码' }), EditorView.updateListener.of(update => { if (update.docChanged) onChangeRef.current(update.state.doc.toString()) }), EditorView.theme({ '&': { minHeight: '270px', fontSize: '14px', backgroundColor: '#ffffff' }, '.cm-content': { fontFamily: 'Consolas, monospace', padding: '18px 0' }, '.cm-gutters': { backgroundColor: '#f1f4f9', borderRight: '1px solid #dfe5ef', color: '#64718a' }, '&.cm-focused': { outline: '2px solid #315fe7', outlineOffset: '2px' } })] }) })
     editor.current = view
     return () => { view.destroy(); editor.current = null }
   }, [])

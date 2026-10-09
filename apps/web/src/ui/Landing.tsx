@@ -3,11 +3,11 @@ import { courses, TRACE_OBJECTIVE, objectiveSummary } from '../domain/learning'
 import { useLocal } from '../local/LocalProvider'
 
 function Observatory() {
-  return <div className="observatory" aria-hidden="true">
-    <div className="orbital orbit-one"/><div className="orbital orbit-two"/><div className="orbital orbit-three"/>
-    <svg viewBox="0 0 520 450" className="star-lines"><path d="M95 245 L220 100 L350 190 L415 345 M220 100 L280 295 L95 245 M350 190 L280 295 L415 345"/><path d="M220 100 L455 94 M95 245 L62 350" strokeDasharray="3 6"/></svg>
-    <div className="star-node star-a"><i/><span>理论理解</span></div><div className="star-node star-b"><i/><span>动手实践</span></div><div className="star-node star-c"><i/><span>真实核验</span></div><div className="star-node star-d"><i/><span>持续学习</span></div>
-    <div className="atlas-coordinate coordinate-a">LEARNING / ATLAS</div><div className="atlas-coordinate coordinate-b">每一个连接，都有依据。</div><div className="orbit-center">学会的过程<br/><strong>可以被看见</strong></div>
+  return <div className="learning-flow" aria-label="理解、实践、核验与改进的学习过程">
+    <article><small>提出问题 · 建立解释</small><h2>理论理解</h2><p>用原理预测将会发生什么。</p></article>
+    <article><small>亲手尝试 · 保留作品</small><h2>动手实践</h2><p>把预测变成一次可观察的尝试。</p></article>
+    <article><small>检查结果 · 解释偏差</small><h2>真实核验</h2><p>依据结果发现仍需补充的部分。</p></article>
+    <article><small>修改作品 · 换条件再试</small><h2>持续学习</h2><p>用新尝试检验修正后的理解。</p></article>
   </div>
 }
 
