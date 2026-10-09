@@ -1,6 +1,7 @@
+import { emptyAttempt, STRUCTURED_ACTIVITIES } from '../domain/structured'
 import 'fake-indexeddb/auto'
 import { afterEach, describe, expect, it } from 'vitest'
-import { LearningDatabase, activateSpace, clearGuestSpace, confirmPersonalCourseScope, openLocalSpace, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveCourseAttempt, saveDraft, savePersonalCourse, saveRevision } from './database'
+import { LearningDatabase, activateSpace, clearGuestSpace, confirmPersonalCourseScope, openLocalSpace, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveCourseAttempt, saveStructuredAttempt, saveDraft, savePersonalCourse, saveRevision } from './database'
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 import { canonicalJson } from '../domain/integrity'
 import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
@@ -197,5 +198,19 @@ describe('local durable repository', () => {
     await recordPersonalAttempt(attempt, db)
     await expect(recordPersonalAttempt({ ...attempt, id: crypto.randomUUID(), theoryNote: '原'.repeat(4000), action: '操'.repeat(4000), observation: '结'.repeat(4000), reflection: '思'.repeat(4000), nextStep: '试'.repeat(4000) }, db)).rejects.toThrow('云同步大小限制')
     expect(await db.personalAttempts.where('spaceId').equals(spaceId).count()).toBe(1)
+  })
+})
+
+
+describe('structured attempt integrity', () => {
+  it('freezes submitted work even when the network has not returned a result', async () => {
+    const db = createDatabase(); const spaceId = await openLocalSpace(db)
+    const attempt = emptyAttempt(STRUCTURED_ACTIVITIES[0], spaceId)
+    await saveStructuredAttempt(attempt, db)
+    const submitted = { ...attempt, submittedAt: new Date().toISOString() }
+    await saveStructuredAttempt(submitted, db)
+    await expect(saveStructuredAttempt({ ...submitted, explanation: 'rewrite' }, db)).rejects.toThrow()
+    await expect(saveStructuredAttempt({ ...submitted, artifactId: crypto.randomUUID() }, db)).rejects.toThrow()
+    expect((await db.structuredAttempts.get([spaceId, attempt.id]))?.explanation).toBe('')
   })
 })

@@ -19,7 +19,7 @@ integers that could be confused with real data.
 """
 
 from dataclasses import dataclass, field
-from typing import Literal, Optional
+from typing import Literal
 
 OpStatus = Literal["ok", "underflow", "full"]
 
@@ -27,7 +27,7 @@ OpStatus = Literal["ok", "underflow", "full"]
 @dataclass(frozen=True)
 class Operation:
     kind: str
-    value: Optional[int] = None
+    value: int | None = None
 
 
 @dataclass(frozen=True)
@@ -35,13 +35,13 @@ class StackSnapshot:
     """State after one stack operation."""
 
     items: tuple[int, ...]  # bottom -> top; right end is the top
-    value: Optional[int]  # popped value; None for push or a failed operation
+    value: int | None  # popped value; None for push or a failed operation
     status: OpStatus
 
 
 @dataclass
 class StackMachine:
-    capacity: Optional[int] = None  # None means unbounded
+    capacity: int | None = None  # None means unbounded
     items: list[int] = field(default_factory=list)
 
     def step(self, operation: Operation) -> StackSnapshot:
@@ -67,19 +67,19 @@ class StackMachine:
 class QueueSnapshot:
     """State after one ring-queue operation."""
 
-    buffer: tuple[Optional[int], ...]  # physical slots, empty slot is None
+    buffer: tuple[int | None, ...]  # physical slots, empty slot is None
     head: int  # index of the next element to dequeue
     tail: int  # index at which the next element will be enqueued
     size: int
     logical: tuple[int, ...]  # FIFO order starting at head
-    value: Optional[int]  # dequeued value; None for enqueue or a failure
+    value: int | None  # dequeued value; None for enqueue or a failure
     status: OpStatus
 
 
 @dataclass
 class RingQueueMachine:
     capacity: int
-    buffer: list[Optional[int]] = field(init=False)
+    buffer: list[int | None] = field(init=False)
     head: int = field(default=0, init=False)
     tail: int = field(default=0, init=False)
     size: int = field(default=0, init=False)
@@ -95,7 +95,7 @@ class RingQueueMachine:
             for offset in range(self.size)
         )
 
-    def _snapshot(self, value: Optional[int], status: OpStatus) -> QueueSnapshot:
+    def _snapshot(self, value: int | None, status: OpStatus) -> QueueSnapshot:
         return QueueSnapshot(
             tuple(self.buffer),
             self.head,
@@ -143,7 +143,7 @@ class LinkedQueueSnapshot:
     """
 
     sequence: tuple[int, ...]  # front -> rear logical content
-    value: Optional[int]  # dequeued value; None for enqueue or underflow
+    value: int | None  # dequeued value; None for enqueue or underflow
     status: OpStatus
 
 

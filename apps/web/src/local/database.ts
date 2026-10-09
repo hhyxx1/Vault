@@ -5,7 +5,7 @@ import type { PersonalAssist, PersonalAttempt, PersonalCourse, PersonalCourseVer
 import { completeLogicRows, type CourseAttempt } from '../domain/logic'
 import type { StructuredAttempt } from '../domain/structured'
 
-export type ObjectType = 'draft' | 'revision' | 'evidence' | 'help' | 'teacher_draft' | 'personal_course' | 'personal_course_version' | 'personal_attempt' | 'personal_assist' | 'course_attempt' | 'position'
+export type ObjectType = 'draft' | 'revision' | 'evidence' | 'help' | 'teacher_draft' | 'personal_course' | 'personal_course_version' | 'personal_attempt' | 'personal_assist' | 'course_attempt' | 'structured_attempt' | 'position'
 export type LocalSpaceRecord = { id: string; ownerId: string | null; pendingOwnerId: string | null; serverId: string | null; cursor: string | null; createdAt: string }
 export type SyncItem = { key: string; spaceId: string; objectType: ObjectType; objectId: string; version: string; acknowledgedJson: string; status: 'pending' | 'synced' | 'conflict' | 'rejected' | 'dependency_pending'; reason?: string; remoteVersion?: string; modifiedAt?: string; remotePayload?: Record<string, unknown> | null; remoteDeleted?: boolean }
 export type ClaimJournal = { claimId: string; expectedAccountId: string; originLocalSpaceId: string; manifestHash: string; manifest: { objectType: ObjectType; objectId: string }[]; state: 'pending' | 'committed'; serverSpaceId?: string }
@@ -190,15 +190,18 @@ export async function saveCourseAttempt(attempt: CourseAttempt, db = database) {
 }
 
 export async function saveStructuredAttempt(attempt: StructuredAttempt, db = database): Promise<StructuredAttempt> {
-  return db.transaction('rw', [db.structuredAttempts, db.meta], async () => {
+  return db.transaction('rw', [db.structuredAttempts, db.meta, db.syncItems], async () => {
     await assertActive(attempt.spaceId, db)
     const previous = await db.structuredAttempts.get([attempt.spaceId, attempt.id])
-    if (previous?.result && !previous.resultTrust) throw new Error('已核验的活动版本不能覆盖；请开始新版本。')
+    if (previous?.result) throw new Error('已核验的活动版本不能覆盖；请开始新版本。')
+    if (previous && ['artifactId', 'activityVersion', 'objectiveCode', 'courseCode', 'kind', 'createdAt'].some(key => previous[key as keyof StructuredAttempt] !== attempt[key as keyof StructuredAttempt])) throw new Error('活动作品身份不能改写。')
+    if (previous?.submittedAt && (previous.submittedAt !== attempt.submittedAt || previous.explanation !== attempt.explanation || canonicalJson(previous.traceRows) !== canonicalJson(attempt.traceRows) || canonicalJson(previous.bracketRows) !== canonicalJson(attempt.bracketRows))) throw new Error('已提交作品不可改写，请另建一次尝试。')
     if (attempt.result) {
       if (attempt.result.client_artifact_id !== attempt.artifactId || attempt.result.client_revision_id !== attempt.id || attempt.result.mastery_asserted !== false) throw new Error('核验结果与本地活动版本不一致。')
     }
     const next: StructuredAttempt = { ...structuredClone(attempt), spaceId: attempt.spaceId, createdAt: previous?.createdAt ?? attempt.createdAt }
     await db.structuredAttempts.put(next)
+    await markPending(attempt.spaceId, 'structured_attempt', attempt.id, db)
     return next
   })
 }

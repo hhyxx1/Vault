@@ -266,7 +266,7 @@ export function parseBracketJudgements(rows: BracketRowInput[]): BracketJudgemen
 export function structuredAttemptState(attempt: StructuredAttempt): ObjectiveState {
   if (!attempt.result || attempt.resultTrust) return 'unknown'
   const missed = attempt.result.criteria.some(criterion => criterion.status === 'not_met')
-  return missed ? 'consolidate' : 'partial'
+  return missed ? 'consolidate' : attempt.result.criteria.some(criterion => criterion.status === 'met') ? 'partial' : 'unknown'
 }
 
 const objectiveTitles = new Map(
@@ -297,4 +297,31 @@ export function isTraceResult(result: StructuredResult): result is StructuredTra
 
 export function structuredResultCorrect(result: StructuredResult): boolean {
   return isTraceResult(result) ? result.trace_correct : result.bracket_correct
+}
+
+
+/** Excludes historical wrong-version responses instead of upgrading them silently. */
+export function hasStructuredResultBinding(attempt: StructuredAttempt): boolean {
+  const result = attempt.result
+  const activity = structuredActivityByVersion(attempt.activityVersion)
+  if (!result || !activity || !Array.isArray(result.objective_ids) || !Array.isArray(result.criteria)) return false
+  if (!activity.objectiveCodes.includes(attempt.objectiveCode) || activity.kind !== attempt.kind) return false
+  const expectedObjectives = stackExample.objectives.filter(goal => activity.objectiveCodes.includes(goal.code)).map(goal => goal.id).sort()
+  const expectedCriteria = [...activity.criteria.map(item => item.id), 'explanation', 'independent_transfer'].sort()
+  return result.provenance === 'server_deterministic_checker'
+    && result.course_id === stackExample.course_id
+    && result.course_version_id === stackExample.course_version_id
+    && result.course_version === stackExample.version
+    && result.activity_id === activity.id && result.activity_version_id === activity.versionId
+    && result.activity_version === activity.version && result.standard_version === activity.standardVersion
+    && result.client_artifact_id === attempt.artifactId && result.client_revision_id === attempt.id
+    && result.mastery_asserted === false
+    && JSON.stringify([...result.objective_ids].sort()) === JSON.stringify(expectedObjectives)
+    && JSON.stringify(result.criteria.map(item => item?.id).sort()) === JSON.stringify(expectedCriteria)
+    && result.criteria.every(item => item && ['met', 'not_met', 'needs_review'].includes(item.status))
+}
+
+export function currentStructuredAttempt(records: StructuredAttempt[], objectiveCode: string, courseVersionId: string): StructuredAttempt | undefined {
+  return records.filter(record => record.objectiveCode === objectiveCode && !record.resultTrust && record.result?.course_version_id === courseVersionId && hasStructuredResultBinding(record))
+    .sort((a, b) => (a.submittedAt ?? a.createdAt).localeCompare(b.submittedAt ?? b.createdAt) || a.id.localeCompare(b.id)).at(-1)
 }

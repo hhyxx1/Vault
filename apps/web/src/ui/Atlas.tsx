@@ -4,7 +4,7 @@ import { loadCoursePackage, workspaceForObjective, hasCurrentActivityPackage, ty
 import { courses, currentObjectiveEvidence, objectiveStates, stateLabels, TRACE_OBJECTIVE } from '../domain/learning'
 import { summarizeObjectiveStates, courseRelationLabels, type ObjectiveState, type ObjectiveSummary } from '../domain/course-map'
 import { logicObjectiveState, LOGIC_OBJECTIVE, LOGIC_VERSION, LOGIC_ACTIVITY, LOGIC_STANDARD } from '../domain/logic'
-import { structuredAttemptState } from '../domain/structured'
+import { currentStructuredAttempt, structuredAttemptState } from '../domain/structured'
 import { useLocal } from '../local/LocalProvider'
 import { AtlasMap } from './AtlasMap'
 
@@ -73,12 +73,12 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
   const currentLogic = courseAttempts.filter(attempt => attempt.result?.course_version === LOGIC_VERSION && attempt.result.activity_version === LOGIC_ACTIVITY && attempt.result.standard_version === LOGIC_STANDARD)
   const evidenceStates = objectiveStates(evidence)
   const structuredStates = new Map<string, ObjectiveState>()
-  for (const attempt of structuredAttempts.filter(item => item.result && !item.resultTrust)) {
-    const objectiveId = goals.get(attempt.objectiveCode)?.id
-    if (!objectiveId) continue
-    const next = structuredAttemptState(attempt)
-    const previous = structuredStates.get(objectiveId)
-    if (!previous || stateOrder.indexOf(next) < stateOrder.indexOf(previous)) structuredStates.set(objectiveId, next)
+  for (const goal of data.objectives) {
+    const attempt = currentStructuredAttempt(structuredAttempts, goal.code, data.course_version_id)
+    if (attempt) {
+      const legacy = currentObjectiveEvidence(evidence, goal.code)
+      if (!legacy || (attempt.submittedAt ?? attempt.createdAt) >= legacy.createdAt) structuredStates.set(goal.id, structuredAttemptState(attempt))
+    }
   }
   const states = data.course_code === 'CS03'
     ? new Map(data.objectives.map(goal => [goal.id, structuredStates.get(goal.id) ?? evidenceStates.get(goal.id) ?? 'unknown' as ObjectiveState]))
@@ -122,11 +122,12 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
   const resume = lastObjective && goals.has(lastObjective) ? goals.get(lastObjective)! : data.objectives.find(goal => goal.code === TRACE_OBJECTIVE || goal.code === LOGIC_OBJECTIVE)
   const selectedEvidence = selected && data.course_code === 'CS03' ? currentObjectiveEvidence(evidence, selected.code) : undefined
   const selectedStructured = selected && data.course_code === 'CS03'
-    ? structuredAttempts.filter(item => item.objectiveCode === selected.code && item.result && !item.resultTrust).sort((a, b) => a.updatedAt.localeCompare(b.updatedAt)).at(-1)
+    ? currentStructuredAttempt(structuredAttempts, selected.code, data.course_version_id)
     : undefined
   const selectedLogic = selected?.code === LOGIC_OBJECTIVE ? currentLogic.filter(item => item.result && !item.resultTrust).sort((a, b) => a.updatedAt.localeCompare(b.updatedAt)).at(-1) : undefined
-  const result = selectedEvidence?.result ?? selectedStructured?.result ?? selectedLogic?.result
-  const resultTimestamp = selectedEvidence?.createdAt ?? selectedStructured?.updatedAt ?? selectedLogic?.updatedAt
+  const structuredIsLatest = selectedStructured && (!selectedEvidence || (selectedStructured.submittedAt ?? selectedStructured.createdAt) >= selectedEvidence.createdAt)
+  const result = structuredIsLatest ? selectedStructured.result : selectedEvidence?.result ?? selectedLogic?.result
+  const resultTimestamp = structuredIsLatest ? selectedStructured.submittedAt ?? selectedStructured.createdAt : selectedEvidence?.createdAt ?? selectedLogic?.updatedAt
   const otherRecords = selected ? data.course_code === 'CS03' ? evidence.filter(item => item.objectiveId === selected.code && item.id !== selectedEvidence?.id) : courseAttempts.filter(item => item.objectiveId === selected.code && item.result && item.id !== selectedLogic?.id) : []
   const submittedHelp = selectedEvidence ? help.filter(item => selectedEvidence.helpEventIds.includes(item.id)) : []
   const selectedWorkspace = workspaceForObjective(selected?.code ?? '')

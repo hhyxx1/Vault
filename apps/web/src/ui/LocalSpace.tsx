@@ -7,7 +7,7 @@ import { localTabId } from '../local/identity'
 import { chooseLocalConflict, chooseRemoteConflict } from '../local/sync'
 import { TRACE_OBJECTIVE, IMPLEMENT_OBJECTIVE, type ArtifactRevision, type TeacherDraft } from '../domain/learning'
 import { liveQuery } from 'dexie'
-const objectLabels = { draft: '学习作品', revision: '作品版本', evidence: '核验记录', help: '帮助记录', teacher_draft: '备课草稿', personal_course: '个人课程', personal_course_version: '课程范围版本', personal_attempt: '个人学习尝试', personal_assist: '个人课程助手建议', course_attempt: '课程实践尝试', position: '学习位置' }
+const objectLabels = { draft: '学习作品', revision: '作品版本', evidence: '核验记录', help: '帮助记录', teacher_draft: '备课草稿', personal_course: '个人课程', personal_course_version: '课程范围版本', personal_attempt: '个人学习尝试', personal_assist: '个人课程助手建议', course_attempt: '课程实践尝试', structured_attempt: '结构化实践尝试', position: '学习位置' }
 const statusLabels = { pending: '等待云端确认', synced: '已同步', conflict: '有修改冲突', rejected: '未同步', dependency_pending: '等待关联记录' }
 const reasonLabels: Record<string, string> = {
   TEACHER_ACCOUNT_REQUIRED: '学生账号的备课草稿仅保留本机，未上传。', ATTACHMENT_UNSUPPORTED: '附件同步尚未开放，请保留本机附件。',

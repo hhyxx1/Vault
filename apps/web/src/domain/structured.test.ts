@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest'
+import stackExample from '../../../../content/courses/CS03.stack-example.json'
 import {
   STRUCTURED_ACTIVITIES,
+  currentStructuredAttempt,
+  hasStructuredResultBinding,
   emptyAttempt,
   emptyBracketRows,
   emptyTraceRows,
@@ -163,5 +166,51 @@ describe('structured attempt state', () => {
     const restored = { ...passed, resultTrust: 'client_reported' }
     expect(structuredAttemptState(restored)).toBe('unknown')
     expect(structuredAttemptState(emptyAttempt(activity, 'space'))).toBe('unknown')
+  })
+})
+
+
+it('absence of satisfied conditions cannot produce partial progress', () => {
+  const activity = STRUCTURED_ACTIVITIES[0]
+  const attempt = emptyAttempt(activity, 'space')
+  attempt.result = { criteria: [{ id: 'review', title: 'review', status: 'needs_review', reason: '' }] } as StructuredResult
+  expect(structuredAttemptState(attempt)).toBe('unknown')
+})
+
+describe('current graph evidence', () => {
+  function checked(date: string, status: 'met' | 'not_met') {
+    const activity = STRUCTURED_ACTIVITIES[0]
+    const attempt = { ...emptyAttempt(activity, 'space'), submittedAt: date }
+    const result = {
+      provenance: 'server_deterministic_checker', mastery_asserted: false,
+      course_id: stackExample.course_id, course_version_id: stackExample.course_version_id,
+      course_version: stackExample.version, activity_id: activity.id,
+      activity_version_id: activity.versionId, activity_version: activity.version,
+      standard_version: activity.standardVersion, client_artifact_id: attempt.artifactId,
+      client_revision_id: attempt.id,
+      objective_ids: stackExample.objectives.filter(goal => activity.objectiveCodes.includes(goal.code)).map(goal => goal.id),
+      criteria: [...activity.criteria.map(item => ({ ...item, status, reason: '' })),
+        { id: 'explanation', title: '', status: 'needs_review', reason: '' },
+        { id: 'independent_transfer', title: '', status: 'needs_review', reason: '' }],
+    } as StructuredResult
+    return { ...attempt, result }
+  }
+
+  it('uses the latest submitted failure even when an older success was updated later', () => {
+    const old = { ...checked('2026-10-09T01:00:00Z', 'met'), updatedAt: '2026-10-09T05:00:00Z' }
+    const latest = checked('2026-10-09T02:00:00Z', 'not_met')
+    const current = currentStructuredAttempt([latest, old], latest.objectiveCode, stackExample.course_version_id)
+    expect(current?.id).toBe(latest.id)
+    expect(structuredAttemptState(current!)).toBe('consolidate')
+  })
+
+  it('rejects mismatched identities, missing conditions, restored claims and malformed lists', () => {
+    const valid = checked('2026-10-09T02:00:00Z', 'met')
+    expect(hasStructuredResultBinding(valid)).toBe(true)
+    for (const patch of [
+      { course_version_id: 'wrong' }, { activity_id: 'wrong' }, { objective_ids: [] },
+      { criteria: [] }, { objective_ids: null }, { client_revision_id: 'wrong' },
+    ]) expect(hasStructuredResultBinding({ ...valid, result: { ...valid.result, ...patch } as StructuredResult })).toBe(false)
+    expect(currentStructuredAttempt([{ ...valid, resultTrust: 'client_reported' }], valid.objectiveCode, stackExample.course_version_id)).toBeUndefined()
   })
 })

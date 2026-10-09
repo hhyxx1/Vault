@@ -522,7 +522,8 @@
               "personal_course_version",
               "personal_attempt",
               "personal_assist",
-              "course_attempt"
+              "course_attempt",
+              "structured_attempt"
             ],
             "title": "Object Type",
             "type": "string"
@@ -773,7 +774,8 @@
               "personal_course_version",
               "personal_attempt",
               "personal_assist",
-              "course_attempt"
+              "course_attempt",
+              "structured_attempt"
             ],
             "title": "Object Type",
             "type": "string"
@@ -1565,7 +1567,8 @@
                   "personal_course_version",
                   "personal_attempt",
                   "personal_assist",
-                  "course_attempt"
+                  "course_attempt",
+                  "structured_attempt"
                 ],
                 "type": "string"
               },
@@ -2276,7 +2279,8 @@
                   "personal_course_version",
                   "personal_attempt",
                   "personal_assist",
-                  "course_attempt"
+                  "course_attempt",
+                  "structured_attempt"
                 ],
                 "type": "string"
               },

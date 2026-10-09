@@ -6,6 +6,7 @@ import { claimSpace, prepareClaim, pullSpace, syncAccount, chooseRemoteConflict 
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 import { canonicalHash, canonicalJson } from '../domain/integrity'
 import { currentTraceEvidence } from '../domain/learning'
+import { emptyAttempt, STRUCTURED_ACTIVITIES, structuredAttemptState, type StructuredResult } from '../domain/structured'
 import type { Account } from '../api/accounts'
 import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
 import { logicObjectiveState, newLogicAttempt, type LogicResult } from '../domain/logic'
@@ -184,4 +185,24 @@ describe('account isolation and durable sync', () => {
     expect((await restored.personalAttempts.get([id, attempt.id]))?.observation).toBe('第二次读到新值')
     expect((await restored.personalAssists.get([id, assist.id]))?.nextAction).toBe('记录两次读值。')
   })
+})
+
+
+it('includes structured work in account claims and restores reports without upgrading trust', async () => {
+  const { db, id, serverId, space } = await boundDb()
+  const attempt = emptyAttempt(STRUCTURED_ACTIVITIES[0], id)
+  const record = { ...attempt, submittedAt: new Date().toISOString(), result: {
+    client_artifact_id: attempt.artifactId, client_revision_id: attempt.id,
+    mastery_asserted: false, criteria: [{ id: 'stack.order', title: '', status: 'met', reason: '' }],
+  } as StructuredResult }
+  await db.structuredAttempts.put(record)
+  const claim = await prepareClaim(id, account.id, db)
+  expect(claim.manifest).toContainEqual({ objectType: 'structured_attempt', objectId: attempt.id })
+  const change = { object_type: 'structured_attempt', object_id: record.id, version: '1', deleted: false, payload: record, payload_hash: await canonicalHash(record), provenance: 'client_reported', requires_review: true }
+  vi.stubGlobal('fetch', vi.fn(async () => json({ space_id: serverId, changes: [change], next_cursor: 'cursor', has_more: false })))
+  const other = createDb(); await openLocalSpace(other); await other.spaces.put(space)
+  await pullSpace(space, { account, isCurrent: () => true, db: other })
+  const restored = (await other.structuredAttempts.get([id, record.id]))!
+  expect(restored.resultTrust).toBe('client_reported')
+  expect(structuredAttemptState(restored)).toBe('unknown')
 })

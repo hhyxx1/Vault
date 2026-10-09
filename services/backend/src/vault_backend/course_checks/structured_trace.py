@@ -12,8 +12,8 @@ expected answers.
 """
 
 import platform
-from dataclasses import dataclass, field
-from typing import Any, Literal, Optional
+from dataclasses import dataclass
+from typing import Any, Literal
 
 from vault_backend.checker import canonical_hash
 from vault_backend.course_checks.machines import (
@@ -51,6 +51,7 @@ class CriterionRule:
     fields: tuple[str, ...]  # state fields compared for those steps
     check_value: bool = False
     check_status: bool = False
+    review_reason: str = ""
 
 
 @dataclass(frozen=True)
@@ -62,7 +63,7 @@ class TraceSpec:
     state_fields: tuple[str, ...]
     operations: tuple[Operation, ...]
     criteria: tuple[CriterionRule, ...]
-    capacity: Optional[int] = None
+    capacity: int | None = None
     # Trusted identity used to attach evidence to the right course/objectives.
     course_code: str = "CS03"
     course_id: str = ""
@@ -150,7 +151,7 @@ def _criterion_status(
             return "not_met"
         if rule.check_status and row["_status"] != want["status"]:
             return "not_met"
-    return "met"
+    return "needs_review" if rule.review_reason else "met"
 
 
 def verify_structured_trace(submission: dict[str, Any], spec: TraceSpec) -> dict[str, Any]:
@@ -167,7 +168,7 @@ def verify_structured_trace(submission: dict[str, Any], spec: TraceSpec) -> dict
 
     expected = spec.expected()
     rows: list[dict[str, Any]] = []
-    for index, (student, want) in enumerate(zip(student_steps, expected), start=1):
+    for index, (student, want) in enumerate(zip(student_steps, expected, strict=True), start=1):
         issues = _row_issues(index, student, want, spec)
         rows.append(
             {
@@ -188,7 +189,7 @@ def verify_structured_trace(submission: dict[str, Any], spec: TraceSpec) -> dict
             "id": rule.id,
             "title": rule.title,
             "status": _criterion_status(rule, rows, expected, spec),
-            "reason": "相关步骤已由确定性状态机逐字段核对。",
+            "reason": rule.review_reason or "相关步骤已由确定性状态机逐字段核对。",
         }
         for rule in spec.criteria
     ]
@@ -197,9 +198,7 @@ def verify_structured_trace(submission: dict[str, Any], spec: TraceSpec) -> dict
             "id": "explanation",
             "title": "用文字解释边界与次序的理由",
             "status": "needs_review" if explanation_present else "not_met",
-            "reason": "文字解释尚未经过独立审阅。"
-            if explanation_present
-            else "尚未提供解释。",
+            "reason": "文字解释尚未经过独立审阅。" if explanation_present else "尚未提供解释。",
         }
     )
     criteria.append(
@@ -280,7 +279,7 @@ def _stack_unit_u01() -> TraceSpec:
             ),
         ),
         course_id="e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
-        course_version_id="c47c1551-76d6-4b80-aeae-33cd253d8ca0",
+        course_version_id="c47c1551-76d5-4b80-aeae-33cd253d8ca0",
         course_version="CS03-example-0.2.0",
         activity_id="7c1e5a01-0001-4a00-8000-000000000001",
         activity_version_id="7c1e5a01-0002-4a00-8000-000000000001",
@@ -290,17 +289,17 @@ def _stack_unit_u01() -> TraceSpec:
 
 def _queue_unit_u02() -> TraceSpec:
     operations = (
-        Operation("dequeue"),          # 1 empty -> underflow
-        Operation("enqueue", 1),       # 2 A
-        Operation("enqueue", 2),       # 3 B
-        Operation("enqueue", 3),       # 4 C -> full (size 3)
-        Operation("enqueue", 4),       # 5 D rejected -> full, unchanged
-        Operation("dequeue"),          # 6 -> A
-        Operation("enqueue", 4),       # 7 D wraps into freed slot
-        Operation("dequeue"),          # 8 -> B
-        Operation("dequeue"),          # 9 -> C
-        Operation("dequeue"),          # 10 -> D
-        Operation("dequeue"),          # 11 empty -> underflow
+        Operation("dequeue"),  # 1 empty -> underflow
+        Operation("enqueue", 1),  # 2 A
+        Operation("enqueue", 2),  # 3 B
+        Operation("enqueue", 3),  # 4 C -> full (size 3)
+        Operation("enqueue", 4),  # 5 D rejected -> full, unchanged
+        Operation("dequeue"),  # 6 -> A
+        Operation("enqueue", 4),  # 7 D wraps into freed slot
+        Operation("dequeue"),  # 8 -> B
+        Operation("dequeue"),  # 9 -> C
+        Operation("dequeue"),  # 10 -> D
+        Operation("dequeue"),  # 11 empty -> underflow
     )
     return TraceSpec(
         activity_version="CS03-QUEUE-U02-TRACE@0.1.0",
@@ -336,7 +335,7 @@ def _queue_unit_u02() -> TraceSpec:
             ),
         ),
         course_id="e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
-        course_version_id="c47c1551-76d6-4b80-aeae-33cd253d8ca0",
+        course_version_id="c47c1551-76d5-4b80-aeae-33cd253d8ca0",
         course_version="CS03-example-0.2.0",
         activity_id="7c1e5a02-0001-4a00-8000-000000000002",
         activity_version_id="7c1e5a02-0002-4a00-8000-000000000002",
@@ -346,22 +345,22 @@ def _queue_unit_u02() -> TraceSpec:
 
 def _linked_queue_unit_u03() -> TraceSpec:
     operations = (
-        Operation("enqueue", 1),   # 1 [1]
-        Operation("enqueue", 2),   # 2 [1, 2]
-        Operation("dequeue"),      # 3 -> 1, [2]
-        Operation("enqueue", 3),   # 4 [2, 3]
-        Operation("dequeue"),      # 5 -> 2, [3]
-        Operation("dequeue"),      # 6 -> 3, [] (last node removed; head/tail reset)
-        Operation("dequeue"),      # 7 empty -> underflow, []
-        Operation("enqueue", 4),   # 8 fresh chain [4]
-        Operation("enqueue", 5),   # 9 [4, 5]
-        Operation("dequeue"),      # 10 -> 4, [5]
-        Operation("dequeue"),      # 11 -> 5, []
+        Operation("enqueue", 1),  # 1 [1]
+        Operation("enqueue", 2),  # 2 [1, 2]
+        Operation("dequeue"),  # 3 -> 1, [2]
+        Operation("enqueue", 3),  # 4 [2, 3]
+        Operation("dequeue"),  # 5 -> 2, [3]
+        Operation("dequeue"),  # 6 -> 3, [] (last node removed; head/tail reset)
+        Operation("dequeue"),  # 7 empty -> underflow, []
+        Operation("enqueue", 4),  # 8 fresh chain [4]
+        Operation("enqueue", 5),  # 9 [4, 5]
+        Operation("dequeue"),  # 10 -> 4, [5]
+        Operation("dequeue"),  # 11 -> 5, []
     )
     return TraceSpec(
         activity_version="CS03-QUEUE-U03-TRACE@0.1.0",
         standard_version="linked-queue-trace-v1",
-        checker_version="linked-queue-checker@0.1.0",
+        checker_version="linked-queue-checker@0.1.1",
         machine="linked_queue",
         state_fields=("sequence",),
         operations=operations,
@@ -375,6 +374,7 @@ def _linked_queue_unit_u03() -> TraceSpec:
             ),
             CriterionRule(
                 id="queue.links",
+                review_reason="逻辑序列不能证明头尾指针和结点链接正确；还需提交并核验链接状态或实现代码。",
                 title="删除最后一个结点后复位头尾，空队出队失败且重建后仍先进先出",
                 steps=(6, 7, 8, 9, 10),
                 fields=("sequence",),
@@ -383,7 +383,7 @@ def _linked_queue_unit_u03() -> TraceSpec:
             ),
         ),
         course_id="e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
-        course_version_id="c47c1551-76d6-4b80-aeae-33cd253d8ca0",
+        course_version_id="c47c1551-76d5-4b80-aeae-33cd253d8ca0",
         course_version="CS03-example-0.2.0",
         activity_id="7c1e5a03-0001-4a00-8000-000000000003",
         activity_version_id="7c1e5a03-0002-4a00-8000-000000000003",
@@ -396,16 +396,16 @@ def _stack_unit_u05() -> TraceSpec:
     # not traced in U01. A correct fixed trace still cannot prove independence,
     # so the independent_transfer condition remains needs_review.
     operations = (
-        Operation("push", 1),       # 1 [1]
-        Operation("push", 2),       # 2 [1, 2]
-        Operation("push", 3),       # 3 [1, 2, 3] full
-        Operation("push", 4),       # 4 rejected -> full, unchanged
-        Operation("pop"),           # 5 -> 3, [1, 2]
-        Operation("pop"),           # 6 -> 2, [1]
-        Operation("push", 5),       # 7 [1, 5]
-        Operation("pop"),           # 8 -> 5, [1]
-        Operation("pop"),           # 9 -> 1, []
-        Operation("pop"),           # 10 empty -> underflow
+        Operation("push", 1),  # 1 [1]
+        Operation("push", 2),  # 2 [1, 2]
+        Operation("push", 3),  # 3 [1, 2, 3] full
+        Operation("push", 4),  # 4 rejected -> full, unchanged
+        Operation("pop"),  # 5 -> 3, [1, 2]
+        Operation("pop"),  # 6 -> 2, [1]
+        Operation("push", 5),  # 7 [1, 5]
+        Operation("pop"),  # 8 -> 5, [1]
+        Operation("pop"),  # 9 -> 1, []
+        Operation("pop"),  # 10 empty -> underflow
     )
     return TraceSpec(
         activity_version="CS03-STACK-U05-TRACE@0.1.0",
@@ -433,7 +433,7 @@ def _stack_unit_u05() -> TraceSpec:
             ),
         ),
         course_id="e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
-        course_version_id="c47c1551-76d6-4b80-aeae-33cd253d8ca0",
+        course_version_id="c47c1551-76d5-4b80-aeae-33cd253d8ca0",
         course_version="CS03-example-0.2.0",
         activity_id="7c1e5a05-0001-4a00-8000-000000000005",
         activity_version_id="7c1e5a05-0002-4a00-8000-000000000005",

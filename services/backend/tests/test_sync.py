@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0008_course_attempt"
+            == "0009_structured_attempt"
         )
     settings = Settings(
         environment="test",
@@ -1184,3 +1184,50 @@ async def test_database_null_payload_cannot_bypass_object_or_change_shape(cloud)
                 )
         assert invalid_change.value.diag.constraint_name == "ck_sync_change_payload"
         conn.rollback()
+
+
+async def test_structured_attempt_submit_restore_and_history_lock(cloud):
+    from vault_backend.course_checks.structured_trace import get_trace_spec, verify_structured_trace
+
+    _, seed, owner_url = cloud
+    student, account_id = seed("student")
+    mapping, _ = await claim(student, account_id)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    spec = get_trace_spec("CS03-STACK-U01-TRACE@0.1.0")
+    stamp = "2026-10-09T12:00:00Z"
+    attempt = {
+        "id": str(uuid4()), "spaceId": origin, "artifactId": str(uuid4()),
+        "objectiveCode": "CS03-STACK-01", "courseCode": "CS03",
+        "activityVersion": spec.activity_version, "kind": "structured_trace",
+        "traceRows": [{"state": {"items": json.dumps(step["state"]["items"])},
+                       "value": "" if step["value"] is None else str(step["value"]),
+                       "status": step["status"]} for step in spec.expected_submission_steps()],
+        "bracketRows": [], "explanation": "Last in, first out.",
+        "result": None, "createdAt": stamp, "updatedAt": stamp,
+    }
+    saved, _ = await batch(student, account_id, sid, [operation("structured_attempt", attempt["id"], attempt)])
+    assert saved.json()["results"][0]["status"] == "applied", saved.text
+    frozen = {**attempt, "submittedAt": stamp}
+    submitted, _ = await batch(student, account_id, sid, [operation("structured_attempt", attempt["id"], frozen, "1")])
+    assert submitted.json()["results"][0]["status"] == "applied", submitted.text
+    denied, _ = await batch(student, account_id, sid, [operation("structured_attempt", attempt["id"], {**frozen, "explanation": "changed"}, "2")])
+    assert denied.json()["results"][0]["reason"] == "COURSE_ATTEMPT_LOCKED"
+    result = verify_structured_trace({
+        "client_artifact_id": attempt["artifactId"], "client_revision_id": attempt["id"],
+        "explanation": attempt["explanation"], "steps": spec.expected_submission_steps(),
+    }, spec)
+    result.update(spec.context)
+    result["verification_id"] = str(uuid4())
+    completed = {**frozen, "result": result}
+    finished, _ = await batch(student, account_id, sid, [operation("structured_attempt", attempt["id"], completed, "2")])
+    assert finished.json()["results"][0]["status"] == "applied", finished.text
+    changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
+    assert changes[-1]["object_type"] == "structured_attempt"
+    assert changes[-1]["requires_review"] is True
+    assert changes[-1]["provenance"] == "client_reported"
+    with psycopg.connect(owner_url) as conn:
+        conn.execute("SET LOCAL ROLE vault_api")
+        conn.execute("SELECT set_config('vault.account_id',%s,true)", (str(account_id),))
+        with pytest.raises(psycopg.errors.CheckViolation):
+            with conn.transaction():
+                conn.execute("UPDATE sync_object SET version=version+1 WHERE space_id=%s AND object_type='structured_attempt' AND object_id=%s", (sid, attempt["id"]))

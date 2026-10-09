@@ -1,3 +1,4 @@
+import { hasStructuredResultBinding } from '../domain/structured'
 import { COURSE_VERSION, STANDARD_VERSION, TRACE_ACTIVITY, TRACE_OBJECTIVE, type ArtifactRevision, type TracePrediction, type VerificationResult } from '../domain/learning'
 import { artifactContent, canonicalHash, traceSubmission } from '../domain/integrity'
 import type { components } from '../../../../packages/contracts/api.generated'
@@ -214,6 +215,7 @@ export async function verifyStructuredTrace(
     throw new Error('状态推演核验结果的来源或作品版本不一致，已停止写入学习证据。')
   }
   assertTrustedResult(result, attempt, activity.standardVersion)
+  if (!hasStructuredResultBinding({ ...attempt, result })) throw new Error('核验的课程身份、目标或条件与活动不一致，已停止写入。')
   return {
     result,
     acknowledge: async () => { await readJson(await fetch(`/api/v1/guest-leases/${current.lease_id}/operations/${operation.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` }, body: JSON.stringify({ expected_revision: operation.revision }) })) },
@@ -253,6 +255,7 @@ export async function verifyBracketJudgements(
     throw new Error('括号判定核验结果的来源或作品版本不一致，已停止写入学习证据。')
   }
   assertTrustedResult(result, attempt, activity.standardVersion)
+  if (!hasStructuredResultBinding({ ...attempt, result })) throw new Error('核验的课程身份、目标或条件与活动不一致，已停止写入。')
   return {
     result,
     acknowledge: async () => { await readJson(await fetch(`/api/v1/guest-leases/${current.lease_id}/operations/${operation.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` }, body: JSON.stringify({ expected_revision: operation.revision }) })) },

@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useLocal } from '../local/LocalProvider'
 import { useAuth } from '../local/AuthProvider'
 import { database, saveStructuredAttempt } from '../local/database'
+import { registerIdentityFlusher } from '../local/identity'
 import { verifyBracketJudgements, verifyStructuredTrace } from '../api/verification'
 import {
   emptyAttempt,
@@ -41,20 +42,31 @@ export default function StructuredWorkspace() {
       ? structuredActivityForObjective(objectiveId)
       : undefined
   const { spaceId, structuredAttempts, refresh } = useLocal()
-  const { account } = useAuth()
+  const { account, epoch } = useAuth()
   const [attempt, setAttempt] = useState<StructuredAttempt | null>(null)
   const [busy, setBusy] = useState(false)
   const [saveState, setSaveState] = useState<'loading' | 'saved' | 'saving' | 'failed'>('loading')
   const [message, setMessage] = useState('')
   const queue = useRef<Promise<unknown>>(Promise.resolve())
-  const currentSpace = useRef(spaceId)
+  const context = `${spaceId}:${epoch}:${activity?.version ?? ''}`
+  const currentContext = useRef(context)
+  currentContext.current = context
+  const mounted = useRef(false)
   const request = useRef<AbortController | null>(null)
+  const saveError = useRef<unknown>(null)
+
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false } }, [])
+  useEffect(() => registerIdentityFlusher(async () => {
+    request.current?.abort()
+    await queue.current
+    if (saveError.current) throw saveError.current
+  }), [])
+  const isCurrent = () => mounted.current && currentContext.current === context
 
   useEffect(() => {
-    currentSpace.current = spaceId
     request.current?.abort()
     request.current = null
-    setAttempt(null); setSaveState('loading'); setMessage('')
+    setAttempt(null); setSaveState('loading'); setMessage(''); setBusy(false)
     if (!spaceId || !activity) return
     let cancelled = false
     database.structuredAttempts.where('spaceId').equals(spaceId).toArray().then(records => {
@@ -62,16 +74,16 @@ export default function StructuredWorkspace() {
         .filter(record => record.activityVersion === activity.version)
         .sort((a, b) => a.updatedAt.localeCompare(b.updatedAt)).at(-1)
       const selected = recent ?? emptyAttempt(activity, spaceId)
-      if (!cancelled && currentSpace.current === spaceId) { setAttempt(selected); setSaveState('saved') }
+      if (!cancelled && isCurrent()) { setAttempt(selected); setSaveState('saved') }
     }).catch(() => { if (!cancelled) setSaveState('failed') })
     return () => { cancelled = true; request.current?.abort() }
-  }, [spaceId, activity?.version])
+  }, [spaceId, activity?.version, epoch])
 
   function queueSave(value: StructuredAttempt) {
     setSaveState('saving')
     queue.current = queue.current.catch(() => undefined).then(() => saveStructuredAttempt(value))
-      .then(() => { if (currentSpace.current === value.spaceId) setSaveState('saved') })
-      .catch(() => { if (currentSpace.current === value.spaceId) { setSaveState('failed'); setMessage('本地保存失败。请勿关闭页面，检查浏览器存储权限后重试。') } })
+      .then(() => { saveError.current = null; if (isCurrent()) setSaveState('saved') })
+      .catch(error => { saveError.current = error; if (isCurrent()) { setSaveState('failed'); setMessage('本地保存失败。请勿关闭页面，检查浏览器存储权限后重试。') } })
   }
 
   function edit(next: Partial<StructuredAttempt>) {
@@ -84,11 +96,13 @@ export default function StructuredWorkspace() {
     if (!attempt || !activity || busy) return
     try {
       await queue.current
+      if (!isCurrent()) return
       const next = emptyAttempt(activity, spaceId, attempt)
       await saveStructuredAttempt(next)
+      if (!isCurrent()) return
       setAttempt(next); setSaveState('saved'); setMessage('新作品已建立。请修改后再次核验。')
       await refresh()
-    } catch { setMessage('创建新作品失败；上一版仍保留在本机。') }
+    } catch { if (isCurrent()) setMessage('创建新作品失败；上一版仍保留在本机。') }
   }
 
   async function verify() {
@@ -106,20 +120,24 @@ export default function StructuredWorkspace() {
     setBusy(true); setMessage('正在逐格核对，本机作品会先保存。')
     try {
       await queue.current
-      if (!attempt.submittedAt) { await saveStructuredAttempt(frozen); setAttempt(frozen) }
+      if (!isCurrent() || controller.signal.aborted) return
+      if (!attempt.submittedAt) { await saveStructuredAttempt(frozen); if (isCurrent()) setAttempt(frozen) }
+      if (!isCurrent() || controller.signal.aborted) return
       const outcome = activity.kind === 'structured_trace'
         ? await verifyStructuredTrace(activity, frozen, parseTraceSteps(activity, frozen.traceRows), controller.signal)
         : await verifyBracketJudgements(activity, frozen, parseBracketJudgements(frozen.bracketRows), controller.signal)
-      if (currentSpace.current !== frozen.spaceId || controller.signal.aborted) return
+      if (!isCurrent() || controller.signal.aborted) return
       const completed = { ...frozen, result: outcome.result, updatedAt: new Date().toISOString() }
       await saveStructuredAttempt(completed)
+      if (!isCurrent() || controller.signal.aborted) return
       setAttempt(completed); setSaveState('saved'); await refresh()
       const ackFailed = await outcome.acknowledge().then(() => false).catch(() => true)
+      if (!isCurrent()) return
       setMessage(ackFailed ? '核验已保存在本机；服务端临时结果将在租约过期后清理。' : '逐格核验已保存。解释与独立迁移仍待复核。')
     } catch (error) {
-      if (currentSpace.current === frozen.spaceId) setMessage(error instanceof Error ? error.message : '核验未完成，作品保留在本机。')
+      if (isCurrent()) setMessage(error instanceof Error ? error.message : '核验未完成，作品保留在本机。')
     } finally {
-      if (currentSpace.current === frozen.spaceId) { setBusy(false); request.current = null }
+      if (isCurrent()) { setBusy(false); request.current = null }
     }
   }
 

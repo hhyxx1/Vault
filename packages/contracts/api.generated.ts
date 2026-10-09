@@ -804,7 +804,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt";
             /** Payload */
             payload: {
                 [key: string]: unknown;
@@ -943,7 +943,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt";
             /** Payload Hash */
             payload_hash: string;
             /**
@@ -1309,7 +1309,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt") | "attachment";
             /**
              * Op Id
              * Format: uuid
@@ -1624,7 +1624,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt") | "attachment";
             /**
              * Op Id
              * Format: uuid

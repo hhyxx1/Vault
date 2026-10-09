@@ -11,9 +11,11 @@ from uuid import UUID
 from pydantic import ConfigDict, Field, StrictBool, StrictInt, field_validator, model_validator
 
 from vault_backend.responses import (
+    BracketVerificationResult,
     Criterion,
     LogicCriterion,
     LogicVerificationResult,
+    StructuredVerificationResult,
     TraceFeedback,
     TruthTableFeedback,
     VerificationResult,
@@ -37,6 +39,7 @@ ObjectType = Literal[
     "personal_attempt",
     "personal_assist",
     "course_attempt",
+    "structured_attempt",
 ]
 
 
@@ -237,6 +240,89 @@ class CourseAttemptPayload(LocalPayload):
         return self
 
 
+class LocalStructuredRow(WriteModel):
+    state: dict[Annotated[str, Field(max_length=30)], Annotated[str, Field(max_length=2000)]] = (
+        Field(max_length=8)
+    )
+    value: str = Field(max_length=100)
+    status: Literal["", "ok", "underflow", "full"]
+
+
+class LocalBracketRow(WriteModel):
+    case: str = Field(max_length=100)
+    matched: Literal["", "matched", "mismatch"]
+    mismatchIndex: str = Field(max_length=100)
+
+
+class StructuredAttemptPayload(LocalPayload):
+    id: UUID
+    artifactId: UUID
+    objectiveCode: ObjectiveId
+    courseCode: Literal["CS03"]
+    activityVersion: str = Field(max_length=100)
+    kind: Literal["structured_trace", "bracket_judgement"]
+    traceRows: list[LocalStructuredRow] = Field(max_length=32)
+    bracketRows: list[LocalBracketRow] = Field(max_length=16)
+    explanation: str = Field(max_length=4000)
+    result: dict[str, Any] | None = None
+    createdAt: Timestamp
+    updatedAt: Timestamp
+    submittedAt: Timestamp | None = None
+
+    @model_validator(mode="after")
+    def bounded_activity(self):
+        from vault_backend.course_checks.brackets import (
+            BRACKET_ACTIVITY_VERSION,
+            BRACKET_CASES,
+            BRACKET_CONTEXT,
+        )
+        from vault_backend.course_checks.structured_trace import TRUSTED_TRACE_SPECS
+
+        # Only registered public activities can be restored, never uploaded checkers.
+        if self.kind == "structured_trace":
+            spec = TRUSTED_TRACE_SPECS.get(self.activityVersion)
+            if spec is None or self.bracketRows or len(self.traceRows) != len(spec.operations):
+                raise ValueError("unknown activity or invalid row count")
+            if any(set(row.state) != set(spec.state_fields) for row in self.traceRows):
+                raise ValueError("invalid state fields")
+            context = spec.context
+            result_model = StructuredVerificationResult
+        else:
+            if self.activityVersion != BRACKET_ACTIVITY_VERSION or self.traceRows:
+                raise ValueError("unknown bracket activity")
+            if [row.case for row in self.bracketRows] != list(BRACKET_CASES):
+                raise ValueError("invalid bracket cases")
+            context = BRACKET_CONTEXT
+            result_model = BracketVerificationResult
+        # Resolve objective codes from the public package, not a duplicated code map.
+        from vault_backend.config import Settings
+        from vault_backend.content import CourseRepository
+
+        package = CourseRepository(Settings().course_catalog_path).example
+        if package is None:
+            raise ValueError("course package unavailable")
+        objectives = {item["id"]: item["code"] for item in package["objectives"]}
+        if self.objectiveCode not in [objectives[str(key)] for key in context["objective_ids"]]:
+            raise ValueError("activity objective mismatch")
+        if self.result is not None:
+            if self.submittedAt is None or self.result.get("mastery_asserted") is not False:
+                raise ValueError("invalid submitted historical result")
+            # Historical report content stays client_reported; validation grants no trust.
+            result = result_model.model_validate(self.result)
+            if set(self.result) != set(result_model.model_fields):
+                raise ValueError("unexpected result fields")
+            if (
+                result.client_artifact_id != self.artifactId
+                or result.client_revision_id != self.id
+                or result.activity_version != self.activityVersion
+            ):
+                raise ValueError("result identity mismatch")
+            for key in ("course_id", "course_version_id", "activity_id", "activity_version_id"):
+                if str(getattr(result, key)) != str(context[key]):
+                    raise ValueError("result context mismatch")
+        return self
+
+
 class TeacherDraftPayload(LocalPayload):
     id: UUID
     title: str = Field(max_length=200)
@@ -395,6 +481,7 @@ PAYLOAD_MODELS = {
     "personal_attempt": PersonalAttemptPayload,
     "personal_assist": PersonalAssistPayload,
     "course_attempt": CourseAttemptPayload,
+    "structured_attempt": StructuredAttemptPayload,
 }
 
 

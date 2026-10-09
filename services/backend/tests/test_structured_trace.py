@@ -11,20 +11,19 @@ from uuid import uuid4
 
 import pytest
 
+from vault_backend.config import Settings
+from vault_backend.content import CourseRepository
+from vault_backend.course_checks.brackets import BRACKET_ACTIVITY_VERSION, BRACKET_CASES
 from vault_backend.course_checks.machines import (
     LinkedQueueMachine,
     RingQueueMachine,
     StackMachine,
-    Operation,
 )
-from vault_backend.course_checks.brackets import BRACKET_ACTIVITY_VERSION, BRACKET_CASES
 from vault_backend.course_checks.structured_trace import (
     TRUSTED_TRACE_SPECS,
     get_trace_spec,
     verify_structured_trace,
 )
-from vault_backend.config import Settings
-from vault_backend.content import CourseRepository
 
 STACK = get_trace_spec("CS03-STACK-U01-TRACE@0.1.0")
 QUEUE = get_trace_spec("CS03-QUEUE-U02-TRACE@0.1.0")
@@ -56,6 +55,12 @@ def _submission(spec, steps, explanation="边界失败时状态保持不变，�
 
 def _criteria(result):
     return {item["id"]: item["status"] for item in result["criteria"]}
+
+
+def test_logical_sequence_cannot_prove_link_pointer_integrity():
+    result = verify_structured_trace(_submission(LINKED, _steps(LINKED)), LINKED)
+    assert _criteria(result)["queue.fifo"] == "met"
+    assert _criteria(result)["queue.links"] == "needs_review"
 
 
 # --- Hard-coded expected trajectories (independent of the checker) ----------
@@ -90,9 +95,7 @@ def test_queue_u02_hardcoded_trajectory():
         ((None, None, None), 1, 1, 0, (), 4, "ok"),
         ((None, None, None), 1, 1, 0, (), None, "underflow"),
     ]
-    actual = [
-        (r.buffer, r.head, r.tail, r.size, r.logical, r.value, r.status) for r in rows
-    ]
+    actual = [(r.buffer, r.head, r.tail, r.size, r.logical, r.value, r.status) for r in rows]
     assert actual == expected
 
 
@@ -163,7 +166,7 @@ def test_correct_linked_queue_u03_passes_without_mastery_assertion():
     assert result["mastery_asserted"] is False
     criteria = _criteria(result)
     assert criteria["queue.fifo"] == "met"
-    assert criteria["queue.links"] == "met"
+    assert criteria["queue.links"] == "needs_review"
     assert criteria["independent_transfer"] == "needs_review"
 
 
@@ -334,6 +337,8 @@ def test_public_package_activities_match_trusted_specs():
 
     for version, spec in TRUSTED_TRACE_SPECS.items():
         activity = by_version[version]
+        assert spec.course_id == example["course_id"]
+        assert spec.course_version_id == example["course_version_id"]
         assert activity["standard_version"] == spec.standard_version
         assert activity["machine"] == spec.machine
         assert activity["capacity"] == spec.capacity
@@ -343,8 +348,7 @@ def test_public_package_activities_match_trusted_specs():
             (operation["kind"], operation.get("value")) for operation in activity["operations"]
         ] == [(operation.kind, operation.value) for operation in spec.operations]
         assert (
-            tuple(objective_ids[code] for code in activity["objective_codes"])
-            == spec.objective_ids
+            tuple(objective_ids[code] for code in activity["objective_codes"]) == spec.objective_ids
         )
         # The public package ships the prompt operations, never an answer key.
         assert not any("expected" in key for key in activity)
@@ -354,3 +358,10 @@ def test_public_package_activities_match_trusted_specs():
     assert bracket["cases"] == list(BRACKET_CASES)
     assert bracket["objective_codes"] == ["CS03-STACK-02"]
     assert "operations" not in bracket
+
+
+def test_bracket_checker_course_identity_matches_public_version():
+    from vault_backend.course_checks.brackets import BRACKET_CONTEXT
+
+    repo = CourseRepository(Settings(environment="test", database_url="").course_catalog_path)
+    assert BRACKET_CONTEXT["course_version_id"] == repo.example["course_version_id"]

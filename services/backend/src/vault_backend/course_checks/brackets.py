@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import platform
 from dataclasses import dataclass
-from typing import Any, Literal, Optional
+from typing import Any, Literal
 
 from vault_backend.checker import canonical_hash
 
@@ -31,8 +31,8 @@ DiagnosisKind = Literal["closing_mismatch", "unclosed_opening"]
 @dataclass(frozen=True)
 class BracketDiagnosis:
     matched: bool
-    index: Optional[int]  # 0-based index of the first offending bracket
-    kind: Optional[DiagnosisKind]
+    index: int | None  # 0-based index of the first offending bracket
+    kind: DiagnosisKind | None
 
 
 def diagnose_brackets(text: str) -> BracketDiagnosis:
@@ -69,7 +69,7 @@ BRACKET_CHECKER_VERSION = "bracket-checker@0.1.0"
 BRACKET_CASES: tuple[str, ...] = ("", "([{}])", "()[]{}", "([)]", ")(", "(()")
 
 _COURSE_ID = "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca"
-_COURSE_VERSION_ID = "c47c1551-76d6-4b80-aeae-33cd253d8ca0"
+_COURSE_VERSION_ID = "c47c1551-76d5-4b80-aeae-33cd253d8ca0"
 _COURSE_VERSION = "CS03-example-0.2.0"
 _ACTIVITY_ID = "7c1e5a04-0001-4a00-8000-000000000004"
 _ACTIVITY_VERSION_ID = "7c1e5a04-0002-4a00-8000-000000000004"
@@ -117,7 +117,7 @@ def verify_bracket_judgements(submission: dict[str, Any]) -> dict[str, Any]:
     nesting_ok = True
     diagnose_ok = True
     for index, (student, want) in enumerate(
-        zip(judgements, expected_judgements()), start=1
+        zip(judgements, expected_judgements(), strict=True), start=1
     ):
         issues: list[str] = []
         student_matched = bool(student.get("matched"))
@@ -126,11 +126,14 @@ def verify_bracket_judgements(submission: dict[str, Any]) -> dict[str, Any]:
             nesting_ok = False
             diagnose_ok = False
             issues.append(
-                f"第 {index} 组对“是否匹配”的判断错误，应为 {'匹配' if want['matched'] else '不匹配'}。"
+                f"第 {index} 组对“是否匹配”的判断错误，"
+                f"应为 {'匹配' if want['matched'] else '不匹配'}。"
             )
         if student_index != want["mismatch_index"]:
             diagnose_ok = False
-            wanted = "空（匹配）" if want["mismatch_index"] is None else f"索引 {want['mismatch_index']}"
+            wanted = (
+                "空（匹配）" if want["mismatch_index"] is None else f"索引 {want['mismatch_index']}"
+            )
             issues.append(f"第 {index} 组首个问题括号位置错误，应为 {wanted}。")
         rows.append(
             {
@@ -160,9 +163,7 @@ def verify_bracket_judgements(submission: dict[str, Any]) -> dict[str, Any]:
             "id": "explanation",
             "title": "说明闭括号为何应匹配最近的左括号及边界处理",
             "status": "needs_review" if explanation_present else "not_met",
-            "reason": "文字解释尚未经过独立审阅。"
-            if explanation_present
-            else "尚未提供解释。",
+            "reason": "文字解释尚未经过独立审阅。" if explanation_present else "尚未提供解释。",
         },
         {
             "id": "independent_transfer",
