@@ -17,12 +17,26 @@ test('atlas preserves the approved desktop composition and compact next action',
   await expect(page.locator('.next-action')).toBeVisible()
   await expect(page.locator('.next-action')).toHaveCSS('background-color', 'rgb(237, 243, 255)')
   await expect(page.locator('.next-action')).toHaveCSS('display', 'block')
+  await expect(page.locator('.map-point[aria-pressed=true] strong')).toHaveCSS('color', 'rgb(49, 95, 231)')
+  await expect(page.locator('.inspector-description')).toBeVisible()
+  const paragraph = await page.locator('.next-action p').boundingBox()
+  const action = await page.locator('.next-action .button').boundingBox()
+  expect(action!.y - (paragraph!.y + paragraph!.height)).toBeLessThanOrEqual(14)
   expect(await page.locator('.next-action').evaluate(el => {
     const records = document.querySelector('.inspector-evidence')!
     return !!(el.compareDocumentPosition(records) & Node.DOCUMENT_POSITION_FOLLOWING)
   })).toBe(true)
   await expect(page.locator('.view-toggle button[aria-pressed=true]')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
   expect(await page.locator('.scope-canvas').evaluate(el => el.clientWidth)).toBeGreaterThan(950)
+})
+
+test('overview explains the scope before suggesting an activity', async ({ page }) => {
+  await page.goto('/atlas?course=CS03')
+  await expect(page.locator('.panorama-subtle')).toBeVisible()
+  expect(await page.locator('.panorama-subtle').evaluate(el => {
+    const action = document.querySelector('.learn-next')!
+    return !!(el.compareDocumentPosition(action) & Node.DOCUMENT_POSITION_FOLLOWING)
+  })).toBe(true)
 })
 
 test('all learning surfaces use the reference typography and page inset', async ({ page }) => {
