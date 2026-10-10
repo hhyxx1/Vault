@@ -1205,12 +1205,19 @@ async def test_structured_attempt_submit_restore_and_history_lock(cloud):
         "bracketRows": [], "explanation": "Last in, first out.",
         "result": None, "createdAt": stamp, "updatedAt": stamp,
     }
-    saved, _ = await batch(student, account_id, sid, [operation("structured_attempt", attempt["id"], attempt)])
+    saved, _ = await batch(
+        student, account_id, sid, [operation("structured_attempt", attempt["id"], attempt)]
+    )
     assert saved.json()["results"][0]["status"] == "applied", saved.text
     frozen = {**attempt, "submittedAt": stamp}
-    submitted, _ = await batch(student, account_id, sid, [operation("structured_attempt", attempt["id"], frozen, "1")])
+    submitted, _ = await batch(
+        student, account_id, sid, [operation("structured_attempt", attempt["id"], frozen, "1")]
+    )
     assert submitted.json()["results"][0]["status"] == "applied", submitted.text
-    denied, _ = await batch(student, account_id, sid, [operation("structured_attempt", attempt["id"], {**frozen, "explanation": "changed"}, "2")])
+    denied, _ = await batch(
+        student, account_id, sid,
+        [operation("structured_attempt", attempt["id"], {**frozen, "explanation": "changed"}, "2")]
+    )
     assert denied.json()["results"][0]["reason"] == "COURSE_ATTEMPT_LOCKED"
     result = verify_structured_trace({
         "client_artifact_id": attempt["artifactId"], "client_revision_id": attempt["id"],
@@ -1219,7 +1226,9 @@ async def test_structured_attempt_submit_restore_and_history_lock(cloud):
     result.update(spec.context)
     result["verification_id"] = str(uuid4())
     completed = {**frozen, "result": result}
-    finished, _ = await batch(student, account_id, sid, [operation("structured_attempt", attempt["id"], completed, "2")])
+    finished, _ = await batch(
+        student, account_id, sid, [operation("structured_attempt", attempt["id"], completed, "2")]
+    )
     assert finished.json()["results"][0]["status"] == "applied", finished.text
     changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
     assert changes[-1]["object_type"] == "structured_attempt"
@@ -1230,4 +1239,8 @@ async def test_structured_attempt_submit_restore_and_history_lock(cloud):
         conn.execute("SELECT set_config('vault.account_id',%s,true)", (str(account_id),))
         with pytest.raises(psycopg.errors.CheckViolation):
             with conn.transaction():
-                conn.execute("UPDATE sync_object SET version=version+1 WHERE space_id=%s AND object_type='structured_attempt' AND object_id=%s", (sid, attempt["id"]))
+                conn.execute(
+                    "UPDATE sync_object SET version=version+1 WHERE space_id=%s "
+                    "AND object_type='structured_attempt' AND object_id=%s",
+                    (sid, attempt["id"]),
+                )

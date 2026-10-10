@@ -19,7 +19,6 @@ from vault_backend.course_checks.brackets import (
     verify_bracket_judgements,
 )
 
-
 # --- Hard-coded verdicts (independent of the checker implementation) ---------
 
 
