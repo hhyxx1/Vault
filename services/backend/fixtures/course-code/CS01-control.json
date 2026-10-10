@@ -1,0 +1,840 @@
+[
+  {
+    "id": "CS01-M03-O01/base/0",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O01",
+    "activity": "311c8a2f-e0e6-5e59-b69d-f88a2cc7dbc2",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 29;\nif (minutes <= 30) puts(\"free\");\nif (minutes <= 60) puts(\"paid\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "free\npaid\n",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M03-O01/base/1",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O01",
+    "activity": "311c8a2f-e0e6-5e59-b69d-f88a2cc7dbc2",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 29;\nif (minutes <= 30) puts(\"free\");\nelse if (minutes <= 60) puts(\"paid\");\nelse puts(\"full\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "free\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O01/above-all/2",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O01",
+    "activity": "311c8a2f-e0e6-5e59-b69d-f88a2cc7dbc2",
+    "task": "above-all",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 61;\nif (minutes <= 30) puts(\"free\");\nif (minutes <= 60) puts(\"paid\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M03-O01/above-all/3",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O01",
+    "activity": "311c8a2f-e0e6-5e59-b69d-f88a2cc7dbc2",
+    "task": "above-all",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 61;\nif (minutes <= 30) puts(\"free\");\nelse if (minutes <= 60) puts(\"paid\");\nelse puts(\"full\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "full\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O02/base/0",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O02",
+    "activity": "d991ea83-735d-5782-b1ce-072b6592580a",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 30, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M03-O02/base/1",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O02",
+    "activity": "d991ea83-735d-5782-b1ce-072b6592580a",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 30, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "0\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O02/upper-equal/2",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O02",
+    "activity": "d991ea83-735d-5782-b1ce-072b6592580a",
+    "task": "upper-equal",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 60, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "10\n",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M03-O02/upper-equal/3",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O02",
+    "activity": "d991ea83-735d-5782-b1ce-072b6592580a",
+    "task": "upper-equal",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 60, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/base/0",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 60, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "10\n",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M03-O03/base/1",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 60, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-29/2",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-29",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 29, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "0\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-29/3",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-29",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 29, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "0\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-30/4",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-30",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 30, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-30/5",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-30",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 30, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "0\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-31/6",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-31",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 31, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-31/7",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-31",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 31, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-59/8",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-59",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 59, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-59/9",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-59",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 59, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-61/10",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-61",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 61, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "10\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/minutes-61/11",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "minutes-61",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 61, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "10\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M03-O03/changed-policy/12",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "changed-policy",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 21, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "0\n",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M03-O03/changed-policy/13",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M03-O03",
+    "activity": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+    "task": "changed-policy",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 21, amount;\nif (minutes <= 20) amount = 0;\nelse if (minutes <= 50) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O01/base/0",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O01",
+    "activity": "f8169ec9-f6ea-5dc7-936b-525c96d85013",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint sum = 0;\nfor (int i = 1; i < 3; i++) {\nsum += i;\nprintf(\"%d %d\\n\", i, sum);\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "1 1\n2 3\n",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M04-O01/base/1",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O01",
+    "activity": "f8169ec9-f6ea-5dc7-936b-525c96d85013",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint sum = 0;\nfor (int i = 1; i <= 3; i++) {\nsum += i;\nprintf(\"%d %d\\n\", i, sum);\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "1 1\n2 3\n3 6\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O01/empty-range/2",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O01",
+    "activity": "f8169ec9-f6ea-5dc7-936b-525c96d85013",
+    "task": "empty-range",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint sum = 0;\nfor (int i = 1; i < 0; i++) {\nsum += i;\nprintf(\"%d %d\\n\", i, sum);\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O01/empty-range/3",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O01",
+    "activity": "f8169ec9-f6ea-5dc7-936b-525c96d85013",
+    "task": "empty-range",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint sum = 0;\nfor (int i = 1; i <= 0; i++) {\nsum += i;\nprintf(\"%d %d\\n\", i, sum);\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O02/base/0",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O02",
+    "activity": "22b58d37-ff2a-5ba9-b23e-19355affd80d",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint n = 3;\nwhile (n > 0) {\nn--;\nprintf(\"%d\\n\", n);\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "2\n1\n0\n",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M04-O02/base/1",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O02",
+    "activity": "22b58d37-ff2a-5ba9-b23e-19355affd80d",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint n = 3;\nwhile (n > 0) {\nprintf(\"%d\\n\", n);\nn--;\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "3\n2\n1\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O02/zero-start/2",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O02",
+    "activity": "22b58d37-ff2a-5ba9-b23e-19355affd80d",
+    "task": "zero-start",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint n = 0;\nwhile (n > 0) {\nn--;\nprintf(\"%d\\n\", n);\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O02/zero-start/3",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O02",
+    "activity": "22b58d37-ff2a-5ba9-b23e-19355affd80d",
+    "task": "zero-start",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint n = 0;\nwhile (n > 0) {\nprintf(\"%d\\n\", n);\nn--;\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O02/missing-termination/initial",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O02",
+    "activity": "22b58d37-ff2a-5ba9-b23e-19355affd80d",
+    "task": "missing-termination",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nwhile (1) {}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "timeout",
+      "stdout": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M04-O02/missing-termination/repaired",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O02",
+    "activity": "22b58d37-ff2a-5ba9-b23e-19355affd80d",
+    "task": "missing-termination",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint n = 3;\nwhile (n > 0) {\nprintf(\"%d\\n\", n);\nn--;\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "3\n2\n1\n"
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O03/base/0",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O03",
+    "activity": "d3003752-c991-5980-bbdc-93c026a9343d",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum = delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+      },
+      "stdin": "-0+#"
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "step=1 sum=-1\nstep=2 sum=0\nstep=3 sum=1\nsum=1 count=3\n",
+      "stderr": ""
+    },
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M04-O03/base/1",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O03",
+    "activity": "d3003752-c991-5980-bbdc-93c026a9343d",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum += delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+      },
+      "stdin": "-0+#"
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "step=1 sum=-1\nstep=2 sum=-1\nstep=3 sum=0\nsum=0 count=3\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O03/end-only/2",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O03",
+    "activity": "d3003752-c991-5980-bbdc-93c026a9343d",
+    "task": "end-only",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum = delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+      },
+      "stdin": "#"
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "sum=0 count=0\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O03/end-only/3",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O03",
+    "activity": "d3003752-c991-5980-bbdc-93c026a9343d",
+    "task": "end-only",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum += delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+      },
+      "stdin": "#"
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "sum=0 count=0\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O03/empty-input/4",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O03",
+    "activity": "d3003752-c991-5980-bbdc-93c026a9343d",
+    "task": "empty-input",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum = delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "sum=0 count=0\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O03/empty-input/5",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O03",
+    "activity": "d3003752-c991-5980-bbdc-93c026a9343d",
+    "task": "empty-input",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum += delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "sum=0 count=0\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O03/ignore-after-end/6",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O03",
+    "activity": "d3003752-c991-5980-bbdc-93c026a9343d",
+    "task": "ignore-after-end",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum = delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+      },
+      "stdin": "-#+"
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "step=1 sum=-1\nsum=-1 count=1\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M04-O03/ignore-after-end/7",
+    "version": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
+    "goal": "CS01-M04-O03",
+    "activity": "d3003752-c991-5980-bbdc-93c026a9343d",
+    "task": "ignore-after-end",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum += delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+      },
+      "stdin": "-#+"
+    },
+    "expected": {
+      "status": "success",
+      "stdout": "step=1 sum=-1\nsum=-1 count=1\n",
+      "stderr": ""
+    },
+    "decision": "met"
+  }
+]

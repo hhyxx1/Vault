@@ -9,6 +9,15 @@ from vault_backend.errors import ApiError
 VERSION = "ad970167-0230-5141-8027-cc535f3ed22e"
 
 
+@pytest.mark.parametrize("version", [VERSION, "93d59075-447d-55d5-a54b-d151c0aaa2a1"])
+def test_old_versions_do_not_acquire_new_control_flow_goals(version, monkeypatch):
+    from vault_backend.course_checks import code_tasks
+
+    monkeypatch.setitem(code_tasks.RULES, ("CS01-M03-O01", "base"), ("", "success", "free\n", ""))
+    with pytest.raises(ApiError):
+        resolve_task(version, "CS01-M03-O01", "base")
+
+
 def sample(stdout="5\n", status="success", stdin=""):
     request = CodeRequest(
         language="c17", entry="main.c", files={"main.c": "int main(void){return 0;}"}, stdin=stdin
