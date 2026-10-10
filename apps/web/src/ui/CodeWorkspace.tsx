@@ -14,6 +14,7 @@ const templates: Record<CodeRequest['language'], { entry: string; source: string
   cpp17: { entry: 'main.cpp', source: '#include <iostream>\nint main() { std::cout << 2+3 << "\\n"; }\n', label: 'C++17' },
   java21: { entry: 'Main.java', source: 'public class Main { public static void main(String[] args) { System.out.println(2+3); } }\n', label: 'Java 21' },
   python313: { entry: 'main.py', source: 'print(2+3)\n', label: 'Python 3.13' },
+  python313ml: { entry: 'main.py', source: 'import numpy as np\nprint(np.mean([2, 4]))\n', label: 'Python 3.13 · 数据实验' },
   postgres18: { entry: 'main.sql', source: 'SELECT 2+3;\n', label: 'SQL · PostgreSQL 18' },
   node24: { entry: 'main.js', source: 'console.log(2+3);\n', label: 'JavaScript · Node 24' },
 }

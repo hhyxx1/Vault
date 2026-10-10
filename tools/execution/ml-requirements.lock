@@ -1,0 +1,11 @@
+# Linux x86_64 / CPython 3.13 only. Official PyPI wheel SHA256; no source builds.
+# numpy-2.3.3-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+numpy==2.3.3 --hash=sha256:5b83648633d46f77039c29078751f80da65aa64d5622a3cd62aaef9d835b6c93
+# scipy-1.16.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+scipy==1.16.2 --hash=sha256:c2275ff105e508942f99d4e3bc56b6ef5e4b3c0af970386ca56b777608ce95b7
+# scikit_learn-1.7.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+scikit-learn==1.7.2 --hash=sha256:502c18e39849c0ea1a5d681af1dbcf15f6cce601aebb657aabbfe84133c1907f
+# joblib-1.5.2-py3-none-any.whl
+joblib==1.5.2 --hash=sha256:4e1f0bdbb987e6d843c70cf43714cb276623def372df3c22fe5266b2670bc241
+# threadpoolctl-3.6.0-py3-none-any.whl
+threadpoolctl==3.6.0 --hash=sha256:43a0b8fd5a2928500110039e43a5eed8480b918967083ea48dc3ab9f13c4a7fb

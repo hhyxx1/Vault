@@ -1,0 +1,1706 @@
+[
+  {
+    "id": "CS02-M01-O01/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O01",
+    "activity": "3d183782-5951-567e-9b87-fdcf56c2e361",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { static int copies; Book(int x){copies=x;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook a=new Book(n); Book b=new Book(n+1); System.out.println(a.copies+\" \"+b.copies);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2 2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M01-O01/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O01",
+    "activity": "3d183782-5951-567e-9b87-fdcf56c2e361",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { int copies; Book(int x){copies=x;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook a=new Book(n); Book b=new Book(n+1); System.out.println(a.copies+\" \"+b.copies);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1 2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M01-O01/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O01",
+    "activity": "3d183782-5951-567e-9b87-fdcf56c2e361",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { static int copies; Book(int x){copies=x;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook a=new Book(n); Book b=new Book(n+1); System.out.println(a.copies+\" \"+b.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3 3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M01-O01/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O01",
+    "activity": "3d183782-5951-567e-9b87-fdcf56c2e361",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { int copies; Book(int x){copies=x;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook a=new Book(n); Book b=new Book(n+1); System.out.println(a.copies+\" \"+b.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2 3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M01-O02/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O02",
+    "activity": "e7144116-9c19-527d-9828-31998cbd2f5a",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { public int copies; Book(int x){copies=x;} int available(){return copies;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n); System.out.println(\"private=\"+java.lang.reflect.Modifier.isPrivate(Book.class.getDeclaredField(\"copies\").getModifiers())+\" available=\"+b.available());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "private=false available=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M01-O02/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O02",
+    "activity": "e7144116-9c19-527d-9828-31998cbd2f5a",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { private int copies; Book(int x){copies=x;} int available(){return copies;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n); System.out.println(\"private=\"+java.lang.reflect.Modifier.isPrivate(Book.class.getDeclaredField(\"copies\").getModifiers())+\" available=\"+b.available());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "private=true available=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M01-O02/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O02",
+    "activity": "e7144116-9c19-527d-9828-31998cbd2f5a",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { public int copies; Book(int x){copies=x;} int available(){return copies;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n); System.out.println(\"private=\"+java.lang.reflect.Modifier.isPrivate(Book.class.getDeclaredField(\"copies\").getModifiers())+\" available=\"+b.available());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "private=false available=2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M01-O02/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O02",
+    "activity": "e7144116-9c19-527d-9828-31998cbd2f5a",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { private int copies; Book(int x){copies=x;} int available(){return copies;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n); System.out.println(\"private=\"+java.lang.reflect.Modifier.isPrivate(Book.class.getDeclaredField(\"copies\").getModifiers())+\" available=\"+b.available());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "private=true available=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M01-O03/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O03",
+    "activity": "24c5e72d-7062-5d34-8a72-2453545ffe7f",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int count,capacity; Book(int n){capacity=n;count=n;} void giveBack(){if(count<capacity)count++;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\ntry {Book b=new Book(n);b.giveBack();b.giveBack();System.out.println(\"count=\"+b.count);} catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+      },
+      "stdin": "-1\n"
+    },
+    "stdout": "count=-1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M01-O03/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O03",
+    "activity": "24c5e72d-7062-5d34-8a72-2453545ffe7f",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int count,capacity; Book(int n){if(n<0)throw new IllegalArgumentException();capacity=n;count=n;} void giveBack(){if(count<capacity)count++;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\ntry {Book b=new Book(n);b.giveBack();b.giveBack();System.out.println(\"count=\"+b.count);} catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+      },
+      "stdin": "-1\n"
+    },
+    "stdout": "rejected\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M01-O03/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O03",
+    "activity": "24c5e72d-7062-5d34-8a72-2453545ffe7f",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int count,capacity; Book(int n){capacity=n;count=n;} void giveBack(){if(count<capacity)count++;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\ntry {Book b=new Book(n);b.giveBack();b.giveBack();System.out.println(\"count=\"+b.count);} catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "count=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M01-O03/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M01-O03",
+    "activity": "24c5e72d-7062-5d34-8a72-2453545ffe7f",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int count,capacity; Book(int n){if(n<0)throw new IllegalArgumentException();capacity=n;count=n;} void giveBack(){if(count<capacity)count++;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\ntry {Book b=new Book(n);b.giveBack();b.giveBack();System.out.println(\"count=\"+b.count);} catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "count=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M02-O01/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O01",
+    "activity": "0d78dad8-c5ef-53d8-a37c-a3ec0e076e56",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Fee {int cents(int days);} static class Service {Fee fee;Service(Fee f){fee=f;}int charge(int d){return 1;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService s=new Service(days->days*2);System.out.println(\"fee=\"+s.charge(n));\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "fee=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M02-O01/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O01",
+    "activity": "0d78dad8-c5ef-53d8-a37c-a3ec0e076e56",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Fee {int cents(int days);} static class Service {Fee fee;Service(Fee f){fee=f;}int charge(int d){return fee.cents(d);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService s=new Service(days->days*2);System.out.println(\"fee=\"+s.charge(n));\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "fee=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M02-O01/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O01",
+    "activity": "0d78dad8-c5ef-53d8-a37c-a3ec0e076e56",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Fee {int cents(int days);} static class Service {Fee fee;Service(Fee f){fee=f;}int charge(int d){return 1;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService s=new Service(days->days*2);System.out.println(\"fee=\"+s.charge(n));\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "fee=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M02-O01/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O01",
+    "activity": "0d78dad8-c5ef-53d8-a37c-a3ec0e076e56",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Fee {int cents(int days);} static class Service {Fee fee;Service(Fee f){fee=f;}int charge(int d){return fee.cents(d);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService s=new Service(days->days*2);System.out.println(\"fee=\"+s.charge(n));\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "fee=4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M02-O02/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O02",
+    "activity": "20742f55-04cf-5ab4-bd04-a3bc6e279020",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Repo {int copies;Repo(int c){copies=c;}} static class Service {Repo repo;Service(Repo r){repo=new Repo(r.copies);}void borrow(){if(repo.copies>0)repo.copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nRepo r=new Repo(n);Service s=new Service(r);s.borrow();System.out.println(\"repo=\"+r.copies);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "repo=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M02-O02/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O02",
+    "activity": "20742f55-04cf-5ab4-bd04-a3bc6e279020",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Repo {int copies;Repo(int c){copies=c;}} static class Service {Repo repo;Service(Repo r){repo=r;}void borrow(){if(repo.copies>0)repo.copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nRepo r=new Repo(n);Service s=new Service(r);s.borrow();System.out.println(\"repo=\"+r.copies);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "repo=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M02-O02/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O02",
+    "activity": "20742f55-04cf-5ab4-bd04-a3bc6e279020",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Repo {int copies;Repo(int c){copies=c;}} static class Service {Repo repo;Service(Repo r){repo=new Repo(r.copies);}void borrow(){if(repo.copies>0)repo.copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nRepo r=new Repo(n);Service s=new Service(r);s.borrow();System.out.println(\"repo=\"+r.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "repo=2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M02-O02/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O02",
+    "activity": "20742f55-04cf-5ab4-bd04-a3bc6e279020",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Repo {int copies;Repo(int c){copies=c;}} static class Service {Repo repo;Service(Repo r){repo=r;}void borrow(){if(repo.copies>0)repo.copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nRepo r=new Repo(n);Service s=new Service(r);s.borrow();System.out.println(\"repo=\"+r.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "repo=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M02-O03/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O03",
+    "activity": "3ba61b09-4913-5504-8aba-c50391bb9b5f",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int get();} static class Spy implements Repo {int calls;public int get(){calls++;return 7;}} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return 0;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSpy spy=new Spy();Service s=new Service(spy);for(int i=0;i<n;i++)s.available();System.out.println(\"calls=\"+spy.calls);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "calls=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M02-O03/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O03",
+    "activity": "3ba61b09-4913-5504-8aba-c50391bb9b5f",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int get();} static class Spy implements Repo {int calls;public int get(){calls++;return 7;}} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return r.get();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSpy spy=new Spy();Service s=new Service(spy);for(int i=0;i<n;i++)s.available();System.out.println(\"calls=\"+spy.calls);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "calls=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M02-O03/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O03",
+    "activity": "3ba61b09-4913-5504-8aba-c50391bb9b5f",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int get();} static class Spy implements Repo {int calls;public int get(){calls++;return 7;}} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return 0;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSpy spy=new Spy();Service s=new Service(spy);for(int i=0;i<n;i++)s.available();System.out.println(\"calls=\"+spy.calls);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "calls=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M02-O03/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M02-O03",
+    "activity": "3ba61b09-4913-5504-8aba-c50391bb9b5f",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int get();} static class Spy implements Repo {int calls;public int get(){calls++;return 7;}} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return r.get();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSpy spy=new Spy();Service s=new Service(spy);for(int i=0;i<n;i++)s.available();System.out.println(\"calls=\"+spy.calls);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "calls=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M03-O01/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O01",
+    "activity": "498feb3f-ded2-5159-8926-7bbaed155a68",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Standard implements Policy {public int days(){return 14;}} static class Limited implements Policy {int limit;Limited(int x){limit=x;}public int days(){return limit;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited(n);System.out.println(\"days=\"+new Standard().days());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "days=14\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M03-O01/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O01",
+    "activity": "498feb3f-ded2-5159-8926-7bbaed155a68",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Standard implements Policy {public int days(){return 14;}} static class Limited implements Policy {int limit;Limited(int x){limit=x;}public int days(){return limit;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited(n);System.out.println(\"days=\"+p.days());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "days=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M03-O01/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O01",
+    "activity": "498feb3f-ded2-5159-8926-7bbaed155a68",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Standard implements Policy {public int days(){return 14;}} static class Limited implements Policy {int limit;Limited(int x){limit=x;}public int days(){return limit;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited(n);System.out.println(\"days=\"+new Standard().days());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "days=14\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M03-O01/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O01",
+    "activity": "498feb3f-ded2-5159-8926-7bbaed155a68",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Standard implements Policy {public int days(){return 14;}} static class Limited implements Policy {int limit;Limited(int x){limit=x;}public int days(){return limit;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited(n);System.out.println(\"days=\"+p.days());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "days=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M03-O02/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O02",
+    "activity": "4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int fee(int days);} static class Limited implements Policy {public int fee(int days){if(days<=0)throw new IllegalArgumentException();return days*2;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited();try{System.out.println(\"fee=\"+p.fee(n));}catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+      },
+      "stdin": "0\n"
+    },
+    "stdout": "rejected\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M03-O02/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O02",
+    "activity": "4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int fee(int days);} static class Limited implements Policy {public int fee(int days){if(days<0)throw new IllegalArgumentException();return days*2;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited();try{System.out.println(\"fee=\"+p.fee(n));}catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+      },
+      "stdin": "0\n"
+    },
+    "stdout": "fee=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M03-O02/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O02",
+    "activity": "4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int fee(int days);} static class Limited implements Policy {public int fee(int days){if(days<=0)throw new IllegalArgumentException();return days*2;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited();try{System.out.println(\"fee=\"+p.fee(n));}catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+      },
+      "stdin": "3\n"
+    },
+    "stdout": "fee=6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M03-O02/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O02",
+    "activity": "4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int fee(int days);} static class Limited implements Policy {public int fee(int days){if(days<0)throw new IllegalArgumentException();return days*2;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited();try{System.out.println(\"fee=\"+p.fee(n));}catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+      },
+      "stdin": "3\n"
+    },
+    "stdout": "fee=6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M03-O03/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O03",
+    "activity": "087ccd2f-4474-5f5f-81fb-a56aa07210ba",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Loan {Policy p;Loan(Policy p){this.p=p;}int due(){return 14;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLoan l=new Loan(()->n*3);System.out.println(\"due=\"+l.due());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "due=14\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M03-O03/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O03",
+    "activity": "087ccd2f-4474-5f5f-81fb-a56aa07210ba",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Loan {Policy p;Loan(Policy p){this.p=p;}int due(){return p.days();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLoan l=new Loan(()->n*3);System.out.println(\"due=\"+l.due());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "due=3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M03-O03/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O03",
+    "activity": "087ccd2f-4474-5f5f-81fb-a56aa07210ba",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Loan {Policy p;Loan(Policy p){this.p=p;}int due(){return 14;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLoan l=new Loan(()->n*3);System.out.println(\"due=\"+l.due());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "due=14\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M03-O03/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M03-O03",
+    "activity": "087ccd2f-4474-5f5f-81fb-a56aa07210ba",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Loan {Policy p;Loan(Policy p){this.p=p;}int due(){return p.days();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLoan l=new Loan(()->n*3);System.out.println(\"due=\"+l.due());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "due=6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M04-O01/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O01",
+    "activity": "c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id) {}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nList<Book> books=List.of(new Book(7),new Book(8));System.out.println(\"id=\"+books.get(0).id());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "id=7\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M04-O01/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O01",
+    "activity": "c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id) {}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nList<Book> books=List.of(new Book(7),new Book(8));System.out.println(\"id=\"+books.get(n).id());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "id=8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M04-O01/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O01",
+    "activity": "c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id) {}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nList<Book> books=List.of(new Book(7),new Book(8));System.out.println(\"id=\"+books.get(0).id());\n}\n}\n"
+      },
+      "stdin": "0\n"
+    },
+    "stdout": "id=7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M04-O01/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O01",
+    "activity": "c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id) {}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nList<Book> books=List.of(new Book(7),new Book(8));System.out.println(\"id=\"+books.get(n).id());\n}\n}\n"
+      },
+      "stdin": "0\n"
+    },
+    "stdout": "id=7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M04-O02/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O02",
+    "activity": "4007e46f-5f69-527f-b9f8-a80d2857a8aa",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nCollection<Integer> ids=new ArrayList<>();ids.add(n);ids.add(n);ids.add(n+1);System.out.println(\"unique=\"+ids.size());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unique=3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M04-O02/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O02",
+    "activity": "4007e46f-5f69-527f-b9f8-a80d2857a8aa",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nCollection<Integer> ids=new LinkedHashSet<>();ids.add(n);ids.add(n);ids.add(n+1);System.out.println(\"unique=\"+ids.size());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unique=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M04-O02/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O02",
+    "activity": "4007e46f-5f69-527f-b9f8-a80d2857a8aa",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nCollection<Integer> ids=new ArrayList<>();ids.add(n);ids.add(n);ids.add(n+1);System.out.println(\"unique=\"+ids.size());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "unique=3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M04-O02/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O02",
+    "activity": "4007e46f-5f69-527f-b9f8-a80d2857a8aa",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nCollection<Integer> ids=new LinkedHashSet<>();ids.add(n);ids.add(n);ids.add(n+1);System.out.println(\"unique=\"+ids.size());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "unique=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M04-O03/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O03",
+    "activity": "8dbf6558-fafe-51c9-b74b-6cce730ec469",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {final int isbn;Book(int n){isbn=n;}public int hashCode(){return isbn;}public boolean equals(Object other){return this==other;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSet<Book> books=new HashSet<>();books.add(new Book(n));books.add(new Book(n));books.add(new Book(n+1));System.out.println(\"unique=\"+books.size());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unique=3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M04-O03/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O03",
+    "activity": "8dbf6558-fafe-51c9-b74b-6cce730ec469",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {final int isbn;Book(int n){isbn=n;}public int hashCode(){return isbn;}public boolean equals(Object other){return other instanceof Book b && isbn==b.isbn;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSet<Book> books=new HashSet<>();books.add(new Book(n));books.add(new Book(n));books.add(new Book(n+1));System.out.println(\"unique=\"+books.size());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unique=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M04-O03/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O03",
+    "activity": "8dbf6558-fafe-51c9-b74b-6cce730ec469",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {final int isbn;Book(int n){isbn=n;}public int hashCode(){return isbn;}public boolean equals(Object other){return this==other;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSet<Book> books=new HashSet<>();books.add(new Book(n));books.add(new Book(n));books.add(new Book(n+1));System.out.println(\"unique=\"+books.size());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "unique=3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M04-O03/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M04-O03",
+    "activity": "8dbf6558-fafe-51c9-b74b-6cce730ec469",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {final int isbn;Book(int n){isbn=n;}public int hashCode(){return isbn;}public boolean equals(Object other){return other instanceof Book b && isbn==b.isbn;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSet<Book> books=new HashSet<>();books.add(new Book(n));books.add(new Book(n));books.add(new Book(n+1));System.out.println(\"unique=\"+books.size());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "unique=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M05-O01/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O01",
+    "activity": "1fa1c474-f76d-5de6-bc78-96772aed4b0b",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic boolean store(int n){try{throw new IOException();}catch(IOException e){return true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSystem.out.println(\"saved=\"+store(n));\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "saved=true\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M05-O01/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O01",
+    "activity": "1fa1c474-f76d-5de6-bc78-96772aed4b0b",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic boolean store(int n){try{throw new IOException();}catch(IOException e){return false;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSystem.out.println(\"saved=\"+store(n));\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "saved=false\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M05-O01/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O01",
+    "activity": "1fa1c474-f76d-5de6-bc78-96772aed4b0b",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic boolean store(int n){try{throw new IOException();}catch(IOException e){return true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSystem.out.println(\"saved=\"+store(n));\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "saved=true\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M05-O01/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O01",
+    "activity": "1fa1c474-f76d-5de6-bc78-96772aed4b0b",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic boolean store(int n){try{throw new IOException();}catch(IOException e){return false;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSystem.out.println(\"saved=\"+store(n));\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "saved=false\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M05-O02/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O02",
+    "activity": "8e066796-73f9-5ff6-870a-f5ab4b18d4d8",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies=2;void borrow(int n)throws IOException{copies--;if(n==1)throw new IOException();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book();try{b.borrow(n);}catch(IOException e){}System.out.println(\"copies=\"+b.copies);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "copies=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M05-O02/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O02",
+    "activity": "8e066796-73f9-5ff6-870a-f5ab4b18d4d8",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies=2;void borrow(int n)throws IOException{if(n==1)throw new IOException();copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book();try{b.borrow(n);}catch(IOException e){}System.out.println(\"copies=\"+b.copies);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "copies=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M05-O02/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O02",
+    "activity": "8e066796-73f9-5ff6-870a-f5ab4b18d4d8",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies=2;void borrow(int n)throws IOException{copies--;if(n==1)throw new IOException();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book();try{b.borrow(n);}catch(IOException e){}System.out.println(\"copies=\"+b.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "copies=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M05-O02/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O02",
+    "activity": "8e066796-73f9-5ff6-870a-f5ab4b18d4d8",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies=2;void borrow(int n)throws IOException{if(n==1)throw new IOException();copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book();try{b.borrow(n);}catch(IOException e){}System.out.println(\"copies=\"+b.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "copies=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M05-O03/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O03",
+    "activity": "d552ee3e-86fe-5f69-89d0-3eb64e26648c",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Resource implements AutoCloseable {boolean closed;public void close(){closed=true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nResource r=new Resource();try {if(n==1)throw new IOException();}catch(IOException e){}System.out.println(\"closed=\"+r.closed);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "closed=false\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M05-O03/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O03",
+    "activity": "d552ee3e-86fe-5f69-89d0-3eb64e26648c",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Resource implements AutoCloseable {boolean closed;public void close(){closed=true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nResource r=new Resource();try(r) {if(n==1)throw new IOException();}catch(IOException e){}System.out.println(\"closed=\"+r.closed);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "closed=true\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M05-O03/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O03",
+    "activity": "d552ee3e-86fe-5f69-89d0-3eb64e26648c",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Resource implements AutoCloseable {boolean closed;public void close(){closed=true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nResource r=new Resource();try {if(n==1)throw new IOException();}catch(IOException e){}System.out.println(\"closed=\"+r.closed);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "closed=false\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M05-O03/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M05-O03",
+    "activity": "d552ee3e-86fe-5f69-89d0-3eb64e26648c",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Resource implements AutoCloseable {boolean closed;public void close(){closed=true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nResource r=new Resource();try(r) {if(n==1)throw new IOException();}catch(IOException e){}System.out.println(\"closed=\"+r.closed);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "closed=true\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M06-O01/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O01",
+    "activity": "802bb561-8714-5a6a-90f2-11d43ac54f0a",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Set<Integer> subscribers=new LinkedHashSet<>();void remove(int id){subscribers.add(id);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();b.subscribers.add(n);b.remove(n);System.out.println(\"subscribers=\"+b.subscribers.size());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "subscribers=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M06-O01/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O01",
+    "activity": "802bb561-8714-5a6a-90f2-11d43ac54f0a",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Set<Integer> subscribers=new LinkedHashSet<>();void remove(int id){subscribers.remove(id);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();b.subscribers.add(n);b.remove(n);System.out.println(\"subscribers=\"+b.subscribers.size());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "subscribers=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M06-O01/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O01",
+    "activity": "802bb561-8714-5a6a-90f2-11d43ac54f0a",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Set<Integer> subscribers=new LinkedHashSet<>();void remove(int id){subscribers.add(id);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();b.subscribers.add(n);b.remove(n);System.out.println(\"subscribers=\"+b.subscribers.size());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "subscribers=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M06-O01/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O01",
+    "activity": "802bb561-8714-5a6a-90f2-11d43ac54f0a",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Set<Integer> subscribers=new LinkedHashSet<>();void remove(int id){subscribers.remove(id);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();b.subscribers.add(n);b.remove(n);System.out.println(\"subscribers=\"+b.subscribers.size());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "subscribers=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M06-O02/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O02",
+    "activity": "f47e30d7-a3df-533d-80b8-f22bbf34c602",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Collection<Runnable> listeners=new ArrayList<>();void publish(){for(Runnable r:listeners)r.run();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};Runnable listener=()->count[0]++;for(int i=0;i<n+1;i++)b.listeners.add(listener);b.publish();System.out.println(\"notified=\"+count[0]);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "notified=2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M06-O02/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O02",
+    "activity": "f47e30d7-a3df-533d-80b8-f22bbf34c602",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Collection<Runnable> listeners=new LinkedHashSet<>();void publish(){for(Runnable r:listeners)r.run();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};Runnable listener=()->count[0]++;for(int i=0;i<n+1;i++)b.listeners.add(listener);b.publish();System.out.println(\"notified=\"+count[0]);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "notified=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M06-O02/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O02",
+    "activity": "f47e30d7-a3df-533d-80b8-f22bbf34c602",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Collection<Runnable> listeners=new ArrayList<>();void publish(){for(Runnable r:listeners)r.run();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};Runnable listener=()->count[0]++;for(int i=0;i<n+1;i++)b.listeners.add(listener);b.publish();System.out.println(\"notified=\"+count[0]);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "notified=3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M06-O02/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O02",
+    "activity": "f47e30d7-a3df-533d-80b8-f22bbf34c602",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Collection<Runnable> listeners=new LinkedHashSet<>();void publish(){for(Runnable r:listeners)r.run();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};Runnable listener=()->count[0]++;for(int i=0;i<n+1;i++)b.listeners.add(listener);b.publish();System.out.println(\"notified=\"+count[0]);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "notified=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M06-O03/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O03",
+    "activity": "9ff81c76-65cc-5dbd-9674-05384bdbf2f3",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {List<Runnable> listeners=new ArrayList<>();int errors;void publish(){try{for(Runnable r:listeners)r.run();}catch(IllegalStateException e){errors++;}}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};b.listeners.add(()->{throw new IllegalStateException();});for(int i=0;i<n;i++)b.listeners.add(()->count[0]++);b.publish();System.out.println(\"notified=\"+count[0]+\" errors=\"+b.errors);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "notified=0 errors=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M06-O03/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O03",
+    "activity": "9ff81c76-65cc-5dbd-9674-05384bdbf2f3",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {List<Runnable> listeners=new ArrayList<>();int errors;void publish(){for(Runnable r:listeners){try{r.run();}catch(IllegalStateException e){errors++;}}}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};b.listeners.add(()->{throw new IllegalStateException();});for(int i=0;i<n;i++)b.listeners.add(()->count[0]++);b.publish();System.out.println(\"notified=\"+count[0]+\" errors=\"+b.errors);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "notified=1 errors=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M06-O03/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O03",
+    "activity": "9ff81c76-65cc-5dbd-9674-05384bdbf2f3",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {List<Runnable> listeners=new ArrayList<>();int errors;void publish(){try{for(Runnable r:listeners)r.run();}catch(IllegalStateException e){errors++;}}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};b.listeners.add(()->{throw new IllegalStateException();});for(int i=0;i<n;i++)b.listeners.add(()->count[0]++);b.publish();System.out.println(\"notified=\"+count[0]+\" errors=\"+b.errors);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "notified=0 errors=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M06-O03/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M06-O03",
+    "activity": "9ff81c76-65cc-5dbd-9674-05384bdbf2f3",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {List<Runnable> listeners=new ArrayList<>();int errors;void publish(){for(Runnable r:listeners){try{r.run();}catch(IllegalStateException e){errors++;}}}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};b.listeners.add(()->{throw new IllegalStateException();});for(int i=0;i<n;i++)b.listeners.add(()->count[0]++);b.publish();System.out.println(\"notified=\"+count[0]+\" errors=\"+b.errors);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "notified=2 errors=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M07-O01/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O01",
+    "activity": "0b33b5e9-b7f4-57e0-b84b-56444915305f",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id,int copies) {} static String encode(Book b){return b.id()+\",0\";}static Book decode(String s){String[] p=s.split(\",\");return new Book(Integer.parseInt(p[0]),Integer.parseInt(p[1]));}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=decode(encode(new Book(7,n)));System.out.println(\"id=\"+b.id()+\" copies=\"+b.copies());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "id=7 copies=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M07-O01/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O01",
+    "activity": "0b33b5e9-b7f4-57e0-b84b-56444915305f",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id,int copies) {} static String encode(Book b){return b.id()+\",\"+b.copies();}static Book decode(String s){String[] p=s.split(\",\");return new Book(Integer.parseInt(p[0]),Integer.parseInt(p[1]));}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=decode(encode(new Book(7,n)));System.out.println(\"id=\"+b.id()+\" copies=\"+b.copies());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "id=7 copies=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M07-O01/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O01",
+    "activity": "0b33b5e9-b7f4-57e0-b84b-56444915305f",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id,int copies) {} static String encode(Book b){return b.id()+\",0\";}static Book decode(String s){String[] p=s.split(\",\");return new Book(Integer.parseInt(p[0]),Integer.parseInt(p[1]));}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=decode(encode(new Book(7,n)));System.out.println(\"id=\"+b.id()+\" copies=\"+b.copies());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "id=7 copies=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M07-O01/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O01",
+    "activity": "0b33b5e9-b7f4-57e0-b84b-56444915305f",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id,int copies) {} static String encode(Book b){return b.id()+\",\"+b.copies();}static Book decode(String s){String[] p=s.split(\",\");return new Book(Integer.parseInt(p[0]),Integer.parseInt(p[1]));}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=decode(encode(new Book(7,n)));System.out.println(\"id=\"+b.id()+\" copies=\"+b.copies());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "id=7 copies=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M07-O02/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O02",
+    "activity": "3883b5d4-2b36-5909-a92c-878405b5cfec",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int load();} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return 7;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService first=new Service(()->n);Service second=new Service(()->n+1);System.out.println(first.available()+\" \"+second.available());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "7 7\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M07-O02/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O02",
+    "activity": "3883b5d4-2b36-5909-a92c-878405b5cfec",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int load();} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return r.load();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService first=new Service(()->n);Service second=new Service(()->n+1);System.out.println(first.available()+\" \"+second.available());\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1 2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M07-O02/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O02",
+    "activity": "3883b5d4-2b36-5909-a92c-878405b5cfec",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int load();} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return 7;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService first=new Service(()->n);Service second=new Service(()->n+1);System.out.println(first.available()+\" \"+second.available());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7 7\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M07-O02/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O02",
+    "activity": "3883b5d4-2b36-5909-a92c-878405b5cfec",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int load();} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return r.load();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService first=new Service(()->n);Service second=new Service(()->n+1);System.out.println(first.available()+\" \"+second.available());\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2 3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M07-O03/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O03",
+    "activity": "cca558ee-f1ad-581a-905a-ec20d0240a54",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPath p=Path.of(\"/box/tmp/book.txt\");Files.writeString(p,\"7,0\");String loaded=Files.readString(p);System.out.println(\"loaded=\"+loaded);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "loaded=7,0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M07-O03/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O03",
+    "activity": "cca558ee-f1ad-581a-905a-ec20d0240a54",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPath p=Path.of(\"/box/tmp/book.txt\");Files.writeString(p,\"7,\"+n);String loaded=Files.readString(p);System.out.println(\"loaded=\"+loaded);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "loaded=7,1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M07-O03/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O03",
+    "activity": "cca558ee-f1ad-581a-905a-ec20d0240a54",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPath p=Path.of(\"/box/tmp/book.txt\");Files.writeString(p,\"7,0\");String loaded=Files.readString(p);System.out.println(\"loaded=\"+loaded);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "loaded=7,0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M07-O03/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M07-O03",
+    "activity": "cca558ee-f1ad-581a-905a-ec20d0240a54",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPath p=Path.of(\"/box/tmp/book.txt\");Files.writeString(p,\"7,\"+n);String loaded=Files.readString(p);System.out.println(\"loaded=\"+loaded);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "loaded=7,2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M08-O01/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O01",
+    "activity": "e05dfe52-651f-5a0a-b49d-ef92c2571612",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Limit {int copies();}static class Library {Limit limit;Library(Limit l){limit=l;}boolean canBorrow(int held){return held<1;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary library=new Library(()->3);System.out.println(\"allowed=\"+library.canBorrow(n));\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "allowed=false\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M08-O01/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O01",
+    "activity": "e05dfe52-651f-5a0a-b49d-ef92c2571612",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Limit {int copies();}static class Library {Limit limit;Library(Limit l){limit=l;}boolean canBorrow(int held){return held<limit.copies();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary library=new Library(()->3);System.out.println(\"allowed=\"+library.canBorrow(n));\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "allowed=true\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M08-O01/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O01",
+    "activity": "e05dfe52-651f-5a0a-b49d-ef92c2571612",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Limit {int copies();}static class Library {Limit limit;Library(Limit l){limit=l;}boolean canBorrow(int held){return held<1;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary library=new Library(()->3);System.out.println(\"allowed=\"+library.canBorrow(n));\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "allowed=false\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M08-O01/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O01",
+    "activity": "e05dfe52-651f-5a0a-b49d-ef92c2571612",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Limit {int copies();}static class Library {Limit limit;Library(Limit l){limit=l;}boolean canBorrow(int held){return held<limit.copies();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary library=new Library(()->3);System.out.println(\"allowed=\"+library.canBorrow(n));\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "allowed=true\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M08-O02/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O02",
+    "activity": "5a2931b7-3a63-5c65-b399-1835f3407623",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies;Book(int n){copies=n;}boolean borrow(){copies--;return copies>=0;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n);boolean accepted=b.borrow();System.out.println(\"accepted=\"+accepted+\" copies=\"+b.copies);\n}\n}\n"
+      },
+      "stdin": "0\n"
+    },
+    "stdout": "accepted=false copies=-1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M08-O02/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O02",
+    "activity": "5a2931b7-3a63-5c65-b399-1835f3407623",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies;Book(int n){copies=n;}boolean borrow(){if(copies==0)return false;copies--;return true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n);boolean accepted=b.borrow();System.out.println(\"accepted=\"+accepted+\" copies=\"+b.copies);\n}\n}\n"
+      },
+      "stdin": "0\n"
+    },
+    "stdout": "accepted=false copies=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M08-O02/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O02",
+    "activity": "5a2931b7-3a63-5c65-b399-1835f3407623",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies;Book(int n){copies=n;}boolean borrow(){copies--;return copies>=0;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n);boolean accepted=b.borrow();System.out.println(\"accepted=\"+accepted+\" copies=\"+b.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "accepted=true copies=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M08-O02/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O02",
+    "activity": "5a2931b7-3a63-5c65-b399-1835f3407623",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies;Book(int n){copies=n;}boolean borrow(){if(copies==0)return false;copies--;return true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n);boolean accepted=b.borrow();System.out.println(\"accepted=\"+accepted+\" copies=\"+b.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "accepted=true copies=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M08-O03/base/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O03",
+    "activity": "688fdd4c-bfd7-5cf2-8589-869700c3a791",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Library {int copies;Queue<Integer> waiting=new ArrayDeque<>();Library(int c){copies=c;}void reserve(int user){waiting.add(user);}int giveBack(){copies++;return waiting.isEmpty()?-1:waiting.remove();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary l=new Library(0);l.reserve(n);int assigned=l.giveBack();System.out.println(\"assigned=\"+assigned+\" available=\"+l.copies);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "assigned=1 available=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M08-O03/base/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O03",
+    "activity": "688fdd4c-bfd7-5cf2-8589-869700c3a791",
+    "task": "base",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Library {int copies;Queue<Integer> waiting=new ArrayDeque<>();Library(int c){copies=c;}void reserve(int user){waiting.add(user);}int giveBack(){if(waiting.isEmpty()){copies++;return -1;}return waiting.remove();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary l=new Library(0);l.reserve(n);int assigned=l.giveBack();System.out.println(\"assigned=\"+assigned+\" available=\"+l.copies);\n}\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "assigned=1 available=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS02-M08-O03/changed-condition/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O03",
+    "activity": "688fdd4c-bfd7-5cf2-8589-869700c3a791",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Library {int copies;Queue<Integer> waiting=new ArrayDeque<>();Library(int c){copies=c;}void reserve(int user){waiting.add(user);}int giveBack(){copies++;return waiting.isEmpty()?-1:waiting.remove();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary l=new Library(0);l.reserve(n);int assigned=l.giveBack();System.out.println(\"assigned=\"+assigned+\" available=\"+l.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "assigned=2 available=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS02-M08-O03/changed-condition/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O03",
+    "activity": "688fdd4c-bfd7-5cf2-8589-869700c3a791",
+    "task": "changed-condition",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Library {int copies;Queue<Integer> waiting=new ArrayDeque<>();Library(int c){copies=c;}void reserve(int user){waiting.add(user);}int giveBack(){if(waiting.isEmpty()){copies++;return -1;}return waiting.remove();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary l=new Library(0);l.reserve(n);int assigned=l.giveBack();System.out.println(\"assigned=\"+assigned+\" available=\"+l.copies);\n}\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "assigned=2 available=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "library-owner/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O03",
+    "activity": "688fdd4c-bfd7-5cf2-8589-869700c3a791",
+    "task": "library-owner",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.nio.file.*;\nimport java.util.Scanner;\npublic class Main {\n public static void main(String[] args) throws Exception {\n  int scenario=new Scanner(System.in).nextInt();\n  Library library=new Library();library.addBook(\"B1\",\"Algorithms\",scenario==1?1:2);\n  long first=library.borrow(\"B1\",\"alice\");\n  long second=scenario==1?0:library.borrow(\"B1\",\"bob\");\n  System.out.println(\"available=\"+library.available(\"B1\"));\n  try{library.borrow(\"B1\",\"charlie\");System.out.println(\"stock violated\");}\n  catch(IllegalStateException e){System.out.println(\"no stock\");}\n  Path file=Path.of(\"library.tsv\");library.save(file);Library restored=Library.load(file);\n  System.out.println(\"restored=\"+restored.available(\"B1\"));\n  try{restored.giveBack(first,\"bob\");System.out.println(\"other owner accepted\");}\n  catch(IllegalArgumentException e){System.out.println(\"other owner rejected\");}\n  try{restored.giveBack(first,\"alice\");System.out.println(\"returned\");}\n  catch(IllegalArgumentException|IllegalStateException e){System.out.println(\"return failed\");}\n  if(second!=0)restored.giveBack(second,\"bob\");\n  try{restored.giveBack(first,\"alice\");System.out.println(\"duplicate accepted\");}\n  catch(IllegalArgumentException|IllegalStateException e){System.out.println(\"repeat rejected\");}\n  restored.save(file);Library reopened=Library.load(file);\n  System.out.println(\"reopened=\"+reopened.available(\"B1\"));\n  System.out.println(\"monotonic ID=\"+(reopened.borrow(\"B1\",\"charlie\")>Math.max(first,second)));\n }\n}\n",
+        "Library.java": "import java.io.IOException;\nimport java.nio.charset.StandardCharsets;\nimport java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.nio.file.StandardCopyOption;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.TreeMap;\n\n/** Original finite borrowing lab. No Java object deserialization or external data. */\npublic final class Library {\n    private record Book(String id, String title, int copies) {}\n    private record Loan(long id, String book, String owner, boolean returned) {}\n    private final Map<String, Book> books = new TreeMap<>();\n    private final Map<Long, Loan> loans = new TreeMap<>();\n    private long nextId = 1;\n\n    private static void identifier(String value) {\n        if (value == null || !value.matches(\"[A-Za-z][A-Za-z0-9_-]{0,39}\")) {\n            throw new IllegalArgumentException(\"identifier must be bounded ASCII token\");\n        }\n    }\n\n    public void addBook(String id, String title, int copies) {\n        identifier(id);\n        if (title == null || title.isBlank() || title.length() > 200\n                || title.contains(\"\\t\") || title.contains(\"\\r\") || title.contains(\"\\n\")\n                || copies < 1 || copies > 10000 || books.containsKey(id)) {\n            throw new IllegalArgumentException(\"invalid or duplicate book\");\n        }\n        books.put(id, new Book(id, title, copies));\n    }\n\n    public int available(String id) {\n        Book book = books.get(id);\n        if (book == null) throw new IllegalArgumentException(\"unknown book\");\n        long active = loans.values().stream().filter(l -> l.book().equals(id) && !l.returned()).count();\n        return book.copies() - Math.toIntExact(active);\n    }\n\n    public long borrow(String book, String owner) {\n        identifier(owner);\n        if (available(book) == 0) throw new IllegalStateException(\"no stock\");\n        if (nextId == Long.MAX_VALUE) throw new IllegalStateException(\"loan ID exhausted\");\n        long id = nextId++;\n        loans.put(id, new Loan(id, book, owner, false));\n        return id;\n    }\n\n    public void giveBack(long id, String owner) {\n        Loan loan = loans.get(id);\n        if (loan == null) throw new IllegalArgumentException(\"unknown loan\");\n        // missing ownership guard\n        if (loan.returned()) throw new IllegalStateException(\"already returned\");\n        loans.put(id, new Loan(id, loan.book(), owner, true));\n    }\n\n    public void save(Path destination) throws IOException {\n        StringBuilder text = new StringBuilder(\"V1\\n\");\n        for (Book book : books.values()) {\n            text.append(\"B\\t\").append(book.id()).append('\\t').append(book.title())\n                    .append('\\t').append(book.copies()).append('\\n');\n        }\n        for (Loan loan : loans.values()) {\n            text.append(\"L\\t\").append(loan.id()).append('\\t').append(loan.book())\n                    .append('\\t').append(loan.owner()).append('\\t').append(loan.returned()).append('\\n');\n        }\n        text.append(\"N\\t\").append(nextId).append('\\n');\n        Path temp = destination.resolveSibling(destination.getFileName() + \".tmp\");\n        Files.writeString(temp, text, StandardCharsets.UTF_8);\n        Files.move(temp, destination, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);\n    }\n\n    public static Library load(Path source) throws IOException {\n        if (Files.size(source) > 1048576) throw new IllegalArgumentException(\"snapshot too large\");\n        List<String> lines = Files.readAllLines(source, StandardCharsets.UTF_8);\n        if (lines.isEmpty() || !lines.getFirst().equals(\"V1\")) throw new IllegalArgumentException(\"unknown schema\");\n        Library result = new Library();\n        boolean counter = false;\n        for (String line : lines.subList(1, lines.size())) {\n            String[] fields = line.split(\"\\t\", -1);\n            if (fields[0].equals(\"B\") && fields.length == 4) {\n                result.addBook(fields[1], fields[2], Integer.parseInt(fields[3]));\n            } else if (fields[0].equals(\"L\") && fields.length == 5) {\n                long id = Long.parseLong(fields[1]);\n                identifier(fields[2]); identifier(fields[3]);\n                if (id <= 0 || result.loans.containsKey(id)\n                        || !(fields[4].equals(\"true\") || fields[4].equals(\"false\"))) {\n                    throw new IllegalArgumentException(\"invalid loan\");\n                }\n                result.loans.put(id, new Loan(id, fields[2], fields[3], Boolean.parseBoolean(fields[4])));\n            } else if (fields[0].equals(\"N\") && fields.length == 2 && !counter) {\n                result.nextId = Long.parseLong(fields[1]); counter = true;\n            } else {\n                throw new IllegalArgumentException(\"malformed snapshot row\");\n            }\n        }\n        long greatest = result.loans.keySet().stream().mapToLong(Long::longValue).max().orElse(0);\n        if (!counter || result.nextId <= greatest || result.nextId <= 0) {\n            throw new IllegalArgumentException(\"invalid next loan ID\");\n        }\n        for (Loan loan : result.loans.values()) {\n            if (!result.books.containsKey(loan.book())) throw new IllegalArgumentException(\"dangling book\");\n        }\n        for (String id : result.books.keySet()) {\n            if (result.available(id) < 0) throw new IllegalArgumentException(\"overbooked snapshot\");\n        }\n        return result;\n    }\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "available=0\nno stock\nrestored=0\nother owner accepted\nreturn failed\nrepeat rejected\nreopened=1\nmonotonic ID=true\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "library-owner/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O03",
+    "activity": "688fdd4c-bfd7-5cf2-8589-869700c3a791",
+    "task": "library-owner",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.nio.file.*;\nimport java.util.Scanner;\npublic class Main {\n public static void main(String[] args) throws Exception {\n  int scenario=new Scanner(System.in).nextInt();\n  Library library=new Library();library.addBook(\"B1\",\"Algorithms\",scenario==1?1:2);\n  long first=library.borrow(\"B1\",\"alice\");\n  long second=scenario==1?0:library.borrow(\"B1\",\"bob\");\n  System.out.println(\"available=\"+library.available(\"B1\"));\n  try{library.borrow(\"B1\",\"charlie\");System.out.println(\"stock violated\");}\n  catch(IllegalStateException e){System.out.println(\"no stock\");}\n  Path file=Path.of(\"library.tsv\");library.save(file);Library restored=Library.load(file);\n  System.out.println(\"restored=\"+restored.available(\"B1\"));\n  try{restored.giveBack(first,\"bob\");System.out.println(\"other owner accepted\");}\n  catch(IllegalArgumentException e){System.out.println(\"other owner rejected\");}\n  try{restored.giveBack(first,\"alice\");System.out.println(\"returned\");}\n  catch(IllegalArgumentException|IllegalStateException e){System.out.println(\"return failed\");}\n  if(second!=0)restored.giveBack(second,\"bob\");\n  try{restored.giveBack(first,\"alice\");System.out.println(\"duplicate accepted\");}\n  catch(IllegalArgumentException|IllegalStateException e){System.out.println(\"repeat rejected\");}\n  restored.save(file);Library reopened=Library.load(file);\n  System.out.println(\"reopened=\"+reopened.available(\"B1\"));\n  System.out.println(\"monotonic ID=\"+(reopened.borrow(\"B1\",\"charlie\")>Math.max(first,second)));\n }\n}\n",
+        "Library.java": "import java.io.IOException;\nimport java.nio.charset.StandardCharsets;\nimport java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.nio.file.StandardCopyOption;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.TreeMap;\n\n/** Original finite borrowing lab. No Java object deserialization or external data. */\npublic final class Library {\n    private record Book(String id, String title, int copies) {}\n    private record Loan(long id, String book, String owner, boolean returned) {}\n    private final Map<String, Book> books = new TreeMap<>();\n    private final Map<Long, Loan> loans = new TreeMap<>();\n    private long nextId = 1;\n\n    private static void identifier(String value) {\n        if (value == null || !value.matches(\"[A-Za-z][A-Za-z0-9_-]{0,39}\")) {\n            throw new IllegalArgumentException(\"identifier must be bounded ASCII token\");\n        }\n    }\n\n    public void addBook(String id, String title, int copies) {\n        identifier(id);\n        if (title == null || title.isBlank() || title.length() > 200\n                || title.contains(\"\\t\") || title.contains(\"\\r\") || title.contains(\"\\n\")\n                || copies < 1 || copies > 10000 || books.containsKey(id)) {\n            throw new IllegalArgumentException(\"invalid or duplicate book\");\n        }\n        books.put(id, new Book(id, title, copies));\n    }\n\n    public int available(String id) {\n        Book book = books.get(id);\n        if (book == null) throw new IllegalArgumentException(\"unknown book\");\n        long active = loans.values().stream().filter(l -> l.book().equals(id) && !l.returned()).count();\n        return book.copies() - Math.toIntExact(active);\n    }\n\n    public long borrow(String book, String owner) {\n        identifier(owner);\n        if (available(book) == 0) throw new IllegalStateException(\"no stock\");\n        if (nextId == Long.MAX_VALUE) throw new IllegalStateException(\"loan ID exhausted\");\n        long id = nextId++;\n        loans.put(id, new Loan(id, book, owner, false));\n        return id;\n    }\n\n    public void giveBack(long id, String owner) {\n        Loan loan = loans.get(id);\n        if (loan == null) throw new IllegalArgumentException(\"unknown loan\");\n        if (!loan.owner().equals(owner)) throw new IllegalArgumentException(\"owner required\");\n        if (loan.returned()) throw new IllegalStateException(\"already returned\");\n        loans.put(id, new Loan(id, loan.book(), owner, true));\n    }\n\n    public void save(Path destination) throws IOException {\n        StringBuilder text = new StringBuilder(\"V1\\n\");\n        for (Book book : books.values()) {\n            text.append(\"B\\t\").append(book.id()).append('\\t').append(book.title())\n                    .append('\\t').append(book.copies()).append('\\n');\n        }\n        for (Loan loan : loans.values()) {\n            text.append(\"L\\t\").append(loan.id()).append('\\t').append(loan.book())\n                    .append('\\t').append(loan.owner()).append('\\t').append(loan.returned()).append('\\n');\n        }\n        text.append(\"N\\t\").append(nextId).append('\\n');\n        Path temp = destination.resolveSibling(destination.getFileName() + \".tmp\");\n        Files.writeString(temp, text, StandardCharsets.UTF_8);\n        Files.move(temp, destination, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);\n    }\n\n    public static Library load(Path source) throws IOException {\n        if (Files.size(source) > 1048576) throw new IllegalArgumentException(\"snapshot too large\");\n        List<String> lines = Files.readAllLines(source, StandardCharsets.UTF_8);\n        if (lines.isEmpty() || !lines.getFirst().equals(\"V1\")) throw new IllegalArgumentException(\"unknown schema\");\n        Library result = new Library();\n        boolean counter = false;\n        for (String line : lines.subList(1, lines.size())) {\n            String[] fields = line.split(\"\\t\", -1);\n            if (fields[0].equals(\"B\") && fields.length == 4) {\n                result.addBook(fields[1], fields[2], Integer.parseInt(fields[3]));\n            } else if (fields[0].equals(\"L\") && fields.length == 5) {\n                long id = Long.parseLong(fields[1]);\n                identifier(fields[2]); identifier(fields[3]);\n                if (id <= 0 || result.loans.containsKey(id)\n                        || !(fields[4].equals(\"true\") || fields[4].equals(\"false\"))) {\n                    throw new IllegalArgumentException(\"invalid loan\");\n                }\n                result.loans.put(id, new Loan(id, fields[2], fields[3], Boolean.parseBoolean(fields[4])));\n            } else if (fields[0].equals(\"N\") && fields.length == 2 && !counter) {\n                result.nextId = Long.parseLong(fields[1]); counter = true;\n            } else {\n                throw new IllegalArgumentException(\"malformed snapshot row\");\n            }\n        }\n        long greatest = result.loans.keySet().stream().mapToLong(Long::longValue).max().orElse(0);\n        if (!counter || result.nextId <= greatest || result.nextId <= 0) {\n            throw new IllegalArgumentException(\"invalid next loan ID\");\n        }\n        for (Loan loan : result.loans.values()) {\n            if (!result.books.containsKey(loan.book())) throw new IllegalArgumentException(\"dangling book\");\n        }\n        for (String id : result.books.keySet()) {\n            if (result.available(id) < 0) throw new IllegalArgumentException(\"overbooked snapshot\");\n        }\n        return result;\n    }\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "available=0\nno stock\nrestored=0\nother owner rejected\nreturned\nrepeat rejected\nreopened=1\nmonotonic ID=true\n",
+    "decision": "met"
+  },
+  {
+    "id": "library-two-borrowers/initial",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O03",
+    "activity": "688fdd4c-bfd7-5cf2-8589-869700c3a791",
+    "task": "library-two-borrowers",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.nio.file.*;\nimport java.util.Scanner;\npublic class Main {\n public static void main(String[] args) throws Exception {\n  int scenario=new Scanner(System.in).nextInt();\n  Library library=new Library();library.addBook(\"B1\",\"Algorithms\",scenario==1?1:2);\n  long first=library.borrow(\"B1\",\"alice\");\n  long second=scenario==1?0:library.borrow(\"B1\",\"bob\");\n  System.out.println(\"available=\"+library.available(\"B1\"));\n  try{library.borrow(\"B1\",\"charlie\");System.out.println(\"stock violated\");}\n  catch(IllegalStateException e){System.out.println(\"no stock\");}\n  Path file=Path.of(\"library.tsv\");library.save(file);Library restored=Library.load(file);\n  System.out.println(\"restored=\"+restored.available(\"B1\"));\n  try{restored.giveBack(first,\"bob\");System.out.println(\"other owner accepted\");}\n  catch(IllegalArgumentException e){System.out.println(\"other owner rejected\");}\n  try{restored.giveBack(first,\"alice\");System.out.println(\"returned\");}\n  catch(IllegalArgumentException|IllegalStateException e){System.out.println(\"return failed\");}\n  if(second!=0)restored.giveBack(second,\"bob\");\n  try{restored.giveBack(first,\"alice\");System.out.println(\"duplicate accepted\");}\n  catch(IllegalArgumentException|IllegalStateException e){System.out.println(\"repeat rejected\");}\n  restored.save(file);Library reopened=Library.load(file);\n  System.out.println(\"reopened=\"+reopened.available(\"B1\"));\n  System.out.println(\"monotonic ID=\"+(reopened.borrow(\"B1\",\"charlie\")>Math.max(first,second)));\n }\n}\n",
+        "Library.java": "import java.io.IOException;\nimport java.nio.charset.StandardCharsets;\nimport java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.nio.file.StandardCopyOption;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.TreeMap;\n\n/** Original finite borrowing lab. No Java object deserialization or external data. */\npublic final class Library {\n    private record Book(String id, String title, int copies) {}\n    private record Loan(long id, String book, String owner, boolean returned) {}\n    private final Map<String, Book> books = new TreeMap<>();\n    private final Map<Long, Loan> loans = new TreeMap<>();\n    private long nextId = 1;\n\n    private static void identifier(String value) {\n        if (value == null || !value.matches(\"[A-Za-z][A-Za-z0-9_-]{0,39}\")) {\n            throw new IllegalArgumentException(\"identifier must be bounded ASCII token\");\n        }\n    }\n\n    public void addBook(String id, String title, int copies) {\n        identifier(id);\n        if (title == null || title.isBlank() || title.length() > 200\n                || title.contains(\"\\t\") || title.contains(\"\\r\") || title.contains(\"\\n\")\n                || copies < 1 || copies > 10000 || books.containsKey(id)) {\n            throw new IllegalArgumentException(\"invalid or duplicate book\");\n        }\n        books.put(id, new Book(id, title, copies));\n    }\n\n    public int available(String id) {\n        Book book = books.get(id);\n        if (book == null) throw new IllegalArgumentException(\"unknown book\");\n        long active = loans.values().stream().filter(l -> l.book().equals(id) && !l.returned()).count();\n        return book.copies() - Math.toIntExact(active);\n    }\n\n    public long borrow(String book, String owner) {\n        identifier(owner);\n        if (available(book) == 0) throw new IllegalStateException(\"no stock\");\n        if (nextId == Long.MAX_VALUE) throw new IllegalStateException(\"loan ID exhausted\");\n        long id = nextId++;\n        loans.put(id, new Loan(id, book, owner, false));\n        return id;\n    }\n\n    public void giveBack(long id, String owner) {\n        Loan loan = loans.get(id);\n        if (loan == null) throw new IllegalArgumentException(\"unknown loan\");\n        // missing ownership guard\n        if (loan.returned()) throw new IllegalStateException(\"already returned\");\n        loans.put(id, new Loan(id, loan.book(), owner, true));\n    }\n\n    public void save(Path destination) throws IOException {\n        StringBuilder text = new StringBuilder(\"V1\\n\");\n        for (Book book : books.values()) {\n            text.append(\"B\\t\").append(book.id()).append('\\t').append(book.title())\n                    .append('\\t').append(book.copies()).append('\\n');\n        }\n        for (Loan loan : loans.values()) {\n            text.append(\"L\\t\").append(loan.id()).append('\\t').append(loan.book())\n                    .append('\\t').append(loan.owner()).append('\\t').append(loan.returned()).append('\\n');\n        }\n        text.append(\"N\\t\").append(nextId).append('\\n');\n        Path temp = destination.resolveSibling(destination.getFileName() + \".tmp\");\n        Files.writeString(temp, text, StandardCharsets.UTF_8);\n        Files.move(temp, destination, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);\n    }\n\n    public static Library load(Path source) throws IOException {\n        if (Files.size(source) > 1048576) throw new IllegalArgumentException(\"snapshot too large\");\n        List<String> lines = Files.readAllLines(source, StandardCharsets.UTF_8);\n        if (lines.isEmpty() || !lines.getFirst().equals(\"V1\")) throw new IllegalArgumentException(\"unknown schema\");\n        Library result = new Library();\n        boolean counter = false;\n        for (String line : lines.subList(1, lines.size())) {\n            String[] fields = line.split(\"\\t\", -1);\n            if (fields[0].equals(\"B\") && fields.length == 4) {\n                result.addBook(fields[1], fields[2], Integer.parseInt(fields[3]));\n            } else if (fields[0].equals(\"L\") && fields.length == 5) {\n                long id = Long.parseLong(fields[1]);\n                identifier(fields[2]); identifier(fields[3]);\n                if (id <= 0 || result.loans.containsKey(id)\n                        || !(fields[4].equals(\"true\") || fields[4].equals(\"false\"))) {\n                    throw new IllegalArgumentException(\"invalid loan\");\n                }\n                result.loans.put(id, new Loan(id, fields[2], fields[3], Boolean.parseBoolean(fields[4])));\n            } else if (fields[0].equals(\"N\") && fields.length == 2 && !counter) {\n                result.nextId = Long.parseLong(fields[1]); counter = true;\n            } else {\n                throw new IllegalArgumentException(\"malformed snapshot row\");\n            }\n        }\n        long greatest = result.loans.keySet().stream().mapToLong(Long::longValue).max().orElse(0);\n        if (!counter || result.nextId <= greatest || result.nextId <= 0) {\n            throw new IllegalArgumentException(\"invalid next loan ID\");\n        }\n        for (Loan loan : result.loans.values()) {\n            if (!result.books.containsKey(loan.book())) throw new IllegalArgumentException(\"dangling book\");\n        }\n        for (String id : result.books.keySet()) {\n            if (result.available(id) < 0) throw new IllegalArgumentException(\"overbooked snapshot\");\n        }\n        return result;\n    }\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "available=0\nno stock\nrestored=0\nother owner accepted\nreturn failed\nrepeat rejected\nreopened=2\nmonotonic ID=true\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "library-two-borrowers/repaired",
+    "version": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+    "goal": "CS02-M08-O03",
+    "activity": "688fdd4c-bfd7-5cf2-8589-869700c3a791",
+    "task": "library-two-borrowers",
+    "request": {
+      "language": "java21",
+      "entry": "Main.java",
+      "files": {
+        "Main.java": "import java.nio.file.*;\nimport java.util.Scanner;\npublic class Main {\n public static void main(String[] args) throws Exception {\n  int scenario=new Scanner(System.in).nextInt();\n  Library library=new Library();library.addBook(\"B1\",\"Algorithms\",scenario==1?1:2);\n  long first=library.borrow(\"B1\",\"alice\");\n  long second=scenario==1?0:library.borrow(\"B1\",\"bob\");\n  System.out.println(\"available=\"+library.available(\"B1\"));\n  try{library.borrow(\"B1\",\"charlie\");System.out.println(\"stock violated\");}\n  catch(IllegalStateException e){System.out.println(\"no stock\");}\n  Path file=Path.of(\"library.tsv\");library.save(file);Library restored=Library.load(file);\n  System.out.println(\"restored=\"+restored.available(\"B1\"));\n  try{restored.giveBack(first,\"bob\");System.out.println(\"other owner accepted\");}\n  catch(IllegalArgumentException e){System.out.println(\"other owner rejected\");}\n  try{restored.giveBack(first,\"alice\");System.out.println(\"returned\");}\n  catch(IllegalArgumentException|IllegalStateException e){System.out.println(\"return failed\");}\n  if(second!=0)restored.giveBack(second,\"bob\");\n  try{restored.giveBack(first,\"alice\");System.out.println(\"duplicate accepted\");}\n  catch(IllegalArgumentException|IllegalStateException e){System.out.println(\"repeat rejected\");}\n  restored.save(file);Library reopened=Library.load(file);\n  System.out.println(\"reopened=\"+reopened.available(\"B1\"));\n  System.out.println(\"monotonic ID=\"+(reopened.borrow(\"B1\",\"charlie\")>Math.max(first,second)));\n }\n}\n",
+        "Library.java": "import java.io.IOException;\nimport java.nio.charset.StandardCharsets;\nimport java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.nio.file.StandardCopyOption;\nimport java.util.List;\nimport java.util.Map;\nimport java.util.TreeMap;\n\n/** Original finite borrowing lab. No Java object deserialization or external data. */\npublic final class Library {\n    private record Book(String id, String title, int copies) {}\n    private record Loan(long id, String book, String owner, boolean returned) {}\n    private final Map<String, Book> books = new TreeMap<>();\n    private final Map<Long, Loan> loans = new TreeMap<>();\n    private long nextId = 1;\n\n    private static void identifier(String value) {\n        if (value == null || !value.matches(\"[A-Za-z][A-Za-z0-9_-]{0,39}\")) {\n            throw new IllegalArgumentException(\"identifier must be bounded ASCII token\");\n        }\n    }\n\n    public void addBook(String id, String title, int copies) {\n        identifier(id);\n        if (title == null || title.isBlank() || title.length() > 200\n                || title.contains(\"\\t\") || title.contains(\"\\r\") || title.contains(\"\\n\")\n                || copies < 1 || copies > 10000 || books.containsKey(id)) {\n            throw new IllegalArgumentException(\"invalid or duplicate book\");\n        }\n        books.put(id, new Book(id, title, copies));\n    }\n\n    public int available(String id) {\n        Book book = books.get(id);\n        if (book == null) throw new IllegalArgumentException(\"unknown book\");\n        long active = loans.values().stream().filter(l -> l.book().equals(id) && !l.returned()).count();\n        return book.copies() - Math.toIntExact(active);\n    }\n\n    public long borrow(String book, String owner) {\n        identifier(owner);\n        if (available(book) == 0) throw new IllegalStateException(\"no stock\");\n        if (nextId == Long.MAX_VALUE) throw new IllegalStateException(\"loan ID exhausted\");\n        long id = nextId++;\n        loans.put(id, new Loan(id, book, owner, false));\n        return id;\n    }\n\n    public void giveBack(long id, String owner) {\n        Loan loan = loans.get(id);\n        if (loan == null) throw new IllegalArgumentException(\"unknown loan\");\n        if (!loan.owner().equals(owner)) throw new IllegalArgumentException(\"owner required\");\n        if (loan.returned()) throw new IllegalStateException(\"already returned\");\n        loans.put(id, new Loan(id, loan.book(), owner, true));\n    }\n\n    public void save(Path destination) throws IOException {\n        StringBuilder text = new StringBuilder(\"V1\\n\");\n        for (Book book : books.values()) {\n            text.append(\"B\\t\").append(book.id()).append('\\t').append(book.title())\n                    .append('\\t').append(book.copies()).append('\\n');\n        }\n        for (Loan loan : loans.values()) {\n            text.append(\"L\\t\").append(loan.id()).append('\\t').append(loan.book())\n                    .append('\\t').append(loan.owner()).append('\\t').append(loan.returned()).append('\\n');\n        }\n        text.append(\"N\\t\").append(nextId).append('\\n');\n        Path temp = destination.resolveSibling(destination.getFileName() + \".tmp\");\n        Files.writeString(temp, text, StandardCharsets.UTF_8);\n        Files.move(temp, destination, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);\n    }\n\n    public static Library load(Path source) throws IOException {\n        if (Files.size(source) > 1048576) throw new IllegalArgumentException(\"snapshot too large\");\n        List<String> lines = Files.readAllLines(source, StandardCharsets.UTF_8);\n        if (lines.isEmpty() || !lines.getFirst().equals(\"V1\")) throw new IllegalArgumentException(\"unknown schema\");\n        Library result = new Library();\n        boolean counter = false;\n        for (String line : lines.subList(1, lines.size())) {\n            String[] fields = line.split(\"\\t\", -1);\n            if (fields[0].equals(\"B\") && fields.length == 4) {\n                result.addBook(fields[1], fields[2], Integer.parseInt(fields[3]));\n            } else if (fields[0].equals(\"L\") && fields.length == 5) {\n                long id = Long.parseLong(fields[1]);\n                identifier(fields[2]); identifier(fields[3]);\n                if (id <= 0 || result.loans.containsKey(id)\n                        || !(fields[4].equals(\"true\") || fields[4].equals(\"false\"))) {\n                    throw new IllegalArgumentException(\"invalid loan\");\n                }\n                result.loans.put(id, new Loan(id, fields[2], fields[3], Boolean.parseBoolean(fields[4])));\n            } else if (fields[0].equals(\"N\") && fields.length == 2 && !counter) {\n                result.nextId = Long.parseLong(fields[1]); counter = true;\n            } else {\n                throw new IllegalArgumentException(\"malformed snapshot row\");\n            }\n        }\n        long greatest = result.loans.keySet().stream().mapToLong(Long::longValue).max().orElse(0);\n        if (!counter || result.nextId <= greatest || result.nextId <= 0) {\n            throw new IllegalArgumentException(\"invalid next loan ID\");\n        }\n        for (Loan loan : result.loans.values()) {\n            if (!result.books.containsKey(loan.book())) throw new IllegalArgumentException(\"dangling book\");\n        }\n        for (String id : result.books.keySet()) {\n            if (result.available(id) < 0) throw new IllegalArgumentException(\"overbooked snapshot\");\n        }\n        return result;\n    }\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "available=0\nno stock\nrestored=0\nother owner rejected\nreturned\nrepeat rejected\nreopened=2\nmonotonic ID=true\n",
+    "decision": "met"
+  }
+]

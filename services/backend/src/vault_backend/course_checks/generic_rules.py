@@ -2360,6 +2360,386 @@ GENERIC_RULES = {'01e157b8-021c-53ca-b743-39af3957c3b1': {('CS12-M01-O01', 'base
                                                                                       '[false, '
                                                                                       'true]}\n',
                                                                                       '')},
+ '7caa7481-0e68-5666-9a24-8984e666d9c2': {('CS10-M01-O01', 'base'): ('66acb8e2-1c22-54ac-8d30-ba4b5420c807',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M01-O01', 'changed-condition'): ('66acb8e2-1c22-54ac-8d30-ba4b5420c807',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M01-O02', 'base'): ('56401a3b-7884-53ff-8625-909172db27b8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M01-O02', 'changed-condition'): ('56401a3b-7884-53ff-8625-909172db27b8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M01-O03', 'base'): ('b160e4bf-25c4-5410-8696-0fd327bdd334',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'restore\n',
+                                                                     ''),
+                                          ('CS10-M01-O03', 'changed-condition'): ('b160e4bf-25c4-5410-8696-0fd327bdd334',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'scale\n',
+                                                                                  ''),
+                                          ('CS10-M02-O01', 'base'): ('4dbfd422-b84f-5223-9738-f08b61c90737',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'recover_work\n',
+                                                                     ''),
+                                          ('CS10-M02-O01', 'changed-condition'): ('4dbfd422-b84f-5223-9738-f08b61c90737',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'recover_work\n',
+                                                                                  ''),
+                                          ('CS10-M02-O02', 'base'): ('1f2d1c1c-fc8d-5518-9a36-2f1f375c42da',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M02-O02', 'changed-condition'): ('1f2d1c1c-fc8d-5518-9a36-2f1f375c42da',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M02-O03', 'base'): ('aa7c456c-58bf-5b8c-9df1-a584a363b4c4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'authorization tests\n',
+                                                                     ''),
+                                          ('CS10-M02-O03', 'changed-condition'): ('aa7c456c-58bf-5b8c-9df1-a584a363b4c4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'tests\n',
+                                                                                  ''),
+                                          ('CS10-M03-O01', 'base'): ('1a173cb9-e825-55d4-8024-c34687106283',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'first\n',
+                                                                     ''),
+                                          ('CS10-M03-O01', 'changed-condition'): ('1a173cb9-e825-55d4-8024-c34687106283',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'first\n',
+                                                                                  ''),
+                                          ('CS10-M03-O02', 'base'): ('28ded22d-0443-5dcd-a7d0-a80826c50bd8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'cancelled\n',
+                                                                     ''),
+                                          ('CS10-M03-O02', 'changed-condition'): ('28ded22d-0443-5dcd-a7d0-a80826c50bd8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'completed\n',
+                                                                                  ''),
+                                          ('CS10-M03-O03', 'base'): ('293bc298-f5b1-5331-8f98-1289a1cbdd54',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M03-O03', 'changed-condition'): ('293bc298-f5b1-5331-8f98-1289a1cbdd54',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M04-O01', 'base'): ('a79eac57-2194-5118-b2d7-8b2aef24f83f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS10-M04-O01', 'changed-condition'): ('a79eac57-2194-5118-b2d7-8b2aef24f83f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS10-M04-O02', 'base'): ('e44ae9bd-2fb7-53ce-a675-6911eac7f766',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M04-O02', 'changed-condition'): ('e44ae9bd-2fb7-53ce-a675-6911eac7f766',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M04-O03', 'base'): ('3fcab0a4-5603-57af-935d-7566c9c8dcb1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M04-O03', 'changed-condition'): ('3fcab0a4-5603-57af-935d-7566c9c8dcb1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M05-O01', 'base'): ('a5735bcd-35ba-5801-8f30-c726e0d74410',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '403\n',
+                                                                     ''),
+                                          ('CS10-M05-O01', 'changed-condition'): ('a5735bcd-35ba-5801-8f30-c726e0d74410',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '200\n',
+                                                                                  ''),
+                                          ('CS10-M05-O02', 'base'): ('0121d58e-2969-569c-89b1-d1d0d7d870d1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7\n',
+                                                                     ''),
+                                          ('CS10-M05-O02', 'changed-condition'): ('0121d58e-2969-569c-89b1-d1d0d7d870d1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '8\n',
+                                                                                  ''),
+                                          ('CS10-M05-O03', 'base'): ('a511352f-f0bd-5e8d-8f90-8040c69a40b3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unavailable\n',
+                                                                     ''),
+                                          ('CS10-M05-O03', 'changed-condition'): ('a511352f-f0bd-5e8d-8f90-8040c69a40b3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'accepted\n',
+                                                                                  ''),
+                                          ('CS10-M06-O01', 'base'): ('e1298ac8-7fb1-5389-b4aa-4385c17f8b22',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS10-M06-O01', 'changed-condition'): ('e1298ac8-7fb1-5389-b4aa-4385c17f8b22',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M06-O02', 'base'): ('56d00159-bf59-50fb-98a0-3510ba591d48',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS10-M06-O02', 'changed-condition'): ('56d00159-bf59-50fb-98a0-3510ba591d48',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M06-O03', 'base'): ('70bb4cc3-5594-559d-8d6b-55eac49d08ce',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS10-M06-O03', 'changed-condition'): ('70bb4cc3-5594-559d-8d6b-55eac49d08ce',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M07-O01', 'base'): ('b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS10-M07-O01', 'changed-condition'): ('b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS10-M07-O02', 'base'): ('eebf0e64-7856-5c0b-bfbf-8786ece3c68a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS10-M07-O02', 'changed-condition'): ('eebf0e64-7856-5c0b-bfbf-8786ece3c68a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M07-O03', 'base'): ('284f2fd7-8f00-5d9b-add9-2976129dbc44',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS10-M07-O03', 'changed-condition'): ('284f2fd7-8f00-5d9b-add9-2976129dbc44',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M08-O01', 'base'): ('cb2daf87-331b-5e7e-9643-f5733f7dd3de',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'v1\n',
+                                                                     ''),
+                                          ('CS10-M08-O01', 'changed-condition'): ('cb2daf87-331b-5e7e-9643-f5733f7dd3de',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'v2\n',
+                                                                                  ''),
+                                          ('CS10-M08-O02', 'base'): ('b887c81f-891a-504b-9c7a-cb62d7ab1f8d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/2\n',
+                                                                     ''),
+                                          ('CS10-M08-O02', 'changed-condition'): ('b887c81f-891a-504b-9c7a-cb62d7ab1f8d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M08-O03', 'base'): ('bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M08-O03', 'changed-condition'): ('bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M09-O01', 'base'): ('d64c4db6-0eb5-5339-829d-f301c3f756f8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'api service\n',
+                                                                     ''),
+                                          ('CS10-M09-O01', 'changed-condition'): ('d64c4db6-0eb5-5339-829d-f301c3f756f8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'api\n',
+                                                                                  ''),
+                                          ('CS10-M09-O02', 'base'): ('784bb789-8624-5011-8744-807a4759479d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS10-M09-O02', 'changed-condition'): ('784bb789-8624-5011-8744-807a4759479d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M09-O03', 'base'): ('6a6ab5b9-6172-5bee-8228-3bf79bea7809',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M09-O03', 'changed-condition'): ('6a6ab5b9-6172-5bee-8228-3bf79bea7809',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M09-O03', 'service-owner'): ('6a6ab5b9-6172-5bee-8228-3bf79bea7809',
+                                                                              'Graph proof\n',
+                                                                              'success',
+                                                                              '{"audit": '
+                                                                              '["created", '
+                                                                              '"submitted"], '
+                                                                              '"created": '
+                                                                              '[201, {"id": '
+                                                                              '1, "state": '
+                                                                              '"draft", '
+                                                                              '"title": '
+                                                                              '"Graph '
+                                                                              'proof"}], '
+                                                                              '"identity_mode": '
+                                                                              '"simulated '
+                                                                              'private lesson '
+                                                                              'identity, not '
+                                                                              'authentication", '
+                                                                              '"other_owner_status": '
+                                                                              '403, '
+                                                                              '"release1_health": '
+                                                                              '[200, '
+                                                                              '{"ready": '
+                                                                              'true, '
+                                                                              '"release": '
+                                                                              '1}], '
+                                                                              '"release1_submit_status": '
+                                                                              '404, '
+                                                                              '"repeat_new_key_status": '
+                                                                              '409, '
+                                                                              '"repeated_identical": '
+                                                                              'true, '
+                                                                              '"restored_draft": '
+                                                                              '[200, {"id": '
+                                                                              '1, "state": '
+                                                                              '"draft", '
+                                                                              '"title": '
+                                                                              '"Graph '
+                                                                              'proof"}], '
+                                                                              '"restored_submission": '
+                                                                              '[200, {"id": '
+                                                                              '1, "state": '
+                                                                              '"submitted", '
+                                                                              '"title": '
+                                                                              '"Graph '
+                                                                              'proof"}], '
+                                                                              '"submitted": '
+                                                                              '[200, {"id": '
+                                                                              '1, "state": '
+                                                                              '"submitted", '
+                                                                              '"title": '
+                                                                              '"Graph '
+                                                                              'proof"}]}\n',
+                                                                              ''),
+                                          ('CS10-M09-O03', 'service-replay'): ('6a6ab5b9-6172-5bee-8228-3bf79bea7809',
+                                                                               'Search '
+                                                                               'report\n',
+                                                                               'success',
+                                                                               '{"audit": '
+                                                                               '["created", '
+                                                                               '"submitted"], '
+                                                                               '"created": '
+                                                                               '[201, {"id": '
+                                                                               '1, "state": '
+                                                                               '"draft", '
+                                                                               '"title": '
+                                                                               '"Search '
+                                                                               'report"}], '
+                                                                               '"identity_mode": '
+                                                                               '"simulated '
+                                                                               'private '
+                                                                               'lesson '
+                                                                               'identity, not '
+                                                                               'authentication", '
+                                                                               '"other_owner_status": '
+                                                                               '403, '
+                                                                               '"release1_health": '
+                                                                               '[200, '
+                                                                               '{"ready": '
+                                                                               'true, '
+                                                                               '"release": '
+                                                                               '1}], '
+                                                                               '"release1_submit_status": '
+                                                                               '404, '
+                                                                               '"repeat_new_key_status": '
+                                                                               '409, '
+                                                                               '"repeated_identical": '
+                                                                               'true, '
+                                                                               '"restored_draft": '
+                                                                               '[200, {"id": '
+                                                                               '1, "state": '
+                                                                               '"draft", '
+                                                                               '"title": '
+                                                                               '"Search '
+                                                                               'report"}], '
+                                                                               '"restored_submission": '
+                                                                               '[200, {"id": '
+                                                                               '1, "state": '
+                                                                               '"submitted", '
+                                                                               '"title": '
+                                                                               '"Search '
+                                                                               'report"}], '
+                                                                               '"submitted": '
+                                                                               '[200, {"id": '
+                                                                               '1, "state": '
+                                                                               '"submitted", '
+                                                                               '"title": '
+                                                                               '"Search '
+                                                                               'report"}]}\n',
+                                                                               '')},
  '8653760c-bf00-5358-88ec-df56160ecc65': {('CS07-M01-O01', 'base'): ('8c0c62ea-771e-573b-80d9-6cbbf72dd6bd',
                                                                      '1\n',
                                                                      'success',
@@ -2629,6 +3009,504 @@ GENERIC_RULES = {'01e157b8-021c-53ca-b743-39af3957c3b1': {('CS12-M01-O01', 'base
                                                                                   '2\n',
                                                                                   'success',
                                                                                   'True\n',
+                                                                                  '')},
+ '8740a8e4-e93c-50ea-b6f2-7e74947686bb': {('CS13-M01-O01', 'base'): ('5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'classification\n',
+                                                                     ''),
+                                          ('CS13-M01-O01', 'changed-condition'): ('5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'regression\n',
+                                                                                  ''),
+                                          ('CS13-M01-O02', 'base'): ('54c1b7b8-441a-5be7-981e-8faf653802b9',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'sensor\n',
+                                                                     ''),
+                                          ('CS13-M01-O02', 'changed-condition'): ('54c1b7b8-441a-5be7-981e-8faf653802b9',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'future_label '
+                                                                                  'sensor\n',
+                                                                                  ''),
+                                          ('CS13-M01-O03', 'base'): ('529f4161-cc07-5ecf-9f73-583f2556db43',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 1\n',
+                                                                     ''),
+                                          ('CS13-M01-O03', 'changed-condition'): ('529f4161-cc07-5ecf-9f73-583f2556db43',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 1\n',
+                                                                                  ''),
+                                          ('CS13-M02-O01', 'base'): ('00fecae2-58be-5ae8-8bc6-53afee731f75',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS13-M02-O01', 'changed-condition'): ('00fecae2-58be-5ae8-8bc6-53afee731f75',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M02-O02', 'base'): ('eddce4f6-ae17-5d23-952d-5bf3b7133efe',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS13-M02-O02', 'changed-condition'): ('eddce4f6-ae17-5d23-952d-5bf3b7133efe',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS13-M02-O03', 'base'): ('d4ef1730-4c0e-57af-8336-4348b136532f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '97 99\n',
+                                                                     ''),
+                                          ('CS13-M02-O03', 'changed-condition'): ('d4ef1730-4c0e-57af-8336-4348b136532f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '-1 1\n',
+                                                                                  ''),
+                                          ('CS13-M03-O01', 'base'): ('8e330b1c-09cf-5bcc-986a-1a7daa9feeb8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M03-O01', 'changed-condition'): ('8e330b1c-09cf-5bcc-986a-1a7daa9feeb8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M03-O01', 'library-linear'): ('8e330b1c-09cf-5bcc-986a-1a7daa9feeb8',
+                                                                               '',
+                                                                               'success',
+                                                                               '{"classes": '
+                                                                               '[0, 1], '
+                                                                               '"regression": '
+                                                                               '[-5.0, 1.0, '
+                                                                               '7.0]}\n',
+                                                                               ''),
+                                          ('CS13-M03-O02', 'base'): ('e8e0ed08-9f8d-5a18-b737-39b4f8559f44',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS13-M03-O02', 'changed-condition'): ('e8e0ed08-9f8d-5a18-b737-39b4f8559f44',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS13-M03-O03', 'base'): ('3880b7dd-3672-5dfc-912e-cc053b2f1811',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS13-M03-O03', 'changed-condition'): ('3880b7dd-3672-5dfc-912e-cc053b2f1811',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS13-M03-O03', 'library-ridge'): ('3880b7dd-3672-5dfc-912e-cc053b2f1811',
+                                                                              '',
+                                                                              'success',
+                                                                              '{"coefficient": '
+                                                                              '0.333333, '
+                                                                              '"training_mse": '
+                                                                              '1.851852}\n',
+                                                                              ''),
+                                          ('CS13-M04-O01', 'base'): ('3be6698e-e9fb-57a9-9f50-3c4d773dfd9c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M04-O01', 'changed-condition'): ('3be6698e-e9fb-57a9-9f50-3c4d773dfd9c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M04-O02', 'base'): ('6652f7eb-c528-58bf-aff4-8ff27fa7ac0c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 9\n',
+                                                                     ''),
+                                          ('CS13-M04-O02', 'changed-condition'): ('6652f7eb-c528-58bf-aff4-8ff27fa7ac0c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 0\n',
+                                                                                  ''),
+                                          ('CS13-M04-O03', 'base'): ('3701118c-c5d6-56c2-ae31-7d6fac1beb6b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A\n',
+                                                                     ''),
+                                          ('CS13-M04-O03', 'changed-condition'): ('3701118c-c5d6-56c2-ae31-7d6fac1beb6b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS13-M05-O01', 'base'): ('0e56bade-6864-54e9-94d4-879e83eac377',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2/5\n',
+                                                                     ''),
+                                          ('CS13-M05-O01', 'changed-condition'): ('0e56bade-6864-54e9-94d4-879e83eac377',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1/4\n',
+                                                                                  ''),
+                                          ('CS13-M05-O01', 'library-tree'): ('0e56bade-6864-54e9-94d4-879e83eac377',
+                                                                             '',
+                                                                             'success',
+                                                                             '{"correct": 4, '
+                                                                             '"predictions": '
+                                                                             '[0, 1, 1, 0]}\n',
+                                                                             ''),
+                                          ('CS13-M05-O02', 'base'): ('9fbf60b9-e8b1-5648-a850-f8e35511f943',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS13-M05-O02', 'changed-condition'): ('9fbf60b9-e8b1-5648-a850-f8e35511f943',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS13-M05-O03', 'base'): ('07529489-2266-5d6a-9093-f24f1abcac66',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'shallow\n',
+                                                                     ''),
+                                          ('CS13-M05-O03', 'changed-condition'): ('07529489-2266-5d6a-9093-f24f1abcac66',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'deep\n',
+                                                                                  ''),
+                                          ('CS13-M06-O01', 'base'): ('ba1f138f-129d-56fe-9758-c5ee5073fe81',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A\n',
+                                                                     ''),
+                                          ('CS13-M06-O01', 'changed-condition'): ('ba1f138f-129d-56fe-9758-c5ee5073fe81',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS13-M06-O02', 'base'): ('1d2b8b84-2099-53b0-9577-89b2f0f07986',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A\n',
+                                                                     ''),
+                                          ('CS13-M06-O02', 'changed-condition'): ('1d2b8b84-2099-53b0-9577-89b2f0f07986',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS13-M06-O03', 'base'): ('01d3cdc4-04f9-55a1-8990-920c0cd7bc10',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS13-M06-O03', 'changed-condition'): ('01d3cdc4-04f9-55a1-8990-920c0cd7bc10',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS13-M06-O03', 'library-svm'): ('01d3cdc4-04f9-55a1-8990-920c0cd7bc10',
+                                                                            '',
+                                                                            'success',
+                                                                            '{"correct": 4, '
+                                                                            '"predictions": '
+                                                                            '[0, 1, 1, 0]}\n',
+                                                                            ''),
+                                          ('CS13-M07-O01', 'base'): ('8fcba138-67fd-5be4-b270-6ce57b108256',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS13-M07-O01', 'changed-condition'): ('8fcba138-67fd-5be4-b270-6ce57b108256',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS13-M07-O01', 'library-kmeans'): ('8fcba138-67fd-5be4-b270-6ce57b108256',
+                                                                               '',
+                                                                               'success',
+                                                                               '{"centers": '
+                                                                               '[[0.0, 0.5], '
+                                                                               '[10.0, '
+                                                                               '10.5]], '
+                                                                               '"inertia": '
+                                                                               '1.0}\n',
+                                                                               ''),
+                                          ('CS13-M07-O02', 'base'): ('94b5211a-d595-5073-974e-257bc8a7180a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS13-M07-O02', 'changed-condition'): ('94b5211a-d595-5073-974e-257bc8a7180a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '-3\n',
+                                                                                  ''),
+                                          ('CS13-M07-O02', 'library-pca'): ('94b5211a-d595-5073-974e-257bc8a7180a',
+                                                                            '',
+                                                                            'success',
+                                                                            '{"max_error": '
+                                                                            '0.0, '
+                                                                            '"retained_variance": '
+                                                                            '1.0, "width": '
+                                                                            '1}\n',
+                                                                            ''),
+                                          ('CS13-M07-O03', 'base'): ('5cecd8d6-d483-54b8-86c7-d991e95a157c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M07-O03', 'changed-condition'): ('5cecd8d6-d483-54b8-86c7-d991e95a157c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M08-O01', 'base'): ('66f8d176-1eb7-52df-9359-4f7154c531b6',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '9\n',
+                                                                     ''),
+                                          ('CS13-M08-O01', 'changed-condition'): ('66f8d176-1eb7-52df-9359-4f7154c531b6',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS13-M08-O02', 'base'): ('f5db3067-7835-5b87-a021-bb193320da0c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M08-O02', 'changed-condition'): ('f5db3067-7835-5b87-a021-bb193320da0c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M08-O02', 'library-mlp'): ('f5db3067-7835-5b87-a021-bb193320da0c',
+                                                                            '',
+                                                                            'success',
+                                                                            '{"correct": 4, '
+                                                                            '"predictions": '
+                                                                            '[0, 1, 1, 0]}\n',
+                                                                            ''),
+                                          ('CS13-M08-O03', 'base'): ('e7eb2b12-e3f7-5ede-9654-a1ec0fef2924',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M08-O03', 'changed-condition'): ('e7eb2b12-e3f7-5ede-9654-a1ec0fef2924',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M09-O01', 'base'): ('c786806f-43fc-51fe-a29e-1dd5cb80ee7e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/4\n',
+                                                                     ''),
+                                          ('CS13-M09-O01', 'changed-condition'): ('c786806f-43fc-51fe-a29e-1dd5cb80ee7e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1/2\n',
+                                                                                  ''),
+                                          ('CS13-M09-O02', 'base'): ('0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS13-M09-O02', 'changed-condition'): ('0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS13-M09-O03', 'base'): ('d17a55b9-7ba9-5be5-a4c4-7534f36c3696',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 1\n',
+                                                                     ''),
+                                          ('CS13-M09-O03', 'changed-condition'): ('d17a55b9-7ba9-5be5-a4c4-7534f36c3696',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '100 100\n',
+                                                                                  ''),
+                                          ('CS13-M10-O01', 'base'): ('61fd47a0-f84a-59df-9b7f-01658dc818d3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS13-M10-O01', 'changed-condition'): ('61fd47a0-f84a-59df-9b7f-01658dc818d3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M10-O02', 'base'): ('d1ba46eb-ece4-5307-ae83-0e3d5f6323c5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS13-M10-O02', 'changed-condition'): ('d1ba46eb-ece4-5307-ae83-0e3d5f6323c5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS13-M10-O02', 'pipeline-leak'): ('d1ba46eb-ece4-5307-ae83-0e3d5f6323c5',
+                                                                              '[{"id": "0", '
+                                                                              '"split": '
+                                                                              '"train", "x": '
+                                                                              '0, "y": 1}, '
+                                                                              '{"id": "1", '
+                                                                              '"split": '
+                                                                              '"train", "x": '
+                                                                              '2, "y": 5}, '
+                                                                              '{"id": "2", '
+                                                                              '"split": '
+                                                                              '"train", "x": '
+                                                                              '4, "y": 9}, '
+                                                                              '{"id": "3", '
+                                                                              '"split": '
+                                                                              '"train", "x": '
+                                                                              'null, "y": 5}, '
+                                                                              '{"id": "4", '
+                                                                              '"split": '
+                                                                              '"validation", '
+                                                                              '"x": 1, "y": '
+                                                                              '3}, {"id": '
+                                                                              '"5", "split": '
+                                                                              '"validation", '
+                                                                              '"x": 3, "y": '
+                                                                              '7}, {"id": '
+                                                                              '"6", "split": '
+                                                                              '"test", "x": '
+                                                                              '5, "y": 11}, '
+                                                                              '{"id": "7", '
+                                                                              '"split": '
+                                                                              '"test", "x": '
+                                                                              '7, "y": 15}]\n',
+                                                                              'success',
+                                                                              '{"baseline_test_mse": '
+                                                                              '68.0, '
+                                                                              '"data_sha256": '
+                                                                              '"43b47f964e12d51007656eed934b6c7698dde070129daa842c77d4e6f549070e", '
+                                                                              '"fit_ids": '
+                                                                              '["0", "1", '
+                                                                              '"2", "3"], '
+                                                                              '"gradient_error": '
+                                                                              '0.0, "model": '
+                                                                              '{"center": '
+                                                                              '2.0, '
+                                                                              '"impute_mean": '
+                                                                              '2.0, '
+                                                                              '"intercept": '
+                                                                              '5.0, "schema": '
+                                                                              '"single-feature-regression-v1", '
+                                                                              '"slope": 2.0}, '
+                                                                              '"reload_predictions": '
+                                                                              '[11.0, 15.0], '
+                                                                              '"selected": '
+                                                                              '"linear", '
+                                                                              '"selection_ids": '
+                                                                              '["4", "5"], '
+                                                                              '"test_ids": '
+                                                                              '["6", "7"], '
+                                                                              '"test_mse": '
+                                                                              '0.0, '
+                                                                              '"test_predictions": '
+                                                                              '[11.0, 15.0], '
+                                                                              '"validation_scores": '
+                                                                              '{"baseline": '
+                                                                              '4.0, "linear": '
+                                                                              '0.0}}\n',
+                                                                              ''),
+                                          ('CS13-M10-O02', 'pipeline-shift'): ('d1ba46eb-ece4-5307-ae83-0e3d5f6323c5',
+                                                                               '[{"id": "0", '
+                                                                               '"split": '
+                                                                               '"train", "x": '
+                                                                               '0, "y": 1}, '
+                                                                               '{"id": "1", '
+                                                                               '"split": '
+                                                                               '"train", "x": '
+                                                                               '2, "y": 5}, '
+                                                                               '{"id": "2", '
+                                                                               '"split": '
+                                                                               '"train", "x": '
+                                                                               '4, "y": 9}, '
+                                                                               '{"id": "3", '
+                                                                               '"split": '
+                                                                               '"train", "x": '
+                                                                               'null, "y": '
+                                                                               '5}, {"id": '
+                                                                               '"4", "split": '
+                                                                               '"validation", '
+                                                                               '"x": 1, "y": '
+                                                                               '3}, {"id": '
+                                                                               '"5", "split": '
+                                                                               '"validation", '
+                                                                               '"x": 3, "y": '
+                                                                               '7}, {"id": '
+                                                                               '"6", "split": '
+                                                                               '"test", "x": '
+                                                                               '15, "y": 31}, '
+                                                                               '{"id": "7", '
+                                                                               '"split": '
+                                                                               '"test", "x": '
+                                                                               '17, "y": '
+                                                                               '35}]\n',
+                                                                               'success',
+                                                                               '{"baseline_test_mse": '
+                                                                               '788.0, '
+                                                                               '"data_sha256": '
+                                                                               '"7fcf12df5344161e96d835c50f9cb71614c6ce1e5585c1be0a97b40b6a5e352c", '
+                                                                               '"fit_ids": '
+                                                                               '["0", "1", '
+                                                                               '"2", "3"], '
+                                                                               '"gradient_error": '
+                                                                               '0.0, "model": '
+                                                                               '{"center": '
+                                                                               '2.0, '
+                                                                               '"impute_mean": '
+                                                                               '2.0, '
+                                                                               '"intercept": '
+                                                                               '5.0, '
+                                                                               '"schema": '
+                                                                               '"single-feature-regression-v1", '
+                                                                               '"slope": '
+                                                                               '2.0}, '
+                                                                               '"reload_predictions": '
+                                                                               '[31.0, 35.0], '
+                                                                               '"selected": '
+                                                                               '"linear", '
+                                                                               '"selection_ids": '
+                                                                               '["4", "5"], '
+                                                                               '"test_ids": '
+                                                                               '["6", "7"], '
+                                                                               '"test_mse": '
+                                                                               '0.0, '
+                                                                               '"test_predictions": '
+                                                                               '[31.0, 35.0], '
+                                                                               '"validation_scores": '
+                                                                               '{"baseline": '
+                                                                               '4.0, '
+                                                                               '"linear": '
+                                                                               '0.0}}\n',
+                                                                               ''),
+                                          ('CS13-M10-O03', 'base'): ('3bee011b-8276-5f74-a4ac-03779c4cd6c7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'needs_review\n',
+                                                                     ''),
+                                          ('CS13-M10-O03', 'changed-condition'): ('3bee011b-8276-5f74-a4ac-03779c4cd6c7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'in_scope\n',
                                                                                   '')},
  '89a77e3d-0397-527e-bfaa-89d9009da6c6': {('CS03-M01-O01', 'base'): ('9dc038dd-008b-58f6-acee-32a17cddd73d',
                                                                      '1\n',
@@ -3026,6 +3904,286 @@ GENERIC_RULES = {'01e157b8-021c-53ca-b743-39af3957c3b1': {('CS12-M01-O01', 'base
                                                                                   'success',
                                                                                   '1\n',
                                                                                   '')},
+ 'a16d1fea-1350-5ca1-95b6-807decfc4ef4': {('CS02-M01-O01', 'base'): ('3d183782-5951-567e-9b87-fdcf56c2e361',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2\n',
+                                                                     ''),
+                                          ('CS02-M01-O01', 'changed-condition'): ('3d183782-5951-567e-9b87-fdcf56c2e361',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2 3\n',
+                                                                                  ''),
+                                          ('CS02-M01-O02', 'base'): ('e7144116-9c19-527d-9828-31998cbd2f5a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'private=true '
+                                                                     'available=1\n',
+                                                                     ''),
+                                          ('CS02-M01-O02', 'changed-condition'): ('e7144116-9c19-527d-9828-31998cbd2f5a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'private=true '
+                                                                                  'available=2\n',
+                                                                                  ''),
+                                          ('CS02-M01-O03', 'base'): ('24c5e72d-7062-5d34-8a72-2453545ffe7f',
+                                                                     '-1\n',
+                                                                     'success',
+                                                                     'rejected\n',
+                                                                     ''),
+                                          ('CS02-M01-O03', 'changed-condition'): ('24c5e72d-7062-5d34-8a72-2453545ffe7f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'count=2\n',
+                                                                                  ''),
+                                          ('CS02-M02-O01', 'base'): ('0d78dad8-c5ef-53d8-a37c-a3ec0e076e56',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'fee=2\n',
+                                                                     ''),
+                                          ('CS02-M02-O01', 'changed-condition'): ('0d78dad8-c5ef-53d8-a37c-a3ec0e076e56',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'fee=4\n',
+                                                                                  ''),
+                                          ('CS02-M02-O02', 'base'): ('20742f55-04cf-5ab4-bd04-a3bc6e279020',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'repo=0\n',
+                                                                     ''),
+                                          ('CS02-M02-O02', 'changed-condition'): ('20742f55-04cf-5ab4-bd04-a3bc6e279020',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'repo=1\n',
+                                                                                  ''),
+                                          ('CS02-M02-O03', 'base'): ('3ba61b09-4913-5504-8aba-c50391bb9b5f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'calls=1\n',
+                                                                     ''),
+                                          ('CS02-M02-O03', 'changed-condition'): ('3ba61b09-4913-5504-8aba-c50391bb9b5f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'calls=2\n',
+                                                                                  ''),
+                                          ('CS02-M03-O01', 'base'): ('498feb3f-ded2-5159-8926-7bbaed155a68',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'days=1\n',
+                                                                     ''),
+                                          ('CS02-M03-O01', 'changed-condition'): ('498feb3f-ded2-5159-8926-7bbaed155a68',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'days=2\n',
+                                                                                  ''),
+                                          ('CS02-M03-O02', 'base'): ('4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e',
+                                                                     '0\n',
+                                                                     'success',
+                                                                     'fee=0\n',
+                                                                     ''),
+                                          ('CS02-M03-O02', 'changed-condition'): ('4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e',
+                                                                                  '3\n',
+                                                                                  'success',
+                                                                                  'fee=6\n',
+                                                                                  ''),
+                                          ('CS02-M03-O03', 'base'): ('087ccd2f-4474-5f5f-81fb-a56aa07210ba',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'due=3\n',
+                                                                     ''),
+                                          ('CS02-M03-O03', 'changed-condition'): ('087ccd2f-4474-5f5f-81fb-a56aa07210ba',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'due=6\n',
+                                                                                  ''),
+                                          ('CS02-M04-O01', 'base'): ('c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'id=8\n',
+                                                                     ''),
+                                          ('CS02-M04-O01', 'changed-condition'): ('c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6',
+                                                                                  '0\n',
+                                                                                  'success',
+                                                                                  'id=7\n',
+                                                                                  ''),
+                                          ('CS02-M04-O02', 'base'): ('4007e46f-5f69-527f-b9f8-a80d2857a8aa',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unique=2\n',
+                                                                     ''),
+                                          ('CS02-M04-O02', 'changed-condition'): ('4007e46f-5f69-527f-b9f8-a80d2857a8aa',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'unique=2\n',
+                                                                                  ''),
+                                          ('CS02-M04-O03', 'base'): ('8dbf6558-fafe-51c9-b74b-6cce730ec469',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unique=2\n',
+                                                                     ''),
+                                          ('CS02-M04-O03', 'changed-condition'): ('8dbf6558-fafe-51c9-b74b-6cce730ec469',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'unique=2\n',
+                                                                                  ''),
+                                          ('CS02-M05-O01', 'base'): ('1fa1c474-f76d-5de6-bc78-96772aed4b0b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'saved=false\n',
+                                                                     ''),
+                                          ('CS02-M05-O01', 'changed-condition'): ('1fa1c474-f76d-5de6-bc78-96772aed4b0b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'saved=false\n',
+                                                                                  ''),
+                                          ('CS02-M05-O02', 'base'): ('8e066796-73f9-5ff6-870a-f5ab4b18d4d8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'copies=2\n',
+                                                                     ''),
+                                          ('CS02-M05-O02', 'changed-condition'): ('8e066796-73f9-5ff6-870a-f5ab4b18d4d8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'copies=1\n',
+                                                                                  ''),
+                                          ('CS02-M05-O03', 'base'): ('d552ee3e-86fe-5f69-89d0-3eb64e26648c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'closed=true\n',
+                                                                     ''),
+                                          ('CS02-M05-O03', 'changed-condition'): ('d552ee3e-86fe-5f69-89d0-3eb64e26648c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'closed=true\n',
+                                                                                  ''),
+                                          ('CS02-M06-O01', 'base'): ('802bb561-8714-5a6a-90f2-11d43ac54f0a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'subscribers=0\n',
+                                                                     ''),
+                                          ('CS02-M06-O01', 'changed-condition'): ('802bb561-8714-5a6a-90f2-11d43ac54f0a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'subscribers=0\n',
+                                                                                  ''),
+                                          ('CS02-M06-O02', 'base'): ('f47e30d7-a3df-533d-80b8-f22bbf34c602',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'notified=1\n',
+                                                                     ''),
+                                          ('CS02-M06-O02', 'changed-condition'): ('f47e30d7-a3df-533d-80b8-f22bbf34c602',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'notified=1\n',
+                                                                                  ''),
+                                          ('CS02-M06-O03', 'base'): ('9ff81c76-65cc-5dbd-9674-05384bdbf2f3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'notified=1 errors=1\n',
+                                                                     ''),
+                                          ('CS02-M06-O03', 'changed-condition'): ('9ff81c76-65cc-5dbd-9674-05384bdbf2f3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'notified=2 '
+                                                                                  'errors=1\n',
+                                                                                  ''),
+                                          ('CS02-M07-O01', 'base'): ('0b33b5e9-b7f4-57e0-b84b-56444915305f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'id=7 copies=1\n',
+                                                                     ''),
+                                          ('CS02-M07-O01', 'changed-condition'): ('0b33b5e9-b7f4-57e0-b84b-56444915305f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'id=7 '
+                                                                                  'copies=2\n',
+                                                                                  ''),
+                                          ('CS02-M07-O02', 'base'): ('3883b5d4-2b36-5909-a92c-878405b5cfec',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2\n',
+                                                                     ''),
+                                          ('CS02-M07-O02', 'changed-condition'): ('3883b5d4-2b36-5909-a92c-878405b5cfec',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2 3\n',
+                                                                                  ''),
+                                          ('CS02-M07-O03', 'base'): ('cca558ee-f1ad-581a-905a-ec20d0240a54',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'loaded=7,1\n',
+                                                                     ''),
+                                          ('CS02-M07-O03', 'changed-condition'): ('cca558ee-f1ad-581a-905a-ec20d0240a54',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'loaded=7,2\n',
+                                                                                  ''),
+                                          ('CS02-M08-O01', 'base'): ('e05dfe52-651f-5a0a-b49d-ef92c2571612',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'allowed=true\n',
+                                                                     ''),
+                                          ('CS02-M08-O01', 'changed-condition'): ('e05dfe52-651f-5a0a-b49d-ef92c2571612',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'allowed=true\n',
+                                                                                  ''),
+                                          ('CS02-M08-O02', 'base'): ('5a2931b7-3a63-5c65-b399-1835f3407623',
+                                                                     '0\n',
+                                                                     'success',
+                                                                     'accepted=false '
+                                                                     'copies=0\n',
+                                                                     ''),
+                                          ('CS02-M08-O02', 'changed-condition'): ('5a2931b7-3a63-5c65-b399-1835f3407623',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'accepted=true '
+                                                                                  'copies=1\n',
+                                                                                  ''),
+                                          ('CS02-M08-O03', 'base'): ('688fdd4c-bfd7-5cf2-8589-869700c3a791',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'assigned=1 '
+                                                                     'available=0\n',
+                                                                     ''),
+                                          ('CS02-M08-O03', 'changed-condition'): ('688fdd4c-bfd7-5cf2-8589-869700c3a791',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'assigned=2 '
+                                                                                  'available=0\n',
+                                                                                  ''),
+                                          ('CS02-M08-O03', 'library-owner'): ('688fdd4c-bfd7-5cf2-8589-869700c3a791',
+                                                                              '1\n',
+                                                                              'success',
+                                                                              'available=0\n'
+                                                                              'no stock\n'
+                                                                              'restored=0\n'
+                                                                              'other owner '
+                                                                              'rejected\n'
+                                                                              'returned\n'
+                                                                              'repeat '
+                                                                              'rejected\n'
+                                                                              'reopened=1\n'
+                                                                              'monotonic '
+                                                                              'ID=true\n',
+                                                                              ''),
+                                          ('CS02-M08-O03', 'library-two-borrowers'): ('688fdd4c-bfd7-5cf2-8589-869700c3a791',
+                                                                                      '2\n',
+                                                                                      'success',
+                                                                                      'available=0\n'
+                                                                                      'no '
+                                                                                      'stock\n'
+                                                                                      'restored=0\n'
+                                                                                      'other '
+                                                                                      'owner '
+                                                                                      'rejected\n'
+                                                                                      'returned\n'
+                                                                                      'repeat '
+                                                                                      'rejected\n'
+                                                                                      'reopened=2\n'
+                                                                                      'monotonic '
+                                                                                      'ID=true\n',
+                                                                                      '')},
  'ad0499ca-f205-5b96-bb4f-f4c3137e8238': {('CS05-M01-O01', 'base'): ('02d5f3a0-71aa-5af9-a438-f7b016ce3287',
                                                                      '1\n',
                                                                      'success',

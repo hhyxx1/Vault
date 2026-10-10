@@ -1,0 +1,1910 @@
+[
+  {
+    "id": "CS10-M01-O01/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O01",
+    "activity": "66acb8e2-1c22-54ac-8d30-ba4b5420c807",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrecords={'requirements':True,'implementation':True,'validation':False if n==1 else True}\nprint(records['implementation'])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M01-O01/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O01",
+    "activity": "66acb8e2-1c22-54ac-8d30-ba4b5420c807",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrecords={'requirements':True,'implementation':True,'validation':False if n==1 else True}\nprint(all(records.values()))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M01-O01/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O01",
+    "activity": "66acb8e2-1c22-54ac-8d30-ba4b5420c807",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrecords={'requirements':True,'implementation':True,'validation':False if n==1 else True}\nprint(records['implementation'])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M01-O01/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O01",
+    "activity": "66acb8e2-1c22-54ac-8d30-ba4b5420c807",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrecords={'requirements':True,'implementation':True,'validation':False if n==1 else True}\nprint(all(records.values()))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M01-O02/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O02",
+    "activity": "56401a3b-7884-53ff-8625-909172db27b8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncompleted={'input','save'} if n==1 else {'input','save','restore'}\nrequired={'input','save','restore'}\nprint(bool(completed))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M01-O02/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O02",
+    "activity": "56401a3b-7884-53ff-8625-909172db27b8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncompleted={'input','save'} if n==1 else {'input','save','restore'}\nrequired={'input','save','restore'}\nprint(required<=completed)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M01-O02/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O02",
+    "activity": "56401a3b-7884-53ff-8625-909172db27b8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncompleted={'input','save'} if n==1 else {'input','save','restore'}\nrequired={'input','save','restore'}\nprint(bool(completed))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M01-O02/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O02",
+    "activity": "56401a3b-7884-53ff-8625-909172db27b8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncompleted={'input','save'} if n==1 else {'input','save','restore'}\nrequired={'input','save','restore'}\nprint(required<=completed)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M01-O03/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O03",
+    "activity": "b160e4bf-25c4-5410-8696-0fd327bdd334",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntasks=[('restore',2,8),('scale',5,9)]\nbudget=3 if n==1 else 5\nprint(max(tasks,key=lambda t:t[2])[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "scale\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M01-O03/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O03",
+    "activity": "b160e4bf-25c4-5410-8696-0fd327bdd334",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntasks=[('restore',2,8),('scale',5,9)]\nbudget=3 if n==1 else 5\nprint(max((t for t in tasks if t[1]<=budget),key=lambda t:t[2])[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "restore\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M01-O03/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O03",
+    "activity": "b160e4bf-25c4-5410-8696-0fd327bdd334",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntasks=[('restore',2,8),('scale',5,9)]\nbudget=3 if n==1 else 5\nprint(max(tasks,key=lambda t:t[2])[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "scale\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M01-O03/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M01-O03",
+    "activity": "b160e4bf-25c4-5410-8696-0fd327bdd334",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntasks=[('restore',2,8),('scale',5,9)]\nbudget=3 if n==1 else 5\nprint(max((t for t in tasks if t[1]<=budget),key=lambda t:t[2])[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "scale\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M02-O01/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O01",
+    "activity": "4dbfd422-b84f-5223-9738-f08b61c90737",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstory={'outcome':'recover_work','tool':'install_database' if n==1 else 'recover_work'}\nprint(story['tool'])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "install_database\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M02-O01/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O01",
+    "activity": "4dbfd422-b84f-5223-9738-f08b61c90737",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstory={'outcome':'recover_work','tool':'install_database' if n==1 else 'recover_work'}\nprint(story['outcome'])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "recover_work\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M02-O01/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O01",
+    "activity": "4dbfd422-b84f-5223-9738-f08b61c90737",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstory={'outcome':'recover_work','tool':'install_database' if n==1 else 'recover_work'}\nprint(story['tool'])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "recover_work\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M02-O01/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O01",
+    "activity": "4dbfd422-b84f-5223-9738-f08b61c90737",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstory={'outcome':'recover_work','tool':'install_database' if n==1 else 'recover_work'}\nprint(story['outcome'])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "recover_work\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M02-O02/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O02",
+    "activity": "1f2d1c1c-fc8d-5518-9a36-2f1f375c42da",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntimes=[1,9] if n==1 else [1,3]\nprint(sum(times)/len(times)<=5)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M02-O02/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O02",
+    "activity": "1f2d1c1c-fc8d-5518-9a36-2f1f375c42da",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntimes=[1,9] if n==1 else [1,3]\nprint(max(times)<=5)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M02-O02/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O02",
+    "activity": "1f2d1c1c-fc8d-5518-9a36-2f1f375c42da",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntimes=[1,9] if n==1 else [1,3]\nprint(sum(times)/len(times)<=5)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M02-O02/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O02",
+    "activity": "1f2d1c1c-fc8d-5518-9a36-2f1f375c42da",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntimes=[1,9] if n==1 else [1,3]\nprint(max(times)<=5)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M02-O03/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O03",
+    "activity": "aa7c456c-58bf-5b8c-9df1-a584a363b4c4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlinks={'role':['authorization'],'authorization':['tests'],'tests':[]}\nstart='role' if n==1 else 'authorization'\nchanged=set(links[start])\nprint(' '.join(sorted(changed)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "authorization\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M02-O03/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O03",
+    "activity": "aa7c456c-58bf-5b8c-9df1-a584a363b4c4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlinks={'role':['authorization'],'authorization':['tests'],'tests':[]}\nstart='role' if n==1 else 'authorization'\nchanged=set();todo=list(links[start])\nwhile todo:\n item=todo.pop()\n if item not in changed:changed.add(item);todo.extend(links[item])\nprint(' '.join(sorted(changed)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "authorization tests\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M02-O03/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O03",
+    "activity": "aa7c456c-58bf-5b8c-9df1-a584a363b4c4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlinks={'role':['authorization'],'authorization':['tests'],'tests':[]}\nstart='role' if n==1 else 'authorization'\nchanged=set(links[start])\nprint(' '.join(sorted(changed)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "tests\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M02-O03/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M02-O03",
+    "activity": "aa7c456c-58bf-5b8c-9df1-a584a363b4c4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlinks={'role':['authorization'],'authorization':['tests'],'tests':[]}\nstart='role' if n==1 else 'authorization'\nchanged=set();todo=list(links[start])\nwhile todo:\n item=todo.pop()\n if item not in changed:changed.add(item);todo.extend(links[item])\nprint(' '.join(sorted(changed)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "tests\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M03-O01/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O01",
+    "activity": "1a173cb9-e825-55d4-8024-c34687106283",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsource={'owner':'student','text':'first'}\nartifact=source\nsource['text']='second' if n==1 else 'first'\nprint(artifact['text'])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "second\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M03-O01/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O01",
+    "activity": "1a173cb9-e825-55d4-8024-c34687106283",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsource={'owner':'student','text':'first'}\nartifact=dict(source)\nsource['text']='second' if n==1 else 'first'\nprint(artifact['text'])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "first\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M03-O01/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O01",
+    "activity": "1a173cb9-e825-55d4-8024-c34687106283",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsource={'owner':'student','text':'first'}\nartifact=source\nsource['text']='second' if n==1 else 'first'\nprint(artifact['text'])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "first\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M03-O01/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O01",
+    "activity": "1a173cb9-e825-55d4-8024-c34687106283",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsource={'owner':'student','text':'first'}\nartifact=dict(source)\nsource['text']='second' if n==1 else 'first'\nprint(artifact['text'])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "first\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M03-O02/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O02",
+    "activity": "28ded22d-0443-5dcd-a7d0-a80826c50bd8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstate='cancelled' if n==1 else 'running'\nresponse='completed'\nstate=response\nprint(state)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "completed\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M03-O02/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O02",
+    "activity": "28ded22d-0443-5dcd-a7d0-a80826c50bd8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstate='cancelled' if n==1 else 'running'\nresponse='completed'\nif state=='running':state=response\nprint(state)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "cancelled\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M03-O02/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O02",
+    "activity": "28ded22d-0443-5dcd-a7d0-a80826c50bd8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstate='cancelled' if n==1 else 'running'\nresponse='completed'\nstate=response\nprint(state)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "completed\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M03-O02/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O02",
+    "activity": "28ded22d-0443-5dcd-a7d0-a80826c50bd8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstate='cancelled' if n==1 else 'running'\nresponse='completed'\nif state=='running':state=response\nprint(state)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "completed\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M03-O03/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O03",
+    "activity": "293bc298-f5b1-5331-8f98-1289a1cbdd54",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmapping={'save':[] if n==1 else ['T-save'],'restore':['T-restore']}\nprint(bool(mapping))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M03-O03/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O03",
+    "activity": "293bc298-f5b1-5331-8f98-1289a1cbdd54",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmapping={'save':[] if n==1 else ['T-save'],'restore':['T-restore']}\nprint(all(mapping.values()))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M03-O03/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O03",
+    "activity": "293bc298-f5b1-5331-8f98-1289a1cbdd54",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmapping={'save':[] if n==1 else ['T-save'],'restore':['T-restore']}\nprint(bool(mapping))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M03-O03/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M03-O03",
+    "activity": "293bc298-f5b1-5331-8f98-1289a1cbdd54",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmapping={'save':[] if n==1 else ['T-save'],'restore':['T-restore']}\nprint(all(mapping.values()))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M04-O01/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O01",
+    "activity": "a79eac57-2194-5118-b2d7-8b2aef24f83f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nclass Repo:\n def __init__(self):self.rows=[]\n def save(self,value):self.rows.append(value)\nrepo=Repo()\ndef submit(value):\n return 'accepted'\nsubmit(7 if n==1 else 8)\nprint(len(repo.rows))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M04-O01/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O01",
+    "activity": "a79eac57-2194-5118-b2d7-8b2aef24f83f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nclass Repo:\n def __init__(self):self.rows=[]\n def save(self,value):self.rows.append(value)\nrepo=Repo()\ndef submit(value):\n repo.save(value)\n return 'accepted'\nsubmit(7 if n==1 else 8)\nprint(len(repo.rows))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M04-O01/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O01",
+    "activity": "a79eac57-2194-5118-b2d7-8b2aef24f83f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nclass Repo:\n def __init__(self):self.rows=[]\n def save(self,value):self.rows.append(value)\nrepo=Repo()\ndef submit(value):\n return 'accepted'\nsubmit(7 if n==1 else 8)\nprint(len(repo.rows))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M04-O01/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O01",
+    "activity": "a79eac57-2194-5118-b2d7-8b2aef24f83f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nclass Repo:\n def __init__(self):self.rows=[]\n def save(self,value):self.rows.append(value)\nrepo=Repo()\ndef submit(value):\n repo.save(value)\n return 'accepted'\nsubmit(7 if n==1 else 8)\nprint(len(repo.rows))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M04-O02/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O02",
+    "activity": "e44ae9bd-2fb7-53ce-a675-6911eac7f766",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfast={'latency':1,'durable':False if n==1 else True}\nprint(fast['latency']<=2)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M04-O02/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O02",
+    "activity": "e44ae9bd-2fb7-53ce-a675-6911eac7f766",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfast={'latency':1,'durable':False if n==1 else True}\nprint(fast['latency']<=2 and fast['durable'])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M04-O02/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O02",
+    "activity": "e44ae9bd-2fb7-53ce-a675-6911eac7f766",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfast={'latency':1,'durable':False if n==1 else True}\nprint(fast['latency']<=2)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M04-O02/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O02",
+    "activity": "e44ae9bd-2fb7-53ce-a675-6911eac7f766",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfast={'latency':1,'durable':False if n==1 else True}\nprint(fast['latency']<=2 and fast['durable'])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M04-O03/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O03",
+    "activity": "3fcab0a4-5603-57af-935d-7566c9c8dcb1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndecision={'choice':'local_store','evidence':'restore_test'}\nif n==2:decision['reconsider']='multi_writer'\nprint('choice' in decision)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M04-O03/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O03",
+    "activity": "3fcab0a4-5603-57af-935d-7566c9c8dcb1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndecision={'choice':'local_store','evidence':'restore_test'}\nif n==2:decision['reconsider']='multi_writer'\nprint(all(key in decision for key in ['choice','evidence','reconsider']))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M04-O03/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O03",
+    "activity": "3fcab0a4-5603-57af-935d-7566c9c8dcb1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndecision={'choice':'local_store','evidence':'restore_test'}\nif n==2:decision['reconsider']='multi_writer'\nprint('choice' in decision)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M04-O03/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M04-O03",
+    "activity": "3fcab0a4-5603-57af-935d-7566c9c8dcb1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndecision={'choice':'local_store','evidence':'restore_test'}\nif n==2:decision['reconsider']='multi_writer'\nprint(all(key in decision for key in ['choice','evidence','reconsider']))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M05-O01/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O01",
+    "activity": "a5735bcd-35ba-5801-8f30-c726e0d74410",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nauthorized=n==2\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(b'ok')\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\nprint(status)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "200\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M05-O01/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O01",
+    "activity": "a5735bcd-35ba-5801-8f30-c726e0d74410",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nauthorized=n==2\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200 if authorized else 403);self.end_headers();self.wfile.write(b'ok')\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\nprint(status)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "403\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M05-O01/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O01",
+    "activity": "a5735bcd-35ba-5801-8f30-c726e0d74410",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nauthorized=n==2\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(b'ok')\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\nprint(status)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "200\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M05-O01/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O01",
+    "activity": "a5735bcd-35ba-5801-8f30-c726e0d74410",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nauthorized=n==2\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200 if authorized else 403);self.end_headers();self.wfile.write(b'ok')\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\nprint(status)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "200\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M05-O02/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O02",
+    "activity": "0121d58e-2969-569c-89b1-d1d0d7d870d1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=7 if n==1 else 8\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(('id:'+str(value)).encode())\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\ntry:print(json.loads(body)['id'])\nexcept json.JSONDecodeError:print('invalid')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "invalid\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M05-O02/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O02",
+    "activity": "0121d58e-2969-569c-89b1-d1d0d7d870d1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=7 if n==1 else 8\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(json.dumps({'id':value}).encode())\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\ntry:print(json.loads(body)['id'])\nexcept json.JSONDecodeError:print('invalid')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M05-O02/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O02",
+    "activity": "0121d58e-2969-569c-89b1-d1d0d7d870d1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=7 if n==1 else 8\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(('id:'+str(value)).encode())\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\ntry:print(json.loads(body)['id'])\nexcept json.JSONDecodeError:print('invalid')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "invalid\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M05-O02/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O02",
+    "activity": "0121d58e-2969-569c-89b1-d1d0d7d870d1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=7 if n==1 else 8\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(json.dumps({'id':value}).encode())\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\ntry:print(json.loads(body)['id'])\nexcept json.JSONDecodeError:print('invalid')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M05-O03/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O03",
+    "activity": "a511352f-f0bd-5e8d-8f90-8040c69a40b3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nclass Repo:\n def save(self):\n  if n==1:raise OSError('storage unavailable')\ndef submit(repo):\n try:repo.save();return 'accepted'\n except OSError:return 'accepted'\nprint(submit(Repo()))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "accepted\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M05-O03/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O03",
+    "activity": "a511352f-f0bd-5e8d-8f90-8040c69a40b3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nclass Repo:\n def save(self):\n  if n==1:raise OSError('storage unavailable')\ndef submit(repo):\n try:repo.save();return 'accepted'\n except OSError:return 'unavailable'\nprint(submit(Repo()))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unavailable\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M05-O03/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O03",
+    "activity": "a511352f-f0bd-5e8d-8f90-8040c69a40b3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nclass Repo:\n def save(self):\n  if n==1:raise OSError('storage unavailable')\ndef submit(repo):\n try:repo.save();return 'accepted'\n except OSError:return 'accepted'\nprint(submit(Repo()))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "accepted\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M05-O03/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M05-O03",
+    "activity": "a511352f-f0bd-5e8d-8f90-8040c69a40b3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nclass Repo:\n def save(self):\n  if n==1:raise OSError('storage unavailable')\ndef submit(repo):\n try:repo.save();return 'accepted'\n except OSError:return 'unavailable'\nprint(submit(Repo()))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "accepted\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M06-O01/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O01",
+    "activity": "e1298ac8-7fb1-5389-b4aa-4385c17f8b22",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport unittest\nrepo=[]\ndef submit(x):\n if n==2:repo.append(x)\n return True\nclass Check(unittest.TestCase):\n def test_save(self):\n  self.assertTrue(submit(7))\nresult=unittest.TestResult();unittest.defaultTestLoader.loadTestsFromTestCase(Check).run(result)\nprint(len(result.failures))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M06-O01/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O01",
+    "activity": "e1298ac8-7fb1-5389-b4aa-4385c17f8b22",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport unittest\nrepo=[]\ndef submit(x):\n if n==2:repo.append(x)\n return True\nclass Check(unittest.TestCase):\n def test_save(self):\n  submit(7);self.assertEqual(repo,[7])\nresult=unittest.TestResult();unittest.defaultTestLoader.loadTestsFromTestCase(Check).run(result)\nprint(len(result.failures))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M06-O01/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O01",
+    "activity": "e1298ac8-7fb1-5389-b4aa-4385c17f8b22",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport unittest\nrepo=[]\ndef submit(x):\n if n==2:repo.append(x)\n return True\nclass Check(unittest.TestCase):\n def test_save(self):\n  self.assertTrue(submit(7))\nresult=unittest.TestResult();unittest.defaultTestLoader.loadTestsFromTestCase(Check).run(result)\nprint(len(result.failures))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M06-O01/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O01",
+    "activity": "e1298ac8-7fb1-5389-b4aa-4385c17f8b22",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport unittest\nrepo=[]\ndef submit(x):\n if n==2:repo.append(x)\n return True\nclass Check(unittest.TestCase):\n def test_save(self):\n  submit(7);self.assertEqual(repo,[7])\nresult=unittest.TestResult();unittest.defaultTestLoader.loadTestsFromTestCase(Check).run(result)\nprint(len(result.failures))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M06-O02/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O02",
+    "activity": "56d00159-bf59-50fb-98a0-3510ba591d48",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport unittest\ndef valid(x):return x>0 if n==1 else x>=0\nclass Check(unittest.TestCase):\n def test_boundary(self):self.assertTrue(valid(1))\nresult=unittest.TestResult();unittest.defaultTestLoader.loadTestsFromTestCase(Check).run(result)\nprint(len(result.failures))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M06-O02/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O02",
+    "activity": "56d00159-bf59-50fb-98a0-3510ba591d48",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport unittest\ndef valid(x):return x>0 if n==1 else x>=0\nclass Check(unittest.TestCase):\n def test_boundary(self):self.assertTrue(valid(0))\nresult=unittest.TestResult();unittest.defaultTestLoader.loadTestsFromTestCase(Check).run(result)\nprint(len(result.failures))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M06-O02/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O02",
+    "activity": "56d00159-bf59-50fb-98a0-3510ba591d48",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport unittest\ndef valid(x):return x>0 if n==1 else x>=0\nclass Check(unittest.TestCase):\n def test_boundary(self):self.assertTrue(valid(1))\nresult=unittest.TestResult();unittest.defaultTestLoader.loadTestsFromTestCase(Check).run(result)\nprint(len(result.failures))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M06-O02/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O02",
+    "activity": "56d00159-bf59-50fb-98a0-3510ba591d48",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport unittest\ndef valid(x):return x>0 if n==1 else x>=0\nclass Check(unittest.TestCase):\n def test_boundary(self):self.assertTrue(valid(0))\nresult=unittest.TestResult();unittest.defaultTestLoader.loadTestsFromTestCase(Check).run(result)\nprint(len(result.failures))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M06-O03/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O03",
+    "activity": "70bb4cc3-5594-559d-8d6b-55eac49d08ce",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmutants=[lambda x:x>0,lambda x:x>=0]\ncase=1\nexpected=True\nprint(sum(fn(case)!=expected for fn in mutants))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M06-O03/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O03",
+    "activity": "70bb4cc3-5594-559d-8d6b-55eac49d08ce",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmutants=[lambda x:x>0,lambda x:x>=0]\ncase=0 if n==1 else 2\nexpected=True\nprint(sum(fn(case)!=expected for fn in mutants))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M06-O03/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O03",
+    "activity": "70bb4cc3-5594-559d-8d6b-55eac49d08ce",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmutants=[lambda x:x>0,lambda x:x>=0]\ncase=1\nexpected=True\nprint(sum(fn(case)!=expected for fn in mutants))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M06-O03/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M06-O03",
+    "activity": "70bb4cc3-5594-559d-8d6b-55eac49d08ce",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmutants=[lambda x:x>0,lambda x:x>=0]\ncase=0 if n==1 else 2\nexpected=True\nprint(sum(fn(case)!=expected for fn in mutants))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M07-O01/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O01",
+    "activity": "b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport subprocess,pathlib,tempfile,os\nrepo=pathlib.Path(tempfile.mkdtemp())\nenv={**os.environ,'GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null'}\ndef git(*args,check=True):\n return subprocess.run(['git','-c','user.name=Student','-c','user.email=student@example.invalid',*args],cwd=repo,env=env,check=check,capture_output=True,text=True)\ngit('init','-b','main');file=repo/'rule.txt';file.write_text('base');git('add','rule.txt');git('commit','-m','base')\nfile.write_text('changed' if n==1 else 'base')\nprint(bool(git('diff','--cached').stdout))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M07-O01/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O01",
+    "activity": "b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport subprocess,pathlib,tempfile,os\nrepo=pathlib.Path(tempfile.mkdtemp())\nenv={**os.environ,'GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null'}\ndef git(*args,check=True):\n return subprocess.run(['git','-c','user.name=Student','-c','user.email=student@example.invalid',*args],cwd=repo,env=env,check=check,capture_output=True,text=True)\ngit('init','-b','main');file=repo/'rule.txt';file.write_text('base');git('add','rule.txt');git('commit','-m','base')\nfile.write_text('changed' if n==1 else 'base')\nprint(bool(git('diff').stdout))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M07-O01/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O01",
+    "activity": "b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport subprocess,pathlib,tempfile,os\nrepo=pathlib.Path(tempfile.mkdtemp())\nenv={**os.environ,'GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null'}\ndef git(*args,check=True):\n return subprocess.run(['git','-c','user.name=Student','-c','user.email=student@example.invalid',*args],cwd=repo,env=env,check=check,capture_output=True,text=True)\ngit('init','-b','main');file=repo/'rule.txt';file.write_text('base');git('add','rule.txt');git('commit','-m','base')\nfile.write_text('changed' if n==1 else 'base')\nprint(bool(git('diff','--cached').stdout))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M07-O01/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O01",
+    "activity": "b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport subprocess,pathlib,tempfile,os\nrepo=pathlib.Path(tempfile.mkdtemp())\nenv={**os.environ,'GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null'}\ndef git(*args,check=True):\n return subprocess.run(['git','-c','user.name=Student','-c','user.email=student@example.invalid',*args],cwd=repo,env=env,check=check,capture_output=True,text=True)\ngit('init','-b','main');file=repo/'rule.txt';file.write_text('base');git('add','rule.txt');git('commit','-m','base')\nfile.write_text('changed' if n==1 else 'base')\nprint(bool(git('diff').stdout))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M07-O02/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O02",
+    "activity": "eebf0e64-7856-5c0b-bfbf-8786ece3c68a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport subprocess,pathlib,tempfile,os\nrepo=pathlib.Path(tempfile.mkdtemp())\nenv={**os.environ,'GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null'}\ndef git(*args,check=True):\n return subprocess.run(['git','-c','user.name=Student','-c','user.email=student@example.invalid',*args],cwd=repo,env=env,check=check,capture_output=True,text=True)\ngit('init','-b','main');file=repo/'rule.txt';file.write_text('base');git('add','rule.txt');git('commit','-m','base')\ngit('checkout','-b','left');file.write_text('left');git('add','rule.txt');git('commit','-m','left')\ngit('checkout','main');file.write_text('right');git('add','rule.txt');git('commit','-m','right')\nmerge=git('merge','left',check=False)\nif n==2:file.write_text('resolved');git('add','rule.txt')\nprint(merge.returncode==0)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M07-O02/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O02",
+    "activity": "eebf0e64-7856-5c0b-bfbf-8786ece3c68a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport subprocess,pathlib,tempfile,os\nrepo=pathlib.Path(tempfile.mkdtemp())\nenv={**os.environ,'GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null'}\ndef git(*args,check=True):\n return subprocess.run(['git','-c','user.name=Student','-c','user.email=student@example.invalid',*args],cwd=repo,env=env,check=check,capture_output=True,text=True)\ngit('init','-b','main');file=repo/'rule.txt';file.write_text('base');git('add','rule.txt');git('commit','-m','base')\ngit('checkout','-b','left');file.write_text('left');git('add','rule.txt');git('commit','-m','left')\ngit('checkout','main');file.write_text('right');git('add','rule.txt');git('commit','-m','right')\nmerge=git('merge','left',check=False)\nif n==2:file.write_text('resolved');git('add','rule.txt')\nfile.write_text('resolved');git('add','rule.txt')\nprint(not bool(git('ls-files','-u').stdout))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M07-O02/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O02",
+    "activity": "eebf0e64-7856-5c0b-bfbf-8786ece3c68a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport subprocess,pathlib,tempfile,os\nrepo=pathlib.Path(tempfile.mkdtemp())\nenv={**os.environ,'GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null'}\ndef git(*args,check=True):\n return subprocess.run(['git','-c','user.name=Student','-c','user.email=student@example.invalid',*args],cwd=repo,env=env,check=check,capture_output=True,text=True)\ngit('init','-b','main');file=repo/'rule.txt';file.write_text('base');git('add','rule.txt');git('commit','-m','base')\ngit('checkout','-b','left');file.write_text('left');git('add','rule.txt');git('commit','-m','left')\ngit('checkout','main');file.write_text('right');git('add','rule.txt');git('commit','-m','right')\nmerge=git('merge','left',check=False)\nif n==2:file.write_text('resolved');git('add','rule.txt')\nprint(merge.returncode==0)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M07-O02/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O02",
+    "activity": "eebf0e64-7856-5c0b-bfbf-8786ece3c68a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport subprocess,pathlib,tempfile,os\nrepo=pathlib.Path(tempfile.mkdtemp())\nenv={**os.environ,'GIT_CONFIG_NOSYSTEM':'1','GIT_CONFIG_GLOBAL':'/dev/null'}\ndef git(*args,check=True):\n return subprocess.run(['git','-c','user.name=Student','-c','user.email=student@example.invalid',*args],cwd=repo,env=env,check=check,capture_output=True,text=True)\ngit('init','-b','main');file=repo/'rule.txt';file.write_text('base');git('add','rule.txt');git('commit','-m','base')\ngit('checkout','-b','left');file.write_text('left');git('add','rule.txt');git('commit','-m','left')\ngit('checkout','main');file.write_text('right');git('add','rule.txt');git('commit','-m','right')\nmerge=git('merge','left',check=False)\nif n==2:file.write_text('resolved');git('add','rule.txt')\nfile.write_text('resolved');git('add','rule.txt')\nprint(not bool(git('ls-files','-u').stdout))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M07-O03/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O03",
+    "activity": "284f2fd7-8f00-5d9b-add9-2976129dbc44",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport json\na={'a.py':'A','b.py':'B'};b={'b.py':'B','a.py':'A'} if n==1 else a\nprint(json.dumps(a)==json.dumps(b))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M07-O03/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O03",
+    "activity": "284f2fd7-8f00-5d9b-add9-2976129dbc44",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport json\na={'a.py':'A','b.py':'B'};b={'b.py':'B','a.py':'A'} if n==1 else a\nprint(json.dumps(a,sort_keys=True)==json.dumps(b,sort_keys=True))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M07-O03/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O03",
+    "activity": "284f2fd7-8f00-5d9b-add9-2976129dbc44",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport json\na={'a.py':'A','b.py':'B'};b={'b.py':'B','a.py':'A'} if n==1 else a\nprint(json.dumps(a)==json.dumps(b))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M07-O03/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M07-O03",
+    "activity": "284f2fd7-8f00-5d9b-add9-2976129dbc44",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport json\na={'a.py':'A','b.py':'B'};b={'b.py':'B','a.py':'A'} if n==1 else a\nprint(json.dumps(a,sort_keys=True)==json.dumps(b,sort_keys=True))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M08-O01/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O01",
+    "activity": "cb2daf87-331b-5e7e-9643-f5733f7dd3de",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom pathlib import Path\nversion=Path('version.txt');version.write_text('v1');previous=version.read_text();version.write_text('v2')\nhealthy=n==2\nif not healthy:pass\nprint(version.read_text())\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "v2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M08-O01/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O01",
+    "activity": "cb2daf87-331b-5e7e-9643-f5733f7dd3de",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom pathlib import Path\nversion=Path('version.txt');version.write_text('v1');previous=version.read_text();version.write_text('v2')\nhealthy=n==2\nif not healthy:version.write_text(previous)\nprint(version.read_text())\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "v1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M08-O01/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O01",
+    "activity": "cb2daf87-331b-5e7e-9643-f5733f7dd3de",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom pathlib import Path\nversion=Path('version.txt');version.write_text('v1');previous=version.read_text();version.write_text('v2')\nhealthy=n==2\nif not healthy:pass\nprint(version.read_text())\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "v2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M08-O01/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O01",
+    "activity": "cb2daf87-331b-5e7e-9643-f5733f7dd3de",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom pathlib import Path\nversion=Path('version.txt');version.write_text('v1');previous=version.read_text();version.write_text('v2')\nhealthy=n==2\nif not healthy:version.write_text(previous)\nprint(version.read_text())\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "v2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M08-O02/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O02",
+    "activity": "b887c81f-891a-504b-9c7a-cb62d7ab1f8d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nstatuses=[200,500] if n==1 else [200,200]\nerrors=sum(code>=500 for code in statuses);successes=sum(code<500 for code in statuses)\nprint(Fraction(errors,successes))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M08-O02/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O02",
+    "activity": "b887c81f-891a-504b-9c7a-cb62d7ab1f8d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nstatuses=[200,500] if n==1 else [200,200]\nerrors=sum(code>=500 for code in statuses);successes=sum(code<500 for code in statuses)\nprint(Fraction(errors,len(statuses)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1/2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M08-O02/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O02",
+    "activity": "b887c81f-891a-504b-9c7a-cb62d7ab1f8d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nstatuses=[200,500] if n==1 else [200,200]\nerrors=sum(code>=500 for code in statuses);successes=sum(code<500 for code in statuses)\nprint(Fraction(errors,successes))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M08-O02/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O02",
+    "activity": "b887c81f-891a-504b-9c7a-cb62d7ab1f8d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nstatuses=[200,500] if n==1 else [200,200]\nerrors=sum(code>=500 for code in statuses);successes=sum(code<500 for code in statuses)\nprint(Fraction(errors,len(statuses)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M08-O03/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O03",
+    "activity": "bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=b'broken' if n==1 else b'ok'\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(value)\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\nprint(status==200)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M08-O03/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O03",
+    "activity": "bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=b'broken' if n==1 else b'ok'\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(value)\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\nprint(status==200 and body==b'ok')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M08-O03/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O03",
+    "activity": "bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=b'broken' if n==1 else b'ok'\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(value)\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\nprint(status==200)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M08-O03/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M08-O03",
+    "activity": "bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=b'broken' if n==1 else b'ok'\nimport http.server,http.client,threading,json\nclass Handler(http.server.BaseHTTPRequestHandler):\n def log_message(self,*args):pass\n def do_GET(self):\n  self.send_response(200);self.end_headers();self.wfile.write(value)\nserver=http.server.HTTPServer(('127.0.0.1',0),Handler)\nthread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':0.01});thread.start()\ntry:\n client=http.client.HTTPConnection('127.0.0.1',server.server_port,timeout=2);client.request('GET','/submit');response=client.getresponse();body=response.read();status=response.status;client.close()\nfinally:server.shutdown();thread.join();server.server_close()\nprint(status==200 and body==b'ok')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M09-O01/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O01",
+    "activity": "d64c4db6-0eb5-5339-829d-f301c3f756f8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndepends={'api':{'service'},'service':{'schema'},'schema':set()}\nchanged={'schema' if n==1 else 'service'}\naffected={name for name,items in depends.items() if items&changed}\nprint(' '.join(sorted(affected)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "service\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M09-O01/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O01",
+    "activity": "d64c4db6-0eb5-5339-829d-f301c3f756f8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndepends={'api':{'service'},'service':{'schema'},'schema':set()}\nchanged={'schema' if n==1 else 'service'}\naffected=set();todo=set(changed)\nwhile True:\n found={name for name,items in depends.items() if items&todo}-affected\n if not found:break\n affected|=found;todo|=found\nprint(' '.join(sorted(affected)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "api service\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M09-O01/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O01",
+    "activity": "d64c4db6-0eb5-5339-829d-f301c3f756f8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndepends={'api':{'service'},'service':{'schema'},'schema':set()}\nchanged={'schema' if n==1 else 'service'}\naffected={name for name,items in depends.items() if items&changed}\nprint(' '.join(sorted(affected)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "api\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M09-O01/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O01",
+    "activity": "d64c4db6-0eb5-5339-829d-f301c3f756f8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndepends={'api':{'service'},'service':{'schema'},'schema':set()}\nchanged={'schema' if n==1 else 'service'}\naffected=set();todo=set(changed)\nwhile True:\n found={name for name,items in depends.items() if items&todo}-affected\n if not found:break\n affected|=found;todo|=found\nprint(' '.join(sorted(affected)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "api\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M09-O02/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O02",
+    "activity": "784bb789-8624-5011-8744-807a4759479d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[0,1] if n==1 else [1,2]\ndef old(x):return x>=0\ndef new(x):return x>0\nprint(sum(old(x)!=new(x) for x in values))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M09-O02/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O02",
+    "activity": "784bb789-8624-5011-8744-807a4759479d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[0,1] if n==1 else [1,2]\ndef old(x):return x>=0\ndef new(x):return x>=0\nprint(sum(old(x)!=new(x) for x in values))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M09-O02/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O02",
+    "activity": "784bb789-8624-5011-8744-807a4759479d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[0,1] if n==1 else [1,2]\ndef old(x):return x>=0\ndef new(x):return x>0\nprint(sum(old(x)!=new(x) for x in values))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M09-O02/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O02",
+    "activity": "784bb789-8624-5011-8744-807a4759479d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[0,1] if n==1 else [1,2]\ndef old(x):return x>=0\ndef new(x):return x>=0\nprint(sum(old(x)!=new(x) for x in values))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M09-O03/base/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O03",
+    "activity": "6a6ab5b9-6172-5bee-8228-3bf79bea7809",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntests_green=True;critical_open=1 if n==1 else 0\nprint(tests_green)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS10-M09-O03/base/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O03",
+    "activity": "6a6ab5b9-6172-5bee-8228-3bf79bea7809",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntests_green=True;critical_open=1 if n==1 else 0\nprint(tests_green and critical_open==0)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M09-O03/changed-condition/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O03",
+    "activity": "6a6ab5b9-6172-5bee-8228-3bf79bea7809",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntests_green=True;critical_open=1 if n==1 else 0\nprint(tests_green)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS10-M09-O03/changed-condition/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O03",
+    "activity": "6a6ab5b9-6172-5bee-8228-3bf79bea7809",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntests_green=True;critical_open=1 if n==1 else 0\nprint(tests_green and critical_open==0)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "service-owner/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O03",
+    "activity": "6a6ab5b9-6172-5bee-8228-3bf79bea7809",
+    "task": "service-owner",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('service','service.py')\nservice=importlib.util.module_from_spec(spec);spec.loader.exec_module(service)\ntitle=sys.stdin.read().strip()\nprint(json.dumps(service.exercise(title),sort_keys=True))\n",
+        "service.py": "\"\"\"Original private-loopback teaching service; identities are simulated, not login.\"\"\"\n\nimport http.client\nimport json\nimport sqlite3\nimport sys\nimport threading\nfrom contextlib import closing, contextmanager\nfrom http.server import BaseHTTPRequestHandler, HTTPServer\nfrom pathlib import Path\nfrom urllib.parse import quote\n\n\ndef connection(path):\n    if sys.platform == \"linux\":\n        # All connections to this private lesson DB use the same real dot-file lock VFS.\n        # The isolate runtime denies POSIX fcntl locks; do not use unix-none or disable journals.\n        uri = \"file:\" + quote(str(Path(path).resolve()), safe=\"/\") + \"?vfs=unix-dotfile\"\n        return sqlite3.connect(uri, uri=True, timeout=2)\n    return sqlite3.connect(path, timeout=2)\n\n\ndef initialize(path):\n    with closing(connection(path)) as db, db:\n        db.executescript(\"\"\"\n        CREATE TABLE IF NOT EXISTS drafts(id INTEGER PRIMARY KEY, owner TEXT NOT NULL,\n          title TEXT NOT NULL, state TEXT NOT NULL CHECK(state IN ('draft','submitted')));\n        CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY, draft INTEGER NOT NULL, action TEXT NOT NULL);\n        CREATE TABLE IF NOT EXISTS repeats(owner TEXT NOT NULL, key TEXT NOT NULL,\n          draft INTEGER NOT NULL, response TEXT NOT NULL, PRIMARY KEY(owner,key));\n        \"\"\")\n\n\ndef dispatch(path, release, method, route, identity, body):\n    if method == \"GET\" and route == \"/health\":\n        return 200, {\"release\": release, \"ready\": True}\n    # A lesson-only trusted identity simulator. This header is NOT authentication.\n    if identity not in (\"alice\", \"bob\"):\n        return 401, {\"error\": \"identity_required\"}\n    with closing(connection(path)) as db, db:\n        db.execute(\"BEGIN IMMEDIATE\")\n        if method == \"POST\" and route == \"/drafts\":\n            title = body.get(\"title\")\n            if not isinstance(title, str) or not title.strip() or len(title) > 200:\n                return 400, {\"error\": \"title_required_1_to_200_characters\"}\n            cursor = db.execute(\n                \"INSERT INTO drafts(owner,title,state) VALUES(?,?,?)\",\n                (identity, title.strip(), \"draft\"),\n            )\n            draft = cursor.lastrowid\n            db.execute(\n                \"INSERT INTO events(draft,action) VALUES(?,?)\", (draft, \"created\")\n            )\n            return 201, {\"id\": draft, \"title\": title.strip(), \"state\": \"draft\"}\n        parts = route.strip(\"/\").split(\"/\")\n        if len(parts) not in (2, 3) or parts[0] != \"drafts\" or not parts[1].isdigit():\n            return 404, {\"error\": \"route_not_found\"}\n        draft = int(parts[1])\n        row = db.execute(\n            \"SELECT owner,title,state FROM drafts WHERE id=?\", (draft,)\n        ).fetchone()\n        if row is None:\n            return 404, {\"error\": \"draft_not_found\"}\n        if False:  # missing ownership policy\n            return 403, {\"error\": \"owner_required\"}\n        response = {\"id\": draft, \"title\": row[1], \"state\": row[2]}\n        if method == \"GET\" and len(parts) == 2:\n            return 200, response\n        if method != \"POST\" or len(parts) != 3 or parts[2] != \"submit\" or release < 2:\n            return 404, {\"error\": \"route_not_found\"}\n        key = body.get(\"key\")\n        if not isinstance(key, str) or not key or len(key) > 100:\n            return 400, {\"error\": \"idempotency_key_required\"}\n        prior = db.execute(\n            \"SELECT draft,response FROM repeats WHERE owner=? AND key=?\",\n            (identity, key),\n        ).fetchone()\n        if prior:\n            return (\n                (200, json.loads(prior[1]))\n                if prior[0] == draft\n                else (409, {\"error\": \"key_reused_for_other_draft\"})\n            )\n        if row[2] != \"draft\":\n            return 409, {\"error\": \"already_submitted\"}\n        response[\"state\"] = \"submitted\"\n        db.execute(\"UPDATE drafts SET state=? WHERE id=?\", (\"submitted\", draft))\n        db.execute(\"INSERT INTO events(draft,action) VALUES(?,?)\", (draft, \"submitted\"))\n        db.execute(\n            \"INSERT INTO repeats(owner,key,draft,response) VALUES(?,?,?,?)\",\n            (identity, key, draft, json.dumps(response, sort_keys=True)),\n        )\n        return 200, response\n\n\n@contextmanager\ndef running(path, release=2):\n    initialize(path)\n\n    class Handler(BaseHTTPRequestHandler):\n        def handle_request(self):\n            try:\n                length = int(self.headers.get(\"Content-Length\", \"0\"))\n                if length < 0 or length > 4096:\n                    raise ValueError(\"body too large\")\n                body = json.loads(self.rfile.read(length)) if length else {}\n                if not isinstance(body, dict):\n                    raise TypeError(\"object body required\")\n                status, result = dispatch(\n                    path,\n                    release,\n                    self.command,\n                    self.path,\n                    self.headers.get(\"X-Lab-Identity\"),\n                    body,\n                )\n            except (ValueError, TypeError, UnicodeError):\n                status, result = 400, {\"error\": \"invalid_request_body\"}\n            encoded = json.dumps(result, sort_keys=True).encode()\n            self.send_response(status)\n            self.send_header(\"Content-Type\", \"application/json\")\n            self.send_header(\"Content-Length\", str(len(encoded)))\n            self.end_headers()\n            self.wfile.write(encoded)\n\n        do_GET = handle_request\n        do_POST = handle_request\n\n        def log_message(self, *args):\n            pass\n\n    server = HTTPServer((\"127.0.0.1\", 0), Handler)\n    thread = threading.Thread(\n        target=server.serve_forever, kwargs={\"poll_interval\": 0.01}, daemon=True\n    )\n    thread.start()\n    try:\n        yield server.server_address\n    finally:\n        server.shutdown()\n        server.server_close()\n        thread.join(timeout=2)\n\n\ndef request(address, method, route, identity=None, body=None):\n    headers = {\"Content-Type\": \"application/json\"}\n    if identity:\n        headers[\"X-Lab-Identity\"] = identity\n    connection = http.client.HTTPConnection(*address, timeout=2)\n    try:\n        connection.request(\n            method,\n            route,\n            body=json.dumps(body) if body is not None else None,\n            headers=headers,\n        )\n        response = connection.getresponse()\n        return response.status, json.loads(response.read())\n    finally:\n        connection.close()\n\n\ndef audit(path):\n    with closing(connection(path)) as db:\n        return [row[0] for row in db.execute(\"SELECT action FROM events ORDER BY id\")]\n\n\ndef exercise(title=\"Graph proof\", path=\"submission.db\"):\n    with running(path, release=1) as address:\n        health = request(address, \"GET\", \"/health\")\n        created = request(address, \"POST\", \"/drafts\", \"alice\", {\"title\": title})\n        draft = created[1][\"id\"]\n        route = f\"/drafts/{draft}\"\n        other = request(address, \"GET\", route, \"bob\")\n        early = request(address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"})\n    with running(path, release=2) as address:\n        restored = request(address, \"GET\", route, \"alice\")\n        submitted = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"}\n        )\n        repeated = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"}\n        )\n        conflict = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"different\"}\n        )\n    with running(path, release=2) as address:\n        reopened = request(address, \"GET\", route, \"alice\")\n    return {\n        \"release1_health\": health,\n        \"created\": created,\n        \"other_owner_status\": other[0],\n        \"release1_submit_status\": early[0],\n        \"restored_draft\": restored,\n        \"submitted\": submitted,\n        \"repeated_identical\": repeated == submitted,\n        \"repeat_new_key_status\": conflict[0],\n        \"restored_submission\": reopened,\n        \"audit\": audit(path),\n        \"identity_mode\": \"simulated private lesson identity, not authentication\",\n    }\n"
+      },
+      "stdin": "Graph proof\n"
+    },
+    "stdout": "{\"audit\": [\"created\", \"submitted\"], \"created\": [201, {\"id\": 1, \"state\": \"draft\", \"title\": \"Graph proof\"}], \"identity_mode\": \"simulated private lesson identity, not authentication\", \"other_owner_status\": 200, \"release1_health\": [200, {\"ready\": true, \"release\": 1}], \"release1_submit_status\": 404, \"repeat_new_key_status\": 409, \"repeated_identical\": true, \"restored_draft\": [200, {\"id\": 1, \"state\": \"draft\", \"title\": \"Graph proof\"}], \"restored_submission\": [200, {\"id\": 1, \"state\": \"submitted\", \"title\": \"Graph proof\"}], \"submitted\": [200, {\"id\": 1, \"state\": \"submitted\", \"title\": \"Graph proof\"}]}\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "service-owner/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O03",
+    "activity": "6a6ab5b9-6172-5bee-8228-3bf79bea7809",
+    "task": "service-owner",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('service','service.py')\nservice=importlib.util.module_from_spec(spec);spec.loader.exec_module(service)\ntitle=sys.stdin.read().strip()\nprint(json.dumps(service.exercise(title),sort_keys=True))\n",
+        "service.py": "\"\"\"Original private-loopback teaching service; identities are simulated, not login.\"\"\"\n\nimport http.client\nimport json\nimport sqlite3\nimport sys\nimport threading\nfrom contextlib import closing, contextmanager\nfrom http.server import BaseHTTPRequestHandler, HTTPServer\nfrom pathlib import Path\nfrom urllib.parse import quote\n\n\ndef connection(path):\n    if sys.platform == \"linux\":\n        # All connections to this private lesson DB use the same real dot-file lock VFS.\n        # The isolate runtime denies POSIX fcntl locks; do not use unix-none or disable journals.\n        uri = \"file:\" + quote(str(Path(path).resolve()), safe=\"/\") + \"?vfs=unix-dotfile\"\n        return sqlite3.connect(uri, uri=True, timeout=2)\n    return sqlite3.connect(path, timeout=2)\n\n\ndef initialize(path):\n    with closing(connection(path)) as db, db:\n        db.executescript(\"\"\"\n        CREATE TABLE IF NOT EXISTS drafts(id INTEGER PRIMARY KEY, owner TEXT NOT NULL,\n          title TEXT NOT NULL, state TEXT NOT NULL CHECK(state IN ('draft','submitted')));\n        CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY, draft INTEGER NOT NULL, action TEXT NOT NULL);\n        CREATE TABLE IF NOT EXISTS repeats(owner TEXT NOT NULL, key TEXT NOT NULL,\n          draft INTEGER NOT NULL, response TEXT NOT NULL, PRIMARY KEY(owner,key));\n        \"\"\")\n\n\ndef dispatch(path, release, method, route, identity, body):\n    if method == \"GET\" and route == \"/health\":\n        return 200, {\"release\": release, \"ready\": True}\n    # A lesson-only trusted identity simulator. This header is NOT authentication.\n    if identity not in (\"alice\", \"bob\"):\n        return 401, {\"error\": \"identity_required\"}\n    with closing(connection(path)) as db, db:\n        db.execute(\"BEGIN IMMEDIATE\")\n        if method == \"POST\" and route == \"/drafts\":\n            title = body.get(\"title\")\n            if not isinstance(title, str) or not title.strip() or len(title) > 200:\n                return 400, {\"error\": \"title_required_1_to_200_characters\"}\n            cursor = db.execute(\n                \"INSERT INTO drafts(owner,title,state) VALUES(?,?,?)\",\n                (identity, title.strip(), \"draft\"),\n            )\n            draft = cursor.lastrowid\n            db.execute(\n                \"INSERT INTO events(draft,action) VALUES(?,?)\", (draft, \"created\")\n            )\n            return 201, {\"id\": draft, \"title\": title.strip(), \"state\": \"draft\"}\n        parts = route.strip(\"/\").split(\"/\")\n        if len(parts) not in (2, 3) or parts[0] != \"drafts\" or not parts[1].isdigit():\n            return 404, {\"error\": \"route_not_found\"}\n        draft = int(parts[1])\n        row = db.execute(\n            \"SELECT owner,title,state FROM drafts WHERE id=?\", (draft,)\n        ).fetchone()\n        if row is None:\n            return 404, {\"error\": \"draft_not_found\"}\n        if identity != row[0]:\n            return 403, {\"error\": \"owner_required\"}\n        response = {\"id\": draft, \"title\": row[1], \"state\": row[2]}\n        if method == \"GET\" and len(parts) == 2:\n            return 200, response\n        if method != \"POST\" or len(parts) != 3 or parts[2] != \"submit\" or release < 2:\n            return 404, {\"error\": \"route_not_found\"}\n        key = body.get(\"key\")\n        if not isinstance(key, str) or not key or len(key) > 100:\n            return 400, {\"error\": \"idempotency_key_required\"}\n        prior = db.execute(\n            \"SELECT draft,response FROM repeats WHERE owner=? AND key=?\",\n            (identity, key),\n        ).fetchone()\n        if prior:\n            return (\n                (200, json.loads(prior[1]))\n                if prior[0] == draft\n                else (409, {\"error\": \"key_reused_for_other_draft\"})\n            )\n        if row[2] != \"draft\":\n            return 409, {\"error\": \"already_submitted\"}\n        response[\"state\"] = \"submitted\"\n        db.execute(\"UPDATE drafts SET state=? WHERE id=?\", (\"submitted\", draft))\n        db.execute(\"INSERT INTO events(draft,action) VALUES(?,?)\", (draft, \"submitted\"))\n        db.execute(\n            \"INSERT INTO repeats(owner,key,draft,response) VALUES(?,?,?,?)\",\n            (identity, key, draft, json.dumps(response, sort_keys=True)),\n        )\n        return 200, response\n\n\n@contextmanager\ndef running(path, release=2):\n    initialize(path)\n\n    class Handler(BaseHTTPRequestHandler):\n        def handle_request(self):\n            try:\n                length = int(self.headers.get(\"Content-Length\", \"0\"))\n                if length < 0 or length > 4096:\n                    raise ValueError(\"body too large\")\n                body = json.loads(self.rfile.read(length)) if length else {}\n                if not isinstance(body, dict):\n                    raise TypeError(\"object body required\")\n                status, result = dispatch(\n                    path,\n                    release,\n                    self.command,\n                    self.path,\n                    self.headers.get(\"X-Lab-Identity\"),\n                    body,\n                )\n            except (ValueError, TypeError, UnicodeError):\n                status, result = 400, {\"error\": \"invalid_request_body\"}\n            encoded = json.dumps(result, sort_keys=True).encode()\n            self.send_response(status)\n            self.send_header(\"Content-Type\", \"application/json\")\n            self.send_header(\"Content-Length\", str(len(encoded)))\n            self.end_headers()\n            self.wfile.write(encoded)\n\n        do_GET = handle_request\n        do_POST = handle_request\n\n        def log_message(self, *args):\n            pass\n\n    server = HTTPServer((\"127.0.0.1\", 0), Handler)\n    thread = threading.Thread(\n        target=server.serve_forever, kwargs={\"poll_interval\": 0.01}, daemon=True\n    )\n    thread.start()\n    try:\n        yield server.server_address\n    finally:\n        server.shutdown()\n        server.server_close()\n        thread.join(timeout=2)\n\n\ndef request(address, method, route, identity=None, body=None):\n    headers = {\"Content-Type\": \"application/json\"}\n    if identity:\n        headers[\"X-Lab-Identity\"] = identity\n    connection = http.client.HTTPConnection(*address, timeout=2)\n    try:\n        connection.request(\n            method,\n            route,\n            body=json.dumps(body) if body is not None else None,\n            headers=headers,\n        )\n        response = connection.getresponse()\n        return response.status, json.loads(response.read())\n    finally:\n        connection.close()\n\n\ndef audit(path):\n    with closing(connection(path)) as db:\n        return [row[0] for row in db.execute(\"SELECT action FROM events ORDER BY id\")]\n\n\ndef exercise(title=\"Graph proof\", path=\"submission.db\"):\n    with running(path, release=1) as address:\n        health = request(address, \"GET\", \"/health\")\n        created = request(address, \"POST\", \"/drafts\", \"alice\", {\"title\": title})\n        draft = created[1][\"id\"]\n        route = f\"/drafts/{draft}\"\n        other = request(address, \"GET\", route, \"bob\")\n        early = request(address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"})\n    with running(path, release=2) as address:\n        restored = request(address, \"GET\", route, \"alice\")\n        submitted = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"}\n        )\n        repeated = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"}\n        )\n        conflict = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"different\"}\n        )\n    with running(path, release=2) as address:\n        reopened = request(address, \"GET\", route, \"alice\")\n    return {\n        \"release1_health\": health,\n        \"created\": created,\n        \"other_owner_status\": other[0],\n        \"release1_submit_status\": early[0],\n        \"restored_draft\": restored,\n        \"submitted\": submitted,\n        \"repeated_identical\": repeated == submitted,\n        \"repeat_new_key_status\": conflict[0],\n        \"restored_submission\": reopened,\n        \"audit\": audit(path),\n        \"identity_mode\": \"simulated private lesson identity, not authentication\",\n    }\n"
+      },
+      "stdin": "Graph proof\n"
+    },
+    "stdout": "{\"audit\": [\"created\", \"submitted\"], \"created\": [201, {\"id\": 1, \"state\": \"draft\", \"title\": \"Graph proof\"}], \"identity_mode\": \"simulated private lesson identity, not authentication\", \"other_owner_status\": 403, \"release1_health\": [200, {\"ready\": true, \"release\": 1}], \"release1_submit_status\": 404, \"repeat_new_key_status\": 409, \"repeated_identical\": true, \"restored_draft\": [200, {\"id\": 1, \"state\": \"draft\", \"title\": \"Graph proof\"}], \"restored_submission\": [200, {\"id\": 1, \"state\": \"submitted\", \"title\": \"Graph proof\"}], \"submitted\": [200, {\"id\": 1, \"state\": \"submitted\", \"title\": \"Graph proof\"}]}\n",
+    "decision": "met"
+  },
+  {
+    "id": "service-replay/initial",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O03",
+    "activity": "6a6ab5b9-6172-5bee-8228-3bf79bea7809",
+    "task": "service-replay",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('service','service.py')\nservice=importlib.util.module_from_spec(spec);spec.loader.exec_module(service)\ntitle=sys.stdin.read().strip()\nprint(json.dumps(service.exercise(title),sort_keys=True))\n",
+        "service.py": "\"\"\"Original private-loopback teaching service; identities are simulated, not login.\"\"\"\n\nimport http.client\nimport json\nimport sqlite3\nimport sys\nimport threading\nfrom contextlib import closing, contextmanager\nfrom http.server import BaseHTTPRequestHandler, HTTPServer\nfrom pathlib import Path\nfrom urllib.parse import quote\n\n\ndef connection(path):\n    if sys.platform == \"linux\":\n        # All connections to this private lesson DB use the same real dot-file lock VFS.\n        # The isolate runtime denies POSIX fcntl locks; do not use unix-none or disable journals.\n        uri = \"file:\" + quote(str(Path(path).resolve()), safe=\"/\") + \"?vfs=unix-dotfile\"\n        return sqlite3.connect(uri, uri=True, timeout=2)\n    return sqlite3.connect(path, timeout=2)\n\n\ndef initialize(path):\n    with closing(connection(path)) as db, db:\n        db.executescript(\"\"\"\n        CREATE TABLE IF NOT EXISTS drafts(id INTEGER PRIMARY KEY, owner TEXT NOT NULL,\n          title TEXT NOT NULL, state TEXT NOT NULL CHECK(state IN ('draft','submitted')));\n        CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY, draft INTEGER NOT NULL, action TEXT NOT NULL);\n        CREATE TABLE IF NOT EXISTS repeats(owner TEXT NOT NULL, key TEXT NOT NULL,\n          draft INTEGER NOT NULL, response TEXT NOT NULL, PRIMARY KEY(owner,key));\n        \"\"\")\n\n\ndef dispatch(path, release, method, route, identity, body):\n    if method == \"GET\" and route == \"/health\":\n        return 200, {\"release\": release, \"ready\": True}\n    # A lesson-only trusted identity simulator. This header is NOT authentication.\n    if identity not in (\"alice\", \"bob\"):\n        return 401, {\"error\": \"identity_required\"}\n    with closing(connection(path)) as db, db:\n        db.execute(\"BEGIN IMMEDIATE\")\n        if method == \"POST\" and route == \"/drafts\":\n            title = body.get(\"title\")\n            if not isinstance(title, str) or not title.strip() or len(title) > 200:\n                return 400, {\"error\": \"title_required_1_to_200_characters\"}\n            cursor = db.execute(\n                \"INSERT INTO drafts(owner,title,state) VALUES(?,?,?)\",\n                (identity, title.strip(), \"draft\"),\n            )\n            draft = cursor.lastrowid\n            db.execute(\n                \"INSERT INTO events(draft,action) VALUES(?,?)\", (draft, \"created\")\n            )\n            return 201, {\"id\": draft, \"title\": title.strip(), \"state\": \"draft\"}\n        parts = route.strip(\"/\").split(\"/\")\n        if len(parts) not in (2, 3) or parts[0] != \"drafts\" or not parts[1].isdigit():\n            return 404, {\"error\": \"route_not_found\"}\n        draft = int(parts[1])\n        row = db.execute(\n            \"SELECT owner,title,state FROM drafts WHERE id=?\", (draft,)\n        ).fetchone()\n        if row is None:\n            return 404, {\"error\": \"draft_not_found\"}\n        if identity != row[0]:\n            return 403, {\"error\": \"owner_required\"}\n        response = {\"id\": draft, \"title\": row[1], \"state\": row[2]}\n        if method == \"GET\" and len(parts) == 2:\n            return 200, response\n        if method != \"POST\" or len(parts) != 3 or parts[2] != \"submit\" or release < 2:\n            return 404, {\"error\": \"route_not_found\"}\n        key = body.get(\"key\")\n        if not isinstance(key, str) or not key or len(key) > 100:\n            return 400, {\"error\": \"idempotency_key_required\"}\n        prior = db.execute(\n            \"SELECT draft,response FROM repeats WHERE owner=? AND key=?\",\n            (identity, key),\n        ).fetchone()\n        if prior:\n            db.execute(\"INSERT INTO events(draft,action) VALUES(?,?)\", (draft, \"submitted\"))  # erroneous repeated side effect\n            return (\n                (200, json.loads(prior[1]))\n                if prior[0] == draft\n                else (409, {\"error\": \"key_reused_for_other_draft\"})\n            )\n        if row[2] != \"draft\":\n            return 409, {\"error\": \"already_submitted\"}\n        response[\"state\"] = \"submitted\"\n        db.execute(\"UPDATE drafts SET state=? WHERE id=?\", (\"submitted\", draft))\n        db.execute(\"INSERT INTO events(draft,action) VALUES(?,?)\", (draft, \"submitted\"))\n        db.execute(\n            \"INSERT INTO repeats(owner,key,draft,response) VALUES(?,?,?,?)\",\n            (identity, key, draft, json.dumps(response, sort_keys=True)),\n        )\n        return 200, response\n\n\n@contextmanager\ndef running(path, release=2):\n    initialize(path)\n\n    class Handler(BaseHTTPRequestHandler):\n        def handle_request(self):\n            try:\n                length = int(self.headers.get(\"Content-Length\", \"0\"))\n                if length < 0 or length > 4096:\n                    raise ValueError(\"body too large\")\n                body = json.loads(self.rfile.read(length)) if length else {}\n                if not isinstance(body, dict):\n                    raise TypeError(\"object body required\")\n                status, result = dispatch(\n                    path,\n                    release,\n                    self.command,\n                    self.path,\n                    self.headers.get(\"X-Lab-Identity\"),\n                    body,\n                )\n            except (ValueError, TypeError, UnicodeError):\n                status, result = 400, {\"error\": \"invalid_request_body\"}\n            encoded = json.dumps(result, sort_keys=True).encode()\n            self.send_response(status)\n            self.send_header(\"Content-Type\", \"application/json\")\n            self.send_header(\"Content-Length\", str(len(encoded)))\n            self.end_headers()\n            self.wfile.write(encoded)\n\n        do_GET = handle_request\n        do_POST = handle_request\n\n        def log_message(self, *args):\n            pass\n\n    server = HTTPServer((\"127.0.0.1\", 0), Handler)\n    thread = threading.Thread(\n        target=server.serve_forever, kwargs={\"poll_interval\": 0.01}, daemon=True\n    )\n    thread.start()\n    try:\n        yield server.server_address\n    finally:\n        server.shutdown()\n        server.server_close()\n        thread.join(timeout=2)\n\n\ndef request(address, method, route, identity=None, body=None):\n    headers = {\"Content-Type\": \"application/json\"}\n    if identity:\n        headers[\"X-Lab-Identity\"] = identity\n    connection = http.client.HTTPConnection(*address, timeout=2)\n    try:\n        connection.request(\n            method,\n            route,\n            body=json.dumps(body) if body is not None else None,\n            headers=headers,\n        )\n        response = connection.getresponse()\n        return response.status, json.loads(response.read())\n    finally:\n        connection.close()\n\n\ndef audit(path):\n    with closing(connection(path)) as db:\n        return [row[0] for row in db.execute(\"SELECT action FROM events ORDER BY id\")]\n\n\ndef exercise(title=\"Graph proof\", path=\"submission.db\"):\n    with running(path, release=1) as address:\n        health = request(address, \"GET\", \"/health\")\n        created = request(address, \"POST\", \"/drafts\", \"alice\", {\"title\": title})\n        draft = created[1][\"id\"]\n        route = f\"/drafts/{draft}\"\n        other = request(address, \"GET\", route, \"bob\")\n        early = request(address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"})\n    with running(path, release=2) as address:\n        restored = request(address, \"GET\", route, \"alice\")\n        submitted = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"}\n        )\n        repeated = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"}\n        )\n        conflict = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"different\"}\n        )\n    with running(path, release=2) as address:\n        reopened = request(address, \"GET\", route, \"alice\")\n    return {\n        \"release1_health\": health,\n        \"created\": created,\n        \"other_owner_status\": other[0],\n        \"release1_submit_status\": early[0],\n        \"restored_draft\": restored,\n        \"submitted\": submitted,\n        \"repeated_identical\": repeated == submitted,\n        \"repeat_new_key_status\": conflict[0],\n        \"restored_submission\": reopened,\n        \"audit\": audit(path),\n        \"identity_mode\": \"simulated private lesson identity, not authentication\",\n    }\n"
+      },
+      "stdin": "Search report\n"
+    },
+    "stdout": "{\"audit\": [\"created\", \"submitted\", \"submitted\"], \"created\": [201, {\"id\": 1, \"state\": \"draft\", \"title\": \"Search report\"}], \"identity_mode\": \"simulated private lesson identity, not authentication\", \"other_owner_status\": 403, \"release1_health\": [200, {\"ready\": true, \"release\": 1}], \"release1_submit_status\": 404, \"repeat_new_key_status\": 409, \"repeated_identical\": true, \"restored_draft\": [200, {\"id\": 1, \"state\": \"draft\", \"title\": \"Search report\"}], \"restored_submission\": [200, {\"id\": 1, \"state\": \"submitted\", \"title\": \"Search report\"}], \"submitted\": [200, {\"id\": 1, \"state\": \"submitted\", \"title\": \"Search report\"}]}\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "service-replay/repaired",
+    "version": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+    "goal": "CS10-M09-O03",
+    "activity": "6a6ab5b9-6172-5bee-8228-3bf79bea7809",
+    "task": "service-replay",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('service','service.py')\nservice=importlib.util.module_from_spec(spec);spec.loader.exec_module(service)\ntitle=sys.stdin.read().strip()\nprint(json.dumps(service.exercise(title),sort_keys=True))\n",
+        "service.py": "\"\"\"Original private-loopback teaching service; identities are simulated, not login.\"\"\"\n\nimport http.client\nimport json\nimport sqlite3\nimport sys\nimport threading\nfrom contextlib import closing, contextmanager\nfrom http.server import BaseHTTPRequestHandler, HTTPServer\nfrom pathlib import Path\nfrom urllib.parse import quote\n\n\ndef connection(path):\n    if sys.platform == \"linux\":\n        # All connections to this private lesson DB use the same real dot-file lock VFS.\n        # The isolate runtime denies POSIX fcntl locks; do not use unix-none or disable journals.\n        uri = \"file:\" + quote(str(Path(path).resolve()), safe=\"/\") + \"?vfs=unix-dotfile\"\n        return sqlite3.connect(uri, uri=True, timeout=2)\n    return sqlite3.connect(path, timeout=2)\n\n\ndef initialize(path):\n    with closing(connection(path)) as db, db:\n        db.executescript(\"\"\"\n        CREATE TABLE IF NOT EXISTS drafts(id INTEGER PRIMARY KEY, owner TEXT NOT NULL,\n          title TEXT NOT NULL, state TEXT NOT NULL CHECK(state IN ('draft','submitted')));\n        CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY, draft INTEGER NOT NULL, action TEXT NOT NULL);\n        CREATE TABLE IF NOT EXISTS repeats(owner TEXT NOT NULL, key TEXT NOT NULL,\n          draft INTEGER NOT NULL, response TEXT NOT NULL, PRIMARY KEY(owner,key));\n        \"\"\")\n\n\ndef dispatch(path, release, method, route, identity, body):\n    if method == \"GET\" and route == \"/health\":\n        return 200, {\"release\": release, \"ready\": True}\n    # A lesson-only trusted identity simulator. This header is NOT authentication.\n    if identity not in (\"alice\", \"bob\"):\n        return 401, {\"error\": \"identity_required\"}\n    with closing(connection(path)) as db, db:\n        db.execute(\"BEGIN IMMEDIATE\")\n        if method == \"POST\" and route == \"/drafts\":\n            title = body.get(\"title\")\n            if not isinstance(title, str) or not title.strip() or len(title) > 200:\n                return 400, {\"error\": \"title_required_1_to_200_characters\"}\n            cursor = db.execute(\n                \"INSERT INTO drafts(owner,title,state) VALUES(?,?,?)\",\n                (identity, title.strip(), \"draft\"),\n            )\n            draft = cursor.lastrowid\n            db.execute(\n                \"INSERT INTO events(draft,action) VALUES(?,?)\", (draft, \"created\")\n            )\n            return 201, {\"id\": draft, \"title\": title.strip(), \"state\": \"draft\"}\n        parts = route.strip(\"/\").split(\"/\")\n        if len(parts) not in (2, 3) or parts[0] != \"drafts\" or not parts[1].isdigit():\n            return 404, {\"error\": \"route_not_found\"}\n        draft = int(parts[1])\n        row = db.execute(\n            \"SELECT owner,title,state FROM drafts WHERE id=?\", (draft,)\n        ).fetchone()\n        if row is None:\n            return 404, {\"error\": \"draft_not_found\"}\n        if identity != row[0]:\n            return 403, {\"error\": \"owner_required\"}\n        response = {\"id\": draft, \"title\": row[1], \"state\": row[2]}\n        if method == \"GET\" and len(parts) == 2:\n            return 200, response\n        if method != \"POST\" or len(parts) != 3 or parts[2] != \"submit\" or release < 2:\n            return 404, {\"error\": \"route_not_found\"}\n        key = body.get(\"key\")\n        if not isinstance(key, str) or not key or len(key) > 100:\n            return 400, {\"error\": \"idempotency_key_required\"}\n        prior = db.execute(\n            \"SELECT draft,response FROM repeats WHERE owner=? AND key=?\",\n            (identity, key),\n        ).fetchone()\n        if prior:\n            return (\n                (200, json.loads(prior[1]))\n                if prior[0] == draft\n                else (409, {\"error\": \"key_reused_for_other_draft\"})\n            )\n        if row[2] != \"draft\":\n            return 409, {\"error\": \"already_submitted\"}\n        response[\"state\"] = \"submitted\"\n        db.execute(\"UPDATE drafts SET state=? WHERE id=?\", (\"submitted\", draft))\n        db.execute(\"INSERT INTO events(draft,action) VALUES(?,?)\", (draft, \"submitted\"))\n        db.execute(\n            \"INSERT INTO repeats(owner,key,draft,response) VALUES(?,?,?,?)\",\n            (identity, key, draft, json.dumps(response, sort_keys=True)),\n        )\n        return 200, response\n\n\n@contextmanager\ndef running(path, release=2):\n    initialize(path)\n\n    class Handler(BaseHTTPRequestHandler):\n        def handle_request(self):\n            try:\n                length = int(self.headers.get(\"Content-Length\", \"0\"))\n                if length < 0 or length > 4096:\n                    raise ValueError(\"body too large\")\n                body = json.loads(self.rfile.read(length)) if length else {}\n                if not isinstance(body, dict):\n                    raise TypeError(\"object body required\")\n                status, result = dispatch(\n                    path,\n                    release,\n                    self.command,\n                    self.path,\n                    self.headers.get(\"X-Lab-Identity\"),\n                    body,\n                )\n            except (ValueError, TypeError, UnicodeError):\n                status, result = 400, {\"error\": \"invalid_request_body\"}\n            encoded = json.dumps(result, sort_keys=True).encode()\n            self.send_response(status)\n            self.send_header(\"Content-Type\", \"application/json\")\n            self.send_header(\"Content-Length\", str(len(encoded)))\n            self.end_headers()\n            self.wfile.write(encoded)\n\n        do_GET = handle_request\n        do_POST = handle_request\n\n        def log_message(self, *args):\n            pass\n\n    server = HTTPServer((\"127.0.0.1\", 0), Handler)\n    thread = threading.Thread(\n        target=server.serve_forever, kwargs={\"poll_interval\": 0.01}, daemon=True\n    )\n    thread.start()\n    try:\n        yield server.server_address\n    finally:\n        server.shutdown()\n        server.server_close()\n        thread.join(timeout=2)\n\n\ndef request(address, method, route, identity=None, body=None):\n    headers = {\"Content-Type\": \"application/json\"}\n    if identity:\n        headers[\"X-Lab-Identity\"] = identity\n    connection = http.client.HTTPConnection(*address, timeout=2)\n    try:\n        connection.request(\n            method,\n            route,\n            body=json.dumps(body) if body is not None else None,\n            headers=headers,\n        )\n        response = connection.getresponse()\n        return response.status, json.loads(response.read())\n    finally:\n        connection.close()\n\n\ndef audit(path):\n    with closing(connection(path)) as db:\n        return [row[0] for row in db.execute(\"SELECT action FROM events ORDER BY id\")]\n\n\ndef exercise(title=\"Graph proof\", path=\"submission.db\"):\n    with running(path, release=1) as address:\n        health = request(address, \"GET\", \"/health\")\n        created = request(address, \"POST\", \"/drafts\", \"alice\", {\"title\": title})\n        draft = created[1][\"id\"]\n        route = f\"/drafts/{draft}\"\n        other = request(address, \"GET\", route, \"bob\")\n        early = request(address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"})\n    with running(path, release=2) as address:\n        restored = request(address, \"GET\", route, \"alice\")\n        submitted = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"}\n        )\n        repeated = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"first\"}\n        )\n        conflict = request(\n            address, \"POST\", route + \"/submit\", \"alice\", {\"key\": \"different\"}\n        )\n    with running(path, release=2) as address:\n        reopened = request(address, \"GET\", route, \"alice\")\n    return {\n        \"release1_health\": health,\n        \"created\": created,\n        \"other_owner_status\": other[0],\n        \"release1_submit_status\": early[0],\n        \"restored_draft\": restored,\n        \"submitted\": submitted,\n        \"repeated_identical\": repeated == submitted,\n        \"repeat_new_key_status\": conflict[0],\n        \"restored_submission\": reopened,\n        \"audit\": audit(path),\n        \"identity_mode\": \"simulated private lesson identity, not authentication\",\n    }\n"
+      },
+      "stdin": "Search report\n"
+    },
+    "stdout": "{\"audit\": [\"created\", \"submitted\"], \"created\": [201, {\"id\": 1, \"state\": \"draft\", \"title\": \"Search report\"}], \"identity_mode\": \"simulated private lesson identity, not authentication\", \"other_owner_status\": 403, \"release1_health\": [200, {\"ready\": true, \"release\": 1}], \"release1_submit_status\": 404, \"repeat_new_key_status\": 409, \"repeated_identical\": true, \"restored_draft\": [200, {\"id\": 1, \"state\": \"draft\", \"title\": \"Search report\"}], \"restored_submission\": [200, {\"id\": 1, \"state\": \"submitted\", \"title\": \"Search report\"}], \"submitted\": [200, {\"id\": 1, \"state\": \"submitted\", \"title\": \"Search report\"}]}\n",
+    "decision": "met"
+  }
+]

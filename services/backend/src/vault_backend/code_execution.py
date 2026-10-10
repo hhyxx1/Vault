@@ -18,7 +18,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-Language = Literal["c17", "cpp17", "java21", "python313", "node24", "postgres18"]
+Language = Literal["c17", "cpp17", "java21", "python313", "python313ml", "node24", "postgres18"]
 Status = Literal[
     "success", "compile_error", "runtime_error", "timeout", "resource_limit", "environment_error"
 ]
@@ -28,6 +28,7 @@ EXTENSIONS = {
     "cpp17": {"cpp", "h", "hpp"},
     "java21": {"java"},
     "python313": {"py"},
+    "python313ml": {"py"},
     "node24": {"js"},
     "postgres18": {"sql"},
 }
@@ -36,6 +37,7 @@ ENTRY_EXT = {
     "cpp17": "cpp",
     "java21": "java",
     "python313": "py",
+    "python313ml": "py",
     "node24": "js",
     "postgres18": "sql",
 }
@@ -197,9 +199,10 @@ class IsolateWorker:
                 "/box",
                 request.entry.removesuffix(".java"),
             ]
-        if request.language == "python313":
+        if request.language in {"python313", "python313ml"}:
+            directory = "python-3.13-ml" if request.language == "python313ml" else "python-3.13"
             return None, [
-                "/opt/vault-toolchains/python-3.13/bin/python3.13",
+                f"/opt/vault-toolchains/{directory}/bin/python3.13",
                 "-I",
                 "/box/" + request.entry,
             ]
@@ -251,6 +254,10 @@ class IsolateWorker:
             # Bind only the selected interpreter, never the controller's /opt tree.
             toolchain = Path(command[0]).parents[1]
             args.insert(args.index("--run"), "--dir=" + str(toolchain))
+        if command[0] == "/opt/vault-toolchains/python-3.13-ml/bin/python3.13":
+            for variable in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+                args.insert(args.index("--run"), f"--env={variable}=1")
+            args.insert(args.index("--run"), "--env=JOBLIB_MULTIPROCESSING=0")
         if sql:
             args.insert(args.index("--run"), "--dir=/opt/vault-toolchains/pg18")
             args.insert(args.index("--run"), "--dir=/etc=" + str(box / "pg-etc") + ":rw")
