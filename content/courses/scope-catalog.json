@@ -94,9 +94,9 @@
       "id": "bf129bd2-7f6a-48a6-952b-25adb952d028",
       "code": "CS11",
       "title": "编译原理",
-      "version_id": "fe0da70d-a404-59c7-91f3-9e1605e5aea9",
-      "version": "CS11-core-scope-0.1.0",
-      "package_path": "CS11/CS11-core-scope-0.1.0/manifest.json",
+      "version_id": "d60ae5c9-a906-57a6-b80e-ed9dcbb31b2a",
+      "version": "CS11-core-practice-0.1.0",
+      "package_path": "CS11/CS11-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -288,6 +288,15 @@
       "version_id": "be603956-24c0-5b52-a87e-adcb4abc418c",
       "version": "CS10-core-scope-0.1.0",
       "package_path": "CS10/CS10-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "bf129bd2-7f6a-48a6-952b-25adb952d028",
+      "code": "CS11",
+      "title": "编译原理",
+      "version_id": "fe0da70d-a404-59c7-91f3-9e1605e5aea9",
+      "version": "CS11-core-scope-0.1.0",
+      "package_path": "CS11/CS11-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]
