@@ -451,11 +451,22 @@ async def apply_operation(session, space, principal, op):
             op,
             operation_result(op, "rejected", current_version, reason="OBJECT_DELETED"),
         )
-    if obj is not None and op.object_type in {"course_attempt", "structured_attempt"} and not deleted:
+    if (
+        obj is not None
+        and op.object_type in {"course_attempt", "structured_attempt"}
+        and not deleted
+    ):
         previous = obj.payload or {}
         identity = (
-            "id", "spaceId", "artifactId", "objectiveId", "courseCode",
-            "activityVersion", "createdAt", "objectiveCode", "kind",
+            "id",
+            "spaceId",
+            "artifactId",
+            "objectiveId",
+            "courseCode",
+            "activityVersion",
+            "createdAt",
+            "objectiveCode",
+            "kind",
         )
         if (
             previous.get("result") is not None
@@ -469,7 +480,9 @@ async def apply_operation(session, space, principal, op):
             )
         ):
             return await remember_result(
-                session, space.id, op,
+                session,
+                space.id,
+                op,
                 operation_result(op, "rejected", current_version, reason="COURSE_ATTEMPT_LOCKED"),
             )
     if int(op.base_version) != current_version:
@@ -701,7 +714,8 @@ async def read_changes(
                     deleted=row.deleted,
                     payload=row.payload,
                     payload_hash=row.payload_hash.hex(),
-                    requires_review=row.object_type in {"evidence", "course_attempt", "structured_attempt"},
+                    requires_review=row.object_type
+                    in {"evidence", "course_attempt", "structured_attempt"},
                 )
                 for row in selected
             ],

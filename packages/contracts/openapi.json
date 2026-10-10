@@ -704,6 +704,161 @@
         "title": "ClaimResponse",
         "type": "object"
       },
+      "CodeOperationResult": {
+        "properties": {
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "mastery_asserted": {
+            "const": false,
+            "default": false,
+            "title": "Mastery Asserted",
+            "type": "boolean"
+          },
+          "metadata": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Metadata",
+            "type": "object"
+          },
+          "phase": {
+            "enum": [
+              "prepare",
+              "compile",
+              "run",
+              "cleanup"
+            ],
+            "title": "Phase",
+            "type": "string"
+          },
+          "request_sha256": {
+            "default": "",
+            "title": "Request Sha256",
+            "type": "string"
+          },
+          "runtime_profile": {
+            "title": "Runtime Profile",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "success",
+              "compile_error",
+              "runtime_error",
+              "timeout",
+              "resource_limit",
+              "environment_error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "stderr": {
+            "default": "",
+            "title": "Stderr",
+            "type": "string"
+          },
+          "stdout": {
+            "default": "",
+            "title": "Stdout",
+            "type": "string"
+          },
+          "truncated": {
+            "default": false,
+            "title": "Truncated",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "status",
+          "phase",
+          "runtime_profile",
+          "client_artifact_id",
+          "client_revision_id"
+        ],
+        "title": "CodeOperationResult",
+        "type": "object"
+      },
+      "CodeRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "entry": {
+            "title": "Entry",
+            "type": "string"
+          },
+          "files": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "maxProperties": 8,
+            "minProperties": 1,
+            "title": "Files",
+            "type": "object"
+          },
+          "language": {
+            "enum": [
+              "c17",
+              "cpp17",
+              "java21",
+              "python313",
+              "node24"
+            ],
+            "title": "Language",
+            "type": "string"
+          },
+          "stdin": {
+            "default": "",
+            "maxLength": 16384,
+            "title": "Stdin",
+            "type": "string"
+          }
+        },
+        "required": [
+          "language",
+          "files",
+          "entry"
+        ],
+        "title": "CodeRequest",
+        "type": "object"
+      },
+      "CodeSubmission": {
+        "additionalProperties": false,
+        "properties": {
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "code": {
+            "$ref": "#/components/schemas/CodeRequest"
+          },
+          "kind": {
+            "const": "run_code",
+            "default": "run_code",
+            "title": "Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "client_artifact_id",
+          "client_revision_id",
+          "code"
+        ],
+        "title": "CodeSubmission",
+        "type": "object"
+      },
       "ConfirmationOutput": {
         "properties": {
           "status": {
@@ -1110,7 +1265,8 @@
                 "verify_truth_table",
                 "verify_structured_trace",
                 "verify_bracket_judgement",
-                "learning_assist"
+                "learning_assist",
+                "run_code"
               ],
               "type": "string"
             },
@@ -1460,7 +1616,8 @@
               "verify_trace",
               "verify_truth_table",
               "verify_structured_trace",
-              "verify_bracket_judgement"
+              "verify_bracket_judgement",
+              "run_code"
             ],
             "title": "Kind",
             "type": "string"
@@ -1490,6 +1647,9 @@
                 "$ref": "#/components/schemas/BracketVerificationResult"
               },
               {
+                "$ref": "#/components/schemas/CodeOperationResult"
+              },
+              {
                 "type": "null"
               }
             ],
@@ -1502,6 +1662,7 @@
           "status": {
             "enum": [
               "awaiting_input",
+              "running",
               "completed",
               "cancelled",
               "acknowledged"
@@ -3347,6 +3508,7 @@
               "schema": {
                 "discriminator": {
                   "mapping": {
+                    "run_code": "#/components/schemas/CodeSubmission",
                     "verify_bracket_judgement": "#/components/schemas/BracketSubmission",
                     "verify_structured_trace": "#/components/schemas/StructuredTraceSubmission",
                     "verify_trace": "#/components/schemas/TraceSubmission",
@@ -3366,6 +3528,9 @@
                   },
                   {
                     "$ref": "#/components/schemas/BracketSubmission"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CodeSubmission"
                   }
                 ],
                 "title": "Body"

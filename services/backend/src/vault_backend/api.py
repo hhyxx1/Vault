@@ -17,6 +17,7 @@ from vault_backend.agent_gateway import ModelRouter
 from vault_backend.auth import AuthService
 from vault_backend.auth import router as auth_router
 from vault_backend.checker import canonical_hash
+from vault_backend.code_worker_client import CodeWorkerClient
 from vault_backend.config import Settings
 from vault_backend.content import CourseRepository
 from vault_backend.db import create_engine, database_ready
@@ -32,6 +33,7 @@ from vault_backend.model_profiles import PublicModelCatalog
 from vault_backend.responses import CourseCatalog, LeaseResponse, NonceResponse, OperationResponse
 from vault_backend.schemas import (
     BracketSubmission,
+    CodeSubmission,
     LeaseRequest,
     OperationInput,
     RevisionCommand,
@@ -78,8 +80,16 @@ def create_app(
 ) -> FastAPI:
     settings = settings or Settings()
     content = CourseRepository(settings.course_catalog_path)
+    code_runner = (
+        CodeWorkerClient(settings.code_worker_url, settings.code_worker_token.get_secret_value())
+        if settings.code_worker_url and settings.code_worker_token
+        else None
+    )
     store = store or GuestLeaseStore(
-        settings, trace_context=content.trace_context, logic_context=content.logic_context
+        settings,
+        trace_context=content.trace_context,
+        logic_context=content.logic_context,
+        code_runner=code_runner,
     )
     if settings.agent_enabled and assist_runner is None:
         assist_runner = LearningAssistWorkflow(ModelRouter.from_settings(settings))
@@ -263,7 +273,8 @@ def create_app(
             TraceSubmission
             | TruthTableSubmission
             | StructuredTraceSubmission
-            | BracketSubmission,
+            | BracketSubmission
+            | CodeSubmission,
             Field(discriminator="kind"),
         ],
         idempotency_key: Annotated[UUID, Header()],

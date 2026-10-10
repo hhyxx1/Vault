@@ -8,6 +8,7 @@ from typing import Any
 from uuid import UUID, uuid4
 
 from vault_backend.checker import canonical_hash, verify_trace, verify_truth_table
+from vault_backend.code_execution import CodeResult, request_hash
 from vault_backend.config import Settings
 from vault_backend.course_checks.brackets import (
     BRACKET_CONTEXT,
@@ -21,6 +22,7 @@ from vault_backend.course_checks.structured_trace import (
 from vault_backend.errors import ApiError
 from vault_backend.schemas import (
     BracketSubmission,
+    CodeSubmission,
     OperationInput,
     StructuredTraceSubmission,
     TraceSubmission,
@@ -42,6 +44,7 @@ class Operation:
         | TruthTableSubmission
         | StructuredTraceSubmission
         | BracketSubmission
+        | CodeSubmission
         | None
     )
     kind: str
@@ -78,10 +81,13 @@ class GuestLeaseStore:
         now: Callable[[], datetime] | None = None,
         trace_context: dict[str, Any] | None = None,
         logic_context: dict[str, Any] | None = None,
+        code_runner: Any | None = None,
     ):
         self.settings = settings
         self.trace_context = trace_context
         self.logic_context = logic_context
+        self.code_runner = code_runner
+        self.code_tasks: dict[UUID, asyncio.Task] = {}
         self.now = now or (lambda: datetime.now(UTC))
         self.leases: dict[UUID, Lease] = {}
         self.nonces: dict[bytes, tuple[str, datetime]] = {}
@@ -96,6 +102,8 @@ class GuestLeaseStore:
         for key, lease in list(self.leases.items()):
             if now >= min(lease.idle_expires_at, lease.absolute_expires_at):
                 for op in lease.operations.values():
+                    if task := self.code_tasks.get(op.id):
+                        task.cancel()
                     op.submission, op.result = None, None
                     op.events.clear()
                 self.active_streams.difference_update(lease.stream_ids)
@@ -107,12 +115,20 @@ class GuestLeaseStore:
     async def prune(self) -> None:
         async with self.lock:
             self._prune()
+            cancelled = [task for task in self.code_tasks.values() if task.cancelling()]
+        if cancelled:
+            await asyncio.gather(*cancelled, return_exceptions=True)
 
     async def close(self) -> None:
         async with self.lock:
+            tasks = list(self.code_tasks.values())
+            for task in tasks:
+                task.cancel()
             self.leases.clear()
             self.nonces.clear()
             self.active_streams.clear()
+        if tasks:
+            await asyncio.gather(*tasks, return_exceptions=True)
 
     def _origin(self, origin: str) -> None:
         if origin not in self.settings.allowed_origins:
@@ -164,6 +180,7 @@ class GuestLeaseStore:
                     *(["verify_truth_table"] if self.logic_context is not None else []),
                     *(["verify_structured_trace"] if TRUSTED_TRACE_SPECS else []),
                     "verify_bracket_judgement",
+                    *(["run_code"] if self.code_runner is not None else []),
                     *(["learning_assist"] if self.settings.agent_enabled else []),
                 ],
                 "storage": "ephemeral_memory",
@@ -312,11 +329,16 @@ class GuestLeaseStore:
             | TruthTableSubmission
             | StructuredTraceSubmission
             | BracketSubmission
+            | CodeSubmission
         ),
     ) -> dict[str, Any]:
         async with self.lock:
             lease = self._lease(lease_id, token, origin)
-            if isinstance(submission, (StructuredTraceSubmission, BracketSubmission)):
+            if isinstance(submission, CodeSubmission):
+                if self.code_runner is None:
+                    raise ApiError(503, "CODE_WORKER_UNAVAILABLE", "隔离代码执行环境尚未配置。")
+                context = {"available": True}
+            elif isinstance(submission, (StructuredTraceSubmission, BracketSubmission)):
                 context: dict[str, Any] | None = {"available": True}
             elif isinstance(submission, TraceSubmission):
                 context = self.trace_context
@@ -331,12 +353,26 @@ class GuestLeaseStore:
                 if previous.request_hash != request_hash:
                     raise ApiError(409, "IDEMPOTENCY_CONFLICT", "同一幂等键不能用于不同作品。")
                 return self._snapshot(lease, previous)
+            if (
+                isinstance(submission, CodeSubmission)
+                and len(self.code_tasks) >= self.settings.code_max_inflight
+            ):
+                raise ApiError(
+                    429, "CODE_WORKER_BUSY", "代码执行环境繁忙，请稍后重试。", retryable=True
+                )
             if len(lease.operations) >= self.settings.guest_max_operations:
                 raise ApiError(429, "GUEST_BUDGET_EXCEEDED", "本次临时租约的核验次数已用完。")
             op = Operation(uuid4(), request_hash, key, submission, submission.kind)
             lease.operations[op.id], lease.operation_keys[key] = op, op.id
             self._touch(lease)
-            if (
+            if isinstance(submission, CodeSubmission):
+                op.state = "running"
+                self._event(lease, op, "execution.started")
+                self.code_tasks[op.id] = asyncio.create_task(self._run_code(lease, op, submission))
+                self.code_tasks[op.id].add_done_callback(
+                    lambda finished: self.code_tasks.pop(op.id, None)
+                )
+            elif (
                 isinstance(
                     submission,
                     (TruthTableSubmission, StructuredTraceSubmission, BracketSubmission),
@@ -347,6 +383,34 @@ class GuestLeaseStore:
             else:
                 self._event(lease, op, "student.input_required")
             return self._snapshot(lease, op)
+
+    async def _run_code(self, lease: Lease, op: Operation, submission: CodeSubmission):
+        failure = CodeResult(
+            status="environment_error",
+            phase="prepare",
+            runtime_profile=submission.code.language + "-isolate-dev@0.1.0",
+            request_sha256=request_hash(submission.code),
+        )
+        try:
+            try:
+                result = await self.code_runner.run(submission.code)
+                if result.request_sha256 != request_hash(submission.code):
+                    result = failure
+            except Exception:
+                result = failure
+            async with self.lock:
+                self._prune()
+                if self.leases.get(lease.id) is lease and op.state == "running":
+                    op.result = {
+                        **result.model_dump(),
+                        "client_artifact_id": str(submission.client_artifact_id),
+                        "client_revision_id": str(submission.client_revision_id),
+                    }
+                    op.submission, op.state = None, "completed"
+                    op.revision += 1
+                    self._event(lease, op, "execution.completed")
+        finally:
+            self.code_tasks.pop(op.id, None)
 
     async def snapshot(self, lease_id: UUID, token: str, operation_id: UUID) -> dict[str, Any]:
         async with self.lock:
@@ -396,7 +460,13 @@ class GuestLeaseStore:
             op.submission, op.result = None, None
             op.state, op.revision = "cancelled", op.revision + 1
             self._event(lease, op, "operation.cancelled")
-            return self._snapshot(lease, op)
+            task = self.code_tasks.get(op.id)
+            if task:
+                task.cancel()
+            snapshot = self._snapshot(lease, op)
+        if task:
+            await asyncio.gather(task, return_exceptions=True)
+        return snapshot
 
     async def ack(
         self, lease_id: UUID, token: str, origin: str, operation_id: UUID, expected_revision: str

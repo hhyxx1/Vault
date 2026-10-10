@@ -4,6 +4,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
+from vault_backend.code_execution import CodeResult
+
 
 class NonceResponse(BaseModel):
     nonce: str
@@ -23,6 +25,7 @@ class LeaseResponse(BaseModel):
             "verify_structured_trace",
             "verify_bracket_judgement",
             "learning_assist",
+            "run_code",
         ]
     ]
     storage: Literal["ephemeral_memory"]
@@ -171,6 +174,11 @@ class LogicVerificationResult(BaseModel):
     summary: str
 
 
+class CodeOperationResult(CodeResult):
+    client_artifact_id: UUID
+    client_revision_id: UUID
+
+
 class OperationResponse(BaseModel):
     operation_id: UUID
     lease_id: UUID
@@ -179,14 +187,16 @@ class OperationResponse(BaseModel):
         "verify_truth_table",
         "verify_structured_trace",
         "verify_bracket_judgement",
+        "run_code",
     ]
-    status: Literal["awaiting_input", "completed", "cancelled", "acknowledged"]
+    status: Literal["awaiting_input", "running", "completed", "cancelled", "acknowledged"]
     revision: str
     result: (
         VerificationResult
         | LogicVerificationResult
         | StructuredVerificationResult
         | BracketVerificationResult
+        | CodeOperationResult
         | None
     )
     storage: Literal["ephemeral_memory"]

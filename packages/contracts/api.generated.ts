@@ -899,6 +899,99 @@ export interface components {
              */
             state: "committed";
         };
+        /** CodeOperationResult */
+        CodeOperationResult: {
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            /**
+             * Mastery Asserted
+             * @default false
+             * @constant
+             */
+            mastery_asserted: false;
+            /** Metadata */
+            metadata?: {
+                [key: string]: string;
+            };
+            /**
+             * Phase
+             * @enum {string}
+             */
+            phase: "prepare" | "compile" | "run" | "cleanup";
+            /**
+             * Request Sha256
+             * @default
+             */
+            request_sha256: string;
+            /** Runtime Profile */
+            runtime_profile: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "success" | "compile_error" | "runtime_error" | "timeout" | "resource_limit" | "environment_error";
+            /**
+             * Stderr
+             * @default
+             */
+            stderr: string;
+            /**
+             * Stdout
+             * @default
+             */
+            stdout: string;
+            /**
+             * Truncated
+             * @default false
+             */
+            truncated: boolean;
+        };
+        /** CodeRequest */
+        CodeRequest: {
+            /** Entry */
+            entry: string;
+            /** Files */
+            files: {
+                [key: string]: string;
+            };
+            /**
+             * Language
+             * @enum {string}
+             */
+            language: "c17" | "cpp17" | "java21" | "python313" | "node24";
+            /**
+             * Stdin
+             * @default
+             */
+            stdin: string;
+        };
+        /** CodeSubmission */
+        CodeSubmission: {
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            code: components["schemas"]["CodeRequest"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "run_code";
+        };
         /** ConfirmationOutput */
         ConfirmationOutput: {
             /**
@@ -1100,7 +1193,7 @@ export interface components {
              */
             absolute_expires_at: string;
             /** Allowed Operations */
-            allowed_operations: ("verify_trace" | "verify_truth_table" | "verify_structured_trace" | "verify_bracket_judgement" | "learning_assist")[];
+            allowed_operations: ("verify_trace" | "verify_truth_table" | "verify_structured_trace" | "verify_bracket_judgement" | "learning_assist" | "run_code")[];
             /**
              * Created At
              * Format: date-time
@@ -1274,7 +1367,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "verify_trace" | "verify_truth_table" | "verify_structured_trace" | "verify_bracket_judgement";
+            kind: "verify_trace" | "verify_truth_table" | "verify_structured_trace" | "verify_bracket_judgement" | "run_code";
             /**
              * Lease Id
              * Format: uuid
@@ -1286,14 +1379,14 @@ export interface components {
              */
             operation_id: string;
             /** Result */
-            result: components["schemas"]["VerificationResult"] | components["schemas"]["LogicVerificationResult"] | components["schemas"]["StructuredVerificationResult"] | components["schemas"]["BracketVerificationResult"] | null;
+            result: components["schemas"]["VerificationResult"] | components["schemas"]["LogicVerificationResult"] | components["schemas"]["StructuredVerificationResult"] | components["schemas"]["BracketVerificationResult"] | components["schemas"]["CodeOperationResult"] | null;
             /** Revision */
             revision: string;
             /**
              * Status
              * @enum {string}
              */
-            status: "awaiting_input" | "completed" | "cancelled" | "acknowledged";
+            status: "awaiting_input" | "running" | "completed" | "cancelled" | "acknowledged";
             /**
              * Storage
              * @constant
@@ -2290,7 +2383,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TraceSubmission"] | components["schemas"]["TruthTableSubmission"] | components["schemas"]["StructuredTraceSubmission"] | components["schemas"]["BracketSubmission"];
+                "application/json": components["schemas"]["TraceSubmission"] | components["schemas"]["TruthTableSubmission"] | components["schemas"]["StructuredTraceSubmission"] | components["schemas"]["BracketSubmission"] | components["schemas"]["CodeSubmission"];
             };
         };
         responses: {

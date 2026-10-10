@@ -3,6 +3,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
 
+from vault_backend.code_execution import CodeRequest
+
 
 class WriteModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -101,6 +103,14 @@ class OperationInput(WriteModel):
     expected_revision: str = Field(pattern=r"^[1-9][0-9]*$", max_length=20)
     trace: list[TraceStep] = Field(min_length=7, max_length=7)
     explanation: str = Field(default="", max_length=4000)
+
+
+class CodeSubmission(WriteModel):
+    # Tool execution only: no client-supplied course grading standard.
+    kind: Literal["run_code"] = "run_code"
+    client_artifact_id: UUID
+    client_revision_id: UUID
+    code: CodeRequest
 
 
 class RevisionCommand(WriteModel):

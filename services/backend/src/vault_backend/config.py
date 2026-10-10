@@ -28,6 +28,9 @@ class Settings(BaseSettings):
     guest_streams_per_lease: int = Field(default=2, ge=1, le=4)
     guest_enabled: bool = True
     agent_enabled: bool = False
+    code_worker_url: str = ""
+    code_worker_token: SecretStr | None = None
+    code_max_inflight: int = Field(default=1, ge=1, le=4)
     deepseek_api_key: SecretStr | None = None
     deepseek_model: str = Field(default="deepseek-flash", min_length=1, max_length=80)
     model_profiles: list[ModelProfile] = Field(default_factory=list)
@@ -44,6 +47,10 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_runtime(self):
+        if bool(self.code_worker_url) != bool(self.code_worker_token):
+            raise ValueError("code worker URL and private token must be configured together")
+        if self.environment == "production" and self.code_worker_url:
+            raise ValueError("Code execution requires dedicated-host release acceptance")
         if self.database_url and not self.database_url.startswith("postgresql+psycopg://"):
             raise ValueError("VAULT_DATABASE_URL must use postgresql+psycopg")
         if self.environment not in {"development", "test", "production"}:
