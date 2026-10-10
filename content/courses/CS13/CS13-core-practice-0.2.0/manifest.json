@@ -1,0 +1,3442 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "0af5d8ff-4ed7-473f-b977-e21d6eb66ed1",
+  "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+  "course_code": "CS13",
+  "version": "CS13-core-practice-0.2.0",
+  "title": "机器学习基础",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "30目标局部实践及实际训练/验证/测试、缺失填补、拟合、模型选择、JSON重载综合项目；全课程深度与审校仍待完成。",
+  "objectives": [
+    {
+      "id": "0693a232-91f6-5856-b816-777c5710a505",
+      "code": "CS13-M01-O01",
+      "title": "区分学习任务",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "200392d5-b98d-57a0-9000-e9904e0ed02c",
+      "code": "CS13-M01-O02",
+      "title": "检查数据来源及标签",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "d22e3b4b-af01-5e9c-b44d-bb59130702cd",
+      "code": "CS13-M01-O03",
+      "title": "确定基线和指标",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "07da72e0-2a58-59b6-b2a2-0a82a19a54a7",
+      "code": "CS13-M02-O01",
+      "title": "划分训练验证测试",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "ee067b4d-9f1e-53e6-a700-d7c5281bbcae",
+      "code": "CS13-M02-O02",
+      "title": "处理缺失及编码",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "197d4a3e-ee9c-5c2e-ba32-af8e4cb73d28",
+      "code": "CS13-M02-O03",
+      "title": "限制预处理拟合范围",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f7b46faf-4f6c-57b9-9a1b-0b82d256b4b1",
+      "code": "CS13-M03-O01",
+      "title": "实现线性及逻辑回归",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "fa077cf1-84bb-500d-a1e9-31d46109f609",
+      "code": "CS13-M03-O02",
+      "title": "计算损失梯度",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f7d13dfc-b320-5465-bef9-74d106eadea0",
+      "code": "CS13-M03-O03",
+      "title": "解释正则化",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "697d1254-b55b-5308-8988-acde29982ecc",
+      "code": "CS13-M04-O01",
+      "title": "分析学习率",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b69bedc0-5ec9-5125-9278-e3b777c17dee",
+      "code": "CS13-M04-O02",
+      "title": "辨认欠拟合过拟合",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "fb14b68f-30cc-5f8a-b5d5-bdba737a1c05",
+      "code": "CS13-M04-O03",
+      "title": "使用验证选择超参数",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "9d8ad1f0-0ab0-532b-afdb-135bf3938676",
+      "code": "CS13-M05-O01",
+      "title": "构建决策树",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "dfb19884-3149-53eb-b5bb-84c8bb26d131",
+      "code": "CS13-M05-O02",
+      "title": "比较 bagging 与 boosting",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "af90d172-019a-55a0-ac42-3e935f03406c",
+      "code": "CS13-M05-O03",
+      "title": "解释复杂度和偏差",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "1b8a2dc1-a132-5179-991b-17b9f31cff02",
+      "code": "CS13-M06-O01",
+      "title": "实现近邻",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "186d2971-a8de-5de0-9709-c472ed96f3dd",
+      "code": "CS13-M06-O02",
+      "title": "解释尺度影响",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "6b442700-3b8e-5118-94a3-8270ddcfb331",
+      "code": "CS13-M06-O03",
+      "title": "比较线性及核分类边界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "36104460-252a-5133-85f9-1af79aff41b0",
+      "code": "CS13-M07-O01",
+      "title": "实施聚类",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "131a04d6-f5a8-565f-977a-e259fb5ddd73",
+      "code": "CS13-M07-O02",
+      "title": "解释降维",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "477a4902-1d2c-5272-9f8d-853dbb8df176",
+      "code": "CS13-M07-O03",
+      "title": "评估无标签结果的限制",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "2bbc467d-7a6a-5d5a-8597-26f69c347487",
+      "code": "CS13-M08-O01",
+      "title": "计算前向与反向",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7bfbb9bf-31d6-53fd-b042-c819902db10d",
+      "code": "CS13-M08-O02",
+      "title": "训练小型网络",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "eff9168b-9ddc-5fc3-a2f9-dfbb99bab970",
+      "code": "CS13-M08-O03",
+      "title": "检查数值和形状错误",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "c94cfa8e-9dff-5b67-9319-ad605ed10be7",
+      "code": "CS13-M09-O01",
+      "title": "计算分类回归指标",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b4f127d5-0a9a-52d7-bf22-e59da89bd915",
+      "code": "CS13-M09-O02",
+      "title": "处理不平衡",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "9347396a-74c3-5acb-ad03-6a3202d927a7",
+      "code": "CS13-M09-O03",
+      "title": "分析误差和不确定性",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "01b27e20-a398-5558-8066-2e0e3b0bd1f5",
+      "code": "CS13-M10-O01",
+      "title": "锁定数据依赖及随机性",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "4bb37f18-315f-57d2-acdc-133e263f5176",
+      "code": "CS13-M10-O02",
+      "title": "保存加载模型",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "9ea33a5b-4a52-5820-94c6-570990770b17",
+      "code": "CS13-M10-O03",
+      "title": "识别分布漂移与使用风险",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS13-M01",
+      "title": "任务与数据",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M01-O01-unit",
+          "title": "区分学习任务",
+          "objective_refs": [
+            "CS13-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M01-O02-unit",
+          "title": "检查数据来源及标签",
+          "objective_refs": [
+            "CS13-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M01-O03-unit",
+          "title": "确定基线和指标",
+          "objective_refs": [
+            "CS13-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M02",
+      "title": "划分与预处理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M02-O01-unit",
+          "title": "划分训练验证测试",
+          "objective_refs": [
+            "CS13-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M02-O02-unit",
+          "title": "处理缺失及编码",
+          "objective_refs": [
+            "CS13-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M02-O03-unit",
+          "title": "限制预处理拟合范围",
+          "objective_refs": [
+            "CS13-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M03",
+      "title": "线性模型",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M03-O01-unit",
+          "title": "实现线性及逻辑回归",
+          "objective_refs": [
+            "CS13-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M03-O02-unit",
+          "title": "计算损失梯度",
+          "objective_refs": [
+            "CS13-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M03-O03-unit",
+          "title": "解释正则化",
+          "objective_refs": [
+            "CS13-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M04",
+      "title": "优化与泛化",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M04-O01-unit",
+          "title": "分析学习率",
+          "objective_refs": [
+            "CS13-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M04-O02-unit",
+          "title": "辨认欠拟合过拟合",
+          "objective_refs": [
+            "CS13-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M04-O03-unit",
+          "title": "使用验证选择超参数",
+          "objective_refs": [
+            "CS13-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M05",
+      "title": "树与集成",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M05-O01-unit",
+          "title": "构建决策树",
+          "objective_refs": [
+            "CS13-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M05-O02-unit",
+          "title": "比较 bagging 与 boosting",
+          "objective_refs": [
+            "CS13-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M05-O03-unit",
+          "title": "解释复杂度和偏差",
+          "objective_refs": [
+            "CS13-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M06",
+      "title": "距离与核方法",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M06-O01-unit",
+          "title": "实现近邻",
+          "objective_refs": [
+            "CS13-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M06-O02-unit",
+          "title": "解释尺度影响",
+          "objective_refs": [
+            "CS13-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M06-O03-unit",
+          "title": "比较线性及核分类边界",
+          "objective_refs": [
+            "CS13-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M07",
+      "title": "无监督学习",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M07-O01-unit",
+          "title": "实施聚类",
+          "objective_refs": [
+            "CS13-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M07-O02-unit",
+          "title": "解释降维",
+          "objective_refs": [
+            "CS13-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M07-O03-unit",
+          "title": "评估无标签结果的限制",
+          "objective_refs": [
+            "CS13-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M08",
+      "title": "神经网络基础",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M08-O01-unit",
+          "title": "计算前向与反向",
+          "objective_refs": [
+            "CS13-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M08-O02-unit",
+          "title": "训练小型网络",
+          "objective_refs": [
+            "CS13-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M08-O03-unit",
+          "title": "检查数值和形状错误",
+          "objective_refs": [
+            "CS13-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M09",
+      "title": "评估与解释",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M09-O01-unit",
+          "title": "计算分类回归指标",
+          "objective_refs": [
+            "CS13-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M09-O02-unit",
+          "title": "处理不平衡",
+          "objective_refs": [
+            "CS13-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M09-O03-unit",
+          "title": "分析误差和不确定性",
+          "objective_refs": [
+            "CS13-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS13-M10",
+      "title": "复现与交付",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS13-M10-O01-unit",
+          "title": "锁定数据依赖及随机性",
+          "objective_refs": [
+            "CS13-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M10-O02-unit",
+          "title": "保存加载模型",
+          "objective_refs": [
+            "CS13-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS13-M10-O03-unit",
+          "title": "识别分布漂移与使用风险",
+          "objective_refs": [
+            "CS13-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "CS13-M01-O01",
+      "to": "CS13-M01-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：分类标签不能因为整数编码变成回归与训练特征不得使用预测时不可用的标签",
+      "source_locator": "ml-leak",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M01-O02",
+      "to": "CS13-M01-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：训练特征不得使用预测时不可用的标签与多数类基线需报告少数类召回",
+      "source_locator": "ml-metric",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M02-O01",
+      "to": "CS13-M02-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：同一实体不能跨训练与测试泄漏与缺失填补参数只能从训练集拟合",
+      "source_locator": "ml-leak",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M02-O02",
+      "to": "CS13-M02-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：缺失填补参数只能从训练集拟合与测试数据转换不能重新拟合参数",
+      "source_locator": "ml-leak",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M03-O01",
+      "to": "CS13-M03-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：逻辑回归输出须经sigmoid与平方损失梯度必须乘输入",
+      "source_locator": "ml-linear",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M03-O02",
+      "to": "CS13-M03-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：平方损失梯度必须乘输入与L2项不可写成参数的一次和",
+      "source_locator": "ml-linear",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M04-O01",
+      "to": "CS13-M04-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：过大学习率在二次目标上会发散与低训练误差不能证明泛化",
+      "source_locator": "ml-validation",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M04-O02",
+      "to": "CS13-M04-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：低训练误差不能证明泛化与超参数只能按验证集选择",
+      "source_locator": "ml-validation",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M05-O01",
+      "to": "CS13-M05-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：分裂不纯度按子节点样本数加权与bagging预测平均不可误用累加",
+      "source_locator": "ml-ensemble",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M05-O02",
+      "to": "CS13-M05-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：bagging预测平均不可误用累加与复杂度选型须观察验证风险",
+      "source_locator": "ml-tree",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M06-O01",
+      "to": "CS13-M06-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：最近邻应选择最小距离与特征尺度改变距离排序",
+      "source_locator": "ml-neighbor",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M06-O02",
+      "to": "CS13-M06-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：特征尺度改变距离排序与线性特征无法表示对称两端类别",
+      "source_locator": "ml-linear",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M07-O01",
+      "to": "CS13-M07-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：k均值中心应为簇内算术均值与PCA投影必须沿用训练中心",
+      "source_locator": "ml-pca",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M07-O02",
+      "to": "CS13-M07-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：PCA投影必须沿用训练中心与聚类编号置换不代表分组变化",
+      "source_locator": "ml-cluster",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M08-O01",
+      "to": "CS13-M08-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：反向传播必须应用链式输入因子与训练更新应沿负梯度",
+      "source_locator": "ml-backprop",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M08-O02",
+      "to": "CS13-M08-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：训练更新应沿负梯度与稳定softmax先减最大logit",
+      "source_locator": "ml-math",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M09-O01",
+      "to": "CS13-M09-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：精确率分母包含假阳性与不平衡数据需独立观察少数类",
+      "source_locator": "ml-metric",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M09-O02",
+      "to": "CS13-M09-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：不平衡数据需独立观察少数类与点估计相同不能忽略样本数",
+      "source_locator": "ml-metric",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M10-O01",
+      "to": "CS13-M10-O02",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：实验记录必须冻结种子和数据版本与模型持久化应包含预处理参数",
+      "source_locator": "ml-save",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS13-M10-O02",
+      "to": "CS13-M10-O03",
+      "kind": "conceptual_association",
+      "reason": "实验条件对照：模型持久化应包含预处理参数与分布外输入应保留用途限制",
+      "source_locator": "ml-leak",
+      "course_version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "review_state": "authority_checked",
+      "source": "原创实验工件关联，非课程次序生成严格先修；专业审校不可用。"
+    }
+  ],
+  "activities": [
+    {
+      "id": "9786648f-efd9-5ce0-9cf5-7b204561d541",
+      "version_id": "5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7",
+      "code": "CS13-M01-O01-CODE",
+      "version": "CS13-M01-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M01-O01"
+      ],
+      "kind": "code",
+      "title": "分类标签不能因为整数编码变成回归",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创目标schema明确kind=category，数字是类别编码；任务类型按目标含义声明。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-metric"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntarget={'kind':'category' if n==1 else 'continuous','value':1}\nprint('regression')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntarget={'kind':'category' if n==1 else 'continuous','value':1}\nprint('classification' if target['kind']=='category' else 'regression')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "连续目标",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntarget={'kind':'category' if n==1 else 'continuous','value':1}\nprint('regression')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntarget={'kind':'category' if n==1 else 'continuous','value':1}\nprint('classification' if target['kind']=='category' else 'regression')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "eebb79b1-f994-5333-ba14-a159a0ab7c5c",
+      "version_id": "54c1b7b8-441a-5be7-981e-8faf653802b9",
+      "code": "CS13-M01-O02-CODE",
+      "version": "CS13-M01-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M01-O02"
+      ],
+      "kind": "code",
+      "title": "训练特征不得使用预测时不可用的标签",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创记录有prediction_time与label_arrival，预测后的字段不能进入模型输入；标签记录本身仍可用于离线评估。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-leak"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfeatures={'sensor':1,'future_label':1};arrival={'sensor':0,'future_label':2 if n==1 else 0};prediction_time=1\nprint(' '.join(sorted(features)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfeatures={'sensor':1,'future_label':1};arrival={'sensor':0,'future_label':2 if n==1 else 0};prediction_time=1\nprint(' '.join(sorted(k for k in features if arrival[k]<=prediction_time)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "所有字段已在预测前出现",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfeatures={'sensor':1,'future_label':1};arrival={'sensor':0,'future_label':2 if n==1 else 0};prediction_time=1\nprint(' '.join(sorted(features)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfeatures={'sensor':1,'future_label':1};arrival={'sensor':0,'future_label':2 if n==1 else 0};prediction_time=1\nprint(' '.join(sorted(k for k in features if arrival[k]<=prediction_time)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "0672b942-6cbb-5c8d-a606-446610a39c02",
+      "version_id": "529f4161-cc07-5ecf-9f73-583f2556db43",
+      "code": "CS13-M01-O03-CODE",
+      "version": "CS13-M01-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M01-O03"
+      ],
+      "kind": "code",
+      "title": "多数类基线需报告少数类召回",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创标签9个0一个1，恒猜0准确率高但正类召回为0；基线不是可靠分类器。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-metric"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntruth=[0]*9+[1] if n==1 else [0,1];pred=[0]*len(truth)\nprint(sum(a==b for a,b in zip(truth,pred)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntruth=[0]*9+[1] if n==1 else [0,1];pred=[0]*len(truth)\ntp=sum(a==b==1 for a,b in zip(truth,pred));positive=sum(a==1 for a in truth);print(tp,positive)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "平衡标签集",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntruth=[0]*9+[1] if n==1 else [0,1];pred=[0]*len(truth)\nprint(sum(a==b for a,b in zip(truth,pred)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntruth=[0]*9+[1] if n==1 else [0,1];pred=[0]*len(truth)\ntp=sum(a==b==1 for a,b in zip(truth,pred));positive=sum(a==1 for a in truth);print(tp,positive)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2b06a7e9-40f4-57c3-adfb-55ed19043d11",
+      "version_id": "00fecae2-58be-5ae8-8bc6-53afee731f75",
+      "code": "CS13-M02-O01-CODE",
+      "version": "CS13-M02-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M02-O01"
+      ],
+      "kind": "code",
+      "title": "同一实体不能跨训练与测试泄漏",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创实体id集合，重复实体跨集合时拒绝；只检查实体隔离，不证明时序与所有泄漏路径。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-leak"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntrain={'u1','u2'};test={'u2'} if n==1 else {'u3'}\nprint(len(train)>0 and len(test)>0)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntrain={'u1','u2'};test={'u2'} if n==1 else {'u3'}\nprint(not bool(train&test))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "实体完全隔离",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntrain={'u1','u2'};test={'u2'} if n==1 else {'u3'}\nprint(len(train)>0 and len(test)>0)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntrain={'u1','u2'};test={'u2'} if n==1 else {'u3'}\nprint(not bool(train&test))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "9db54a14-5da5-55ef-9c23-93835d7ed723",
+      "version_id": "eddce4f6-ae17-5d23-952d-5bf3b7133efe",
+      "code": "CS13-M02-O02-CODE",
+      "version": "CS13-M02-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M02-O02"
+      ],
+      "kind": "code",
+      "title": "缺失填补参数只能从训练集拟合",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创训练值2/4，测试100不可改变填补均值；参数拟合范围与transform分开。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-leak"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\ntrain=[2,4];test=[100] if n==1 else [3]\nmean=Fraction(sum(train+test),len(train+test))\nprint(mean)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\ntrain=[2,4];test=[100] if n==1 else [3]\nmean=Fraction(sum(train),len(train))\nprint(mean)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "测试值等于训练均值",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\ntrain=[2,4];test=[100] if n==1 else [3]\nmean=Fraction(sum(train+test),len(train+test))\nprint(mean)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\ntrain=[2,4];test=[100] if n==1 else [3]\nmean=Fraction(sum(train),len(train))\nprint(mean)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "ece4f44a-0aa0-51c3-b98f-ea25cd24de04",
+      "version_id": "d4ef1730-4c0e-57af-8336-4348b136532f",
+      "code": "CS13-M02-O03-CODE",
+      "version": "CS13-M02-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M02-O03"
+      ],
+      "kind": "code",
+      "title": "测试数据转换不能重新拟合参数",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创标准化简化为中心化：训练均值3，测试值100/102须减3，不减测试均值。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-leak"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntrain=[2,4];test=[100,102] if n==1 else [2,4]\nmean=sum(test)/len(test)\nprint(' '.join(str(int(x-mean)) for x in test))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntrain=[2,4];test=[100,102] if n==1 else [2,4]\nmean=sum(train)/len(train)\nprint(' '.join(str(int(x-mean)) for x in test))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "两组均值偶然相同",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntrain=[2,4];test=[100,102] if n==1 else [2,4]\nmean=sum(test)/len(test)\nprint(' '.join(str(int(x-mean)) for x in test))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntrain=[2,4];test=[100,102] if n==1 else [2,4]\nmean=sum(train)/len(train)\nprint(' '.join(str(int(x-mean)) for x in test))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "08b5e1ff-be25-570a-a3bc-b0ffcac7c81e",
+      "version_id": "2c287a16-65b2-5c68-962a-332bd2db2e8f",
+      "code": "CS13-M03-O01-CODE",
+      "version": "CS13-M03-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M03-O01"
+      ],
+      "kind": "code",
+      "title": "逻辑回归输出须经sigmoid",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创标量logit=0/2，sigmoid用于概率，不把线性得分直接当概率。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-linear"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport math\nz=0 if n==1 else 2\np=z\nprint(0<p<1)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport math\nz=0 if n==1 else 2\np=1/(1+math.exp(-z))\nprint(0<p<1)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "正logit",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport math\nz=0 if n==1 else 2\np=z\nprint(0<p<1)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport math\nz=0 if n==1 else 2\np=1/(1+math.exp(-z))\nprint(0<p<1)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "dd6123b0-e0d9-5ace-8bf6-47623300371e",
+      "version_id": "e8e0ed08-9f8d-5a18-b737-39b4f8559f44",
+      "code": "CS13-M03-O02-CODE",
+      "version": "CS13-M03-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M03-O02"
+      ],
+      "kind": "code",
+      "title": "平方损失梯度必须乘输入",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创L=(w*x-y)^2/2，dL/dw=(w*x-y)*x；有限解析与数值差分对照另需扩展。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-linear"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nw=1;x=2 if n==1 else 1;y=0\ngrad=w*x-y\nprint(grad)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nw=1;x=2 if n==1 else 1;y=0\ngrad=(w*x-y)*x\nprint(grad)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单位输入",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nw=1;x=2 if n==1 else 1;y=0\ngrad=w*x-y\nprint(grad)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nw=1;x=2 if n==1 else 1;y=0\ngrad=(w*x-y)*x\nprint(grad)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "d5aa69ac-4b71-59d6-8447-1d6d6c11152f",
+      "version_id": "5da57081-e9a7-542a-b4c3-42e2e3a2ebe5",
+      "code": "CS13-M03-O03-CODE",
+      "version": "CS13-M03-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M03-O03"
+      ],
+      "kind": "code",
+      "title": "L2项不可写成参数的一次和",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创目标sum(w^2)，正负参数不能抵消正则惩罚；是否包含偏置另在任务规范声明。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-linear"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nweights=[1,-1] if n==1 else [1,0]\nprint(sum(weights))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nweights=[1,-1] if n==1 else [1,0]\nprint(sum(w*w for w in weights))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "非负单位参数",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nweights=[1,-1] if n==1 else [1,0]\nprint(sum(weights))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nweights=[1,-1] if n==1 else [1,0]\nprint(sum(w*w for w in weights))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "dc6bf741-5958-501e-91a7-40259a88dcaa",
+      "version_id": "3be6698e-e9fb-57a9-9f50-3c4d773dfd9c",
+      "code": "CS13-M04-O01-CODE",
+      "version": "CS13-M04-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M04-O01"
+      ],
+      "kind": "code",
+      "title": "过大学习率在二次目标上会发散",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "实际标量梯度下降L=w^2/2，起点1，学习率3/0.5，20轮比较损失；该凸例不证明一般网络收敛。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-linear"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nw=1.;lr=3. if n==1 else .5;initial=w*w\nfor _ in range(20):w-=lr*w\nprint(w*w<initial)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nw=1.;lr=.5;initial=w*w\nfor _ in range(20):w-=lr*w\nprint(w*w<initial)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "原学习率已稳定",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nw=1.;lr=3. if n==1 else .5;initial=w*w\nfor _ in range(20):w-=lr*w\nprint(w*w<initial)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nw=1.;lr=.5;initial=w*w\nfor _ in range(20):w-=lr*w\nprint(w*w<initial)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e1368f0c-e14c-5ba2-ae82-c9bd0f006beb",
+      "version_id": "6652f7eb-c528-58bf-aff4-8ff27fa7ac0c",
+      "code": "CS13-M04-O02-CODE",
+      "version": "CS13-M04-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M04-O02"
+      ],
+      "kind": "code",
+      "title": "低训练误差不能证明泛化",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创给定训练0/验证9或0，须单列验证误差；记录不是实际拟合整个模型。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-validation"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntrain_error=0;validation_error=9 if n==1 else 0\nprint(train_error)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntrain_error=0;validation_error=9 if n==1 else 0\nprint(train_error,validation_error)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "两侧误差都低",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntrain_error=0;validation_error=9 if n==1 else 0\nprint(train_error)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntrain_error=0;validation_error=9 if n==1 else 0\nprint(train_error,validation_error)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "392a06b8-5f8d-5ab3-a58f-6dc82adc2d30",
+      "version_id": "3701118c-c5d6-56c2-ae31-7d6fac1beb6b",
+      "code": "CS13-M04-O03-CODE",
+      "version": "CS13-M04-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M04-O03"
+      ],
+      "kind": "code",
+      "title": "超参数只能按验证集选择",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创固定记录模型A验证1测试8/B验证2测试0，选型不能偷看测试；最终测试只报告一次。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-validation"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvalidation={'A':1,'B':2};test={'A':8,'B':0} if n==1 else {'A':0,'B':8}\nprint(min(test,key=test.get))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvalidation={'A':1,'B':2};test={'A':8,'B':0} if n==1 else {'A':0,'B':8}\nprint(min(validation,key=validation.get))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "测试排序偶然一致",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvalidation={'A':1,'B':2};test={'A':8,'B':0} if n==1 else {'A':0,'B':8}\nprint(min(test,key=test.get))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvalidation={'A':1,'B':2};test={'A':8,'B':0} if n==1 else {'A':0,'B':8}\nprint(min(validation,key=validation.get))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "abee18af-6c7e-584b-9447-9bedd888d8d5",
+      "version_id": "220d2466-88d0-505a-9a1a-c5abf76d579f",
+      "code": "CS13-M05-O01-CODE",
+      "version": "CS13-M05-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M05-O01"
+      ],
+      "kind": "code",
+      "title": "分裂不纯度按子节点样本数加权",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创子节点2样本Gini0、8样本Gini1/2，平均值不应等权；只核对给定分裂。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-tree"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\nweights=[2,8] if n==1 else [5,5];gini=[Fraction(0),Fraction(1,2)]\nprint(sum(gini)/2)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\nweights=[2,8] if n==1 else [5,5];gini=[Fraction(0),Fraction(1,2)]\nprint(sum(w*g for w,g in zip(weights,gini))/sum(weights))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "等大子节点",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\nweights=[2,8] if n==1 else [5,5];gini=[Fraction(0),Fraction(1,2)]\nprint(sum(gini)/2)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\nweights=[2,8] if n==1 else [5,5];gini=[Fraction(0),Fraction(1,2)]\nprint(sum(w*g for w,g in zip(weights,gini))/sum(weights))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "90bc1969-cf04-5d90-9d17-734032121a2d",
+      "version_id": "9fbf60b9-e8b1-5648-a850-f8e35511f943",
+      "code": "CS13-M05-O02-CODE",
+      "version": "CS13-M05-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M05-O02"
+      ],
+      "kind": "code",
+      "title": "bagging预测平均不可误用累加",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创两个回归基学习器预测2/4，等权bagging取均值；本活动不实现完整boosting。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-ensemble"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\npredictions=[2,4] if n==1 else [3]\nprint(sum(predictions))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\npredictions=[2,4] if n==1 else [3]\nprint(Fraction(sum(predictions),len(predictions)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单基学习器",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\npredictions=[2,4] if n==1 else [3]\nprint(sum(predictions))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\npredictions=[2,4] if n==1 else [3]\nprint(Fraction(sum(predictions),len(predictions)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "b81abaad-52fa-5f5c-bf2a-47e388cce467",
+      "version_id": "07529489-2266-5d6a-9093-f24f1abcac66",
+      "code": "CS13-M05-O03-CODE",
+      "version": "CS13-M05-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M05-O03"
+      ],
+      "kind": "code",
+      "title": "复杂度选型须观察验证风险",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创给定两树训练误差深0/浅1，验证深8/浅2；选择验证低者，不以训练拟合替代泛化。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-tree"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntraining={'deep':0,'shallow':1};validation={'deep':8 if n==1 else 0,'shallow':2}\nprint(min(training,key=training.get))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntraining={'deep':0,'shallow':1};validation={'deep':8 if n==1 else 0,'shallow':2}\nprint(min(validation,key=validation.get))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "深树验证更好",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntraining={'deep':0,'shallow':1};validation={'deep':8 if n==1 else 0,'shallow':2}\nprint(min(training,key=training.get))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntraining={'deep':0,'shallow':1};validation={'deep':8 if n==1 else 0,'shallow':2}\nprint(min(validation,key=validation.get))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c2f279cb-dfc5-500b-b56e-1d0231f30a1d",
+      "version_id": "ba1f138f-129d-56fe-9758-c5ee5073fe81",
+      "code": "CS13-M06-O01-CODE",
+      "version": "CS13-M06-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M06-O01"
+      ],
+      "kind": "code",
+      "title": "最近邻应选择最小距离",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "真实一维1NN，训练坐标0标A和10标B，查询1/5，平局按输入次序稳定。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-neighbor"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npoints=[(0,'A'),(10,'B')];query=1 if n==1 else 5\nprint(max(points,key=lambda p:abs(p[0]-query))[1])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npoints=[(0,'A'),(10,'B')];query=1 if n==1 else 5\nprint(min(points,key=lambda p:abs(p[0]-query))[1])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "等距查询",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npoints=[(0,'A'),(10,'B')];query=1 if n==1 else 5\nprint(max(points,key=lambda p:abs(p[0]-query))[1])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npoints=[(0,'A'),(10,'B')];query=1 if n==1 else 5\nprint(min(points,key=lambda p:abs(p[0]-query))[1])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c7551cc4-62c7-59b3-a236-05163f7e55ca",
+      "version_id": "1d2b8b84-2099-53b0-9577-89b2f0f07986",
+      "code": "CS13-M06-O02-CODE",
+      "version": "CS13-M06-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M06-O02"
+      ],
+      "kind": "code",
+      "title": "特征尺度改变距离排序",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创二维查询原点，A=(1,100),B=(5,0)，第二维给定尺度100；缩放必须预先在训练过程冻结。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-neighbor"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npoints=[(1,100,'A'),(5,0,'B')] if n==1 else [(1,0,'A'),(5,0,'B')]\nprint(min(points,key=lambda p:p[0]**2+p[1]**2)[2])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npoints=[(1,100,'A'),(5,0,'B')] if n==1 else [(1,0,'A'),(5,0,'B')]\nprint(min(points,key=lambda p:p[0]**2+(p[1]/100)**2)[2])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "第二维无贡献",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npoints=[(1,100,'A'),(5,0,'B')] if n==1 else [(1,0,'A'),(5,0,'B')]\nprint(min(points,key=lambda p:p[0]**2+p[1]**2)[2])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npoints=[(1,100,'A'),(5,0,'B')] if n==1 else [(1,0,'A'),(5,0,'B')]\nprint(min(points,key=lambda p:p[0]**2+(p[1]/100)**2)[2])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "afd7741d-6ae0-5bcf-bd4f-ebe4717fd46b",
+      "version_id": "adf972c0-97f4-56ab-a2be-0b4e6a7e7d86",
+      "code": "CS13-M06-O03-CODE",
+      "version": "CS13-M06-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M06-O03"
+      ],
+      "kind": "code",
+      "title": "线性特征无法表示对称两端类别",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创标签规则abs(x)>1，特征x的阈值不能表示两端，特征x平方阈值可；这是显式非线性映射，非完整核SVM。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-linear"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nxs=[-2,0,2] if n==1 else [0,2]\ntruth=[abs(x)>1 for x in xs];pred=[x>1 for x in xs]\nprint(sum(a!=b for a,b in zip(truth,pred)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nxs=[-2,0,2] if n==1 else [0,2]\ntruth=[abs(x)>1 for x in xs];pred=[x*x>1 for x in xs]\nprint(sum(a!=b for a,b in zip(truth,pred)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "只有非负输入",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nxs=[-2,0,2] if n==1 else [0,2]\ntruth=[abs(x)>1 for x in xs];pred=[x>1 for x in xs]\nprint(sum(a!=b for a,b in zip(truth,pred)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nxs=[-2,0,2] if n==1 else [0,2]\ntruth=[abs(x)>1 for x in xs];pred=[x*x>1 for x in xs]\nprint(sum(a!=b for a,b in zip(truth,pred)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "04b477e8-c815-5a2a-9203-0445030ac40f",
+      "version_id": "61616c7e-1d44-5306-9013-462e9c58fac4",
+      "code": "CS13-M07-O01-CODE",
+      "version": "CS13-M07-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M07-O01"
+      ],
+      "kind": "code",
+      "title": "k均值中心应为簇内算术均值",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创单簇样本0/2/10，中心不能取第一个点；多簇分配及初始化需另外验证。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-cluster"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\ncluster=[0,2,10] if n==1 else [4,4]\nprint(cluster[0])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\ncluster=[0,2,10] if n==1 else [4,4]\nprint(Fraction(sum(cluster),len(cluster)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "完全重合簇",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\ncluster=[0,2,10] if n==1 else [4,4]\nprint(cluster[0])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\ncluster=[0,2,10] if n==1 else [4,4]\nprint(Fraction(sum(cluster),len(cluster)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "d50add3e-7feb-5914-bee8-7ccb3ffdb755",
+      "version_id": "c96f35cc-b6cb-56c4-a3d3-d07da0925584",
+      "code": "CS13-M07-O02-CODE",
+      "version": "CS13-M07-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M07-O02"
+      ],
+      "kind": "code",
+      "title": "PCA投影必须沿用训练中心",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创预先冻结单位主轴(1,0)与训练均值(3,3)，投影(5,3)应2；不宣称从这例计算协方差特征分解。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-pca"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npoint=(5,3) if n==1 else (0,3);mean=(3,3);axis=(1,0)\nprint(sum(x*v for x,v in zip(point,axis)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npoint=(5,3) if n==1 else (0,3);mean=(3,3);axis=(1,0)\nprint(sum((x-m)*v for x,m,v in zip(point,mean,axis)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变投影点",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npoint=(5,3) if n==1 else (0,3);mean=(3,3);axis=(1,0)\nprint(sum(x*v for x,v in zip(point,axis)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npoint=(5,3) if n==1 else (0,3);mean=(3,3);axis=(1,0)\nprint(sum((x-m)*v for x,m,v in zip(point,mean,axis)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "b7717d68-9cc4-51d1-b506-80aa9b9cafe8",
+      "version_id": "5cecd8d6-d483-54b8-86c7-d991e95a157c",
+      "code": "CS13-M07-O03-CODE",
+      "version": "CS13-M07-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M07-O03"
+      ],
+      "kind": "code",
+      "title": "聚类编号置换不代表分组变化",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创两分区[0,0,1,1]与[1,1,0,0]等价，比较同簇对关系不按数字标签匹配。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-cluster"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\na=[0,0,1,1];b=[1,1,0,0] if n==1 else a\nprint(a==b)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\na=[0,0,1,1];b=[1,1,0,0] if n==1 else a\nprint(all((a[i]==a[j])==(b[i]==b[j]) for i in range(len(a)) for j in range(len(a))))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "编号未置换",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\na=[0,0,1,1];b=[1,1,0,0] if n==1 else a\nprint(a==b)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\na=[0,0,1,1];b=[1,1,0,0] if n==1 else a\nprint(all((a[i]==a[j])==(b[i]==b[j]) for i in range(len(a)) for j in range(len(a))))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "661a797c-3de1-5652-90c4-3c6d2a116332",
+      "version_id": "66f8d176-1eb7-52df-9359-4f7154c531b6",
+      "code": "CS13-M08-O01-CODE",
+      "version": "CS13-M08-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M08-O01"
+      ],
+      "kind": "code",
+      "title": "反向传播必须应用链式输入因子",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创标量神经元z=w*x，L=z^2/2，无偏置或非线性；dL/dw=z*x，不把dL/dz当权重梯度。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-backprop"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nw=1;x=3 if n==1 else 1;z=w*x\nprint(z)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nw=1;x=3 if n==1 else 1;z=w*x\nprint(z*x)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单位输入",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nw=1;x=3 if n==1 else 1;z=w*x\nprint(z)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nw=1;x=3 if n==1 else 1;z=w*x\nprint(z*x)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "82b518a1-3562-5ab4-8adb-2474eb4b34bd",
+      "version_id": "9335e07b-6ce2-5c3d-b010-6e426ee46d9e",
+      "code": "CS13-M08-O02-CODE",
+      "version": "CS13-M08-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M08-O02"
+      ],
+      "kind": "code",
+      "title": "训练更新应沿负梯度",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "实际一输入一输出线性神经元训练y=2x，样本1/2，20轮平均平方损失梯度，稳定学习率0.1；非完整非线性MLP。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-backprop"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nw=0.;data=[(1.,2.),(2.,4.)] if n==1 else [(1.,2.)]\ndef loss():return sum((w*x-y)**2 for x,y in data)/len(data)\ninitial=loss()\nfor _ in range(20):\n grad=sum((w*x-y)*x for x,y in data)/len(data);w+=.1*grad\nprint(loss()<initial)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nw=0.;data=[(1.,2.),(2.,4.)] if n==1 else [(1.,2.)]\ndef loss():return sum((w*x-y)**2 for x,y in data)/len(data)\ninitial=loss()\nfor _ in range(20):\n grad=sum((w*x-y)*x for x,y in data)/len(data);w-=.1*grad\nprint(loss()<initial)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单样本训练",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nw=0.;data=[(1.,2.),(2.,4.)] if n==1 else [(1.,2.)]\ndef loss():return sum((w*x-y)**2 for x,y in data)/len(data)\ninitial=loss()\nfor _ in range(20):\n grad=sum((w*x-y)*x for x,y in data)/len(data);w+=.1*grad\nprint(loss()<initial)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nw=0.;data=[(1.,2.),(2.,4.)] if n==1 else [(1.,2.)]\ndef loss():return sum((w*x-y)**2 for x,y in data)/len(data)\ninitial=loss()\nfor _ in range(20):\n grad=sum((w*x-y)*x for x,y in data)/len(data);w-=.1*grad\nprint(loss()<initial)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "ded6cf2d-dfe6-536f-98f8-cabbd0efbcbc",
+      "version_id": "e7eb2b12-e3f7-5ede-9654-a1ec0fef2924",
+      "code": "CS13-M08-O03-CODE",
+      "version": "CS13-M08-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M08-O03"
+      ],
+      "kind": "code",
+      "title": "稳定softmax先减最大logit",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "真实math.exp浮点：1000/1001直接指数溢出；减最大保持比值并归一化。只检验此输入数值稳定性。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-math"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport math\nlogits=[1000.,1001.] if n==1 else [0.,1.]\ntry:\n weights=[math.exp(x) for x in logits];p=[w/sum(weights) for w in weights];print(abs(sum(p)-1)<1e-12)\nexcept OverflowError:print('overflow')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport math\nlogits=[1000.,1001.] if n==1 else [0.,1.]\ntry:\n weights=[math.exp(x-max(logits)) for x in logits];p=[w/sum(weights) for w in weights];print(abs(sum(p)-1)<1e-12)\nexcept OverflowError:print('overflow')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "有限小logit",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport math\nlogits=[1000.,1001.] if n==1 else [0.,1.]\ntry:\n weights=[math.exp(x) for x in logits];p=[w/sum(weights) for w in weights];print(abs(sum(p)-1)<1e-12)\nexcept OverflowError:print('overflow')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport math\nlogits=[1000.,1001.] if n==1 else [0.,1.]\ntry:\n weights=[math.exp(x-max(logits)) for x in logits];p=[w/sum(weights) for w in weights];print(abs(sum(p)-1)<1e-12)\nexcept OverflowError:print('overflow')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "421fa256-a6c1-5235-8df5-77e2258ca4f2",
+      "version_id": "c786806f-43fc-51fe-a29e-1dd5cb80ee7e",
+      "code": "CS13-M09-O01-CODE",
+      "version": "CS13-M09-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M09-O01"
+      ],
+      "kind": "code",
+      "title": "精确率分母包含假阳性",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创计数TP1/FP3/FN1，precision=1/4而非recall=1/2；零分母策略需单列。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-metric"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\ntp=1;fp=3 if n==1 else 1;fn=1\nprint(Fraction(tp,tp+fn))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\ntp=1;fp=3 if n==1 else 1;fn=1\nprint(Fraction(tp,tp+fp))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "假阳性与假阴性同数",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\ntp=1;fp=3 if n==1 else 1;fn=1\nprint(Fraction(tp,tp+fn))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\ntp=1;fp=3 if n==1 else 1;fn=1\nprint(Fraction(tp,tp+fp))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "109e0e61-3366-59d2-aec3-6c6f46c47c21",
+      "version_id": "0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd",
+      "code": "CS13-M09-O02-CODE",
+      "version": "CS13-M09-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M09-O02"
+      ],
+      "kind": "code",
+      "title": "不平衡数据需独立观察少数类",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创混淆计数TN99/TP0/FN1，准确率99/100但召回0；不等于已解决不平衡训练。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-metric"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\ntn=99 if n==1 else 1;tp=0;fn=1\nprint(Fraction(tn+tp,tn+tp+fn))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\ntn=99 if n==1 else 1;tp=0;fn=1\nprint(Fraction(tp,tp+fn))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "均衡正负样本",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\ntn=99 if n==1 else 1;tp=0;fn=1\nprint(Fraction(tn+tp,tn+tp+fn))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\ntn=99 if n==1 else 1;tp=0;fn=1\nprint(Fraction(tp,tp+fn))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2107bbc3-6b46-5ee6-9ef2-c1a99abbf9fc",
+      "version_id": "d17a55b9-7ba9-5be5-a4c4-7534f36c3696",
+      "code": "CS13-M09-O03-CODE",
+      "version": "CS13-M09-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M09-O03"
+      ],
+      "kind": "code",
+      "title": "点估计相同不能忽略样本数",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创准确率1/1和100/100，点估计均为1，保留分子分母支撑不确定性讨论；不生成未经验证置信区间。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-metric"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncorrect=1 if n==1 else 100;total=correct\nprint(correct/total)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncorrect=1 if n==1 else 100;total=correct\nprint(correct,total)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "更大样本记录",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncorrect=1 if n==1 else 100;total=correct\nprint(correct/total)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncorrect=1 if n==1 else 100;total=correct\nprint(correct,total)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "f8fd6942-506b-575b-be60-5e0b9922f2fe",
+      "version_id": "61fd47a0-f84a-59df-9b7f-01658dc818d3",
+      "code": "CS13-M10-O01-CODE",
+      "version": "CS13-M10-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M10-O01"
+      ],
+      "kind": "code",
+      "title": "实验记录必须冻结种子和数据版本",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创实验metadata检查，字段齐全只是可追溯入口，不能代替实际复现。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-validation"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nrun={'seed':7,'data_version':'synthetic-v1'}\nif n==2:run['split_version']='split-v1'\nprint('seed' in run)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nrun={'seed':7,'data_version':'synthetic-v1'}\nif n==2:run['split_version']='split-v1'\nprint(all(k in run for k in ['seed','data_version','split_version']))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "划分版本已保存",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nrun={'seed':7,'data_version':'synthetic-v1'}\nif n==2:run['split_version']='split-v1'\nprint('seed' in run)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nrun={'seed':7,'data_version':'synthetic-v1'}\nif n==2:run['split_version']='split-v1'\nprint(all(k in run for k in ['seed','data_version','split_version']))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "da36613c-174e-5223-9058-04eb1c58eb1a",
+      "version_id": "d1ba46eb-ece4-5307-ae83-0e3d5f6323c5",
+      "code": "CS13-M10-O02-CODE",
+      "version": "CS13-M10-O02-CODE@0.2.0",
+      "objective_codes": [
+        "CS13-M10-O02"
+      ],
+      "kind": "code",
+      "title": "模型持久化应包含预处理参数",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "实际JSON文件保存权重2及训练中心3，重新读入预测x=5应4；只用本例JSON schema，不加载用户pickle。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。",
+        "综合项目实际拟合单特征最小二乘回归与常数基线，只用验证误差选择，最后计算测试误差。预处理从训练特征学习并随模型保存；JSON重新读取后预测。",
+        "原创合成数据，不代表真实用户数据、全机器学习算法或统计泛化保证。训练拟合/选择/测试ID分别展示，模型文件只在本次隔离作业内存在；跨会话恢复代码与结果，不保留沙箱文件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-leak",
+        "ml-linear",
+        "ml-save",
+        "ml-validation"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport json\nfrom pathlib import Path\nmodel={'weight':2,'mean':3};x=5 if n==1 else 3\nPath('model.json').write_text(json.dumps(model));restored=json.loads(Path('model.json').read_text())\nprint(restored['weight']*x)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport json\nfrom pathlib import Path\nmodel={'weight':2,'mean':3};x=5 if n==1 else 3\nPath('model.json').write_text(json.dumps(model));restored=json.loads(Path('model.json').read_text())\nprint(restored['weight']*(x-restored['mean']))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "输入等于训练中心",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport json\nfrom pathlib import Path\nmodel={'weight':2,'mean':3};x=5 if n==1 else 3\nPath('model.json').write_text(json.dumps(model));restored=json.loads(Path('model.json').read_text())\nprint(restored['weight']*x)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport json\nfrom pathlib import Path\nmodel={'weight':2,'mean':3};x=5 if n==1 else 3\nPath('model.json').write_text(json.dumps(model));restored=json.loads(Path('model.json').read_text())\nprint(restored['weight']*(x-restored['mean']))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        },
+        {
+          "code": "pipeline-leak",
+          "title": "综合项目：修复预处理数据泄漏",
+          "student_action": "预测拟合ID与误差；运行检查泄漏，修改pipeline.py，再比较选择、测试和JSON重载工件。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('pipeline','pipeline.py')\npipeline=importlib.util.module_from_spec(spec);spec.loader.exec_module(pipeline)\nresult=pipeline.run(json.loads(sys.stdin.read()))\ndef stable(value):\n    if isinstance(value,float):return round(value,8)\n    if isinstance(value,list):return [stable(v) for v in value]\n    if isinstance(value,dict):return {k:stable(v) for k,v in value.items()}\n    return value\nprint(json.dumps(stable(result),sort_keys=True))\n",
+              "pipeline.py": "\"\"\"Original single-feature regression lab, standard library only.\"\"\"\n\nimport hashlib\nimport json\nimport math\nfrom pathlib import Path\n\n\ndef mse(actual, predictions):\n    if not actual or len(actual) != len(predictions):\n        raise ValueError(\"metric needs equally sized nonempty sequences\")\n    return sum((a - b) ** 2 for a, b in zip(actual, predictions)) / len(actual)\n\n\ndef predict(model, features):\n    return [\n        model[\"intercept\"]\n        + model[\"slope\"]\n        * ((model[\"impute_mean\"] if x is None else x) - model[\"center\"])\n        for x in features\n    ]\n\n\ndef run(data, destination=\"model.json\"):\n    if len(data) > 1000:\n        raise ValueError(\"dataset exceeds 1000-row teaching budget\")\n    ids = [row[\"id\"] for row in data]\n    if len(ids) != len(set(ids)):\n        raise ValueError(\"sample IDs must be unique across splits\")\n    for row in data:\n        if row[\"split\"] not in (\"train\", \"validation\", \"test\"):\n            raise ValueError(\"unknown split\")\n        for key in (\"x\", \"y\"):\n            value = row[key]\n            if key == \"x\" and value is None:\n                continue\n            if (\n                isinstance(value, bool)\n                or not isinstance(value, (int, float))\n                or not math.isfinite(value)\n            ):\n                raise ValueError(\"features and labels must be finite numbers\")\n    splits = {\n        name: [r for r in data if r[\"split\"] == name]\n        for name in (\"train\", \"validation\", \"test\")\n    }\n    if any(not part for part in splits.values()):\n        raise ValueError(\"train, validation and test must all be nonempty\")\n    train, validation, test = (splits[n] for n in (\"train\", \"validation\", \"test\"))\n    fit_rows = data\n    observed = [r[\"x\"] for r in fit_rows if r[\"x\"] is not None]\n    if not observed:\n        raise ValueError(\"training feature is entirely missing\")\n    mean = sum(observed) / len(observed)\n    xs = [(mean if r[\"x\"] is None else r[\"x\"]) - mean for r in train]\n    ys = [r[\"y\"] for r in train]\n    xbar, ybar = sum(xs) / len(xs), sum(ys) / len(ys)\n    denominator = sum((x - xbar) ** 2 for x in xs)\n    if denominator == 0:\n        raise ValueError(\"linear candidate requires varying training features\")\n    slope = sum((x - xbar) * (y - ybar) for x, y in zip(xs, ys)) / denominator\n    linear = {\n        \"impute_mean\": mean,\n        \"center\": mean,\n        \"slope\": slope,\n        \"intercept\": ybar - slope * xbar,\n        \"schema\": \"single-feature-regression-v1\",\n    }\n    baseline = {**linear, \"slope\": 0.0, \"intercept\": ybar}\n    candidates = {\"baseline\": baseline, \"linear\": linear}\n    scores = {\n        name: mse(\n            [r[\"y\"] for r in validation], predict(model, [r[\"x\"] for r in validation])\n        )\n        for name, model in candidates.items()\n    }\n    selected = min(scores, key=lambda name: (scores[name], name))\n    model = candidates[selected]\n    # Independent finite-difference check of d(MSE)/d(slope) at an arbitrary trial point.\n    trial, epsilon = 0.75, 1e-5\n    loss = lambda weight: mse(ys, [ybar + weight * x for x in xs])\n    numeric = (loss(trial + epsilon) - loss(trial - epsilon)) / (2 * epsilon)\n    analytic = 2 * sum((ybar + trial * x - y) * x for x, y in zip(xs, ys)) / len(xs)\n    path = Path(destination)\n    path.write_text(\n        json.dumps(model, sort_keys=True, allow_nan=False), encoding=\"utf-8\"\n    )\n    restored = json.loads(path.read_text(encoding=\"utf-8\"))\n    predictions = predict(model, [r[\"x\"] for r in test])\n    return {\n        \"fit_ids\": [r[\"id\"] for r in fit_rows],\n        \"selection_ids\": [r[\"id\"] for r in validation],\n        \"test_ids\": [r[\"id\"] for r in test],\n        \"selected\": selected,\n        \"model\": model,\n        \"validation_scores\": scores,\n        \"test_predictions\": predictions,\n        \"reload_predictions\": predict(restored, [r[\"x\"] for r in test]),\n        \"test_mse\": mse([r[\"y\"] for r in test], predictions),\n        \"baseline_test_mse\": mse(\n            [r[\"y\"] for r in test], predict(baseline, [r[\"x\"] for r in test])\n        ),\n        \"gradient_error\": abs(numeric - analytic),\n        \"data_sha256\": hashlib.sha256(\n            json.dumps(data, sort_keys=True, allow_nan=False).encode()\n        ).hexdigest(),\n    }\n"
+            },
+            "stdin": "[{\"id\": \"0\", \"split\": \"train\", \"x\": 0, \"y\": 1}, {\"id\": \"1\", \"split\": \"train\", \"x\": 2, \"y\": 5}, {\"id\": \"2\", \"split\": \"train\", \"x\": 4, \"y\": 9}, {\"id\": \"3\", \"split\": \"train\", \"x\": null, \"y\": 5}, {\"id\": \"4\", \"split\": \"validation\", \"x\": 1, \"y\": 3}, {\"id\": \"5\", \"split\": \"validation\", \"x\": 3, \"y\": 7}, {\"id\": \"6\", \"split\": \"test\", \"x\": 5, \"y\": 11}, {\"id\": \"7\", \"split\": \"test\", \"x\": 7, \"y\": 15}]\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('pipeline','pipeline.py')\npipeline=importlib.util.module_from_spec(spec);spec.loader.exec_module(pipeline)\nresult=pipeline.run(json.loads(sys.stdin.read()))\ndef stable(value):\n    if isinstance(value,float):return round(value,8)\n    if isinstance(value,list):return [stable(v) for v in value]\n    if isinstance(value,dict):return {k:stable(v) for k,v in value.items()}\n    return value\nprint(json.dumps(stable(result),sort_keys=True))\n",
+              "pipeline.py": "\"\"\"Original single-feature regression lab, standard library only.\"\"\"\n\nimport hashlib\nimport json\nimport math\nfrom pathlib import Path\n\n\ndef mse(actual, predictions):\n    if not actual or len(actual) != len(predictions):\n        raise ValueError(\"metric needs equally sized nonempty sequences\")\n    return sum((a - b) ** 2 for a, b in zip(actual, predictions)) / len(actual)\n\n\ndef predict(model, features):\n    return [\n        model[\"intercept\"]\n        + model[\"slope\"]\n        * ((model[\"impute_mean\"] if x is None else x) - model[\"center\"])\n        for x in features\n    ]\n\n\ndef run(data, destination=\"model.json\"):\n    if len(data) > 1000:\n        raise ValueError(\"dataset exceeds 1000-row teaching budget\")\n    ids = [row[\"id\"] for row in data]\n    if len(ids) != len(set(ids)):\n        raise ValueError(\"sample IDs must be unique across splits\")\n    for row in data:\n        if row[\"split\"] not in (\"train\", \"validation\", \"test\"):\n            raise ValueError(\"unknown split\")\n        for key in (\"x\", \"y\"):\n            value = row[key]\n            if key == \"x\" and value is None:\n                continue\n            if (\n                isinstance(value, bool)\n                or not isinstance(value, (int, float))\n                or not math.isfinite(value)\n            ):\n                raise ValueError(\"features and labels must be finite numbers\")\n    splits = {\n        name: [r for r in data if r[\"split\"] == name]\n        for name in (\"train\", \"validation\", \"test\")\n    }\n    if any(not part for part in splits.values()):\n        raise ValueError(\"train, validation and test must all be nonempty\")\n    train, validation, test = (splits[n] for n in (\"train\", \"validation\", \"test\"))\n    fit_rows = train\n    observed = [r[\"x\"] for r in fit_rows if r[\"x\"] is not None]\n    if not observed:\n        raise ValueError(\"training feature is entirely missing\")\n    mean = sum(observed) / len(observed)\n    xs = [(mean if r[\"x\"] is None else r[\"x\"]) - mean for r in train]\n    ys = [r[\"y\"] for r in train]\n    xbar, ybar = sum(xs) / len(xs), sum(ys) / len(ys)\n    denominator = sum((x - xbar) ** 2 for x in xs)\n    if denominator == 0:\n        raise ValueError(\"linear candidate requires varying training features\")\n    slope = sum((x - xbar) * (y - ybar) for x, y in zip(xs, ys)) / denominator\n    linear = {\n        \"impute_mean\": mean,\n        \"center\": mean,\n        \"slope\": slope,\n        \"intercept\": ybar - slope * xbar,\n        \"schema\": \"single-feature-regression-v1\",\n    }\n    baseline = {**linear, \"slope\": 0.0, \"intercept\": ybar}\n    candidates = {\"baseline\": baseline, \"linear\": linear}\n    scores = {\n        name: mse(\n            [r[\"y\"] for r in validation], predict(model, [r[\"x\"] for r in validation])\n        )\n        for name, model in candidates.items()\n    }\n    selected = min(scores, key=lambda name: (scores[name], name))\n    model = candidates[selected]\n    # Independent finite-difference check of d(MSE)/d(slope) at an arbitrary trial point.\n    trial, epsilon = 0.75, 1e-5\n    loss = lambda weight: mse(ys, [ybar + weight * x for x in xs])\n    numeric = (loss(trial + epsilon) - loss(trial - epsilon)) / (2 * epsilon)\n    analytic = 2 * sum((ybar + trial * x - y) * x for x, y in zip(xs, ys)) / len(xs)\n    path = Path(destination)\n    path.write_text(\n        json.dumps(model, sort_keys=True, allow_nan=False), encoding=\"utf-8\"\n    )\n    restored = json.loads(path.read_text(encoding=\"utf-8\"))\n    predictions = predict(model, [r[\"x\"] for r in test])\n    return {\n        \"fit_ids\": [r[\"id\"] for r in fit_rows],\n        \"selection_ids\": [r[\"id\"] for r in validation],\n        \"test_ids\": [r[\"id\"] for r in test],\n        \"selected\": selected,\n        \"model\": model,\n        \"validation_scores\": scores,\n        \"test_predictions\": predictions,\n        \"reload_predictions\": predict(restored, [r[\"x\"] for r in test]),\n        \"test_mse\": mse([r[\"y\"] for r in test], predictions),\n        \"baseline_test_mse\": mse(\n            [r[\"y\"] for r in test], predict(baseline, [r[\"x\"] for r in test])\n        ),\n        \"gradient_error\": abs(numeric - analytic),\n        \"data_sha256\": hashlib.sha256(\n            json.dumps(data, sort_keys=True, allow_nan=False).encode()\n        ).hexdigest(),\n    }\n"
+            },
+            "stdin": "[{\"id\": \"0\", \"split\": \"train\", \"x\": 0, \"y\": 1}, {\"id\": \"1\", \"split\": \"train\", \"x\": 2, \"y\": 5}, {\"id\": \"2\", \"split\": \"train\", \"x\": 4, \"y\": 9}, {\"id\": \"3\", \"split\": \"train\", \"x\": null, \"y\": 5}, {\"id\": \"4\", \"split\": \"validation\", \"x\": 1, \"y\": 3}, {\"id\": \"5\", \"split\": \"validation\", \"x\": 3, \"y\": 7}, {\"id\": \"6\", \"split\": \"test\", \"x\": 5, \"y\": 11}, {\"id\": \"7\", \"split\": \"test\", \"x\": 7, \"y\": 15}]\n"
+          },
+          "prediction_prompt": "哪些样本能用于fit与selection？预测泄漏前后测试误差，并解释不能用测试误差选模型。",
+          "reflection_prompt": "用实际fit_ids定位泄漏；解释训练/验证/测试和模型恢复，还需哪些独立数据证明泛化？"
+        },
+        {
+          "code": "pipeline-shift",
+          "title": "综合新条件：测试特征范围改变后重跑",
+          "student_action": "预测拟合ID与误差；运行检查泄漏，修改pipeline.py，再比较选择、测试和JSON重载工件。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('pipeline','pipeline.py')\npipeline=importlib.util.module_from_spec(spec);spec.loader.exec_module(pipeline)\nresult=pipeline.run(json.loads(sys.stdin.read()))\ndef stable(value):\n    if isinstance(value,float):return round(value,8)\n    if isinstance(value,list):return [stable(v) for v in value]\n    if isinstance(value,dict):return {k:stable(v) for k,v in value.items()}\n    return value\nprint(json.dumps(stable(result),sort_keys=True))\n",
+              "pipeline.py": "\"\"\"Original single-feature regression lab, standard library only.\"\"\"\n\nimport hashlib\nimport json\nimport math\nfrom pathlib import Path\n\n\ndef mse(actual, predictions):\n    if not actual or len(actual) != len(predictions):\n        raise ValueError(\"metric needs equally sized nonempty sequences\")\n    return sum((a - b) ** 2 for a, b in zip(actual, predictions)) / len(actual)\n\n\ndef predict(model, features):\n    return [\n        model[\"intercept\"]\n        + model[\"slope\"]\n        * ((model[\"impute_mean\"] if x is None else x) - model[\"center\"])\n        for x in features\n    ]\n\n\ndef run(data, destination=\"model.json\"):\n    if len(data) > 1000:\n        raise ValueError(\"dataset exceeds 1000-row teaching budget\")\n    ids = [row[\"id\"] for row in data]\n    if len(ids) != len(set(ids)):\n        raise ValueError(\"sample IDs must be unique across splits\")\n    for row in data:\n        if row[\"split\"] not in (\"train\", \"validation\", \"test\"):\n            raise ValueError(\"unknown split\")\n        for key in (\"x\", \"y\"):\n            value = row[key]\n            if key == \"x\" and value is None:\n                continue\n            if (\n                isinstance(value, bool)\n                or not isinstance(value, (int, float))\n                or not math.isfinite(value)\n            ):\n                raise ValueError(\"features and labels must be finite numbers\")\n    splits = {\n        name: [r for r in data if r[\"split\"] == name]\n        for name in (\"train\", \"validation\", \"test\")\n    }\n    if any(not part for part in splits.values()):\n        raise ValueError(\"train, validation and test must all be nonempty\")\n    train, validation, test = (splits[n] for n in (\"train\", \"validation\", \"test\"))\n    fit_rows = data\n    observed = [r[\"x\"] for r in fit_rows if r[\"x\"] is not None]\n    if not observed:\n        raise ValueError(\"training feature is entirely missing\")\n    mean = sum(observed) / len(observed)\n    xs = [(mean if r[\"x\"] is None else r[\"x\"]) - mean for r in train]\n    ys = [r[\"y\"] for r in train]\n    xbar, ybar = sum(xs) / len(xs), sum(ys) / len(ys)\n    denominator = sum((x - xbar) ** 2 for x in xs)\n    if denominator == 0:\n        raise ValueError(\"linear candidate requires varying training features\")\n    slope = sum((x - xbar) * (y - ybar) for x, y in zip(xs, ys)) / denominator\n    linear = {\n        \"impute_mean\": mean,\n        \"center\": mean,\n        \"slope\": slope,\n        \"intercept\": ybar - slope * xbar,\n        \"schema\": \"single-feature-regression-v1\",\n    }\n    baseline = {**linear, \"slope\": 0.0, \"intercept\": ybar}\n    candidates = {\"baseline\": baseline, \"linear\": linear}\n    scores = {\n        name: mse(\n            [r[\"y\"] for r in validation], predict(model, [r[\"x\"] for r in validation])\n        )\n        for name, model in candidates.items()\n    }\n    selected = min(scores, key=lambda name: (scores[name], name))\n    model = candidates[selected]\n    # Independent finite-difference check of d(MSE)/d(slope) at an arbitrary trial point.\n    trial, epsilon = 0.75, 1e-5\n    loss = lambda weight: mse(ys, [ybar + weight * x for x in xs])\n    numeric = (loss(trial + epsilon) - loss(trial - epsilon)) / (2 * epsilon)\n    analytic = 2 * sum((ybar + trial * x - y) * x for x, y in zip(xs, ys)) / len(xs)\n    path = Path(destination)\n    path.write_text(\n        json.dumps(model, sort_keys=True, allow_nan=False), encoding=\"utf-8\"\n    )\n    restored = json.loads(path.read_text(encoding=\"utf-8\"))\n    predictions = predict(model, [r[\"x\"] for r in test])\n    return {\n        \"fit_ids\": [r[\"id\"] for r in fit_rows],\n        \"selection_ids\": [r[\"id\"] for r in validation],\n        \"test_ids\": [r[\"id\"] for r in test],\n        \"selected\": selected,\n        \"model\": model,\n        \"validation_scores\": scores,\n        \"test_predictions\": predictions,\n        \"reload_predictions\": predict(restored, [r[\"x\"] for r in test]),\n        \"test_mse\": mse([r[\"y\"] for r in test], predictions),\n        \"baseline_test_mse\": mse(\n            [r[\"y\"] for r in test], predict(baseline, [r[\"x\"] for r in test])\n        ),\n        \"gradient_error\": abs(numeric - analytic),\n        \"data_sha256\": hashlib.sha256(\n            json.dumps(data, sort_keys=True, allow_nan=False).encode()\n        ).hexdigest(),\n    }\n"
+            },
+            "stdin": "[{\"id\": \"0\", \"split\": \"train\", \"x\": 0, \"y\": 1}, {\"id\": \"1\", \"split\": \"train\", \"x\": 2, \"y\": 5}, {\"id\": \"2\", \"split\": \"train\", \"x\": 4, \"y\": 9}, {\"id\": \"3\", \"split\": \"train\", \"x\": null, \"y\": 5}, {\"id\": \"4\", \"split\": \"validation\", \"x\": 1, \"y\": 3}, {\"id\": \"5\", \"split\": \"validation\", \"x\": 3, \"y\": 7}, {\"id\": \"6\", \"split\": \"test\", \"x\": 15, \"y\": 31}, {\"id\": \"7\", \"split\": \"test\", \"x\": 17, \"y\": 35}]\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('pipeline','pipeline.py')\npipeline=importlib.util.module_from_spec(spec);spec.loader.exec_module(pipeline)\nresult=pipeline.run(json.loads(sys.stdin.read()))\ndef stable(value):\n    if isinstance(value,float):return round(value,8)\n    if isinstance(value,list):return [stable(v) for v in value]\n    if isinstance(value,dict):return {k:stable(v) for k,v in value.items()}\n    return value\nprint(json.dumps(stable(result),sort_keys=True))\n",
+              "pipeline.py": "\"\"\"Original single-feature regression lab, standard library only.\"\"\"\n\nimport hashlib\nimport json\nimport math\nfrom pathlib import Path\n\n\ndef mse(actual, predictions):\n    if not actual or len(actual) != len(predictions):\n        raise ValueError(\"metric needs equally sized nonempty sequences\")\n    return sum((a - b) ** 2 for a, b in zip(actual, predictions)) / len(actual)\n\n\ndef predict(model, features):\n    return [\n        model[\"intercept\"]\n        + model[\"slope\"]\n        * ((model[\"impute_mean\"] if x is None else x) - model[\"center\"])\n        for x in features\n    ]\n\n\ndef run(data, destination=\"model.json\"):\n    if len(data) > 1000:\n        raise ValueError(\"dataset exceeds 1000-row teaching budget\")\n    ids = [row[\"id\"] for row in data]\n    if len(ids) != len(set(ids)):\n        raise ValueError(\"sample IDs must be unique across splits\")\n    for row in data:\n        if row[\"split\"] not in (\"train\", \"validation\", \"test\"):\n            raise ValueError(\"unknown split\")\n        for key in (\"x\", \"y\"):\n            value = row[key]\n            if key == \"x\" and value is None:\n                continue\n            if (\n                isinstance(value, bool)\n                or not isinstance(value, (int, float))\n                or not math.isfinite(value)\n            ):\n                raise ValueError(\"features and labels must be finite numbers\")\n    splits = {\n        name: [r for r in data if r[\"split\"] == name]\n        for name in (\"train\", \"validation\", \"test\")\n    }\n    if any(not part for part in splits.values()):\n        raise ValueError(\"train, validation and test must all be nonempty\")\n    train, validation, test = (splits[n] for n in (\"train\", \"validation\", \"test\"))\n    fit_rows = train\n    observed = [r[\"x\"] for r in fit_rows if r[\"x\"] is not None]\n    if not observed:\n        raise ValueError(\"training feature is entirely missing\")\n    mean = sum(observed) / len(observed)\n    xs = [(mean if r[\"x\"] is None else r[\"x\"]) - mean for r in train]\n    ys = [r[\"y\"] for r in train]\n    xbar, ybar = sum(xs) / len(xs), sum(ys) / len(ys)\n    denominator = sum((x - xbar) ** 2 for x in xs)\n    if denominator == 0:\n        raise ValueError(\"linear candidate requires varying training features\")\n    slope = sum((x - xbar) * (y - ybar) for x, y in zip(xs, ys)) / denominator\n    linear = {\n        \"impute_mean\": mean,\n        \"center\": mean,\n        \"slope\": slope,\n        \"intercept\": ybar - slope * xbar,\n        \"schema\": \"single-feature-regression-v1\",\n    }\n    baseline = {**linear, \"slope\": 0.0, \"intercept\": ybar}\n    candidates = {\"baseline\": baseline, \"linear\": linear}\n    scores = {\n        name: mse(\n            [r[\"y\"] for r in validation], predict(model, [r[\"x\"] for r in validation])\n        )\n        for name, model in candidates.items()\n    }\n    selected = min(scores, key=lambda name: (scores[name], name))\n    model = candidates[selected]\n    # Independent finite-difference check of d(MSE)/d(slope) at an arbitrary trial point.\n    trial, epsilon = 0.75, 1e-5\n    loss = lambda weight: mse(ys, [ybar + weight * x for x in xs])\n    numeric = (loss(trial + epsilon) - loss(trial - epsilon)) / (2 * epsilon)\n    analytic = 2 * sum((ybar + trial * x - y) * x for x, y in zip(xs, ys)) / len(xs)\n    path = Path(destination)\n    path.write_text(\n        json.dumps(model, sort_keys=True, allow_nan=False), encoding=\"utf-8\"\n    )\n    restored = json.loads(path.read_text(encoding=\"utf-8\"))\n    predictions = predict(model, [r[\"x\"] for r in test])\n    return {\n        \"fit_ids\": [r[\"id\"] for r in fit_rows],\n        \"selection_ids\": [r[\"id\"] for r in validation],\n        \"test_ids\": [r[\"id\"] for r in test],\n        \"selected\": selected,\n        \"model\": model,\n        \"validation_scores\": scores,\n        \"test_predictions\": predictions,\n        \"reload_predictions\": predict(restored, [r[\"x\"] for r in test]),\n        \"test_mse\": mse([r[\"y\"] for r in test], predictions),\n        \"baseline_test_mse\": mse(\n            [r[\"y\"] for r in test], predict(baseline, [r[\"x\"] for r in test])\n        ),\n        \"gradient_error\": abs(numeric - analytic),\n        \"data_sha256\": hashlib.sha256(\n            json.dumps(data, sort_keys=True, allow_nan=False).encode()\n        ).hexdigest(),\n    }\n"
+            },
+            "stdin": "[{\"id\": \"0\", \"split\": \"train\", \"x\": 0, \"y\": 1}, {\"id\": \"1\", \"split\": \"train\", \"x\": 2, \"y\": 5}, {\"id\": \"2\", \"split\": \"train\", \"x\": 4, \"y\": 9}, {\"id\": \"3\", \"split\": \"train\", \"x\": null, \"y\": 5}, {\"id\": \"4\", \"split\": \"validation\", \"x\": 1, \"y\": 3}, {\"id\": \"5\", \"split\": \"validation\", \"x\": 3, \"y\": 7}, {\"id\": \"6\", \"split\": \"test\", \"x\": 15, \"y\": 31}, {\"id\": \"7\", \"split\": \"test\", \"x\": 17, \"y\": 35}]\n"
+          },
+          "prediction_prompt": "哪些样本能用于fit与selection？预测泄漏前后测试误差，并解释不能用测试误差选模型。",
+          "reflection_prompt": "用实际fit_ids定位泄漏；解释训练/验证/测试和模型恢复，还需哪些独立数据证明泛化？"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "09fa57c6-9c53-59bd-9b57-40ef7d573dc4",
+      "version_id": "3bee011b-8276-5f74-a4ac-03779c4cd6c7",
+      "code": "CS13-M10-O03-CODE",
+      "version": "CS13-M10-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS13-M10-O03"
+      ],
+      "kind": "code",
+      "title": "分布外输入应保留用途限制",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创模型训练支持0到10输入，20为范围外，须标记核验而非沿用训练成绩；范围检查不能检测所有分布漂移。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ml-leak"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nx=20 if n==1 else 5\nprint('validated')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nx=20 if n==1 else 5\nprint('needs_review' if x<0 or x>10 else 'in_scope')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "声明支持范围内",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nx=20 if n==1 else 5\nprint('validated')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nx=20 if n==1 else 5\nprint('needs_review' if x<0 or x>10 else 'in_scope')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "ml-validation",
+      "title": "scikit-learn Cross-validation",
+      "url": "https://scikit-learn.org/stable/modules/cross_validation.html",
+      "locator": "model selection and holdout separation",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-pca",
+      "title": "scikit-learn Decomposition",
+      "url": "https://scikit-learn.org/stable/modules/decomposition.html",
+      "locator": "centered projection and principal components",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-backprop",
+      "title": "D2L Backpropagation",
+      "url": "https://d2l.ai/chapter_multilayer-perceptrons/backprop.html",
+      "locator": "chain rule and gradient propagation",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-math",
+      "title": "Python3.13 math",
+      "url": "https://docs.python.org/3.13/library/math.html",
+      "locator": "exp overflow and floating point behavior",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-leak",
+      "title": "scikit-learn Common Pitfalls",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "locator": "split before fitting; consistent transforms; original implementation does not call sklearn",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-metric",
+      "title": "scikit-learn Metrics",
+      "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+      "locator": "classification and regression metric definitions",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-linear",
+      "title": "scikit-learn Linear Models",
+      "url": "https://scikit-learn.org/stable/modules/linear_model.html",
+      "locator": "linear/logistic models and regularization",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-tree",
+      "title": "scikit-learn Trees",
+      "url": "https://scikit-learn.org/stable/modules/tree.html",
+      "locator": "classification impurity and complexity",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-ensemble",
+      "title": "scikit-learn Ensembles",
+      "url": "https://scikit-learn.org/stable/modules/ensemble.html",
+      "locator": "bagging and boosting distinctions",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-neighbor",
+      "title": "scikit-learn Neighbors",
+      "url": "https://scikit-learn.org/stable/modules/neighbors.html",
+      "locator": "nearest neighbors and distance",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-cluster",
+      "title": "scikit-learn Clustering",
+      "url": "https://scikit-learn.org/stable/modules/clustering.html",
+      "locator": "centroids and label-independent evaluation",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ml-save",
+      "title": "scikit-learn Persistence",
+      "url": "https://scikit-learn.org/stable/model_persistence.html",
+      "locator": "persisted model dependencies and unsafe loading boundaries",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ]
+}

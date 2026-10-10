@@ -112,9 +112,9 @@
       "id": "0af5d8ff-4ed7-473f-b977-e21d6eb66ed1",
       "code": "CS13",
       "title": "机器学习基础",
-      "version_id": "b78ced2b-86e3-5ece-aaf5-8e2d0deaf4e5",
-      "version": "CS13-core-practice-0.1.0",
-      "package_path": "CS13/CS13-core-practice-0.1.0/manifest.json",
+      "version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+      "version": "CS13-core-practice-0.2.0",
+      "package_path": "CS13/CS13-core-practice-0.2.0/manifest.json",
       "full_course_available": false
     }
   ],
@@ -324,6 +324,15 @@
       "version_id": "d60ae5c9-a906-57a6-b80e-ed9dcbb31b2a",
       "version": "CS11-core-practice-0.1.0",
       "package_path": "CS11/CS11-core-practice-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "0af5d8ff-4ed7-473f-b977-e21d6eb66ed1",
+      "code": "CS13",
+      "title": "机器学习基础",
+      "version_id": "b78ced2b-86e3-5ece-aaf5-8e2d0deaf4e5",
+      "version": "CS13-core-practice-0.1.0",
+      "package_path": "CS13/CS13-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]

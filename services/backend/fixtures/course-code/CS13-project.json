@@ -1,0 +1,2114 @@
+[
+  {
+    "id": "CS13-M01-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O01",
+    "activity": "5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntarget={'kind':'category' if n==1 else 'continuous','value':1}\nprint('regression')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "regression\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M01-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O01",
+    "activity": "5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntarget={'kind':'category' if n==1 else 'continuous','value':1}\nprint('classification' if target['kind']=='category' else 'regression')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "classification\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M01-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O01",
+    "activity": "5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntarget={'kind':'category' if n==1 else 'continuous','value':1}\nprint('regression')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "regression\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M01-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O01",
+    "activity": "5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntarget={'kind':'category' if n==1 else 'continuous','value':1}\nprint('classification' if target['kind']=='category' else 'regression')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "regression\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M01-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O02",
+    "activity": "54c1b7b8-441a-5be7-981e-8faf653802b9",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfeatures={'sensor':1,'future_label':1};arrival={'sensor':0,'future_label':2 if n==1 else 0};prediction_time=1\nprint(' '.join(sorted(features)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "future_label sensor\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M01-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O02",
+    "activity": "54c1b7b8-441a-5be7-981e-8faf653802b9",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfeatures={'sensor':1,'future_label':1};arrival={'sensor':0,'future_label':2 if n==1 else 0};prediction_time=1\nprint(' '.join(sorted(k for k in features if arrival[k]<=prediction_time)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "sensor\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M01-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O02",
+    "activity": "54c1b7b8-441a-5be7-981e-8faf653802b9",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfeatures={'sensor':1,'future_label':1};arrival={'sensor':0,'future_label':2 if n==1 else 0};prediction_time=1\nprint(' '.join(sorted(features)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "future_label sensor\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M01-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O02",
+    "activity": "54c1b7b8-441a-5be7-981e-8faf653802b9",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfeatures={'sensor':1,'future_label':1};arrival={'sensor':0,'future_label':2 if n==1 else 0};prediction_time=1\nprint(' '.join(sorted(k for k in features if arrival[k]<=prediction_time)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "future_label sensor\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M01-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O03",
+    "activity": "529f4161-cc07-5ecf-9f73-583f2556db43",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntruth=[0]*9+[1] if n==1 else [0,1];pred=[0]*len(truth)\nprint(sum(a==b for a,b in zip(truth,pred)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "9\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M01-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O03",
+    "activity": "529f4161-cc07-5ecf-9f73-583f2556db43",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntruth=[0]*9+[1] if n==1 else [0,1];pred=[0]*len(truth)\ntp=sum(a==b==1 for a,b in zip(truth,pred));positive=sum(a==1 for a in truth);print(tp,positive)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M01-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O03",
+    "activity": "529f4161-cc07-5ecf-9f73-583f2556db43",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntruth=[0]*9+[1] if n==1 else [0,1];pred=[0]*len(truth)\nprint(sum(a==b for a,b in zip(truth,pred)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M01-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M01-O03",
+    "activity": "529f4161-cc07-5ecf-9f73-583f2556db43",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntruth=[0]*9+[1] if n==1 else [0,1];pred=[0]*len(truth)\ntp=sum(a==b==1 for a,b in zip(truth,pred));positive=sum(a==1 for a in truth);print(tp,positive)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M02-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O01",
+    "activity": "00fecae2-58be-5ae8-8bc6-53afee731f75",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain={'u1','u2'};test={'u2'} if n==1 else {'u3'}\nprint(len(train)>0 and len(test)>0)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M02-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O01",
+    "activity": "00fecae2-58be-5ae8-8bc6-53afee731f75",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain={'u1','u2'};test={'u2'} if n==1 else {'u3'}\nprint(not bool(train&test))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M02-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O01",
+    "activity": "00fecae2-58be-5ae8-8bc6-53afee731f75",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain={'u1','u2'};test={'u2'} if n==1 else {'u3'}\nprint(len(train)>0 and len(test)>0)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M02-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O01",
+    "activity": "00fecae2-58be-5ae8-8bc6-53afee731f75",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain={'u1','u2'};test={'u2'} if n==1 else {'u3'}\nprint(not bool(train&test))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M02-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O02",
+    "activity": "eddce4f6-ae17-5d23-952d-5bf3b7133efe",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntrain=[2,4];test=[100] if n==1 else [3]\nmean=Fraction(sum(train+test),len(train+test))\nprint(mean)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "106/3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M02-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O02",
+    "activity": "eddce4f6-ae17-5d23-952d-5bf3b7133efe",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntrain=[2,4];test=[100] if n==1 else [3]\nmean=Fraction(sum(train),len(train))\nprint(mean)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M02-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O02",
+    "activity": "eddce4f6-ae17-5d23-952d-5bf3b7133efe",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntrain=[2,4];test=[100] if n==1 else [3]\nmean=Fraction(sum(train+test),len(train+test))\nprint(mean)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M02-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O02",
+    "activity": "eddce4f6-ae17-5d23-952d-5bf3b7133efe",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntrain=[2,4];test=[100] if n==1 else [3]\nmean=Fraction(sum(train),len(train))\nprint(mean)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M02-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O03",
+    "activity": "d4ef1730-4c0e-57af-8336-4348b136532f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain=[2,4];test=[100,102] if n==1 else [2,4]\nmean=sum(test)/len(test)\nprint(' '.join(str(int(x-mean)) for x in test))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "-1 1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M02-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O03",
+    "activity": "d4ef1730-4c0e-57af-8336-4348b136532f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain=[2,4];test=[100,102] if n==1 else [2,4]\nmean=sum(train)/len(train)\nprint(' '.join(str(int(x-mean)) for x in test))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "97 99\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M02-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O03",
+    "activity": "d4ef1730-4c0e-57af-8336-4348b136532f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain=[2,4];test=[100,102] if n==1 else [2,4]\nmean=sum(test)/len(test)\nprint(' '.join(str(int(x-mean)) for x in test))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "-1 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M02-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M02-O03",
+    "activity": "d4ef1730-4c0e-57af-8336-4348b136532f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain=[2,4];test=[100,102] if n==1 else [2,4]\nmean=sum(train)/len(train)\nprint(' '.join(str(int(x-mean)) for x in test))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "-1 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M03-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O01",
+    "activity": "2c287a16-65b2-5c68-962a-332bd2db2e8f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport math\nz=0 if n==1 else 2\np=z\nprint(0<p<1)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M03-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O01",
+    "activity": "2c287a16-65b2-5c68-962a-332bd2db2e8f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport math\nz=0 if n==1 else 2\np=1/(1+math.exp(-z))\nprint(0<p<1)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M03-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O01",
+    "activity": "2c287a16-65b2-5c68-962a-332bd2db2e8f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport math\nz=0 if n==1 else 2\np=z\nprint(0<p<1)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M03-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O01",
+    "activity": "2c287a16-65b2-5c68-962a-332bd2db2e8f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport math\nz=0 if n==1 else 2\np=1/(1+math.exp(-z))\nprint(0<p<1)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M03-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O02",
+    "activity": "e8e0ed08-9f8d-5a18-b737-39b4f8559f44",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1;x=2 if n==1 else 1;y=0\ngrad=w*x-y\nprint(grad)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M03-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O02",
+    "activity": "e8e0ed08-9f8d-5a18-b737-39b4f8559f44",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1;x=2 if n==1 else 1;y=0\ngrad=(w*x-y)*x\nprint(grad)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M03-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O02",
+    "activity": "e8e0ed08-9f8d-5a18-b737-39b4f8559f44",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1;x=2 if n==1 else 1;y=0\ngrad=w*x-y\nprint(grad)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M03-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O02",
+    "activity": "e8e0ed08-9f8d-5a18-b737-39b4f8559f44",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1;x=2 if n==1 else 1;y=0\ngrad=(w*x-y)*x\nprint(grad)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M03-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O03",
+    "activity": "5da57081-e9a7-542a-b4c3-42e2e3a2ebe5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nweights=[1,-1] if n==1 else [1,0]\nprint(sum(weights))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M03-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O03",
+    "activity": "5da57081-e9a7-542a-b4c3-42e2e3a2ebe5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nweights=[1,-1] if n==1 else [1,0]\nprint(sum(w*w for w in weights))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M03-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O03",
+    "activity": "5da57081-e9a7-542a-b4c3-42e2e3a2ebe5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nweights=[1,-1] if n==1 else [1,0]\nprint(sum(weights))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M03-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M03-O03",
+    "activity": "5da57081-e9a7-542a-b4c3-42e2e3a2ebe5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nweights=[1,-1] if n==1 else [1,0]\nprint(sum(w*w for w in weights))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M04-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O01",
+    "activity": "3be6698e-e9fb-57a9-9f50-3c4d773dfd9c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1.;lr=3. if n==1 else .5;initial=w*w\nfor _ in range(20):w-=lr*w\nprint(w*w<initial)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M04-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O01",
+    "activity": "3be6698e-e9fb-57a9-9f50-3c4d773dfd9c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1.;lr=.5;initial=w*w\nfor _ in range(20):w-=lr*w\nprint(w*w<initial)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M04-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O01",
+    "activity": "3be6698e-e9fb-57a9-9f50-3c4d773dfd9c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1.;lr=3. if n==1 else .5;initial=w*w\nfor _ in range(20):w-=lr*w\nprint(w*w<initial)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M04-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O01",
+    "activity": "3be6698e-e9fb-57a9-9f50-3c4d773dfd9c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1.;lr=.5;initial=w*w\nfor _ in range(20):w-=lr*w\nprint(w*w<initial)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M04-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O02",
+    "activity": "6652f7eb-c528-58bf-aff4-8ff27fa7ac0c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain_error=0;validation_error=9 if n==1 else 0\nprint(train_error)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M04-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O02",
+    "activity": "6652f7eb-c528-58bf-aff4-8ff27fa7ac0c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain_error=0;validation_error=9 if n==1 else 0\nprint(train_error,validation_error)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0 9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M04-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O02",
+    "activity": "6652f7eb-c528-58bf-aff4-8ff27fa7ac0c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain_error=0;validation_error=9 if n==1 else 0\nprint(train_error)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M04-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O02",
+    "activity": "6652f7eb-c528-58bf-aff4-8ff27fa7ac0c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntrain_error=0;validation_error=9 if n==1 else 0\nprint(train_error,validation_error)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M04-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O03",
+    "activity": "3701118c-c5d6-56c2-ae31-7d6fac1beb6b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalidation={'A':1,'B':2};test={'A':8,'B':0} if n==1 else {'A':0,'B':8}\nprint(min(test,key=test.get))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "B\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M04-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O03",
+    "activity": "3701118c-c5d6-56c2-ae31-7d6fac1beb6b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalidation={'A':1,'B':2};test={'A':8,'B':0} if n==1 else {'A':0,'B':8}\nprint(min(validation,key=validation.get))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M04-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O03",
+    "activity": "3701118c-c5d6-56c2-ae31-7d6fac1beb6b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalidation={'A':1,'B':2};test={'A':8,'B':0} if n==1 else {'A':0,'B':8}\nprint(min(test,key=test.get))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M04-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M04-O03",
+    "activity": "3701118c-c5d6-56c2-ae31-7d6fac1beb6b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalidation={'A':1,'B':2};test={'A':8,'B':0} if n==1 else {'A':0,'B':8}\nprint(min(validation,key=validation.get))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M05-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O01",
+    "activity": "220d2466-88d0-505a-9a1a-c5abf76d579f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nweights=[2,8] if n==1 else [5,5];gini=[Fraction(0),Fraction(1,2)]\nprint(sum(gini)/2)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1/4\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M05-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O01",
+    "activity": "220d2466-88d0-505a-9a1a-c5abf76d579f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nweights=[2,8] if n==1 else [5,5];gini=[Fraction(0),Fraction(1,2)]\nprint(sum(w*g for w,g in zip(weights,gini))/sum(weights))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2/5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M05-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O01",
+    "activity": "220d2466-88d0-505a-9a1a-c5abf76d579f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nweights=[2,8] if n==1 else [5,5];gini=[Fraction(0),Fraction(1,2)]\nprint(sum(gini)/2)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1/4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M05-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O01",
+    "activity": "220d2466-88d0-505a-9a1a-c5abf76d579f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nweights=[2,8] if n==1 else [5,5];gini=[Fraction(0),Fraction(1,2)]\nprint(sum(w*g for w,g in zip(weights,gini))/sum(weights))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1/4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M05-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O02",
+    "activity": "9fbf60b9-e8b1-5648-a850-f8e35511f943",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\npredictions=[2,4] if n==1 else [3]\nprint(sum(predictions))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "6\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M05-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O02",
+    "activity": "9fbf60b9-e8b1-5648-a850-f8e35511f943",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\npredictions=[2,4] if n==1 else [3]\nprint(Fraction(sum(predictions),len(predictions)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M05-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O02",
+    "activity": "9fbf60b9-e8b1-5648-a850-f8e35511f943",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\npredictions=[2,4] if n==1 else [3]\nprint(sum(predictions))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M05-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O02",
+    "activity": "9fbf60b9-e8b1-5648-a850-f8e35511f943",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\npredictions=[2,4] if n==1 else [3]\nprint(Fraction(sum(predictions),len(predictions)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M05-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O03",
+    "activity": "07529489-2266-5d6a-9093-f24f1abcac66",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntraining={'deep':0,'shallow':1};validation={'deep':8 if n==1 else 0,'shallow':2}\nprint(min(training,key=training.get))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "deep\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M05-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O03",
+    "activity": "07529489-2266-5d6a-9093-f24f1abcac66",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntraining={'deep':0,'shallow':1};validation={'deep':8 if n==1 else 0,'shallow':2}\nprint(min(validation,key=validation.get))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "shallow\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M05-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O03",
+    "activity": "07529489-2266-5d6a-9093-f24f1abcac66",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntraining={'deep':0,'shallow':1};validation={'deep':8 if n==1 else 0,'shallow':2}\nprint(min(training,key=training.get))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "deep\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M05-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M05-O03",
+    "activity": "07529489-2266-5d6a-9093-f24f1abcac66",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntraining={'deep':0,'shallow':1};validation={'deep':8 if n==1 else 0,'shallow':2}\nprint(min(validation,key=validation.get))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "deep\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M06-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O01",
+    "activity": "ba1f138f-129d-56fe-9758-c5ee5073fe81",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoints=[(0,'A'),(10,'B')];query=1 if n==1 else 5\nprint(max(points,key=lambda p:abs(p[0]-query))[1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "B\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M06-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O01",
+    "activity": "ba1f138f-129d-56fe-9758-c5ee5073fe81",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoints=[(0,'A'),(10,'B')];query=1 if n==1 else 5\nprint(min(points,key=lambda p:abs(p[0]-query))[1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M06-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O01",
+    "activity": "ba1f138f-129d-56fe-9758-c5ee5073fe81",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoints=[(0,'A'),(10,'B')];query=1 if n==1 else 5\nprint(max(points,key=lambda p:abs(p[0]-query))[1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M06-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O01",
+    "activity": "ba1f138f-129d-56fe-9758-c5ee5073fe81",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoints=[(0,'A'),(10,'B')];query=1 if n==1 else 5\nprint(min(points,key=lambda p:abs(p[0]-query))[1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M06-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O02",
+    "activity": "1d2b8b84-2099-53b0-9577-89b2f0f07986",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoints=[(1,100,'A'),(5,0,'B')] if n==1 else [(1,0,'A'),(5,0,'B')]\nprint(min(points,key=lambda p:p[0]**2+p[1]**2)[2])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "B\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M06-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O02",
+    "activity": "1d2b8b84-2099-53b0-9577-89b2f0f07986",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoints=[(1,100,'A'),(5,0,'B')] if n==1 else [(1,0,'A'),(5,0,'B')]\nprint(min(points,key=lambda p:p[0]**2+(p[1]/100)**2)[2])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M06-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O02",
+    "activity": "1d2b8b84-2099-53b0-9577-89b2f0f07986",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoints=[(1,100,'A'),(5,0,'B')] if n==1 else [(1,0,'A'),(5,0,'B')]\nprint(min(points,key=lambda p:p[0]**2+p[1]**2)[2])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M06-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O02",
+    "activity": "1d2b8b84-2099-53b0-9577-89b2f0f07986",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoints=[(1,100,'A'),(5,0,'B')] if n==1 else [(1,0,'A'),(5,0,'B')]\nprint(min(points,key=lambda p:p[0]**2+(p[1]/100)**2)[2])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M06-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O03",
+    "activity": "adf972c0-97f4-56ab-a2be-0b4e6a7e7d86",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nxs=[-2,0,2] if n==1 else [0,2]\ntruth=[abs(x)>1 for x in xs];pred=[x>1 for x in xs]\nprint(sum(a!=b for a,b in zip(truth,pred)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M06-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O03",
+    "activity": "adf972c0-97f4-56ab-a2be-0b4e6a7e7d86",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nxs=[-2,0,2] if n==1 else [0,2]\ntruth=[abs(x)>1 for x in xs];pred=[x*x>1 for x in xs]\nprint(sum(a!=b for a,b in zip(truth,pred)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M06-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O03",
+    "activity": "adf972c0-97f4-56ab-a2be-0b4e6a7e7d86",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nxs=[-2,0,2] if n==1 else [0,2]\ntruth=[abs(x)>1 for x in xs];pred=[x>1 for x in xs]\nprint(sum(a!=b for a,b in zip(truth,pred)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M06-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M06-O03",
+    "activity": "adf972c0-97f4-56ab-a2be-0b4e6a7e7d86",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nxs=[-2,0,2] if n==1 else [0,2]\ntruth=[abs(x)>1 for x in xs];pred=[x*x>1 for x in xs]\nprint(sum(a!=b for a,b in zip(truth,pred)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M07-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O01",
+    "activity": "61616c7e-1d44-5306-9013-462e9c58fac4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ncluster=[0,2,10] if n==1 else [4,4]\nprint(cluster[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M07-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O01",
+    "activity": "61616c7e-1d44-5306-9013-462e9c58fac4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ncluster=[0,2,10] if n==1 else [4,4]\nprint(Fraction(sum(cluster),len(cluster)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M07-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O01",
+    "activity": "61616c7e-1d44-5306-9013-462e9c58fac4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ncluster=[0,2,10] if n==1 else [4,4]\nprint(cluster[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M07-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O01",
+    "activity": "61616c7e-1d44-5306-9013-462e9c58fac4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ncluster=[0,2,10] if n==1 else [4,4]\nprint(Fraction(sum(cluster),len(cluster)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M07-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O02",
+    "activity": "c96f35cc-b6cb-56c4-a3d3-d07da0925584",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoint=(5,3) if n==1 else (0,3);mean=(3,3);axis=(1,0)\nprint(sum(x*v for x,v in zip(point,axis)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M07-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O02",
+    "activity": "c96f35cc-b6cb-56c4-a3d3-d07da0925584",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoint=(5,3) if n==1 else (0,3);mean=(3,3);axis=(1,0)\nprint(sum((x-m)*v for x,m,v in zip(point,mean,axis)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M07-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O02",
+    "activity": "c96f35cc-b6cb-56c4-a3d3-d07da0925584",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoint=(5,3) if n==1 else (0,3);mean=(3,3);axis=(1,0)\nprint(sum(x*v for x,v in zip(point,axis)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M07-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O02",
+    "activity": "c96f35cc-b6cb-56c4-a3d3-d07da0925584",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npoint=(5,3) if n==1 else (0,3);mean=(3,3);axis=(1,0)\nprint(sum((x-m)*v for x,m,v in zip(point,mean,axis)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "-3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M07-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O03",
+    "activity": "5cecd8d6-d483-54b8-86c7-d991e95a157c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=[0,0,1,1];b=[1,1,0,0] if n==1 else a\nprint(a==b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M07-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O03",
+    "activity": "5cecd8d6-d483-54b8-86c7-d991e95a157c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=[0,0,1,1];b=[1,1,0,0] if n==1 else a\nprint(all((a[i]==a[j])==(b[i]==b[j]) for i in range(len(a)) for j in range(len(a))))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M07-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O03",
+    "activity": "5cecd8d6-d483-54b8-86c7-d991e95a157c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=[0,0,1,1];b=[1,1,0,0] if n==1 else a\nprint(a==b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M07-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M07-O03",
+    "activity": "5cecd8d6-d483-54b8-86c7-d991e95a157c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=[0,0,1,1];b=[1,1,0,0] if n==1 else a\nprint(all((a[i]==a[j])==(b[i]==b[j]) for i in range(len(a)) for j in range(len(a))))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M08-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O01",
+    "activity": "66f8d176-1eb7-52df-9359-4f7154c531b6",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1;x=3 if n==1 else 1;z=w*x\nprint(z)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M08-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O01",
+    "activity": "66f8d176-1eb7-52df-9359-4f7154c531b6",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1;x=3 if n==1 else 1;z=w*x\nprint(z*x)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M08-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O01",
+    "activity": "66f8d176-1eb7-52df-9359-4f7154c531b6",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1;x=3 if n==1 else 1;z=w*x\nprint(z)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M08-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O01",
+    "activity": "66f8d176-1eb7-52df-9359-4f7154c531b6",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=1;x=3 if n==1 else 1;z=w*x\nprint(z*x)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M08-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O02",
+    "activity": "9335e07b-6ce2-5c3d-b010-6e426ee46d9e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=0.;data=[(1.,2.),(2.,4.)] if n==1 else [(1.,2.)]\ndef loss():return sum((w*x-y)**2 for x,y in data)/len(data)\ninitial=loss()\nfor _ in range(20):\n grad=sum((w*x-y)*x for x,y in data)/len(data);w+=.1*grad\nprint(loss()<initial)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M08-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O02",
+    "activity": "9335e07b-6ce2-5c3d-b010-6e426ee46d9e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=0.;data=[(1.,2.),(2.,4.)] if n==1 else [(1.,2.)]\ndef loss():return sum((w*x-y)**2 for x,y in data)/len(data)\ninitial=loss()\nfor _ in range(20):\n grad=sum((w*x-y)*x for x,y in data)/len(data);w-=.1*grad\nprint(loss()<initial)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M08-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O02",
+    "activity": "9335e07b-6ce2-5c3d-b010-6e426ee46d9e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=0.;data=[(1.,2.),(2.,4.)] if n==1 else [(1.,2.)]\ndef loss():return sum((w*x-y)**2 for x,y in data)/len(data)\ninitial=loss()\nfor _ in range(20):\n grad=sum((w*x-y)*x for x,y in data)/len(data);w+=.1*grad\nprint(loss()<initial)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M08-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O02",
+    "activity": "9335e07b-6ce2-5c3d-b010-6e426ee46d9e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nw=0.;data=[(1.,2.),(2.,4.)] if n==1 else [(1.,2.)]\ndef loss():return sum((w*x-y)**2 for x,y in data)/len(data)\ninitial=loss()\nfor _ in range(20):\n grad=sum((w*x-y)*x for x,y in data)/len(data);w-=.1*grad\nprint(loss()<initial)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M08-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O03",
+    "activity": "e7eb2b12-e3f7-5ede-9654-a1ec0fef2924",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport math\nlogits=[1000.,1001.] if n==1 else [0.,1.]\ntry:\n weights=[math.exp(x) for x in logits];p=[w/sum(weights) for w in weights];print(abs(sum(p)-1)<1e-12)\nexcept OverflowError:print('overflow')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "overflow\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M08-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O03",
+    "activity": "e7eb2b12-e3f7-5ede-9654-a1ec0fef2924",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport math\nlogits=[1000.,1001.] if n==1 else [0.,1.]\ntry:\n weights=[math.exp(x-max(logits)) for x in logits];p=[w/sum(weights) for w in weights];print(abs(sum(p)-1)<1e-12)\nexcept OverflowError:print('overflow')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M08-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O03",
+    "activity": "e7eb2b12-e3f7-5ede-9654-a1ec0fef2924",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport math\nlogits=[1000.,1001.] if n==1 else [0.,1.]\ntry:\n weights=[math.exp(x) for x in logits];p=[w/sum(weights) for w in weights];print(abs(sum(p)-1)<1e-12)\nexcept OverflowError:print('overflow')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M08-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M08-O03",
+    "activity": "e7eb2b12-e3f7-5ede-9654-a1ec0fef2924",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport math\nlogits=[1000.,1001.] if n==1 else [0.,1.]\ntry:\n weights=[math.exp(x-max(logits)) for x in logits];p=[w/sum(weights) for w in weights];print(abs(sum(p)-1)<1e-12)\nexcept OverflowError:print('overflow')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M09-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O01",
+    "activity": "c786806f-43fc-51fe-a29e-1dd5cb80ee7e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntp=1;fp=3 if n==1 else 1;fn=1\nprint(Fraction(tp,tp+fn))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1/2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M09-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O01",
+    "activity": "c786806f-43fc-51fe-a29e-1dd5cb80ee7e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntp=1;fp=3 if n==1 else 1;fn=1\nprint(Fraction(tp,tp+fp))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1/4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M09-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O01",
+    "activity": "c786806f-43fc-51fe-a29e-1dd5cb80ee7e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntp=1;fp=3 if n==1 else 1;fn=1\nprint(Fraction(tp,tp+fn))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1/2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M09-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O01",
+    "activity": "c786806f-43fc-51fe-a29e-1dd5cb80ee7e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntp=1;fp=3 if n==1 else 1;fn=1\nprint(Fraction(tp,tp+fp))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1/2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M09-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O02",
+    "activity": "0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntn=99 if n==1 else 1;tp=0;fn=1\nprint(Fraction(tn+tp,tn+tp+fn))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "99/100\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M09-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O02",
+    "activity": "0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntn=99 if n==1 else 1;tp=0;fn=1\nprint(Fraction(tp,tp+fn))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M09-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O02",
+    "activity": "0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntn=99 if n==1 else 1;tp=0;fn=1\nprint(Fraction(tn+tp,tn+tp+fn))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1/2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M09-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O02",
+    "activity": "0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ntn=99 if n==1 else 1;tp=0;fn=1\nprint(Fraction(tp,tp+fn))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M09-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O03",
+    "activity": "d17a55b9-7ba9-5be5-a4c4-7534f36c3696",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncorrect=1 if n==1 else 100;total=correct\nprint(correct/total)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1.0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M09-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O03",
+    "activity": "d17a55b9-7ba9-5be5-a4c4-7534f36c3696",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncorrect=1 if n==1 else 100;total=correct\nprint(correct,total)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M09-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O03",
+    "activity": "d17a55b9-7ba9-5be5-a4c4-7534f36c3696",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncorrect=1 if n==1 else 100;total=correct\nprint(correct/total)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1.0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M09-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M09-O03",
+    "activity": "d17a55b9-7ba9-5be5-a4c4-7534f36c3696",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncorrect=1 if n==1 else 100;total=correct\nprint(correct,total)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "100 100\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M10-O01/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O01",
+    "activity": "61fd47a0-f84a-59df-9b7f-01658dc818d3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrun={'seed':7,'data_version':'synthetic-v1'}\nif n==2:run['split_version']='split-v1'\nprint('seed' in run)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M10-O01/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O01",
+    "activity": "61fd47a0-f84a-59df-9b7f-01658dc818d3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrun={'seed':7,'data_version':'synthetic-v1'}\nif n==2:run['split_version']='split-v1'\nprint(all(k in run for k in ['seed','data_version','split_version']))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M10-O01/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O01",
+    "activity": "61fd47a0-f84a-59df-9b7f-01658dc818d3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrun={'seed':7,'data_version':'synthetic-v1'}\nif n==2:run['split_version']='split-v1'\nprint('seed' in run)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M10-O01/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O01",
+    "activity": "61fd47a0-f84a-59df-9b7f-01658dc818d3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrun={'seed':7,'data_version':'synthetic-v1'}\nif n==2:run['split_version']='split-v1'\nprint(all(k in run for k in ['seed','data_version','split_version']))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M10-O02/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O02",
+    "activity": "d1ba46eb-ece4-5307-ae83-0e3d5f6323c5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport json\nfrom pathlib import Path\nmodel={'weight':2,'mean':3};x=5 if n==1 else 3\nPath('model.json').write_text(json.dumps(model));restored=json.loads(Path('model.json').read_text())\nprint(restored['weight']*x)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M10-O02/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O02",
+    "activity": "d1ba46eb-ece4-5307-ae83-0e3d5f6323c5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport json\nfrom pathlib import Path\nmodel={'weight':2,'mean':3};x=5 if n==1 else 3\nPath('model.json').write_text(json.dumps(model));restored=json.loads(Path('model.json').read_text())\nprint(restored['weight']*(x-restored['mean']))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M10-O02/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O02",
+    "activity": "d1ba46eb-ece4-5307-ae83-0e3d5f6323c5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport json\nfrom pathlib import Path\nmodel={'weight':2,'mean':3};x=5 if n==1 else 3\nPath('model.json').write_text(json.dumps(model));restored=json.loads(Path('model.json').read_text())\nprint(restored['weight']*x)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "6\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M10-O02/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O02",
+    "activity": "d1ba46eb-ece4-5307-ae83-0e3d5f6323c5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport json\nfrom pathlib import Path\nmodel={'weight':2,'mean':3};x=5 if n==1 else 3\nPath('model.json').write_text(json.dumps(model));restored=json.loads(Path('model.json').read_text())\nprint(restored['weight']*(x-restored['mean']))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M10-O03/base/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O03",
+    "activity": "3bee011b-8276-5f74-a4ac-03779c4cd6c7",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=20 if n==1 else 5\nprint('validated')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "validated\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M10-O03/base/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O03",
+    "activity": "3bee011b-8276-5f74-a4ac-03779c4cd6c7",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=20 if n==1 else 5\nprint('needs_review' if x<0 or x>10 else 'in_scope')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "needs_review\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS13-M10-O03/changed-condition/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O03",
+    "activity": "3bee011b-8276-5f74-a4ac-03779c4cd6c7",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=20 if n==1 else 5\nprint('validated')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "validated\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS13-M10-O03/changed-condition/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O03",
+    "activity": "3bee011b-8276-5f74-a4ac-03779c4cd6c7",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=20 if n==1 else 5\nprint('needs_review' if x<0 or x>10 else 'in_scope')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "in_scope\n",
+    "decision": "met"
+  },
+  {
+    "id": "pipeline-leak/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O02",
+    "activity": "d1ba46eb-ece4-5307-ae83-0e3d5f6323c5",
+    "task": "pipeline-leak",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('pipeline','pipeline.py')\npipeline=importlib.util.module_from_spec(spec);spec.loader.exec_module(pipeline)\nresult=pipeline.run(json.loads(sys.stdin.read()))\ndef stable(value):\n    if isinstance(value,float):return round(value,8)\n    if isinstance(value,list):return [stable(v) for v in value]\n    if isinstance(value,dict):return {k:stable(v) for k,v in value.items()}\n    return value\nprint(json.dumps(stable(result),sort_keys=True))\n",
+        "pipeline.py": "\"\"\"Original single-feature regression lab, standard library only.\"\"\"\n\nimport hashlib\nimport json\nimport math\nfrom pathlib import Path\n\n\ndef mse(actual, predictions):\n    if not actual or len(actual) != len(predictions):\n        raise ValueError(\"metric needs equally sized nonempty sequences\")\n    return sum((a - b) ** 2 for a, b in zip(actual, predictions)) / len(actual)\n\n\ndef predict(model, features):\n    return [\n        model[\"intercept\"]\n        + model[\"slope\"]\n        * ((model[\"impute_mean\"] if x is None else x) - model[\"center\"])\n        for x in features\n    ]\n\n\ndef run(data, destination=\"model.json\"):\n    if len(data) > 1000:\n        raise ValueError(\"dataset exceeds 1000-row teaching budget\")\n    ids = [row[\"id\"] for row in data]\n    if len(ids) != len(set(ids)):\n        raise ValueError(\"sample IDs must be unique across splits\")\n    for row in data:\n        if row[\"split\"] not in (\"train\", \"validation\", \"test\"):\n            raise ValueError(\"unknown split\")\n        for key in (\"x\", \"y\"):\n            value = row[key]\n            if key == \"x\" and value is None:\n                continue\n            if (\n                isinstance(value, bool)\n                or not isinstance(value, (int, float))\n                or not math.isfinite(value)\n            ):\n                raise ValueError(\"features and labels must be finite numbers\")\n    splits = {\n        name: [r for r in data if r[\"split\"] == name]\n        for name in (\"train\", \"validation\", \"test\")\n    }\n    if any(not part for part in splits.values()):\n        raise ValueError(\"train, validation and test must all be nonempty\")\n    train, validation, test = (splits[n] for n in (\"train\", \"validation\", \"test\"))\n    fit_rows = data\n    observed = [r[\"x\"] for r in fit_rows if r[\"x\"] is not None]\n    if not observed:\n        raise ValueError(\"training feature is entirely missing\")\n    mean = sum(observed) / len(observed)\n    xs = [(mean if r[\"x\"] is None else r[\"x\"]) - mean for r in train]\n    ys = [r[\"y\"] for r in train]\n    xbar, ybar = sum(xs) / len(xs), sum(ys) / len(ys)\n    denominator = sum((x - xbar) ** 2 for x in xs)\n    if denominator == 0:\n        raise ValueError(\"linear candidate requires varying training features\")\n    slope = sum((x - xbar) * (y - ybar) for x, y in zip(xs, ys)) / denominator\n    linear = {\n        \"impute_mean\": mean,\n        \"center\": mean,\n        \"slope\": slope,\n        \"intercept\": ybar - slope * xbar,\n        \"schema\": \"single-feature-regression-v1\",\n    }\n    baseline = {**linear, \"slope\": 0.0, \"intercept\": ybar}\n    candidates = {\"baseline\": baseline, \"linear\": linear}\n    scores = {\n        name: mse(\n            [r[\"y\"] for r in validation], predict(model, [r[\"x\"] for r in validation])\n        )\n        for name, model in candidates.items()\n    }\n    selected = min(scores, key=lambda name: (scores[name], name))\n    model = candidates[selected]\n    # Independent finite-difference check of d(MSE)/d(slope) at an arbitrary trial point.\n    trial, epsilon = 0.75, 1e-5\n    loss = lambda weight: mse(ys, [ybar + weight * x for x in xs])\n    numeric = (loss(trial + epsilon) - loss(trial - epsilon)) / (2 * epsilon)\n    analytic = 2 * sum((ybar + trial * x - y) * x for x, y in zip(xs, ys)) / len(xs)\n    path = Path(destination)\n    path.write_text(\n        json.dumps(model, sort_keys=True, allow_nan=False), encoding=\"utf-8\"\n    )\n    restored = json.loads(path.read_text(encoding=\"utf-8\"))\n    predictions = predict(model, [r[\"x\"] for r in test])\n    return {\n        \"fit_ids\": [r[\"id\"] for r in fit_rows],\n        \"selection_ids\": [r[\"id\"] for r in validation],\n        \"test_ids\": [r[\"id\"] for r in test],\n        \"selected\": selected,\n        \"model\": model,\n        \"validation_scores\": scores,\n        \"test_predictions\": predictions,\n        \"reload_predictions\": predict(restored, [r[\"x\"] for r in test]),\n        \"test_mse\": mse([r[\"y\"] for r in test], predictions),\n        \"baseline_test_mse\": mse(\n            [r[\"y\"] for r in test], predict(baseline, [r[\"x\"] for r in test])\n        ),\n        \"gradient_error\": abs(numeric - analytic),\n        \"data_sha256\": hashlib.sha256(\n            json.dumps(data, sort_keys=True, allow_nan=False).encode()\n        ).hexdigest(),\n    }\n"
+      },
+      "stdin": "[{\"id\": \"0\", \"split\": \"train\", \"x\": 0, \"y\": 1}, {\"id\": \"1\", \"split\": \"train\", \"x\": 2, \"y\": 5}, {\"id\": \"2\", \"split\": \"train\", \"x\": 4, \"y\": 9}, {\"id\": \"3\", \"split\": \"train\", \"x\": null, \"y\": 5}, {\"id\": \"4\", \"split\": \"validation\", \"x\": 1, \"y\": 3}, {\"id\": \"5\", \"split\": \"validation\", \"x\": 3, \"y\": 7}, {\"id\": \"6\", \"split\": \"test\", \"x\": 5, \"y\": 11}, {\"id\": \"7\", \"split\": \"test\", \"x\": 7, \"y\": 15}]\n"
+    },
+    "stdout": "{\"baseline_test_mse\": 68.0, \"data_sha256\": \"43b47f964e12d51007656eed934b6c7698dde070129daa842c77d4e6f549070e\", \"fit_ids\": [\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\"], \"gradient_error\": 0.0, \"model\": {\"center\": 3.14285714, \"impute_mean\": 3.14285714, \"intercept\": 6.52727273, \"schema\": \"single-feature-regression-v1\", \"slope\": 1.78181818}, \"reload_predictions\": [9.83636364, 13.4], \"selected\": \"linear\", \"selection_ids\": [\"4\", \"5\"], \"test_ids\": [\"6\", \"7\"], \"test_mse\": 1.95702479, \"test_predictions\": [9.83636364, 13.4], \"validation_scores\": {\"baseline\": 4.0, \"linear\": 0.30677686}}\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "pipeline-leak/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O02",
+    "activity": "d1ba46eb-ece4-5307-ae83-0e3d5f6323c5",
+    "task": "pipeline-leak",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('pipeline','pipeline.py')\npipeline=importlib.util.module_from_spec(spec);spec.loader.exec_module(pipeline)\nresult=pipeline.run(json.loads(sys.stdin.read()))\ndef stable(value):\n    if isinstance(value,float):return round(value,8)\n    if isinstance(value,list):return [stable(v) for v in value]\n    if isinstance(value,dict):return {k:stable(v) for k,v in value.items()}\n    return value\nprint(json.dumps(stable(result),sort_keys=True))\n",
+        "pipeline.py": "\"\"\"Original single-feature regression lab, standard library only.\"\"\"\n\nimport hashlib\nimport json\nimport math\nfrom pathlib import Path\n\n\ndef mse(actual, predictions):\n    if not actual or len(actual) != len(predictions):\n        raise ValueError(\"metric needs equally sized nonempty sequences\")\n    return sum((a - b) ** 2 for a, b in zip(actual, predictions)) / len(actual)\n\n\ndef predict(model, features):\n    return [\n        model[\"intercept\"]\n        + model[\"slope\"]\n        * ((model[\"impute_mean\"] if x is None else x) - model[\"center\"])\n        for x in features\n    ]\n\n\ndef run(data, destination=\"model.json\"):\n    if len(data) > 1000:\n        raise ValueError(\"dataset exceeds 1000-row teaching budget\")\n    ids = [row[\"id\"] for row in data]\n    if len(ids) != len(set(ids)):\n        raise ValueError(\"sample IDs must be unique across splits\")\n    for row in data:\n        if row[\"split\"] not in (\"train\", \"validation\", \"test\"):\n            raise ValueError(\"unknown split\")\n        for key in (\"x\", \"y\"):\n            value = row[key]\n            if key == \"x\" and value is None:\n                continue\n            if (\n                isinstance(value, bool)\n                or not isinstance(value, (int, float))\n                or not math.isfinite(value)\n            ):\n                raise ValueError(\"features and labels must be finite numbers\")\n    splits = {\n        name: [r for r in data if r[\"split\"] == name]\n        for name in (\"train\", \"validation\", \"test\")\n    }\n    if any(not part for part in splits.values()):\n        raise ValueError(\"train, validation and test must all be nonempty\")\n    train, validation, test = (splits[n] for n in (\"train\", \"validation\", \"test\"))\n    fit_rows = train\n    observed = [r[\"x\"] for r in fit_rows if r[\"x\"] is not None]\n    if not observed:\n        raise ValueError(\"training feature is entirely missing\")\n    mean = sum(observed) / len(observed)\n    xs = [(mean if r[\"x\"] is None else r[\"x\"]) - mean for r in train]\n    ys = [r[\"y\"] for r in train]\n    xbar, ybar = sum(xs) / len(xs), sum(ys) / len(ys)\n    denominator = sum((x - xbar) ** 2 for x in xs)\n    if denominator == 0:\n        raise ValueError(\"linear candidate requires varying training features\")\n    slope = sum((x - xbar) * (y - ybar) for x, y in zip(xs, ys)) / denominator\n    linear = {\n        \"impute_mean\": mean,\n        \"center\": mean,\n        \"slope\": slope,\n        \"intercept\": ybar - slope * xbar,\n        \"schema\": \"single-feature-regression-v1\",\n    }\n    baseline = {**linear, \"slope\": 0.0, \"intercept\": ybar}\n    candidates = {\"baseline\": baseline, \"linear\": linear}\n    scores = {\n        name: mse(\n            [r[\"y\"] for r in validation], predict(model, [r[\"x\"] for r in validation])\n        )\n        for name, model in candidates.items()\n    }\n    selected = min(scores, key=lambda name: (scores[name], name))\n    model = candidates[selected]\n    # Independent finite-difference check of d(MSE)/d(slope) at an arbitrary trial point.\n    trial, epsilon = 0.75, 1e-5\n    loss = lambda weight: mse(ys, [ybar + weight * x for x in xs])\n    numeric = (loss(trial + epsilon) - loss(trial - epsilon)) / (2 * epsilon)\n    analytic = 2 * sum((ybar + trial * x - y) * x for x, y in zip(xs, ys)) / len(xs)\n    path = Path(destination)\n    path.write_text(\n        json.dumps(model, sort_keys=True, allow_nan=False), encoding=\"utf-8\"\n    )\n    restored = json.loads(path.read_text(encoding=\"utf-8\"))\n    predictions = predict(model, [r[\"x\"] for r in test])\n    return {\n        \"fit_ids\": [r[\"id\"] for r in fit_rows],\n        \"selection_ids\": [r[\"id\"] for r in validation],\n        \"test_ids\": [r[\"id\"] for r in test],\n        \"selected\": selected,\n        \"model\": model,\n        \"validation_scores\": scores,\n        \"test_predictions\": predictions,\n        \"reload_predictions\": predict(restored, [r[\"x\"] for r in test]),\n        \"test_mse\": mse([r[\"y\"] for r in test], predictions),\n        \"baseline_test_mse\": mse(\n            [r[\"y\"] for r in test], predict(baseline, [r[\"x\"] for r in test])\n        ),\n        \"gradient_error\": abs(numeric - analytic),\n        \"data_sha256\": hashlib.sha256(\n            json.dumps(data, sort_keys=True, allow_nan=False).encode()\n        ).hexdigest(),\n    }\n"
+      },
+      "stdin": "[{\"id\": \"0\", \"split\": \"train\", \"x\": 0, \"y\": 1}, {\"id\": \"1\", \"split\": \"train\", \"x\": 2, \"y\": 5}, {\"id\": \"2\", \"split\": \"train\", \"x\": 4, \"y\": 9}, {\"id\": \"3\", \"split\": \"train\", \"x\": null, \"y\": 5}, {\"id\": \"4\", \"split\": \"validation\", \"x\": 1, \"y\": 3}, {\"id\": \"5\", \"split\": \"validation\", \"x\": 3, \"y\": 7}, {\"id\": \"6\", \"split\": \"test\", \"x\": 5, \"y\": 11}, {\"id\": \"7\", \"split\": \"test\", \"x\": 7, \"y\": 15}]\n"
+    },
+    "stdout": "{\"baseline_test_mse\": 68.0, \"data_sha256\": \"43b47f964e12d51007656eed934b6c7698dde070129daa842c77d4e6f549070e\", \"fit_ids\": [\"0\", \"1\", \"2\", \"3\"], \"gradient_error\": 0.0, \"model\": {\"center\": 2.0, \"impute_mean\": 2.0, \"intercept\": 5.0, \"schema\": \"single-feature-regression-v1\", \"slope\": 2.0}, \"reload_predictions\": [11.0, 15.0], \"selected\": \"linear\", \"selection_ids\": [\"4\", \"5\"], \"test_ids\": [\"6\", \"7\"], \"test_mse\": 0.0, \"test_predictions\": [11.0, 15.0], \"validation_scores\": {\"baseline\": 4.0, \"linear\": 0.0}}\n",
+    "decision": "met"
+  },
+  {
+    "id": "pipeline-shift/initial",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O02",
+    "activity": "d1ba46eb-ece4-5307-ae83-0e3d5f6323c5",
+    "task": "pipeline-shift",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('pipeline','pipeline.py')\npipeline=importlib.util.module_from_spec(spec);spec.loader.exec_module(pipeline)\nresult=pipeline.run(json.loads(sys.stdin.read()))\ndef stable(value):\n    if isinstance(value,float):return round(value,8)\n    if isinstance(value,list):return [stable(v) for v in value]\n    if isinstance(value,dict):return {k:stable(v) for k,v in value.items()}\n    return value\nprint(json.dumps(stable(result),sort_keys=True))\n",
+        "pipeline.py": "\"\"\"Original single-feature regression lab, standard library only.\"\"\"\n\nimport hashlib\nimport json\nimport math\nfrom pathlib import Path\n\n\ndef mse(actual, predictions):\n    if not actual or len(actual) != len(predictions):\n        raise ValueError(\"metric needs equally sized nonempty sequences\")\n    return sum((a - b) ** 2 for a, b in zip(actual, predictions)) / len(actual)\n\n\ndef predict(model, features):\n    return [\n        model[\"intercept\"]\n        + model[\"slope\"]\n        * ((model[\"impute_mean\"] if x is None else x) - model[\"center\"])\n        for x in features\n    ]\n\n\ndef run(data, destination=\"model.json\"):\n    if len(data) > 1000:\n        raise ValueError(\"dataset exceeds 1000-row teaching budget\")\n    ids = [row[\"id\"] for row in data]\n    if len(ids) != len(set(ids)):\n        raise ValueError(\"sample IDs must be unique across splits\")\n    for row in data:\n        if row[\"split\"] not in (\"train\", \"validation\", \"test\"):\n            raise ValueError(\"unknown split\")\n        for key in (\"x\", \"y\"):\n            value = row[key]\n            if key == \"x\" and value is None:\n                continue\n            if (\n                isinstance(value, bool)\n                or not isinstance(value, (int, float))\n                or not math.isfinite(value)\n            ):\n                raise ValueError(\"features and labels must be finite numbers\")\n    splits = {\n        name: [r for r in data if r[\"split\"] == name]\n        for name in (\"train\", \"validation\", \"test\")\n    }\n    if any(not part for part in splits.values()):\n        raise ValueError(\"train, validation and test must all be nonempty\")\n    train, validation, test = (splits[n] for n in (\"train\", \"validation\", \"test\"))\n    fit_rows = data\n    observed = [r[\"x\"] for r in fit_rows if r[\"x\"] is not None]\n    if not observed:\n        raise ValueError(\"training feature is entirely missing\")\n    mean = sum(observed) / len(observed)\n    xs = [(mean if r[\"x\"] is None else r[\"x\"]) - mean for r in train]\n    ys = [r[\"y\"] for r in train]\n    xbar, ybar = sum(xs) / len(xs), sum(ys) / len(ys)\n    denominator = sum((x - xbar) ** 2 for x in xs)\n    if denominator == 0:\n        raise ValueError(\"linear candidate requires varying training features\")\n    slope = sum((x - xbar) * (y - ybar) for x, y in zip(xs, ys)) / denominator\n    linear = {\n        \"impute_mean\": mean,\n        \"center\": mean,\n        \"slope\": slope,\n        \"intercept\": ybar - slope * xbar,\n        \"schema\": \"single-feature-regression-v1\",\n    }\n    baseline = {**linear, \"slope\": 0.0, \"intercept\": ybar}\n    candidates = {\"baseline\": baseline, \"linear\": linear}\n    scores = {\n        name: mse(\n            [r[\"y\"] for r in validation], predict(model, [r[\"x\"] for r in validation])\n        )\n        for name, model in candidates.items()\n    }\n    selected = min(scores, key=lambda name: (scores[name], name))\n    model = candidates[selected]\n    # Independent finite-difference check of d(MSE)/d(slope) at an arbitrary trial point.\n    trial, epsilon = 0.75, 1e-5\n    loss = lambda weight: mse(ys, [ybar + weight * x for x in xs])\n    numeric = (loss(trial + epsilon) - loss(trial - epsilon)) / (2 * epsilon)\n    analytic = 2 * sum((ybar + trial * x - y) * x for x, y in zip(xs, ys)) / len(xs)\n    path = Path(destination)\n    path.write_text(\n        json.dumps(model, sort_keys=True, allow_nan=False), encoding=\"utf-8\"\n    )\n    restored = json.loads(path.read_text(encoding=\"utf-8\"))\n    predictions = predict(model, [r[\"x\"] for r in test])\n    return {\n        \"fit_ids\": [r[\"id\"] for r in fit_rows],\n        \"selection_ids\": [r[\"id\"] for r in validation],\n        \"test_ids\": [r[\"id\"] for r in test],\n        \"selected\": selected,\n        \"model\": model,\n        \"validation_scores\": scores,\n        \"test_predictions\": predictions,\n        \"reload_predictions\": predict(restored, [r[\"x\"] for r in test]),\n        \"test_mse\": mse([r[\"y\"] for r in test], predictions),\n        \"baseline_test_mse\": mse(\n            [r[\"y\"] for r in test], predict(baseline, [r[\"x\"] for r in test])\n        ),\n        \"gradient_error\": abs(numeric - analytic),\n        \"data_sha256\": hashlib.sha256(\n            json.dumps(data, sort_keys=True, allow_nan=False).encode()\n        ).hexdigest(),\n    }\n"
+      },
+      "stdin": "[{\"id\": \"0\", \"split\": \"train\", \"x\": 0, \"y\": 1}, {\"id\": \"1\", \"split\": \"train\", \"x\": 2, \"y\": 5}, {\"id\": \"2\", \"split\": \"train\", \"x\": 4, \"y\": 9}, {\"id\": \"3\", \"split\": \"train\", \"x\": null, \"y\": 5}, {\"id\": \"4\", \"split\": \"validation\", \"x\": 1, \"y\": 3}, {\"id\": \"5\", \"split\": \"validation\", \"x\": 3, \"y\": 7}, {\"id\": \"6\", \"split\": \"test\", \"x\": 15, \"y\": 31}, {\"id\": \"7\", \"split\": \"test\", \"x\": 17, \"y\": 35}]\n"
+    },
+    "stdout": "{\"baseline_test_mse\": 788.0, \"data_sha256\": \"7fcf12df5344161e96d835c50f9cb71614c6ce1e5585c1be0a97b40b6a5e352c\", \"fit_ids\": [\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\"], \"gradient_error\": 0.0, \"model\": {\"center\": 6.0, \"impute_mean\": 6.0, \"intercept\": 7.4, \"schema\": \"single-feature-regression-v1\", \"slope\": 0.8}, \"reload_predictions\": [14.6, 16.2], \"selected\": \"linear\", \"selection_ids\": [\"4\", \"5\"], \"test_ids\": [\"6\", \"7\"], \"test_mse\": 311.2, \"test_predictions\": [14.6, 16.2], \"validation_scores\": {\"baseline\": 4.0, \"linear\": 2.08}}\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "pipeline-shift/repaired",
+    "version": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
+    "goal": "CS13-M10-O02",
+    "activity": "d1ba46eb-ece4-5307-ae83-0e3d5f6323c5",
+    "task": "pipeline-shift",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('pipeline','pipeline.py')\npipeline=importlib.util.module_from_spec(spec);spec.loader.exec_module(pipeline)\nresult=pipeline.run(json.loads(sys.stdin.read()))\ndef stable(value):\n    if isinstance(value,float):return round(value,8)\n    if isinstance(value,list):return [stable(v) for v in value]\n    if isinstance(value,dict):return {k:stable(v) for k,v in value.items()}\n    return value\nprint(json.dumps(stable(result),sort_keys=True))\n",
+        "pipeline.py": "\"\"\"Original single-feature regression lab, standard library only.\"\"\"\n\nimport hashlib\nimport json\nimport math\nfrom pathlib import Path\n\n\ndef mse(actual, predictions):\n    if not actual or len(actual) != len(predictions):\n        raise ValueError(\"metric needs equally sized nonempty sequences\")\n    return sum((a - b) ** 2 for a, b in zip(actual, predictions)) / len(actual)\n\n\ndef predict(model, features):\n    return [\n        model[\"intercept\"]\n        + model[\"slope\"]\n        * ((model[\"impute_mean\"] if x is None else x) - model[\"center\"])\n        for x in features\n    ]\n\n\ndef run(data, destination=\"model.json\"):\n    if len(data) > 1000:\n        raise ValueError(\"dataset exceeds 1000-row teaching budget\")\n    ids = [row[\"id\"] for row in data]\n    if len(ids) != len(set(ids)):\n        raise ValueError(\"sample IDs must be unique across splits\")\n    for row in data:\n        if row[\"split\"] not in (\"train\", \"validation\", \"test\"):\n            raise ValueError(\"unknown split\")\n        for key in (\"x\", \"y\"):\n            value = row[key]\n            if key == \"x\" and value is None:\n                continue\n            if (\n                isinstance(value, bool)\n                or not isinstance(value, (int, float))\n                or not math.isfinite(value)\n            ):\n                raise ValueError(\"features and labels must be finite numbers\")\n    splits = {\n        name: [r for r in data if r[\"split\"] == name]\n        for name in (\"train\", \"validation\", \"test\")\n    }\n    if any(not part for part in splits.values()):\n        raise ValueError(\"train, validation and test must all be nonempty\")\n    train, validation, test = (splits[n] for n in (\"train\", \"validation\", \"test\"))\n    fit_rows = train\n    observed = [r[\"x\"] for r in fit_rows if r[\"x\"] is not None]\n    if not observed:\n        raise ValueError(\"training feature is entirely missing\")\n    mean = sum(observed) / len(observed)\n    xs = [(mean if r[\"x\"] is None else r[\"x\"]) - mean for r in train]\n    ys = [r[\"y\"] for r in train]\n    xbar, ybar = sum(xs) / len(xs), sum(ys) / len(ys)\n    denominator = sum((x - xbar) ** 2 for x in xs)\n    if denominator == 0:\n        raise ValueError(\"linear candidate requires varying training features\")\n    slope = sum((x - xbar) * (y - ybar) for x, y in zip(xs, ys)) / denominator\n    linear = {\n        \"impute_mean\": mean,\n        \"center\": mean,\n        \"slope\": slope,\n        \"intercept\": ybar - slope * xbar,\n        \"schema\": \"single-feature-regression-v1\",\n    }\n    baseline = {**linear, \"slope\": 0.0, \"intercept\": ybar}\n    candidates = {\"baseline\": baseline, \"linear\": linear}\n    scores = {\n        name: mse(\n            [r[\"y\"] for r in validation], predict(model, [r[\"x\"] for r in validation])\n        )\n        for name, model in candidates.items()\n    }\n    selected = min(scores, key=lambda name: (scores[name], name))\n    model = candidates[selected]\n    # Independent finite-difference check of d(MSE)/d(slope) at an arbitrary trial point.\n    trial, epsilon = 0.75, 1e-5\n    loss = lambda weight: mse(ys, [ybar + weight * x for x in xs])\n    numeric = (loss(trial + epsilon) - loss(trial - epsilon)) / (2 * epsilon)\n    analytic = 2 * sum((ybar + trial * x - y) * x for x, y in zip(xs, ys)) / len(xs)\n    path = Path(destination)\n    path.write_text(\n        json.dumps(model, sort_keys=True, allow_nan=False), encoding=\"utf-8\"\n    )\n    restored = json.loads(path.read_text(encoding=\"utf-8\"))\n    predictions = predict(model, [r[\"x\"] for r in test])\n    return {\n        \"fit_ids\": [r[\"id\"] for r in fit_rows],\n        \"selection_ids\": [r[\"id\"] for r in validation],\n        \"test_ids\": [r[\"id\"] for r in test],\n        \"selected\": selected,\n        \"model\": model,\n        \"validation_scores\": scores,\n        \"test_predictions\": predictions,\n        \"reload_predictions\": predict(restored, [r[\"x\"] for r in test]),\n        \"test_mse\": mse([r[\"y\"] for r in test], predictions),\n        \"baseline_test_mse\": mse(\n            [r[\"y\"] for r in test], predict(baseline, [r[\"x\"] for r in test])\n        ),\n        \"gradient_error\": abs(numeric - analytic),\n        \"data_sha256\": hashlib.sha256(\n            json.dumps(data, sort_keys=True, allow_nan=False).encode()\n        ).hexdigest(),\n    }\n"
+      },
+      "stdin": "[{\"id\": \"0\", \"split\": \"train\", \"x\": 0, \"y\": 1}, {\"id\": \"1\", \"split\": \"train\", \"x\": 2, \"y\": 5}, {\"id\": \"2\", \"split\": \"train\", \"x\": 4, \"y\": 9}, {\"id\": \"3\", \"split\": \"train\", \"x\": null, \"y\": 5}, {\"id\": \"4\", \"split\": \"validation\", \"x\": 1, \"y\": 3}, {\"id\": \"5\", \"split\": \"validation\", \"x\": 3, \"y\": 7}, {\"id\": \"6\", \"split\": \"test\", \"x\": 15, \"y\": 31}, {\"id\": \"7\", \"split\": \"test\", \"x\": 17, \"y\": 35}]\n"
+    },
+    "stdout": "{\"baseline_test_mse\": 788.0, \"data_sha256\": \"7fcf12df5344161e96d835c50f9cb71614c6ce1e5585c1be0a97b40b6a5e352c\", \"fit_ids\": [\"0\", \"1\", \"2\", \"3\"], \"gradient_error\": 0.0, \"model\": {\"center\": 2.0, \"impute_mean\": 2.0, \"intercept\": 5.0, \"schema\": \"single-feature-regression-v1\", \"slope\": 2.0}, \"reload_predictions\": [31.0, 35.0], \"selected\": \"linear\", \"selection_ids\": [\"4\", \"5\"], \"test_ids\": [\"6\", \"7\"], \"test_mse\": 0.0, \"test_predictions\": [31.0, 35.0], \"validation_scores\": {\"baseline\": 4.0, \"linear\": 0.0}}\n",
+    "decision": "met"
+  }
+]

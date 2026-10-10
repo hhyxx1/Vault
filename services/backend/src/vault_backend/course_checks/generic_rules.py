@@ -1,5890 +1,4847 @@
 """Frozen additional code-course rules. Never change published entries."""
 
-GENERIC_RULES = {
-    "10f64de2-acaf-5de8-8d02-dda9422af822": {
-        ("CS10-M01-O01", "base"): (
-            "66acb8e2-1c22-54ac-8d30-ba4b5420c807",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS10-M01-O01", "changed-condition"): (
-            "66acb8e2-1c22-54ac-8d30-ba4b5420c807",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M01-O02", "base"): (
-            "56401a3b-7884-53ff-8625-909172db27b8",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS10-M01-O02", "changed-condition"): (
-            "56401a3b-7884-53ff-8625-909172db27b8",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M01-O03", "base"): (
-            "b160e4bf-25c4-5410-8696-0fd327bdd334",
-            "1\n",
-            "success",
-            "restore\n",
-            "",
-        ),
-        ("CS10-M01-O03", "changed-condition"): (
-            "b160e4bf-25c4-5410-8696-0fd327bdd334",
-            "2\n",
-            "success",
-            "scale\n",
-            "",
-        ),
-        ("CS10-M02-O01", "base"): (
-            "4dbfd422-b84f-5223-9738-f08b61c90737",
-            "1\n",
-            "success",
-            "recover_work\n",
-            "",
-        ),
-        ("CS10-M02-O01", "changed-condition"): (
-            "4dbfd422-b84f-5223-9738-f08b61c90737",
-            "2\n",
-            "success",
-            "recover_work\n",
-            "",
-        ),
-        ("CS10-M02-O02", "base"): (
-            "1f2d1c1c-fc8d-5518-9a36-2f1f375c42da",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS10-M02-O02", "changed-condition"): (
-            "1f2d1c1c-fc8d-5518-9a36-2f1f375c42da",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M02-O03", "base"): (
-            "aa7c456c-58bf-5b8c-9df1-a584a363b4c4",
-            "1\n",
-            "success",
-            "authorization tests\n",
-            "",
-        ),
-        ("CS10-M02-O03", "changed-condition"): (
-            "aa7c456c-58bf-5b8c-9df1-a584a363b4c4",
-            "2\n",
-            "success",
-            "tests\n",
-            "",
-        ),
-        ("CS10-M03-O01", "base"): (
-            "1a173cb9-e825-55d4-8024-c34687106283",
-            "1\n",
-            "success",
-            "first\n",
-            "",
-        ),
-        ("CS10-M03-O01", "changed-condition"): (
-            "1a173cb9-e825-55d4-8024-c34687106283",
-            "2\n",
-            "success",
-            "first\n",
-            "",
-        ),
-        ("CS10-M03-O02", "base"): (
-            "28ded22d-0443-5dcd-a7d0-a80826c50bd8",
-            "1\n",
-            "success",
-            "cancelled\n",
-            "",
-        ),
-        ("CS10-M03-O02", "changed-condition"): (
-            "28ded22d-0443-5dcd-a7d0-a80826c50bd8",
-            "2\n",
-            "success",
-            "completed\n",
-            "",
-        ),
-        ("CS10-M03-O03", "base"): (
-            "293bc298-f5b1-5331-8f98-1289a1cbdd54",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS10-M03-O03", "changed-condition"): (
-            "293bc298-f5b1-5331-8f98-1289a1cbdd54",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M04-O01", "base"): (
-            "a79eac57-2194-5118-b2d7-8b2aef24f83f",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS10-M04-O01", "changed-condition"): (
-            "a79eac57-2194-5118-b2d7-8b2aef24f83f",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS10-M04-O02", "base"): (
-            "e44ae9bd-2fb7-53ce-a675-6911eac7f766",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS10-M04-O02", "changed-condition"): (
-            "e44ae9bd-2fb7-53ce-a675-6911eac7f766",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M04-O03", "base"): (
-            "3fcab0a4-5603-57af-935d-7566c9c8dcb1",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS10-M04-O03", "changed-condition"): (
-            "3fcab0a4-5603-57af-935d-7566c9c8dcb1",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M05-O01", "base"): (
-            "a5735bcd-35ba-5801-8f30-c726e0d74410",
-            "1\n",
-            "success",
-            "403\n",
-            "",
-        ),
-        ("CS10-M05-O01", "changed-condition"): (
-            "a5735bcd-35ba-5801-8f30-c726e0d74410",
-            "2\n",
-            "success",
-            "200\n",
-            "",
-        ),
-        ("CS10-M05-O02", "base"): (
-            "0121d58e-2969-569c-89b1-d1d0d7d870d1",
-            "1\n",
-            "success",
-            "7\n",
-            "",
-        ),
-        ("CS10-M05-O02", "changed-condition"): (
-            "0121d58e-2969-569c-89b1-d1d0d7d870d1",
-            "2\n",
-            "success",
-            "8\n",
-            "",
-        ),
-        ("CS10-M05-O03", "base"): (
-            "a511352f-f0bd-5e8d-8f90-8040c69a40b3",
-            "1\n",
-            "success",
-            "unavailable\n",
-            "",
-        ),
-        ("CS10-M05-O03", "changed-condition"): (
-            "a511352f-f0bd-5e8d-8f90-8040c69a40b3",
-            "2\n",
-            "success",
-            "accepted\n",
-            "",
-        ),
-        ("CS10-M06-O01", "base"): (
-            "e1298ac8-7fb1-5389-b4aa-4385c17f8b22",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS10-M06-O01", "changed-condition"): (
-            "e1298ac8-7fb1-5389-b4aa-4385c17f8b22",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS10-M06-O02", "base"): (
-            "56d00159-bf59-50fb-98a0-3510ba591d48",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS10-M06-O02", "changed-condition"): (
-            "56d00159-bf59-50fb-98a0-3510ba591d48",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS10-M06-O03", "base"): (
-            "70bb4cc3-5594-559d-8d6b-55eac49d08ce",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS10-M06-O03", "changed-condition"): (
-            "70bb4cc3-5594-559d-8d6b-55eac49d08ce",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS10-M07-O01", "base"): (
-            "b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M07-O01", "changed-condition"): (
-            "b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66",
-            "2\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS10-M07-O02", "base"): (
-            "eebf0e64-7856-5c0b-bfbf-8786ece3c68a",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M07-O02", "changed-condition"): (
-            "eebf0e64-7856-5c0b-bfbf-8786ece3c68a",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M07-O03", "base"): (
-            "284f2fd7-8f00-5d9b-add9-2976129dbc44",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M07-O03", "changed-condition"): (
-            "284f2fd7-8f00-5d9b-add9-2976129dbc44",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M08-O01", "base"): (
-            "cb2daf87-331b-5e7e-9643-f5733f7dd3de",
-            "1\n",
-            "success",
-            "v1\n",
-            "",
-        ),
-        ("CS10-M08-O01", "changed-condition"): (
-            "cb2daf87-331b-5e7e-9643-f5733f7dd3de",
-            "2\n",
-            "success",
-            "v2\n",
-            "",
-        ),
-        ("CS10-M08-O02", "base"): (
-            "b887c81f-891a-504b-9c7a-cb62d7ab1f8d",
-            "1\n",
-            "success",
-            "1/2\n",
-            "",
-        ),
-        ("CS10-M08-O02", "changed-condition"): (
-            "b887c81f-891a-504b-9c7a-cb62d7ab1f8d",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS10-M08-O03", "base"): (
-            "bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS10-M08-O03", "changed-condition"): (
-            "bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS10-M09-O01", "base"): (
-            "d64c4db6-0eb5-5339-829d-f301c3f756f8",
-            "1\n",
-            "success",
-            "api service\n",
-            "",
-        ),
-        ("CS10-M09-O01", "changed-condition"): (
-            "d64c4db6-0eb5-5339-829d-f301c3f756f8",
-            "2\n",
-            "success",
-            "api\n",
-            "",
-        ),
-        ("CS10-M09-O02", "base"): (
-            "784bb789-8624-5011-8744-807a4759479d",
-            "1\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS10-M09-O02", "changed-condition"): (
-            "784bb789-8624-5011-8744-807a4759479d",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS10-M09-O03", "base"): (
-            "5110217c-c761-52a0-a34b-50f992b2b474",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS10-M09-O03", "changed-condition"): (
-            "5110217c-c761-52a0-a34b-50f992b2b474",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-    },
-    "2ddb5945-157f-5611-bfed-e1e84b96f7cd": {
-        ("CS03-M01-O01", "base"): (
-            "9dc038dd-008b-58f6-acee-32a17cddd73d",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS03-M01-O01", "changed-condition"): (
-            "9dc038dd-008b-58f6-acee-32a17cddd73d",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS03-M01-O02", "base"): (
-            "4a7a61ec-6921-573a-9410-032966472a72",
-            "1\n",
-            "success",
-            "10 20 30 \n",
-            "",
-        ),
-        ("CS03-M01-O02", "changed-condition"): (
-            "4a7a61ec-6921-573a-9410-032966472a72",
-            "2\n",
-            "success",
-            "30 \n",
-            "",
-        ),
-        ("CS03-M01-O03", "base"): (
-            "364b32ed-18ca-5bc4-9ed1-6e02e454f5b7",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS03-M01-O03", "changed-condition"): (
-            "364b32ed-18ca-5bc4-9ed1-6e02e454f5b7",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS03-M02-O01", "base"): (
-            "9d6cfed3-f3af-58be-b2ec-c8e36eaf9804",
-            "1\n",
-            "success",
-            "7 10 20 30 \n",
-            "",
-        ),
-        ("CS03-M02-O01", "changed-condition"): (
-            "9d6cfed3-f3af-58be-b2ec-c8e36eaf9804",
-            "2\n",
-            "success",
-            "10 20 30 7 \n",
-            "",
-        ),
-        ("CS03-M02-O02", "base"): (
-            "90979e0e-ed31-537f-b86e-d01a1425ef07",
-            "1\n",
-            "success",
-            "7 10 20 \n",
-            "",
-        ),
-        ("CS03-M02-O02", "changed-condition"): (
-            "90979e0e-ed31-537f-b86e-d01a1425ef07",
-            "2\n",
-            "success",
-            "7 \n",
-            "",
-        ),
-        ("CS03-M02-O03", "base"): (
-            "64c2adf5-7c4c-54b6-bba2-6638b02f0ee3",
-            "1\n",
-            "success",
-            "10 7 20 | 20 7 10 \n",
-            "",
-        ),
-        ("CS03-M02-O03", "changed-condition"): (
-            "64c2adf5-7c4c-54b6-bba2-6638b02f0ee3",
-            "2\n",
-            "success",
-            "10 7 20 | 20 7 10 \n",
-            "",
-        ),
-        ("CS03-M03-O01", "base"): (
-            "b819c717-8de4-532e-b340-09eb5d3f3abf",
-            "1\n",
-            "success",
-            "20 10 empty=1\n",
-            "",
-        ),
-        ("CS03-M03-O01", "changed-condition"): (
-            "b819c717-8de4-532e-b340-09eb5d3f3abf",
-            "2\n",
-            "success",
-            "empty=1\n",
-            "",
-        ),
-        ("CS03-M03-O02", "base"): (
-            "67e91e67-790a-5801-b9a9-987ea5374302",
-            "1\n",
-            "success",
-            "20 30 40 empty=0\n",
-            "",
-        ),
-        ("CS03-M03-O02", "changed-condition"): (
-            "67e91e67-790a-5801-b9a9-987ea5374302",
-            "2\n",
-            "success",
-            "10 20 empty=0\n",
-            "",
-        ),
-        ("CS03-M03-O03", "base"): (
-            "1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5",
-            "1\n",
-            "success",
-            "invalid\n",
-            "",
-        ),
-        ("CS03-M03-O03", "changed-condition"): (
-            "1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5",
-            "2\n",
-            "success",
-            "valid\n",
-            "",
-        ),
-        ("CS03-M04-O01", "base"): (
-            "53b5f953-81ae-58ac-994f-573f368a61ea",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS03-M04-O01", "changed-condition"): (
-            "53b5f953-81ae-58ac-994f-573f368a61ea",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS03-M04-O02", "base"): (
-            "c4089419-e172-5edb-8513-97349592282c",
-            "1\n",
-            "success",
-            "0 1 0 1 2 2 3 \n",
-            "",
-        ),
-        ("CS03-M04-O02", "changed-condition"): (
-            "c4089419-e172-5edb-8513-97349592282c",
-            "2\n",
-            "success",
-            "0 0 1 2 \n",
-            "",
-        ),
-        ("CS03-M04-O03", "base"): (
-            "9bc96683-f87d-5712-94ca-34628a35f960",
-            "1\n",
-            "success",
-            "5 0\n",
-            "",
-        ),
-        ("CS03-M04-O03", "changed-condition"): (
-            "9bc96683-f87d-5712-94ca-34628a35f960",
-            "2\n",
-            "success",
-            "3 2\n",
-            "",
-        ),
-        ("CS03-M05-O01", "base"): (
-            "030748bf-bbad-5948-a1ba-f1f772a79de7",
-            "1\n",
-            "success",
-            "2 1\n",
-            "",
-        ),
-        ("CS03-M05-O01", "changed-condition"): (
-            "030748bf-bbad-5948-a1ba-f1f772a79de7",
-            "2\n",
-            "success",
-            "1 0\n",
-            "",
-        ),
-        ("CS03-M05-O02", "base"): (
-            "541160c4-a6eb-56e0-820d-4d6587501758",
-            "1\n",
-            "success",
-            "1 2 3 | 1 2 3 \n",
-            "",
-        ),
-        ("CS03-M05-O02", "changed-condition"): (
-            "541160c4-a6eb-56e0-820d-4d6587501758",
-            "2\n",
-            "success",
-            "| \n",
-            "",
-        ),
-        ("CS03-M05-O03", "base"): (
-            "7dceae25-7466-5080-afb6-98287bfba0ba",
-            "1\n",
-            "success",
-            "11\n",
-            "",
-        ),
-        ("CS03-M05-O03", "changed-condition"): (
-            "7dceae25-7466-5080-afb6-98287bfba0ba",
-            "2\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS03-M06-O01", "base"): (
-            "0b5bc167-da7f-5e6a-b0b8-1d737deee01b",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS03-M06-O01", "changed-condition"): (
-            "0b5bc167-da7f-5e6a-b0b8-1d737deee01b",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS03-M06-O02", "base"): (
-            "f51718a3-dda5-5360-b0eb-74fd085483f1",
-            "1\n",
-            "success",
-            "20 25 30 \n",
-            "",
-        ),
-        ("CS03-M06-O02", "changed-condition"): (
-            "f51718a3-dda5-5360-b0eb-74fd085483f1",
-            "2\n",
-            "success",
-            "20 30 \n",
-            "",
-        ),
-        ("CS03-M06-O03", "base"): (
-            "5e954988-06c2-5d4b-89cb-c80eb5edbbc4",
-            "1\n",
-            "success",
-            "sep=5 left=1 3 right=5 7 \n",
-            "",
-        ),
-        ("CS03-M06-O03", "changed-condition"): (
-            "5e954988-06c2-5d4b-89cb-c80eb5edbbc4",
-            "2\n",
-            "success",
-            "sep=7 left=1 3 5 right=7 9 11 \n",
-            "",
-        ),
-        ("CS03-M07-O01", "base"): (
-            "52b9b0bf-020c-54d1-a8ff-0f57f2d99323",
-            "1\n",
-            "success",
-            "1 1\n",
-            "",
-        ),
-        ("CS03-M07-O01", "changed-condition"): (
-            "52b9b0bf-020c-54d1-a8ff-0f57f2d99323",
-            "2\n",
-            "success",
-            "1 0\n",
-            "",
-        ),
-        ("CS03-M07-O02", "base"): (
-            "a7d17c07-b6e1-5e21-a88f-0bfb120afa24",
-            "1\n",
-            "success",
-            "0 1 2 3 \n",
-            "",
-        ),
-        ("CS03-M07-O02", "changed-condition"): (
-            "a7d17c07-b6e1-5e21-a88f-0bfb120afa24",
-            "2\n",
-            "success",
-            "0 1 2 3 \n",
-            "",
-        ),
-        ("CS03-M07-O03", "base"): (
-            "102247f1-0d78-533e-bcf0-a8865fd839dd",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS03-M07-O03", "changed-condition"): (
-            "102247f1-0d78-533e-bcf0-a8865fd839dd",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS03-M08-O01", "base"): (
-            "8a99b36c-85d0-5e90-aa70-455d5d4bf173",
-            "1\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS03-M08-O01", "changed-condition"): (
-            "8a99b36c-85d0-5e90-aa70-455d5d4bf173",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS03-M08-O02", "base"): (
-            "be863f03-f700-596f-a702-b1107d5d1f21",
-            "1\n",
-            "success",
-            "cycle 0\n",
-            "",
-        ),
-        ("CS03-M08-O02", "changed-condition"): (
-            "be863f03-f700-596f-a702-b1107d5d1f21",
-            "2\n",
-            "success",
-            "dag 3\n",
-            "",
-        ),
-        ("CS03-M08-O03", "base"): (
-            "1a346b70-7c14-54be-8332-6c9b15312955",
-            "1\n",
-            "success",
-            "8\n",
-            "",
-        ),
-        ("CS03-M08-O03", "changed-condition"): (
-            "1a346b70-7c14-54be-8332-6c9b15312955",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS03-M09-O01", "base"): (
-            "6e89177e-31aa-5e59-9165-a5a750269679",
-            "1\n",
-            "success",
-            "77\n",
-            "",
-        ),
-        ("CS03-M09-O01", "changed-condition"): (
-            "6e89177e-31aa-5e59-9165-a5a750269679",
-            "2\n",
-            "success",
-            "77\n",
-            "",
-        ),
-        ("CS03-M09-O02", "base"): (
-            "06c9d459-676a-5cf8-ab22-123c7839c041",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS03-M09-O02", "changed-condition"): (
-            "06c9d459-676a-5cf8-ab22-123c7839c041",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS03-M09-O03", "base"): (
-            "2d552996-b09f-5c51-b8c9-dad661354343",
-            "1\n",
-            "success",
-            "0.600\n",
-            "",
-        ),
-        ("CS03-M09-O03", "changed-condition"): (
-            "2d552996-b09f-5c51-b8c9-dad661354343",
-            "2\n",
-            "success",
-            "1.000\n",
-            "",
-        ),
-        ("CS03-M10-O01", "base"): (
-            "5b56de31-cea0-58a8-8ebb-7d754b6a8340",
-            "1\n",
-            "success",
-            "1 2 3 \n",
-            "",
-        ),
-        ("CS03-M10-O01", "changed-condition"): (
-            "5b56de31-cea0-58a8-8ebb-7d754b6a8340",
-            "2\n",
-            "success",
-            "1 2 3 \n",
-            "",
-        ),
-        ("CS03-M10-O02", "base"): (
-            "7fda3928-ccb5-54ba-8ec4-7a8c4c4f40fa",
-            "1\n",
-            "success",
-            "1C 2A 2B \n",
-            "",
-        ),
-        ("CS03-M10-O02", "changed-condition"): (
-            "7fda3928-ccb5-54ba-8ec4-7a8c4c4f40fa",
-            "2\n",
-            "success",
-            "1C 2A 3B \n",
-            "",
-        ),
-        ("CS03-M10-O03", "base"): (
-            "eee200ae-305f-57f2-9e4f-c6bf146c563e",
-            "1\n",
-            "success",
-            "1 2 3 4 \n",
-            "",
-        ),
-        ("CS03-M10-O03", "changed-condition"): (
-            "eee200ae-305f-57f2-9e4f-c6bf146c563e",
-            "2\n",
-            "success",
-            "1 4 5 6 \n",
-            "",
-        ),
-    },
-    "3611753a-4f55-5af9-98f8-b6995637e756": {
-        ("CS12-M01-O01", "base"): (
-            "bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS12-M01-O01", "changed-condition"): (
-            "bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS12-M01-O02", "base"): (
-            "8b9f1427-226a-5804-8cb1-2ab8d1d9e472",
-            "1\n",
-            "success",
-            "10\n",
-            "",
-        ),
-        ("CS12-M01-O02", "changed-condition"): (
-            "8b9f1427-226a-5804-8cb1-2ab8d1d9e472",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS12-M01-O03", "base"): (
-            "d30541e5-8c28-5350-bfc7-4450fbc7ac45",
-            "1\n",
-            "success",
-            "left right\n",
-            "",
-        ),
-        ("CS12-M01-O03", "changed-condition"): (
-            "d30541e5-8c28-5350-bfc7-4450fbc7ac45",
-            "2\n",
-            "success",
-            "left\n",
-            "",
-        ),
-        ("CS12-M02-O01", "base"): (
-            "3cf76d51-057a-560b-bf7c-dbef88a90222",
-            "1\n",
-            "success",
-            "S G\n",
-            "",
-        ),
-        ("CS12-M02-O01", "changed-condition"): (
-            "3cf76d51-057a-560b-bf7c-dbef88a90222",
-            "2\n",
-            "success",
-            "S G\n",
-            "",
-        ),
-        ("CS12-M02-O02", "base"): (
-            "27435fd1-9f80-5223-9779-4f6fe71d2623",
-            "1\n",
-            "success",
-            "unknown:budget\n",
-            "",
-        ),
-        ("CS12-M02-O02", "changed-condition"): (
-            "27435fd1-9f80-5223-9779-4f6fe71d2623",
-            "2\n",
-            "success",
-            "found\n",
-            "",
-        ),
-        ("CS12-M02-O03", "base"): (
-            "4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97",
-            "1\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS12-M02-O03", "changed-condition"): (
-            "4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS12-M03-O01", "base"): (
-            "72bbfa38-ca85-5cad-8778-cde994295e95",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS12-M03-O01", "changed-condition"): (
-            "72bbfa38-ca85-5cad-8778-cde994295e95",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS12-M03-O02", "base"): (
-            "e2d22c37-77ae-54ba-87fe-d9fca237ff57",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS12-M03-O02", "changed-condition"): (
-            "e2d22c37-77ae-54ba-87fe-d9fca237ff57",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS12-M03-O03", "base"): (
-            "4d0133a8-c5d1-5e9b-b455-302eb4d23d7d",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS12-M03-O03", "changed-condition"): (
-            "4d0133a8-c5d1-5e9b-b455-302eb4d23d7d",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS12-M04-O01", "base"): (
-            "61354f25-204f-5ba3-b420-1dbb5303a6b1",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS12-M04-O01", "changed-condition"): (
-            "61354f25-204f-5ba3-b420-1dbb5303a6b1",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS12-M04-O02", "base"): (
-            "c39f950c-0118-54ce-a9fa-c34deb5e5d83",
-            "1\n",
-            "success",
-            "3 5\n",
-            "",
-        ),
-        ("CS12-M04-O02", "changed-condition"): (
-            "c39f950c-0118-54ce-a9fa-c34deb5e5d83",
-            "2\n",
-            "success",
-            "3 3\n",
-            "",
-        ),
-        ("CS12-M04-O03", "base"): (
-            "fc4ed591-cb3c-5c75-a6ce-6abc7911b276",
-            "1\n",
-            "success",
-            "True 2\n",
-            "",
-        ),
-        ("CS12-M04-O03", "changed-condition"): (
-            "fc4ed591-cb3c-5c75-a6ce-6abc7911b276",
-            "2\n",
-            "success",
-            "True 0\n",
-            "",
-        ),
-        ("CS12-M05-O01", "base"): (
-            "fe831e39-8136-5daa-99a5-acc510078100",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS12-M05-O01", "changed-condition"): (
-            "fe831e39-8136-5daa-99a5-acc510078100",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS12-M05-O02", "base"): (
-            "4e837992-2ce0-520f-bc5d-dce12e3fa930",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS12-M05-O02", "changed-condition"): (
-            "4e837992-2ce0-520f-bc5d-dce12e3fa930",
-            "2\n",
-            "success",
-            "1 2\n",
-            "",
-        ),
-        ("CS12-M05-O03", "base"): (
-            "c16dac75-f63a-5f8c-8908-2379eea98a6f",
-            "1\n",
-            "success",
-            "unsat\n",
-            "",
-        ),
-        ("CS12-M05-O03", "changed-condition"): (
-            "c16dac75-f63a-5f8c-8908-2379eea98a6f",
-            "2\n",
-            "success",
-            "1 2\n",
-            "",
-        ),
-        ("CS12-M06-O01", "base"): (
-            "61e95bbc-4d36-5151-8fa7-828b115d01fd",
-            "1\n",
-            "success",
-            "unknown\n",
-            "",
-        ),
-        ("CS12-M06-O01", "changed-condition"): (
-            "61e95bbc-4d36-5151-8fa7-828b115d01fd",
-            "2\n",
-            "success",
-            "true\n",
-            "",
-        ),
-        ("CS12-M06-O02", "base"): (
-            "26d62f37-11a6-5662-b8fc-c42e0dc186a4",
-            "1\n",
-            "success",
-            "a b c\n",
-            "",
-        ),
-        ("CS12-M06-O02", "changed-condition"): (
-            "26d62f37-11a6-5662-b8fc-c42e0dc186a4",
-            "2\n",
-            "success",
-            "b c\n",
-            "",
-        ),
-        ("CS12-M06-O03", "base"): (
-            "66f4299c-03ee-5006-95e7-735ded0abdfd",
-            "1\n",
-            "success",
-            "conflict\n",
-            "",
-        ),
-        ("CS12-M06-O03", "changed-condition"): (
-            "66f4299c-03ee-5006-95e7-735ded0abdfd",
-            "2\n",
-            "success",
-            "consistent\n",
-            "",
-        ),
-        ("CS12-M07-O01", "base"): (
-            "a825aefe-4b5b-5ae1-87a7-01aeff1ff346",
-            "1\n",
-            "success",
-            "1/2\n",
-            "",
-        ),
-        ("CS12-M07-O01", "changed-condition"): (
-            "a825aefe-4b5b-5ae1-87a7-01aeff1ff346",
-            "2\n",
-            "success",
-            "1/8\n",
-            "",
-        ),
-        ("CS12-M07-O02", "base"): (
-            "7d6030df-a704-5349-a1b0-1fa50714c85b",
-            "1\n",
-            "success",
-            "1/2\n",
-            "",
-        ),
-        ("CS12-M07-O02", "changed-condition"): (
-            "7d6030df-a704-5349-a1b0-1fa50714c85b",
-            "2\n",
-            "success",
-            "3/4\n",
-            "",
-        ),
-        ("CS12-M07-O03", "base"): (
-            "bfc070f1-dc3e-5df2-b69b-a43d34ece393",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS12-M07-O03", "changed-condition"): (
-            "bfc070f1-dc3e-5df2-b69b-a43d34ece393",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS12-M08-O01", "base"): (
-            "4b89ed4d-0469-57e0-92b3-e26554bf9762",
-            "1\n",
-            "success",
-            "blocked\n",
-            "",
-        ),
-        ("CS12-M08-O01", "changed-condition"): (
-            "4b89ed4d-0469-57e0-92b3-e26554bf9762",
-            "2\n",
-            "success",
-            "key open\n",
-            "",
-        ),
-        ("CS12-M08-O02", "base"): (
-            "11f6d812-6340-58be-a02d-b5221d6096cc",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS12-M08-O02", "changed-condition"): (
-            "11f6d812-6340-58be-a02d-b5221d6096cc",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS12-M08-O03", "base"): (
-            "c585ec57-2152-5de6-802d-291e5bcbccf4",
-            "1\n",
-            "success",
-            "reinforcement\n",
-            "",
-        ),
-        ("CS12-M08-O03", "changed-condition"): (
-            "c585ec57-2152-5de6-802d-291e5bcbccf4",
-            "2\n",
-            "success",
-            "supervised\n",
-            "",
-        ),
-        ("CS12-M09-O01", "base"): (
-            "49489567-a442-5504-8b65-9d2b6d89fbbb",
-            "1\n",
-            "success",
-            "B\n",
-            "",
-        ),
-        ("CS12-M09-O01", "changed-condition"): (
-            "49489567-a442-5504-8b65-9d2b6d89fbbb",
-            "2\n",
-            "success",
-            "A\n",
-            "",
-        ),
-        ("CS12-M09-O02", "base"): (
-            "20b00edf-228e-5caf-8225-77ff13166838",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS12-M09-O02", "changed-condition"): (
-            "20b00edf-228e-5caf-8225-77ff13166838",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS12-M09-O03", "base"): (
-            "c62f0ecf-702b-5f90-91d8-c7ca13f54445",
-            "1\n",
-            "success",
-            "needs_review\n",
-            "",
-        ),
-        ("CS12-M09-O03", "changed-condition"): (
-            "c62f0ecf-702b-5f90-91d8-c7ca13f54445",
-            "2\n",
-            "success",
-            "automatic\n",
-            "",
-        ),
-    },
-    "3d7622ca-492d-5f1e-83d4-bcb992d1d29c": {
-        ("CS11-M01-O01", "base"): (
-            "02eb570f-4898-599c-ba4a-9daf3d6daf23",
-            "1\n",
-            "success",
-            "lex parse type\n",
-            "",
-        ),
-        ("CS11-M01-O01", "changed-condition"): (
-            "02eb570f-4898-599c-ba4a-9daf3d6daf23",
-            "2\n",
-            "success",
-            "lex parse type emit\n",
-            "",
-        ),
-        ("CS11-M01-O02", "base"): (
-            "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
-            "1\n",
-            "success",
-            "-2\n",
-            "",
-        ),
-        ("CS11-M01-O02", "changed-condition"): (
-            "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS11-M01-O03", "base"): (
-            "04369fb8-821b-5d38-bdbd-e8f816545d81",
-            "1\n",
-            "success",
-            "lex:1\n",
-            "",
-        ),
-        ("CS11-M01-O03", "changed-condition"): (
-            "04369fb8-821b-5d38-bdbd-e8f816545d81",
-            "2\n",
-            "success",
-            "ok\n",
-            "",
-        ),
-        ("CS11-M02-O01", "base"): (
-            "62e7c3f4-5d81-5931-b168-51ee568c82ca",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS11-M02-O01", "changed-condition"): (
-            "62e7c3f4-5d81-5931-b168-51ee568c82ca",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M02-O02", "base"): (
-            "87199749-f173-5cfd-8eda-576932c69620",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M02-O02", "changed-condition"): (
-            "87199749-f173-5cfd-8eda-576932c69620",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M02-O03", "base"): (
-            "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
-            "1\n",
-            "success",
-            ">=\n",
-            "",
-        ),
-        ("CS11-M02-O03", "changed-condition"): (
-            "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
-            "2\n",
-            "success",
-            ">\n",
-            "",
-        ),
-        ("CS11-M03-O01", "base"): (
-            "bb511987-1967-5247-9b6d-62feba383952",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M03-O01", "changed-condition"): (
-            "bb511987-1967-5247-9b6d-62feba383952",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M03-O02", "base"): (
-            "97930e73-5e36-5231-bc16-13a5459986c5",
-            "1\n",
-            "success",
-            "20 14\n",
-            "",
-        ),
-        ("CS11-M03-O02", "changed-condition"): (
-            "97930e73-5e36-5231-bc16-13a5459986c5",
-            "2\n",
-            "success",
-            "2 2\n",
-            "",
-        ),
-        ("CS11-M03-O03", "base"): (
-            "dc44f399-f390-5849-a2bf-95e9ad36fb77",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS11-M03-O03", "changed-condition"): (
-            "dc44f399-f390-5849-a2bf-95e9ad36fb77",
-            "2\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS11-M04-O01", "base"): (
-            "f09d2473-2719-5faf-afb5-532495102c65",
-            "1\n",
-            "success",
-            "a b\n",
-            "",
-        ),
-        ("CS11-M04-O01", "changed-condition"): (
-            "f09d2473-2719-5faf-afb5-532495102c65",
-            "2\n",
-            "success",
-            "a\n",
-            "",
-        ),
-        ("CS11-M04-O02", "base"): (
-            "dd493563-e25c-5670-a419-becb42fa08ef",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS11-M04-O02", "changed-condition"): (
-            "dd493563-e25c-5670-a419-becb42fa08ef",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M04-O03", "base"): (
-            "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
-            "1\n",
-            "success",
-            "syntax:extra\n",
-            "",
-        ),
-        ("CS11-M04-O03", "changed-condition"): (
-            "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M05-O01", "base"): (
-            "dfe0ca85-a561-508e-bfea-2a05f7119a14",
-            "1\n",
-            "success",
-            "$ S\n",
-            "",
-        ),
-        ("CS11-M05-O01", "changed-condition"): (
-            "dfe0ca85-a561-508e-bfea-2a05f7119a14",
-            "2\n",
-            "success",
-            "x $ S\n",
-            "",
-        ),
-        ("CS11-M05-O02", "base"): (
-            "a7ace736-860c-547e-91d3-5182214ace3c",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS11-M05-O02", "changed-condition"): (
-            "a7ace736-860c-547e-91d3-5182214ace3c",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS11-M05-O03", "base"): (
-            "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
-            "1\n",
-            "success",
-            "conflict\n",
-            "",
-        ),
-        ("CS11-M05-O03", "changed-condition"): (
-            "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
-            "2\n",
-            "success",
-            "reduce\n",
-            "",
-        ),
-        ("CS11-M06-O01", "base"): (
-            "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
-            "1\n",
-            "success",
-            "undeclared:y\n",
-            "",
-        ),
-        ("CS11-M06-O01", "changed-condition"): (
-            "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
-            "2\n",
-            "success",
-            "7\n",
-            "",
-        ),
-        ("CS11-M06-O02", "base"): (
-            "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS11-M06-O02", "changed-condition"): (
-            "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M06-O03", "base"): (
-            "e99717df-2028-5c6b-b185-569ec371bfb5",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS11-M06-O03", "changed-condition"): (
-            "e99717df-2028-5c6b-b185-569ec371bfb5",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M07-O01", "base"): (
-            "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
-            "1\n",
-            "success",
-            "14\n",
-            "",
-        ),
-        ("CS11-M07-O01", "changed-condition"): (
-            "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M07-O02", "base"): (
-            "e1e9f56a-6acf-5ccf-9886-2958174de085",
-            "1\n",
-            "success",
-            "1 2\n",
-            "",
-        ),
-        ("CS11-M07-O02", "changed-condition"): (
-            "e1e9f56a-6acf-5ccf-9886-2958174de085",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M07-O03", "base"): (
-            "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
-            "1\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS11-M07-O03", "changed-condition"): (
-            "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M08-O01", "base"): (
-            "3a290580-d367-5086-9ff5-58379c791075",
-            "1\n",
-            "success",
-            "unknown\n",
-            "",
-        ),
-        ("CS11-M08-O01", "changed-condition"): (
-            "3a290580-d367-5086-9ff5-58379c791075",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M08-O02", "base"): (
-            "09d73447-68ed-5404-bf59-560ba9e386ae",
-            "1\n",
-            "success",
-            "y z\n",
-            "",
-        ),
-        ("CS11-M08-O02", "changed-condition"): (
-            "09d73447-68ed-5404-bf59-560ba9e386ae",
-            "2\n",
-            "success",
-            "y z\n",
-            "",
-        ),
-        ("CS11-M08-O03", "base"): (
-            "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
-            "1\n",
-            "success",
-            "1 0\n",
-            "",
-        ),
-        ("CS11-M08-O03", "changed-condition"): (
-            "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
-            "2\n",
-            "success",
-            "0 0\n",
-            "",
-        ),
-        ("CS11-M09-O01", "base"): (
-            "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
-            "1\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS11-M09-O01", "changed-condition"): (
-            "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
-            "2\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS11-M09-O02", "base"): (
-            "8b873d71-aa14-5b12-bcc4-605eba95e08d",
-            "1\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS11-M09-O02", "changed-condition"): (
-            "8b873d71-aa14-5b12-bcc4-605eba95e08d",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS11-M09-O03", "base"): (
-            "59927887-1c20-5f92-a473-12daa86fd6ef",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M09-O03", "changed-condition"): (
-            "59927887-1c20-5f92-a473-12daa86fd6ef",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M09-O03", "compiler-expression"): (
-            "59927887-1c20-5f92-a473-12daa86fd6ef",
-            "print(8-3-1);print(-7/3);\n",
-            "success",
-            'tokens=[["print", '
-            '"print", '
-            "0], "
-            '["(", '
-            '"(", 5], '
-            '["number", '
-            '"8", 6], '
-            '["-", '
-            '"-", 7], '
-            '["number", '
-            '"3", 8], '
-            '["-", '
-            '"-", 9], '
-            '["number", '
-            '"1", '
-            "10], "
-            '[")", '
-            '")", '
-            "11], "
-            '[";", '
-            '";", '
-            "12], "
-            '["print", '
-            '"print", '
-            "13], "
-            '["(", '
-            '"(", '
-            "18], "
-            '["-", '
-            '"-", '
-            "19], "
-            '["number", '
-            '"7", '
-            "20], "
-            '["/", '
-            '"/", '
-            "21], "
-            '["number", '
-            '"3", '
-            "22], "
-            '[")", '
-            '")", '
-            "23], "
-            '[";", '
-            '";", '
-            "24], "
-            '["eof", '
-            '"", '
-            "26]]\n"
-            'ast=[{"expr": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "6, "
-            '"value": '
-            "8}, "
-            '"op": '
-            '"-", '
-            '"pos": '
-            "7, "
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "8, "
-            '"value": '
-            "3}}, "
-            '"op": '
-            '"-", '
-            '"pos": '
-            "9, "
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "10, "
-            '"value": '
-            "1}}, "
-            '"kind": '
-            '"print", '
-            '"pos": '
-            "0}, "
-            '{"expr": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"unary", '
-            '"op": '
-            '"-", '
-            '"pos": '
-            "19, "
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "20, "
-            '"value": '
-            "7}}, "
-            '"op": '
-            '"/", '
-            '"pos": '
-            "21, "
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "22, "
-            '"value": '
-            "3}}, "
-            '"kind": '
-            '"print", '
-            '"pos": '
-            "13}]\n"
-            'instructions=[["PUSH", '
-            "8, 6], "
-            '["PUSH", '
-            "3, 8], "
-            '["BINARY", '
-            '"-", 7], '
-            '["PUSH", '
-            "1, 10], "
-            '["BINARY", '
-            '"-", 9], '
-            '["PRINT", '
-            "null, "
-            "0], "
-            '["PUSH", '
-            "7, 20], "
-            '["UNARY", '
-            '"-", '
-            "19], "
-            '["PUSH", '
-            "3, 22], "
-            '["BINARY", '
-            '"/", '
-            "21], "
-            '["PRINT", '
-            "null, "
-            "13]]\n"
-            '{"equivalent": '
-            "true, "
-            '"machine_result": '
-            "[4, -2], "
-            '"source_result": '
-            "[4, "
-            "-2]}\n",
-            "",
-        ),
-        ("CS11-M09-O03", "compiler-loop"): (
-            "59927887-1c20-5f92-a473-12daa86fd6ef",
-            "let x=3;while(x>0){x=x-1;}print(x);\n",
-            "success",
-            'tokens=[["let", '
-            '"let", 0], '
-            '["name", "x", '
-            '4], ["=", "=", '
-            '5], ["number", '
-            '"3", 6], [";", '
-            '";", 7], '
-            '["while", '
-            '"while", 8], '
-            '["(", "(", '
-            '13], ["name", '
-            '"x", 14], '
-            '[">", ">", '
-            "15], "
-            '["number", '
-            '"0", 16], '
-            '[")", ")", '
-            '17], ["{", '
-            '"{", 18], '
-            '["name", "x", '
-            '19], ["=", '
-            '"=", 20], '
-            '["name", "x", '
-            '21], ["-", '
-            '"-", 22], '
-            '["number", '
-            '"1", 23], '
-            '[";", ";", '
-            '24], ["}", '
-            '"}", 25], '
-            '["print", '
-            '"print", 26], '
-            '["(", "(", '
-            '31], ["name", '
-            '"x", 32], '
-            '[")", ")", '
-            '33], [";", '
-            '";", 34], '
-            '["eof", "", '
-            "36]]\n"
-            'ast=[{"expr": '
-            '{"kind": '
-            '"literal", '
-            '"pos": 6, '
-            '"value": 3}, '
-            '"kind": "let", '
-            '"name": "x", '
-            '"pos": 0}, '
-            '{"body": '
-            '[{"expr": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"variable", '
-            '"name": "x", '
-            '"pos": 21}, '
-            '"op": "-", '
-            '"pos": 22, '
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": 23, '
-            '"value": 1}}, '
-            '"kind": '
-            '"assign", '
-            '"name": "x", '
-            '"pos": 19}], '
-            '"cond": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"variable", '
-            '"name": "x", '
-            '"pos": 14}, '
-            '"op": ">", '
-            '"pos": 15, '
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": 16, '
-            '"value": 0}}, '
-            '"kind": '
-            '"while", '
-            '"pos": 8}, '
-            '{"expr": '
-            '{"kind": '
-            '"variable", '
-            '"name": "x", '
-            '"pos": 32}, '
-            '"kind": '
-            '"print", '
-            '"pos": 26}]\n'
-            'instructions=[["PUSH", '
-            "3, 6], "
-            '["STORE", 0, '
-            '0], ["LOAD", '
-            "0, 14], "
-            '["PUSH", 0, '
-            "16], "
-            '["BINARY", '
-            '">", 15], '
-            '["JF", 11, 8], '
-            '["LOAD", 0, '
-            '21], ["PUSH", '
-            "1, 23], "
-            '["BINARY", '
-            '"-", 22], '
-            '["STORE", 0, '
-            '19], ["JMP", '
-            "2, 8], "
-            '["LOAD", 0, '
-            '32], ["PRINT", '
-            "null, 26]]\n"
-            '{"equivalent": '
-            "true, "
-            '"machine_result": '
-            "[0], "
-            '"source_result": '
-            "[0]}\n",
-            "",
-        ),
-        ("CS11-M09-O03", "compiler-scope"): (
-            "59927887-1c20-5f92-a473-12daa86fd6ef",
-            "let x=7;{let x=2;print(x);}print(x);\n",
-            "success",
-            'tokens=[["let", '
-            '"let", 0], '
-            '["name", "x", '
-            '4], ["=", '
-            '"=", 5], '
-            '["number", '
-            '"7", 6], '
-            '[";", ";", '
-            '7], ["{", '
-            '"{", 8], '
-            '["let", '
-            '"let", 9], '
-            '["name", "x", '
-            '13], ["=", '
-            '"=", 14], '
-            '["number", '
-            '"2", 15], '
-            '[";", ";", '
-            "16], "
-            '["print", '
-            '"print", 17], '
-            '["(", "(", '
-            '22], ["name", '
-            '"x", 23], '
-            '[")", ")", '
-            '24], [";", '
-            '";", 25], '
-            '["}", "}", '
-            "26], "
-            '["print", '
-            '"print", 27], '
-            '["(", "(", '
-            '32], ["name", '
-            '"x", 33], '
-            '[")", ")", '
-            '34], [";", '
-            '";", 35], '
-            '["eof", "", '
-            "37]]\n"
-            'ast=[{"expr": '
-            '{"kind": '
-            '"literal", '
-            '"pos": 6, '
-            '"value": 7}, '
-            '"kind": '
-            '"let", '
-            '"name": "x", '
-            '"pos": 0}, '
-            '{"body": '
-            '[{"expr": '
-            '{"kind": '
-            '"literal", '
-            '"pos": 15, '
-            '"value": 2}, '
-            '"kind": '
-            '"let", '
-            '"name": "x", '
-            '"pos": 9}, '
-            '{"expr": '
-            '{"kind": '
-            '"variable", '
-            '"name": "x", '
-            '"pos": 23}, '
-            '"kind": '
-            '"print", '
-            '"pos": 17}], '
-            '"kind": '
-            '"block", '
-            '"pos": 8}, '
-            '{"expr": '
-            '{"kind": '
-            '"variable", '
-            '"name": "x", '
-            '"pos": 33}, '
-            '"kind": '
-            '"print", '
-            '"pos": 27}]\n'
-            'instructions=[["PUSH", '
-            "7, 6], "
-            '["STORE", 0, '
-            '0], ["PUSH", '
-            "2, 15], "
-            '["STORE", 1, '
-            '9], ["LOAD", '
-            "1, 23], "
-            '["PRINT", '
-            "null, 17], "
-            '["LOAD", 0, '
-            "33], "
-            '["PRINT", '
-            "null, 27]]\n"
-            '{"equivalent": '
-            "true, "
-            '"machine_result": '
-            "[2, 7], "
-            '"source_result": '
-            "[2, 7]}\n",
-            "",
-        ),
-        ("CS11-M09-O03", "compiler-shortcircuit"): (
-            "59927887-1c20-5f92-a473-12daa86fd6ef",
-            "print(false && (1/0==0));print(true || (1/0==0));\n",
-            "success",
-            'tokens=[["print", '
-            '"print", '
-            "0], "
-            '["(", '
-            '"(", '
-            "5], "
-            '["false", '
-            '"false", '
-            "6], "
-            '["&&", '
-            '"&&", '
-            "12], "
-            '["(", '
-            '"(", '
-            "15], "
-            '["number", '
-            '"1", '
-            "16], "
-            '["/", '
-            '"/", '
-            "17], "
-            '["number", '
-            '"0", '
-            "18], "
-            '["==", '
-            '"==", '
-            "19], "
-            '["number", '
-            '"0", '
-            "21], "
-            '[")", '
-            '")", '
-            "22], "
-            '[")", '
-            '")", '
-            "23], "
-            '[";", '
-            '";", '
-            "24], "
-            '["print", '
-            '"print", '
-            "25], "
-            '["(", '
-            '"(", '
-            "30], "
-            '["true", '
-            '"true", '
-            "31], "
-            '["||", '
-            '"||", '
-            "36], "
-            '["(", '
-            '"(", '
-            "39], "
-            '["number", '
-            '"1", '
-            "40], "
-            '["/", '
-            '"/", '
-            "41], "
-            '["number", '
-            '"0", '
-            "42], "
-            '["==", '
-            '"==", '
-            "43], "
-            '["number", '
-            '"0", '
-            "45], "
-            '[")", '
-            '")", '
-            "46], "
-            '[")", '
-            '")", '
-            "47], "
-            '[";", '
-            '";", '
-            "48], "
-            '["eof", '
-            '"", '
-            "50]]\n"
-            'ast=[{"expr": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "6, "
-            '"value": '
-            "false}, "
-            '"op": '
-            '"&&", '
-            '"pos": '
-            "12, "
-            '"right": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "16, "
-            '"value": '
-            "1}, "
-            '"op": '
-            '"/", '
-            '"pos": '
-            "17, "
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "18, "
-            '"value": '
-            "0}}, "
-            '"op": '
-            '"==", '
-            '"pos": '
-            "19, "
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "21, "
-            '"value": '
-            "0}}}, "
-            '"kind": '
-            '"print", '
-            '"pos": '
-            "0}, "
-            '{"expr": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "31, "
-            '"value": '
-            "true}, "
-            '"op": '
-            '"||", '
-            '"pos": '
-            "36, "
-            '"right": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"binary", '
-            '"left": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "40, "
-            '"value": '
-            "1}, "
-            '"op": '
-            '"/", '
-            '"pos": '
-            "41, "
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "42, "
-            '"value": '
-            "0}}, "
-            '"op": '
-            '"==", '
-            '"pos": '
-            "43, "
-            '"right": '
-            '{"kind": '
-            '"literal", '
-            '"pos": '
-            "45, "
-            '"value": '
-            "0}}}, "
-            '"kind": '
-            '"print", '
-            '"pos": '
-            "25}]\n"
-            'instructions=[["PUSH", '
-            "false, "
-            "6], "
-            '["JF", '
-            "8, "
-            "12], "
-            '["PUSH", '
-            "1, "
-            "16], "
-            '["PUSH", '
-            "0, "
-            "18], "
-            '["BINARY", '
-            '"/", '
-            "17], "
-            '["PUSH", '
-            "0, "
-            "21], "
-            '["BINARY", '
-            '"==", '
-            "19], "
-            '["JMP", '
-            "9, "
-            "12], "
-            '["PUSH", '
-            "false, "
-            "12], "
-            '["PRINT", '
-            "null, "
-            "0], "
-            '["PUSH", '
-            "true, "
-            "31], "
-            '["JF", '
-            "14, "
-            "36], "
-            '["PUSH", '
-            "true, "
-            "36], "
-            '["JMP", '
-            "19, "
-            "36], "
-            '["PUSH", '
-            "1, "
-            "40], "
-            '["PUSH", '
-            "0, "
-            "42], "
-            '["BINARY", '
-            '"/", '
-            "41], "
-            '["PUSH", '
-            "0, "
-            "45], "
-            '["BINARY", '
-            '"==", '
-            "43], "
-            '["PRINT", '
-            "null, "
-            "25]]\n"
-            '{"equivalent": '
-            "true, "
-            '"machine_result": '
-            "[false, "
-            "true], "
-            '"source_result": '
-            "[false, "
-            "true]}\n",
-            "",
-        ),
-    },
-    "8653760c-bf00-5358-88ec-df56160ecc65": {
-        ("CS07-M01-O01", "base"): (
-            "8c0c62ea-771e-573b-80d9-6cbbf72dd6bd",
-            "1\n",
-            "success",
-            "user\n",
-            "",
-        ),
-        ("CS07-M01-O01", "changed-condition"): (
-            "8c0c62ea-771e-573b-80d9-6cbbf72dd6bd",
-            "2\n",
-            "success",
-            "kernel\n",
-            "",
-        ),
-        ("CS07-M01-O02", "base"): (
-            "cd79e875-6384-5137-b3ee-8f219c33bd38",
-            "1\n",
-            "success",
-            "alpha\n",
-            "",
-        ),
-        ("CS07-M01-O02", "changed-condition"): (
-            "cd79e875-6384-5137-b3ee-8f219c33bd38",
-            "2\n",
-            "success",
-            "xy\n",
-            "",
-        ),
-        ("CS07-M01-O03", "base"): (
-            "71a4bb0c-311d-5fac-8772-84e97344b70a",
-            "1\n",
-            "success",
-            "missing\n",
-            "",
-        ),
-        ("CS07-M01-O03", "changed-condition"): (
-            "71a4bb0c-311d-5fac-8772-84e97344b70a",
-            "2\n",
-            "success",
-            "ok\n",
-            "",
-        ),
-        ("CS07-M02-O01", "base"): (
-            "cfe88aac-8fe4-5ddf-94a6-6b084337b2e2",
-            "1\n",
-            "success",
-            "7\n",
-            "",
-        ),
-        ("CS07-M02-O01", "changed-condition"): (
-            "cfe88aac-8fe4-5ddf-94a6-6b084337b2e2",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS07-M02-O02", "base"): (
-            "bfe08157-3df8-5a11-9698-232a1bf3558f",
-            "1\n",
-            "success",
-            "alpha\n",
-            "",
-        ),
-        ("CS07-M02-O02", "changed-condition"): (
-            "bfe08157-3df8-5a11-9698-232a1bf3558f",
-            "2\n",
-            "success",
-            "xy\n",
-            "",
-        ),
-        ("CS07-M02-O03", "base"): (
-            "79974fc9-c36c-53fb-a635-0cc5d65aa7cf",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS07-M02-O03", "changed-condition"): (
-            "79974fc9-c36c-53fb-a635-0cc5d65aa7cf",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS07-M03-O01", "base"): (
-            "d4f8dceb-aa42-542f-a188-8b34e0dc6038",
-            "1\n",
-            "success",
-            "B A\n",
-            "",
-        ),
-        ("CS07-M03-O01", "changed-condition"): (
-            "d4f8dceb-aa42-542f-a188-8b34e0dc6038",
-            "2\n",
-            "success",
-            "A B\n",
-            "",
-        ),
-        ("CS07-M03-O02", "base"): (
-            "29801e13-2ff5-58bc-b579-6f41075398e8",
-            "1\n",
-            "success",
-            "6\n",
-            "",
-        ),
-        ("CS07-M03-O02", "changed-condition"): (
-            "29801e13-2ff5-58bc-b579-6f41075398e8",
-            "2\n",
-            "success",
-            "9\n",
-            "",
-        ),
-        ("CS07-M03-O03", "base"): (
-            "cdca8acf-92e8-5849-baf7-3a02845967db",
-            "1\n",
-            "success",
-            "A2 B1 A1\n",
-            "",
-        ),
-        ("CS07-M03-O03", "changed-condition"): (
-            "cdca8acf-92e8-5849-baf7-3a02845967db",
-            "2\n",
-            "success",
-            "A1 B1\n",
-            "",
-        ),
-        ("CS07-M04-O01", "base"): (
-            "0944dc66-1f3c-54ef-9499-c13141c38543",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS07-M04-O01", "changed-condition"): (
-            "0944dc66-1f3c-54ef-9499-c13141c38543",
-            "2\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS07-M04-O02", "base"): (
-            "89c9732d-19d5-51b8-ae0f-ebcdc9e39625",
-            "1\n",
-            "success",
-            "[1, 2]\n",
-            "",
-        ),
-        ("CS07-M04-O02", "changed-condition"): (
-            "89c9732d-19d5-51b8-ae0f-ebcdc9e39625",
-            "2\n",
-            "success",
-            "[1, 2]\n",
-            "",
-        ),
-        ("CS07-M04-O03", "base"): (
-            "2d30ace7-8ccc-5558-9b56-383c937504f0",
-            "1\n",
-            "success",
-            "9\n",
-            "",
-        ),
-        ("CS07-M04-O03", "changed-condition"): (
-            "2d30ace7-8ccc-5558-9b56-383c937504f0",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS07-M05-O01", "base"): (
-            "191c9933-a731-5f8b-a8c7-3d52e0368d51",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS07-M05-O01", "changed-condition"): (
-            "191c9933-a731-5f8b-a8c7-3d52e0368d51",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS07-M05-O02", "base"): (
-            "a61dd406-7dad-564c-85a6-187bbe41b26a",
-            "1\n",
-            "success",
-            "A->B\n",
-            "",
-        ),
-        ("CS07-M05-O02", "changed-condition"): (
-            "a61dd406-7dad-564c-85a6-187bbe41b26a",
-            "2\n",
-            "success",
-            "C->B\n",
-            "",
-        ),
-        ("CS07-M05-O03", "base"): (
-            "8ecbe586-cb66-5371-90f4-a17858b54024",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS07-M05-O03", "changed-condition"): (
-            "8ecbe586-cb66-5371-90f4-a17858b54024",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS07-M06-O01", "base"): (
-            "f57fe138-baea-59e9-8ab8-ab1e538921c0",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS07-M06-O01", "changed-condition"): (
-            "f57fe138-baea-59e9-8ab8-ab1e538921c0",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS07-M06-O02", "base"): (
-            "87cf6e7c-0b49-58d8-ab18-6e8da1d162ab",
-            "1\n",
-            "success",
-            "67\n",
-            "",
-        ),
-        ("CS07-M06-O02", "changed-condition"): (
-            "87cf6e7c-0b49-58d8-ab18-6e8da1d162ab",
-            "2\n",
-            "success",
-            "invalid\n",
-            "",
-        ),
-        ("CS07-M06-O03", "base"): (
-            "0bfaa3df-825e-5583-a9ee-6056f2d7624e",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS07-M06-O03", "changed-condition"): (
-            "0bfaa3df-825e-5583-a9ee-6056f2d7624e",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS07-M07-O01", "base"): (
-            "3dcca039-41b1-573d-b511-64241a18dc68",
-            "1\n",
-            "success",
-            "[2, 3]\n",
-            "",
-        ),
-        ("CS07-M07-O01", "changed-condition"): (
-            "3dcca039-41b1-573d-b511-64241a18dc68",
-            "2\n",
-            "success",
-            "[2, 3]\n",
-            "",
-        ),
-        ("CS07-M07-O02", "base"): (
-            "6e608c01-81ea-5b29-90c4-35c7f89789b8",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS07-M07-O02", "changed-condition"): (
-            "6e608c01-81ea-5b29-90c4-35c7f89789b8",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS07-M07-O03", "base"): (
-            "ef5d0c6d-86c7-5e53-8454-51585f2c77c6",
-            "1\n",
-            "success",
-            "[3]\n",
-            "",
-        ),
-        ("CS07-M07-O03", "changed-condition"): (
-            "ef5d0c6d-86c7-5e53-8454-51585f2c77c6",
-            "2\n",
-            "success",
-            "[1, 2]\n",
-            "",
-        ),
-        ("CS07-M08-O01", "base"): (
-            "11494153-d4e5-5c7d-82f8-daecdede1944",
-            "1\n",
-            "success",
-            "alpha\n",
-            "",
-        ),
-        ("CS07-M08-O01", "changed-condition"): (
-            "11494153-d4e5-5c7d-82f8-daecdede1944",
-            "2\n",
-            "success",
-            "beta\n",
-            "",
-        ),
-        ("CS07-M08-O02", "base"): (
-            "42dde000-72ea-5273-b3cb-0c9ce0f71b5d",
-            "1\n",
-            "success",
-            "denied\n",
-            "",
-        ),
-        ("CS07-M08-O02", "changed-condition"): (
-            "42dde000-72ea-5273-b3cb-0c9ce0f71b5d",
-            "2\n",
-            "success",
-            "ok\n",
-            "",
-        ),
-        ("CS07-M08-O03", "base"): (
-            "52a2fd5b-43e2-5212-bdb5-318ddab27ff9",
-            "1\n",
-            "success",
-            "55\n",
-            "",
-        ),
-        ("CS07-M08-O03", "changed-condition"): (
-            "52a2fd5b-43e2-5212-bdb5-318ddab27ff9",
-            "2\n",
-            "success",
-            "20\n",
-            "",
-        ),
-        ("CS07-M09-O01", "base"): (
-            "e6b8ef3e-b219-5d3f-be36-ac76e7a6a2f0",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS07-M09-O01", "changed-condition"): (
-            "e6b8ef3e-b219-5d3f-be36-ac76e7a6a2f0",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS07-M09-O02", "base"): (
-            "9acfa274-70dd-5ffd-b515-d2c95adc822e",
-            "1\n",
-            "success",
-            "limited\n",
-            "",
-        ),
-        ("CS07-M09-O02", "changed-condition"): (
-            "9acfa274-70dd-5ffd-b515-d2c95adc822e",
-            "2\n",
-            "success",
-            "within_limit\n",
-            "",
-        ),
-        ("CS07-M09-O03", "base"): (
-            "07961b43-d57e-5b29-b2a8-e78c9ccf0526",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS07-M09-O03", "changed-condition"): (
-            "07961b43-d57e-5b29-b2a8-e78c9ccf0526",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-    },
-    "89a77e3d-0397-527e-bfaa-89d9009da6c6": {
-        ("CS03-M01-O01", "base"): (
-            "9dc038dd-008b-58f6-acee-32a17cddd73d",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS03-M01-O01", "changed-condition"): (
-            "9dc038dd-008b-58f6-acee-32a17cddd73d",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS03-M01-O02", "base"): (
-            "4a7a61ec-6921-573a-9410-032966472a72",
-            "1\n",
-            "success",
-            "10 20 30 \n",
-            "",
-        ),
-        ("CS03-M01-O02", "changed-condition"): (
-            "4a7a61ec-6921-573a-9410-032966472a72",
-            "2\n",
-            "success",
-            "30 \n",
-            "",
-        ),
-        ("CS03-M01-O03", "base"): (
-            "364b32ed-18ca-5bc4-9ed1-6e02e454f5b7",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS03-M01-O03", "changed-condition"): (
-            "364b32ed-18ca-5bc4-9ed1-6e02e454f5b7",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS03-M02-O01", "base"): (
-            "9d6cfed3-f3af-58be-b2ec-c8e36eaf9804",
-            "1\n",
-            "success",
-            "7 10 20 30 \n",
-            "",
-        ),
-        ("CS03-M02-O01", "changed-condition"): (
-            "9d6cfed3-f3af-58be-b2ec-c8e36eaf9804",
-            "2\n",
-            "success",
-            "10 20 30 7 \n",
-            "",
-        ),
-        ("CS03-M02-O02", "base"): (
-            "90979e0e-ed31-537f-b86e-d01a1425ef07",
-            "1\n",
-            "success",
-            "7 10 20 \n",
-            "",
-        ),
-        ("CS03-M02-O02", "changed-condition"): (
-            "90979e0e-ed31-537f-b86e-d01a1425ef07",
-            "2\n",
-            "success",
-            "7 \n",
-            "",
-        ),
-        ("CS03-M02-O03", "base"): (
-            "64c2adf5-7c4c-54b6-bba2-6638b02f0ee3",
-            "1\n",
-            "success",
-            "10 7 20 | 20 7 10 \n",
-            "",
-        ),
-        ("CS03-M02-O03", "changed-condition"): (
-            "64c2adf5-7c4c-54b6-bba2-6638b02f0ee3",
-            "2\n",
-            "success",
-            "10 7 20 | 20 7 10 \n",
-            "",
-        ),
-        ("CS03-M03-O01", "base"): (
-            "b819c717-8de4-532e-b340-09eb5d3f3abf",
-            "1\n",
-            "success",
-            "20 10 empty=1\n",
-            "",
-        ),
-        ("CS03-M03-O01", "changed-condition"): (
-            "b819c717-8de4-532e-b340-09eb5d3f3abf",
-            "2\n",
-            "success",
-            "empty=1\n",
-            "",
-        ),
-        ("CS03-M03-O02", "base"): (
-            "67e91e67-790a-5801-b9a9-987ea5374302",
-            "1\n",
-            "success",
-            "20 30 40 empty=0\n",
-            "",
-        ),
-        ("CS03-M03-O02", "changed-condition"): (
-            "67e91e67-790a-5801-b9a9-987ea5374302",
-            "2\n",
-            "success",
-            "10 20 empty=0\n",
-            "",
-        ),
-        ("CS03-M03-O03", "base"): (
-            "1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5",
-            "1\n",
-            "success",
-            "invalid\n",
-            "",
-        ),
-        ("CS03-M03-O03", "changed-condition"): (
-            "1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5",
-            "2\n",
-            "success",
-            "valid\n",
-            "",
-        ),
-    },
-    "93fe966e-55aa-5b49-9735-1dcd5e139fba": {
-        ("CS09-M01-O01", "base"): (
-            "3d4b6d9b-3d47-524b-b6d9-340062feafc8",
-            "",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS09-M01-O01", "changed-condition"): (
-            "3d4b6d9b-3d47-524b-b6d9-340062feafc8",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M01-O02", "base"): (
-            "093d91bb-7423-5578-b0db-c61699059a02",
-            "",
-            "success",
-            "2\n3\n",
-            "",
-        ),
-        ("CS09-M01-O02", "changed-condition"): (
-            "093d91bb-7423-5578-b0db-c61699059a02",
-            "",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS09-M01-O03", "base"): (
-            "6db0979e-6b60-50fb-a055-cc7376c4cdf4",
-            "",
-            "success",
-            "1\n1\n",
-            "",
-        ),
-        ("CS09-M01-O03", "changed-condition"): (
-            "6db0979e-6b60-50fb-a055-cc7376c4cdf4",
-            "",
-            "success",
-            "1\n2\n",
-            "",
-        ),
-        ("CS09-M02-O01", "base"): (
-            "150fff0b-f067-502c-b856-ebd0de3dfd3d",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M02-O01", "changed-condition"): (
-            "150fff0b-f067-502c-b856-ebd0de3dfd3d",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M02-O02", "base"): (
-            "aab1c072-993d-54a7-a7ee-768ca3fdee96",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M02-O02", "changed-condition"): (
-            "aab1c072-993d-54a7-a7ee-768ca3fdee96",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M02-O03", "base"): (
-            "4fe5dc69-ced4-511f-86dc-13cbb8eec694",
-            "",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS09-M02-O03", "changed-condition"): (
-            "4fe5dc69-ced4-511f-86dc-13cbb8eec694",
-            "",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS09-M03-O01", "base"): (
-            "a6f07edb-d237-5158-bce7-ed75c3046c8a",
-            "",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS09-M03-O01", "changed-condition"): (
-            "a6f07edb-d237-5158-bce7-ed75c3046c8a",
-            "",
-            "success",
-            "1\n2\n",
-            "",
-        ),
-        ("CS09-M03-O02", "base"): (
-            "fe98e986-0533-5769-9d3a-acab7465957a",
-            "",
-            "success",
-            "1|9\n2|5\n",
-            "",
-        ),
-        ("CS09-M03-O02", "changed-condition"): (
-            "fe98e986-0533-5769-9d3a-acab7465957a",
-            "",
-            "success",
-            "1|9\n2|0\n",
-            "",
-        ),
-        ("CS09-M03-O03", "base"): (
-            "1918184e-30f4-5772-b5e1-1c120dc702c5",
-            "",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS09-M03-O03", "changed-condition"): (
-            "1918184e-30f4-5772-b5e1-1c120dc702c5",
-            "",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS09-M04-O01", "base"): (
-            "ba9a51b3-e5d6-5e60-8c3f-0c729b814b1d",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M04-O01", "changed-condition"): (
-            "ba9a51b3-e5d6-5e60-8c3f-0c729b814b1d",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M04-O02", "base"): (
-            "691dbd83-b301-57b6-ae20-c5b7a9bd3b7f",
-            "",
-            "success",
-            "1|1\n2|0\n",
-            "",
-        ),
-        ("CS09-M04-O02", "changed-condition"): (
-            "691dbd83-b301-57b6-ae20-c5b7a9bd3b7f",
-            "",
-            "success",
-            "1|1\n2|1\n",
-            "",
-        ),
-        ("CS09-M04-O03", "base"): (
-            "4785a3d2-8d63-540a-94b2-2db705e79ae3",
-            "",
-            "success",
-            "1|1\n2|1\n3|2\n",
-            "",
-        ),
-        ("CS09-M04-O03", "changed-condition"): (
-            "4785a3d2-8d63-540a-94b2-2db705e79ae3",
-            "",
-            "success",
-            "1|1\n2|2\n3|2\n",
-            "",
-        ),
-        ("CS09-M05-O01", "base"): (
-            "f90b86df-c0bb-52e1-912f-c9421d718f1a",
-            "1\n",
-            "success",
-            "ABC\n",
-            "",
-        ),
-        ("CS09-M05-O01", "changed-condition"): (
-            "f90b86df-c0bb-52e1-912f-c9421d718f1a",
-            "2\n",
-            "success",
-            "AB\n",
-            "",
-        ),
-        ("CS09-M05-O02", "base"): (
-            "987e1f95-e05d-50a8-aa14-b77b1685d6a4",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS09-M05-O02", "changed-condition"): (
-            "987e1f95-e05d-50a8-aa14-b77b1685d6a4",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS09-M05-O03", "base"): (
-            "b24e63e4-8633-5fff-9425-72e3a71134f8",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS09-M05-O03", "changed-condition"): (
-            "b24e63e4-8633-5fff-9425-72e3a71134f8",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS09-M06-O01", "base"): (
-            "53edffa9-0ca2-59af-8c1a-f30828bb2ecc",
-            "",
-            "success",
-            "lookup_idx\n",
-            "",
-        ),
-        ("CS09-M06-O01", "changed-condition"): (
-            "53edffa9-0ca2-59af-8c1a-f30828bb2ecc",
-            "",
-            "success",
-            "lookup_idx\n",
-            "",
-        ),
-        ("CS09-M06-O02", "base"): (
-            "f28bdff4-b542-54c9-b1c9-913cef1a1044",
-            "",
-            "success",
-            "t\n",
-            "",
-        ),
-        ("CS09-M06-O02", "changed-condition"): (
-            "f28bdff4-b542-54c9-b1c9-913cef1a1044",
-            "",
-            "success",
-            "t\n",
-            "",
-        ),
-        ("CS09-M06-O03", "base"): (
-            "ae807b70-997d-52c5-ad2a-f3d661e6b2c1",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS09-M06-O03", "changed-condition"): (
-            "ae807b70-997d-52c5-ad2a-f3d661e6b2c1",
-            "2\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS09-M07-O01", "base"): (
-            "621b371c-cef0-5b8e-ad5c-f95ebf42e587",
-            "",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS09-M07-O01", "changed-condition"): (
-            "621b371c-cef0-5b8e-ad5c-f95ebf42e587",
-            "",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS09-M07-O02", "base"): (
-            "dadd5c5d-41de-5aef-a0d1-a029605cd763",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS09-M07-O02", "changed-condition"): (
-            "dadd5c5d-41de-5aef-a0d1-a029605cd763",
-            "2\n",
-            "success",
-            "9\n",
-            "",
-        ),
-        ("CS09-M07-O03", "base"): (
-            "e4fbae27-84d2-5d8a-b4ac-ba77c6fc6433",
-            "",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS09-M07-O03", "changed-condition"): (
-            "e4fbae27-84d2-5d8a-b4ac-ba77c6fc6433",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M08-O01", "base"): (
-            "73afaed2-9aa2-532c-a7a1-8bdc24df1e21",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS09-M08-O01", "changed-condition"): (
-            "73afaed2-9aa2-532c-a7a1-8bdc24df1e21",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS09-M08-O02", "base"): (
-            "27bb7b1e-5a9e-5986-8690-d38ed949d19a",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS09-M08-O02", "changed-condition"): (
-            "27bb7b1e-5a9e-5986-8690-d38ed949d19a",
-            "2\n",
-            "success",
-            "8\n",
-            "",
-        ),
-        ("CS09-M08-O03", "base"): (
-            "376e6101-a6ca-558e-9ed6-74bfe629b1b6",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M08-O03", "changed-condition"): (
-            "376e6101-a6ca-558e-9ed6-74bfe629b1b6",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M09-O01", "base"): (
-            "84dd0b93-6888-538e-8ef0-fa423fd5993a",
-            "",
-            "success",
-            "denied\nt\n",
-            "",
-        ),
-        ("CS09-M09-O01", "changed-condition"): (
-            "84dd0b93-6888-538e-8ef0-fa423fd5993a",
-            "",
-            "success",
-            "denied\nf\n",
-            "",
-        ),
-        ("CS09-M09-O02", "base"): (
-            "a4c1d4a8-65a2-559a-8ae3-2992d318da5a",
-            "",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS09-M09-O02", "changed-condition"): (
-            "a4c1d4a8-65a2-559a-8ae3-2992d318da5a",
-            "",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS09-M09-O03", "base"): (
-            "982a8e68-8209-50e1-8b10-9004ecacf720",
-            "",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS09-M09-O03", "changed-condition"): (
-            "982a8e68-8209-50e1-8b10-9004ecacf720",
-            "",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS09-M10-O01", "base"): (
-            "8de885d0-7bb8-5071-8b44-01860a105f8e",
-            "",
-            "success",
-            "1|0\n",
-            "",
-        ),
-        ("CS09-M10-O01", "changed-condition"): (
-            "8de885d0-7bb8-5071-8b44-01860a105f8e",
-            "",
-            "success",
-            "2|0\n",
-            "",
-        ),
-        ("CS09-M10-O02", "base"): (
-            "cc1fc0e8-a808-5687-8b43-fc90e3dcb494",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS09-M10-O02", "changed-condition"): (
-            "cc1fc0e8-a808-5687-8b43-fc90e3dcb494",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS09-M10-O03", "base"): (
-            "f25c7992-494d-594e-b709-6cce470c3843",
-            "",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS09-M10-O03", "changed-condition"): (
-            "f25c7992-494d-594e-b709-6cce470c3843",
-            "",
-            "success",
-            "1\n",
-            "",
-        ),
-    },
-    "ad0499ca-f205-5b96-bb4f-f4c3137e8238": {
-        ("CS05-M01-O01", "base"): (
-            "02d5f3a0-71aa-5af9-a438-f7b016ce3287",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M01-O01", "changed-condition"): (
-            "02d5f3a0-71aa-5af9-a438-f7b016ce3287",
-            "2\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M01-O02", "base"): (
-            "5c955242-c06e-574e-bca4-a084ea3aa63c",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M01-O02", "changed-condition"): (
-            "5c955242-c06e-574e-bca4-a084ea3aa63c",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M01-O03", "base"): (
-            "e43dc2b3-34d2-58d3-89d3-67b500d066b3",
-            "1\n",
-            "success",
-            "[(1, 0)]\n",
-            "",
-        ),
-        ("CS05-M01-O03", "changed-condition"): (
-            "e43dc2b3-34d2-58d3-89d3-67b500d066b3",
-            "2\n",
-            "success",
-            "[(1, 0)]\n",
-            "",
-        ),
-        ("CS05-M02-O01", "base"): (
-            "e4f5655a-7053-56c9-91c4-90a8c4bc3e8e",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M02-O01", "changed-condition"): (
-            "e4f5655a-7053-56c9-91c4-90a8c4bc3e8e",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M02-O02", "base"): (
-            "66082aa1-1b14-57c2-bdc6-d04f04e8bf87",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M02-O02", "changed-condition"): (
-            "66082aa1-1b14-57c2-bdc6-d04f04e8bf87",
-            "2\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M02-O03", "base"): (
-            "0e09ee7b-d8de-5ab6-83d4-5050451be5f1",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M02-O03", "changed-condition"): (
-            "0e09ee7b-d8de-5ab6-83d4-5050451be5f1",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M03-O01", "base"): (
-            "66d350e9-fd6f-571e-9a50-698c693996ae",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M03-O01", "changed-condition"): (
-            "66d350e9-fd6f-571e-9a50-698c693996ae",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M03-O02", "base"): (
-            "a21756ae-bb30-577c-974d-1ea1719bc050",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M03-O02", "changed-condition"): (
-            "a21756ae-bb30-577c-974d-1ea1719bc050",
-            "2\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M03-O03", "base"): (
-            "1cb9bc50-fb31-58d0-99c8-0f6fe62bd41a",
-            "1\n",
-            "success",
-            "10\n",
-            "",
-        ),
-        ("CS05-M03-O03", "changed-condition"): (
-            "1cb9bc50-fb31-58d0-99c8-0f6fe62bd41a",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS05-M04-O01", "base"): (
-            "6c545c84-ec71-5d8e-953b-59648fecf76f",
-            "1\n",
-            "success",
-            "[1]\n",
-            "",
-        ),
-        ("CS05-M04-O01", "changed-condition"): (
-            "6c545c84-ec71-5d8e-953b-59648fecf76f",
-            "2\n",
-            "success",
-            "[1, 2]\n",
-            "",
-        ),
-        ("CS05-M04-O02", "base"): (
-            "24477bf9-7f9f-5601-aa63-fd3d840c739f",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M04-O02", "changed-condition"): (
-            "24477bf9-7f9f-5601-aa63-fd3d840c739f",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M04-O03", "base"): (
-            "1e66f5fa-5e2c-54d0-bd99-21dcdd046fea",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS05-M04-O03", "changed-condition"): (
-            "1e66f5fa-5e2c-54d0-bd99-21dcdd046fea",
-            "2\n",
-            "success",
-            "8\n",
-            "",
-        ),
-        ("CS05-M05-O01", "base"): (
-            "eba3f832-ffbd-5731-9d1b-a122742fa0b0",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M05-O01", "changed-condition"): (
-            "eba3f832-ffbd-5731-9d1b-a122742fa0b0",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M05-O02", "base"): (
-            "4658d15f-18d3-5553-a6f3-768043eddbe0",
-            "1\n",
-            "success",
-            "[1, 3, 5]\n",
-            "",
-        ),
-        ("CS05-M05-O02", "changed-condition"): (
-            "4658d15f-18d3-5553-a6f3-768043eddbe0",
-            "2\n",
-            "success",
-            "[1, 4]\n",
-            "",
-        ),
-        ("CS05-M05-O03", "base"): (
-            "6193d107-0654-5062-93cc-eca713da6837",
-            "1\n",
-            "success",
-            "[(1, 2), (2, 4)]\n",
-            "",
-        ),
-        ("CS05-M05-O03", "changed-condition"): (
-            "6193d107-0654-5062-93cc-eca713da6837",
-            "2\n",
-            "success",
-            "[(1, 2), (1, 3)]\n",
-            "",
-        ),
-        ("CS05-M06-O01", "base"): (
-            "ec3074b8-2aa3-5b25-9ecd-8ceaae403cce",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS05-M06-O01", "changed-condition"): (
-            "ec3074b8-2aa3-5b25-9ecd-8ceaae403cce",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS05-M06-O02", "base"): (
-            "170aa13b-400a-5304-9ef7-ba1d2427b971",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS05-M06-O02", "changed-condition"): (
-            "170aa13b-400a-5304-9ef7-ba1d2427b971",
-            "2\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS05-M06-O03", "base"): (
-            "28137f77-510b-505d-b155-e177feb0ba13",
-            "1\n",
-            "success",
-            "8\n",
-            "",
-        ),
-        ("CS05-M06-O03", "changed-condition"): (
-            "28137f77-510b-505d-b155-e177feb0ba13",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS05-M07-O01", "base"): (
-            "652c3a57-6198-5907-a7bf-c792b010b54e",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M07-O01", "changed-condition"): (
-            "652c3a57-6198-5907-a7bf-c792b010b54e",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M07-O02", "base"): (
-            "32e6ae77-723d-52f5-93c6-01bee2f35942",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M07-O02", "changed-condition"): (
-            "32e6ae77-723d-52f5-93c6-01bee2f35942",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M07-O03", "base"): (
-            "bd71fb70-42e8-5acc-a5ec-be7bb59146b8",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M07-O03", "changed-condition"): (
-            "bd71fb70-42e8-5acc-a5ec-be7bb59146b8",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M08-O01", "base"): (
-            "cdead411-c523-5e87-a21c-a92b860c9b98",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M08-O01", "changed-condition"): (
-            "cdead411-c523-5e87-a21c-a92b860c9b98",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M08-O02", "base"): (
-            "88eaa826-ae3b-5e5c-950c-420cfb0f5851",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M08-O02", "changed-condition"): (
-            "88eaa826-ae3b-5e5c-950c-420cfb0f5851",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M08-O03", "base"): (
-            "35f4b185-51d4-5162-ac9d-74c05977349c",
-            "1\n",
-            "success",
-            "[2]\n",
-            "",
-        ),
-        ("CS05-M08-O03", "changed-condition"): (
-            "35f4b185-51d4-5162-ac9d-74c05977349c",
-            "2\n",
-            "success",
-            "[1, 2]\n",
-            "",
-        ),
-        ("CS05-M09-O01", "base"): (
-            "d70250c6-bddc-5326-8596-c43147b0711b",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M09-O01", "changed-condition"): (
-            "d70250c6-bddc-5326-8596-c43147b0711b",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M09-O02", "base"): (
-            "33ecb3bb-9e70-5ba4-adb8-5881929b4e87",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M09-O02", "changed-condition"): (
-            "33ecb3bb-9e70-5ba4-adb8-5881929b4e87",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M09-O03", "base"): (
-            "0a712f92-0459-5be5-9543-3d95cbbe74f3",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M09-O03", "changed-condition"): (
-            "0a712f92-0459-5be5-9543-3d95cbbe74f3",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M10-O01", "base"): (
-            "86fda19f-eca3-54ba-a69b-31435fe34021",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS05-M10-O01", "changed-condition"): (
-            "86fda19f-eca3-54ba-a69b-31435fe34021",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS05-M10-O02", "base"): (
-            "35d922ea-f1ec-57ce-95f6-f3786970a73c",
-            "1\n",
-            "success",
-            "7\n",
-            "",
-        ),
-        ("CS05-M10-O02", "changed-condition"): (
-            "35d922ea-f1ec-57ce-95f6-f3786970a73c",
-            "2\n",
-            "success",
-            "6\n",
-            "",
-        ),
-        ("CS05-M10-O03", "base"): (
-            "7ece5868-34b5-5832-a544-08e8a57156b0",
-            "1\n",
-            "success",
-            "cycle\n",
-            "",
-        ),
-        ("CS05-M10-O03", "changed-condition"): (
-            "7ece5868-34b5-5832-a544-08e8a57156b0",
-            "2\n",
-            "success",
-            "ok\n",
-            "",
-        ),
-    },
-    "b28228f9-8393-5ef8-a6df-bece066e487b": {
-        ("CS04-M01-O01", "base"): (
-            "88386121-e0c3-5f50-be17-2b888672fcc0",
-            "1\n",
-            "success",
-            "-1\n",
-            "",
-        ),
-        ("CS04-M01-O01", "changed-condition"): (
-            "88386121-e0c3-5f50-be17-2b888672fcc0",
-            "2\n",
-            "success",
-            "-1\n",
-            "",
-        ),
-        ("CS04-M01-O02", "base"): (
-            "339555b1-288e-5027-970d-92c72ff13479",
-            "1\n",
-            "success",
-            "[True, True, True]\n",
-            "",
-        ),
-        ("CS04-M01-O02", "changed-condition"): (
-            "339555b1-288e-5027-970d-92c72ff13479",
-            "2\n",
-            "success",
-            "[True]\n",
-            "",
-        ),
-        ("CS04-M01-O03", "base"): (
-            "63676c3f-f330-5e8d-9c3e-f7ee080dd9bd",
-            "1\n",
-            "success",
-            "16\n",
-            "",
-        ),
-        ("CS04-M01-O03", "changed-condition"): (
-            "63676c3f-f330-5e8d-9c3e-f7ee080dd9bd",
-            "2\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS04-M02-O01", "base"): (
-            "8be83d61-bca5-542c-8399-154363982119",
-            "1\n",
-            "success",
-            "8\n",
-            "",
-        ),
-        ("CS04-M02-O01", "changed-condition"): (
-            "8be83d61-bca5-542c-8399-154363982119",
-            "2\n",
-            "success",
-            "12\n",
-            "",
-        ),
-        ("CS04-M02-O02", "base"): (
-            "dc5c74d5-480b-558a-97aa-df28eda8b982",
-            "1\n",
-            "success",
-            "[1, 2, 3, 4, 5]\n",
-            "",
-        ),
-        ("CS04-M02-O02", "changed-condition"): (
-            "dc5c74d5-480b-558a-97aa-df28eda8b982",
-            "2\n",
-            "success",
-            "[1, 2, 3, 6]\n",
-            "",
-        ),
-        ("CS04-M02-O03", "base"): (
-            "56d22553-981a-5d21-8222-0cc2127f0ea6",
-            "1\n",
-            "success",
-            "12\n",
-            "",
-        ),
-        ("CS04-M02-O03", "changed-condition"): (
-            "56d22553-981a-5d21-8222-0cc2127f0ea6",
-            "2\n",
-            "success",
-            "32\n",
-            "",
-        ),
-        ("CS04-M03-O01", "base"): (
-            "6bb5e6d8-d805-5586-b2bc-052452f69532",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS04-M03-O01", "changed-condition"): (
-            "6bb5e6d8-d805-5586-b2bc-052452f69532",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS04-M03-O02", "base"): (
-            "ae7a0c34-5fcd-5ca4-8941-8d231908f028",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS04-M03-O02", "changed-condition"): (
-            "ae7a0c34-5fcd-5ca4-8941-8d231908f028",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS04-M03-O03", "base"): (
-            "fdb024a1-9747-59c0-ae25-104c6f387235",
-            "1\n",
-            "success",
-            "greedy=3 optimal=2\n",
-            "",
-        ),
-        ("CS04-M03-O03", "changed-condition"): (
-            "fdb024a1-9747-59c0-ae25-104c6f387235",
-            "2\n",
-            "success",
-            "greedy=1 optimal=1\n",
-            "",
-        ),
-        ("CS04-M04-O01", "base"): (
-            "218fcdae-d9de-5d33-a07b-4664861a0a7c",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS04-M04-O01", "changed-condition"): (
-            "218fcdae-d9de-5d33-a07b-4664861a0a7c",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS04-M04-O02", "base"): (
-            "754df16e-d9cd-5df7-8dab-8b14671c20ad",
-            "1\n",
-            "success",
-            "unreachable\n",
-            "",
-        ),
-        ("CS04-M04-O02", "changed-condition"): (
-            "754df16e-d9cd-5df7-8dab-8b14671c20ad",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS04-M04-O03", "base"): (
-            "57d627f2-e2ad-5f03-ae46-1da1e5fab36f",
-            "1\n",
-            "success",
-            "[1]\n",
-            "",
-        ),
-        ("CS04-M04-O03", "changed-condition"): (
-            "57d627f2-e2ad-5f03-ae46-1da1e5fab36f",
-            "2\n",
-            "success",
-            "[0]\n",
-            "",
-        ),
-        ("CS04-M05-O01", "base"): (
-            "536124e9-3dce-5f18-90d7-02f292921398",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS04-M05-O01", "changed-condition"): (
-            "536124e9-3dce-5f18-90d7-02f292921398",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS04-M05-O02", "base"): (
-            "d9e77c1e-ebc1-5f45-bc28-d311fc7f0532",
-            "1\n",
-            "success",
-            "count=4 valid=4\n",
-            "",
-        ),
-        ("CS04-M05-O02", "changed-condition"): (
-            "d9e77c1e-ebc1-5f45-bc28-d311fc7f0532",
-            "2\n",
-            "success",
-            "count=2 valid=2\n",
-            "",
-        ),
-        ("CS04-M05-O03", "base"): (
-            "ff892c57-e0fa-5c94-99e9-fa955ccb80a9",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS04-M05-O03", "changed-condition"): (
-            "ff892c57-e0fa-5c94-99e9-fa955ccb80a9",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS04-M06-O01", "base"): (
-            "524b56ec-6a8e-59d2-b995-11055473be19",
-            "1\n",
-            "success",
-            "-1\n",
-            "",
-        ),
-        ("CS04-M06-O01", "changed-condition"): (
-            "524b56ec-6a8e-59d2-b995-11055473be19",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS04-M06-O02", "base"): (
-            "22b89b18-4a03-5213-a9ea-bde77e031ce5",
-            "1\n",
-            "success",
-            "cost=7 connected=True\n",
-            "",
-        ),
-        ("CS04-M06-O02", "changed-condition"): (
-            "22b89b18-4a03-5213-a9ea-bde77e031ce5",
-            "2\n",
-            "success",
-            "cost=7 connected=True\n",
-            "",
-        ),
-        ("CS04-M06-O03", "base"): (
-            "b3f95407-ff5b-5fdf-82ad-8cb3d6ec2342",
-            "1\n",
-            "success",
-            "1 2\n",
-            "",
-        ),
-        ("CS04-M06-O03", "changed-condition"): (
-            "b3f95407-ff5b-5fdf-82ad-8cb3d6ec2342",
-            "2\n",
-            "success",
-            "3 0\n",
-            "",
-        ),
-        ("CS04-M07-O01", "base"): (
-            "6e55f035-0589-5a82-b0bd-0f6d769bfa54",
-            "1\n",
-            "success",
-            "mean=2.50 worst=3\n",
-            "",
-        ),
-        ("CS04-M07-O01", "changed-condition"): (
-            "6e55f035-0589-5a82-b0bd-0f6d769bfa54",
-            "2\n",
-            "success",
-            "mean=0.00 worst=0\n",
-            "",
-        ),
-        ("CS04-M07-O02", "base"): (
-            "98d7ac9b-a451-5424-9581-b9624937e490",
-            "1\n",
-            "success",
-            "12\n",
-            "",
-        ),
-        ("CS04-M07-O02", "changed-condition"): (
-            "98d7ac9b-a451-5424-9581-b9624937e490",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS04-M07-O03", "base"): (
-            "8f55ee2b-cfa8-5156-a930-0e05fdce6fc7",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS04-M07-O03", "changed-condition"): (
-            "8f55ee2b-cfa8-5156-a930-0e05fdce6fc7",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS04-M08-O01", "base"): (
-            "6efdc5fd-35f6-5c81-8081-26085ad94bb1",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS04-M08-O01", "changed-condition"): (
-            "6efdc5fd-35f6-5c81-8081-26085ad94bb1",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS04-M08-O02", "base"): (
-            "81823823-768a-58ab-b260-65cf1595c7ed",
-            "1\n",
-            "success",
-            "True 2\n",
-            "",
-        ),
-        ("CS04-M08-O02", "changed-condition"): (
-            "81823823-768a-58ab-b260-65cf1595c7ed",
-            "2\n",
-            "success",
-            "True 2\n",
-            "",
-        ),
-        ("CS04-M08-O03", "base"): (
-            "295319d3-b2bb-58da-adfa-c14b876bdb16",
-            "1\n",
-            "success",
-            "valid=True within_bound=True\n",
-            "",
-        ),
-        ("CS04-M08-O03", "changed-condition"): (
-            "295319d3-b2bb-58da-adfa-c14b876bdb16",
-            "2\n",
-            "success",
-            "valid=True within_bound=True\n",
-            "",
-        ),
-        ("CS04-M09-O01", "base"): (
-            "87062b09-5451-5c11-b2fe-89619ad6d0e7",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS04-M09-O01", "changed-condition"): (
-            "87062b09-5451-5c11-b2fe-89619ad6d0e7",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS04-M09-O02", "base"): (
-            "74b98e34-0329-5f1b-89a1-8d98433b47d8",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS04-M09-O02", "changed-condition"): (
-            "74b98e34-0329-5f1b-89a1-8d98433b47d8",
-            "2\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS04-M09-O03", "base"): (
-            "3ef93085-856d-56a8-a97b-1f2f73bff023",
-            "1\n",
-            "success",
-            "cost=3 feasible=True\n",
-            "",
-        ),
-        ("CS04-M09-O03", "changed-condition"): (
-            "3ef93085-856d-56a8-a97b-1f2f73bff023",
-            "2\n",
-            "success",
-            "cost=1 feasible=True\n",
-            "",
-        ),
-    },
-    "b78ced2b-86e3-5ece-aaf5-8e2d0deaf4e5": {
-        ("CS13-M01-O01", "base"): (
-            "5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7",
-            "1\n",
-            "success",
-            "classification\n",
-            "",
-        ),
-        ("CS13-M01-O01", "changed-condition"): (
-            "5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7",
-            "2\n",
-            "success",
-            "regression\n",
-            "",
-        ),
-        ("CS13-M01-O02", "base"): (
-            "54c1b7b8-441a-5be7-981e-8faf653802b9",
-            "1\n",
-            "success",
-            "sensor\n",
-            "",
-        ),
-        ("CS13-M01-O02", "changed-condition"): (
-            "54c1b7b8-441a-5be7-981e-8faf653802b9",
-            "2\n",
-            "success",
-            "future_label sensor\n",
-            "",
-        ),
-        ("CS13-M01-O03", "base"): (
-            "529f4161-cc07-5ecf-9f73-583f2556db43",
-            "1\n",
-            "success",
-            "0 1\n",
-            "",
-        ),
-        ("CS13-M01-O03", "changed-condition"): (
-            "529f4161-cc07-5ecf-9f73-583f2556db43",
-            "2\n",
-            "success",
-            "0 1\n",
-            "",
-        ),
-        ("CS13-M02-O01", "base"): (
-            "00fecae2-58be-5ae8-8bc6-53afee731f75",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS13-M02-O01", "changed-condition"): (
-            "00fecae2-58be-5ae8-8bc6-53afee731f75",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M02-O02", "base"): (
-            "eddce4f6-ae17-5d23-952d-5bf3b7133efe",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS13-M02-O02", "changed-condition"): (
-            "eddce4f6-ae17-5d23-952d-5bf3b7133efe",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS13-M02-O03", "base"): (
-            "d4ef1730-4c0e-57af-8336-4348b136532f",
-            "1\n",
-            "success",
-            "97 99\n",
-            "",
-        ),
-        ("CS13-M02-O03", "changed-condition"): (
-            "d4ef1730-4c0e-57af-8336-4348b136532f",
-            "2\n",
-            "success",
-            "-1 1\n",
-            "",
-        ),
-        ("CS13-M03-O01", "base"): (
-            "2c287a16-65b2-5c68-962a-332bd2db2e8f",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M03-O01", "changed-condition"): (
-            "2c287a16-65b2-5c68-962a-332bd2db2e8f",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M03-O02", "base"): (
-            "e8e0ed08-9f8d-5a18-b737-39b4f8559f44",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS13-M03-O02", "changed-condition"): (
-            "e8e0ed08-9f8d-5a18-b737-39b4f8559f44",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS13-M03-O03", "base"): (
-            "5da57081-e9a7-542a-b4c3-42e2e3a2ebe5",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS13-M03-O03", "changed-condition"): (
-            "5da57081-e9a7-542a-b4c3-42e2e3a2ebe5",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS13-M04-O01", "base"): (
-            "3be6698e-e9fb-57a9-9f50-3c4d773dfd9c",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M04-O01", "changed-condition"): (
-            "3be6698e-e9fb-57a9-9f50-3c4d773dfd9c",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M04-O02", "base"): (
-            "6652f7eb-c528-58bf-aff4-8ff27fa7ac0c",
-            "1\n",
-            "success",
-            "0 9\n",
-            "",
-        ),
-        ("CS13-M04-O02", "changed-condition"): (
-            "6652f7eb-c528-58bf-aff4-8ff27fa7ac0c",
-            "2\n",
-            "success",
-            "0 0\n",
-            "",
-        ),
-        ("CS13-M04-O03", "base"): (
-            "3701118c-c5d6-56c2-ae31-7d6fac1beb6b",
-            "1\n",
-            "success",
-            "A\n",
-            "",
-        ),
-        ("CS13-M04-O03", "changed-condition"): (
-            "3701118c-c5d6-56c2-ae31-7d6fac1beb6b",
-            "2\n",
-            "success",
-            "A\n",
-            "",
-        ),
-        ("CS13-M05-O01", "base"): (
-            "220d2466-88d0-505a-9a1a-c5abf76d579f",
-            "1\n",
-            "success",
-            "2/5\n",
-            "",
-        ),
-        ("CS13-M05-O01", "changed-condition"): (
-            "220d2466-88d0-505a-9a1a-c5abf76d579f",
-            "2\n",
-            "success",
-            "1/4\n",
-            "",
-        ),
-        ("CS13-M05-O02", "base"): (
-            "9fbf60b9-e8b1-5648-a850-f8e35511f943",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS13-M05-O02", "changed-condition"): (
-            "9fbf60b9-e8b1-5648-a850-f8e35511f943",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS13-M05-O03", "base"): (
-            "07529489-2266-5d6a-9093-f24f1abcac66",
-            "1\n",
-            "success",
-            "shallow\n",
-            "",
-        ),
-        ("CS13-M05-O03", "changed-condition"): (
-            "07529489-2266-5d6a-9093-f24f1abcac66",
-            "2\n",
-            "success",
-            "deep\n",
-            "",
-        ),
-        ("CS13-M06-O01", "base"): (
-            "ba1f138f-129d-56fe-9758-c5ee5073fe81",
-            "1\n",
-            "success",
-            "A\n",
-            "",
-        ),
-        ("CS13-M06-O01", "changed-condition"): (
-            "ba1f138f-129d-56fe-9758-c5ee5073fe81",
-            "2\n",
-            "success",
-            "A\n",
-            "",
-        ),
-        ("CS13-M06-O02", "base"): (
-            "1d2b8b84-2099-53b0-9577-89b2f0f07986",
-            "1\n",
-            "success",
-            "A\n",
-            "",
-        ),
-        ("CS13-M06-O02", "changed-condition"): (
-            "1d2b8b84-2099-53b0-9577-89b2f0f07986",
-            "2\n",
-            "success",
-            "A\n",
-            "",
-        ),
-        ("CS13-M06-O03", "base"): (
-            "adf972c0-97f4-56ab-a2be-0b4e6a7e7d86",
-            "1\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS13-M06-O03", "changed-condition"): (
-            "adf972c0-97f4-56ab-a2be-0b4e6a7e7d86",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS13-M07-O01", "base"): (
-            "61616c7e-1d44-5306-9013-462e9c58fac4",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS13-M07-O01", "changed-condition"): (
-            "61616c7e-1d44-5306-9013-462e9c58fac4",
-            "2\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS13-M07-O02", "base"): (
-            "c96f35cc-b6cb-56c4-a3d3-d07da0925584",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS13-M07-O02", "changed-condition"): (
-            "c96f35cc-b6cb-56c4-a3d3-d07da0925584",
-            "2\n",
-            "success",
-            "-3\n",
-            "",
-        ),
-        ("CS13-M07-O03", "base"): (
-            "5cecd8d6-d483-54b8-86c7-d991e95a157c",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M07-O03", "changed-condition"): (
-            "5cecd8d6-d483-54b8-86c7-d991e95a157c",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M08-O01", "base"): (
-            "66f8d176-1eb7-52df-9359-4f7154c531b6",
-            "1\n",
-            "success",
-            "9\n",
-            "",
-        ),
-        ("CS13-M08-O01", "changed-condition"): (
-            "66f8d176-1eb7-52df-9359-4f7154c531b6",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS13-M08-O02", "base"): (
-            "9335e07b-6ce2-5c3d-b010-6e426ee46d9e",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M08-O02", "changed-condition"): (
-            "9335e07b-6ce2-5c3d-b010-6e426ee46d9e",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M08-O03", "base"): (
-            "e7eb2b12-e3f7-5ede-9654-a1ec0fef2924",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M08-O03", "changed-condition"): (
-            "e7eb2b12-e3f7-5ede-9654-a1ec0fef2924",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M09-O01", "base"): (
-            "c786806f-43fc-51fe-a29e-1dd5cb80ee7e",
-            "1\n",
-            "success",
-            "1/4\n",
-            "",
-        ),
-        ("CS13-M09-O01", "changed-condition"): (
-            "c786806f-43fc-51fe-a29e-1dd5cb80ee7e",
-            "2\n",
-            "success",
-            "1/2\n",
-            "",
-        ),
-        ("CS13-M09-O02", "base"): (
-            "0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd",
-            "1\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS13-M09-O02", "changed-condition"): (
-            "0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS13-M09-O03", "base"): (
-            "d17a55b9-7ba9-5be5-a4c4-7534f36c3696",
-            "1\n",
-            "success",
-            "1 1\n",
-            "",
-        ),
-        ("CS13-M09-O03", "changed-condition"): (
-            "d17a55b9-7ba9-5be5-a4c4-7534f36c3696",
-            "2\n",
-            "success",
-            "100 100\n",
-            "",
-        ),
-        ("CS13-M10-O01", "base"): (
-            "61fd47a0-f84a-59df-9b7f-01658dc818d3",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS13-M10-O01", "changed-condition"): (
-            "61fd47a0-f84a-59df-9b7f-01658dc818d3",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS13-M10-O02", "base"): (
-            "fee8aaff-5d8b-5b1a-bb2e-fe17fe971e30",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS13-M10-O02", "changed-condition"): (
-            "fee8aaff-5d8b-5b1a-bb2e-fe17fe971e30",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS13-M10-O03", "base"): (
-            "3bee011b-8276-5f74-a4ac-03779c4cd6c7",
-            "1\n",
-            "success",
-            "needs_review\n",
-            "",
-        ),
-        ("CS13-M10-O03", "changed-condition"): (
-            "3bee011b-8276-5f74-a4ac-03779c4cd6c7",
-            "2\n",
-            "success",
-            "in_scope\n",
-            "",
-        ),
-    },
-    "d249cfd4-e3cf-590d-a636-8b35a2a0b281": {
-        ("CS08-M01-O01", "base"): (
-            "af1079df-ff98-5d7a-8274-c18ec0b27893",
-            "1\n",
-            "success",
-            "Ethernet\n",
-            "",
-        ),
-        ("CS08-M01-O01", "changed-condition"): (
-            "af1079df-ff98-5d7a-8274-c18ec0b27893",
-            "2\n",
-            "success",
-            "IP\n",
-            "",
-        ),
-        ("CS08-M01-O02", "base"): (
-            "fbc685f3-f1bf-5abd-bf66-63c01e4c965a",
-            "1\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS08-M01-O02", "changed-condition"): (
-            "fbc685f3-f1bf-5abd-bf66-63c01e4c965a",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS08-M01-O03", "base"): (
-            "3eebec76-5e01-515f-8e45-ff7f6d41d2b5",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS08-M01-O03", "changed-condition"): (
-            "3eebec76-5e01-515f-8e45-ff7f6d41d2b5",
-            "2\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS08-M02-O01", "base"): (
-            "8a941582-7bd4-5cd4-9ede-831bdff61116",
-            "1\n",
-            "success",
-            "~a}~b~\n",
-            "",
-        ),
-        ("CS08-M02-O01", "changed-condition"): (
-            "8a941582-7bd4-5cd4-9ede-831bdff61116",
-            "2\n",
-            "success",
-            "~ab~\n",
-            "",
-        ),
-        ("CS08-M02-O02", "base"): (
-            "165da738-e431-5003-b9a1-728c1f3a6e83",
-            "1\n",
-            "success",
-            "6\n",
-            "",
-        ),
-        ("CS08-M02-O02", "changed-condition"): (
-            "165da738-e431-5003-b9a1-728c1f3a6e83",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS08-M02-O03", "base"): (
-            "add32e4b-2e58-51e0-a408-5965d62c9b9d",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M02-O03", "changed-condition"): (
-            "add32e4b-2e58-51e0-a408-5965d62c9b9d",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M03-O01", "base"): (
-            "d469d36b-1ddd-547f-a3ca-6c193de34a38",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS08-M03-O01", "changed-condition"): (
-            "d469d36b-1ddd-547f-a3ca-6c193de34a38",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS08-M03-O02", "base"): (
-            "94e53053-24e8-5736-9f61-4d77d7eb5b03",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M03-O02", "changed-condition"): (
-            "94e53053-24e8-5736-9f61-4d77d7eb5b03",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M03-O03", "base"): (
-            "1b8db023-de19-55c2-9325-d0914fcc6886",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M03-O03", "changed-condition"): (
-            "1b8db023-de19-55c2-9325-d0914fcc6886",
-            "2\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M04-O01", "base"): (
-            "2b4645cd-8344-5c27-8972-be431f43ac60",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS08-M04-O01", "changed-condition"): (
-            "2b4645cd-8344-5c27-8972-be431f43ac60",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS08-M04-O02", "base"): (
-            "c569b257-dab1-5fa0-8f3d-b2fc392ec100",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M04-O02", "changed-condition"): (
-            "c569b257-dab1-5fa0-8f3d-b2fc392ec100",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M04-O03", "base"): (
-            "6d36a5d5-a56f-5a6e-9e20-241aa0848beb",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M04-O03", "changed-condition"): (
-            "6d36a5d5-a56f-5a6e-9e20-241aa0848beb",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M05-O01", "base"): (
-            "f232aa73-20ce-583a-8ac6-0edf9e745365",
-            "1\n",
-            "success",
-            "local\n",
-            "",
-        ),
-        ("CS08-M05-O01", "changed-condition"): (
-            "f232aa73-20ce-583a-8ac6-0edf9e745365",
-            "2\n",
-            "success",
-            "default\n",
-            "",
-        ),
-        ("CS08-M05-O02", "base"): (
-            "22a948b7-69d7-563d-bd50-c5c2795630da",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M05-O02", "changed-condition"): (
-            "22a948b7-69d7-563d-bd50-c5c2795630da",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M05-O03", "base"): (
-            "f7a555c3-a238-55f7-b834-04ef2643c362",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS08-M05-O03", "changed-condition"): (
-            "f7a555c3-a238-55f7-b834-04ef2643c362",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS08-M06-O01", "base"): (
-            "0501c425-de5c-5f8c-858b-d6d602cb8fac",
-            "1\n",
-            "success",
-            "192.0.2.1\n",
-            "",
-        ),
-        ("CS08-M06-O01", "changed-condition"): (
-            "0501c425-de5c-5f8c-858b-d6d602cb8fac",
-            "2\n",
-            "success",
-            "192.0.2.8\n",
-            "",
-        ),
-        ("CS08-M06-O02", "base"): (
-            "fe202dd4-589d-564d-844c-8f8e278a61ec",
-            "1\n",
-            "success",
-            "packet_too_big\n",
-            "",
-        ),
-        ("CS08-M06-O02", "changed-condition"): (
-            "fe202dd4-589d-564d-844c-8f8e278a61ec",
-            "2\n",
-            "success",
-            "forward\n",
-            "",
-        ),
-        ("CS08-M06-O03", "base"): (
-            "069a1c97-ab9c-513a-9eca-6a1a2581055b",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M06-O03", "changed-condition"): (
-            "069a1c97-ab9c-513a-9eca-6a1a2581055b",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M07-O01", "base"): (
-            "5f4fded5-4178-5d95-8378-3bccd565bd85",
-            "1\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS08-M07-O01", "changed-condition"): (
-            "5f4fded5-4178-5d95-8378-3bccd565bd85",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS08-M07-O02", "base"): (
-            "2235d63c-40f7-51e2-ba8c-2d78c6e09e02",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS08-M07-O02", "changed-condition"): (
-            "2235d63c-40f7-51e2-ba8c-2d78c6e09e02",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS08-M07-O03", "base"): (
-            "99619d09-b1ca-526d-8e36-770d11000bec",
-            "1\n",
-            "success",
-            "Z\n",
-            "",
-        ),
-        ("CS08-M07-O03", "changed-condition"): (
-            "99619d09-b1ca-526d-8e36-770d11000bec",
-            "2\n",
-            "success",
-            "Z\n",
-            "",
-        ),
-        ("CS08-M08-O01", "base"): (
-            "6d9146dd-79ea-5d4a-bca6-5b09be76c73b",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M08-O01", "changed-condition"): (
-            "6d9146dd-79ea-5d4a-bca6-5b09be76c73b",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M08-O02", "base"): (
-            "c559f193-61bb-5f86-b562-fd3e752858c2",
-            "1\n",
-            "success",
-            "ok\n",
-            "",
-        ),
-        ("CS08-M08-O02", "changed-condition"): (
-            "c559f193-61bb-5f86-b562-fd3e752858c2",
-            "2\n",
-            "success",
-            "hello\n",
-            "",
-        ),
-        ("CS08-M08-O03", "base"): (
-            "0d4bccf9-58da-5f98-b52b-624b5d0f5af3",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M08-O03", "changed-condition"): (
-            "0d4bccf9-58da-5f98-b52b-624b5d0f5af3",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M09-O01", "base"): (
-            "a0c33fb5-1836-5fe8-b273-6bb592ce4e78",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M09-O01", "changed-condition"): (
-            "a0c33fb5-1836-5fe8-b273-6bb592ce4e78",
-            "2\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M09-O02", "base"): (
-            "1d1bccdc-d538-5289-948e-59e3d2588b51",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M09-O02", "changed-condition"): (
-            "1d1bccdc-d538-5289-948e-59e3d2588b51",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M09-O03", "base"): (
-            "585a3ba6-53da-5ab4-8403-95707dd15c8f",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS08-M09-O03", "changed-condition"): (
-            "585a3ba6-53da-5ab4-8403-95707dd15c8f",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS08-M10-O01", "base"): (
-            "dbf707f9-1a25-5fa1-85b1-88df95917e52",
-            "1\n",
-            "success",
-            "tcp_listener\n",
-            "",
-        ),
-        ("CS08-M10-O01", "changed-condition"): (
-            "dbf707f9-1a25-5fa1-85b1-88df95917e52",
-            "2\n",
-            "success",
-            "application\n",
-            "",
-        ),
-        ("CS08-M10-O02", "base"): (
-            "d6212864-b872-546d-bd46-09aec246cb7e",
-            "1\n",
-            "success",
-            "refused\n",
-            "",
-        ),
-        ("CS08-M10-O02", "changed-condition"): (
-            "d6212864-b872-546d-bd46-09aec246cb7e",
-            "2\n",
-            "success",
-            "connected\n",
-            "",
-        ),
-        ("CS08-M10-O03", "base"): (
-            "758b6c3f-bd98-5121-8051-240e2191c5de",
-            "1\n",
-            "success",
-            "second\n",
-            "",
-        ),
-        ("CS08-M10-O03", "changed-condition"): (
-            "758b6c3f-bd98-5121-8051-240e2191c5de",
-            "2\n",
-            "success",
-            "first\n",
-            "",
-        ),
-    },
-    "d60ae5c9-a906-57a6-b80e-ed9dcbb31b2a": {
-        ("CS11-M01-O01", "base"): (
-            "02eb570f-4898-599c-ba4a-9daf3d6daf23",
-            "1\n",
-            "success",
-            "lex parse type\n",
-            "",
-        ),
-        ("CS11-M01-O01", "changed-condition"): (
-            "02eb570f-4898-599c-ba4a-9daf3d6daf23",
-            "2\n",
-            "success",
-            "lex parse type emit\n",
-            "",
-        ),
-        ("CS11-M01-O02", "base"): (
-            "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
-            "1\n",
-            "success",
-            "-2\n",
-            "",
-        ),
-        ("CS11-M01-O02", "changed-condition"): (
-            "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS11-M01-O03", "base"): (
-            "04369fb8-821b-5d38-bdbd-e8f816545d81",
-            "1\n",
-            "success",
-            "lex:1\n",
-            "",
-        ),
-        ("CS11-M01-O03", "changed-condition"): (
-            "04369fb8-821b-5d38-bdbd-e8f816545d81",
-            "2\n",
-            "success",
-            "ok\n",
-            "",
-        ),
-        ("CS11-M02-O01", "base"): (
-            "62e7c3f4-5d81-5931-b168-51ee568c82ca",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS11-M02-O01", "changed-condition"): (
-            "62e7c3f4-5d81-5931-b168-51ee568c82ca",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M02-O02", "base"): (
-            "87199749-f173-5cfd-8eda-576932c69620",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M02-O02", "changed-condition"): (
-            "87199749-f173-5cfd-8eda-576932c69620",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M02-O03", "base"): (
-            "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
-            "1\n",
-            "success",
-            ">=\n",
-            "",
-        ),
-        ("CS11-M02-O03", "changed-condition"): (
-            "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
-            "2\n",
-            "success",
-            ">\n",
-            "",
-        ),
-        ("CS11-M03-O01", "base"): (
-            "bb511987-1967-5247-9b6d-62feba383952",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M03-O01", "changed-condition"): (
-            "bb511987-1967-5247-9b6d-62feba383952",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M03-O02", "base"): (
-            "97930e73-5e36-5231-bc16-13a5459986c5",
-            "1\n",
-            "success",
-            "20 14\n",
-            "",
-        ),
-        ("CS11-M03-O02", "changed-condition"): (
-            "97930e73-5e36-5231-bc16-13a5459986c5",
-            "2\n",
-            "success",
-            "2 2\n",
-            "",
-        ),
-        ("CS11-M03-O03", "base"): (
-            "dc44f399-f390-5849-a2bf-95e9ad36fb77",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS11-M03-O03", "changed-condition"): (
-            "dc44f399-f390-5849-a2bf-95e9ad36fb77",
-            "2\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS11-M04-O01", "base"): (
-            "f09d2473-2719-5faf-afb5-532495102c65",
-            "1\n",
-            "success",
-            "a b\n",
-            "",
-        ),
-        ("CS11-M04-O01", "changed-condition"): (
-            "f09d2473-2719-5faf-afb5-532495102c65",
-            "2\n",
-            "success",
-            "a\n",
-            "",
-        ),
-        ("CS11-M04-O02", "base"): (
-            "dd493563-e25c-5670-a419-becb42fa08ef",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS11-M04-O02", "changed-condition"): (
-            "dd493563-e25c-5670-a419-becb42fa08ef",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M04-O03", "base"): (
-            "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
-            "1\n",
-            "success",
-            "syntax:extra\n",
-            "",
-        ),
-        ("CS11-M04-O03", "changed-condition"): (
-            "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M05-O01", "base"): (
-            "dfe0ca85-a561-508e-bfea-2a05f7119a14",
-            "1\n",
-            "success",
-            "$ S\n",
-            "",
-        ),
-        ("CS11-M05-O01", "changed-condition"): (
-            "dfe0ca85-a561-508e-bfea-2a05f7119a14",
-            "2\n",
-            "success",
-            "x $ S\n",
-            "",
-        ),
-        ("CS11-M05-O02", "base"): (
-            "a7ace736-860c-547e-91d3-5182214ace3c",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS11-M05-O02", "changed-condition"): (
-            "a7ace736-860c-547e-91d3-5182214ace3c",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS11-M05-O03", "base"): (
-            "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
-            "1\n",
-            "success",
-            "conflict\n",
-            "",
-        ),
-        ("CS11-M05-O03", "changed-condition"): (
-            "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
-            "2\n",
-            "success",
-            "reduce\n",
-            "",
-        ),
-        ("CS11-M06-O01", "base"): (
-            "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
-            "1\n",
-            "success",
-            "undeclared:y\n",
-            "",
-        ),
-        ("CS11-M06-O01", "changed-condition"): (
-            "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
-            "2\n",
-            "success",
-            "7\n",
-            "",
-        ),
-        ("CS11-M06-O02", "base"): (
-            "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS11-M06-O02", "changed-condition"): (
-            "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M06-O03", "base"): (
-            "e99717df-2028-5c6b-b185-569ec371bfb5",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS11-M06-O03", "changed-condition"): (
-            "e99717df-2028-5c6b-b185-569ec371bfb5",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M07-O01", "base"): (
-            "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
-            "1\n",
-            "success",
-            "14\n",
-            "",
-        ),
-        ("CS11-M07-O01", "changed-condition"): (
-            "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M07-O02", "base"): (
-            "e1e9f56a-6acf-5ccf-9886-2958174de085",
-            "1\n",
-            "success",
-            "1 2\n",
-            "",
-        ),
-        ("CS11-M07-O02", "changed-condition"): (
-            "e1e9f56a-6acf-5ccf-9886-2958174de085",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M07-O03", "base"): (
-            "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
-            "1\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS11-M07-O03", "changed-condition"): (
-            "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M08-O01", "base"): (
-            "3a290580-d367-5086-9ff5-58379c791075",
-            "1\n",
-            "success",
-            "unknown\n",
-            "",
-        ),
-        ("CS11-M08-O01", "changed-condition"): (
-            "3a290580-d367-5086-9ff5-58379c791075",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS11-M08-O02", "base"): (
-            "09d73447-68ed-5404-bf59-560ba9e386ae",
-            "1\n",
-            "success",
-            "y z\n",
-            "",
-        ),
-        ("CS11-M08-O02", "changed-condition"): (
-            "09d73447-68ed-5404-bf59-560ba9e386ae",
-            "2\n",
-            "success",
-            "y z\n",
-            "",
-        ),
-        ("CS11-M08-O03", "base"): (
-            "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
-            "1\n",
-            "success",
-            "1 0\n",
-            "",
-        ),
-        ("CS11-M08-O03", "changed-condition"): (
-            "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
-            "2\n",
-            "success",
-            "0 0\n",
-            "",
-        ),
-        ("CS11-M09-O01", "base"): (
-            "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
-            "1\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS11-M09-O01", "changed-condition"): (
-            "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
-            "2\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS11-M09-O02", "base"): (
-            "8b873d71-aa14-5b12-bcc4-605eba95e08d",
-            "1\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS11-M09-O02", "changed-condition"): (
-            "8b873d71-aa14-5b12-bcc4-605eba95e08d",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS11-M09-O03", "base"): (
-            "6aa451d5-b534-5884-80c6-4b39c63e8421",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS11-M09-O03", "changed-condition"): (
-            "6aa451d5-b534-5884-80c6-4b39c63e8421",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-    },
-    "e48d3468-f3f8-516e-b9ab-dd96b6560cfd": {
-        ("CS02-M01-O01", "base"): (
-            "3d183782-5951-567e-9b87-fdcf56c2e361",
-            "1\n",
-            "success",
-            "1 2\n",
-            "",
-        ),
-        ("CS02-M01-O01", "changed-condition"): (
-            "3d183782-5951-567e-9b87-fdcf56c2e361",
-            "2\n",
-            "success",
-            "2 3\n",
-            "",
-        ),
-        ("CS02-M01-O02", "base"): (
-            "e7144116-9c19-527d-9828-31998cbd2f5a",
-            "1\n",
-            "success",
-            "private=true available=1\n",
-            "",
-        ),
-        ("CS02-M01-O02", "changed-condition"): (
-            "e7144116-9c19-527d-9828-31998cbd2f5a",
-            "2\n",
-            "success",
-            "private=true available=2\n",
-            "",
-        ),
-        ("CS02-M01-O03", "base"): (
-            "24c5e72d-7062-5d34-8a72-2453545ffe7f",
-            "-1\n",
-            "success",
-            "rejected\n",
-            "",
-        ),
-        ("CS02-M01-O03", "changed-condition"): (
-            "24c5e72d-7062-5d34-8a72-2453545ffe7f",
-            "2\n",
-            "success",
-            "count=2\n",
-            "",
-        ),
-        ("CS02-M02-O01", "base"): (
-            "0d78dad8-c5ef-53d8-a37c-a3ec0e076e56",
-            "1\n",
-            "success",
-            "fee=2\n",
-            "",
-        ),
-        ("CS02-M02-O01", "changed-condition"): (
-            "0d78dad8-c5ef-53d8-a37c-a3ec0e076e56",
-            "2\n",
-            "success",
-            "fee=4\n",
-            "",
-        ),
-        ("CS02-M02-O02", "base"): (
-            "20742f55-04cf-5ab4-bd04-a3bc6e279020",
-            "1\n",
-            "success",
-            "repo=0\n",
-            "",
-        ),
-        ("CS02-M02-O02", "changed-condition"): (
-            "20742f55-04cf-5ab4-bd04-a3bc6e279020",
-            "2\n",
-            "success",
-            "repo=1\n",
-            "",
-        ),
-        ("CS02-M02-O03", "base"): (
-            "3ba61b09-4913-5504-8aba-c50391bb9b5f",
-            "1\n",
-            "success",
-            "calls=1\n",
-            "",
-        ),
-        ("CS02-M02-O03", "changed-condition"): (
-            "3ba61b09-4913-5504-8aba-c50391bb9b5f",
-            "2\n",
-            "success",
-            "calls=2\n",
-            "",
-        ),
-        ("CS02-M03-O01", "base"): (
-            "498feb3f-ded2-5159-8926-7bbaed155a68",
-            "1\n",
-            "success",
-            "days=1\n",
-            "",
-        ),
-        ("CS02-M03-O01", "changed-condition"): (
-            "498feb3f-ded2-5159-8926-7bbaed155a68",
-            "2\n",
-            "success",
-            "days=2\n",
-            "",
-        ),
-        ("CS02-M03-O02", "base"): (
-            "4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e",
-            "0\n",
-            "success",
-            "fee=0\n",
-            "",
-        ),
-        ("CS02-M03-O02", "changed-condition"): (
-            "4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e",
-            "3\n",
-            "success",
-            "fee=6\n",
-            "",
-        ),
-        ("CS02-M03-O03", "base"): (
-            "087ccd2f-4474-5f5f-81fb-a56aa07210ba",
-            "1\n",
-            "success",
-            "due=3\n",
-            "",
-        ),
-        ("CS02-M03-O03", "changed-condition"): (
-            "087ccd2f-4474-5f5f-81fb-a56aa07210ba",
-            "2\n",
-            "success",
-            "due=6\n",
-            "",
-        ),
-        ("CS02-M04-O01", "base"): (
-            "c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6",
-            "1\n",
-            "success",
-            "id=8\n",
-            "",
-        ),
-        ("CS02-M04-O01", "changed-condition"): (
-            "c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6",
-            "0\n",
-            "success",
-            "id=7\n",
-            "",
-        ),
-        ("CS02-M04-O02", "base"): (
-            "4007e46f-5f69-527f-b9f8-a80d2857a8aa",
-            "1\n",
-            "success",
-            "unique=2\n",
-            "",
-        ),
-        ("CS02-M04-O02", "changed-condition"): (
-            "4007e46f-5f69-527f-b9f8-a80d2857a8aa",
-            "2\n",
-            "success",
-            "unique=2\n",
-            "",
-        ),
-        ("CS02-M04-O03", "base"): (
-            "8dbf6558-fafe-51c9-b74b-6cce730ec469",
-            "1\n",
-            "success",
-            "unique=2\n",
-            "",
-        ),
-        ("CS02-M04-O03", "changed-condition"): (
-            "8dbf6558-fafe-51c9-b74b-6cce730ec469",
-            "2\n",
-            "success",
-            "unique=2\n",
-            "",
-        ),
-        ("CS02-M05-O01", "base"): (
-            "1fa1c474-f76d-5de6-bc78-96772aed4b0b",
-            "1\n",
-            "success",
-            "saved=false\n",
-            "",
-        ),
-        ("CS02-M05-O01", "changed-condition"): (
-            "1fa1c474-f76d-5de6-bc78-96772aed4b0b",
-            "2\n",
-            "success",
-            "saved=false\n",
-            "",
-        ),
-        ("CS02-M05-O02", "base"): (
-            "8e066796-73f9-5ff6-870a-f5ab4b18d4d8",
-            "1\n",
-            "success",
-            "copies=2\n",
-            "",
-        ),
-        ("CS02-M05-O02", "changed-condition"): (
-            "8e066796-73f9-5ff6-870a-f5ab4b18d4d8",
-            "2\n",
-            "success",
-            "copies=1\n",
-            "",
-        ),
-        ("CS02-M05-O03", "base"): (
-            "d552ee3e-86fe-5f69-89d0-3eb64e26648c",
-            "1\n",
-            "success",
-            "closed=true\n",
-            "",
-        ),
-        ("CS02-M05-O03", "changed-condition"): (
-            "d552ee3e-86fe-5f69-89d0-3eb64e26648c",
-            "2\n",
-            "success",
-            "closed=true\n",
-            "",
-        ),
-        ("CS02-M06-O01", "base"): (
-            "802bb561-8714-5a6a-90f2-11d43ac54f0a",
-            "1\n",
-            "success",
-            "subscribers=0\n",
-            "",
-        ),
-        ("CS02-M06-O01", "changed-condition"): (
-            "802bb561-8714-5a6a-90f2-11d43ac54f0a",
-            "2\n",
-            "success",
-            "subscribers=0\n",
-            "",
-        ),
-        ("CS02-M06-O02", "base"): (
-            "f47e30d7-a3df-533d-80b8-f22bbf34c602",
-            "1\n",
-            "success",
-            "notified=1\n",
-            "",
-        ),
-        ("CS02-M06-O02", "changed-condition"): (
-            "f47e30d7-a3df-533d-80b8-f22bbf34c602",
-            "2\n",
-            "success",
-            "notified=1\n",
-            "",
-        ),
-        ("CS02-M06-O03", "base"): (
-            "9ff81c76-65cc-5dbd-9674-05384bdbf2f3",
-            "1\n",
-            "success",
-            "notified=1 errors=1\n",
-            "",
-        ),
-        ("CS02-M06-O03", "changed-condition"): (
-            "9ff81c76-65cc-5dbd-9674-05384bdbf2f3",
-            "2\n",
-            "success",
-            "notified=2 errors=1\n",
-            "",
-        ),
-        ("CS02-M07-O01", "base"): (
-            "0b33b5e9-b7f4-57e0-b84b-56444915305f",
-            "1\n",
-            "success",
-            "id=7 copies=1\n",
-            "",
-        ),
-        ("CS02-M07-O01", "changed-condition"): (
-            "0b33b5e9-b7f4-57e0-b84b-56444915305f",
-            "2\n",
-            "success",
-            "id=7 copies=2\n",
-            "",
-        ),
-        ("CS02-M07-O02", "base"): (
-            "3883b5d4-2b36-5909-a92c-878405b5cfec",
-            "1\n",
-            "success",
-            "1 2\n",
-            "",
-        ),
-        ("CS02-M07-O02", "changed-condition"): (
-            "3883b5d4-2b36-5909-a92c-878405b5cfec",
-            "2\n",
-            "success",
-            "2 3\n",
-            "",
-        ),
-        ("CS02-M07-O03", "base"): (
-            "cca558ee-f1ad-581a-905a-ec20d0240a54",
-            "1\n",
-            "success",
-            "loaded=7,1\n",
-            "",
-        ),
-        ("CS02-M07-O03", "changed-condition"): (
-            "cca558ee-f1ad-581a-905a-ec20d0240a54",
-            "2\n",
-            "success",
-            "loaded=7,2\n",
-            "",
-        ),
-        ("CS02-M08-O01", "base"): (
-            "e05dfe52-651f-5a0a-b49d-ef92c2571612",
-            "1\n",
-            "success",
-            "allowed=true\n",
-            "",
-        ),
-        ("CS02-M08-O01", "changed-condition"): (
-            "e05dfe52-651f-5a0a-b49d-ef92c2571612",
-            "2\n",
-            "success",
-            "allowed=true\n",
-            "",
-        ),
-        ("CS02-M08-O02", "base"): (
-            "5a2931b7-3a63-5c65-b399-1835f3407623",
-            "0\n",
-            "success",
-            "accepted=false copies=0\n",
-            "",
-        ),
-        ("CS02-M08-O02", "changed-condition"): (
-            "5a2931b7-3a63-5c65-b399-1835f3407623",
-            "2\n",
-            "success",
-            "accepted=true copies=1\n",
-            "",
-        ),
-        ("CS02-M08-O03", "base"): (
-            "5bf134c6-f41c-5a02-afe3-47097146b396",
-            "1\n",
-            "success",
-            "assigned=1 available=0\n",
-            "",
-        ),
-        ("CS02-M08-O03", "changed-condition"): (
-            "5bf134c6-f41c-5a02-afe3-47097146b396",
-            "2\n",
-            "success",
-            "assigned=2 available=0\n",
-            "",
-        ),
-    },
-    "e705e65d-61f5-5475-92a3-6c9ad7672898": {
-        ("CS06-M01-O01", "base"): (
-            "f639ce02-8158-51da-b2ee-e0e0ac455d5a",
-            "1\n",
-            "success",
-            "255\n",
-            "",
-        ),
-        ("CS06-M01-O01", "changed-condition"): (
-            "f639ce02-8158-51da-b2ee-e0e0ac455d5a",
-            "2\n",
-            "success",
-            "128\n",
-            "",
-        ),
-        ("CS06-M01-O02", "base"): (
-            "ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab",
-            "1\n",
-            "success",
-            "-1\n",
-            "",
-        ),
-        ("CS06-M01-O02", "changed-condition"): (
-            "ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab",
-            "2\n",
-            "success",
-            "127\n",
-            "",
-        ),
-        ("CS06-M01-O03", "base"): (
-            "35c49cdc-e8d0-5c74-af48-6e0af0527c52",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS06-M01-O03", "changed-condition"): (
-            "35c49cdc-e8d0-5c74-af48-6e0af0527c52",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS06-M02-O01", "base"): (
-            "8bee75f2-e941-554e-987e-8f9f3339fc26",
-            "1\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS06-M02-O01", "changed-condition"): (
-            "8bee75f2-e941-554e-987e-8f9f3339fc26",
-            "2\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS06-M02-O02", "base"): (
-            "57ed17b4-64bb-549e-bb18-0276f29b35c7",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS06-M02-O02", "changed-condition"): (
-            "57ed17b4-64bb-549e-bb18-0276f29b35c7",
-            "2\n",
-            "success",
-            "4\n",
-            "",
-        ),
-        ("CS06-M02-O03", "base"): (
-            "64be914d-2c25-56ab-bd14-0e6b41c9392b",
-            "1\n",
-            "success",
-            "1/4\n",
-            "",
-        ),
-        ("CS06-M02-O03", "changed-condition"): (
-            "64be914d-2c25-56ab-bd14-0e6b41c9392b",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS06-M03-O01", "base"): (
-            "1f4db40b-f098-584b-987d-f066a6ee7e35",
-            "1\n",
-            "success",
-            "0 1\n",
-            "",
-        ),
-        ("CS06-M03-O01", "changed-condition"): (
-            "1f4db40b-f098-584b-987d-f066a6ee7e35",
-            "2\n",
-            "success",
-            "1 0\n",
-            "",
-        ),
-        ("CS06-M03-O02", "base"): (
-            "ee55c173-4180-5da9-8e63-04c17dadf613",
-            "1\n",
-            "success",
-            "0 1\n",
-            "",
-        ),
-        ("CS06-M03-O02", "changed-condition"): (
-            "ee55c173-4180-5da9-8e63-04c17dadf613",
-            "2\n",
-            "success",
-            "0 1\n",
-            "",
-        ),
-        ("CS06-M03-O03", "base"): (
-            "586ac41d-7d48-511a-94af-382dd1eb4332",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS06-M03-O03", "changed-condition"): (
-            "586ac41d-7d48-511a-94af-382dd1eb4332",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS06-M04-O01", "base"): (
-            "8bb0ce0b-ce95-5497-aa48-a9a91f922beb",
-            "1\n",
-            "success",
-            "2 1\n",
-            "",
-        ),
-        ("CS06-M04-O01", "changed-condition"): (
-            "8bb0ce0b-ce95-5497-aa48-a9a91f922beb",
-            "2\n",
-            "success",
-            "3 3\n",
-            "",
-        ),
-        ("CS06-M04-O02", "base"): (
-            "96128b12-a712-58f0-8987-a930779aa79e",
-            "1\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS06-M04-O02", "changed-condition"): (
-            "96128b12-a712-58f0-8987-a930779aa79e",
-            "2\n",
-            "success",
-            "7\n",
-            "",
-        ),
-        ("CS06-M04-O03", "base"): (
-            "6d9b4fad-3628-5e5c-9d5c-2360bdb5d266",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS06-M04-O03", "changed-condition"): (
-            "6d9b4fad-3628-5e5c-9d5c-2360bdb5d266",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS06-M05-O01", "base"): (
-            "73fa3d98-39c5-5ab6-822a-629ab9942ae4",
-            "1\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS06-M05-O01", "changed-condition"): (
-            "73fa3d98-39c5-5ab6-822a-629ab9942ae4",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS06-M05-O02", "base"): (
-            "696e33ec-4eda-53a1-8d28-a8f13f8b0125",
-            "1\n",
-            "success",
-            "222\n",
-            "",
-        ),
-        ("CS06-M05-O02", "changed-condition"): (
-            "696e33ec-4eda-53a1-8d28-a8f13f8b0125",
-            "2\n",
-            "success",
-            "111\n",
-            "",
-        ),
-        ("CS06-M05-O03", "base"): (
-            "1a561c56-3cf8-54fa-8167-499a484ab919",
-            "1\n",
-            "success",
-            "7\n",
-            "",
-        ),
-        ("CS06-M05-O03", "changed-condition"): (
-            "1a561c56-3cf8-54fa-8167-499a484ab919",
-            "2\n",
-            "success",
-            "0\n",
-            "",
-        ),
-        ("CS06-M06-O01", "base"): (
-            "0e53a5f9-34a0-577a-8bee-f53075c1729c",
-            "1\n",
-            "success",
-            "10 1\n",
-            "",
-        ),
-        ("CS06-M06-O01", "changed-condition"): (
-            "0e53a5f9-34a0-577a-8bee-f53075c1729c",
-            "2\n",
-            "success",
-            "20 2\n",
-            "",
-        ),
-        ("CS06-M06-O02", "base"): (
-            "6ac7de29-6b4b-5c6f-9f9b-0107e4657630",
-            "1\n",
-            "success",
-            "3\n",
-            "",
-        ),
-        ("CS06-M06-O02", "changed-condition"): (
-            "6ac7de29-6b4b-5c6f-9f9b-0107e4657630",
-            "2\n",
-            "success",
-            "9\n",
-            "",
-        ),
-        ("CS06-M06-O03", "base"): (
-            "8a1a5f89-4e24-55f5-af26-8abe2a3b7e38",
-            "1\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS06-M06-O03", "changed-condition"): (
-            "8a1a5f89-4e24-55f5-af26-8abe2a3b7e38",
-            "2\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS06-M07-O01", "base"): (
-            "4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036",
-            "1\n",
-            "success",
-            "True\n",
-            "",
-        ),
-        ("CS06-M07-O01", "changed-condition"): (
-            "4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036",
-            "2\n",
-            "success",
-            "False\n",
-            "",
-        ),
-        ("CS06-M07-O02", "base"): (
-            "c94fda68-6691-5f09-81b7-7d3284ff8a0d",
-            "1\n",
-            "success",
-            "7\n",
-            "",
-        ),
-        ("CS06-M07-O02", "changed-condition"): (
-            "c94fda68-6691-5f09-81b7-7d3284ff8a0d",
-            "2\n",
-            "success",
-            "9\n",
-            "",
-        ),
-        ("CS06-M07-O03", "base"): (
-            "e7100643-ebb6-5d72-8848-0b53753ad5c3",
-            "1\n",
-            "success",
-            "8\n",
-            "",
-        ),
-        ("CS06-M07-O03", "changed-condition"): (
-            "e7100643-ebb6-5d72-8848-0b53753ad5c3",
-            "2\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS06-M08-O01", "base"): (
-            "27a79669-ae59-5c99-bd63-2777a43207f3",
-            "1\n",
-            "success",
-            "2 1 3\n",
-            "",
-        ),
-        ("CS06-M08-O01", "changed-condition"): (
-            "27a79669-ae59-5c99-bd63-2777a43207f3",
-            "2\n",
-            "success",
-            "0 0 0\n",
-            "",
-        ),
-        ("CS06-M08-O02", "base"): (
-            "d44c39d6-d7d6-5468-81d6-4b68a431a88c",
-            "1\n",
-            "success",
-            "9\n",
-            "",
-        ),
-        ("CS06-M08-O02", "changed-condition"): (
-            "d44c39d6-d7d6-5468-81d6-4b68a431a88c",
-            "2\n",
-            "success",
-            "1\n",
-            "",
-        ),
-        ("CS06-M08-O03", "base"): (
-            "6ea4f822-8d10-5805-9f41-92cc1a7cb223",
-            "1\n",
-            "success",
-            "115\n",
-            "",
-        ),
-        ("CS06-M08-O03", "changed-condition"): (
-            "6ea4f822-8d10-5805-9f41-92cc1a7cb223",
-            "2\n",
-            "success",
-            "112\n",
-            "",
-        ),
-        ("CS06-M09-O01", "base"): (
-            "0547ff2c-d21c-5990-bd24-ac4d9a540e1d",
-            "1\n",
-            "success",
-            "pending\n",
-            "",
-        ),
-        ("CS06-M09-O01", "changed-condition"): (
-            "0547ff2c-d21c-5990-bd24-ac4d9a540e1d",
-            "2\n",
-            "success",
-            "complete\n",
-            "",
-        ),
-        ("CS06-M09-O02", "base"): (
-            "3d18f2a8-4f49-5765-83ea-96ba27938d30",
-            "1\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS06-M09-O02", "changed-condition"): (
-            "3d18f2a8-4f49-5765-83ea-96ba27938d30",
-            "2\n",
-            "success",
-            "2\n",
-            "",
-        ),
-        ("CS06-M09-O03", "base"): (
-            "499589e0-bef7-5158-b70f-941d63c3f54b",
-            "1\n",
-            "success",
-            "5\n",
-            "",
-        ),
-        ("CS06-M09-O03", "changed-condition"): (
-            "499589e0-bef7-5158-b70f-941d63c3f54b",
-            "2\n",
-            "success",
-            "7\n",
-            "",
-        ),
-    },
-}
+GENERIC_RULES = {'10f64de2-acaf-5de8-8d02-dda9422af822': {('CS10-M01-O01', 'base'): ('66acb8e2-1c22-54ac-8d30-ba4b5420c807',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M01-O01', 'changed-condition'): ('66acb8e2-1c22-54ac-8d30-ba4b5420c807',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M01-O02', 'base'): ('56401a3b-7884-53ff-8625-909172db27b8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M01-O02', 'changed-condition'): ('56401a3b-7884-53ff-8625-909172db27b8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M01-O03', 'base'): ('b160e4bf-25c4-5410-8696-0fd327bdd334',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'restore\n',
+                                                                     ''),
+                                          ('CS10-M01-O03', 'changed-condition'): ('b160e4bf-25c4-5410-8696-0fd327bdd334',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'scale\n',
+                                                                                  ''),
+                                          ('CS10-M02-O01', 'base'): ('4dbfd422-b84f-5223-9738-f08b61c90737',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'recover_work\n',
+                                                                     ''),
+                                          ('CS10-M02-O01', 'changed-condition'): ('4dbfd422-b84f-5223-9738-f08b61c90737',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'recover_work\n',
+                                                                                  ''),
+                                          ('CS10-M02-O02', 'base'): ('1f2d1c1c-fc8d-5518-9a36-2f1f375c42da',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M02-O02', 'changed-condition'): ('1f2d1c1c-fc8d-5518-9a36-2f1f375c42da',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M02-O03', 'base'): ('aa7c456c-58bf-5b8c-9df1-a584a363b4c4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'authorization tests\n',
+                                                                     ''),
+                                          ('CS10-M02-O03', 'changed-condition'): ('aa7c456c-58bf-5b8c-9df1-a584a363b4c4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'tests\n',
+                                                                                  ''),
+                                          ('CS10-M03-O01', 'base'): ('1a173cb9-e825-55d4-8024-c34687106283',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'first\n',
+                                                                     ''),
+                                          ('CS10-M03-O01', 'changed-condition'): ('1a173cb9-e825-55d4-8024-c34687106283',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'first\n',
+                                                                                  ''),
+                                          ('CS10-M03-O02', 'base'): ('28ded22d-0443-5dcd-a7d0-a80826c50bd8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'cancelled\n',
+                                                                     ''),
+                                          ('CS10-M03-O02', 'changed-condition'): ('28ded22d-0443-5dcd-a7d0-a80826c50bd8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'completed\n',
+                                                                                  ''),
+                                          ('CS10-M03-O03', 'base'): ('293bc298-f5b1-5331-8f98-1289a1cbdd54',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M03-O03', 'changed-condition'): ('293bc298-f5b1-5331-8f98-1289a1cbdd54',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M04-O01', 'base'): ('a79eac57-2194-5118-b2d7-8b2aef24f83f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS10-M04-O01', 'changed-condition'): ('a79eac57-2194-5118-b2d7-8b2aef24f83f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS10-M04-O02', 'base'): ('e44ae9bd-2fb7-53ce-a675-6911eac7f766',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M04-O02', 'changed-condition'): ('e44ae9bd-2fb7-53ce-a675-6911eac7f766',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M04-O03', 'base'): ('3fcab0a4-5603-57af-935d-7566c9c8dcb1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M04-O03', 'changed-condition'): ('3fcab0a4-5603-57af-935d-7566c9c8dcb1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M05-O01', 'base'): ('a5735bcd-35ba-5801-8f30-c726e0d74410',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '403\n',
+                                                                     ''),
+                                          ('CS10-M05-O01', 'changed-condition'): ('a5735bcd-35ba-5801-8f30-c726e0d74410',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '200\n',
+                                                                                  ''),
+                                          ('CS10-M05-O02', 'base'): ('0121d58e-2969-569c-89b1-d1d0d7d870d1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7\n',
+                                                                     ''),
+                                          ('CS10-M05-O02', 'changed-condition'): ('0121d58e-2969-569c-89b1-d1d0d7d870d1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '8\n',
+                                                                                  ''),
+                                          ('CS10-M05-O03', 'base'): ('a511352f-f0bd-5e8d-8f90-8040c69a40b3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unavailable\n',
+                                                                     ''),
+                                          ('CS10-M05-O03', 'changed-condition'): ('a511352f-f0bd-5e8d-8f90-8040c69a40b3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'accepted\n',
+                                                                                  ''),
+                                          ('CS10-M06-O01', 'base'): ('e1298ac8-7fb1-5389-b4aa-4385c17f8b22',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS10-M06-O01', 'changed-condition'): ('e1298ac8-7fb1-5389-b4aa-4385c17f8b22',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M06-O02', 'base'): ('56d00159-bf59-50fb-98a0-3510ba591d48',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS10-M06-O02', 'changed-condition'): ('56d00159-bf59-50fb-98a0-3510ba591d48',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M06-O03', 'base'): ('70bb4cc3-5594-559d-8d6b-55eac49d08ce',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS10-M06-O03', 'changed-condition'): ('70bb4cc3-5594-559d-8d6b-55eac49d08ce',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M07-O01', 'base'): ('b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS10-M07-O01', 'changed-condition'): ('b3026d8b-efb4-55e8-bad3-9cd3f0ce0b66',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS10-M07-O02', 'base'): ('eebf0e64-7856-5c0b-bfbf-8786ece3c68a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS10-M07-O02', 'changed-condition'): ('eebf0e64-7856-5c0b-bfbf-8786ece3c68a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M07-O03', 'base'): ('284f2fd7-8f00-5d9b-add9-2976129dbc44',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS10-M07-O03', 'changed-condition'): ('284f2fd7-8f00-5d9b-add9-2976129dbc44',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M08-O01', 'base'): ('cb2daf87-331b-5e7e-9643-f5733f7dd3de',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'v1\n',
+                                                                     ''),
+                                          ('CS10-M08-O01', 'changed-condition'): ('cb2daf87-331b-5e7e-9643-f5733f7dd3de',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'v2\n',
+                                                                                  ''),
+                                          ('CS10-M08-O02', 'base'): ('b887c81f-891a-504b-9c7a-cb62d7ab1f8d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/2\n',
+                                                                     ''),
+                                          ('CS10-M08-O02', 'changed-condition'): ('b887c81f-891a-504b-9c7a-cb62d7ab1f8d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M08-O03', 'base'): ('bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M08-O03', 'changed-condition'): ('bff0e43a-9fa8-5bfa-ab1e-9ed925848a2a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS10-M09-O01', 'base'): ('d64c4db6-0eb5-5339-829d-f301c3f756f8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'api service\n',
+                                                                     ''),
+                                          ('CS10-M09-O01', 'changed-condition'): ('d64c4db6-0eb5-5339-829d-f301c3f756f8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'api\n',
+                                                                                  ''),
+                                          ('CS10-M09-O02', 'base'): ('784bb789-8624-5011-8744-807a4759479d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS10-M09-O02', 'changed-condition'): ('784bb789-8624-5011-8744-807a4759479d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS10-M09-O03', 'base'): ('5110217c-c761-52a0-a34b-50f992b2b474',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS10-M09-O03', 'changed-condition'): ('5110217c-c761-52a0-a34b-50f992b2b474',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  '')},
+ '2ddb5945-157f-5611-bfed-e1e84b96f7cd': {('CS03-M01-O01', 'base'): ('9dc038dd-008b-58f6-acee-32a17cddd73d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS03-M01-O01', 'changed-condition'): ('9dc038dd-008b-58f6-acee-32a17cddd73d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS03-M01-O02', 'base'): ('4a7a61ec-6921-573a-9410-032966472a72',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '10 20 30 \n',
+                                                                     ''),
+                                          ('CS03-M01-O02', 'changed-condition'): ('4a7a61ec-6921-573a-9410-032966472a72',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '30 \n',
+                                                                                  ''),
+                                          ('CS03-M01-O03', 'base'): ('364b32ed-18ca-5bc4-9ed1-6e02e454f5b7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS03-M01-O03', 'changed-condition'): ('364b32ed-18ca-5bc4-9ed1-6e02e454f5b7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS03-M02-O01', 'base'): ('9d6cfed3-f3af-58be-b2ec-c8e36eaf9804',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7 10 20 30 \n',
+                                                                     ''),
+                                          ('CS03-M02-O01', 'changed-condition'): ('9d6cfed3-f3af-58be-b2ec-c8e36eaf9804',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '10 20 30 '
+                                                                                  '7 \n',
+                                                                                  ''),
+                                          ('CS03-M02-O02', 'base'): ('90979e0e-ed31-537f-b86e-d01a1425ef07',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7 10 20 \n',
+                                                                     ''),
+                                          ('CS03-M02-O02', 'changed-condition'): ('90979e0e-ed31-537f-b86e-d01a1425ef07',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '7 \n',
+                                                                                  ''),
+                                          ('CS03-M02-O03', 'base'): ('64c2adf5-7c4c-54b6-bba2-6638b02f0ee3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '10 7 20 | 20 7 10 \n',
+                                                                     ''),
+                                          ('CS03-M02-O03', 'changed-condition'): ('64c2adf5-7c4c-54b6-bba2-6638b02f0ee3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '10 7 20 | '
+                                                                                  '20 7 10 \n',
+                                                                                  ''),
+                                          ('CS03-M03-O01', 'base'): ('b819c717-8de4-532e-b340-09eb5d3f3abf',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '20 10 empty=1\n',
+                                                                     ''),
+                                          ('CS03-M03-O01', 'changed-condition'): ('b819c717-8de4-532e-b340-09eb5d3f3abf',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'empty=1\n',
+                                                                                  ''),
+                                          ('CS03-M03-O02', 'base'): ('67e91e67-790a-5801-b9a9-987ea5374302',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '20 30 40 empty=0\n',
+                                                                     ''),
+                                          ('CS03-M03-O02', 'changed-condition'): ('67e91e67-790a-5801-b9a9-987ea5374302',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '10 20 '
+                                                                                  'empty=0\n',
+                                                                                  ''),
+                                          ('CS03-M03-O03', 'base'): ('1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'invalid\n',
+                                                                     ''),
+                                          ('CS03-M03-O03', 'changed-condition'): ('1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'valid\n',
+                                                                                  ''),
+                                          ('CS03-M04-O01', 'base'): ('53b5f953-81ae-58ac-994f-573f368a61ea',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS03-M04-O01', 'changed-condition'): ('53b5f953-81ae-58ac-994f-573f368a61ea',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS03-M04-O02', 'base'): ('c4089419-e172-5edb-8513-97349592282c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 1 0 1 2 2 3 \n',
+                                                                     ''),
+                                          ('CS03-M04-O02', 'changed-condition'): ('c4089419-e172-5edb-8513-97349592282c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 0 1 2 \n',
+                                                                                  ''),
+                                          ('CS03-M04-O03', 'base'): ('9bc96683-f87d-5712-94ca-34628a35f960',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5 0\n',
+                                                                     ''),
+                                          ('CS03-M04-O03', 'changed-condition'): ('9bc96683-f87d-5712-94ca-34628a35f960',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3 2\n',
+                                                                                  ''),
+                                          ('CS03-M05-O01', 'base'): ('030748bf-bbad-5948-a1ba-f1f772a79de7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2 1\n',
+                                                                     ''),
+                                          ('CS03-M05-O01', 'changed-condition'): ('030748bf-bbad-5948-a1ba-f1f772a79de7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 0\n',
+                                                                                  ''),
+                                          ('CS03-M05-O02', 'base'): ('541160c4-a6eb-56e0-820d-4d6587501758',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2 3 | 1 2 3 \n',
+                                                                     ''),
+                                          ('CS03-M05-O02', 'changed-condition'): ('541160c4-a6eb-56e0-820d-4d6587501758',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '| \n',
+                                                                                  ''),
+                                          ('CS03-M05-O03', 'base'): ('7dceae25-7466-5080-afb6-98287bfba0ba',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '11\n',
+                                                                     ''),
+                                          ('CS03-M05-O03', 'changed-condition'): ('7dceae25-7466-5080-afb6-98287bfba0ba',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '5\n',
+                                                                                  ''),
+                                          ('CS03-M06-O01', 'base'): ('0b5bc167-da7f-5e6a-b0b8-1d737deee01b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS03-M06-O01', 'changed-condition'): ('0b5bc167-da7f-5e6a-b0b8-1d737deee01b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS03-M06-O02', 'base'): ('f51718a3-dda5-5360-b0eb-74fd085483f1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '20 25 30 \n',
+                                                                     ''),
+                                          ('CS03-M06-O02', 'changed-condition'): ('f51718a3-dda5-5360-b0eb-74fd085483f1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '20 30 \n',
+                                                                                  ''),
+                                          ('CS03-M06-O03', 'base'): ('5e954988-06c2-5d4b-89cb-c80eb5edbbc4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'sep=5 left=1 3 right=5 '
+                                                                     '7 \n',
+                                                                     ''),
+                                          ('CS03-M06-O03', 'changed-condition'): ('5e954988-06c2-5d4b-89cb-c80eb5edbbc4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'sep=7 '
+                                                                                  'left=1 3 5 '
+                                                                                  'right=7 9 '
+                                                                                  '11 \n',
+                                                                                  ''),
+                                          ('CS03-M07-O01', 'base'): ('52b9b0bf-020c-54d1-a8ff-0f57f2d99323',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 1\n',
+                                                                     ''),
+                                          ('CS03-M07-O01', 'changed-condition'): ('52b9b0bf-020c-54d1-a8ff-0f57f2d99323',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 0\n',
+                                                                                  ''),
+                                          ('CS03-M07-O02', 'base'): ('a7d17c07-b6e1-5e21-a88f-0bfb120afa24',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 1 2 3 \n',
+                                                                     ''),
+                                          ('CS03-M07-O02', 'changed-condition'): ('a7d17c07-b6e1-5e21-a88f-0bfb120afa24',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 1 2 3 \n',
+                                                                                  ''),
+                                          ('CS03-M07-O03', 'base'): ('102247f1-0d78-533e-bcf0-a8865fd839dd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS03-M07-O03', 'changed-condition'): ('102247f1-0d78-533e-bcf0-a8865fd839dd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS03-M08-O01', 'base'): ('8a99b36c-85d0-5e90-aa70-455d5d4bf173',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS03-M08-O01', 'changed-condition'): ('8a99b36c-85d0-5e90-aa70-455d5d4bf173',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS03-M08-O02', 'base'): ('be863f03-f700-596f-a702-b1107d5d1f21',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'cycle 0\n',
+                                                                     ''),
+                                          ('CS03-M08-O02', 'changed-condition'): ('be863f03-f700-596f-a702-b1107d5d1f21',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'dag 3\n',
+                                                                                  ''),
+                                          ('CS03-M08-O03', 'base'): ('1a346b70-7c14-54be-8332-6c9b15312955',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '8\n',
+                                                                     ''),
+                                          ('CS03-M08-O03', 'changed-condition'): ('1a346b70-7c14-54be-8332-6c9b15312955',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS03-M09-O01', 'base'): ('6e89177e-31aa-5e59-9165-a5a750269679',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '77\n',
+                                                                     ''),
+                                          ('CS03-M09-O01', 'changed-condition'): ('6e89177e-31aa-5e59-9165-a5a750269679',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '77\n',
+                                                                                  ''),
+                                          ('CS03-M09-O02', 'base'): ('06c9d459-676a-5cf8-ab22-123c7839c041',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS03-M09-O02', 'changed-condition'): ('06c9d459-676a-5cf8-ab22-123c7839c041',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS03-M09-O03', 'base'): ('2d552996-b09f-5c51-b8c9-dad661354343',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0.600\n',
+                                                                     ''),
+                                          ('CS03-M09-O03', 'changed-condition'): ('2d552996-b09f-5c51-b8c9-dad661354343',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1.000\n',
+                                                                                  ''),
+                                          ('CS03-M10-O01', 'base'): ('5b56de31-cea0-58a8-8ebb-7d754b6a8340',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2 3 \n',
+                                                                     ''),
+                                          ('CS03-M10-O01', 'changed-condition'): ('5b56de31-cea0-58a8-8ebb-7d754b6a8340',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 2 3 \n',
+                                                                                  ''),
+                                          ('CS03-M10-O02', 'base'): ('7fda3928-ccb5-54ba-8ec4-7a8c4c4f40fa',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1C 2A 2B \n',
+                                                                     ''),
+                                          ('CS03-M10-O02', 'changed-condition'): ('7fda3928-ccb5-54ba-8ec4-7a8c4c4f40fa',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1C 2A '
+                                                                                  '3B \n',
+                                                                                  ''),
+                                          ('CS03-M10-O03', 'base'): ('eee200ae-305f-57f2-9e4f-c6bf146c563e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2 3 4 \n',
+                                                                     ''),
+                                          ('CS03-M10-O03', 'changed-condition'): ('eee200ae-305f-57f2-9e4f-c6bf146c563e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 4 5 6 \n',
+                                                                                  '')},
+ '3611753a-4f55-5af9-98f8-b6995637e756': {('CS12-M01-O01', 'base'): ('bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M01-O01', 'changed-condition'): ('bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M01-O02', 'base'): ('8b9f1427-226a-5804-8cb1-2ab8d1d9e472',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '10\n',
+                                                                     ''),
+                                          ('CS12-M01-O02', 'changed-condition'): ('8b9f1427-226a-5804-8cb1-2ab8d1d9e472',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS12-M01-O03', 'base'): ('d30541e5-8c28-5350-bfc7-4450fbc7ac45',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'left right\n',
+                                                                     ''),
+                                          ('CS12-M01-O03', 'changed-condition'): ('d30541e5-8c28-5350-bfc7-4450fbc7ac45',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'left\n',
+                                                                                  ''),
+                                          ('CS12-M02-O01', 'base'): ('3cf76d51-057a-560b-bf7c-dbef88a90222',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'S G\n',
+                                                                     ''),
+                                          ('CS12-M02-O01', 'changed-condition'): ('3cf76d51-057a-560b-bf7c-dbef88a90222',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'S G\n',
+                                                                                  ''),
+                                          ('CS12-M02-O02', 'base'): ('27435fd1-9f80-5223-9779-4f6fe71d2623',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unknown:budget\n',
+                                                                     ''),
+                                          ('CS12-M02-O02', 'changed-condition'): ('27435fd1-9f80-5223-9779-4f6fe71d2623',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'found\n',
+                                                                                  ''),
+                                          ('CS12-M02-O03', 'base'): ('4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS12-M02-O03', 'changed-condition'): ('4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS12-M03-O01', 'base'): ('72bbfa38-ca85-5cad-8778-cde994295e95',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M03-O01', 'changed-condition'): ('72bbfa38-ca85-5cad-8778-cde994295e95',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M03-O02', 'base'): ('e2d22c37-77ae-54ba-87fe-d9fca237ff57',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M03-O02', 'changed-condition'): ('e2d22c37-77ae-54ba-87fe-d9fca237ff57',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M03-O03', 'base'): ('4d0133a8-c5d1-5e9b-b455-302eb4d23d7d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS12-M03-O03', 'changed-condition'): ('4d0133a8-c5d1-5e9b-b455-302eb4d23d7d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS12-M04-O01', 'base'): ('61354f25-204f-5ba3-b420-1dbb5303a6b1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS12-M04-O01', 'changed-condition'): ('61354f25-204f-5ba3-b420-1dbb5303a6b1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS12-M04-O02', 'base'): ('c39f950c-0118-54ce-a9fa-c34deb5e5d83',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3 5\n',
+                                                                     ''),
+                                          ('CS12-M04-O02', 'changed-condition'): ('c39f950c-0118-54ce-a9fa-c34deb5e5d83',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3 3\n',
+                                                                                  ''),
+                                          ('CS12-M04-O03', 'base'): ('fc4ed591-cb3c-5c75-a6ce-6abc7911b276',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True 2\n',
+                                                                     ''),
+                                          ('CS12-M04-O03', 'changed-condition'): ('fc4ed591-cb3c-5c75-a6ce-6abc7911b276',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True 0\n',
+                                                                                  ''),
+                                          ('CS12-M05-O01', 'base'): ('fe831e39-8136-5daa-99a5-acc510078100',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M05-O01', 'changed-condition'): ('fe831e39-8136-5daa-99a5-acc510078100',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M05-O02', 'base'): ('4e837992-2ce0-520f-bc5d-dce12e3fa930',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS12-M05-O02', 'changed-condition'): ('4e837992-2ce0-520f-bc5d-dce12e3fa930',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 2\n',
+                                                                                  ''),
+                                          ('CS12-M05-O03', 'base'): ('c16dac75-f63a-5f8c-8908-2379eea98a6f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unsat\n',
+                                                                     ''),
+                                          ('CS12-M05-O03', 'changed-condition'): ('c16dac75-f63a-5f8c-8908-2379eea98a6f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 2\n',
+                                                                                  ''),
+                                          ('CS12-M06-O01', 'base'): ('61e95bbc-4d36-5151-8fa7-828b115d01fd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unknown\n',
+                                                                     ''),
+                                          ('CS12-M06-O01', 'changed-condition'): ('61e95bbc-4d36-5151-8fa7-828b115d01fd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'true\n',
+                                                                                  ''),
+                                          ('CS12-M06-O02', 'base'): ('26d62f37-11a6-5662-b8fc-c42e0dc186a4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'a b c\n',
+                                                                     ''),
+                                          ('CS12-M06-O02', 'changed-condition'): ('26d62f37-11a6-5662-b8fc-c42e0dc186a4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'b c\n',
+                                                                                  ''),
+                                          ('CS12-M06-O03', 'base'): ('66f4299c-03ee-5006-95e7-735ded0abdfd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'conflict\n',
+                                                                     ''),
+                                          ('CS12-M06-O03', 'changed-condition'): ('66f4299c-03ee-5006-95e7-735ded0abdfd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'consistent\n',
+                                                                                  ''),
+                                          ('CS12-M07-O01', 'base'): ('a825aefe-4b5b-5ae1-87a7-01aeff1ff346',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/2\n',
+                                                                     ''),
+                                          ('CS12-M07-O01', 'changed-condition'): ('a825aefe-4b5b-5ae1-87a7-01aeff1ff346',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1/8\n',
+                                                                                  ''),
+                                          ('CS12-M07-O02', 'base'): ('7d6030df-a704-5349-a1b0-1fa50714c85b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/2\n',
+                                                                     ''),
+                                          ('CS12-M07-O02', 'changed-condition'): ('7d6030df-a704-5349-a1b0-1fa50714c85b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3/4\n',
+                                                                                  ''),
+                                          ('CS12-M07-O03', 'base'): ('bfc070f1-dc3e-5df2-b69b-a43d34ece393',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M07-O03', 'changed-condition'): ('bfc070f1-dc3e-5df2-b69b-a43d34ece393',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M08-O01', 'base'): ('4b89ed4d-0469-57e0-92b3-e26554bf9762',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'blocked\n',
+                                                                     ''),
+                                          ('CS12-M08-O01', 'changed-condition'): ('4b89ed4d-0469-57e0-92b3-e26554bf9762',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'key open\n',
+                                                                                  ''),
+                                          ('CS12-M08-O02', 'base'): ('11f6d812-6340-58be-a02d-b5221d6096cc',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M08-O02', 'changed-condition'): ('11f6d812-6340-58be-a02d-b5221d6096cc',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M08-O03', 'base'): ('c585ec57-2152-5de6-802d-291e5bcbccf4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'reinforcement\n',
+                                                                     ''),
+                                          ('CS12-M08-O03', 'changed-condition'): ('c585ec57-2152-5de6-802d-291e5bcbccf4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'supervised\n',
+                                                                                  ''),
+                                          ('CS12-M09-O01', 'base'): ('49489567-a442-5504-8b65-9d2b6d89fbbb',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'B\n',
+                                                                     ''),
+                                          ('CS12-M09-O01', 'changed-condition'): ('49489567-a442-5504-8b65-9d2b6d89fbbb',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS12-M09-O02', 'base'): ('20b00edf-228e-5caf-8225-77ff13166838',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M09-O02', 'changed-condition'): ('20b00edf-228e-5caf-8225-77ff13166838',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M09-O03', 'base'): ('c62f0ecf-702b-5f90-91d8-c7ca13f54445',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'needs_review\n',
+                                                                     ''),
+                                          ('CS12-M09-O03', 'changed-condition'): ('c62f0ecf-702b-5f90-91d8-c7ca13f54445',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'automatic\n',
+                                                                                  '')},
+ '3d7622ca-492d-5f1e-83d4-bcb992d1d29c': {('CS11-M01-O01', 'base'): ('02eb570f-4898-599c-ba4a-9daf3d6daf23',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'lex parse type\n',
+                                                                     ''),
+                                          ('CS11-M01-O01', 'changed-condition'): ('02eb570f-4898-599c-ba4a-9daf3d6daf23',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'lex parse '
+                                                                                  'type '
+                                                                                  'emit\n',
+                                                                                  ''),
+                                          ('CS11-M01-O02', 'base'): ('6f2e0a49-5697-5ebf-bf25-7412ce49a403',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '-2\n',
+                                                                     ''),
+                                          ('CS11-M01-O02', 'changed-condition'): ('6f2e0a49-5697-5ebf-bf25-7412ce49a403',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS11-M01-O03', 'base'): ('04369fb8-821b-5d38-bdbd-e8f816545d81',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'lex:1\n',
+                                                                     ''),
+                                          ('CS11-M01-O03', 'changed-condition'): ('04369fb8-821b-5d38-bdbd-e8f816545d81',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'ok\n',
+                                                                                  ''),
+                                          ('CS11-M02-O01', 'base'): ('62e7c3f4-5d81-5931-b168-51ee568c82ca',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS11-M02-O01', 'changed-condition'): ('62e7c3f4-5d81-5931-b168-51ee568c82ca',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS11-M02-O02', 'base'): ('87199749-f173-5cfd-8eda-576932c69620',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS11-M02-O02', 'changed-condition'): ('87199749-f173-5cfd-8eda-576932c69620',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS11-M02-O03', 'base'): ('3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '>=\n',
+                                                                     ''),
+                                          ('CS11-M02-O03', 'changed-condition'): ('3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '>\n',
+                                                                                  ''),
+                                          ('CS11-M03-O01', 'base'): ('bb511987-1967-5247-9b6d-62feba383952',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS11-M03-O01', 'changed-condition'): ('bb511987-1967-5247-9b6d-62feba383952',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS11-M03-O02', 'base'): ('97930e73-5e36-5231-bc16-13a5459986c5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '20 14\n',
+                                                                     ''),
+                                          ('CS11-M03-O02', 'changed-condition'): ('97930e73-5e36-5231-bc16-13a5459986c5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2 2\n',
+                                                                                  ''),
+                                          ('CS11-M03-O03', 'base'): ('dc44f399-f390-5849-a2bf-95e9ad36fb77',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS11-M03-O03', 'changed-condition'): ('dc44f399-f390-5849-a2bf-95e9ad36fb77',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS11-M04-O01', 'base'): ('f09d2473-2719-5faf-afb5-532495102c65',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'a b\n',
+                                                                     ''),
+                                          ('CS11-M04-O01', 'changed-condition'): ('f09d2473-2719-5faf-afb5-532495102c65',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'a\n',
+                                                                                  ''),
+                                          ('CS11-M04-O02', 'base'): ('dd493563-e25c-5670-a419-becb42fa08ef',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS11-M04-O02', 'changed-condition'): ('dd493563-e25c-5670-a419-becb42fa08ef',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M04-O03', 'base'): ('31bacbcf-5f65-5a43-9d35-148cc6170eb8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'syntax:extra\n',
+                                                                     ''),
+                                          ('CS11-M04-O03', 'changed-condition'): ('31bacbcf-5f65-5a43-9d35-148cc6170eb8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M05-O01', 'base'): ('dfe0ca85-a561-508e-bfea-2a05f7119a14',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '$ S\n',
+                                                                     ''),
+                                          ('CS11-M05-O01', 'changed-condition'): ('dfe0ca85-a561-508e-bfea-2a05f7119a14',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'x $ S\n',
+                                                                                  ''),
+                                          ('CS11-M05-O02', 'base'): ('a7ace736-860c-547e-91d3-5182214ace3c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS11-M05-O02', 'changed-condition'): ('a7ace736-860c-547e-91d3-5182214ace3c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS11-M05-O03', 'base'): ('db41ab62-56b5-5f9a-9d23-b862ae8b5978',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'conflict\n',
+                                                                     ''),
+                                          ('CS11-M05-O03', 'changed-condition'): ('db41ab62-56b5-5f9a-9d23-b862ae8b5978',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'reduce\n',
+                                                                                  ''),
+                                          ('CS11-M06-O01', 'base'): ('6e4ce8c9-862a-522d-b265-55ecf79a74ae',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'undeclared:y\n',
+                                                                     ''),
+                                          ('CS11-M06-O01', 'changed-condition'): ('6e4ce8c9-862a-522d-b265-55ecf79a74ae',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '7\n',
+                                                                                  ''),
+                                          ('CS11-M06-O02', 'base'): ('74cb26dc-a054-5ff2-af1d-de0b2ef8d495',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS11-M06-O02', 'changed-condition'): ('74cb26dc-a054-5ff2-af1d-de0b2ef8d495',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M06-O03', 'base'): ('e99717df-2028-5c6b-b185-569ec371bfb5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS11-M06-O03', 'changed-condition'): ('e99717df-2028-5c6b-b185-569ec371bfb5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS11-M07-O01', 'base'): ('87b5f4fa-1e4b-52ff-b037-546daefd9f68',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '14\n',
+                                                                     ''),
+                                          ('CS11-M07-O01', 'changed-condition'): ('87b5f4fa-1e4b-52ff-b037-546daefd9f68',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M07-O02', 'base'): ('e1e9f56a-6acf-5ccf-9886-2958174de085',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2\n',
+                                                                     ''),
+                                          ('CS11-M07-O02', 'changed-condition'): ('e1e9f56a-6acf-5ccf-9886-2958174de085',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M07-O03', 'base'): ('0add1c83-f3ea-5753-9fbd-d482a5cdd84a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS11-M07-O03', 'changed-condition'): ('0add1c83-f3ea-5753-9fbd-d482a5cdd84a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M08-O01', 'base'): ('3a290580-d367-5086-9ff5-58379c791075',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unknown\n',
+                                                                     ''),
+                                          ('CS11-M08-O01', 'changed-condition'): ('3a290580-d367-5086-9ff5-58379c791075',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M08-O02', 'base'): ('09d73447-68ed-5404-bf59-560ba9e386ae',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'y z\n',
+                                                                     ''),
+                                          ('CS11-M08-O02', 'changed-condition'): ('09d73447-68ed-5404-bf59-560ba9e386ae',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'y z\n',
+                                                                                  ''),
+                                          ('CS11-M08-O03', 'base'): ('d8fd6401-57d1-51cb-ba4a-3727e2b99dcb',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 0\n',
+                                                                     ''),
+                                          ('CS11-M08-O03', 'changed-condition'): ('d8fd6401-57d1-51cb-ba4a-3727e2b99dcb',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 0\n',
+                                                                                  ''),
+                                          ('CS11-M09-O01', 'base'): ('028f22e6-d8d1-5d78-a56b-1359ceb6fb44',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS11-M09-O01', 'changed-condition'): ('028f22e6-d8d1-5d78-a56b-1359ceb6fb44',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '5\n',
+                                                                                  ''),
+                                          ('CS11-M09-O02', 'base'): ('8b873d71-aa14-5b12-bcc4-605eba95e08d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS11-M09-O02', 'changed-condition'): ('8b873d71-aa14-5b12-bcc4-605eba95e08d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS11-M09-O03', 'base'): ('59927887-1c20-5f92-a473-12daa86fd6ef',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS11-M09-O03', 'changed-condition'): ('59927887-1c20-5f92-a473-12daa86fd6ef',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS11-M09-O03', 'compiler-expression'): ('59927887-1c20-5f92-a473-12daa86fd6ef',
+                                                                                    'print(8-3-1);print(-7/3);\n',
+                                                                                    'success',
+                                                                                    'tokens=[["print", '
+                                                                                    '"print", '
+                                                                                    '0], '
+                                                                                    '["(", '
+                                                                                    '"(", 5], '
+                                                                                    '["number", '
+                                                                                    '"8", 6], '
+                                                                                    '["-", '
+                                                                                    '"-", 7], '
+                                                                                    '["number", '
+                                                                                    '"3", 8], '
+                                                                                    '["-", '
+                                                                                    '"-", 9], '
+                                                                                    '["number", '
+                                                                                    '"1", '
+                                                                                    '10], '
+                                                                                    '[")", '
+                                                                                    '")", '
+                                                                                    '11], '
+                                                                                    '[";", '
+                                                                                    '";", '
+                                                                                    '12], '
+                                                                                    '["print", '
+                                                                                    '"print", '
+                                                                                    '13], '
+                                                                                    '["(", '
+                                                                                    '"(", '
+                                                                                    '18], '
+                                                                                    '["-", '
+                                                                                    '"-", '
+                                                                                    '19], '
+                                                                                    '["number", '
+                                                                                    '"7", '
+                                                                                    '20], '
+                                                                                    '["/", '
+                                                                                    '"/", '
+                                                                                    '21], '
+                                                                                    '["number", '
+                                                                                    '"3", '
+                                                                                    '22], '
+                                                                                    '[")", '
+                                                                                    '")", '
+                                                                                    '23], '
+                                                                                    '[";", '
+                                                                                    '";", '
+                                                                                    '24], '
+                                                                                    '["eof", '
+                                                                                    '"", '
+                                                                                    '26]]\n'
+                                                                                    'ast=[{"expr": '
+                                                                                    '{"kind": '
+                                                                                    '"binary", '
+                                                                                    '"left": '
+                                                                                    '{"kind": '
+                                                                                    '"binary", '
+                                                                                    '"left": '
+                                                                                    '{"kind": '
+                                                                                    '"literal", '
+                                                                                    '"pos": '
+                                                                                    '6, '
+                                                                                    '"value": '
+                                                                                    '8}, '
+                                                                                    '"op": '
+                                                                                    '"-", '
+                                                                                    '"pos": '
+                                                                                    '7, '
+                                                                                    '"right": '
+                                                                                    '{"kind": '
+                                                                                    '"literal", '
+                                                                                    '"pos": '
+                                                                                    '8, '
+                                                                                    '"value": '
+                                                                                    '3}}, '
+                                                                                    '"op": '
+                                                                                    '"-", '
+                                                                                    '"pos": '
+                                                                                    '9, '
+                                                                                    '"right": '
+                                                                                    '{"kind": '
+                                                                                    '"literal", '
+                                                                                    '"pos": '
+                                                                                    '10, '
+                                                                                    '"value": '
+                                                                                    '1}}, '
+                                                                                    '"kind": '
+                                                                                    '"print", '
+                                                                                    '"pos": '
+                                                                                    '0}, '
+                                                                                    '{"expr": '
+                                                                                    '{"kind": '
+                                                                                    '"binary", '
+                                                                                    '"left": '
+                                                                                    '{"kind": '
+                                                                                    '"unary", '
+                                                                                    '"op": '
+                                                                                    '"-", '
+                                                                                    '"pos": '
+                                                                                    '19, '
+                                                                                    '"right": '
+                                                                                    '{"kind": '
+                                                                                    '"literal", '
+                                                                                    '"pos": '
+                                                                                    '20, '
+                                                                                    '"value": '
+                                                                                    '7}}, '
+                                                                                    '"op": '
+                                                                                    '"/", '
+                                                                                    '"pos": '
+                                                                                    '21, '
+                                                                                    '"right": '
+                                                                                    '{"kind": '
+                                                                                    '"literal", '
+                                                                                    '"pos": '
+                                                                                    '22, '
+                                                                                    '"value": '
+                                                                                    '3}}, '
+                                                                                    '"kind": '
+                                                                                    '"print", '
+                                                                                    '"pos": '
+                                                                                    '13}]\n'
+                                                                                    'instructions=[["PUSH", '
+                                                                                    '8, 6], '
+                                                                                    '["PUSH", '
+                                                                                    '3, 8], '
+                                                                                    '["BINARY", '
+                                                                                    '"-", 7], '
+                                                                                    '["PUSH", '
+                                                                                    '1, 10], '
+                                                                                    '["BINARY", '
+                                                                                    '"-", 9], '
+                                                                                    '["PRINT", '
+                                                                                    'null, '
+                                                                                    '0], '
+                                                                                    '["PUSH", '
+                                                                                    '7, 20], '
+                                                                                    '["UNARY", '
+                                                                                    '"-", '
+                                                                                    '19], '
+                                                                                    '["PUSH", '
+                                                                                    '3, 22], '
+                                                                                    '["BINARY", '
+                                                                                    '"/", '
+                                                                                    '21], '
+                                                                                    '["PRINT", '
+                                                                                    'null, '
+                                                                                    '13]]\n'
+                                                                                    '{"equivalent": '
+                                                                                    'true, '
+                                                                                    '"machine_result": '
+                                                                                    '[4, -2], '
+                                                                                    '"source_result": '
+                                                                                    '[4, '
+                                                                                    '-2]}\n',
+                                                                                    ''),
+                                          ('CS11-M09-O03', 'compiler-loop'): ('59927887-1c20-5f92-a473-12daa86fd6ef',
+                                                                              'let '
+                                                                              'x=3;while(x>0){x=x-1;}print(x);\n',
+                                                                              'success',
+                                                                              'tokens=[["let", '
+                                                                              '"let", 0], '
+                                                                              '["name", "x", '
+                                                                              '4], ["=", "=", '
+                                                                              '5], ["number", '
+                                                                              '"3", 6], [";", '
+                                                                              '";", 7], '
+                                                                              '["while", '
+                                                                              '"while", 8], '
+                                                                              '["(", "(", '
+                                                                              '13], ["name", '
+                                                                              '"x", 14], '
+                                                                              '[">", ">", '
+                                                                              '15], '
+                                                                              '["number", '
+                                                                              '"0", 16], '
+                                                                              '[")", ")", '
+                                                                              '17], ["{", '
+                                                                              '"{", 18], '
+                                                                              '["name", "x", '
+                                                                              '19], ["=", '
+                                                                              '"=", 20], '
+                                                                              '["name", "x", '
+                                                                              '21], ["-", '
+                                                                              '"-", 22], '
+                                                                              '["number", '
+                                                                              '"1", 23], '
+                                                                              '[";", ";", '
+                                                                              '24], ["}", '
+                                                                              '"}", 25], '
+                                                                              '["print", '
+                                                                              '"print", 26], '
+                                                                              '["(", "(", '
+                                                                              '31], ["name", '
+                                                                              '"x", 32], '
+                                                                              '[")", ")", '
+                                                                              '33], [";", '
+                                                                              '";", 34], '
+                                                                              '["eof", "", '
+                                                                              '36]]\n'
+                                                                              'ast=[{"expr": '
+                                                                              '{"kind": '
+                                                                              '"literal", '
+                                                                              '"pos": 6, '
+                                                                              '"value": 3}, '
+                                                                              '"kind": "let", '
+                                                                              '"name": "x", '
+                                                                              '"pos": 0}, '
+                                                                              '{"body": '
+                                                                              '[{"expr": '
+                                                                              '{"kind": '
+                                                                              '"binary", '
+                                                                              '"left": '
+                                                                              '{"kind": '
+                                                                              '"variable", '
+                                                                              '"name": "x", '
+                                                                              '"pos": 21}, '
+                                                                              '"op": "-", '
+                                                                              '"pos": 22, '
+                                                                              '"right": '
+                                                                              '{"kind": '
+                                                                              '"literal", '
+                                                                              '"pos": 23, '
+                                                                              '"value": 1}}, '
+                                                                              '"kind": '
+                                                                              '"assign", '
+                                                                              '"name": "x", '
+                                                                              '"pos": 19}], '
+                                                                              '"cond": '
+                                                                              '{"kind": '
+                                                                              '"binary", '
+                                                                              '"left": '
+                                                                              '{"kind": '
+                                                                              '"variable", '
+                                                                              '"name": "x", '
+                                                                              '"pos": 14}, '
+                                                                              '"op": ">", '
+                                                                              '"pos": 15, '
+                                                                              '"right": '
+                                                                              '{"kind": '
+                                                                              '"literal", '
+                                                                              '"pos": 16, '
+                                                                              '"value": 0}}, '
+                                                                              '"kind": '
+                                                                              '"while", '
+                                                                              '"pos": 8}, '
+                                                                              '{"expr": '
+                                                                              '{"kind": '
+                                                                              '"variable", '
+                                                                              '"name": "x", '
+                                                                              '"pos": 32}, '
+                                                                              '"kind": '
+                                                                              '"print", '
+                                                                              '"pos": 26}]\n'
+                                                                              'instructions=[["PUSH", '
+                                                                              '3, 6], '
+                                                                              '["STORE", 0, '
+                                                                              '0], ["LOAD", '
+                                                                              '0, 14], '
+                                                                              '["PUSH", 0, '
+                                                                              '16], '
+                                                                              '["BINARY", '
+                                                                              '">", 15], '
+                                                                              '["JF", 11, 8], '
+                                                                              '["LOAD", 0, '
+                                                                              '21], ["PUSH", '
+                                                                              '1, 23], '
+                                                                              '["BINARY", '
+                                                                              '"-", 22], '
+                                                                              '["STORE", 0, '
+                                                                              '19], ["JMP", '
+                                                                              '2, 8], '
+                                                                              '["LOAD", 0, '
+                                                                              '32], ["PRINT", '
+                                                                              'null, 26]]\n'
+                                                                              '{"equivalent": '
+                                                                              'true, '
+                                                                              '"machine_result": '
+                                                                              '[0], '
+                                                                              '"source_result": '
+                                                                              '[0]}\n',
+                                                                              ''),
+                                          ('CS11-M09-O03', 'compiler-scope'): ('59927887-1c20-5f92-a473-12daa86fd6ef',
+                                                                               'let x=7;{let '
+                                                                               'x=2;print(x);}print(x);\n',
+                                                                               'success',
+                                                                               'tokens=[["let", '
+                                                                               '"let", 0], '
+                                                                               '["name", "x", '
+                                                                               '4], ["=", '
+                                                                               '"=", 5], '
+                                                                               '["number", '
+                                                                               '"7", 6], '
+                                                                               '[";", ";", '
+                                                                               '7], ["{", '
+                                                                               '"{", 8], '
+                                                                               '["let", '
+                                                                               '"let", 9], '
+                                                                               '["name", "x", '
+                                                                               '13], ["=", '
+                                                                               '"=", 14], '
+                                                                               '["number", '
+                                                                               '"2", 15], '
+                                                                               '[";", ";", '
+                                                                               '16], '
+                                                                               '["print", '
+                                                                               '"print", 17], '
+                                                                               '["(", "(", '
+                                                                               '22], ["name", '
+                                                                               '"x", 23], '
+                                                                               '[")", ")", '
+                                                                               '24], [";", '
+                                                                               '";", 25], '
+                                                                               '["}", "}", '
+                                                                               '26], '
+                                                                               '["print", '
+                                                                               '"print", 27], '
+                                                                               '["(", "(", '
+                                                                               '32], ["name", '
+                                                                               '"x", 33], '
+                                                                               '[")", ")", '
+                                                                               '34], [";", '
+                                                                               '";", 35], '
+                                                                               '["eof", "", '
+                                                                               '37]]\n'
+                                                                               'ast=[{"expr": '
+                                                                               '{"kind": '
+                                                                               '"literal", '
+                                                                               '"pos": 6, '
+                                                                               '"value": 7}, '
+                                                                               '"kind": '
+                                                                               '"let", '
+                                                                               '"name": "x", '
+                                                                               '"pos": 0}, '
+                                                                               '{"body": '
+                                                                               '[{"expr": '
+                                                                               '{"kind": '
+                                                                               '"literal", '
+                                                                               '"pos": 15, '
+                                                                               '"value": 2}, '
+                                                                               '"kind": '
+                                                                               '"let", '
+                                                                               '"name": "x", '
+                                                                               '"pos": 9}, '
+                                                                               '{"expr": '
+                                                                               '{"kind": '
+                                                                               '"variable", '
+                                                                               '"name": "x", '
+                                                                               '"pos": 23}, '
+                                                                               '"kind": '
+                                                                               '"print", '
+                                                                               '"pos": 17}], '
+                                                                               '"kind": '
+                                                                               '"block", '
+                                                                               '"pos": 8}, '
+                                                                               '{"expr": '
+                                                                               '{"kind": '
+                                                                               '"variable", '
+                                                                               '"name": "x", '
+                                                                               '"pos": 33}, '
+                                                                               '"kind": '
+                                                                               '"print", '
+                                                                               '"pos": 27}]\n'
+                                                                               'instructions=[["PUSH", '
+                                                                               '7, 6], '
+                                                                               '["STORE", 0, '
+                                                                               '0], ["PUSH", '
+                                                                               '2, 15], '
+                                                                               '["STORE", 1, '
+                                                                               '9], ["LOAD", '
+                                                                               '1, 23], '
+                                                                               '["PRINT", '
+                                                                               'null, 17], '
+                                                                               '["LOAD", 0, '
+                                                                               '33], '
+                                                                               '["PRINT", '
+                                                                               'null, 27]]\n'
+                                                                               '{"equivalent": '
+                                                                               'true, '
+                                                                               '"machine_result": '
+                                                                               '[2, 7], '
+                                                                               '"source_result": '
+                                                                               '[2, 7]}\n',
+                                                                               ''),
+                                          ('CS11-M09-O03', 'compiler-shortcircuit'): ('59927887-1c20-5f92-a473-12daa86fd6ef',
+                                                                                      'print(false '
+                                                                                      '&& '
+                                                                                      '(1/0==0));print(true '
+                                                                                      '|| '
+                                                                                      '(1/0==0));\n',
+                                                                                      'success',
+                                                                                      'tokens=[["print", '
+                                                                                      '"print", '
+                                                                                      '0], '
+                                                                                      '["(", '
+                                                                                      '"(", '
+                                                                                      '5], '
+                                                                                      '["false", '
+                                                                                      '"false", '
+                                                                                      '6], '
+                                                                                      '["&&", '
+                                                                                      '"&&", '
+                                                                                      '12], '
+                                                                                      '["(", '
+                                                                                      '"(", '
+                                                                                      '15], '
+                                                                                      '["number", '
+                                                                                      '"1", '
+                                                                                      '16], '
+                                                                                      '["/", '
+                                                                                      '"/", '
+                                                                                      '17], '
+                                                                                      '["number", '
+                                                                                      '"0", '
+                                                                                      '18], '
+                                                                                      '["==", '
+                                                                                      '"==", '
+                                                                                      '19], '
+                                                                                      '["number", '
+                                                                                      '"0", '
+                                                                                      '21], '
+                                                                                      '[")", '
+                                                                                      '")", '
+                                                                                      '22], '
+                                                                                      '[")", '
+                                                                                      '")", '
+                                                                                      '23], '
+                                                                                      '[";", '
+                                                                                      '";", '
+                                                                                      '24], '
+                                                                                      '["print", '
+                                                                                      '"print", '
+                                                                                      '25], '
+                                                                                      '["(", '
+                                                                                      '"(", '
+                                                                                      '30], '
+                                                                                      '["true", '
+                                                                                      '"true", '
+                                                                                      '31], '
+                                                                                      '["||", '
+                                                                                      '"||", '
+                                                                                      '36], '
+                                                                                      '["(", '
+                                                                                      '"(", '
+                                                                                      '39], '
+                                                                                      '["number", '
+                                                                                      '"1", '
+                                                                                      '40], '
+                                                                                      '["/", '
+                                                                                      '"/", '
+                                                                                      '41], '
+                                                                                      '["number", '
+                                                                                      '"0", '
+                                                                                      '42], '
+                                                                                      '["==", '
+                                                                                      '"==", '
+                                                                                      '43], '
+                                                                                      '["number", '
+                                                                                      '"0", '
+                                                                                      '45], '
+                                                                                      '[")", '
+                                                                                      '")", '
+                                                                                      '46], '
+                                                                                      '[")", '
+                                                                                      '")", '
+                                                                                      '47], '
+                                                                                      '[";", '
+                                                                                      '";", '
+                                                                                      '48], '
+                                                                                      '["eof", '
+                                                                                      '"", '
+                                                                                      '50]]\n'
+                                                                                      'ast=[{"expr": '
+                                                                                      '{"kind": '
+                                                                                      '"binary", '
+                                                                                      '"left": '
+                                                                                      '{"kind": '
+                                                                                      '"literal", '
+                                                                                      '"pos": '
+                                                                                      '6, '
+                                                                                      '"value": '
+                                                                                      'false}, '
+                                                                                      '"op": '
+                                                                                      '"&&", '
+                                                                                      '"pos": '
+                                                                                      '12, '
+                                                                                      '"right": '
+                                                                                      '{"kind": '
+                                                                                      '"binary", '
+                                                                                      '"left": '
+                                                                                      '{"kind": '
+                                                                                      '"binary", '
+                                                                                      '"left": '
+                                                                                      '{"kind": '
+                                                                                      '"literal", '
+                                                                                      '"pos": '
+                                                                                      '16, '
+                                                                                      '"value": '
+                                                                                      '1}, '
+                                                                                      '"op": '
+                                                                                      '"/", '
+                                                                                      '"pos": '
+                                                                                      '17, '
+                                                                                      '"right": '
+                                                                                      '{"kind": '
+                                                                                      '"literal", '
+                                                                                      '"pos": '
+                                                                                      '18, '
+                                                                                      '"value": '
+                                                                                      '0}}, '
+                                                                                      '"op": '
+                                                                                      '"==", '
+                                                                                      '"pos": '
+                                                                                      '19, '
+                                                                                      '"right": '
+                                                                                      '{"kind": '
+                                                                                      '"literal", '
+                                                                                      '"pos": '
+                                                                                      '21, '
+                                                                                      '"value": '
+                                                                                      '0}}}, '
+                                                                                      '"kind": '
+                                                                                      '"print", '
+                                                                                      '"pos": '
+                                                                                      '0}, '
+                                                                                      '{"expr": '
+                                                                                      '{"kind": '
+                                                                                      '"binary", '
+                                                                                      '"left": '
+                                                                                      '{"kind": '
+                                                                                      '"literal", '
+                                                                                      '"pos": '
+                                                                                      '31, '
+                                                                                      '"value": '
+                                                                                      'true}, '
+                                                                                      '"op": '
+                                                                                      '"||", '
+                                                                                      '"pos": '
+                                                                                      '36, '
+                                                                                      '"right": '
+                                                                                      '{"kind": '
+                                                                                      '"binary", '
+                                                                                      '"left": '
+                                                                                      '{"kind": '
+                                                                                      '"binary", '
+                                                                                      '"left": '
+                                                                                      '{"kind": '
+                                                                                      '"literal", '
+                                                                                      '"pos": '
+                                                                                      '40, '
+                                                                                      '"value": '
+                                                                                      '1}, '
+                                                                                      '"op": '
+                                                                                      '"/", '
+                                                                                      '"pos": '
+                                                                                      '41, '
+                                                                                      '"right": '
+                                                                                      '{"kind": '
+                                                                                      '"literal", '
+                                                                                      '"pos": '
+                                                                                      '42, '
+                                                                                      '"value": '
+                                                                                      '0}}, '
+                                                                                      '"op": '
+                                                                                      '"==", '
+                                                                                      '"pos": '
+                                                                                      '43, '
+                                                                                      '"right": '
+                                                                                      '{"kind": '
+                                                                                      '"literal", '
+                                                                                      '"pos": '
+                                                                                      '45, '
+                                                                                      '"value": '
+                                                                                      '0}}}, '
+                                                                                      '"kind": '
+                                                                                      '"print", '
+                                                                                      '"pos": '
+                                                                                      '25}]\n'
+                                                                                      'instructions=[["PUSH", '
+                                                                                      'false, '
+                                                                                      '6], '
+                                                                                      '["JF", '
+                                                                                      '8, '
+                                                                                      '12], '
+                                                                                      '["PUSH", '
+                                                                                      '1, '
+                                                                                      '16], '
+                                                                                      '["PUSH", '
+                                                                                      '0, '
+                                                                                      '18], '
+                                                                                      '["BINARY", '
+                                                                                      '"/", '
+                                                                                      '17], '
+                                                                                      '["PUSH", '
+                                                                                      '0, '
+                                                                                      '21], '
+                                                                                      '["BINARY", '
+                                                                                      '"==", '
+                                                                                      '19], '
+                                                                                      '["JMP", '
+                                                                                      '9, '
+                                                                                      '12], '
+                                                                                      '["PUSH", '
+                                                                                      'false, '
+                                                                                      '12], '
+                                                                                      '["PRINT", '
+                                                                                      'null, '
+                                                                                      '0], '
+                                                                                      '["PUSH", '
+                                                                                      'true, '
+                                                                                      '31], '
+                                                                                      '["JF", '
+                                                                                      '14, '
+                                                                                      '36], '
+                                                                                      '["PUSH", '
+                                                                                      'true, '
+                                                                                      '36], '
+                                                                                      '["JMP", '
+                                                                                      '19, '
+                                                                                      '36], '
+                                                                                      '["PUSH", '
+                                                                                      '1, '
+                                                                                      '40], '
+                                                                                      '["PUSH", '
+                                                                                      '0, '
+                                                                                      '42], '
+                                                                                      '["BINARY", '
+                                                                                      '"/", '
+                                                                                      '41], '
+                                                                                      '["PUSH", '
+                                                                                      '0, '
+                                                                                      '45], '
+                                                                                      '["BINARY", '
+                                                                                      '"==", '
+                                                                                      '43], '
+                                                                                      '["PRINT", '
+                                                                                      'null, '
+                                                                                      '25]]\n'
+                                                                                      '{"equivalent": '
+                                                                                      'true, '
+                                                                                      '"machine_result": '
+                                                                                      '[false, '
+                                                                                      'true], '
+                                                                                      '"source_result": '
+                                                                                      '[false, '
+                                                                                      'true]}\n',
+                                                                                      '')},
+ '8653760c-bf00-5358-88ec-df56160ecc65': {('CS07-M01-O01', 'base'): ('8c0c62ea-771e-573b-80d9-6cbbf72dd6bd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'user\n',
+                                                                     ''),
+                                          ('CS07-M01-O01', 'changed-condition'): ('8c0c62ea-771e-573b-80d9-6cbbf72dd6bd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'kernel\n',
+                                                                                  ''),
+                                          ('CS07-M01-O02', 'base'): ('cd79e875-6384-5137-b3ee-8f219c33bd38',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'alpha\n',
+                                                                     ''),
+                                          ('CS07-M01-O02', 'changed-condition'): ('cd79e875-6384-5137-b3ee-8f219c33bd38',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'xy\n',
+                                                                                  ''),
+                                          ('CS07-M01-O03', 'base'): ('71a4bb0c-311d-5fac-8772-84e97344b70a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'missing\n',
+                                                                     ''),
+                                          ('CS07-M01-O03', 'changed-condition'): ('71a4bb0c-311d-5fac-8772-84e97344b70a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'ok\n',
+                                                                                  ''),
+                                          ('CS07-M02-O01', 'base'): ('cfe88aac-8fe4-5ddf-94a6-6b084337b2e2',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7\n',
+                                                                     ''),
+                                          ('CS07-M02-O01', 'changed-condition'): ('cfe88aac-8fe4-5ddf-94a6-6b084337b2e2',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS07-M02-O02', 'base'): ('bfe08157-3df8-5a11-9698-232a1bf3558f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'alpha\n',
+                                                                     ''),
+                                          ('CS07-M02-O02', 'changed-condition'): ('bfe08157-3df8-5a11-9698-232a1bf3558f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'xy\n',
+                                                                                  ''),
+                                          ('CS07-M02-O03', 'base'): ('79974fc9-c36c-53fb-a635-0cc5d65aa7cf',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS07-M02-O03', 'changed-condition'): ('79974fc9-c36c-53fb-a635-0cc5d65aa7cf',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS07-M03-O01', 'base'): ('d4f8dceb-aa42-542f-a188-8b34e0dc6038',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'B A\n',
+                                                                     ''),
+                                          ('CS07-M03-O01', 'changed-condition'): ('d4f8dceb-aa42-542f-a188-8b34e0dc6038',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A B\n',
+                                                                                  ''),
+                                          ('CS07-M03-O02', 'base'): ('29801e13-2ff5-58bc-b579-6f41075398e8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '6\n',
+                                                                     ''),
+                                          ('CS07-M03-O02', 'changed-condition'): ('29801e13-2ff5-58bc-b579-6f41075398e8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '9\n',
+                                                                                  ''),
+                                          ('CS07-M03-O03', 'base'): ('cdca8acf-92e8-5849-baf7-3a02845967db',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A2 B1 A1\n',
+                                                                     ''),
+                                          ('CS07-M03-O03', 'changed-condition'): ('cdca8acf-92e8-5849-baf7-3a02845967db',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A1 B1\n',
+                                                                                  ''),
+                                          ('CS07-M04-O01', 'base'): ('0944dc66-1f3c-54ef-9499-c13141c38543',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS07-M04-O01', 'changed-condition'): ('0944dc66-1f3c-54ef-9499-c13141c38543',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS07-M04-O02', 'base'): ('89c9732d-19d5-51b8-ae0f-ebcdc9e39625',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[1, 2]\n',
+                                                                     ''),
+                                          ('CS07-M04-O02', 'changed-condition'): ('89c9732d-19d5-51b8-ae0f-ebcdc9e39625',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[1, 2]\n',
+                                                                                  ''),
+                                          ('CS07-M04-O03', 'base'): ('2d30ace7-8ccc-5558-9b56-383c937504f0',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '9\n',
+                                                                     ''),
+                                          ('CS07-M04-O03', 'changed-condition'): ('2d30ace7-8ccc-5558-9b56-383c937504f0',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS07-M05-O01', 'base'): ('191c9933-a731-5f8b-a8c7-3d52e0368d51',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS07-M05-O01', 'changed-condition'): ('191c9933-a731-5f8b-a8c7-3d52e0368d51',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS07-M05-O02', 'base'): ('a61dd406-7dad-564c-85a6-187bbe41b26a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A->B\n',
+                                                                     ''),
+                                          ('CS07-M05-O02', 'changed-condition'): ('a61dd406-7dad-564c-85a6-187bbe41b26a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'C->B\n',
+                                                                                  ''),
+                                          ('CS07-M05-O03', 'base'): ('8ecbe586-cb66-5371-90f4-a17858b54024',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS07-M05-O03', 'changed-condition'): ('8ecbe586-cb66-5371-90f4-a17858b54024',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS07-M06-O01', 'base'): ('f57fe138-baea-59e9-8ab8-ab1e538921c0',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS07-M06-O01', 'changed-condition'): ('f57fe138-baea-59e9-8ab8-ab1e538921c0',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS07-M06-O02', 'base'): ('87cf6e7c-0b49-58d8-ab18-6e8da1d162ab',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '67\n',
+                                                                     ''),
+                                          ('CS07-M06-O02', 'changed-condition'): ('87cf6e7c-0b49-58d8-ab18-6e8da1d162ab',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'invalid\n',
+                                                                                  ''),
+                                          ('CS07-M06-O03', 'base'): ('0bfaa3df-825e-5583-a9ee-6056f2d7624e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS07-M06-O03', 'changed-condition'): ('0bfaa3df-825e-5583-a9ee-6056f2d7624e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS07-M07-O01', 'base'): ('3dcca039-41b1-573d-b511-64241a18dc68',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[2, 3]\n',
+                                                                     ''),
+                                          ('CS07-M07-O01', 'changed-condition'): ('3dcca039-41b1-573d-b511-64241a18dc68',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[2, 3]\n',
+                                                                                  ''),
+                                          ('CS07-M07-O02', 'base'): ('6e608c01-81ea-5b29-90c4-35c7f89789b8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS07-M07-O02', 'changed-condition'): ('6e608c01-81ea-5b29-90c4-35c7f89789b8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS07-M07-O03', 'base'): ('ef5d0c6d-86c7-5e53-8454-51585f2c77c6',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[3]\n',
+                                                                     ''),
+                                          ('CS07-M07-O03', 'changed-condition'): ('ef5d0c6d-86c7-5e53-8454-51585f2c77c6',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[1, 2]\n',
+                                                                                  ''),
+                                          ('CS07-M08-O01', 'base'): ('11494153-d4e5-5c7d-82f8-daecdede1944',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'alpha\n',
+                                                                     ''),
+                                          ('CS07-M08-O01', 'changed-condition'): ('11494153-d4e5-5c7d-82f8-daecdede1944',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'beta\n',
+                                                                                  ''),
+                                          ('CS07-M08-O02', 'base'): ('42dde000-72ea-5273-b3cb-0c9ce0f71b5d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'denied\n',
+                                                                     ''),
+                                          ('CS07-M08-O02', 'changed-condition'): ('42dde000-72ea-5273-b3cb-0c9ce0f71b5d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'ok\n',
+                                                                                  ''),
+                                          ('CS07-M08-O03', 'base'): ('52a2fd5b-43e2-5212-bdb5-318ddab27ff9',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '55\n',
+                                                                     ''),
+                                          ('CS07-M08-O03', 'changed-condition'): ('52a2fd5b-43e2-5212-bdb5-318ddab27ff9',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '20\n',
+                                                                                  ''),
+                                          ('CS07-M09-O01', 'base'): ('e6b8ef3e-b219-5d3f-be36-ac76e7a6a2f0',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS07-M09-O01', 'changed-condition'): ('e6b8ef3e-b219-5d3f-be36-ac76e7a6a2f0',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS07-M09-O02', 'base'): ('9acfa274-70dd-5ffd-b515-d2c95adc822e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'limited\n',
+                                                                     ''),
+                                          ('CS07-M09-O02', 'changed-condition'): ('9acfa274-70dd-5ffd-b515-d2c95adc822e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'within_limit\n',
+                                                                                  ''),
+                                          ('CS07-M09-O03', 'base'): ('07961b43-d57e-5b29-b2a8-e78c9ccf0526',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS07-M09-O03', 'changed-condition'): ('07961b43-d57e-5b29-b2a8-e78c9ccf0526',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  '')},
+ '89a77e3d-0397-527e-bfaa-89d9009da6c6': {('CS03-M01-O01', 'base'): ('9dc038dd-008b-58f6-acee-32a17cddd73d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS03-M01-O01', 'changed-condition'): ('9dc038dd-008b-58f6-acee-32a17cddd73d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS03-M01-O02', 'base'): ('4a7a61ec-6921-573a-9410-032966472a72',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '10 20 30 \n',
+                                                                     ''),
+                                          ('CS03-M01-O02', 'changed-condition'): ('4a7a61ec-6921-573a-9410-032966472a72',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '30 \n',
+                                                                                  ''),
+                                          ('CS03-M01-O03', 'base'): ('364b32ed-18ca-5bc4-9ed1-6e02e454f5b7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS03-M01-O03', 'changed-condition'): ('364b32ed-18ca-5bc4-9ed1-6e02e454f5b7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS03-M02-O01', 'base'): ('9d6cfed3-f3af-58be-b2ec-c8e36eaf9804',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7 10 20 30 \n',
+                                                                     ''),
+                                          ('CS03-M02-O01', 'changed-condition'): ('9d6cfed3-f3af-58be-b2ec-c8e36eaf9804',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '10 20 30 '
+                                                                                  '7 \n',
+                                                                                  ''),
+                                          ('CS03-M02-O02', 'base'): ('90979e0e-ed31-537f-b86e-d01a1425ef07',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7 10 20 \n',
+                                                                     ''),
+                                          ('CS03-M02-O02', 'changed-condition'): ('90979e0e-ed31-537f-b86e-d01a1425ef07',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '7 \n',
+                                                                                  ''),
+                                          ('CS03-M02-O03', 'base'): ('64c2adf5-7c4c-54b6-bba2-6638b02f0ee3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '10 7 20 | 20 7 10 \n',
+                                                                     ''),
+                                          ('CS03-M02-O03', 'changed-condition'): ('64c2adf5-7c4c-54b6-bba2-6638b02f0ee3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '10 7 20 | '
+                                                                                  '20 7 10 \n',
+                                                                                  ''),
+                                          ('CS03-M03-O01', 'base'): ('b819c717-8de4-532e-b340-09eb5d3f3abf',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '20 10 empty=1\n',
+                                                                     ''),
+                                          ('CS03-M03-O01', 'changed-condition'): ('b819c717-8de4-532e-b340-09eb5d3f3abf',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'empty=1\n',
+                                                                                  ''),
+                                          ('CS03-M03-O02', 'base'): ('67e91e67-790a-5801-b9a9-987ea5374302',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '20 30 40 empty=0\n',
+                                                                     ''),
+                                          ('CS03-M03-O02', 'changed-condition'): ('67e91e67-790a-5801-b9a9-987ea5374302',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '10 20 '
+                                                                                  'empty=0\n',
+                                                                                  ''),
+                                          ('CS03-M03-O03', 'base'): ('1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'invalid\n',
+                                                                     ''),
+                                          ('CS03-M03-O03', 'changed-condition'): ('1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'valid\n',
+                                                                                  '')},
+ '93fe966e-55aa-5b49-9735-1dcd5e139fba': {('CS09-M01-O01', 'base'): ('3d4b6d9b-3d47-524b-b6d9-340062feafc8',
+                                                                     '',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS09-M01-O01', 'changed-condition'): ('3d4b6d9b-3d47-524b-b6d9-340062feafc8',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS09-M01-O02', 'base'): ('093d91bb-7423-5578-b0db-c61699059a02',
+                                                                     '',
+                                                                     'success',
+                                                                     '2\n3\n',
+                                                                     ''),
+                                          ('CS09-M01-O02', 'changed-condition'): ('093d91bb-7423-5578-b0db-c61699059a02',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS09-M01-O03', 'base'): ('6db0979e-6b60-50fb-a055-cc7376c4cdf4',
+                                                                     '',
+                                                                     'success',
+                                                                     '1\n1\n',
+                                                                     ''),
+                                          ('CS09-M01-O03', 'changed-condition'): ('6db0979e-6b60-50fb-a055-cc7376c4cdf4',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1\n2\n',
+                                                                                  ''),
+                                          ('CS09-M02-O01', 'base'): ('150fff0b-f067-502c-b856-ebd0de3dfd3d',
+                                                                     '',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS09-M02-O01', 'changed-condition'): ('150fff0b-f067-502c-b856-ebd0de3dfd3d',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS09-M02-O02', 'base'): ('aab1c072-993d-54a7-a7ee-768ca3fdee96',
+                                                                     '',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS09-M02-O02', 'changed-condition'): ('aab1c072-993d-54a7-a7ee-768ca3fdee96',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS09-M02-O03', 'base'): ('4fe5dc69-ced4-511f-86dc-13cbb8eec694',
+                                                                     '',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS09-M02-O03', 'changed-condition'): ('4fe5dc69-ced4-511f-86dc-13cbb8eec694',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS09-M03-O01', 'base'): ('a6f07edb-d237-5158-bce7-ed75c3046c8a',
+                                                                     '',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS09-M03-O01', 'changed-condition'): ('a6f07edb-d237-5158-bce7-ed75c3046c8a',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1\n2\n',
+                                                                                  ''),
+                                          ('CS09-M03-O02', 'base'): ('fe98e986-0533-5769-9d3a-acab7465957a',
+                                                                     '',
+                                                                     'success',
+                                                                     '1|9\n2|5\n',
+                                                                     ''),
+                                          ('CS09-M03-O02', 'changed-condition'): ('fe98e986-0533-5769-9d3a-acab7465957a',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1|9\n2|0\n',
+                                                                                  ''),
+                                          ('CS09-M03-O03', 'base'): ('1918184e-30f4-5772-b5e1-1c120dc702c5',
+                                                                     '',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS09-M03-O03', 'changed-condition'): ('1918184e-30f4-5772-b5e1-1c120dc702c5',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS09-M04-O01', 'base'): ('ba9a51b3-e5d6-5e60-8c3f-0c729b814b1d',
+                                                                     '',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS09-M04-O01', 'changed-condition'): ('ba9a51b3-e5d6-5e60-8c3f-0c729b814b1d',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS09-M04-O02', 'base'): ('691dbd83-b301-57b6-ae20-c5b7a9bd3b7f',
+                                                                     '',
+                                                                     'success',
+                                                                     '1|1\n2|0\n',
+                                                                     ''),
+                                          ('CS09-M04-O02', 'changed-condition'): ('691dbd83-b301-57b6-ae20-c5b7a9bd3b7f',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1|1\n2|1\n',
+                                                                                  ''),
+                                          ('CS09-M04-O03', 'base'): ('4785a3d2-8d63-540a-94b2-2db705e79ae3',
+                                                                     '',
+                                                                     'success',
+                                                                     '1|1\n2|1\n3|2\n',
+                                                                     ''),
+                                          ('CS09-M04-O03', 'changed-condition'): ('4785a3d2-8d63-540a-94b2-2db705e79ae3',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1|1\n'
+                                                                                  '2|2\n'
+                                                                                  '3|2\n',
+                                                                                  ''),
+                                          ('CS09-M05-O01', 'base'): ('f90b86df-c0bb-52e1-912f-c9421d718f1a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'ABC\n',
+                                                                     ''),
+                                          ('CS09-M05-O01', 'changed-condition'): ('f90b86df-c0bb-52e1-912f-c9421d718f1a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'AB\n',
+                                                                                  ''),
+                                          ('CS09-M05-O02', 'base'): ('987e1f95-e05d-50a8-aa14-b77b1685d6a4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS09-M05-O02', 'changed-condition'): ('987e1f95-e05d-50a8-aa14-b77b1685d6a4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS09-M05-O03', 'base'): ('b24e63e4-8633-5fff-9425-72e3a71134f8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS09-M05-O03', 'changed-condition'): ('b24e63e4-8633-5fff-9425-72e3a71134f8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS09-M06-O01', 'base'): ('53edffa9-0ca2-59af-8c1a-f30828bb2ecc',
+                                                                     '',
+                                                                     'success',
+                                                                     'lookup_idx\n',
+                                                                     ''),
+                                          ('CS09-M06-O01', 'changed-condition'): ('53edffa9-0ca2-59af-8c1a-f30828bb2ecc',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  'lookup_idx\n',
+                                                                                  ''),
+                                          ('CS09-M06-O02', 'base'): ('f28bdff4-b542-54c9-b1c9-913cef1a1044',
+                                                                     '',
+                                                                     'success',
+                                                                     't\n',
+                                                                     ''),
+                                          ('CS09-M06-O02', 'changed-condition'): ('f28bdff4-b542-54c9-b1c9-913cef1a1044',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  't\n',
+                                                                                  ''),
+                                          ('CS09-M06-O03', 'base'): ('ae807b70-997d-52c5-ad2a-f3d661e6b2c1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS09-M06-O03', 'changed-condition'): ('ae807b70-997d-52c5-ad2a-f3d661e6b2c1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS09-M07-O01', 'base'): ('621b371c-cef0-5b8e-ad5c-f95ebf42e587',
+                                                                     '',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS09-M07-O01', 'changed-condition'): ('621b371c-cef0-5b8e-ad5c-f95ebf42e587',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS09-M07-O02', 'base'): ('dadd5c5d-41de-5aef-a0d1-a029605cd763',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS09-M07-O02', 'changed-condition'): ('dadd5c5d-41de-5aef-a0d1-a029605cd763',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '9\n',
+                                                                                  ''),
+                                          ('CS09-M07-O03', 'base'): ('e4fbae27-84d2-5d8a-b4ac-ba77c6fc6433',
+                                                                     '',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS09-M07-O03', 'changed-condition'): ('e4fbae27-84d2-5d8a-b4ac-ba77c6fc6433',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS09-M08-O01', 'base'): ('73afaed2-9aa2-532c-a7a1-8bdc24df1e21',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS09-M08-O01', 'changed-condition'): ('73afaed2-9aa2-532c-a7a1-8bdc24df1e21',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS09-M08-O02', 'base'): ('27bb7b1e-5a9e-5986-8690-d38ed949d19a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS09-M08-O02', 'changed-condition'): ('27bb7b1e-5a9e-5986-8690-d38ed949d19a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '8\n',
+                                                                                  ''),
+                                          ('CS09-M08-O03', 'base'): ('376e6101-a6ca-558e-9ed6-74bfe629b1b6',
+                                                                     '',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS09-M08-O03', 'changed-condition'): ('376e6101-a6ca-558e-9ed6-74bfe629b1b6',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS09-M09-O01', 'base'): ('84dd0b93-6888-538e-8ef0-fa423fd5993a',
+                                                                     '',
+                                                                     'success',
+                                                                     'denied\nt\n',
+                                                                     ''),
+                                          ('CS09-M09-O01', 'changed-condition'): ('84dd0b93-6888-538e-8ef0-fa423fd5993a',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  'denied\n'
+                                                                                  'f\n',
+                                                                                  ''),
+                                          ('CS09-M09-O02', 'base'): ('a4c1d4a8-65a2-559a-8ae3-2992d318da5a',
+                                                                     '',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS09-M09-O02', 'changed-condition'): ('a4c1d4a8-65a2-559a-8ae3-2992d318da5a',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS09-M09-O03', 'base'): ('982a8e68-8209-50e1-8b10-9004ecacf720',
+                                                                     '',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS09-M09-O03', 'changed-condition'): ('982a8e68-8209-50e1-8b10-9004ecacf720',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS09-M10-O01', 'base'): ('8de885d0-7bb8-5071-8b44-01860a105f8e',
+                                                                     '',
+                                                                     'success',
+                                                                     '1|0\n',
+                                                                     ''),
+                                          ('CS09-M10-O01', 'changed-condition'): ('8de885d0-7bb8-5071-8b44-01860a105f8e',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '2|0\n',
+                                                                                  ''),
+                                          ('CS09-M10-O02', 'base'): ('cc1fc0e8-a808-5687-8b43-fc90e3dcb494',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS09-M10-O02', 'changed-condition'): ('cc1fc0e8-a808-5687-8b43-fc90e3dcb494',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS09-M10-O03', 'base'): ('f25c7992-494d-594e-b709-6cce470c3843',
+                                                                     '',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS09-M10-O03', 'changed-condition'): ('f25c7992-494d-594e-b709-6cce470c3843',
+                                                                                  '',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  '')},
+ 'ad0499ca-f205-5b96-bb4f-f4c3137e8238': {('CS05-M01-O01', 'base'): ('02d5f3a0-71aa-5af9-a438-f7b016ce3287',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS05-M01-O01', 'changed-condition'): ('02d5f3a0-71aa-5af9-a438-f7b016ce3287',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS05-M01-O02', 'base'): ('5c955242-c06e-574e-bca4-a084ea3aa63c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS05-M01-O02', 'changed-condition'): ('5c955242-c06e-574e-bca4-a084ea3aa63c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M01-O03', 'base'): ('e43dc2b3-34d2-58d3-89d3-67b500d066b3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[(1, 0)]\n',
+                                                                     ''),
+                                          ('CS05-M01-O03', 'changed-condition'): ('e43dc2b3-34d2-58d3-89d3-67b500d066b3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[(1, 0)]\n',
+                                                                                  ''),
+                                          ('CS05-M02-O01', 'base'): ('e4f5655a-7053-56c9-91c4-90a8c4bc3e8e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS05-M02-O01', 'changed-condition'): ('e4f5655a-7053-56c9-91c4-90a8c4bc3e8e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M02-O02', 'base'): ('66082aa1-1b14-57c2-bdc6-d04f04e8bf87',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS05-M02-O02', 'changed-condition'): ('66082aa1-1b14-57c2-bdc6-d04f04e8bf87',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS05-M02-O03', 'base'): ('0e09ee7b-d8de-5ab6-83d4-5050451be5f1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M02-O03', 'changed-condition'): ('0e09ee7b-d8de-5ab6-83d4-5050451be5f1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M03-O01', 'base'): ('66d350e9-fd6f-571e-9a50-698c693996ae',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS05-M03-O01', 'changed-condition'): ('66d350e9-fd6f-571e-9a50-698c693996ae',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M03-O02', 'base'): ('a21756ae-bb30-577c-974d-1ea1719bc050',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS05-M03-O02', 'changed-condition'): ('a21756ae-bb30-577c-974d-1ea1719bc050',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS05-M03-O03', 'base'): ('1cb9bc50-fb31-58d0-99c8-0f6fe62bd41a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '10\n',
+                                                                     ''),
+                                          ('CS05-M03-O03', 'changed-condition'): ('1cb9bc50-fb31-58d0-99c8-0f6fe62bd41a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS05-M04-O01', 'base'): ('6c545c84-ec71-5d8e-953b-59648fecf76f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[1]\n',
+                                                                     ''),
+                                          ('CS05-M04-O01', 'changed-condition'): ('6c545c84-ec71-5d8e-953b-59648fecf76f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[1, 2]\n',
+                                                                                  ''),
+                                          ('CS05-M04-O02', 'base'): ('24477bf9-7f9f-5601-aa63-fd3d840c739f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M04-O02', 'changed-condition'): ('24477bf9-7f9f-5601-aa63-fd3d840c739f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M04-O03', 'base'): ('1e66f5fa-5e2c-54d0-bd99-21dcdd046fea',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS05-M04-O03', 'changed-condition'): ('1e66f5fa-5e2c-54d0-bd99-21dcdd046fea',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '8\n',
+                                                                                  ''),
+                                          ('CS05-M05-O01', 'base'): ('eba3f832-ffbd-5731-9d1b-a122742fa0b0',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M05-O01', 'changed-condition'): ('eba3f832-ffbd-5731-9d1b-a122742fa0b0',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M05-O02', 'base'): ('4658d15f-18d3-5553-a6f3-768043eddbe0',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[1, 3, 5]\n',
+                                                                     ''),
+                                          ('CS05-M05-O02', 'changed-condition'): ('4658d15f-18d3-5553-a6f3-768043eddbe0',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[1, 4]\n',
+                                                                                  ''),
+                                          ('CS05-M05-O03', 'base'): ('6193d107-0654-5062-93cc-eca713da6837',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[(1, 2), (2, 4)]\n',
+                                                                     ''),
+                                          ('CS05-M05-O03', 'changed-condition'): ('6193d107-0654-5062-93cc-eca713da6837',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[(1, 2), '
+                                                                                  '(1, 3)]\n',
+                                                                                  ''),
+                                          ('CS05-M06-O01', 'base'): ('ec3074b8-2aa3-5b25-9ecd-8ceaae403cce',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS05-M06-O01', 'changed-condition'): ('ec3074b8-2aa3-5b25-9ecd-8ceaae403cce',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS05-M06-O02', 'base'): ('170aa13b-400a-5304-9ef7-ba1d2427b971',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS05-M06-O02', 'changed-condition'): ('170aa13b-400a-5304-9ef7-ba1d2427b971',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS05-M06-O03', 'base'): ('28137f77-510b-505d-b155-e177feb0ba13',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '8\n',
+                                                                     ''),
+                                          ('CS05-M06-O03', 'changed-condition'): ('28137f77-510b-505d-b155-e177feb0ba13',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS05-M07-O01', 'base'): ('652c3a57-6198-5907-a7bf-c792b010b54e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M07-O01', 'changed-condition'): ('652c3a57-6198-5907-a7bf-c792b010b54e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M07-O02', 'base'): ('32e6ae77-723d-52f5-93c6-01bee2f35942',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M07-O02', 'changed-condition'): ('32e6ae77-723d-52f5-93c6-01bee2f35942',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M07-O03', 'base'): ('bd71fb70-42e8-5acc-a5ec-be7bb59146b8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS05-M07-O03', 'changed-condition'): ('bd71fb70-42e8-5acc-a5ec-be7bb59146b8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M08-O01', 'base'): ('cdead411-c523-5e87-a21c-a92b860c9b98',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M08-O01', 'changed-condition'): ('cdead411-c523-5e87-a21c-a92b860c9b98',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M08-O02', 'base'): ('88eaa826-ae3b-5e5c-950c-420cfb0f5851',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS05-M08-O02', 'changed-condition'): ('88eaa826-ae3b-5e5c-950c-420cfb0f5851',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M08-O03', 'base'): ('35f4b185-51d4-5162-ac9d-74c05977349c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[2]\n',
+                                                                     ''),
+                                          ('CS05-M08-O03', 'changed-condition'): ('35f4b185-51d4-5162-ac9d-74c05977349c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[1, 2]\n',
+                                                                                  ''),
+                                          ('CS05-M09-O01', 'base'): ('d70250c6-bddc-5326-8596-c43147b0711b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M09-O01', 'changed-condition'): ('d70250c6-bddc-5326-8596-c43147b0711b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M09-O02', 'base'): ('33ecb3bb-9e70-5ba4-adb8-5881929b4e87',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M09-O02', 'changed-condition'): ('33ecb3bb-9e70-5ba4-adb8-5881929b4e87',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M09-O03', 'base'): ('0a712f92-0459-5be5-9543-3d95cbbe74f3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M09-O03', 'changed-condition'): ('0a712f92-0459-5be5-9543-3d95cbbe74f3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M10-O01', 'base'): ('86fda19f-eca3-54ba-a69b-31435fe34021',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS05-M10-O01', 'changed-condition'): ('86fda19f-eca3-54ba-a69b-31435fe34021',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS05-M10-O02', 'base'): ('35d922ea-f1ec-57ce-95f6-f3786970a73c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7\n',
+                                                                     ''),
+                                          ('CS05-M10-O02', 'changed-condition'): ('35d922ea-f1ec-57ce-95f6-f3786970a73c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '6\n',
+                                                                                  ''),
+                                          ('CS05-M10-O03', 'base'): ('7ece5868-34b5-5832-a544-08e8a57156b0',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'cycle\n',
+                                                                     ''),
+                                          ('CS05-M10-O03', 'changed-condition'): ('7ece5868-34b5-5832-a544-08e8a57156b0',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'ok\n',
+                                                                                  '')},
+ 'b28228f9-8393-5ef8-a6df-bece066e487b': {('CS04-M01-O01', 'base'): ('88386121-e0c3-5f50-be17-2b888672fcc0',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '-1\n',
+                                                                     ''),
+                                          ('CS04-M01-O01', 'changed-condition'): ('88386121-e0c3-5f50-be17-2b888672fcc0',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '-1\n',
+                                                                                  ''),
+                                          ('CS04-M01-O02', 'base'): ('339555b1-288e-5027-970d-92c72ff13479',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[True, True, True]\n',
+                                                                     ''),
+                                          ('CS04-M01-O02', 'changed-condition'): ('339555b1-288e-5027-970d-92c72ff13479',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[True]\n',
+                                                                                  ''),
+                                          ('CS04-M01-O03', 'base'): ('63676c3f-f330-5e8d-9c3e-f7ee080dd9bd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '16\n',
+                                                                     ''),
+                                          ('CS04-M01-O03', 'changed-condition'): ('63676c3f-f330-5e8d-9c3e-f7ee080dd9bd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS04-M02-O01', 'base'): ('8be83d61-bca5-542c-8399-154363982119',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '8\n',
+                                                                     ''),
+                                          ('CS04-M02-O01', 'changed-condition'): ('8be83d61-bca5-542c-8399-154363982119',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '12\n',
+                                                                                  ''),
+                                          ('CS04-M02-O02', 'base'): ('dc5c74d5-480b-558a-97aa-df28eda8b982',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[1, 2, 3, 4, 5]\n',
+                                                                     ''),
+                                          ('CS04-M02-O02', 'changed-condition'): ('dc5c74d5-480b-558a-97aa-df28eda8b982',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[1, 2, 3, '
+                                                                                  '6]\n',
+                                                                                  ''),
+                                          ('CS04-M02-O03', 'base'): ('56d22553-981a-5d21-8222-0cc2127f0ea6',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '12\n',
+                                                                     ''),
+                                          ('CS04-M02-O03', 'changed-condition'): ('56d22553-981a-5d21-8222-0cc2127f0ea6',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '32\n',
+                                                                                  ''),
+                                          ('CS04-M03-O01', 'base'): ('6bb5e6d8-d805-5586-b2bc-052452f69532',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS04-M03-O01', 'changed-condition'): ('6bb5e6d8-d805-5586-b2bc-052452f69532',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS04-M03-O02', 'base'): ('ae7a0c34-5fcd-5ca4-8941-8d231908f028',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS04-M03-O02', 'changed-condition'): ('ae7a0c34-5fcd-5ca4-8941-8d231908f028',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS04-M03-O03', 'base'): ('fdb024a1-9747-59c0-ae25-104c6f387235',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'greedy=3 optimal=2\n',
+                                                                     ''),
+                                          ('CS04-M03-O03', 'changed-condition'): ('fdb024a1-9747-59c0-ae25-104c6f387235',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'greedy=1 '
+                                                                                  'optimal=1\n',
+                                                                                  ''),
+                                          ('CS04-M04-O01', 'base'): ('218fcdae-d9de-5d33-a07b-4664861a0a7c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS04-M04-O01', 'changed-condition'): ('218fcdae-d9de-5d33-a07b-4664861a0a7c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS04-M04-O02', 'base'): ('754df16e-d9cd-5df7-8dab-8b14671c20ad',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unreachable\n',
+                                                                     ''),
+                                          ('CS04-M04-O02', 'changed-condition'): ('754df16e-d9cd-5df7-8dab-8b14671c20ad',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS04-M04-O03', 'base'): ('57d627f2-e2ad-5f03-ae46-1da1e5fab36f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[1]\n',
+                                                                     ''),
+                                          ('CS04-M04-O03', 'changed-condition'): ('57d627f2-e2ad-5f03-ae46-1da1e5fab36f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[0]\n',
+                                                                                  ''),
+                                          ('CS04-M05-O01', 'base'): ('536124e9-3dce-5f18-90d7-02f292921398',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS04-M05-O01', 'changed-condition'): ('536124e9-3dce-5f18-90d7-02f292921398',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS04-M05-O02', 'base'): ('d9e77c1e-ebc1-5f45-bc28-d311fc7f0532',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'count=4 valid=4\n',
+                                                                     ''),
+                                          ('CS04-M05-O02', 'changed-condition'): ('d9e77c1e-ebc1-5f45-bc28-d311fc7f0532',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'count=2 '
+                                                                                  'valid=2\n',
+                                                                                  ''),
+                                          ('CS04-M05-O03', 'base'): ('ff892c57-e0fa-5c94-99e9-fa955ccb80a9',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS04-M05-O03', 'changed-condition'): ('ff892c57-e0fa-5c94-99e9-fa955ccb80a9',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS04-M06-O01', 'base'): ('524b56ec-6a8e-59d2-b995-11055473be19',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '-1\n',
+                                                                     ''),
+                                          ('CS04-M06-O01', 'changed-condition'): ('524b56ec-6a8e-59d2-b995-11055473be19',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS04-M06-O02', 'base'): ('22b89b18-4a03-5213-a9ea-bde77e031ce5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'cost=7 connected=True\n',
+                                                                     ''),
+                                          ('CS04-M06-O02', 'changed-condition'): ('22b89b18-4a03-5213-a9ea-bde77e031ce5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'cost=7 '
+                                                                                  'connected=True\n',
+                                                                                  ''),
+                                          ('CS04-M06-O03', 'base'): ('b3f95407-ff5b-5fdf-82ad-8cb3d6ec2342',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2\n',
+                                                                     ''),
+                                          ('CS04-M06-O03', 'changed-condition'): ('b3f95407-ff5b-5fdf-82ad-8cb3d6ec2342',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3 0\n',
+                                                                                  ''),
+                                          ('CS04-M07-O01', 'base'): ('6e55f035-0589-5a82-b0bd-0f6d769bfa54',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'mean=2.50 worst=3\n',
+                                                                     ''),
+                                          ('CS04-M07-O01', 'changed-condition'): ('6e55f035-0589-5a82-b0bd-0f6d769bfa54',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'mean=0.00 '
+                                                                                  'worst=0\n',
+                                                                                  ''),
+                                          ('CS04-M07-O02', 'base'): ('98d7ac9b-a451-5424-9581-b9624937e490',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '12\n',
+                                                                     ''),
+                                          ('CS04-M07-O02', 'changed-condition'): ('98d7ac9b-a451-5424-9581-b9624937e490',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS04-M07-O03', 'base'): ('8f55ee2b-cfa8-5156-a930-0e05fdce6fc7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS04-M07-O03', 'changed-condition'): ('8f55ee2b-cfa8-5156-a930-0e05fdce6fc7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS04-M08-O01', 'base'): ('6efdc5fd-35f6-5c81-8081-26085ad94bb1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS04-M08-O01', 'changed-condition'): ('6efdc5fd-35f6-5c81-8081-26085ad94bb1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS04-M08-O02', 'base'): ('81823823-768a-58ab-b260-65cf1595c7ed',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True 2\n',
+                                                                     ''),
+                                          ('CS04-M08-O02', 'changed-condition'): ('81823823-768a-58ab-b260-65cf1595c7ed',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True 2\n',
+                                                                                  ''),
+                                          ('CS04-M08-O03', 'base'): ('295319d3-b2bb-58da-adfa-c14b876bdb16',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'valid=True '
+                                                                     'within_bound=True\n',
+                                                                     ''),
+                                          ('CS04-M08-O03', 'changed-condition'): ('295319d3-b2bb-58da-adfa-c14b876bdb16',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'valid=True '
+                                                                                  'within_bound=True\n',
+                                                                                  ''),
+                                          ('CS04-M09-O01', 'base'): ('87062b09-5451-5c11-b2fe-89619ad6d0e7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS04-M09-O01', 'changed-condition'): ('87062b09-5451-5c11-b2fe-89619ad6d0e7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS04-M09-O02', 'base'): ('74b98e34-0329-5f1b-89a1-8d98433b47d8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS04-M09-O02', 'changed-condition'): ('74b98e34-0329-5f1b-89a1-8d98433b47d8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS04-M09-O03', 'base'): ('3ef93085-856d-56a8-a97b-1f2f73bff023',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'cost=3 feasible=True\n',
+                                                                     ''),
+                                          ('CS04-M09-O03', 'changed-condition'): ('3ef93085-856d-56a8-a97b-1f2f73bff023',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'cost=1 '
+                                                                                  'feasible=True\n',
+                                                                                  '')},
+ 'b78ced2b-86e3-5ece-aaf5-8e2d0deaf4e5': {('CS13-M01-O01', 'base'): ('5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'classification\n',
+                                                                     ''),
+                                          ('CS13-M01-O01', 'changed-condition'): ('5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'regression\n',
+                                                                                  ''),
+                                          ('CS13-M01-O02', 'base'): ('54c1b7b8-441a-5be7-981e-8faf653802b9',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'sensor\n',
+                                                                     ''),
+                                          ('CS13-M01-O02', 'changed-condition'): ('54c1b7b8-441a-5be7-981e-8faf653802b9',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'future_label '
+                                                                                  'sensor\n',
+                                                                                  ''),
+                                          ('CS13-M01-O03', 'base'): ('529f4161-cc07-5ecf-9f73-583f2556db43',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 1\n',
+                                                                     ''),
+                                          ('CS13-M01-O03', 'changed-condition'): ('529f4161-cc07-5ecf-9f73-583f2556db43',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 1\n',
+                                                                                  ''),
+                                          ('CS13-M02-O01', 'base'): ('00fecae2-58be-5ae8-8bc6-53afee731f75',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS13-M02-O01', 'changed-condition'): ('00fecae2-58be-5ae8-8bc6-53afee731f75',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M02-O02', 'base'): ('eddce4f6-ae17-5d23-952d-5bf3b7133efe',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS13-M02-O02', 'changed-condition'): ('eddce4f6-ae17-5d23-952d-5bf3b7133efe',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS13-M02-O03', 'base'): ('d4ef1730-4c0e-57af-8336-4348b136532f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '97 99\n',
+                                                                     ''),
+                                          ('CS13-M02-O03', 'changed-condition'): ('d4ef1730-4c0e-57af-8336-4348b136532f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '-1 1\n',
+                                                                                  ''),
+                                          ('CS13-M03-O01', 'base'): ('2c287a16-65b2-5c68-962a-332bd2db2e8f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M03-O01', 'changed-condition'): ('2c287a16-65b2-5c68-962a-332bd2db2e8f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M03-O02', 'base'): ('e8e0ed08-9f8d-5a18-b737-39b4f8559f44',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS13-M03-O02', 'changed-condition'): ('e8e0ed08-9f8d-5a18-b737-39b4f8559f44',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS13-M03-O03', 'base'): ('5da57081-e9a7-542a-b4c3-42e2e3a2ebe5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS13-M03-O03', 'changed-condition'): ('5da57081-e9a7-542a-b4c3-42e2e3a2ebe5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS13-M04-O01', 'base'): ('3be6698e-e9fb-57a9-9f50-3c4d773dfd9c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M04-O01', 'changed-condition'): ('3be6698e-e9fb-57a9-9f50-3c4d773dfd9c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M04-O02', 'base'): ('6652f7eb-c528-58bf-aff4-8ff27fa7ac0c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 9\n',
+                                                                     ''),
+                                          ('CS13-M04-O02', 'changed-condition'): ('6652f7eb-c528-58bf-aff4-8ff27fa7ac0c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 0\n',
+                                                                                  ''),
+                                          ('CS13-M04-O03', 'base'): ('3701118c-c5d6-56c2-ae31-7d6fac1beb6b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A\n',
+                                                                     ''),
+                                          ('CS13-M04-O03', 'changed-condition'): ('3701118c-c5d6-56c2-ae31-7d6fac1beb6b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS13-M05-O01', 'base'): ('220d2466-88d0-505a-9a1a-c5abf76d579f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2/5\n',
+                                                                     ''),
+                                          ('CS13-M05-O01', 'changed-condition'): ('220d2466-88d0-505a-9a1a-c5abf76d579f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1/4\n',
+                                                                                  ''),
+                                          ('CS13-M05-O02', 'base'): ('9fbf60b9-e8b1-5648-a850-f8e35511f943',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS13-M05-O02', 'changed-condition'): ('9fbf60b9-e8b1-5648-a850-f8e35511f943',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS13-M05-O03', 'base'): ('07529489-2266-5d6a-9093-f24f1abcac66',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'shallow\n',
+                                                                     ''),
+                                          ('CS13-M05-O03', 'changed-condition'): ('07529489-2266-5d6a-9093-f24f1abcac66',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'deep\n',
+                                                                                  ''),
+                                          ('CS13-M06-O01', 'base'): ('ba1f138f-129d-56fe-9758-c5ee5073fe81',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A\n',
+                                                                     ''),
+                                          ('CS13-M06-O01', 'changed-condition'): ('ba1f138f-129d-56fe-9758-c5ee5073fe81',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS13-M06-O02', 'base'): ('1d2b8b84-2099-53b0-9577-89b2f0f07986',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A\n',
+                                                                     ''),
+                                          ('CS13-M06-O02', 'changed-condition'): ('1d2b8b84-2099-53b0-9577-89b2f0f07986',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS13-M06-O03', 'base'): ('adf972c0-97f4-56ab-a2be-0b4e6a7e7d86',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS13-M06-O03', 'changed-condition'): ('adf972c0-97f4-56ab-a2be-0b4e6a7e7d86',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS13-M07-O01', 'base'): ('61616c7e-1d44-5306-9013-462e9c58fac4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS13-M07-O01', 'changed-condition'): ('61616c7e-1d44-5306-9013-462e9c58fac4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS13-M07-O02', 'base'): ('c96f35cc-b6cb-56c4-a3d3-d07da0925584',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS13-M07-O02', 'changed-condition'): ('c96f35cc-b6cb-56c4-a3d3-d07da0925584',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '-3\n',
+                                                                                  ''),
+                                          ('CS13-M07-O03', 'base'): ('5cecd8d6-d483-54b8-86c7-d991e95a157c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M07-O03', 'changed-condition'): ('5cecd8d6-d483-54b8-86c7-d991e95a157c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M08-O01', 'base'): ('66f8d176-1eb7-52df-9359-4f7154c531b6',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '9\n',
+                                                                     ''),
+                                          ('CS13-M08-O01', 'changed-condition'): ('66f8d176-1eb7-52df-9359-4f7154c531b6',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS13-M08-O02', 'base'): ('9335e07b-6ce2-5c3d-b010-6e426ee46d9e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M08-O02', 'changed-condition'): ('9335e07b-6ce2-5c3d-b010-6e426ee46d9e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M08-O03', 'base'): ('e7eb2b12-e3f7-5ede-9654-a1ec0fef2924',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M08-O03', 'changed-condition'): ('e7eb2b12-e3f7-5ede-9654-a1ec0fef2924',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M09-O01', 'base'): ('c786806f-43fc-51fe-a29e-1dd5cb80ee7e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/4\n',
+                                                                     ''),
+                                          ('CS13-M09-O01', 'changed-condition'): ('c786806f-43fc-51fe-a29e-1dd5cb80ee7e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1/2\n',
+                                                                                  ''),
+                                          ('CS13-M09-O02', 'base'): ('0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS13-M09-O02', 'changed-condition'): ('0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS13-M09-O03', 'base'): ('d17a55b9-7ba9-5be5-a4c4-7534f36c3696',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 1\n',
+                                                                     ''),
+                                          ('CS13-M09-O03', 'changed-condition'): ('d17a55b9-7ba9-5be5-a4c4-7534f36c3696',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '100 100\n',
+                                                                                  ''),
+                                          ('CS13-M10-O01', 'base'): ('61fd47a0-f84a-59df-9b7f-01658dc818d3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS13-M10-O01', 'changed-condition'): ('61fd47a0-f84a-59df-9b7f-01658dc818d3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M10-O02', 'base'): ('fee8aaff-5d8b-5b1a-bb2e-fe17fe971e30',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS13-M10-O02', 'changed-condition'): ('fee8aaff-5d8b-5b1a-bb2e-fe17fe971e30',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS13-M10-O03', 'base'): ('3bee011b-8276-5f74-a4ac-03779c4cd6c7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'needs_review\n',
+                                                                     ''),
+                                          ('CS13-M10-O03', 'changed-condition'): ('3bee011b-8276-5f74-a4ac-03779c4cd6c7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'in_scope\n',
+                                                                                  '')},
+ 'd249cfd4-e3cf-590d-a636-8b35a2a0b281': {('CS08-M01-O01', 'base'): ('af1079df-ff98-5d7a-8274-c18ec0b27893',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'Ethernet\n',
+                                                                     ''),
+                                          ('CS08-M01-O01', 'changed-condition'): ('af1079df-ff98-5d7a-8274-c18ec0b27893',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'IP\n',
+                                                                                  ''),
+                                          ('CS08-M01-O02', 'base'): ('fbc685f3-f1bf-5abd-bf66-63c01e4c965a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS08-M01-O02', 'changed-condition'): ('fbc685f3-f1bf-5abd-bf66-63c01e4c965a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS08-M01-O03', 'base'): ('3eebec76-5e01-515f-8e45-ff7f6d41d2b5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS08-M01-O03', 'changed-condition'): ('3eebec76-5e01-515f-8e45-ff7f6d41d2b5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS08-M02-O01', 'base'): ('8a941582-7bd4-5cd4-9ede-831bdff61116',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '~a}~b~\n',
+                                                                     ''),
+                                          ('CS08-M02-O01', 'changed-condition'): ('8a941582-7bd4-5cd4-9ede-831bdff61116',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '~ab~\n',
+                                                                                  ''),
+                                          ('CS08-M02-O02', 'base'): ('165da738-e431-5003-b9a1-728c1f3a6e83',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '6\n',
+                                                                     ''),
+                                          ('CS08-M02-O02', 'changed-condition'): ('165da738-e431-5003-b9a1-728c1f3a6e83',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS08-M02-O03', 'base'): ('add32e4b-2e58-51e0-a408-5965d62c9b9d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M02-O03', 'changed-condition'): ('add32e4b-2e58-51e0-a408-5965d62c9b9d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M03-O01', 'base'): ('d469d36b-1ddd-547f-a3ca-6c193de34a38',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS08-M03-O01', 'changed-condition'): ('d469d36b-1ddd-547f-a3ca-6c193de34a38',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS08-M03-O02', 'base'): ('94e53053-24e8-5736-9f61-4d77d7eb5b03',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M03-O02', 'changed-condition'): ('94e53053-24e8-5736-9f61-4d77d7eb5b03',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M03-O03', 'base'): ('1b8db023-de19-55c2-9325-d0914fcc6886',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS08-M03-O03', 'changed-condition'): ('1b8db023-de19-55c2-9325-d0914fcc6886',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS08-M04-O01', 'base'): ('2b4645cd-8344-5c27-8972-be431f43ac60',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS08-M04-O01', 'changed-condition'): ('2b4645cd-8344-5c27-8972-be431f43ac60',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS08-M04-O02', 'base'): ('c569b257-dab1-5fa0-8f3d-b2fc392ec100',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M04-O02', 'changed-condition'): ('c569b257-dab1-5fa0-8f3d-b2fc392ec100',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M04-O03', 'base'): ('6d36a5d5-a56f-5a6e-9e20-241aa0848beb',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M04-O03', 'changed-condition'): ('6d36a5d5-a56f-5a6e-9e20-241aa0848beb',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M05-O01', 'base'): ('f232aa73-20ce-583a-8ac6-0edf9e745365',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'local\n',
+                                                                     ''),
+                                          ('CS08-M05-O01', 'changed-condition'): ('f232aa73-20ce-583a-8ac6-0edf9e745365',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'default\n',
+                                                                                  ''),
+                                          ('CS08-M05-O02', 'base'): ('22a948b7-69d7-563d-bd50-c5c2795630da',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M05-O02', 'changed-condition'): ('22a948b7-69d7-563d-bd50-c5c2795630da',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M05-O03', 'base'): ('f7a555c3-a238-55f7-b834-04ef2643c362',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS08-M05-O03', 'changed-condition'): ('f7a555c3-a238-55f7-b834-04ef2643c362',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS08-M06-O01', 'base'): ('0501c425-de5c-5f8c-858b-d6d602cb8fac',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '192.0.2.1\n',
+                                                                     ''),
+                                          ('CS08-M06-O01', 'changed-condition'): ('0501c425-de5c-5f8c-858b-d6d602cb8fac',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '192.0.2.8\n',
+                                                                                  ''),
+                                          ('CS08-M06-O02', 'base'): ('fe202dd4-589d-564d-844c-8f8e278a61ec',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'packet_too_big\n',
+                                                                     ''),
+                                          ('CS08-M06-O02', 'changed-condition'): ('fe202dd4-589d-564d-844c-8f8e278a61ec',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'forward\n',
+                                                                                  ''),
+                                          ('CS08-M06-O03', 'base'): ('069a1c97-ab9c-513a-9eca-6a1a2581055b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M06-O03', 'changed-condition'): ('069a1c97-ab9c-513a-9eca-6a1a2581055b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M07-O01', 'base'): ('5f4fded5-4178-5d95-8378-3bccd565bd85',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS08-M07-O01', 'changed-condition'): ('5f4fded5-4178-5d95-8378-3bccd565bd85',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS08-M07-O02', 'base'): ('2235d63c-40f7-51e2-ba8c-2d78c6e09e02',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS08-M07-O02', 'changed-condition'): ('2235d63c-40f7-51e2-ba8c-2d78c6e09e02',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS08-M07-O03', 'base'): ('99619d09-b1ca-526d-8e36-770d11000bec',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'Z\n',
+                                                                     ''),
+                                          ('CS08-M07-O03', 'changed-condition'): ('99619d09-b1ca-526d-8e36-770d11000bec',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'Z\n',
+                                                                                  ''),
+                                          ('CS08-M08-O01', 'base'): ('6d9146dd-79ea-5d4a-bca6-5b09be76c73b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M08-O01', 'changed-condition'): ('6d9146dd-79ea-5d4a-bca6-5b09be76c73b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M08-O02', 'base'): ('c559f193-61bb-5f86-b562-fd3e752858c2',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'ok\n',
+                                                                     ''),
+                                          ('CS08-M08-O02', 'changed-condition'): ('c559f193-61bb-5f86-b562-fd3e752858c2',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'hello\n',
+                                                                                  ''),
+                                          ('CS08-M08-O03', 'base'): ('0d4bccf9-58da-5f98-b52b-624b5d0f5af3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M08-O03', 'changed-condition'): ('0d4bccf9-58da-5f98-b52b-624b5d0f5af3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M09-O01', 'base'): ('a0c33fb5-1836-5fe8-b273-6bb592ce4e78',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS08-M09-O01', 'changed-condition'): ('a0c33fb5-1836-5fe8-b273-6bb592ce4e78',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS08-M09-O02', 'base'): ('1d1bccdc-d538-5289-948e-59e3d2588b51',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M09-O02', 'changed-condition'): ('1d1bccdc-d538-5289-948e-59e3d2588b51',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M09-O03', 'base'): ('585a3ba6-53da-5ab4-8403-95707dd15c8f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS08-M09-O03', 'changed-condition'): ('585a3ba6-53da-5ab4-8403-95707dd15c8f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS08-M10-O01', 'base'): ('dbf707f9-1a25-5fa1-85b1-88df95917e52',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'tcp_listener\n',
+                                                                     ''),
+                                          ('CS08-M10-O01', 'changed-condition'): ('dbf707f9-1a25-5fa1-85b1-88df95917e52',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'application\n',
+                                                                                  ''),
+                                          ('CS08-M10-O02', 'base'): ('d6212864-b872-546d-bd46-09aec246cb7e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'refused\n',
+                                                                     ''),
+                                          ('CS08-M10-O02', 'changed-condition'): ('d6212864-b872-546d-bd46-09aec246cb7e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'connected\n',
+                                                                                  ''),
+                                          ('CS08-M10-O03', 'base'): ('758b6c3f-bd98-5121-8051-240e2191c5de',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'second\n',
+                                                                     ''),
+                                          ('CS08-M10-O03', 'changed-condition'): ('758b6c3f-bd98-5121-8051-240e2191c5de',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'first\n',
+                                                                                  '')},
+ 'd60ae5c9-a906-57a6-b80e-ed9dcbb31b2a': {('CS11-M01-O01', 'base'): ('02eb570f-4898-599c-ba4a-9daf3d6daf23',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'lex parse type\n',
+                                                                     ''),
+                                          ('CS11-M01-O01', 'changed-condition'): ('02eb570f-4898-599c-ba4a-9daf3d6daf23',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'lex parse '
+                                                                                  'type '
+                                                                                  'emit\n',
+                                                                                  ''),
+                                          ('CS11-M01-O02', 'base'): ('6f2e0a49-5697-5ebf-bf25-7412ce49a403',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '-2\n',
+                                                                     ''),
+                                          ('CS11-M01-O02', 'changed-condition'): ('6f2e0a49-5697-5ebf-bf25-7412ce49a403',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS11-M01-O03', 'base'): ('04369fb8-821b-5d38-bdbd-e8f816545d81',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'lex:1\n',
+                                                                     ''),
+                                          ('CS11-M01-O03', 'changed-condition'): ('04369fb8-821b-5d38-bdbd-e8f816545d81',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'ok\n',
+                                                                                  ''),
+                                          ('CS11-M02-O01', 'base'): ('62e7c3f4-5d81-5931-b168-51ee568c82ca',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS11-M02-O01', 'changed-condition'): ('62e7c3f4-5d81-5931-b168-51ee568c82ca',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS11-M02-O02', 'base'): ('87199749-f173-5cfd-8eda-576932c69620',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS11-M02-O02', 'changed-condition'): ('87199749-f173-5cfd-8eda-576932c69620',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS11-M02-O03', 'base'): ('3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '>=\n',
+                                                                     ''),
+                                          ('CS11-M02-O03', 'changed-condition'): ('3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '>\n',
+                                                                                  ''),
+                                          ('CS11-M03-O01', 'base'): ('bb511987-1967-5247-9b6d-62feba383952',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS11-M03-O01', 'changed-condition'): ('bb511987-1967-5247-9b6d-62feba383952',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS11-M03-O02', 'base'): ('97930e73-5e36-5231-bc16-13a5459986c5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '20 14\n',
+                                                                     ''),
+                                          ('CS11-M03-O02', 'changed-condition'): ('97930e73-5e36-5231-bc16-13a5459986c5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2 2\n',
+                                                                                  ''),
+                                          ('CS11-M03-O03', 'base'): ('dc44f399-f390-5849-a2bf-95e9ad36fb77',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS11-M03-O03', 'changed-condition'): ('dc44f399-f390-5849-a2bf-95e9ad36fb77',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS11-M04-O01', 'base'): ('f09d2473-2719-5faf-afb5-532495102c65',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'a b\n',
+                                                                     ''),
+                                          ('CS11-M04-O01', 'changed-condition'): ('f09d2473-2719-5faf-afb5-532495102c65',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'a\n',
+                                                                                  ''),
+                                          ('CS11-M04-O02', 'base'): ('dd493563-e25c-5670-a419-becb42fa08ef',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS11-M04-O02', 'changed-condition'): ('dd493563-e25c-5670-a419-becb42fa08ef',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M04-O03', 'base'): ('31bacbcf-5f65-5a43-9d35-148cc6170eb8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'syntax:extra\n',
+                                                                     ''),
+                                          ('CS11-M04-O03', 'changed-condition'): ('31bacbcf-5f65-5a43-9d35-148cc6170eb8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M05-O01', 'base'): ('dfe0ca85-a561-508e-bfea-2a05f7119a14',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '$ S\n',
+                                                                     ''),
+                                          ('CS11-M05-O01', 'changed-condition'): ('dfe0ca85-a561-508e-bfea-2a05f7119a14',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'x $ S\n',
+                                                                                  ''),
+                                          ('CS11-M05-O02', 'base'): ('a7ace736-860c-547e-91d3-5182214ace3c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS11-M05-O02', 'changed-condition'): ('a7ace736-860c-547e-91d3-5182214ace3c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS11-M05-O03', 'base'): ('db41ab62-56b5-5f9a-9d23-b862ae8b5978',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'conflict\n',
+                                                                     ''),
+                                          ('CS11-M05-O03', 'changed-condition'): ('db41ab62-56b5-5f9a-9d23-b862ae8b5978',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'reduce\n',
+                                                                                  ''),
+                                          ('CS11-M06-O01', 'base'): ('6e4ce8c9-862a-522d-b265-55ecf79a74ae',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'undeclared:y\n',
+                                                                     ''),
+                                          ('CS11-M06-O01', 'changed-condition'): ('6e4ce8c9-862a-522d-b265-55ecf79a74ae',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '7\n',
+                                                                                  ''),
+                                          ('CS11-M06-O02', 'base'): ('74cb26dc-a054-5ff2-af1d-de0b2ef8d495',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS11-M06-O02', 'changed-condition'): ('74cb26dc-a054-5ff2-af1d-de0b2ef8d495',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M06-O03', 'base'): ('e99717df-2028-5c6b-b185-569ec371bfb5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS11-M06-O03', 'changed-condition'): ('e99717df-2028-5c6b-b185-569ec371bfb5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS11-M07-O01', 'base'): ('87b5f4fa-1e4b-52ff-b037-546daefd9f68',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '14\n',
+                                                                     ''),
+                                          ('CS11-M07-O01', 'changed-condition'): ('87b5f4fa-1e4b-52ff-b037-546daefd9f68',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M07-O02', 'base'): ('e1e9f56a-6acf-5ccf-9886-2958174de085',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2\n',
+                                                                     ''),
+                                          ('CS11-M07-O02', 'changed-condition'): ('e1e9f56a-6acf-5ccf-9886-2958174de085',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M07-O03', 'base'): ('0add1c83-f3ea-5753-9fbd-d482a5cdd84a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS11-M07-O03', 'changed-condition'): ('0add1c83-f3ea-5753-9fbd-d482a5cdd84a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M08-O01', 'base'): ('3a290580-d367-5086-9ff5-58379c791075',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unknown\n',
+                                                                     ''),
+                                          ('CS11-M08-O01', 'changed-condition'): ('3a290580-d367-5086-9ff5-58379c791075',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS11-M08-O02', 'base'): ('09d73447-68ed-5404-bf59-560ba9e386ae',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'y z\n',
+                                                                     ''),
+                                          ('CS11-M08-O02', 'changed-condition'): ('09d73447-68ed-5404-bf59-560ba9e386ae',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'y z\n',
+                                                                                  ''),
+                                          ('CS11-M08-O03', 'base'): ('d8fd6401-57d1-51cb-ba4a-3727e2b99dcb',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 0\n',
+                                                                     ''),
+                                          ('CS11-M08-O03', 'changed-condition'): ('d8fd6401-57d1-51cb-ba4a-3727e2b99dcb',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 0\n',
+                                                                                  ''),
+                                          ('CS11-M09-O01', 'base'): ('028f22e6-d8d1-5d78-a56b-1359ceb6fb44',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS11-M09-O01', 'changed-condition'): ('028f22e6-d8d1-5d78-a56b-1359ceb6fb44',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '5\n',
+                                                                                  ''),
+                                          ('CS11-M09-O02', 'base'): ('8b873d71-aa14-5b12-bcc4-605eba95e08d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS11-M09-O02', 'changed-condition'): ('8b873d71-aa14-5b12-bcc4-605eba95e08d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS11-M09-O03', 'base'): ('6aa451d5-b534-5884-80c6-4b39c63e8421',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS11-M09-O03', 'changed-condition'): ('6aa451d5-b534-5884-80c6-4b39c63e8421',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  '')},
+ 'e48d3468-f3f8-516e-b9ab-dd96b6560cfd': {('CS02-M01-O01', 'base'): ('3d183782-5951-567e-9b87-fdcf56c2e361',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2\n',
+                                                                     ''),
+                                          ('CS02-M01-O01', 'changed-condition'): ('3d183782-5951-567e-9b87-fdcf56c2e361',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2 3\n',
+                                                                                  ''),
+                                          ('CS02-M01-O02', 'base'): ('e7144116-9c19-527d-9828-31998cbd2f5a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'private=true '
+                                                                     'available=1\n',
+                                                                     ''),
+                                          ('CS02-M01-O02', 'changed-condition'): ('e7144116-9c19-527d-9828-31998cbd2f5a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'private=true '
+                                                                                  'available=2\n',
+                                                                                  ''),
+                                          ('CS02-M01-O03', 'base'): ('24c5e72d-7062-5d34-8a72-2453545ffe7f',
+                                                                     '-1\n',
+                                                                     'success',
+                                                                     'rejected\n',
+                                                                     ''),
+                                          ('CS02-M01-O03', 'changed-condition'): ('24c5e72d-7062-5d34-8a72-2453545ffe7f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'count=2\n',
+                                                                                  ''),
+                                          ('CS02-M02-O01', 'base'): ('0d78dad8-c5ef-53d8-a37c-a3ec0e076e56',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'fee=2\n',
+                                                                     ''),
+                                          ('CS02-M02-O01', 'changed-condition'): ('0d78dad8-c5ef-53d8-a37c-a3ec0e076e56',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'fee=4\n',
+                                                                                  ''),
+                                          ('CS02-M02-O02', 'base'): ('20742f55-04cf-5ab4-bd04-a3bc6e279020',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'repo=0\n',
+                                                                     ''),
+                                          ('CS02-M02-O02', 'changed-condition'): ('20742f55-04cf-5ab4-bd04-a3bc6e279020',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'repo=1\n',
+                                                                                  ''),
+                                          ('CS02-M02-O03', 'base'): ('3ba61b09-4913-5504-8aba-c50391bb9b5f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'calls=1\n',
+                                                                     ''),
+                                          ('CS02-M02-O03', 'changed-condition'): ('3ba61b09-4913-5504-8aba-c50391bb9b5f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'calls=2\n',
+                                                                                  ''),
+                                          ('CS02-M03-O01', 'base'): ('498feb3f-ded2-5159-8926-7bbaed155a68',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'days=1\n',
+                                                                     ''),
+                                          ('CS02-M03-O01', 'changed-condition'): ('498feb3f-ded2-5159-8926-7bbaed155a68',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'days=2\n',
+                                                                                  ''),
+                                          ('CS02-M03-O02', 'base'): ('4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e',
+                                                                     '0\n',
+                                                                     'success',
+                                                                     'fee=0\n',
+                                                                     ''),
+                                          ('CS02-M03-O02', 'changed-condition'): ('4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e',
+                                                                                  '3\n',
+                                                                                  'success',
+                                                                                  'fee=6\n',
+                                                                                  ''),
+                                          ('CS02-M03-O03', 'base'): ('087ccd2f-4474-5f5f-81fb-a56aa07210ba',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'due=3\n',
+                                                                     ''),
+                                          ('CS02-M03-O03', 'changed-condition'): ('087ccd2f-4474-5f5f-81fb-a56aa07210ba',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'due=6\n',
+                                                                                  ''),
+                                          ('CS02-M04-O01', 'base'): ('c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'id=8\n',
+                                                                     ''),
+                                          ('CS02-M04-O01', 'changed-condition'): ('c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6',
+                                                                                  '0\n',
+                                                                                  'success',
+                                                                                  'id=7\n',
+                                                                                  ''),
+                                          ('CS02-M04-O02', 'base'): ('4007e46f-5f69-527f-b9f8-a80d2857a8aa',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unique=2\n',
+                                                                     ''),
+                                          ('CS02-M04-O02', 'changed-condition'): ('4007e46f-5f69-527f-b9f8-a80d2857a8aa',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'unique=2\n',
+                                                                                  ''),
+                                          ('CS02-M04-O03', 'base'): ('8dbf6558-fafe-51c9-b74b-6cce730ec469',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unique=2\n',
+                                                                     ''),
+                                          ('CS02-M04-O03', 'changed-condition'): ('8dbf6558-fafe-51c9-b74b-6cce730ec469',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'unique=2\n',
+                                                                                  ''),
+                                          ('CS02-M05-O01', 'base'): ('1fa1c474-f76d-5de6-bc78-96772aed4b0b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'saved=false\n',
+                                                                     ''),
+                                          ('CS02-M05-O01', 'changed-condition'): ('1fa1c474-f76d-5de6-bc78-96772aed4b0b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'saved=false\n',
+                                                                                  ''),
+                                          ('CS02-M05-O02', 'base'): ('8e066796-73f9-5ff6-870a-f5ab4b18d4d8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'copies=2\n',
+                                                                     ''),
+                                          ('CS02-M05-O02', 'changed-condition'): ('8e066796-73f9-5ff6-870a-f5ab4b18d4d8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'copies=1\n',
+                                                                                  ''),
+                                          ('CS02-M05-O03', 'base'): ('d552ee3e-86fe-5f69-89d0-3eb64e26648c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'closed=true\n',
+                                                                     ''),
+                                          ('CS02-M05-O03', 'changed-condition'): ('d552ee3e-86fe-5f69-89d0-3eb64e26648c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'closed=true\n',
+                                                                                  ''),
+                                          ('CS02-M06-O01', 'base'): ('802bb561-8714-5a6a-90f2-11d43ac54f0a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'subscribers=0\n',
+                                                                     ''),
+                                          ('CS02-M06-O01', 'changed-condition'): ('802bb561-8714-5a6a-90f2-11d43ac54f0a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'subscribers=0\n',
+                                                                                  ''),
+                                          ('CS02-M06-O02', 'base'): ('f47e30d7-a3df-533d-80b8-f22bbf34c602',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'notified=1\n',
+                                                                     ''),
+                                          ('CS02-M06-O02', 'changed-condition'): ('f47e30d7-a3df-533d-80b8-f22bbf34c602',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'notified=1\n',
+                                                                                  ''),
+                                          ('CS02-M06-O03', 'base'): ('9ff81c76-65cc-5dbd-9674-05384bdbf2f3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'notified=1 errors=1\n',
+                                                                     ''),
+                                          ('CS02-M06-O03', 'changed-condition'): ('9ff81c76-65cc-5dbd-9674-05384bdbf2f3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'notified=2 '
+                                                                                  'errors=1\n',
+                                                                                  ''),
+                                          ('CS02-M07-O01', 'base'): ('0b33b5e9-b7f4-57e0-b84b-56444915305f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'id=7 copies=1\n',
+                                                                     ''),
+                                          ('CS02-M07-O01', 'changed-condition'): ('0b33b5e9-b7f4-57e0-b84b-56444915305f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'id=7 '
+                                                                                  'copies=2\n',
+                                                                                  ''),
+                                          ('CS02-M07-O02', 'base'): ('3883b5d4-2b36-5909-a92c-878405b5cfec',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2\n',
+                                                                     ''),
+                                          ('CS02-M07-O02', 'changed-condition'): ('3883b5d4-2b36-5909-a92c-878405b5cfec',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2 3\n',
+                                                                                  ''),
+                                          ('CS02-M07-O03', 'base'): ('cca558ee-f1ad-581a-905a-ec20d0240a54',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'loaded=7,1\n',
+                                                                     ''),
+                                          ('CS02-M07-O03', 'changed-condition'): ('cca558ee-f1ad-581a-905a-ec20d0240a54',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'loaded=7,2\n',
+                                                                                  ''),
+                                          ('CS02-M08-O01', 'base'): ('e05dfe52-651f-5a0a-b49d-ef92c2571612',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'allowed=true\n',
+                                                                     ''),
+                                          ('CS02-M08-O01', 'changed-condition'): ('e05dfe52-651f-5a0a-b49d-ef92c2571612',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'allowed=true\n',
+                                                                                  ''),
+                                          ('CS02-M08-O02', 'base'): ('5a2931b7-3a63-5c65-b399-1835f3407623',
+                                                                     '0\n',
+                                                                     'success',
+                                                                     'accepted=false '
+                                                                     'copies=0\n',
+                                                                     ''),
+                                          ('CS02-M08-O02', 'changed-condition'): ('5a2931b7-3a63-5c65-b399-1835f3407623',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'accepted=true '
+                                                                                  'copies=1\n',
+                                                                                  ''),
+                                          ('CS02-M08-O03', 'base'): ('5bf134c6-f41c-5a02-afe3-47097146b396',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'assigned=1 '
+                                                                     'available=0\n',
+                                                                     ''),
+                                          ('CS02-M08-O03', 'changed-condition'): ('5bf134c6-f41c-5a02-afe3-47097146b396',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'assigned=2 '
+                                                                                  'available=0\n',
+                                                                                  '')},
+ 'e705e65d-61f5-5475-92a3-6c9ad7672898': {('CS06-M01-O01', 'base'): ('f639ce02-8158-51da-b2ee-e0e0ac455d5a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '255\n',
+                                                                     ''),
+                                          ('CS06-M01-O01', 'changed-condition'): ('f639ce02-8158-51da-b2ee-e0e0ac455d5a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '128\n',
+                                                                                  ''),
+                                          ('CS06-M01-O02', 'base'): ('ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '-1\n',
+                                                                     ''),
+                                          ('CS06-M01-O02', 'changed-condition'): ('ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '127\n',
+                                                                                  ''),
+                                          ('CS06-M01-O03', 'base'): ('35c49cdc-e8d0-5c74-af48-6e0af0527c52',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS06-M01-O03', 'changed-condition'): ('35c49cdc-e8d0-5c74-af48-6e0af0527c52',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS06-M02-O01', 'base'): ('8bee75f2-e941-554e-987e-8f9f3339fc26',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS06-M02-O01', 'changed-condition'): ('8bee75f2-e941-554e-987e-8f9f3339fc26',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS06-M02-O02', 'base'): ('57ed17b4-64bb-549e-bb18-0276f29b35c7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS06-M02-O02', 'changed-condition'): ('57ed17b4-64bb-549e-bb18-0276f29b35c7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS06-M02-O03', 'base'): ('64be914d-2c25-56ab-bd14-0e6b41c9392b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/4\n',
+                                                                     ''),
+                                          ('CS06-M02-O03', 'changed-condition'): ('64be914d-2c25-56ab-bd14-0e6b41c9392b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS06-M03-O01', 'base'): ('1f4db40b-f098-584b-987d-f066a6ee7e35',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 1\n',
+                                                                     ''),
+                                          ('CS06-M03-O01', 'changed-condition'): ('1f4db40b-f098-584b-987d-f066a6ee7e35',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 0\n',
+                                                                                  ''),
+                                          ('CS06-M03-O02', 'base'): ('ee55c173-4180-5da9-8e63-04c17dadf613',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 1\n',
+                                                                     ''),
+                                          ('CS06-M03-O02', 'changed-condition'): ('ee55c173-4180-5da9-8e63-04c17dadf613',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 1\n',
+                                                                                  ''),
+                                          ('CS06-M03-O03', 'base'): ('586ac41d-7d48-511a-94af-382dd1eb4332',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS06-M03-O03', 'changed-condition'): ('586ac41d-7d48-511a-94af-382dd1eb4332',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS06-M04-O01', 'base'): ('8bb0ce0b-ce95-5497-aa48-a9a91f922beb',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2 1\n',
+                                                                     ''),
+                                          ('CS06-M04-O01', 'changed-condition'): ('8bb0ce0b-ce95-5497-aa48-a9a91f922beb',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3 3\n',
+                                                                                  ''),
+                                          ('CS06-M04-O02', 'base'): ('96128b12-a712-58f0-8987-a930779aa79e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS06-M04-O02', 'changed-condition'): ('96128b12-a712-58f0-8987-a930779aa79e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '7\n',
+                                                                                  ''),
+                                          ('CS06-M04-O03', 'base'): ('6d9b4fad-3628-5e5c-9d5c-2360bdb5d266',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS06-M04-O03', 'changed-condition'): ('6d9b4fad-3628-5e5c-9d5c-2360bdb5d266',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS06-M05-O01', 'base'): ('73fa3d98-39c5-5ab6-822a-629ab9942ae4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS06-M05-O01', 'changed-condition'): ('73fa3d98-39c5-5ab6-822a-629ab9942ae4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS06-M05-O02', 'base'): ('696e33ec-4eda-53a1-8d28-a8f13f8b0125',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '222\n',
+                                                                     ''),
+                                          ('CS06-M05-O02', 'changed-condition'): ('696e33ec-4eda-53a1-8d28-a8f13f8b0125',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '111\n',
+                                                                                  ''),
+                                          ('CS06-M05-O03', 'base'): ('1a561c56-3cf8-54fa-8167-499a484ab919',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7\n',
+                                                                     ''),
+                                          ('CS06-M05-O03', 'changed-condition'): ('1a561c56-3cf8-54fa-8167-499a484ab919',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS06-M06-O01', 'base'): ('0e53a5f9-34a0-577a-8bee-f53075c1729c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '10 1\n',
+                                                                     ''),
+                                          ('CS06-M06-O01', 'changed-condition'): ('0e53a5f9-34a0-577a-8bee-f53075c1729c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '20 2\n',
+                                                                                  ''),
+                                          ('CS06-M06-O02', 'base'): ('6ac7de29-6b4b-5c6f-9f9b-0107e4657630',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS06-M06-O02', 'changed-condition'): ('6ac7de29-6b4b-5c6f-9f9b-0107e4657630',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '9\n',
+                                                                                  ''),
+                                          ('CS06-M06-O03', 'base'): ('8a1a5f89-4e24-55f5-af26-8abe2a3b7e38',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS06-M06-O03', 'changed-condition'): ('8a1a5f89-4e24-55f5-af26-8abe2a3b7e38',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS06-M07-O01', 'base'): ('4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS06-M07-O01', 'changed-condition'): ('4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS06-M07-O02', 'base'): ('c94fda68-6691-5f09-81b7-7d3284ff8a0d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7\n',
+                                                                     ''),
+                                          ('CS06-M07-O02', 'changed-condition'): ('c94fda68-6691-5f09-81b7-7d3284ff8a0d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '9\n',
+                                                                                  ''),
+                                          ('CS06-M07-O03', 'base'): ('e7100643-ebb6-5d72-8848-0b53753ad5c3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '8\n',
+                                                                     ''),
+                                          ('CS06-M07-O03', 'changed-condition'): ('e7100643-ebb6-5d72-8848-0b53753ad5c3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '5\n',
+                                                                                  ''),
+                                          ('CS06-M08-O01', 'base'): ('27a79669-ae59-5c99-bd63-2777a43207f3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2 1 3\n',
+                                                                     ''),
+                                          ('CS06-M08-O01', 'changed-condition'): ('27a79669-ae59-5c99-bd63-2777a43207f3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 0 0\n',
+                                                                                  ''),
+                                          ('CS06-M08-O02', 'base'): ('d44c39d6-d7d6-5468-81d6-4b68a431a88c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '9\n',
+                                                                     ''),
+                                          ('CS06-M08-O02', 'changed-condition'): ('d44c39d6-d7d6-5468-81d6-4b68a431a88c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS06-M08-O03', 'base'): ('6ea4f822-8d10-5805-9f41-92cc1a7cb223',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '115\n',
+                                                                     ''),
+                                          ('CS06-M08-O03', 'changed-condition'): ('6ea4f822-8d10-5805-9f41-92cc1a7cb223',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '112\n',
+                                                                                  ''),
+                                          ('CS06-M09-O01', 'base'): ('0547ff2c-d21c-5990-bd24-ac4d9a540e1d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'pending\n',
+                                                                     ''),
+                                          ('CS06-M09-O01', 'changed-condition'): ('0547ff2c-d21c-5990-bd24-ac4d9a540e1d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'complete\n',
+                                                                                  ''),
+                                          ('CS06-M09-O02', 'base'): ('3d18f2a8-4f49-5765-83ea-96ba27938d30',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS06-M09-O02', 'changed-condition'): ('3d18f2a8-4f49-5765-83ea-96ba27938d30',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS06-M09-O03', 'base'): ('499589e0-bef7-5158-b70f-941d63c3f54b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS06-M09-O03', 'changed-condition'): ('499589e0-bef7-5158-b70f-941d63c3f54b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '7\n',
+                                                                                  '')},
+ 'f31e16d2-b541-5bb3-95ae-dcdf4bbf8414': {('CS13-M01-O01', 'base'): ('5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'classification\n',
+                                                                     ''),
+                                          ('CS13-M01-O01', 'changed-condition'): ('5ec4ee5f-4a18-5cc1-b4b2-d56a866a2ad7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'regression\n',
+                                                                                  ''),
+                                          ('CS13-M01-O02', 'base'): ('54c1b7b8-441a-5be7-981e-8faf653802b9',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'sensor\n',
+                                                                     ''),
+                                          ('CS13-M01-O02', 'changed-condition'): ('54c1b7b8-441a-5be7-981e-8faf653802b9',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'future_label '
+                                                                                  'sensor\n',
+                                                                                  ''),
+                                          ('CS13-M01-O03', 'base'): ('529f4161-cc07-5ecf-9f73-583f2556db43',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 1\n',
+                                                                     ''),
+                                          ('CS13-M01-O03', 'changed-condition'): ('529f4161-cc07-5ecf-9f73-583f2556db43',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 1\n',
+                                                                                  ''),
+                                          ('CS13-M02-O01', 'base'): ('00fecae2-58be-5ae8-8bc6-53afee731f75',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS13-M02-O01', 'changed-condition'): ('00fecae2-58be-5ae8-8bc6-53afee731f75',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M02-O02', 'base'): ('eddce4f6-ae17-5d23-952d-5bf3b7133efe',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS13-M02-O02', 'changed-condition'): ('eddce4f6-ae17-5d23-952d-5bf3b7133efe',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS13-M02-O03', 'base'): ('d4ef1730-4c0e-57af-8336-4348b136532f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '97 99\n',
+                                                                     ''),
+                                          ('CS13-M02-O03', 'changed-condition'): ('d4ef1730-4c0e-57af-8336-4348b136532f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '-1 1\n',
+                                                                                  ''),
+                                          ('CS13-M03-O01', 'base'): ('2c287a16-65b2-5c68-962a-332bd2db2e8f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M03-O01', 'changed-condition'): ('2c287a16-65b2-5c68-962a-332bd2db2e8f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M03-O02', 'base'): ('e8e0ed08-9f8d-5a18-b737-39b4f8559f44',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS13-M03-O02', 'changed-condition'): ('e8e0ed08-9f8d-5a18-b737-39b4f8559f44',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS13-M03-O03', 'base'): ('5da57081-e9a7-542a-b4c3-42e2e3a2ebe5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS13-M03-O03', 'changed-condition'): ('5da57081-e9a7-542a-b4c3-42e2e3a2ebe5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS13-M04-O01', 'base'): ('3be6698e-e9fb-57a9-9f50-3c4d773dfd9c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M04-O01', 'changed-condition'): ('3be6698e-e9fb-57a9-9f50-3c4d773dfd9c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M04-O02', 'base'): ('6652f7eb-c528-58bf-aff4-8ff27fa7ac0c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 9\n',
+                                                                     ''),
+                                          ('CS13-M04-O02', 'changed-condition'): ('6652f7eb-c528-58bf-aff4-8ff27fa7ac0c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 0\n',
+                                                                                  ''),
+                                          ('CS13-M04-O03', 'base'): ('3701118c-c5d6-56c2-ae31-7d6fac1beb6b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A\n',
+                                                                     ''),
+                                          ('CS13-M04-O03', 'changed-condition'): ('3701118c-c5d6-56c2-ae31-7d6fac1beb6b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS13-M05-O01', 'base'): ('220d2466-88d0-505a-9a1a-c5abf76d579f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2/5\n',
+                                                                     ''),
+                                          ('CS13-M05-O01', 'changed-condition'): ('220d2466-88d0-505a-9a1a-c5abf76d579f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1/4\n',
+                                                                                  ''),
+                                          ('CS13-M05-O02', 'base'): ('9fbf60b9-e8b1-5648-a850-f8e35511f943',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS13-M05-O02', 'changed-condition'): ('9fbf60b9-e8b1-5648-a850-f8e35511f943',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS13-M05-O03', 'base'): ('07529489-2266-5d6a-9093-f24f1abcac66',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'shallow\n',
+                                                                     ''),
+                                          ('CS13-M05-O03', 'changed-condition'): ('07529489-2266-5d6a-9093-f24f1abcac66',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'deep\n',
+                                                                                  ''),
+                                          ('CS13-M06-O01', 'base'): ('ba1f138f-129d-56fe-9758-c5ee5073fe81',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A\n',
+                                                                     ''),
+                                          ('CS13-M06-O01', 'changed-condition'): ('ba1f138f-129d-56fe-9758-c5ee5073fe81',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS13-M06-O02', 'base'): ('1d2b8b84-2099-53b0-9577-89b2f0f07986',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'A\n',
+                                                                     ''),
+                                          ('CS13-M06-O02', 'changed-condition'): ('1d2b8b84-2099-53b0-9577-89b2f0f07986',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS13-M06-O03', 'base'): ('adf972c0-97f4-56ab-a2be-0b4e6a7e7d86',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS13-M06-O03', 'changed-condition'): ('adf972c0-97f4-56ab-a2be-0b4e6a7e7d86',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS13-M07-O01', 'base'): ('61616c7e-1d44-5306-9013-462e9c58fac4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS13-M07-O01', 'changed-condition'): ('61616c7e-1d44-5306-9013-462e9c58fac4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS13-M07-O02', 'base'): ('c96f35cc-b6cb-56c4-a3d3-d07da0925584',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS13-M07-O02', 'changed-condition'): ('c96f35cc-b6cb-56c4-a3d3-d07da0925584',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '-3\n',
+                                                                                  ''),
+                                          ('CS13-M07-O03', 'base'): ('5cecd8d6-d483-54b8-86c7-d991e95a157c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M07-O03', 'changed-condition'): ('5cecd8d6-d483-54b8-86c7-d991e95a157c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M08-O01', 'base'): ('66f8d176-1eb7-52df-9359-4f7154c531b6',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '9\n',
+                                                                     ''),
+                                          ('CS13-M08-O01', 'changed-condition'): ('66f8d176-1eb7-52df-9359-4f7154c531b6',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS13-M08-O02', 'base'): ('9335e07b-6ce2-5c3d-b010-6e426ee46d9e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M08-O02', 'changed-condition'): ('9335e07b-6ce2-5c3d-b010-6e426ee46d9e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M08-O03', 'base'): ('e7eb2b12-e3f7-5ede-9654-a1ec0fef2924',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS13-M08-O03', 'changed-condition'): ('e7eb2b12-e3f7-5ede-9654-a1ec0fef2924',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M09-O01', 'base'): ('c786806f-43fc-51fe-a29e-1dd5cb80ee7e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/4\n',
+                                                                     ''),
+                                          ('CS13-M09-O01', 'changed-condition'): ('c786806f-43fc-51fe-a29e-1dd5cb80ee7e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1/2\n',
+                                                                                  ''),
+                                          ('CS13-M09-O02', 'base'): ('0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS13-M09-O02', 'changed-condition'): ('0f18c9fd-d44e-5fcc-a9cb-e7c39f9423fd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS13-M09-O03', 'base'): ('d17a55b9-7ba9-5be5-a4c4-7534f36c3696',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 1\n',
+                                                                     ''),
+                                          ('CS13-M09-O03', 'changed-condition'): ('d17a55b9-7ba9-5be5-a4c4-7534f36c3696',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '100 100\n',
+                                                                                  ''),
+                                          ('CS13-M10-O01', 'base'): ('61fd47a0-f84a-59df-9b7f-01658dc818d3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS13-M10-O01', 'changed-condition'): ('61fd47a0-f84a-59df-9b7f-01658dc818d3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS13-M10-O02', 'base'): ('d1ba46eb-ece4-5307-ae83-0e3d5f6323c5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS13-M10-O02', 'changed-condition'): ('d1ba46eb-ece4-5307-ae83-0e3d5f6323c5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS13-M10-O02', 'pipeline-leak'): ('d1ba46eb-ece4-5307-ae83-0e3d5f6323c5',
+                                                                              '[{"id": "0", '
+                                                                              '"split": '
+                                                                              '"train", "x": '
+                                                                              '0, "y": 1}, '
+                                                                              '{"id": "1", '
+                                                                              '"split": '
+                                                                              '"train", "x": '
+                                                                              '2, "y": 5}, '
+                                                                              '{"id": "2", '
+                                                                              '"split": '
+                                                                              '"train", "x": '
+                                                                              '4, "y": 9}, '
+                                                                              '{"id": "3", '
+                                                                              '"split": '
+                                                                              '"train", "x": '
+                                                                              'null, "y": 5}, '
+                                                                              '{"id": "4", '
+                                                                              '"split": '
+                                                                              '"validation", '
+                                                                              '"x": 1, "y": '
+                                                                              '3}, {"id": '
+                                                                              '"5", "split": '
+                                                                              '"validation", '
+                                                                              '"x": 3, "y": '
+                                                                              '7}, {"id": '
+                                                                              '"6", "split": '
+                                                                              '"test", "x": '
+                                                                              '5, "y": 11}, '
+                                                                              '{"id": "7", '
+                                                                              '"split": '
+                                                                              '"test", "x": '
+                                                                              '7, "y": 15}]\n',
+                                                                              'success',
+                                                                              '{"baseline_test_mse": '
+                                                                              '68.0, '
+                                                                              '"data_sha256": '
+                                                                              '"43b47f964e12d51007656eed934b6c7698dde070129daa842c77d4e6f549070e", '
+                                                                              '"fit_ids": '
+                                                                              '["0", "1", '
+                                                                              '"2", "3"], '
+                                                                              '"gradient_error": '
+                                                                              '0.0, "model": '
+                                                                              '{"center": '
+                                                                              '2.0, '
+                                                                              '"impute_mean": '
+                                                                              '2.0, '
+                                                                              '"intercept": '
+                                                                              '5.0, "schema": '
+                                                                              '"single-feature-regression-v1", '
+                                                                              '"slope": 2.0}, '
+                                                                              '"reload_predictions": '
+                                                                              '[11.0, 15.0], '
+                                                                              '"selected": '
+                                                                              '"linear", '
+                                                                              '"selection_ids": '
+                                                                              '["4", "5"], '
+                                                                              '"test_ids": '
+                                                                              '["6", "7"], '
+                                                                              '"test_mse": '
+                                                                              '0.0, '
+                                                                              '"test_predictions": '
+                                                                              '[11.0, 15.0], '
+                                                                              '"validation_scores": '
+                                                                              '{"baseline": '
+                                                                              '4.0, "linear": '
+                                                                              '0.0}}\n',
+                                                                              ''),
+                                          ('CS13-M10-O02', 'pipeline-shift'): ('d1ba46eb-ece4-5307-ae83-0e3d5f6323c5',
+                                                                               '[{"id": "0", '
+                                                                               '"split": '
+                                                                               '"train", "x": '
+                                                                               '0, "y": 1}, '
+                                                                               '{"id": "1", '
+                                                                               '"split": '
+                                                                               '"train", "x": '
+                                                                               '2, "y": 5}, '
+                                                                               '{"id": "2", '
+                                                                               '"split": '
+                                                                               '"train", "x": '
+                                                                               '4, "y": 9}, '
+                                                                               '{"id": "3", '
+                                                                               '"split": '
+                                                                               '"train", "x": '
+                                                                               'null, "y": '
+                                                                               '5}, {"id": '
+                                                                               '"4", "split": '
+                                                                               '"validation", '
+                                                                               '"x": 1, "y": '
+                                                                               '3}, {"id": '
+                                                                               '"5", "split": '
+                                                                               '"validation", '
+                                                                               '"x": 3, "y": '
+                                                                               '7}, {"id": '
+                                                                               '"6", "split": '
+                                                                               '"test", "x": '
+                                                                               '15, "y": 31}, '
+                                                                               '{"id": "7", '
+                                                                               '"split": '
+                                                                               '"test", "x": '
+                                                                               '17, "y": '
+                                                                               '35}]\n',
+                                                                               'success',
+                                                                               '{"baseline_test_mse": '
+                                                                               '788.0, '
+                                                                               '"data_sha256": '
+                                                                               '"7fcf12df5344161e96d835c50f9cb71614c6ce1e5585c1be0a97b40b6a5e352c", '
+                                                                               '"fit_ids": '
+                                                                               '["0", "1", '
+                                                                               '"2", "3"], '
+                                                                               '"gradient_error": '
+                                                                               '0.0, "model": '
+                                                                               '{"center": '
+                                                                               '2.0, '
+                                                                               '"impute_mean": '
+                                                                               '2.0, '
+                                                                               '"intercept": '
+                                                                               '5.0, '
+                                                                               '"schema": '
+                                                                               '"single-feature-regression-v1", '
+                                                                               '"slope": '
+                                                                               '2.0}, '
+                                                                               '"reload_predictions": '
+                                                                               '[31.0, 35.0], '
+                                                                               '"selected": '
+                                                                               '"linear", '
+                                                                               '"selection_ids": '
+                                                                               '["4", "5"], '
+                                                                               '"test_ids": '
+                                                                               '["6", "7"], '
+                                                                               '"test_mse": '
+                                                                               '0.0, '
+                                                                               '"test_predictions": '
+                                                                               '[31.0, 35.0], '
+                                                                               '"validation_scores": '
+                                                                               '{"baseline": '
+                                                                               '4.0, '
+                                                                               '"linear": '
+                                                                               '0.0}}\n',
+                                                                               ''),
+                                          ('CS13-M10-O03', 'base'): ('3bee011b-8276-5f74-a4ac-03779c4cd6c7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'needs_review\n',
+                                                                     ''),
+                                          ('CS13-M10-O03', 'changed-condition'): ('3bee011b-8276-5f74-a4ac-03779c4cd6c7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'in_scope\n',
+                                                                                  '')}}
