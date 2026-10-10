@@ -48,6 +48,25 @@ async def test_worker_timeout_and_http_faults_do_not_retry_execution():
     assert len(calls) == 1
 
 
+async def test_worker_busy_is_diagnosable_without_exposing_worker_body_or_retrying():
+    calls = 0
+
+    def handler(request):
+        nonlocal calls
+        calls += 1
+        return httpx.Response(429, text="private worker secret body")
+
+    client = CodeWorkerClient(
+        "http://127.0.0.1:8091", "test-only-token", transport=httpx.MockTransport(handler)
+    )
+    request = CodeRequest(language="c17", entry="main.c", files={"main.c": "int main(){}"})
+    result = await client.run(request)
+    assert result.metadata == {"failure_code": "worker_busy"}
+    assert result.status == "environment_error" and result.mastery_asserted is False
+    assert calls == 1
+    assert "secret" not in result.model_dump_json()
+
+
 async def test_client_cancellation_requests_the_same_job_and_waits_for_receipt():
     started, confirmed = asyncio.Event(), asyncio.Event()
     job_id = ""

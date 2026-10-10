@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0009_structured_attempt"
+            == "0010_code_attempt"
         )
     settings = Settings(
         environment="test",
@@ -1244,3 +1244,71 @@ async def test_structured_attempt_submit_restore_and_history_lock(cloud):
                     "AND object_type='structured_attempt' AND object_id=%s",
                     (sid, attempt["id"]),
                 )
+
+
+async def test_code_attempt_sync_freezes_source_and_preserves_untrusted_result(cloud):
+    from vault_backend.code_execution import CodeRequest, request_hash
+
+    _, seed, owner_url = cloud
+    student, aid = seed()
+    mapping, _ = await claim(student, aid)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    request = CodeRequest(language="python313", files={"main.py": "print(5)"}, entry="main.py")
+    stamp = "2026-10-09T12:00:00Z"
+    work = {
+        "id": str(uuid4()),
+        "artifactId": str(uuid4()),
+        "spaceId": origin,
+        "activityKey": "custom:addition",
+        "request": request.model_dump(),
+        "requestHash": request_hash(request),
+        "result": None,
+        "createdAt": stamp,
+        "updatedAt": stamp,
+    }
+    saved, _ = await batch(student, aid, sid, [operation("code_attempt", work["id"], work)])
+    assert saved.json()["results"][0]["status"] == "applied", saved.text
+    changed_request = CodeRequest(
+        language="python313", files={"main.py": "print(6)"}, entry="main.py"
+    )
+    changed = {
+        **work,
+        "request": changed_request.model_dump(),
+        "requestHash": request_hash(changed_request),
+    }
+    denied, _ = await batch(
+        student, aid, sid, [operation("code_attempt", work["id"], changed, "1")]
+    )
+    assert denied.json()["results"][0]["reason"] == "COURSE_ATTEMPT_LOCKED"
+    result = {
+        "status": "success",
+        "phase": "run",
+        "stdout": "5\n",
+        "stderr": "",
+        "truncated": False,
+        "metadata": {},
+        "runtime_profile": "python313-isolate-dev@0.1.0",
+        "request_sha256": work["requestHash"],
+        "mastery_asserted": False,
+        "client_artifact_id": work["artifactId"],
+        "client_revision_id": work["id"],
+    }
+    checked = {**work, "result": result}
+    saved, _ = await batch(student, aid, sid, [operation("code_attempt", work["id"], checked, "1")])
+    assert saved.json()["results"][0]["status"] == "applied", saved.text
+    changes = await student.get(f"/api/v1/sync/spaces/{sid}/changes")
+    report = changes.json()["changes"][-1]
+    assert report["payload"]["result"]["stdout"] == "5\n"
+    assert report["provenance"] == "client_reported" and report["requires_review"] is True
+    denied, _ = await batch(
+        student, aid, sid, [operation("code_attempt", work["id"], checked, "2")]
+    )
+    assert denied.json()["results"][0]["reason"] == "COURSE_ATTEMPT_LOCKED"
+    with psycopg.connect(owner_url) as connection:
+        with pytest.raises(psycopg.errors.CheckViolation):
+            connection.execute(
+                "UPDATE sync_object SET version=version+1, payload=payload || %s::jsonb "
+                "WHERE space_id=%s AND object_type='code_attempt' AND object_id=%s",
+                (json.dumps({"activityKey": "tampered"}), sid, work["id"]),
+            )
+        connection.rollback()

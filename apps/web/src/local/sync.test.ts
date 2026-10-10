@@ -8,11 +8,29 @@ import { canonicalHash, canonicalJson } from '../domain/integrity'
 import { currentTraceEvidence } from '../domain/learning'
 import { emptyAttempt, STRUCTURED_ACTIVITIES, structuredAttemptState, type StructuredResult } from '../domain/structured'
 import type { Account } from '../api/accounts'
+import type { CodeAttempt } from '../domain/code'
 import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
 import { logicObjectiveState, newLogicAttempt, type LogicResult } from '../domain/logic'
 const account: Account = { id: crypto.randomUUID(), email: 'a@example.test', display_name: 'A', account_type: 'student', teacher_verification_state: null }
 const otherAccount = { ...account, id: crypto.randomUUID(), email: 'b@example.test', display_name: 'B' }
 const databases: LearningDatabase[] = []
+it('claims and restores frozen code runs without granting server evidence trust', async () => {
+  const { db, id, serverId, space } = await boundDb()
+  const request = { language: 'python313' as const, files: { 'main.py': 'print(5)' }, entry: 'main.py', stdin: '' }
+  const stamp = new Date().toISOString(); const requestHash = await canonicalHash(request)
+  const key = crypto.randomUUID(); const artifactId = crypto.randomUUID()
+  const record: CodeAttempt = { id: key, artifactId, spaceId: id, activityKey: 'custom:addition', request, requestHash, createdAt: stamp, updatedAt: stamp, resultTrust: null,
+    result: { status: 'success', phase: 'run', stdout: '5\n', stderr: '', truncated: false, metadata: {}, runtime_profile: 'python313-isolate-dev@0.1.0', request_sha256: requestHash, mastery_asserted: false, client_artifact_id: artifactId, client_revision_id: key } }
+  await db.codeAttempts.put(record)
+  expect((await prepareClaim(id, account.id, db)).manifest).toContainEqual({ objectType: 'code_attempt', objectId: key })
+  const { resultTrust: _localTrust, ...payload } = record
+  vi.stubGlobal('fetch', vi.fn(async () => json({ space_id: serverId, changes: [{ object_type: 'code_attempt', object_id: key, version: '1', deleted: false, payload, payload_hash: await canonicalHash(payload), provenance: 'client_reported', requires_review: true }], next_cursor: 'code-cursor', has_more: false })))
+  const other = createDb(); await openLocalSpace(other); await other.spaces.put(space)
+  await pullSpace(space, { account, isCurrent: () => true, db: other })
+  const restored = await other.codeAttempts.get([id, key])
+  expect(restored?.result?.stdout).toBe('5\n')
+  expect(restored?.resultTrust).toBe('client_reported')
+})
 afterEach(async () => { vi.unstubAllGlobals(); await Promise.all(databases.splice(0).map(db => db.delete())) })
 function createDb() { const db = new LearningDatabase(`sync-test-${crypto.randomUUID()}`); databases.push(db); return db }
 const json = (value: unknown, status = 200) => new Response(JSON.stringify(value), { status, headers: { 'Content-Type': 'application/json' } })

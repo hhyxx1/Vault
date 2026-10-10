@@ -422,6 +422,7 @@ async def apply_operation(session, space, principal, op):
         "personal_assist",
         "course_attempt",
         "structured_attempt",
+        "code_attempt",
     } and op.payload == {"deleted": True}:
         return await remember_result(
             session,
@@ -453,7 +454,7 @@ async def apply_operation(session, space, principal, op):
         )
     if (
         obj is not None
-        and op.object_type in {"course_attempt", "structured_attempt"}
+        and op.object_type in {"course_attempt", "structured_attempt", "code_attempt"}
         and not deleted
     ):
         previous = obj.payload or {}
@@ -467,6 +468,9 @@ async def apply_operation(session, space, principal, op):
             "createdAt",
             "objectiveCode",
             "kind",
+            "activityKey",
+            "request",
+            "requestHash",
         )
         if (
             previous.get("result") is not None
@@ -715,7 +719,7 @@ async def read_changes(
                     payload=row.payload,
                     payload_hash=row.payload_hash.hex(),
                     requires_review=row.object_type
-                    in {"evidence", "course_attempt", "structured_attempt"},
+                    in {"evidence", "course_attempt", "structured_attempt", "code_attempt"},
                 )
                 for row in selected
             ],

@@ -1,4 +1,5 @@
 import { hasStructuredResultBinding } from '../domain/structured'
+import type { CodeAttempt, CodeResult } from '../domain/code'
 import { COURSE_VERSION, STANDARD_VERSION, TRACE_ACTIVITY, TRACE_OBJECTIVE, type ArtifactRevision, type TracePrediction, type VerificationResult } from '../domain/learning'
 import { artifactContent, canonicalHash, traceSubmission } from '../domain/integrity'
 import type { components } from '../../../../packages/contracts/api.generated'
@@ -31,6 +32,50 @@ async function activeLease(signal?: AbortSignal) {
   const nonce = await readJson<{ nonce: string }>(await fetch('/api/v1/guest-nonce', { method: 'POST', credentials: 'same-origin', cache: 'no-store', signal }))
   lease = await readJson<Lease>(await fetch('/api/v1/guest-leases', { method: 'POST', credentials: 'same-origin', signal, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nonce: nonce.nonce }) }))
   return lease
+}
+
+/** Save the returned result before acknowledgement removes temporary server work. */
+export async function runCode(attempt: CodeAttempt, signal?: AbortSignal): Promise<{ result: CodeResult; acknowledge: () => Promise<void> }> {
+  const current = await activeLease(signal)
+  if (!current.allowed_operations.includes('run_code')) throw new Error('代码运行服务尚未连接；这一版已保留本地，可稍后重新运行。')
+  if (await canonicalHash({ ...attempt.request, stdin: attempt.request.stdin ?? '' }) !== attempt.requestHash) throw new Error('提交内容与版本摘要不一致。')
+  type Snapshot = components['schemas']['OperationResponse']
+  const headers = { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` }
+  const root = `/api/v1/guest-leases/${current.lease_id}/operations`
+  let operation: Snapshot | null = null
+  const readSnapshot = async (response: Response) => {
+    const next = await readJson<Snapshot>(response)
+    if (next.kind !== 'run_code' || next.lease_id !== current.lease_id || (operation && next.operation_id !== operation.operation_id)) throw new Error('运行请求与服务返回不一致。')
+    return next
+  }
+  try {
+    operation = await readSnapshot(await fetch(root, { method: 'POST', credentials: 'same-origin', signal, headers: { ...headers, 'Idempotency-Key': attempt.id }, body: JSON.stringify({ kind: 'run_code', client_artifact_id: attempt.artifactId, client_revision_id: attempt.id, code: attempt.request }) }))
+    const deadline = Date.now() + 120000
+    while (operation.status === 'running' || operation.status === 'cancelling') {
+      signal?.throwIfAborted()
+      if (Date.now() > deadline) throw new Error('等待运行结果超时，已请求停止；作品仍在本地。')
+      await new Promise<void>((resolve, reject) => {
+        const abort = () => { clearTimeout(timer); reject(new DOMException('运行已停止。', 'AbortError')) }
+        const timer = setTimeout(() => { signal?.removeEventListener('abort', abort); resolve() }, 300)
+        signal?.addEventListener('abort', abort, { once: true })
+        if (signal?.aborted) { signal.removeEventListener('abort', abort); abort() }
+      })
+      operation = await readSnapshot(await fetch(`${root}/${operation.operation_id}`, { credentials: 'same-origin', cache: 'no-store', headers, signal }))
+    }
+    signal?.throwIfAborted()
+    if (operation.status !== 'completed') throw new Error('运行已取消；这一版代码仍保留本地。')
+    const result = operation.result as CodeResult | null
+    if (!result || result.client_artifact_id !== attempt.artifactId || result.client_revision_id !== attempt.id || result.request_sha256 !== attempt.requestHash || result.mastery_asserted !== false || !['success', 'compile_error', 'runtime_error', 'timeout', 'resource_limit', 'environment_error'].includes(result.status) || typeof result.stdout !== 'string' || typeof result.stderr !== 'string') throw new Error('运行结果与提交版本不一致，未保存结果。')
+    const terminal = operation
+    return { result, acknowledge: async () => { await readJson(await fetch(`${root}/${terminal.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers, body: JSON.stringify({ expected_revision: terminal.revision }) })) } }
+  } catch (error) {
+    if (operation && ['running', 'cancelling'].includes(operation.status)) {
+      // Cancellation has its own lifetime: an aborted UI signal must not abort cleanup.
+      const cleanupSignal = AbortSignal.timeout(30000)
+      await fetch(`${root}/${operation.operation_id}/cancel`, { method: 'POST', credentials: 'same-origin', headers, signal: cleanupSignal, body: JSON.stringify({ expected_revision: operation.revision }) }).catch(() => undefined)
+    }
+    throw error
+  }
 }
 
 

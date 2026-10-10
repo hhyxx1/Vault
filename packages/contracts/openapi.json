@@ -523,7 +523,8 @@
               "personal_attempt",
               "personal_assist",
               "course_attempt",
-              "structured_attempt"
+              "structured_attempt",
+              "code_attempt"
             ],
             "title": "Object Type",
             "type": "string"
@@ -930,7 +931,8 @@
               "personal_attempt",
               "personal_assist",
               "course_attempt",
-              "structured_attempt"
+              "structured_attempt",
+              "code_attempt"
             ],
             "title": "Object Type",
             "type": "string"
@@ -1730,7 +1732,8 @@
                   "personal_attempt",
                   "personal_assist",
                   "course_attempt",
-                  "structured_attempt"
+                  "structured_attempt",
+                  "code_attempt"
                 ],
                 "type": "string"
               },
@@ -2442,7 +2445,8 @@
                   "personal_attempt",
                   "personal_assist",
                   "course_attempt",
-                  "structured_attempt"
+                  "structured_attempt",
+                  "code_attempt"
                 ],
                 "type": "string"
               },

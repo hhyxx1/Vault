@@ -25,6 +25,28 @@
   text-rendering: optimizeLegibility;
 }
 
+/* Practice uses the atlas's quiet canvas, white panels and blue action hierarchy. */
+.code-practice-layout { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr); gap:24px; align-items:start; }
+.code-practice-editor, .code-practice-inspector > section { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:26px; }
+.code-practice-toolbar { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:20px; }
+.code-practice-editor label { display:grid; gap:8px; font-size:13px; color:var(--muted); }
+.code-practice-editor select, .code-practice-editor input { padding:9px 12px; min-height:42px; }
+.code-practice-editor textarea { padding:16px; width:100%; box-sizing:border-box; min-height:84px; resize:vertical; font:14px/1.65 Consolas,monospace; }
+.code-source-label textarea { min-height:330px; tab-size:4; margin-bottom:18px; }
+.code-practice-editor textarea:disabled { opacity:1; background:var(--surface-soft); color:var(--ink); }
+.code-file-actions, .code-run-actions { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:16px 0; }
+.code-file-actions input { min-width:0; flex:1; }
+.code-practice-inspector { display:grid; gap:20px; }
+.code-practice-inspector h2 { font-size:22px; margin:12px 0 20px; }
+.code-practice-inspector h3 { font-size:13px; letter-spacing:0; color:var(--muted); }
+.code-practice-inspector pre { min-height:48px; max-height:240px; padding:14px; border:1px solid var(--line); border-radius:8px; background:var(--surface-soft); overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; }
+.code-practice-inspector .muted { font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:16px; }
+.code-version-list { list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+.code-version-list button { width:100%; border:1px solid var(--line); padding:12px 14px; border-radius:8px; text-align:left; background:var(--surface); }
+.code-version-list button[aria-pressed="true"] { border-color:var(--forest); background:var(--sage); }
+.code-version-list span { display:block; color:var(--muted); font-size:12px; margin-top:3px; }
+@media(max-width:850px) { .code-practice-layout { grid-template-columns:1fr; } .code-practice-editor, .code-practice-inspector > section { padding:20px; } }
+
 html { scroll-behavior: smooth; }
 body {
   background: var(--paper);

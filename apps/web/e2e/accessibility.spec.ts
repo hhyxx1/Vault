@@ -27,7 +27,10 @@ test('the graph has an equivalent keyboard route without canvas interaction', as
   await page.keyboard.press('Enter')
   await expect(page).toHaveURL('/learn/CS03-STACK-02')
   await expect(page.getByRole('button', { name: '保存作品版本', exact: true })).toBeEnabled()
-  await expect(page.getByText('代码运行尚未开放', { exact: true })).toBeVisible()
+  const runner = page.getByRole('link', { name: '用这一份代码开始运行' })
+  await runner.focus()
+  await page.keyboard.press('Enter')
+  await expect(page.getByLabel('运行语言')).toBeVisible()
 })
 
 test('two hundred percent zoom keeps local controls and teacher navigation reachable', async ({ page }) => {

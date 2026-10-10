@@ -13,6 +13,7 @@ const Atlas = React.lazy(() => import('./ui/Atlas'))
 const Workspace = React.lazy(() => import('./ui/Workspace'))
 const LogicWorkspace = React.lazy(() => import('./ui/LogicWorkspace'))
 const StructuredWorkspace = React.lazy(() => import('./ui/StructuredWorkspace'))
+const CodeWorkspace = React.lazy(() => import('./ui/CodeWorkspace'))
 const Evidence = React.lazy(() => import('./ui/Evidence'))
 const LocalSpace = React.lazy(() => import('./ui/LocalSpace'))
 const Teacher = React.lazy(() => import('./ui/Teacher'))
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
   { element: <AuthProvider><LocalProvider><AppShell /></LocalProvider></AuthProvider>, errorElement: <AppError />, children: [
     { path: '/', element: <Landing /> },
     { path: '/atlas', element: pending(<Atlas />) },
+    { path: '/code', element: pending(<CodeWorkspace />) },
     { path: '/learn/:objectiveId', element: <LearningRoute /> },
     { path: '/practice/:activityVersion', element: <PracticeRoute /> },
     { path: '/evidence', element: pending(<Evidence />) },

@@ -80,19 +80,33 @@ class CodeWorkerClient:
                     json=submission.model_dump(),
                 ) as response:
                     if response.status_code != 200:
+                        failure.metadata = {
+                            "failure_code": "worker_busy"
+                            if response.status_code == 429
+                            else "worker_unavailable"
+                        }
                         return failure
                     body = bytearray()
                     async for chunk in response.aiter_bytes():
                         if len(body) + len(chunk) > 1048576:
+                            failure.metadata = {"failure_code": "response_too_large"}
                             return failure
                         body.extend(chunk)
                     result = CodeResult.model_validate_json(bytes(body))
             if result.request_sha256 != snapshot_hash:
+                failure.metadata = {"failure_code": "result_binding_mismatch"}
                 return failure
             return result
         except asyncio.CancelledError:
             await self._confirm_cancel(job_id)
             raise
-        except (httpx.HTTPError, ValidationError, ValueError):
+        except (httpx.HTTPError, ValidationError, ValueError) as error:
             # No automatic retry: an uncertain response must not execute twice.
+            failure.metadata = {
+                "failure_code": "transport_timeout"
+                if isinstance(error, httpx.TimeoutException)
+                else "transport_unavailable"
+                if isinstance(error, httpx.HTTPError)
+                else "invalid_result"
+            }
             return failure

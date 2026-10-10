@@ -10,8 +10,10 @@ from uuid import UUID
 
 from pydantic import ConfigDict, Field, StrictBool, StrictInt, field_validator, model_validator
 
+from vault_backend.code_execution import CodeRequest, request_hash
 from vault_backend.responses import (
     BracketVerificationResult,
+    CodeOperationResult,
     Criterion,
     LogicCriterion,
     LogicVerificationResult,
@@ -40,6 +42,7 @@ ObjectType = Literal[
     "personal_assist",
     "course_attempt",
     "structured_attempt",
+    "code_attempt",
 ]
 
 
@@ -469,6 +472,47 @@ class TombstonePayload(WriteModel):
     deleted: Literal[True]
 
 
+class ImportedCodeResult(CodeOperationResult):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    client_artifact_id: UUID = Field(strict=False)
+    client_revision_id: UUID = Field(strict=False)
+    stdout: str = Field(max_length=8192)
+    stderr: str = Field(max_length=8192)
+    runtime_profile: str = Field(min_length=1, max_length=100)
+    request_sha256: Hash
+    metadata: dict[str, str] = Field(max_length=32)
+
+    @model_validator(mode="after")
+    def bounded_metadata(self):
+        if any(len(k) > 100 or len(v) > 1000 for k, v in self.metadata.items()):
+            raise ValueError("execution metadata exceeds import limits")
+        return self
+
+
+class CodeAttemptPayload(LocalPayload):
+    id: UUID
+    artifactId: UUID
+    activityKey: str = Field(min_length=1, max_length=200)
+    request: CodeRequest
+    requestHash: Hash
+    result: ImportedCodeResult | None = None
+    createdAt: Timestamp
+    updatedAt: Timestamp
+
+    @model_validator(mode="after")
+    def bind_work(self):
+        if request_hash(self.request) != self.requestHash:
+            raise ValueError("source and request hash differ")
+        if self.result and (
+            self.result.client_revision_id != self.id
+            or self.result.client_artifact_id != self.artifactId
+            or self.result.request_sha256 != self.requestHash
+            or self.result.mastery_asserted is not False
+        ):
+            raise ValueError("result must match the submitted code version")
+        return self
+
+
 PAYLOAD_MODELS = {
     "draft": DraftPayload,
     "revision": RevisionPayload,
@@ -482,6 +526,7 @@ PAYLOAD_MODELS = {
     "personal_assist": PersonalAssistPayload,
     "course_attempt": CourseAttemptPayload,
     "structured_attempt": StructuredAttemptPayload,
+    "code_attempt": CodeAttemptPayload,
 }
 
 

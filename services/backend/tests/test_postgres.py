@@ -29,7 +29,7 @@ def db():
         )
         assert (
             connection.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0009_structured_attempt"
+            == "0010_code_attempt"
         )
         # All synthetic mutations remain in one transaction and are rolled back.
         yield connection

@@ -5,6 +5,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from .code_execution import CodeRequest
+
 
 class PublicRecord(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
@@ -72,6 +74,19 @@ class Activity(PublicRecord):
     source_refs: list[str] = Field(min_length=1)
     availability: Literal["pending", "practice_ready"]
     completion_limit: str = Field(min_length=1)
+    code_request: CodeRequest | None = None
+
+    @model_validator(mode="after")
+    def execution_request(self):
+        if self.code_request is not None and self.kind != "code":
+            raise ValueError("Only code activities may carry a code request")
+        if (
+            self.kind == "code"
+            and self.availability == "practice_ready"
+            and self.code_request is None
+        ):
+            raise ValueError("Ready code activities need executable starter files")
+        return self
 
     @field_validator("id", "version_id")
     @classmethod
