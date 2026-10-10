@@ -1386,7 +1386,7 @@ export interface components {
              * Status
              * @enum {string}
              */
-            status: "awaiting_input" | "running" | "completed" | "cancelled" | "acknowledged";
+            status: "awaiting_input" | "running" | "cancelling" | "completed" | "cancelled" | "acknowledged";
             /**
              * Storage
              * @constant

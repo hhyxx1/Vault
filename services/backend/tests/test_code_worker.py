@@ -73,7 +73,7 @@ async def test_disconnect_cancels_execution_and_waits_for_cleanup():
         async def run(self, request):
             started.set()
             try:
-                await asyncio.Event().wait()
+                await asyncio.wait_for(asyncio.Event().wait(), 2)
             finally:
                 await asyncio.sleep(0.02)
                 cleaned.set()
@@ -106,7 +106,7 @@ async def test_disconnect_cancels_execution_and_waits_for_cleanup():
     assert sent[0]["status"] == 499
 
 
-async def test_controller_exception_releases_admission():
+async def test_controller_exception_quarantines_worker_until_operator_recovery():
     class OnceBrokenController(Controller):
         async def run(self, request):
             if self.calls == 0:
@@ -119,4 +119,42 @@ async def test_controller_exception_releases_admission():
     async with httpx.AsyncClient(transport=transport, base_url="http://worker") as client:
         headers = {"Authorization": "Bearer " + TOKEN}
         assert (await client.post("/v1/runs", json=BODY, headers=headers)).status_code == 500
-        assert (await client.post("/v1/runs", json=BODY, headers=headers)).status_code == 200
+        assert (await client.post("/v1/runs", json=BODY, headers=headers)).status_code == 503
+
+
+async def test_explicit_cancel_is_job_scoped_and_confirms_cleanup():
+    from uuid import uuid4
+
+    started, cleaned = asyncio.Event(), asyncio.Event()
+
+    class WaitingController:
+        async def run(self, request):
+            started.set()
+            try:
+                await asyncio.wait_for(asyncio.Event().wait(), 2)
+            finally:
+                await asyncio.sleep(0.02)
+                cleaned.set()
+
+    app = create_worker_app(TOKEN, WaitingController())
+    headers = {"Authorization": "Bearer " + TOKEN}
+    job_id = str(uuid4())
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app), base_url="http://worker"
+    ) as client:
+        assert (await client.post("/v1/runs/" + job_id + "/cancel")).status_code == 401
+        pending = asyncio.create_task(
+            client.post("/v1/runs", json=BODY, headers={**headers, "X-Execution-ID": job_id})
+        )
+        await asyncio.wait_for(started.wait(), 2)
+        wrong = await client.post("/v1/runs/" + str(uuid4()) + "/cancel", headers=headers)
+        assert wrong.status_code == 404 and not cleaned.is_set()
+        reply = await client.post("/v1/runs/" + job_id + "/cancel", headers=headers)
+        assert reply.status_code == 200 and reply.json()["cleanup_confirmed"] is True
+        assert cleaned.is_set()
+        assert (await pending).status_code == 409
+        again = await client.post("/v1/runs/" + job_id + "/cancel", headers=headers)
+        assert again.status_code == 200
+        assert (
+            await client.post("/v1/runs", json=BODY, headers={**headers, "X-Execution-ID": job_id})
+        ).status_code == 409

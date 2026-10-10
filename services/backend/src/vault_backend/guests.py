@@ -87,6 +87,7 @@ class GuestLeaseStore:
         self.trace_context = trace_context
         self.logic_context = logic_context
         self.code_runner = code_runner
+        self.code_cleanup_blocked = False
         self.code_tasks: dict[UUID, asyncio.Task] = {}
         self.now = now or (lambda: datetime.now(UTC))
         self.leases: dict[UUID, Lease] = {}
@@ -102,7 +103,7 @@ class GuestLeaseStore:
         for key, lease in list(self.leases.items()):
             if now >= min(lease.idle_expires_at, lease.absolute_expires_at):
                 for op in lease.operations.values():
-                    if task := self.code_tasks.get(op.id):
+                    if (task := self.code_tasks.get(op.id)) and not task.cancelling():
                         task.cancel()
                     op.submission, op.result = None, None
                     op.events.clear()
@@ -123,7 +124,8 @@ class GuestLeaseStore:
         async with self.lock:
             tasks = list(self.code_tasks.values())
             for task in tasks:
-                task.cancel()
+                if not task.cancelling():
+                    task.cancel()
             self.leases.clear()
             self.nonces.clear()
             self.active_streams.clear()
@@ -335,7 +337,7 @@ class GuestLeaseStore:
         async with self.lock:
             lease = self._lease(lease_id, token, origin)
             if isinstance(submission, CodeSubmission):
-                if self.code_runner is None:
+                if self.code_runner is None or self.code_cleanup_blocked:
                     raise ApiError(503, "CODE_WORKER_UNAVAILABLE", "隔离代码执行环境尚未配置。")
                 context = {"available": True}
             elif isinstance(submission, (StructuredTraceSubmission, BracketSubmission)):
@@ -394,9 +396,14 @@ class GuestLeaseStore:
         try:
             try:
                 result = await self.code_runner.run(submission.code)
+                if result.phase == "cleanup":
+                    self.code_cleanup_blocked = True
                 if result.request_sha256 != request_hash(submission.code):
                     result = failure
             except Exception:
+                if asyncio.current_task().cancelling():
+                    self.code_cleanup_blocked = True
+                    raise
                 result = failure
             async with self.lock:
                 self._prune()
@@ -457,16 +464,41 @@ class GuestLeaseStore:
                 return self._snapshot(lease, op)
             if expected_revision != str(op.revision):
                 raise ApiError(412, "REVISION_CONFLICT", "操作版本已变化。")
-            op.submission, op.result = None, None
-            op.state, op.revision = "cancelled", op.revision + 1
-            self._event(lease, op, "operation.cancelled")
             task = self.code_tasks.get(op.id)
-            if task:
+            code_submission = op.submission if isinstance(op.submission, CodeSubmission) else None
+            if op.state != "cancelling":
+                op.submission, op.result = None, None
+                if task and code_submission is not None:
+                    fault = CodeResult(
+                        status="environment_error",
+                        phase="cleanup",
+                        runtime_profile=code_submission.code.language + "-isolate-dev@0.1.0",
+                        request_sha256=request_hash(code_submission.code),
+                        metadata={"cleanup_confirmed": "pending"},
+                    )
+                    op.result = {
+                        **fault.model_dump(),
+                        "client_artifact_id": str(code_submission.client_artifact_id),
+                        "client_revision_id": str(code_submission.client_revision_id),
+                    }
+                op.state = "cancelling" if task else "cancelled"
+                op.revision += 1
+                self._event(lease, op, "operation.cancelling" if task else "operation.cancelled")
+            if task and not task.cancelling():
                 task.cancel()
-            snapshot = self._snapshot(lease, op)
         if task:
-            await asyncio.gather(task, return_exceptions=True)
-        return snapshot
+            outcome = (await asyncio.gather(task, return_exceptions=True))[0]
+            async with self.lock:
+                if op.state == "cancelling":
+                    op.state, op.revision = "cancelled", op.revision + 1
+                    if isinstance(outcome, Exception):
+                        self.code_cleanup_blocked = True
+                        if op.result is not None:
+                            op.result["metadata"] = {"cleanup_confirmed": "false"}
+                    else:
+                        op.result = None
+                    self._event(lease, op, "operation.cancelled")
+        return self._snapshot(lease, op)
 
     async def ack(
         self, lease_id: UUID, token: str, origin: str, operation_id: UUID, expected_revision: str

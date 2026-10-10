@@ -274,6 +274,8 @@ class IsolateWorker:
                 prefix = [self.isolate, "--cg", "--box-id=" + str(self.box_id)]
                 mounted = False
                 initialized = False
+                cancelled = False
+                cleanup_failed = False
                 result = failure
                 box = self.base / str(self.box_id) / "box"
                 try:
@@ -322,6 +324,9 @@ class IsolateWorker:
                             )
                         if not compile_plan or result.status == "success":
                             result = await self._phase(run_plan, "run", box, scratch, profile)
+                except asyncio.CancelledError:
+                    cancelled = True
+                    raise
                 except (OSError, ValueError, TimeoutError):
                     result = failure
                 finally:
@@ -331,9 +336,13 @@ class IsolateWorker:
                             self._command(["/usr/bin/umount", str(box)], 10)
                         )
                         if code != 0:
+                            cleanup_failed = True
                             result = failure.model_copy(update={"phase": "cleanup"})
                     if initialized:
                         code, _ = await asyncio.shield(self._command([*prefix, "--cleanup"], 10))
                         if code != 0:
+                            cleanup_failed = True
                             result = failure.model_copy(update={"phase": "cleanup"})
+                    if cancelled and cleanup_failed:
+                        raise RuntimeError("isolate cleanup failed")
                 return result.model_copy(update={"request_sha256": snapshot_hash})

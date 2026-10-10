@@ -140,3 +140,28 @@ async def test_shutdown_before_job_starts_does_not_leak_task_admission(settings)
     await store.start(lease_id, token, ORIGIN, uuid4(), submission())
     await store.close()
     assert not store.code_tasks
+
+
+async def test_unconfirmed_cleanup_is_visible_and_blocks_new_execution(settings):
+    from vault_backend.code_worker_client import CleanupUnconfirmed
+
+    class BrokenCleanupRunner(Runner):
+        async def run(self, request):
+            self.started.set()
+            try:
+                await asyncio.Event().wait()
+            except asyncio.CancelledError:
+                raise CleanupUnconfirmed("dummy missing receipt") from None
+
+    runner = BrokenCleanupRunner()
+    store = GuestLeaseStore(settings, code_runner=runner)
+    lease_id, token = await grant(store)
+    job = await store.start(lease_id, token, ORIGIN, uuid4(), submission())
+    await runner.started.wait()
+    result = await store.cancel(lease_id, token, ORIGIN, UUID(job["operation_id"]), job["revision"])
+    assert result["result"]["status"] == "environment_error"
+    assert result["result"]["phase"] == "cleanup"
+    with pytest.raises(ApiError) as caught:
+        await store.start(lease_id, token, ORIGIN, uuid4(), submission())
+    assert caught.value.status == 503
+    await store.close()

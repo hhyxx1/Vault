@@ -1663,6 +1663,7 @@
             "enum": [
               "awaiting_input",
               "running",
+              "cancelling",
               "completed",
               "cancelled",
               "acknowledged"

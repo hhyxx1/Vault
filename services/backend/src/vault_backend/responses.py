@@ -189,7 +189,9 @@ class OperationResponse(BaseModel):
         "verify_bracket_judgement",
         "run_code",
     ]
-    status: Literal["awaiting_input", "running", "completed", "cancelled", "acknowledged"]
+    status: Literal[
+        "awaiting_input", "running", "cancelling", "completed", "cancelled", "acknowledged"
+    ]
     revision: str
     result: (
         VerificationResult
