@@ -1,0 +1,3104 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
+  "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+  "course_code": "CS04",
+  "version": "CS04-core-practice-0.1.0",
+  "title": "算法设计与分析",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "27 目标具备受限 Python 实践；正确性证明、一般资源界、独立迁移和完整分配／路线项目待建设及复核。",
+  "objectives": [
+    {
+      "id": "60981909-3481-5794-923b-fc2f9027dbce",
+      "code": "CS04-M01-O01",
+      "title": "陈述输入输出契约",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "17581cc2-bf60-5223-b174-effa0dbb18af",
+      "code": "CS04-M01-O02",
+      "title": "使用不变量论证",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "81c4498a-ca59-5db2-9d45-93a2bd2dd1b3",
+      "code": "CS04-M01-O03",
+      "title": "推导渐近复杂度",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "9f491f02-37ce-586d-9571-8e9230c8bb56",
+      "code": "CS04-M02-O01",
+      "title": "写出递推关系",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "a3484581-3b41-5b03-bed9-b38928cbac89",
+      "code": "CS04-M02-O02",
+      "title": "实现分解和合并",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "47f6316a-fbfd-58ea-bbe8-863a825b138d",
+      "code": "CS04-M02-O03",
+      "title": "比较递推求解方法",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e5daf7d1-b34d-5287-88e7-decd26c34db7",
+      "code": "CS04-M03-O01",
+      "title": "识别局部选择",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "bf1c8e51-3b52-54d2-adb3-4715fe26833c",
+      "code": "CS04-M03-O02",
+      "title": "构造交换论证",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "1f1e73c6-a3a9-5c8f-af9f-e2dbbad74ebc",
+      "code": "CS04-M03-O03",
+      "title": "寻找贪心失败反例",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "21249eca-023d-5fbc-80ad-b303590ef1fb",
+      "code": "CS04-M04-O01",
+      "title": "定义状态含义",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e65b10e7-3ffc-559f-87e8-3997389f9587",
+      "code": "CS04-M04-O02",
+      "title": "推导转移及边界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "832cab07-e14e-52a6-8893-89a192d4f797",
+      "code": "CS04-M04-O03",
+      "title": "恢复最优方案",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "861ad9d9-1b28-5839-b26e-00d398cb04ff",
+      "code": "CS04-M05-O01",
+      "title": "构造状态空间",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "c5b7b473-3204-55ec-9d42-60ee2f047819",
+      "code": "CS04-M05-O02",
+      "title": "实现回溯与分支限界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "a345958c-51bf-5ee1-933b-8f93807c90dd",
+      "code": "CS04-M05-O03",
+      "title": "证明剪枝不丢合法解",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f2420505-5371-5d32-8b76-4d47529abd8f",
+      "code": "CS04-M06-O01",
+      "title": "选择最短路前提",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "87f3d48e-dc6c-560a-9cf5-ed492f21443e",
+      "code": "CS04-M06-O02",
+      "title": "求最小生成树",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "60129404-8143-5856-9498-73ccf8628733",
+      "code": "CS04-M06-O03",
+      "title": "推演网络流增广",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f21815ee-7362-5f9a-ac3c-06b4d3a2003f",
+      "code": "CS04-M07-O01",
+      "title": "区分期望和最坏代价",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "6f5ff340-3ecc-5409-907b-08cecb00d5ba",
+      "code": "CS04-M07-O02",
+      "title": "进行摊还分析",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "9fbd19e7-0a47-559b-b63b-15420edb58a3",
+      "code": "CS04-M07-O03",
+      "title": "设计可复现实验",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "1f3daa72-5bb2-59a5-b905-5192c35a6c9e",
+      "code": "CS04-M08-O01",
+      "title": "描述可验证解",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7be0d6bc-422e-5593-9d26-de71a630002e",
+      "code": "CS04-M08-O02",
+      "title": "构造小型归约",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "97a80aeb-dbb8-555c-91e2-5eac223a1d2e",
+      "code": "CS04-M08-O03",
+      "title": "检验近似界与限制",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "3fbfc0d4-c874-532b-ab08-9531f779974c",
+      "code": "CS04-M09-O01",
+      "title": "选择算法范式",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "a7bee397-3c0f-5c0e-b587-3ed4cf51b303",
+      "code": "CS04-M09-O02",
+      "title": "说明正确性和资源界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "11a34822-9519-541d-92ad-0d78497fec72",
+      "code": "CS04-M09-O03",
+      "title": "定位条件变化后的失效",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS04-M01",
+      "title": "正确性与代价",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M01-O01-unit",
+          "title": "陈述输入输出契约",
+          "objective_refs": [
+            "CS04-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M01-O02-unit",
+          "title": "使用不变量论证",
+          "objective_refs": [
+            "CS04-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M01-O03-unit",
+          "title": "推导渐近复杂度",
+          "objective_refs": [
+            "CS04-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M02",
+      "title": "递推与分治",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M02-O01-unit",
+          "title": "写出递推关系",
+          "objective_refs": [
+            "CS04-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M02-O02-unit",
+          "title": "实现分解和合并",
+          "objective_refs": [
+            "CS04-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M02-O03-unit",
+          "title": "比较递推求解方法",
+          "objective_refs": [
+            "CS04-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M03",
+      "title": "贪心",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M03-O01-unit",
+          "title": "识别局部选择",
+          "objective_refs": [
+            "CS04-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M03-O02-unit",
+          "title": "构造交换论证",
+          "objective_refs": [
+            "CS04-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M03-O03-unit",
+          "title": "寻找贪心失败反例",
+          "objective_refs": [
+            "CS04-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M04",
+      "title": "动态规划",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M04-O01-unit",
+          "title": "定义状态含义",
+          "objective_refs": [
+            "CS04-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M04-O02-unit",
+          "title": "推导转移及边界",
+          "objective_refs": [
+            "CS04-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M04-O03-unit",
+          "title": "恢复最优方案",
+          "objective_refs": [
+            "CS04-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M05",
+      "title": "搜索与剪枝",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M05-O01-unit",
+          "title": "构造状态空间",
+          "objective_refs": [
+            "CS04-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M05-O02-unit",
+          "title": "实现回溯与分支限界",
+          "objective_refs": [
+            "CS04-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M05-O03-unit",
+          "title": "证明剪枝不丢合法解",
+          "objective_refs": [
+            "CS04-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M06",
+      "title": "图算法",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M06-O01-unit",
+          "title": "选择最短路前提",
+          "objective_refs": [
+            "CS04-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M06-O02-unit",
+          "title": "求最小生成树",
+          "objective_refs": [
+            "CS04-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M06-O03-unit",
+          "title": "推演网络流增广",
+          "objective_refs": [
+            "CS04-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M07",
+      "title": "随机与摊还",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M07-O01-unit",
+          "title": "区分期望和最坏代价",
+          "objective_refs": [
+            "CS04-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M07-O02-unit",
+          "title": "进行摊还分析",
+          "objective_refs": [
+            "CS04-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M07-O03-unit",
+          "title": "设计可复现实验",
+          "objective_refs": [
+            "CS04-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M08",
+      "title": "困难性与近似",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M08-O01-unit",
+          "title": "描述可验证解",
+          "objective_refs": [
+            "CS04-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M08-O02-unit",
+          "title": "构造小型归约",
+          "objective_refs": [
+            "CS04-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M08-O03-unit",
+          "title": "检验近似界与限制",
+          "objective_refs": [
+            "CS04-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS04-M09",
+      "title": "综合算法设计",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS04-M09-O01-unit",
+          "title": "选择算法范式",
+          "objective_refs": [
+            "CS04-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M09-O02-unit",
+          "title": "说明正确性和资源界",
+          "objective_refs": [
+            "CS04-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS04-M09-O03-unit",
+          "title": "定位条件变化后的失效",
+          "objective_refs": [
+            "CS04-M09-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "CS04-M01-O01",
+      "to": "CS04-M01-O02",
+      "kind": "application",
+      "reason": "查找契约用于确定不变量需要推出的后置条件。",
+      "source_locator": "cornell-invariants",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：查找契约用于确定不变量需要推出的后置条件。 机制参见 cornell-invariants；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M01-O03",
+      "to": "CS04-M02-O01",
+      "kind": "application",
+      "reason": "基本代价模型用于建立分治递推。",
+      "source_locator": "mit-merge",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：基本代价模型用于建立分治递推。 机制参见 mit-merge；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M02-O01",
+      "to": "CS04-M02-O02",
+      "kind": "conceptual_association",
+      "reason": "分解规模与归并工作共同组成递推。",
+      "source_locator": "mit-merge",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：分解规模与归并工作共同组成递推。 机制参见 mit-merge；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M02-O01",
+      "to": "CS04-M02-O03",
+      "kind": "application",
+      "reason": "递推式用于层工作和递归树分析。",
+      "source_locator": "mit-merge",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：递推式用于层工作和递归树分析。 机制参见 mit-merge；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M01-O02",
+      "to": "CS04-M03-O02",
+      "kind": "conceptual_association",
+      "reason": "不变量和交换论证分别说明状态和选择正确性。",
+      "source_locator": "mit-greedy",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：不变量和交换论证分别说明状态和选择正确性。 机制参见 mit-greedy；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M03-O01",
+      "to": "CS04-M03-O02",
+      "kind": "application",
+      "reason": "最早结束的选择需要交换理由。",
+      "source_locator": "mit-greedy",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：最早结束的选择需要交换理由。 机制参见 mit-greedy；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M03-O03",
+      "to": "CS04-M04-O01",
+      "kind": "conceptual_association",
+      "reason": "局部策略失败后可用显式状态比较可行方案。",
+      "source_locator": "mit-dp",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：局部策略失败后可用显式状态比较可行方案。 机制参见 mit-dp；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M04-O01",
+      "to": "CS04-M04-O02",
+      "kind": "conceptual_association",
+      "reason": "状态含义决定不可达和边界初始化。",
+      "source_locator": "mit-dp",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：状态含义决定不可达和边界初始化。 机制参见 mit-dp；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M04-O02",
+      "to": "CS04-M04-O03",
+      "kind": "application",
+      "reason": "有效状态转移支持恢复实际方案。",
+      "source_locator": "mit-dp",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：有效状态转移支持恢复实际方案。 机制参见 mit-dp；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M05-O01",
+      "to": "CS04-M05-O02",
+      "kind": "application",
+      "reason": "状态空间分支通过选择、探索和撤销实现。",
+      "source_locator": "stanford-search",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：状态空间分支通过选择、探索和撤销实现。 机制参见 stanford-search；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M05-O02",
+      "to": "CS04-M05-O03",
+      "kind": "conceptual_association",
+      "reason": "完整搜索为验证剪枝不丢解提供小实例对照。",
+      "source_locator": "stanford-search",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：完整搜索为验证剪枝不丢解提供小实例对照。 机制参见 stanford-search；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M06-O01",
+      "to": "CS04-M09-O03",
+      "kind": "application",
+      "reason": "负权变化是算法前提失效的具体反例。",
+      "source_locator": "mit-paths",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：负权变化是算法前提失效的具体反例。 机制参见 mit-paths；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M03-O02",
+      "to": "CS04-M06-O02",
+      "kind": "conceptual_association",
+      "reason": "生成树安全选择同样需要理由，但不能照搬区间论证。",
+      "source_locator": "mit-mst",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：生成树安全选择同样需要理由，但不能照搬区间论证。 机制参见 mit-mst；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M06-O03",
+      "to": "CS04-M09-O02",
+      "kind": "conceptual_association",
+      "reason": "容量和守恒分别约束流与分配工件；不宣称任意分配都等于最大流。",
+      "source_locator": "mit-flow",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：容量和守恒分别约束流与分配工件；不宣称任意分配都等于最大流。 机制参见 mit-flow；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M07-O01",
+      "to": "CS04-M07-O02",
+      "kind": "conceptual_association",
+      "reason": "随机输入上的期望与操作序列摊还界是不同概念。",
+      "source_locator": "mit-amortized",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：随机输入上的期望与操作序列摊还界是不同概念。 机制参见 mit-amortized；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M07-O01",
+      "to": "CS04-M07-O03",
+      "kind": "application",
+      "reason": "实验需记录种子和生成器状态，但实验不代替期望证明。",
+      "source_locator": "python-random",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：实验需记录种子和生成器状态，但实验不代替期望证明。 机制参见 python-random；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M08-O01",
+      "to": "CS04-M08-O02",
+      "kind": "application",
+      "reason": "验证器用于检查归约后的证书与大小条件。",
+      "source_locator": "mit-np",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：验证器用于检查归约后的证书与大小条件。 机制参见 mit-np；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M08-O01",
+      "to": "CS04-M08-O03",
+      "kind": "application",
+      "reason": "近似值之前必须确认输出是可行覆盖。",
+      "source_locator": "mit-approx",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：近似值之前必须确认输出是可行覆盖。 机制参见 mit-approx；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M05-O01",
+      "to": "CS04-M09-O01",
+      "kind": "application",
+      "reason": "小状态空间枚举可反证分配器的局部选择。",
+      "source_locator": "stanford-search",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：小状态空间枚举可反证分配器的局部选择。 机制参见 stanford-search；专业审校不可用。"
+    },
+    {
+      "from": "CS04-M09-O01",
+      "to": "CS04-M09-O02",
+      "kind": "conceptual_association",
+      "reason": "优化目标与容量可行性需要分别核验。",
+      "source_locator": "stanford-search",
+      "course_version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：优化目标与容量可行性需要分别核验。 机制参见 stanford-search；专业审校不可用。"
+    }
+  ],
+  "activities": [
+    {
+      "id": "929a0563-7da1-5c0f-b84c-3dfec494c6cf",
+      "version_id": "88386121-e0c3-5f50-be17-2b888672fcc0",
+      "code": "CS04-M01-O01-CODE",
+      "version": "CS04-M01-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M01-O01"
+      ],
+      "kind": "code",
+      "title": "未命中的查找不能返回插入位置",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "约定输入已排序，返回命中下标，未命中为 -1。lower_bound 的插入位置与查找结果是不同契约，空表也可能返回位置零。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "cornell-invariants"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom bisect import bisect_left\na = [2, 4, 6] if n == 1 else []\nkey = 5\npos = bisect_left(a, key)\nanswer = pos\nprint(answer)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom bisect import bisect_left\na = [2, 4, 6] if n == 1 else []\nkey = 5\npos = bisect_left(a, key)\nanswer = pos if pos < len(a) and a[pos] == key else -1\nprint(answer)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "空数组不能解释为下标零命中",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom bisect import bisect_left\na = [2, 4, 6] if n == 1 else []\nkey = 5\npos = bisect_left(a, key)\nanswer = pos\nprint(answer)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom bisect import bisect_left\na = [2, 4, 6] if n == 1 else []\nkey = 5\npos = bisect_left(a, key)\nanswer = pos if pos < len(a) and a[pos] == key else -1\nprint(answer)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "35d0cd20-8de9-5f88-969d-2aeda9f1715e",
+      "version_id": "339555b1-288e-5027-970d-92c72ff13479",
+      "code": "CS04-M01-O02-CODE",
+      "version": "CS04-M01-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M01-O02"
+      ],
+      "kind": "code",
+      "title": "前缀和循环逐步检查状态不变量",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "这里在每次处理 a[i] 后检查累计值等于 a[0..i] 的和。真实反例可推翻错误状态，但有限断言通过不构成对所有输入的建立、保持、结束与终止证明。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "cornell-invariants"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\na = [2, 3, 4] if n == 1 else [2]\ntotal = 0\nchecks = []\nfor i in range(len(a)):\n    total += a[0]\n    checks.append(total == sum(a[:i + 1]))\nprint(checks)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\na = [2, 3, 4] if n == 1 else [2]\ntotal = 0\nchecks = []\nfor i in range(len(a)):\n    total += a[i]\n    checks.append(total == sum(a[:i + 1]))\nprint(checks)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单元素数组无法区分首项与当前项",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\na = [2, 3, 4] if n == 1 else [2]\ntotal = 0\nchecks = []\nfor i in range(len(a)):\n    total += a[0]\n    checks.append(total == sum(a[:i + 1]))\nprint(checks)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\na = [2, 3, 4] if n == 1 else [2]\ntotal = 0\nchecks = []\nfor i in range(len(a)):\n    total += a[i]\n    checks.append(total == sum(a[:i + 1]))\nprint(checks)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "f927cb98-1d9d-5e06-84eb-78b5da130813",
+      "version_id": "63676c3f-f330-5e8d-9c3e-f7ee080dd9bd",
+      "code": "CS04-M01-O03-CODE",
+      "version": "CS04-M01-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M01-O03"
+      ],
+      "kind": "code",
+      "title": "代价模型必须统计真正执行的基本操作",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "此例每一对索引执行一次比较，将这一比较作为基本代价。计数随规模变化可用于推导表达式；壁钟耗时和一个规模的计数都不是渐近界证明。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-merge"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize = 4 if n == 1 else 2\ncount = 0\nfor i in range(size):\n    count += 1\n    for j in range(size):\n        same = i == j\nprint(count)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize = 4 if n == 1 else 2\ncount = 0\nfor i in range(size):\n    for j in range(size):\n        count += 1\n        same = i == j\nprint(count)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "缩小规模后仍按同一比较模型计数",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize = 4 if n == 1 else 2\ncount = 0\nfor i in range(size):\n    count += 1\n    for j in range(size):\n        same = i == j\nprint(count)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize = 4 if n == 1 else 2\ncount = 0\nfor i in range(size):\n    for j in range(size):\n        count += 1\n        same = i == j\nprint(count)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e3d57543-3ad2-5af1-b881-551637ca0ef4",
+      "version_id": "8be83d61-bca5-542c-8399-154363982119",
+      "code": "CS04-M02-O01-CODE",
+      "version": "CS04-M02-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M02-O01"
+      ],
+      "kind": "code",
+      "title": "递推不能忽略奇数规模的另一半",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "约定 T(1)=1，分解规模为 floor(n/2) 与 ceil(n/2)，每层合并代价为 n。奇数规模的两支不等长，写成两倍左支会漏掉工作量。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-merge"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndef cost(size):\n    if size <= 1:\n        return 1\n    left = size // 2\n    return cost(left) + cost(left) + size\nprint(cost(3 if n == 1 else 4))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndef cost(size):\n    if size <= 1:\n        return 1\n    left = size // 2\n    return cost(left) + cost(size - left) + size\nprint(cost(3 if n == 1 else 4))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "偶数划分不能暴露两支规模差异",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndef cost(size):\n    if size <= 1:\n        return 1\n    left = size // 2\n    return cost(left) + cost(left) + size\nprint(cost(3 if n == 1 else 4))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndef cost(size):\n    if size <= 1:\n        return 1\n    left = size // 2\n    return cost(left) + cost(size - left) + size\nprint(cost(3 if n == 1 else 4))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e6a2c825-116f-50fd-914d-ce6ae1cbc3e3",
+      "version_id": "dc5c74d5-480b-558a-97aa-df28eda8b982",
+      "code": "CS04-M02-O02-CODE",
+      "version": "CS04-M02-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M02-O02"
+      ],
+      "kind": "code",
+      "title": "归并结束后保留未消耗的有序尾段",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "归并从两段的当前最小项选择，下标越界前停止主循环，然后保留剩余尾段。输出既须有序，也须保留输入多重集合，不允许悄悄少一个元素。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-merge"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nleft = [1, 4] if n == 1 else [1, 6]\nright = [2, 3, 5] if n == 1 else [2, 3]\ni = j = 0\nout = []\nwhile i < len(left) and j < len(right):\n    if left[i] <= right[j]:\n        out.append(left[i]); i += 1\n    else:\n        out.append(right[j]); j += 1\nout.extend(left[i:])\nprint(out)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nleft = [1, 4] if n == 1 else [1, 6]\nright = [2, 3, 5] if n == 1 else [2, 3]\ni = j = 0\nout = []\nwhile i < len(left) and j < len(right):\n    if left[i] <= right[j]:\n        out.append(left[i]); i += 1\n    else:\n        out.append(right[j]); j += 1\nout.extend(left[i:])\nout.extend(right[j:])\nprint(out)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "换为左段仍有剩余元素",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nleft = [1, 4] if n == 1 else [1, 6]\nright = [2, 3, 5] if n == 1 else [2, 3]\ni = j = 0\nout = []\nwhile i < len(left) and j < len(right):\n    if left[i] <= right[j]:\n        out.append(left[i]); i += 1\n    else:\n        out.append(right[j]); j += 1\nout.extend(left[i:])\nprint(out)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nleft = [1, 4] if n == 1 else [1, 6]\nright = [2, 3, 5] if n == 1 else [2, 3]\ni = j = 0\nout = []\nwhile i < len(left) and j < len(right):\n    if left[i] <= right[j]:\n        out.append(left[i]); i += 1\n    else:\n        out.append(right[j]); j += 1\nout.extend(left[i:])\nout.extend(right[j:])\nprint(out)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "0fa626d8-0b9a-57f7-840b-cf277e84455e",
+      "version_id": "56d22553-981a-5d21-8222-0cc2127f0ea6",
+      "code": "CS04-M02-O03-CODE",
+      "version": "CS04-M02-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M02-O03"
+      ],
+      "kind": "code",
+      "title": "递归树一层的总工作不是一单位",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "对二次幂规模，T(n)=2T(n/2)+n 的每个内部层总代价为 n，叶层合计为 n。这里分别累加层与叶的固定代价，通用替换法和主定理的前提另需论证。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-merge"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize = 4 if n == 1 else 8\nwidth = 1\ntotal = size\nwhile width < size:\n    total += 1\n    width *= 2\nprint(total)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize = 4 if n == 1 else 8\nwidth = 1\ntotal = size\nwhile width < size:\n    total += size\n    width *= 2\nprint(total)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "增加递归深度，核对每层总工作",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize = 4 if n == 1 else 8\nwidth = 1\ntotal = size\nwhile width < size:\n    total += 1\n    width *= 2\nprint(total)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize = 4 if n == 1 else 8\nwidth = 1\ntotal = size\nwhile width < size:\n    total += size\n    width *= 2\nprint(total)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "0627314c-a8c3-51d3-a243-c4fead7c1117",
+      "version_id": "6bb5e6d8-d805-5586-b2bc-052452f69532",
+      "code": "CS04-M03-O01-CODE",
+      "version": "CS04-M03-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M03-O01"
+      ],
+      "kind": "code",
+      "title": "区间数量最大化比较结束时间",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "此任务所有区间权重相同，允许前一区间结束时后一区间开始。最早结束的选择保留后续可用时间；最早开始可能占满时段。加权目标需要另选算法。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-greedy"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nintervals = [(0, 10), (1, 2), (2, 3), (3, 4)] if n == 1 else [(0, 1), (1, 2)]\nend = float('-inf')\nchosen = []\nfor start, finish in sorted(intervals, key=lambda x: x[0]):\n    if start >= end:\n        chosen.append((start, finish)); end = finish\nprint(len(chosen))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nintervals = [(0, 10), (1, 2), (2, 3), (3, 4)] if n == 1 else [(0, 1), (1, 2)]\nend = float('-inf')\nchosen = []\nfor start, finish in sorted(intervals, key=lambda x: x[1]):\n    if start >= end:\n        chosen.append((start, finish)); end = finish\nprint(len(chosen))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "兼容区间的起止顺序恰好一致",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nintervals = [(0, 10), (1, 2), (2, 3), (3, 4)] if n == 1 else [(0, 1), (1, 2)]\nend = float('-inf')\nchosen = []\nfor start, finish in sorted(intervals, key=lambda x: x[0]):\n    if start >= end:\n        chosen.append((start, finish)); end = finish\nprint(len(chosen))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nintervals = [(0, 10), (1, 2), (2, 3), (3, 4)] if n == 1 else [(0, 1), (1, 2)]\nend = float('-inf')\nchosen = []\nfor start, finish in sorted(intervals, key=lambda x: x[1]):\n    if start >= end:\n        chosen.append((start, finish)); end = finish\nprint(len(chosen))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "5e446e0f-b021-566e-9b2c-94ff3ac0f8a6",
+      "version_id": "ae7a0c34-5fcd-5ca4-8941-8d231908f028",
+      "code": "CS04-M03-O02-CODE",
+      "version": "CS04-M03-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M03-O02"
+      ],
+      "kind": "code",
+      "title": "交换后的首区间应检查结束约束",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "无权区间交换论证用不晚于旧首区间的结束时间保证后续仍兼容，而不是要求新首区间开始更早。这里只运行一次具体交换，通用归纳论证仍需独立复核。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-greedy"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nold = (0, 10)\nnew = (1, 2) if n == 1 else (0, 2)\nnext_interval = (10, 11)\ncompatible = new[0] <= old[0]\nprint(compatible)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nold = (0, 10)\nnew = (1, 2) if n == 1 else (0, 2)\nnext_interval = (10, 11)\ncompatible = new[1] <= old[1] and new[1] <= next_interval[0]\nprint(compatible)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "起点相同仍应检查结束时间",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nold = (0, 10)\nnew = (1, 2) if n == 1 else (0, 2)\nnext_interval = (10, 11)\ncompatible = new[0] <= old[0]\nprint(compatible)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nold = (0, 10)\nnew = (1, 2) if n == 1 else (0, 2)\nnext_interval = (10, 11)\ncompatible = new[1] <= old[1] and new[1] <= next_interval[0]\nprint(compatible)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1a01a92d-409e-5a88-86fc-07b07f2c1ad6",
+      "version_id": "fdb024a1-9747-59c0-ae25-104c6f387235",
+      "code": "CS04-M03-O03-CODE",
+      "version": "CS04-M03-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M03-O03"
+      ],
+      "kind": "code",
+      "title": "贪心找零需要反例而非直接标为最优",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "硬币 4、3、1 下，金额六的最大面值优先选择不是最少枚数。动态规划枚举各可能末硬币得到该小实例最优值；这一反例推翻的是通用贪心主张。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-mst"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncoins = [4, 3, 1]\namount = 6 if n == 1 else 4\nremaining = amount\ngreedy = 0\nfor coin in coins:\n    greedy += remaining // coin; remaining %= coin\ndp = [0] + [100] * amount\nfor value in range(1, amount + 1):\n    dp[value] = min(dp[value - coin] + 1 for coin in coins if coin <= value)\noptimal = greedy\nprint(f'greedy={greedy} optimal={optimal}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncoins = [4, 3, 1]\namount = 6 if n == 1 else 4\nremaining = amount\ngreedy = 0\nfor coin in coins:\n    greedy += remaining // coin; remaining %= coin\ndp = [0] + [100] * amount\nfor value in range(1, amount + 1):\n    dp[value] = min(dp[value - coin] + 1 for coin in coins if coin <= value)\noptimal = dp[amount]\nprint(f'greedy={greedy} optimal={optimal}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "贪心在另一个金额上碰巧最优",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncoins = [4, 3, 1]\namount = 6 if n == 1 else 4\nremaining = amount\ngreedy = 0\nfor coin in coins:\n    greedy += remaining // coin; remaining %= coin\ndp = [0] + [100] * amount\nfor value in range(1, amount + 1):\n    dp[value] = min(dp[value - coin] + 1 for coin in coins if coin <= value)\noptimal = greedy\nprint(f'greedy={greedy} optimal={optimal}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncoins = [4, 3, 1]\namount = 6 if n == 1 else 4\nremaining = amount\ngreedy = 0\nfor coin in coins:\n    greedy += remaining // coin; remaining %= coin\ndp = [0] + [100] * amount\nfor value in range(1, amount + 1):\n    dp[value] = min(dp[value - coin] + 1 for coin in coins if coin <= value)\noptimal = dp[amount]\nprint(f'greedy={greedy} optimal={optimal}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "3fc39e47-9ee9-5432-97d8-fab343a7ed2d",
+      "version_id": "218fcdae-d9de-5d33-a07b-4664861a0a7c",
+      "code": "CS04-M04-O01-CODE",
+      "version": "CS04-M04-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M04-O01"
+      ],
+      "kind": "code",
+      "title": "0/1 背包压缩状态不能重复使用当前物品",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "dp[c] 表示已处理物品在不超过容量 c 下的最大价值。压缩一维后，从高容量向低容量更新以读取上一物品阶段；向前更新会变成可重复取同件物品。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-dp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncapacity = 4 if n == 1 else 2\ndp = [0] * (capacity + 1)\nfor weight, value in [(2, 3)]:\n    for c in range(weight, capacity + 1):\n        dp[c] = max(dp[c], dp[c - weight] + value)\nprint(dp[capacity])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncapacity = 4 if n == 1 else 2\ndp = [0] * (capacity + 1)\nfor weight, value in [(2, 3)]:\n    for c in range(capacity, weight - 1, -1):\n        dp[c] = max(dp[c], dp[c - weight] + value)\nprint(dp[capacity])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "容量只能容纳一件时无法暴露重复使用",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncapacity = 4 if n == 1 else 2\ndp = [0] * (capacity + 1)\nfor weight, value in [(2, 3)]:\n    for c in range(weight, capacity + 1):\n        dp[c] = max(dp[c], dp[c - weight] + value)\nprint(dp[capacity])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncapacity = 4 if n == 1 else 2\ndp = [0] * (capacity + 1)\nfor weight, value in [(2, 3)]:\n    for c in range(capacity, weight - 1, -1):\n        dp[c] = max(dp[c], dp[c - weight] + value)\nprint(dp[capacity])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2159140f-4fbe-5c8a-8bea-6f8fc8bae024",
+      "version_id": "754df16e-d9cd-5df7-8dab-8b14671c20ad",
+      "code": "CS04-M04-O02-CODE",
+      "version": "CS04-M04-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M04-O02"
+      ],
+      "kind": "code",
+      "title": "恰好凑成金额的不可达状态不能当作零枚硬币",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "此任务要求恰好凑成目标，dp[0]=0，其余初始不可达。把不可达也初始化为零会虚构免费方案；可达性与目标值是不同事实。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-dp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\namount = 3 if n == 1 else 4\nINF = 100\ndp = [0] * (amount + 1)\ndp[0] = 0\nfor value in range(1, amount + 1):\n    if value >= 2:\n        dp[value] = min(dp[value], dp[value - 2] + 1)\nprint('unreachable' if dp[amount] >= INF else dp[amount])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\namount = 3 if n == 1 else 4\nINF = 100\ndp = [INF] * (amount + 1)\ndp[0] = 0\nfor value in range(1, amount + 1):\n    if value >= 2:\n        dp[value] = min(dp[value], dp[value - 2] + 1)\nprint('unreachable' if dp[amount] >= INF else dp[amount])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改为可达金额，区分边界与递推",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\namount = 3 if n == 1 else 4\nINF = 100\ndp = [0] * (amount + 1)\ndp[0] = 0\nfor value in range(1, amount + 1):\n    if value >= 2:\n        dp[value] = min(dp[value], dp[value - 2] + 1)\nprint('unreachable' if dp[amount] >= INF else dp[amount])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\namount = 3 if n == 1 else 4\nINF = 100\ndp = [INF] * (amount + 1)\ndp[0] = 0\nfor value in range(1, amount + 1):\n    if value >= 2:\n        dp[value] = min(dp[value], dp[value - 2] + 1)\nprint('unreachable' if dp[amount] >= INF else dp[amount])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "eb977035-91e0-5af0-be06-434700f866dc",
+      "version_id": "57d627f2-e2ad-5f03-ae46-1da1e5fab36f",
+      "code": "CS04-M04-O03-CODE",
+      "version": "CS04-M04-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M04-O03"
+      ],
+      "kind": "code",
+      "title": "恢复方案的物品编号与状态行号不同",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "dp 的第 i 行包含前 i 件物品，选择该行新物品时实际零基编号为 i-1。恢复方案还需核对重量、价值和物品不重复；单个最优值不包含这些证据。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-dp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nitems = [(2, 3), (3, 4)]\ncapacity = 3 if n == 1 else 2\ndp = [[0] * (capacity + 1) for _ in range(3)]\nfor i, (weight, value) in enumerate(items, 1):\n    for c in range(capacity + 1):\n        dp[i][c] = dp[i - 1][c]\n        if c >= weight:\n            dp[i][c] = max(dp[i][c], dp[i - 1][c - weight] + value)\nchosen = []; c = capacity\nfor i in range(2, 0, -1):\n    if dp[i][c] != dp[i - 1][c]:\n        chosen.append(i); c -= items[i - 1][0]\nprint(sorted(chosen))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nitems = [(2, 3), (3, 4)]\ncapacity = 3 if n == 1 else 2\ndp = [[0] * (capacity + 1) for _ in range(3)]\nfor i, (weight, value) in enumerate(items, 1):\n    for c in range(capacity + 1):\n        dp[i][c] = dp[i - 1][c]\n        if c >= weight:\n            dp[i][c] = max(dp[i][c], dp[i - 1][c - weight] + value)\nchosen = []; c = capacity\nfor i in range(2, 0, -1):\n    if dp[i][c] != dp[i - 1][c]:\n        chosen.append(i - 1); c -= items[i - 1][0]\nprint(sorted(chosen))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改为第一件物品最优",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nitems = [(2, 3), (3, 4)]\ncapacity = 3 if n == 1 else 2\ndp = [[0] * (capacity + 1) for _ in range(3)]\nfor i, (weight, value) in enumerate(items, 1):\n    for c in range(capacity + 1):\n        dp[i][c] = dp[i - 1][c]\n        if c >= weight:\n            dp[i][c] = max(dp[i][c], dp[i - 1][c - weight] + value)\nchosen = []; c = capacity\nfor i in range(2, 0, -1):\n    if dp[i][c] != dp[i - 1][c]:\n        chosen.append(i); c -= items[i - 1][0]\nprint(sorted(chosen))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nitems = [(2, 3), (3, 4)]\ncapacity = 3 if n == 1 else 2\ndp = [[0] * (capacity + 1) for _ in range(3)]\nfor i, (weight, value) in enumerate(items, 1):\n    for c in range(capacity + 1):\n        dp[i][c] = dp[i - 1][c]\n        if c >= weight:\n            dp[i][c] = max(dp[i][c], dp[i - 1][c - weight] + value)\nchosen = []; c = capacity\nfor i in range(2, 0, -1):\n    if dp[i][c] != dp[i - 1][c]:\n        chosen.append(i - 1); c -= items[i - 1][0]\nprint(sorted(chosen))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "d68e742f-e879-59cd-b3c0-e2bfdf1ad8c8",
+      "version_id": "536124e9-3dce-5f18-90d7-02f292921398",
+      "code": "CS04-M05-O01-CODE",
+      "version": "CS04-M05-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M05-O01"
+      ],
+      "kind": "code",
+      "title": "子集状态空间需要选择与不选择两支",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "每个元素可纳入或不纳入，两类分支合起来覆盖全部子集。枚举数量正确也不能独自证明每个子集唯一或满足约束，还须检查解集内容。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "stanford-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nitems = [1, 2] if n == 1 else []\nresults = []\ndef visit(i, chosen):\n    if i == len(items):\n        results.append(tuple(chosen)); return\n    visit(i + 1, chosen + [items[i]])\nvisit(0, [])\nprint(len(results))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nitems = [1, 2] if n == 1 else []\nresults = []\ndef visit(i, chosen):\n    if i == len(items):\n        results.append(tuple(chosen)); return\n    visit(i + 1, chosen + [items[i]])\n    visit(i + 1, chosen)\nvisit(0, [])\nprint(len(results))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "空集合也有一个子集",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nitems = [1, 2] if n == 1 else []\nresults = []\ndef visit(i, chosen):\n    if i == len(items):\n        results.append(tuple(chosen)); return\n    visit(i + 1, chosen + [items[i]])\nvisit(0, [])\nprint(len(results))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nitems = [1, 2] if n == 1 else []\nresults = []\ndef visit(i, chosen):\n    if i == len(items):\n        results.append(tuple(chosen)); return\n    visit(i + 1, chosen + [items[i]])\n    visit(i + 1, chosen)\nvisit(0, [])\nprint(len(results))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1f1fcb77-8fae-516e-aa80-0d33d764240d",
+      "version_id": "d9e77c1e-ebc1-5f45-bc28-d311fc7f0532",
+      "code": "CS04-M05-O02-CODE",
+      "version": "CS04-M05-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M05-O02"
+      ],
+      "kind": "code",
+      "title": "回溯返回后撤销共享路径修改",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "共享可变路径必须在探索返回后恢复，否则兄弟分支继承前一分支状态。另一种实现可传递独立副本，不需要相同的显式撤销；本例采用共享列表。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "stanford-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nlength = 2 if n == 1 else 1\npath = []; results = []\ndef visit(depth):\n    if depth == length:\n        results.append(tuple(path)); return\n    for digit in [0, 1]:\n        path.append(digit)\n        visit(depth + 1)\n        # missing undo\nvisit(0)\nprint(f'count={len(results)} valid={sum(len(x) == length for x in results)}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nlength = 2 if n == 1 else 1\npath = []; results = []\ndef visit(depth):\n    if depth == length:\n        results.append(tuple(path)); return\n    for digit in [0, 1]:\n        path.append(digit)\n        visit(depth + 1)\n        path.pop()\nvisit(0)\nprint(f'count={len(results)} valid={sum(len(x) == length for x in results)}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "缩短深度仍需要恢复兄弟分支状态",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nlength = 2 if n == 1 else 1\npath = []; results = []\ndef visit(depth):\n    if depth == length:\n        results.append(tuple(path)); return\n    for digit in [0, 1]:\n        path.append(digit)\n        visit(depth + 1)\n        # missing undo\nvisit(0)\nprint(f'count={len(results)} valid={sum(len(x) == length for x in results)}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nlength = 2 if n == 1 else 1\npath = []; results = []\ndef visit(depth):\n    if depth == length:\n        results.append(tuple(path)); return\n    for digit in [0, 1]:\n        path.append(digit)\n        visit(depth + 1)\n        path.pop()\nvisit(0)\nprint(f'count={len(results)} valid={sum(len(x) == length for x in results)}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "f93ea43c-25cc-57cf-bc26-f9b03de94b7d",
+      "version_id": "ff892c57-e0fa-5c94-99e9-fa955ccb80a9",
+      "code": "CS04-M05-O03-CODE",
+      "version": "CS04-M05-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M05-O03"
+      ],
+      "kind": "code",
+      "title": "非负子集和剪枝不能丢掉刚好满足的解",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "当前总和超过目标且剩余值非负时可以拒绝该支；恰好等于目标仍可能是合法解。若允许负数，超目标剪枝不再一般成立，必须重审前提。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "stanford-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nitems = [1, 2]\ntarget = 3 if n == 1 else 4\ndef count(i, total):\n    if total >= target:\n        return 0\n    if i == len(items):\n        return int(total == target)\n    return count(i + 1, total) + count(i + 1, total + items[i])\nprint(count(0, 0))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nitems = [1, 2]\ntarget = 3 if n == 1 else 4\ndef count(i, total):\n    if total > target:\n        return 0\n    if i == len(items):\n        return int(total == target)\n    return count(i + 1, total) + count(i + 1, total + items[i])\nprint(count(0, 0))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "目标无法到达时不应虚构解",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nitems = [1, 2]\ntarget = 3 if n == 1 else 4\ndef count(i, total):\n    if total >= target:\n        return 0\n    if i == len(items):\n        return int(total == target)\n    return count(i + 1, total) + count(i + 1, total + items[i])\nprint(count(0, 0))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nitems = [1, 2]\ntarget = 3 if n == 1 else 4\ndef count(i, total):\n    if total > target:\n        return 0\n    if i == len(items):\n        return int(total == target)\n    return count(i + 1, total) + count(i + 1, total + items[i])\nprint(count(0, 0))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "b57813a1-b459-5190-835a-cd1d37378bc6",
+      "version_id": "524b56ec-6a8e-59d2-b995-11055473be19",
+      "code": "CS04-M06-O01-CODE",
+      "version": "CS04-M06-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M06-O01"
+      ],
+      "kind": "code",
+      "title": "负权输入改变最短路算法前提",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "非负权 Dijkstra 在最小未确定距离上提交节点。存在负权时，该前提不成立；本例改用重复松弛的小型 Bellman-Ford。未覆盖负环检测和不可达输出约定。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-paths"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges = [(0, 1, 1), (0, 2, 2), (2, 1, -3 if n == 1 else 3)]\ndistance = [0, 1000, 1000]\nif False:\n    for _ in range(2):\n        for u, v, w in edges:\n            if distance[u] != 1000:\n                distance[v] = min(distance[v], distance[u] + w)\nelse:\n    used = set()\n    for _ in range(3):\n        u = min((x for x in range(3) if x not in used), key=lambda x: distance[x])\n        used.add(u)\n        for a, b, w in edges:\n            if a == u and b not in used:\n                distance[b] = min(distance[b], distance[a] + w)\nprint(distance[1])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges = [(0, 1, 1), (0, 2, 2), (2, 1, -3 if n == 1 else 3)]\ndistance = [0, 1000, 1000]\nif any(w < 0 for _, _, w in edges):\n    for _ in range(2):\n        for u, v, w in edges:\n            if distance[u] != 1000:\n                distance[v] = min(distance[v], distance[u] + w)\nelse:\n    used = set()\n    for _ in range(3):\n        u = min((x for x in range(3) if x not in used), key=lambda x: distance[x])\n        used.add(u)\n        for a, b, w in edges:\n            if a == u and b not in used:\n                distance[b] = min(distance[b], distance[a] + w)\nprint(distance[1])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改为非负边，原算法前提恢复",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges = [(0, 1, 1), (0, 2, 2), (2, 1, -3 if n == 1 else 3)]\ndistance = [0, 1000, 1000]\nif False:\n    for _ in range(2):\n        for u, v, w in edges:\n            if distance[u] != 1000:\n                distance[v] = min(distance[v], distance[u] + w)\nelse:\n    used = set()\n    for _ in range(3):\n        u = min((x for x in range(3) if x not in used), key=lambda x: distance[x])\n        used.add(u)\n        for a, b, w in edges:\n            if a == u and b not in used:\n                distance[b] = min(distance[b], distance[a] + w)\nprint(distance[1])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges = [(0, 1, 1), (0, 2, 2), (2, 1, -3 if n == 1 else 3)]\ndistance = [0, 1000, 1000]\nif any(w < 0 for _, _, w in edges):\n    for _ in range(2):\n        for u, v, w in edges:\n            if distance[u] != 1000:\n                distance[v] = min(distance[v], distance[u] + w)\nelse:\n    used = set()\n    for _ in range(3):\n        u = min((x for x in range(3) if x not in used), key=lambda x: distance[x])\n        used.add(u)\n        for a, b, w in edges:\n            if a == u and b not in used:\n                distance[b] = min(distance[b], distance[a] + w)\nprint(distance[1])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "b48f1e1e-e1e2-5d2e-bc48-232ae24e5634",
+      "version_id": "22b89b18-4a03-5213-a9ea-bde77e031ce5",
+      "code": "CS04-M06-O02-CODE",
+      "version": "CS04-M06-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M06-O02"
+      ],
+      "kind": "code",
+      "title": "最小生成树不能以廉价环代替连通性",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "Kruskal 按边权考虑边，仅在端点处于不同分量时合并。生成树覆盖全部顶点且无环；同权时允许多个最优树，本任务只观察总权重与连通性。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-mst"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges = [(1, 0, 1), (1, 1, 2), (1, 0, 2), (5, 2, 3)] if n == 1 else [(1, 0, 1), (1, 1, 2), (5, 2, 3)]\nparent = list(range(4))\ndef root(x):\n    while parent[x] != x:\n        x = parent[x]\n    return x\nchosen = []\nfor weight, u, v in sorted(edges):\n    if True:\n        parent[root(u)] = root(v); chosen.append(weight)\n        if len(chosen) == 3:\n            break\nprint(f'cost={sum(chosen)} connected={len({root(x) for x in range(4)}) == 1}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges = [(1, 0, 1), (1, 1, 2), (1, 0, 2), (5, 2, 3)] if n == 1 else [(1, 0, 1), (1, 1, 2), (5, 2, 3)]\nparent = list(range(4))\ndef root(x):\n    while parent[x] != x:\n        x = parent[x]\n    return x\nchosen = []\nfor weight, u, v in sorted(edges):\n    if root(u) != root(v):\n        parent[root(u)] = root(v); chosen.append(weight)\n        if len(chosen) == 3:\n            break\nprint(f'cost={sum(chosen)} connected={len({root(x) for x in range(4)}) == 1}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "没有候选环时仍需覆盖全部顶点",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges = [(1, 0, 1), (1, 1, 2), (1, 0, 2), (5, 2, 3)] if n == 1 else [(1, 0, 1), (1, 1, 2), (5, 2, 3)]\nparent = list(range(4))\ndef root(x):\n    while parent[x] != x:\n        x = parent[x]\n    return x\nchosen = []\nfor weight, u, v in sorted(edges):\n    if True:\n        parent[root(u)] = root(v); chosen.append(weight)\n        if len(chosen) == 3:\n            break\nprint(f'cost={sum(chosen)} connected={len({root(x) for x in range(4)}) == 1}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges = [(1, 0, 1), (1, 1, 2), (1, 0, 2), (5, 2, 3)] if n == 1 else [(1, 0, 1), (1, 1, 2), (5, 2, 3)]\nparent = list(range(4))\ndef root(x):\n    while parent[x] != x:\n        x = parent[x]\n    return x\nchosen = []\nfor weight, u, v in sorted(edges):\n    if root(u) != root(v):\n        parent[root(u)] = root(v); chosen.append(weight)\n        if len(chosen) == 3:\n            break\nprint(f'cost={sum(chosen)} connected={len({root(x) for x in range(4)}) == 1}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "51113e11-e9d7-5335-af61-61f72e27725b",
+      "version_id": "b3f95407-ff5b-5fdf-82ad-8cb3d6ec2342",
+      "code": "CS04-M06-O03-CODE",
+      "version": "CS04-M06-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M06-O03"
+      ],
+      "kind": "code",
+      "title": "增广必须增加反向残量而非形成负容量",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "沿给定路径增广时，正向残量减少，反向残量增加，以便以后撤销已有流。增广量不超过路径瓶颈；这里只核对一次已给路径更新，不是完整最大流求解。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-flow"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nresidual = [[0, 3, 0], [0, 0, 2], [0, 0, 0]]\ndelta = 2 if n == 1 else 0\nfor u, v in [(0, 1), (1, 2)]:\n    residual[u][v] -= delta\n    residual[v][u] -= delta\nprint(residual[0][1], residual[1][0])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nresidual = [[0, 3, 0], [0, 0, 2], [0, 0, 0]]\ndelta = 2 if n == 1 else 0\nfor u, v in [(0, 1), (1, 2)]:\n    residual[u][v] -= delta\n    residual[v][u] += delta\nprint(residual[0][1], residual[1][0])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "零增广不改变残量",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nresidual = [[0, 3, 0], [0, 0, 2], [0, 0, 0]]\ndelta = 2 if n == 1 else 0\nfor u, v in [(0, 1), (1, 2)]:\n    residual[u][v] -= delta\n    residual[v][u] -= delta\nprint(residual[0][1], residual[1][0])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nresidual = [[0, 3, 0], [0, 0, 2], [0, 0, 0]]\ndelta = 2 if n == 1 else 0\nfor u, v in [(0, 1), (1, 2)]:\n    residual[u][v] -= delta\n    residual[v][u] += delta\nprint(residual[0][1], residual[1][0])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "a8facafa-a03b-58a3-a30b-6a452e6c5dec",
+      "version_id": "6e55f035-0589-5a82-b0bd-0f6d769bfa54",
+      "code": "CS04-M07-O01-CODE",
+      "version": "CS04-M07-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M07-O01"
+      ],
+      "kind": "code",
+      "title": "均匀随机枢轴的期望不是最坏值",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "固定规模下枚举各等概率枢轴，并把较大划分的规模作为观察量。平均该观察量与最坏观察量是不同量；它们不是完整随机选择算法的耗时，也不构成期望线性证明。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-random"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize = 4 if n == 1 else 1\ncosts = [max(rank, size - rank - 1) for rank in range(size)]\nmean = float(max(costs))\nprint(f'mean={mean:.2f} worst={max(costs)}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize = 4 if n == 1 else 1\ncosts = [max(rank, size - rank - 1) for rank in range(size)]\nmean = sum(costs) / len(costs)\nprint(f'mean={mean:.2f} worst={max(costs)}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单元素规模期望和最坏恰好相同",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize = 4 if n == 1 else 1\ncosts = [max(rank, size - rank - 1) for rank in range(size)]\nmean = float(max(costs))\nprint(f'mean={mean:.2f} worst={max(costs)}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize = 4 if n == 1 else 1\ncosts = [max(rank, size - rank - 1) for rank in range(size)]\nmean = sum(costs) / len(costs)\nprint(f'mean={mean:.2f} worst={max(costs)}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "0cf3f584-7e47-5c91-b9c0-72c925a992aa",
+      "version_id": "98d7ac9b-a451-5424-9581-b9624937e490",
+      "code": "CS04-M07-O02-CODE",
+      "version": "CS04-M07-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M07-O02"
+      ],
+      "kind": "code",
+      "title": "动态数组扩容的复制计入总成本",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "初始容量一，每满一次翻倍。计每次写入与扩容复制的已有元素，整个序列的总成本才是摊还分析工件；最昂贵一次追加和序列平均代价不能混为一谈。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-amortized"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\noperations = 5 if n == 1 else 1\nsize = 0; capacity = 1; total = 0\nfor _ in range(operations):\n    if size == capacity:\n        total += 0\n        capacity *= 2\n    size += 1; total += 1\nprint(total)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\noperations = 5 if n == 1 else 1\nsize = 0; capacity = 1; total = 0\nfor _ in range(operations):\n    if size == capacity:\n        total += size\n        capacity *= 2\n    size += 1; total += 1\nprint(total)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "尚未扩容的一次追加只计写入",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\noperations = 5 if n == 1 else 1\nsize = 0; capacity = 1; total = 0\nfor _ in range(operations):\n    if size == capacity:\n        total += 0\n        capacity *= 2\n    size += 1; total += 1\nprint(total)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\noperations = 5 if n == 1 else 1\nsize = 0; capacity = 1; total = 0\nfor _ in range(operations):\n    if size == capacity:\n        total += size\n        capacity *= 2\n    size += 1; total += 1\nprint(total)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c909da25-1578-568f-9718-d98514eee181",
+      "version_id": "8f55ee2b-cfa8-5156-a930-0e05fdce6fc7",
+      "code": "CS04-M07-O03-CODE",
+      "version": "CS04-M07-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M07-O03"
+      ],
+      "kind": "code",
+      "title": "可复现实验不能每次采样重新播同一 seed",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "在记录 seed 的同一个生成器上推进状态可复现完整序列。每次重建同 seed 生成器只重复首样本。此任务固定三个样本的不同值数量仅用于检错，不评价随机质量或证明概率界。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "python-random"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom random import Random\nseed = n\nrng = Random(seed)\nvalues = [Random(seed).randrange(100) for _ in range(3)]\nprint(len(set(values)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom random import Random\nseed = n\nrng = Random(seed)\nvalues = [rng.randrange(100) for _ in range(3)]\nprint(len(set(values)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "换 seed 后仍须推进同一个生成器状态",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom random import Random\nseed = n\nrng = Random(seed)\nvalues = [Random(seed).randrange(100) for _ in range(3)]\nprint(len(set(values)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom random import Random\nseed = n\nrng = Random(seed)\nvalues = [rng.randrange(100) for _ in range(3)]\nprint(len(set(values)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "a9c6ddc0-5ae4-5158-9ee2-e3bc23c2879a",
+      "version_id": "6efdc5fd-35f6-5c81-8081-26085ad94bb1",
+      "code": "CS04-M08-O01-CODE",
+      "version": "CS04-M08-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M08-O01"
+      ],
+      "kind": "code",
+      "title": "顶点覆盖证书要求每条边被覆盖",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "给定候选集合时检查所有边至少一个端点在集合中；找到一条被覆盖的边不足以接受证书。验证给定证书与寻找最小证书是不同问题。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-np"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges = [(0, 1), (1, 2)]\ncover = {0} if n == 1 else {1}\nvalid = any(u in cover or v in cover for u, v in edges)\nprint(valid)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges = [(0, 1), (1, 2)]\ncover = {0} if n == 1 else {1}\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(valid)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "同时覆盖两条边的证书",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges = [(0, 1), (1, 2)]\ncover = {0} if n == 1 else {1}\nvalid = any(u in cover or v in cover for u, v in edges)\nprint(valid)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges = [(0, 1), (1, 2)]\ncover = {0} if n == 1 else {1}\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(valid)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "00ef7d5b-efc0-5916-a5a2-634bd2eeb758",
+      "version_id": "81823823-768a-58ab-b260-65cf1595c7ed",
+      "code": "CS04-M08-O02-CODE",
+      "version": "CS04-M08-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M08-O02"
+      ],
+      "kind": "code",
+      "title": "独立集到顶点覆盖使用补集",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "无向图中集合 S 独立，当且仅当 V\\S 覆盖全部边。对应的决策大小界也要取补。具体小图可检验映射，但一般等价与多项式归约方向仍需论证。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "cmu-complement"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvertices = {0, 1, 2}\nedges = [(0, 1), (1, 2), (0, 2)] if n == 1 else [(0, 1)]\nindependent = {0}\ncover = independent\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(valid, len(cover))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvertices = {0, 1, 2}\nedges = [(0, 1), (1, 2), (0, 2)] if n == 1 else [(0, 1)]\nindependent = {0}\ncover = vertices - independent\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(valid, len(cover))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "只有一条边的图，映射仍使用全部顶点补集",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvertices = {0, 1, 2}\nedges = [(0, 1), (1, 2), (0, 2)] if n == 1 else [(0, 1)]\nindependent = {0}\ncover = independent\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(valid, len(cover))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvertices = {0, 1, 2}\nedges = [(0, 1), (1, 2), (0, 2)] if n == 1 else [(0, 1)]\nindependent = {0}\ncover = vertices - independent\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(valid, len(cover))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1b9f8b1b-48ce-5b6d-ac2d-bf7a2816f15d",
+      "version_id": "295319d3-b2bb-58da-adfa-c14b876bdb16",
+      "code": "CS04-M08-O03-CODE",
+      "version": "CS04-M08-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M08-O03"
+      ],
+      "kind": "code",
+      "title": "匹配式覆盖取被选边的两个端点",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "每次取一条剩余边并删除所有与其端点相接的边，两端点都加入覆盖。所取边构成匹配，任何覆盖至少取每条匹配边一个端点，给出二倍界。这里核对有限实例的可行性与界，不把其他启发式也称为二近似。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-approx"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom itertools import combinations\nedges = [(0, 1), (1, 2), (1, 3)] if n == 1 else [(0, 1)]\nvertices = {x for edge in edges for x in edge}\nremaining = list(edges); cover = set()\nwhile remaining:\n    u, v = remaining[0]\n    cover.update([u])\n    remaining = [(a, b) for a, b in remaining if a not in {u, v} and b not in {u, v}]\noptimal = min(len(s) for size in range(len(vertices) + 1) for s in combinations(sorted(vertices), size) if all(u in s or v in s for u, v in edges))\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(f'valid={valid} within_bound={len(cover) <= 2 * optimal}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom itertools import combinations\nedges = [(0, 1), (1, 2), (1, 3)] if n == 1 else [(0, 1)]\nvertices = {x for edge in edges for x in edge}\nremaining = list(edges); cover = set()\nwhile remaining:\n    u, v = remaining[0]\n    cover.update([u, v])\n    remaining = [(a, b) for a, b in remaining if a not in {u, v} and b not in {u, v}]\noptimal = min(len(s) for size in range(len(vertices) + 1) for s in combinations(sorted(vertices), size) if all(u in s or v in s for u, v in edges))\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(f'valid={valid} within_bound={len(cover) <= 2 * optimal}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单边图中较小覆盖也可行，必须区分构造契约",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom itertools import combinations\nedges = [(0, 1), (1, 2), (1, 3)] if n == 1 else [(0, 1)]\nvertices = {x for edge in edges for x in edge}\nremaining = list(edges); cover = set()\nwhile remaining:\n    u, v = remaining[0]\n    cover.update([u])\n    remaining = [(a, b) for a, b in remaining if a not in {u, v} and b not in {u, v}]\noptimal = min(len(s) for size in range(len(vertices) + 1) for s in combinations(sorted(vertices), size) if all(u in s or v in s for u, v in edges))\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(f'valid={valid} within_bound={len(cover) <= 2 * optimal}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom itertools import combinations\nedges = [(0, 1), (1, 2), (1, 3)] if n == 1 else [(0, 1)]\nvertices = {x for edge in edges for x in edge}\nremaining = list(edges); cover = set()\nwhile remaining:\n    u, v = remaining[0]\n    cover.update([u, v])\n    remaining = [(a, b) for a, b in remaining if a not in {u, v} and b not in {u, v}]\noptimal = min(len(s) for size in range(len(vertices) + 1) for s in combinations(sorted(vertices), size) if all(u in s or v in s for u, v in edges))\nvalid = all(u in cover or v in cover for u, v in edges)\nprint(f'valid={valid} within_bound={len(cover) <= 2 * optimal}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c4a79bac-c5a9-5eff-a4f8-95848385ad37",
+      "version_id": "87062b09-5451-5c11-b2fe-89619ad6d0e7",
+      "code": "CS04-M09-O01-CODE",
+      "version": "CS04-M09-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M09-O01"
+      ],
+      "kind": "code",
+      "title": "逐任务最便宜分配可能堵住后续任务",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "两名执行者每人至多一项任务，任务成本依赖执行者。逐项选最便宜可能把稀缺执行者耗尽。本例枚举全部两任务排列验证最优成本，不能据此称大规模优化器已完成。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "stanford-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom itertools import permutations\ncosts = [[1, 2], [2, 100]] if n == 1 else [[1, 2], [100, 2]]\navailable = {0, 1}; greedy = 0\nfor row in costs:\n    worker = min(available, key=lambda x: row[x]); greedy += row[worker]; available.remove(worker)\nanswer = greedy\nprint(answer)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom itertools import permutations\ncosts = [[1, 2], [2, 100]] if n == 1 else [[1, 2], [100, 2]]\navailable = {0, 1}; greedy = 0\nfor row in costs:\n    worker = min(available, key=lambda x: row[x]); greedy += row[worker]; available.remove(worker)\nanswer = min(sum(costs[job][worker] for job, worker in enumerate(p)) for p in permutations(range(2)))\nprint(answer)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "局部选择在另一个成本表上恰好最优",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom itertools import permutations\ncosts = [[1, 2], [2, 100]] if n == 1 else [[1, 2], [100, 2]]\navailable = {0, 1}; greedy = 0\nfor row in costs:\n    worker = min(available, key=lambda x: row[x]); greedy += row[worker]; available.remove(worker)\nanswer = greedy\nprint(answer)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom itertools import permutations\ncosts = [[1, 2], [2, 100]] if n == 1 else [[1, 2], [100, 2]]\navailable = {0, 1}; greedy = 0\nfor row in costs:\n    worker = min(available, key=lambda x: row[x]); greedy += row[worker]; available.remove(worker)\nanswer = min(sum(costs[job][worker] for job, worker in enumerate(p)) for p in permutations(range(2)))\nprint(answer)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "d148d892-76cb-5c73-8c67-8d553f0c827b",
+      "version_id": "74b98e34-0329-5f1b-89a1-8d98433b47d8",
+      "code": "CS04-M09-O02-CODE",
+      "version": "CS04-M09-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M09-O02"
+      ],
+      "kind": "code",
+      "title": "资源约束由各执行者容量定义",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "每任务分配恰一次，但执行者可能允许多任务。不能把分配完全不重复当作通用容量条件；应逐执行者计数并比较其上限。这里只验证已给方案，不证明优化或资源复杂度。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "stanford-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nassignment = [0, 1, 1] if n == 1 else [0, 0, 1]\ncapacity = [1, 2]\nvalid = len(set(assignment)) == len(assignment)\nprint(valid)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nassignment = [0, 1, 1] if n == 1 else [0, 0, 1]\ncapacity = [1, 2]\nvalid = all(assignment.count(worker) <= limit for worker, limit in enumerate(capacity))\nprint(valid)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "超出第一名执行者容量应拒绝",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nassignment = [0, 1, 1] if n == 1 else [0, 0, 1]\ncapacity = [1, 2]\nvalid = len(set(assignment)) == len(assignment)\nprint(valid)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nassignment = [0, 1, 1] if n == 1 else [0, 0, 1]\ncapacity = [1, 2]\nvalid = all(assignment.count(worker) <= limit for worker, limit in enumerate(capacity))\nprint(valid)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2f4c81f0-e665-55a3-8c4a-cb584ebeebfa",
+      "version_id": "3ef93085-856d-56a8-a97b-1f2f73bff023",
+      "code": "CS04-M09-O03-CODE",
+      "version": "CS04-M09-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS04-M09-O03"
+      ],
+      "kind": "code",
+      "title": "期限约束变化后不能直接选原最低成本方案",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "新增期限时，先过滤不可行方案，再比较可行成本。原算法的成本最优不代表满足新约束；无可行方案时需明确拒绝，不能借改目标掩盖失败。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "stanford-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nplans = [(1, 5), (3, 2)]\ndeadline = 3 if n == 1 else 6\nchosen = min(plans)\nprint(f'cost={chosen[0]} feasible={chosen[1] <= deadline}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nplans = [(1, 5), (3, 2)]\ndeadline = 3 if n == 1 else 6\nchosen = min(p for p in plans if p[1] <= deadline)\nprint(f'cost={chosen[0]} feasible={chosen[1] <= deadline}')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "放宽期限后原低成本方案重新可行",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nplans = [(1, 5), (3, 2)]\ndeadline = 3 if n == 1 else 6\nchosen = min(plans)\nprint(f'cost={chosen[0]} feasible={chosen[1] <= deadline}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nplans = [(1, 5), (3, 2)]\ndeadline = 3 if n == 1 else 6\nchosen = min(p for p in plans if p[1] <= deadline)\nprint(f'cost={chosen[0]} feasible={chosen[1] <= deadline}')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "odu-knapsack",
+      "title": "Old Dominion CS361 Knapsack",
+      "url": "https://www.cs.odu.edu/~zeil/cs361/f25-web/Public/knapsack/index.html",
+      "locator": "0/1 include/exclude state and capacity contract; descending compression is our dependency derivation",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "cmu-complement",
+      "title": "CMU 15-451 NP Completeness",
+      "url": "https://www.cs.cmu.edu/~avrim/451f13/lectures/lect1031.pdf",
+      "locator": "section 4 independent set and vertex cover complement",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "cornell-invariants",
+      "title": "Cornell CS2112 Loop Invariants",
+      "url": "https://www.cs.cornell.edu/courses/cs2112/2015fa/lectures/lec_loopinv/",
+      "locator": "establishment, preservation, postcondition, termination",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-merge",
+      "title": "MIT 6.006 Sorting",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/6d1ae5278d02bbecb5c4428928b24194_MIT6_006S20_lec3.pdf",
+      "locator": "merge and recurrence",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-greedy",
+      "title": "MIT 6.046 Interval Scheduling",
+      "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2012/7f4951b37f95a0046b215c6abec3af59_MIT6_046JS12_lec02.pdf",
+      "locator": "2.2 unweighted interval scheduling and exchange",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-dp",
+      "title": "MIT 6.006 Recursive Algorithms",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/9eb3e9a51a7b5b60b0f67c2277f8b0ee_MIT6_006S20_lec15.pdf",
+      "locator": "subproblems, relation, base, original problem, time",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "stanford-search",
+      "title": "Stanford CS106B Recursive Backtracking",
+      "url": "https://web.stanford.edu/class/archive/cs/cs106b/cs106b.1262/lectures/11-backtracking1/",
+      "locator": "subsets and choose/explore/unchoose",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-paths",
+      "title": "MIT 6.006 Dijkstra",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/d819e7f4568aced8d5b59e03db6c7b67_MIT6_006S20_lec13.pdf",
+      "locator": "nonnegative weights and algorithm restrictions",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-mst",
+      "title": "MIT 6.046 Minimum Spanning Trees",
+      "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2012/6baf48ebe3babed294c31a907a916e08_MIT6_046JS12_lec03.pdf",
+      "locator": "3.1 trees and connectivity; greedy counterexamples",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-flow",
+      "title": "MIT 6.046 Network Flow",
+      "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2012/7c2927794e61bd70c14c07728fa54375_MIT6_046JS12_lec13.pdf",
+      "locator": "13.1 capacity, conservation and residual augmenting paths",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-amortized",
+      "title": "MIT 6.046 Amortized Analysis",
+      "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2012/83b82d45beb3776da72b7f3e1b3f42df_MIT6_046JS12_lec11.pdf",
+      "locator": "11.1 aggregate; 11.3 potential",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-random",
+      "title": "MIT 6.046 Randomized Algorithms",
+      "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2012/cc13d40706471ea882c39f315861ce64_MIT6_046JS12_lec08.pdf",
+      "locator": "8.1 expected cost and random selection",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "python-random",
+      "title": "Python3.13 Random",
+      "url": "https://docs.python.org/3.13/library/random.html",
+      "locator": "Random, seed and reproducibility",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-np",
+      "title": "MIT 6.046 Complexity and NP",
+      "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2012/b4562881f2af637e09e806450e9b62c8_MIT6_046JS12_lec17.pdf",
+      "locator": "17.2 certificates and polynomial reductions",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-approx",
+      "title": "MIT 6.046 Polynomial-Time Approximations",
+      "url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2012/aeeb7d25b6b22cb4bfa76671d69a0324_MIT6_046JS12_lec18.pdf",
+      "locator": "18.1 vertex cover via both endpoints of matching",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ]
+}

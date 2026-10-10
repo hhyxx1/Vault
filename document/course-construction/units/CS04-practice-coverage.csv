@@ -1,0 +1,28 @@
+﻿goal,activity,conditions,proof_and_transfer,review
+CS04-M01-O01,未命中的查找不能返回插入位置,2,needs_review,unavailable
+CS04-M01-O02,前缀和循环逐步检查状态不变量,2,needs_review,unavailable
+CS04-M01-O03,代价模型必须统计真正执行的基本操作,2,needs_review,unavailable
+CS04-M02-O01,递推不能忽略奇数规模的另一半,2,needs_review,unavailable
+CS04-M02-O02,归并结束后保留未消耗的有序尾段,2,needs_review,unavailable
+CS04-M02-O03,递归树一层的总工作不是一单位,2,needs_review,unavailable
+CS04-M03-O01,区间数量最大化比较结束时间,2,needs_review,unavailable
+CS04-M03-O02,交换后的首区间应检查结束约束,2,needs_review,unavailable
+CS04-M03-O03,贪心找零需要反例而非直接标为最优,2,needs_review,unavailable
+CS04-M04-O01,0/1 背包压缩状态不能重复使用当前物品,2,needs_review,unavailable
+CS04-M04-O02,恰好凑成金额的不可达状态不能当作零枚硬币,2,needs_review,unavailable
+CS04-M04-O03,恢复方案的物品编号与状态行号不同,2,needs_review,unavailable
+CS04-M05-O01,子集状态空间需要选择与不选择两支,2,needs_review,unavailable
+CS04-M05-O02,回溯返回后撤销共享路径修改,2,needs_review,unavailable
+CS04-M05-O03,非负子集和剪枝不能丢掉刚好满足的解,2,needs_review,unavailable
+CS04-M06-O01,负权输入改变最短路算法前提,2,needs_review,unavailable
+CS04-M06-O02,最小生成树不能以廉价环代替连通性,2,needs_review,unavailable
+CS04-M06-O03,增广必须增加反向残量而非形成负容量,2,needs_review,unavailable
+CS04-M07-O01,均匀随机枢轴的期望不是最坏值,2,needs_review,unavailable
+CS04-M07-O02,动态数组扩容的复制计入总成本,2,needs_review,unavailable
+CS04-M07-O03,可复现实验不能每次采样重新播同一 seed,2,needs_review,unavailable
+CS04-M08-O01,顶点覆盖证书要求每条边被覆盖,2,needs_review,unavailable
+CS04-M08-O02,独立集到顶点覆盖使用补集,2,needs_review,unavailable
+CS04-M08-O03,匹配式覆盖取被选边的两个端点,2,needs_review,unavailable
+CS04-M09-O01,逐任务最便宜分配可能堵住后续任务,2,needs_review,unavailable
+CS04-M09-O02,资源约束由各执行者容量定义,2,needs_review,unavailable
+CS04-M09-O03,期限约束变化后不能直接选原最低成本方案,2,needs_review,unavailable

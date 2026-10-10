@@ -31,9 +31,9 @@
       "id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
       "code": "CS04",
       "title": "算法设计与分析",
-      "version_id": "0c798f2f-4f10-5892-9b5d-c0caa97282f4",
-      "version": "CS04-core-scope-0.1.0",
-      "package_path": "CS04/CS04-core-scope-0.1.0/manifest.json",
+      "version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "version": "CS04-core-practice-0.1.0",
+      "package_path": "CS04/CS04-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -225,6 +225,15 @@
       "version_id": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
       "version": "CS03-core-practice-0.1.0",
       "package_path": "CS03/CS03-core-practice-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
+      "code": "CS04",
+      "title": "算法设计与分析",
+      "version_id": "0c798f2f-4f10-5892-9b5d-c0caa97282f4",
+      "version": "CS04-core-scope-0.1.0",
+      "package_path": "CS04/CS04-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]
