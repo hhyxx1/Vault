@@ -31,9 +31,9 @@
       "id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
       "code": "CS04",
       "title": "算法设计与分析",
-      "version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
-      "version": "CS04-core-practice-0.1.0",
-      "package_path": "CS04/CS04-core-practice-0.1.0/manifest.json",
+      "version_id": "4da3eccc-00df-539f-a517-870ea7d57c51",
+      "version": "CS04-core-practice-0.2.0",
+      "package_path": "CS04/CS04-core-practice-0.2.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -49,9 +49,9 @@
       "id": "bb42adbc-30f6-4548-8de7-6819e9e6b6b1",
       "code": "CS06",
       "title": "计算机组成原理",
-      "version_id": "e705e65d-61f5-5475-92a3-6c9ad7672898",
-      "version": "CS06-core-practice-0.1.0",
-      "package_path": "CS06/CS06-core-practice-0.1.0/manifest.json",
+      "version_id": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+      "version": "CS06-core-practice-0.2.0",
+      "package_path": "CS06/CS06-core-practice-0.2.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -369,6 +369,24 @@
       "version_id": "f31e16d2-b541-5bb3-95ae-dcdf4bbf8414",
       "version": "CS13-core-practice-0.2.0",
       "package_path": "CS13/CS13-core-practice-0.2.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
+      "code": "CS04",
+      "title": "算法设计与分析",
+      "version_id": "b28228f9-8393-5ef8-a6df-bece066e487b",
+      "version": "CS04-core-practice-0.1.0",
+      "package_path": "CS04/CS04-core-practice-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "bb42adbc-30f6-4548-8de7-6819e9e6b6b1",
+      "code": "CS06",
+      "title": "计算机组成原理",
+      "version_id": "e705e65d-61f5-5475-92a3-6c9ad7672898",
+      "version": "CS06-core-practice-0.1.0",
+      "package_path": "CS06/CS06-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]

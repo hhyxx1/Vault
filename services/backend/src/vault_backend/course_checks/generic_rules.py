@@ -2360,6 +2360,438 @@ GENERIC_RULES = {'01e157b8-021c-53ca-b743-39af3957c3b1': {('CS12-M01-O01', 'base
                                                                                       '[false, '
                                                                                       'true]}\n',
                                                                                       '')},
+ '4da3eccc-00df-539f-a517-870ea7d57c51': {('CS04-M01-O01', 'base'): ('88386121-e0c3-5f50-be17-2b888672fcc0',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '-1\n',
+                                                                     ''),
+                                          ('CS04-M01-O01', 'changed-condition'): ('88386121-e0c3-5f50-be17-2b888672fcc0',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '-1\n',
+                                                                                  ''),
+                                          ('CS04-M01-O02', 'base'): ('339555b1-288e-5027-970d-92c72ff13479',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[True, True, True]\n',
+                                                                     ''),
+                                          ('CS04-M01-O02', 'changed-condition'): ('339555b1-288e-5027-970d-92c72ff13479',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[True]\n',
+                                                                                  ''),
+                                          ('CS04-M01-O03', 'base'): ('63676c3f-f330-5e8d-9c3e-f7ee080dd9bd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '16\n',
+                                                                     ''),
+                                          ('CS04-M01-O03', 'changed-condition'): ('63676c3f-f330-5e8d-9c3e-f7ee080dd9bd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS04-M02-O01', 'base'): ('8be83d61-bca5-542c-8399-154363982119',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '8\n',
+                                                                     ''),
+                                          ('CS04-M02-O01', 'changed-condition'): ('8be83d61-bca5-542c-8399-154363982119',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '12\n',
+                                                                                  ''),
+                                          ('CS04-M02-O02', 'base'): ('dc5c74d5-480b-558a-97aa-df28eda8b982',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[1, 2, 3, 4, 5]\n',
+                                                                     ''),
+                                          ('CS04-M02-O02', 'changed-condition'): ('dc5c74d5-480b-558a-97aa-df28eda8b982',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[1, 2, 3, '
+                                                                                  '6]\n',
+                                                                                  ''),
+                                          ('CS04-M02-O03', 'base'): ('56d22553-981a-5d21-8222-0cc2127f0ea6',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '12\n',
+                                                                     ''),
+                                          ('CS04-M02-O03', 'changed-condition'): ('56d22553-981a-5d21-8222-0cc2127f0ea6',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '32\n',
+                                                                                  ''),
+                                          ('CS04-M03-O01', 'base'): ('6bb5e6d8-d805-5586-b2bc-052452f69532',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS04-M03-O01', 'changed-condition'): ('6bb5e6d8-d805-5586-b2bc-052452f69532',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS04-M03-O02', 'base'): ('ae7a0c34-5fcd-5ca4-8941-8d231908f028',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS04-M03-O02', 'changed-condition'): ('ae7a0c34-5fcd-5ca4-8941-8d231908f028',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS04-M03-O03', 'base'): ('fdb024a1-9747-59c0-ae25-104c6f387235',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'greedy=3 optimal=2\n',
+                                                                     ''),
+                                          ('CS04-M03-O03', 'changed-condition'): ('fdb024a1-9747-59c0-ae25-104c6f387235',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'greedy=1 '
+                                                                                  'optimal=1\n',
+                                                                                  ''),
+                                          ('CS04-M04-O01', 'base'): ('218fcdae-d9de-5d33-a07b-4664861a0a7c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS04-M04-O01', 'changed-condition'): ('218fcdae-d9de-5d33-a07b-4664861a0a7c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS04-M04-O02', 'base'): ('754df16e-d9cd-5df7-8dab-8b14671c20ad',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unreachable\n',
+                                                                     ''),
+                                          ('CS04-M04-O02', 'changed-condition'): ('754df16e-d9cd-5df7-8dab-8b14671c20ad',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS04-M04-O03', 'base'): ('57d627f2-e2ad-5f03-ae46-1da1e5fab36f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '[1]\n',
+                                                                     ''),
+                                          ('CS04-M04-O03', 'changed-condition'): ('57d627f2-e2ad-5f03-ae46-1da1e5fab36f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '[0]\n',
+                                                                                  ''),
+                                          ('CS04-M05-O01', 'base'): ('536124e9-3dce-5f18-90d7-02f292921398',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS04-M05-O01', 'changed-condition'): ('536124e9-3dce-5f18-90d7-02f292921398',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS04-M05-O02', 'base'): ('d9e77c1e-ebc1-5f45-bc28-d311fc7f0532',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'count=4 valid=4\n',
+                                                                     ''),
+                                          ('CS04-M05-O02', 'changed-condition'): ('d9e77c1e-ebc1-5f45-bc28-d311fc7f0532',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'count=2 '
+                                                                                  'valid=2\n',
+                                                                                  ''),
+                                          ('CS04-M05-O03', 'base'): ('ff892c57-e0fa-5c94-99e9-fa955ccb80a9',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS04-M05-O03', 'changed-condition'): ('ff892c57-e0fa-5c94-99e9-fa955ccb80a9',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS04-M06-O01', 'base'): ('524b56ec-6a8e-59d2-b995-11055473be19',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '-1\n',
+                                                                     ''),
+                                          ('CS04-M06-O01', 'changed-condition'): ('524b56ec-6a8e-59d2-b995-11055473be19',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS04-M06-O02', 'base'): ('22b89b18-4a03-5213-a9ea-bde77e031ce5',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'cost=7 connected=True\n',
+                                                                     ''),
+                                          ('CS04-M06-O02', 'changed-condition'): ('22b89b18-4a03-5213-a9ea-bde77e031ce5',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'cost=7 '
+                                                                                  'connected=True\n',
+                                                                                  ''),
+                                          ('CS04-M06-O03', 'base'): ('8b4e60e1-9327-55d0-ad02-a3f9412cbef2',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1 2\n',
+                                                                     ''),
+                                          ('CS04-M06-O03', 'changed-condition'): ('8b4e60e1-9327-55d0-ad02-a3f9412cbef2',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3 0\n',
+                                                                                  ''),
+                                          ('CS04-M06-O03', 'flow-bottleneck'): ('8b4e60e1-9327-55d0-ad02-a3f9412cbef2',
+                                                                                '{"edges": '
+                                                                                '[[0, 1, 3], '
+                                                                                '[0, 2, 1], '
+                                                                                '[1, 3, 2], '
+                                                                                '[1, 4, 1], '
+                                                                                '[2, 3, 1], '
+                                                                                '[3, 5, 2], '
+                                                                                '[4, 5, 1]], '
+                                                                                '"nodes": 6, '
+                                                                                '"sink": 5, '
+                                                                                '"source": '
+                                                                                '0}\n',
+                                                                                'success',
+                                                                                '{"augmentations": '
+                                                                                '[{"amount": '
+                                                                                '2, '
+                                                                                '"flows_after": '
+                                                                                '[2, 0, 2, 0, '
+                                                                                '0, 2, 0], '
+                                                                                '"path": '
+                                                                                '[{"direction": '
+                                                                                '1, "edge": '
+                                                                                '0, "from": '
+                                                                                '0, '
+                                                                                '"residual_before": '
+                                                                                '3, "to": 1}, '
+                                                                                '{"direction": '
+                                                                                '1, "edge": '
+                                                                                '2, "from": '
+                                                                                '1, '
+                                                                                '"residual_before": '
+                                                                                '2, "to": 3}, '
+                                                                                '{"direction": '
+                                                                                '1, "edge": '
+                                                                                '5, "from": '
+                                                                                '3, '
+                                                                                '"residual_before": '
+                                                                                '2, "to": '
+                                                                                '5}]}, '
+                                                                                '{"amount": '
+                                                                                '1, '
+                                                                                '"flows_after": '
+                                                                                '[3, 0, 2, 1, '
+                                                                                '0, 2, 1], '
+                                                                                '"path": '
+                                                                                '[{"direction": '
+                                                                                '1, "edge": '
+                                                                                '0, "from": '
+                                                                                '0, '
+                                                                                '"residual_before": '
+                                                                                '1, "to": 1}, '
+                                                                                '{"direction": '
+                                                                                '1, "edge": '
+                                                                                '3, "from": '
+                                                                                '1, '
+                                                                                '"residual_before": '
+                                                                                '1, "to": 4}, '
+                                                                                '{"direction": '
+                                                                                '1, "edge": '
+                                                                                '6, "from": '
+                                                                                '4, '
+                                                                                '"residual_before": '
+                                                                                '1, "to": '
+                                                                                '5}]}], '
+                                                                                '"cut_capacity": '
+                                                                                '3, '
+                                                                                '"feasible": '
+                                                                                'true, '
+                                                                                '"flows": [3, '
+                                                                                '0, 2, 1, 0, '
+                                                                                '2, 1], '
+                                                                                '"optimal_certificate": '
+                                                                                'true, '
+                                                                                '"reachable": '
+                                                                                '[0, 1, 2, '
+                                                                                '3], '
+                                                                                '"status": '
+                                                                                '"complete", '
+                                                                                '"value": '
+                                                                                '3}\n',
+                                                                                ''),
+                                          ('CS04-M06-O03', 'flow-reverse'): ('8b4e60e1-9327-55d0-ad02-a3f9412cbef2',
+                                                                             '{"edges": [[0, '
+                                                                             '1, 1], [0, 2, '
+                                                                             '1], [1, 3, 1], '
+                                                                             '[1, 4, 1], [2, '
+                                                                             '3, 1], [3, 5, '
+                                                                             '1], [4, 5, 1]], '
+                                                                             '"nodes": 6, '
+                                                                             '"sink": 5, '
+                                                                             '"source": 0}\n',
+                                                                             'success',
+                                                                             '{"augmentations": '
+                                                                             '[{"amount": 1, '
+                                                                             '"flows_after": '
+                                                                             '[1, 0, 1, 0, 0, '
+                                                                             '1, 0], "path": '
+                                                                             '[{"direction": '
+                                                                             '1, "edge": 0, '
+                                                                             '"from": 0, '
+                                                                             '"residual_before": '
+                                                                             '1, "to": 1}, '
+                                                                             '{"direction": '
+                                                                             '1, "edge": 2, '
+                                                                             '"from": 1, '
+                                                                             '"residual_before": '
+                                                                             '1, "to": 3}, '
+                                                                             '{"direction": '
+                                                                             '1, "edge": 5, '
+                                                                             '"from": 3, '
+                                                                             '"residual_before": '
+                                                                             '1, "to": 5}]}, '
+                                                                             '{"amount": 1, '
+                                                                             '"flows_after": '
+                                                                             '[1, 1, 0, 1, 1, '
+                                                                             '1, 1], "path": '
+                                                                             '[{"direction": '
+                                                                             '1, "edge": 1, '
+                                                                             '"from": 0, '
+                                                                             '"residual_before": '
+                                                                             '1, "to": 2}, '
+                                                                             '{"direction": '
+                                                                             '1, "edge": 4, '
+                                                                             '"from": 2, '
+                                                                             '"residual_before": '
+                                                                             '1, "to": 3}, '
+                                                                             '{"direction": '
+                                                                             '-1, "edge": 2, '
+                                                                             '"from": 3, '
+                                                                             '"residual_before": '
+                                                                             '1, "to": 1}, '
+                                                                             '{"direction": '
+                                                                             '1, "edge": 3, '
+                                                                             '"from": 1, '
+                                                                             '"residual_before": '
+                                                                             '1, "to": 4}, '
+                                                                             '{"direction": '
+                                                                             '1, "edge": 6, '
+                                                                             '"from": 4, '
+                                                                             '"residual_before": '
+                                                                             '1, "to": 5}]}], '
+                                                                             '"cut_capacity": '
+                                                                             '2, "feasible": '
+                                                                             'true, "flows": '
+                                                                             '[1, 1, 0, 1, 1, '
+                                                                             '1, 1], '
+                                                                             '"optimal_certificate": '
+                                                                             'true, '
+                                                                             '"reachable": '
+                                                                             '[0], "status": '
+                                                                             '"complete", '
+                                                                             '"value": 2}\n',
+                                                                             ''),
+                                          ('CS04-M07-O01', 'base'): ('6e55f035-0589-5a82-b0bd-0f6d769bfa54',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'mean=2.50 worst=3\n',
+                                                                     ''),
+                                          ('CS04-M07-O01', 'changed-condition'): ('6e55f035-0589-5a82-b0bd-0f6d769bfa54',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'mean=0.00 '
+                                                                                  'worst=0\n',
+                                                                                  ''),
+                                          ('CS04-M07-O02', 'base'): ('98d7ac9b-a451-5424-9581-b9624937e490',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '12\n',
+                                                                     ''),
+                                          ('CS04-M07-O02', 'changed-condition'): ('98d7ac9b-a451-5424-9581-b9624937e490',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS04-M07-O03', 'base'): ('8f55ee2b-cfa8-5156-a930-0e05fdce6fc7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS04-M07-O03', 'changed-condition'): ('8f55ee2b-cfa8-5156-a930-0e05fdce6fc7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS04-M08-O01', 'base'): ('6efdc5fd-35f6-5c81-8081-26085ad94bb1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS04-M08-O01', 'changed-condition'): ('6efdc5fd-35f6-5c81-8081-26085ad94bb1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS04-M08-O02', 'base'): ('81823823-768a-58ab-b260-65cf1595c7ed',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True 2\n',
+                                                                     ''),
+                                          ('CS04-M08-O02', 'changed-condition'): ('81823823-768a-58ab-b260-65cf1595c7ed',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True 2\n',
+                                                                                  ''),
+                                          ('CS04-M08-O03', 'base'): ('295319d3-b2bb-58da-adfa-c14b876bdb16',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'valid=True '
+                                                                     'within_bound=True\n',
+                                                                     ''),
+                                          ('CS04-M08-O03', 'changed-condition'): ('295319d3-b2bb-58da-adfa-c14b876bdb16',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'valid=True '
+                                                                                  'within_bound=True\n',
+                                                                                  ''),
+                                          ('CS04-M09-O01', 'base'): ('87062b09-5451-5c11-b2fe-89619ad6d0e7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS04-M09-O01', 'changed-condition'): ('87062b09-5451-5c11-b2fe-89619ad6d0e7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS04-M09-O02', 'base'): ('74b98e34-0329-5f1b-89a1-8d98433b47d8',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS04-M09-O02', 'changed-condition'): ('74b98e34-0329-5f1b-89a1-8d98433b47d8',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS04-M09-O03', 'base'): ('3ef93085-856d-56a8-a97b-1f2f73bff023',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'cost=3 feasible=True\n',
+                                                                     ''),
+                                          ('CS04-M09-O03', 'changed-condition'): ('3ef93085-856d-56a8-a97b-1f2f73bff023',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'cost=1 '
+                                                                                  'feasible=True\n',
+                                                                                  '')},
  '7caa7481-0e68-5666-9a24-8984e666d9c2': {('CS10-M01-O01', 'base'): ('66acb8e2-1c22-54ac-8d30-ba4b5420c807',
                                                                      '1\n',
                                                                      'success',
@@ -6114,6 +6546,898 @@ GENERIC_RULES = {'01e157b8-021c-53ca-b743-39af3957c3b1': {('CS12-M01-O01', 'base
                                                                                   'success',
                                                                                   '1\n',
                                                                                   ''),
+                                          ('CS06-M08-O03', 'base'): ('6ea4f822-8d10-5805-9f41-92cc1a7cb223',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '115\n',
+                                                                     ''),
+                                          ('CS06-M08-O03', 'changed-condition'): ('6ea4f822-8d10-5805-9f41-92cc1a7cb223',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '112\n',
+                                                                                  ''),
+                                          ('CS06-M09-O01', 'base'): ('0547ff2c-d21c-5990-bd24-ac4d9a540e1d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'pending\n',
+                                                                     ''),
+                                          ('CS06-M09-O01', 'changed-condition'): ('0547ff2c-d21c-5990-bd24-ac4d9a540e1d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'complete\n',
+                                                                                  ''),
+                                          ('CS06-M09-O02', 'base'): ('3d18f2a8-4f49-5765-83ea-96ba27938d30',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS06-M09-O02', 'changed-condition'): ('3d18f2a8-4f49-5765-83ea-96ba27938d30',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS06-M09-O03', 'base'): ('499589e0-bef7-5158-b70f-941d63c3f54b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS06-M09-O03', 'changed-condition'): ('499589e0-bef7-5158-b70f-941d63c3f54b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '7\n',
+                                                                                  '')},
+ 'f15331e5-ec8c-5dcd-9025-405430cd5b5e': {('CS06-M01-O01', 'base'): ('f639ce02-8158-51da-b2ee-e0e0ac455d5a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '255\n',
+                                                                     ''),
+                                          ('CS06-M01-O01', 'changed-condition'): ('f639ce02-8158-51da-b2ee-e0e0ac455d5a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '128\n',
+                                                                                  ''),
+                                          ('CS06-M01-O02', 'base'): ('ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '-1\n',
+                                                                     ''),
+                                          ('CS06-M01-O02', 'changed-condition'): ('ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '127\n',
+                                                                                  ''),
+                                          ('CS06-M01-O03', 'base'): ('35c49cdc-e8d0-5c74-af48-6e0af0527c52',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS06-M01-O03', 'changed-condition'): ('35c49cdc-e8d0-5c74-af48-6e0af0527c52',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS06-M02-O01', 'base'): ('8bee75f2-e941-554e-987e-8f9f3339fc26',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '4\n',
+                                                                     ''),
+                                          ('CS06-M02-O01', 'changed-condition'): ('8bee75f2-e941-554e-987e-8f9f3339fc26',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS06-M02-O02', 'base'): ('57ed17b4-64bb-549e-bb18-0276f29b35c7',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS06-M02-O02', 'changed-condition'): ('57ed17b4-64bb-549e-bb18-0276f29b35c7',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '4\n',
+                                                                                  ''),
+                                          ('CS06-M02-O03', 'base'): ('64be914d-2c25-56ab-bd14-0e6b41c9392b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/4\n',
+                                                                     ''),
+                                          ('CS06-M02-O03', 'changed-condition'): ('64be914d-2c25-56ab-bd14-0e6b41c9392b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS06-M03-O01', 'base'): ('1f4db40b-f098-584b-987d-f066a6ee7e35',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 1\n',
+                                                                     ''),
+                                          ('CS06-M03-O01', 'changed-condition'): ('1f4db40b-f098-584b-987d-f066a6ee7e35',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 0\n',
+                                                                                  ''),
+                                          ('CS06-M03-O02', 'base'): ('ee55c173-4180-5da9-8e63-04c17dadf613',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0 1\n',
+                                                                     ''),
+                                          ('CS06-M03-O02', 'changed-condition'): ('ee55c173-4180-5da9-8e63-04c17dadf613',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 1\n',
+                                                                                  ''),
+                                          ('CS06-M03-O03', 'base'): ('586ac41d-7d48-511a-94af-382dd1eb4332',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS06-M03-O03', 'changed-condition'): ('586ac41d-7d48-511a-94af-382dd1eb4332',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS06-M04-O01', 'base'): ('8bb0ce0b-ce95-5497-aa48-a9a91f922beb',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2 1\n',
+                                                                     ''),
+                                          ('CS06-M04-O01', 'changed-condition'): ('8bb0ce0b-ce95-5497-aa48-a9a91f922beb',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3 3\n',
+                                                                                  ''),
+                                          ('CS06-M04-O02', 'base'): ('96128b12-a712-58f0-8987-a930779aa79e',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '0\n',
+                                                                     ''),
+                                          ('CS06-M04-O02', 'changed-condition'): ('96128b12-a712-58f0-8987-a930779aa79e',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '7\n',
+                                                                                  ''),
+                                          ('CS06-M04-O03', 'base'): ('6d9b4fad-3628-5e5c-9d5c-2360bdb5d266',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS06-M04-O03', 'changed-condition'): ('6d9b4fad-3628-5e5c-9d5c-2360bdb5d266',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS06-M05-O01', 'base'): ('73fa3d98-39c5-5ab6-822a-629ab9942ae4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1\n',
+                                                                     ''),
+                                          ('CS06-M05-O01', 'changed-condition'): ('73fa3d98-39c5-5ab6-822a-629ab9942ae4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS06-M05-O02', 'base'): ('696e33ec-4eda-53a1-8d28-a8f13f8b0125',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '222\n',
+                                                                     ''),
+                                          ('CS06-M05-O02', 'changed-condition'): ('696e33ec-4eda-53a1-8d28-a8f13f8b0125',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '111\n',
+                                                                                  ''),
+                                          ('CS06-M05-O03', 'base'): ('37c4230b-c28c-5a8d-891f-b13f1e0cc7de',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7\n',
+                                                                     ''),
+                                          ('CS06-M05-O03', 'changed-condition'): ('37c4230b-c28c-5a8d-891f-b13f1e0cc7de',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0\n',
+                                                                                  ''),
+                                          ('CS06-M05-O03', 'processor-branch'): ('37c4230b-c28c-5a8d-891f-b13f1e0cc7de',
+                                                                                 '',
+                                                                                 'success',
+                                                                                 '{"cache_events": '
+                                                                                 '[], '
+                                                                                 '"cycles": '
+                                                                                 '20, '
+                                                                                 '"encoded_words": '
+                                                                                 '[4351, '
+                                                                                 '5121, 8448, '
+                                                                                 '24581, '
+                                                                                 '6243, 0], '
+                                                                                 '"final_flush": '
+                                                                                 '[], '
+                                                                                 '"memory": '
+                                                                                 '[0, 0, 0, '
+                                                                                 '0, 0, 0, 0, '
+                                                                                 '0, 0, 0, 0, '
+                                                                                 '0, 0, 0, 0, '
+                                                                                 '0], '
+                                                                                 '"registers": '
+                                                                                 '[0, 1, 0, '
+                                                                                 '0], '
+                                                                                 '"status": '
+                                                                                 '"halted", '
+                                                                                 '"trace": '
+                                                                                 '[[1, '
+                                                                                 '"fetch", 0, '
+                                                                                 '[0, 0, 0, '
+                                                                                 '0], {}], '
+                                                                                 '[2, '
+                                                                                 '"decode", '
+                                                                                 '0, [0, 0, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'true}], [3, '
+                                                                                 '"execute", '
+                                                                                 '0, [0, 0, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'true}], [4, '
+                                                                                 '"commit", '
+                                                                                 '0, [255, 0, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'true}], [5, '
+                                                                                 '"fetch", 1, '
+                                                                                 '[255, 0, 0, '
+                                                                                 '0], {}], '
+                                                                                 '[6, '
+                                                                                 '"decode", '
+                                                                                 '1, [255, 0, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'true}], [7, '
+                                                                                 '"execute", '
+                                                                                 '1, [255, 0, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'true}], [8, '
+                                                                                 '"commit", '
+                                                                                 '1, [255, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'true}], [9, '
+                                                                                 '"fetch", 2, '
+                                                                                 '[255, 1, 0, '
+                                                                                 '0], {}], '
+                                                                                 '[10, '
+                                                                                 '"decode", '
+                                                                                 '2, [255, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'true}], '
+                                                                                 '[11, '
+                                                                                 '"execute", '
+                                                                                 '2, [255, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'true}], '
+                                                                                 '[12, '
+                                                                                 '"commit", '
+                                                                                 '2, [0, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'true}], '
+                                                                                 '[13, '
+                                                                                 '"fetch", 3, '
+                                                                                 '[0, 1, 0, '
+                                                                                 '0], {}], '
+                                                                                 '[14, '
+                                                                                 '"decode", '
+                                                                                 '3, [0, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'true, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'false}], '
+                                                                                 '[15, '
+                                                                                 '"execute", '
+                                                                                 '3, [0, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'true, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'false}], '
+                                                                                 '[16, '
+                                                                                 '"commit", '
+                                                                                 '3, [0, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'true, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'false}], '
+                                                                                 '[17, '
+                                                                                 '"fetch", 5, '
+                                                                                 '[0, 1, 0, '
+                                                                                 '0], {}], '
+                                                                                 '[18, '
+                                                                                 '"decode", '
+                                                                                 '5, [0, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'false}], '
+                                                                                 '[19, '
+                                                                                 '"execute", '
+                                                                                 '5, [0, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'false}], '
+                                                                                 '[20, '
+                                                                                 '"commit", '
+                                                                                 '5, [0, 1, '
+                                                                                 '0, 0], '
+                                                                                 '{"branch": '
+                                                                                 'false, '
+                                                                                 '"mem_write": '
+                                                                                 'false, '
+                                                                                 '"reg_write": '
+                                                                                 'false}]]}\n',
+                                                                                 ''),
+                                          ('CS06-M06-O01', 'base'): ('0e53a5f9-34a0-577a-8bee-f53075c1729c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '10 1\n',
+                                                                     ''),
+                                          ('CS06-M06-O01', 'changed-condition'): ('0e53a5f9-34a0-577a-8bee-f53075c1729c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '20 2\n',
+                                                                                  ''),
+                                          ('CS06-M06-O02', 'base'): ('6ac7de29-6b4b-5c6f-9f9b-0107e4657630',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3\n',
+                                                                     ''),
+                                          ('CS06-M06-O02', 'changed-condition'): ('6ac7de29-6b4b-5c6f-9f9b-0107e4657630',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '9\n',
+                                                                                  ''),
+                                          ('CS06-M06-O03', 'base'): ('d7d9d26b-6801-583e-8f6f-eced066d083c',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS06-M06-O03', 'changed-condition'): ('d7d9d26b-6801-583e-8f6f-eced066d083c',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS06-M06-O03', 'processor-store'): ('d7d9d26b-6801-583e-8f6f-eced066d083c',
+                                                                                '',
+                                                                                'success',
+                                                                                '{"cache_events": '
+                                                                                '[{"address": '
+                                                                                '3, "hit": '
+                                                                                'false, '
+                                                                                '"operation": '
+                                                                                '"store", '
+                                                                                '"writeback": '
+                                                                                'null}, '
+                                                                                '{"address": '
+                                                                                '3, "hit": '
+                                                                                'true, '
+                                                                                '"operation": '
+                                                                                '"load", '
+                                                                                '"writeback": '
+                                                                                'null}], '
+                                                                                '"cycles": '
+                                                                                '24, '
+                                                                                '"encoded_words": '
+                                                                                '[4103, 5125, '
+                                                                                '8448, 20483, '
+                                                                                '18435, 0], '
+                                                                                '"final_flush": '
+                                                                                '[3], '
+                                                                                '"memory": '
+                                                                                '[0, 0, 0, '
+                                                                                '12, 0, 0, 0, '
+                                                                                '0, 0, 0, 0, '
+                                                                                '0, 0, 0, 0, '
+                                                                                '0], '
+                                                                                '"registers": '
+                                                                                '[12, 5, 12, '
+                                                                                '0], '
+                                                                                '"status": '
+                                                                                '"halted", '
+                                                                                '"trace": '
+                                                                                '[[1, '
+                                                                                '"fetch", 0, '
+                                                                                '[0, 0, 0, '
+                                                                                '0], {}], [2, '
+                                                                                '"decode", 0, '
+                                                                                '[0, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [3, '
+                                                                                '"execute", '
+                                                                                '0, [0, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [4, '
+                                                                                '"commit", 0, '
+                                                                                '[7, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [5, '
+                                                                                '"fetch", 1, '
+                                                                                '[7, 0, 0, '
+                                                                                '0], {}], [6, '
+                                                                                '"decode", 1, '
+                                                                                '[7, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [7, '
+                                                                                '"execute", '
+                                                                                '1, [7, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [8, '
+                                                                                '"commit", 1, '
+                                                                                '[7, 5, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [9, '
+                                                                                '"fetch", 2, '
+                                                                                '[7, 5, 0, '
+                                                                                '0], {}], '
+                                                                                '[10, '
+                                                                                '"decode", 2, '
+                                                                                '[7, 5, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [11, '
+                                                                                '"execute", '
+                                                                                '2, [7, 5, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [12, '
+                                                                                '"commit", 2, '
+                                                                                '[12, 5, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [13, '
+                                                                                '"fetch", 3, '
+                                                                                '[12, 5, 0, '
+                                                                                '0], {}], '
+                                                                                '[14, '
+                                                                                '"decode", 3, '
+                                                                                '[12, 5, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'true, '
+                                                                                '"reg_write": '
+                                                                                'false}], '
+                                                                                '[15, '
+                                                                                '"execute", '
+                                                                                '3, [12, 5, '
+                                                                                '0, 0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'true, '
+                                                                                '"reg_write": '
+                                                                                'false}], '
+                                                                                '[16, '
+                                                                                '"commit", 3, '
+                                                                                '[12, 5, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'true, '
+                                                                                '"reg_write": '
+                                                                                'false}], '
+                                                                                '[17, '
+                                                                                '"fetch", 4, '
+                                                                                '[12, 5, 0, '
+                                                                                '0], {}], '
+                                                                                '[18, '
+                                                                                '"decode", 4, '
+                                                                                '[12, 5, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [19, '
+                                                                                '"execute", '
+                                                                                '4, [12, 5, '
+                                                                                '0, 0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [20, '
+                                                                                '"commit", 4, '
+                                                                                '[12, 5, 12, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [21, '
+                                                                                '"fetch", 5, '
+                                                                                '[12, 5, 12, '
+                                                                                '0], {}], '
+                                                                                '[22, '
+                                                                                '"decode", 5, '
+                                                                                '[12, 5, 12, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'false}], '
+                                                                                '[23, '
+                                                                                '"execute", '
+                                                                                '5, [12, 5, '
+                                                                                '12, 0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'false}], '
+                                                                                '[24, '
+                                                                                '"commit", 5, '
+                                                                                '[12, 5, 12, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'false}]]}\n',
+                                                                                ''),
+                                          ('CS06-M07-O01', 'base'): ('4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True\n',
+                                                                     ''),
+                                          ('CS06-M07-O01', 'changed-condition'): ('4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'False\n',
+                                                                                  ''),
+                                          ('CS06-M07-O02', 'base'): ('c94fda68-6691-5f09-81b7-7d3284ff8a0d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '7\n',
+                                                                     ''),
+                                          ('CS06-M07-O02', 'changed-condition'): ('c94fda68-6691-5f09-81b7-7d3284ff8a0d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '9\n',
+                                                                                  ''),
+                                          ('CS06-M07-O03', 'base'): ('e7100643-ebb6-5d72-8848-0b53753ad5c3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '8\n',
+                                                                     ''),
+                                          ('CS06-M07-O03', 'changed-condition'): ('e7100643-ebb6-5d72-8848-0b53753ad5c3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '5\n',
+                                                                                  ''),
+                                          ('CS06-M08-O01', 'base'): ('27a79669-ae59-5c99-bd63-2777a43207f3',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2 1 3\n',
+                                                                     ''),
+                                          ('CS06-M08-O01', 'changed-condition'): ('27a79669-ae59-5c99-bd63-2777a43207f3',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '0 0 0\n',
+                                                                                  ''),
+                                          ('CS06-M08-O02', 'base'): ('7ec7eafd-6344-5f3a-9526-8d2f04cda07d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '9\n',
+                                                                     ''),
+                                          ('CS06-M08-O02', 'changed-condition'): ('7ec7eafd-6344-5f3a-9526-8d2f04cda07d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS06-M08-O02', 'processor-cache'): ('7ec7eafd-6344-5f3a-9526-8d2f04cda07d',
+                                                                                '',
+                                                                                'success',
+                                                                                '{"cache_events": '
+                                                                                '[{"address": '
+                                                                                '0, "hit": '
+                                                                                'false, '
+                                                                                '"operation": '
+                                                                                '"store", '
+                                                                                '"writeback": '
+                                                                                'null}, '
+                                                                                '{"address": '
+                                                                                '2, "hit": '
+                                                                                'false, '
+                                                                                '"operation": '
+                                                                                '"load", '
+                                                                                '"writeback": '
+                                                                                '0}, '
+                                                                                '{"address": '
+                                                                                '0, "hit": '
+                                                                                'false, '
+                                                                                '"operation": '
+                                                                                '"load", '
+                                                                                '"writeback": '
+                                                                                'null}], '
+                                                                                '"cycles": '
+                                                                                '20, '
+                                                                                '"encoded_words": '
+                                                                                '[4105, '
+                                                                                '20480, '
+                                                                                '17410, '
+                                                                                '18432, 0], '
+                                                                                '"final_flush": '
+                                                                                '[], '
+                                                                                '"memory": '
+                                                                                '[9, 0, 0, 0, '
+                                                                                '0, 0, 0, 0, '
+                                                                                '0, 0, 0, 0, '
+                                                                                '0, 0, 0, 0], '
+                                                                                '"registers": '
+                                                                                '[9, 0, 9, '
+                                                                                '0], '
+                                                                                '"status": '
+                                                                                '"halted", '
+                                                                                '"trace": '
+                                                                                '[[1, '
+                                                                                '"fetch", 0, '
+                                                                                '[0, 0, 0, '
+                                                                                '0], {}], [2, '
+                                                                                '"decode", 0, '
+                                                                                '[0, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [3, '
+                                                                                '"execute", '
+                                                                                '0, [0, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [4, '
+                                                                                '"commit", 0, '
+                                                                                '[9, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [5, '
+                                                                                '"fetch", 1, '
+                                                                                '[9, 0, 0, '
+                                                                                '0], {}], [6, '
+                                                                                '"decode", 1, '
+                                                                                '[9, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'true, '
+                                                                                '"reg_write": '
+                                                                                'false}], [7, '
+                                                                                '"execute", '
+                                                                                '1, [9, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'true, '
+                                                                                '"reg_write": '
+                                                                                'false}], [8, '
+                                                                                '"commit", 1, '
+                                                                                '[9, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'true, '
+                                                                                '"reg_write": '
+                                                                                'false}], [9, '
+                                                                                '"fetch", 2, '
+                                                                                '[9, 0, 0, '
+                                                                                '0], {}], '
+                                                                                '[10, '
+                                                                                '"decode", 2, '
+                                                                                '[9, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [11, '
+                                                                                '"execute", '
+                                                                                '2, [9, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [12, '
+                                                                                '"commit", 2, '
+                                                                                '[9, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [13, '
+                                                                                '"fetch", 3, '
+                                                                                '[9, 0, 0, '
+                                                                                '0], {}], '
+                                                                                '[14, '
+                                                                                '"decode", 3, '
+                                                                                '[9, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [15, '
+                                                                                '"execute", '
+                                                                                '3, [9, 0, 0, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [16, '
+                                                                                '"commit", 3, '
+                                                                                '[9, 0, 9, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'true}], [17, '
+                                                                                '"fetch", 4, '
+                                                                                '[9, 0, 9, '
+                                                                                '0], {}], '
+                                                                                '[18, '
+                                                                                '"decode", 4, '
+                                                                                '[9, 0, 9, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'false}], '
+                                                                                '[19, '
+                                                                                '"execute", '
+                                                                                '4, [9, 0, 9, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'false}], '
+                                                                                '[20, '
+                                                                                '"commit", 4, '
+                                                                                '[9, 0, 9, '
+                                                                                '0], '
+                                                                                '{"branch": '
+                                                                                'false, '
+                                                                                '"mem_write": '
+                                                                                'false, '
+                                                                                '"reg_write": '
+                                                                                'false}]]}\n',
+                                                                                ''),
                                           ('CS06-M08-O03', 'base'): ('6ea4f822-8d10-5805-9f41-92cc1a7cb223',
                                                                      '1\n',
                                                                      'success',

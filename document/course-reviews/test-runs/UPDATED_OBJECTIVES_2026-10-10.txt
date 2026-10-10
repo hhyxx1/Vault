@@ -1,0 +1,13 @@
+
+> @qionglong/web@0.1.0 test:e2e
+> playwright test course-all-objectives.spec.ts --project=chromium --grep CS04|CS06 --workers=1
+
+
+Running 2 tests using 1 worker
+
+(node:49124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › e2e\course-all-objectives.spec.ts:15:3 › CS04 every published core goal author execution and restoration (1.3m)
+  ok 2 [chromium] › e2e\course-all-objectives.spec.ts:15:3 › CS06 every published core goal author execution and restoration (1.3m)
+
+  2 passed (2.7m)

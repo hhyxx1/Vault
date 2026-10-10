@@ -1,0 +1,1952 @@
+[
+  {
+    "id": "CS06-M01-O01/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O01",
+    "activity": "f639ce02-8158-51da-b2ee-e0e0ac455d5a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=-1 if n == 1 else -128\nprint(abs(x))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M01-O01/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O01",
+    "activity": "f639ce02-8158-51da-b2ee-e0e0ac455d5a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=-1 if n == 1 else -128\nprint(x & 255)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "255\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M01-O01/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O01",
+    "activity": "f639ce02-8158-51da-b2ee-e0e0ac455d5a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=-1 if n == 1 else -128\nprint(abs(x))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "128\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M01-O01/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O01",
+    "activity": "f639ce02-8158-51da-b2ee-e0e0ac455d5a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=-1 if n == 1 else -128\nprint(x & 255)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "128\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M01-O02/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O02",
+    "activity": "ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nu=255 if n == 1 else 127\nprint(u)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "255\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M01-O02/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O02",
+    "activity": "ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nu=255 if n == 1 else 127\nprint(u-256 if u >= 128 else u)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "-1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M01-O02/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O02",
+    "activity": "ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nu=255 if n == 1 else 127\nprint(u)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "127\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M01-O02/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O02",
+    "activity": "ac5c4c3f-0d02-5dbd-ab43-f464d00ef8ab",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nu=255 if n == 1 else 127\nprint(u-256 if u >= 128 else u)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "127\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M01-O03/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O03",
+    "activity": "35c49cdc-e8d0-5c74-af48-6e0af0527c52",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=128 if n == 1 else 127\nprint(-128 <= x <= 128)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M01-O03/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O03",
+    "activity": "35c49cdc-e8d0-5c74-af48-6e0af0527c52",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=128 if n == 1 else 127\nprint(-128 <= x <= 127)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M01-O03/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O03",
+    "activity": "35c49cdc-e8d0-5c74-af48-6e0af0527c52",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=128 if n == 1 else 127\nprint(-128 <= x <= 128)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M01-O03/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M01-O03",
+    "activity": "35c49cdc-e8d0-5c74-af48-6e0af0527c52",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=128 if n == 1 else 127\nprint(-128 <= x <= 127)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M02-O01/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O01",
+    "activity": "8bee75f2-e941-554e-987e-8f9f3339fc26",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(250,10) if n == 1 else (1,2)\nprint(a+b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "260\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M02-O01/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O01",
+    "activity": "8bee75f2-e941-554e-987e-8f9f3339fc26",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(250,10) if n == 1 else (1,2)\nprint((a+b) & 255)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M02-O01/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O01",
+    "activity": "8bee75f2-e941-554e-987e-8f9f3339fc26",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(250,10) if n == 1 else (1,2)\nprint(a+b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M02-O01/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O01",
+    "activity": "8bee75f2-e941-554e-987e-8f9f3339fc26",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(250,10) if n == 1 else (1,2)\nprint((a+b) & 255)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M02-O02/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O02",
+    "activity": "57ed17b4-64bb-549e-bb18-0276f29b35c7",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nx=Fraction(5,2) if n == 1 else Fraction(7,2)\nprint(int(x+Fraction(1,2)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M02-O02/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O02",
+    "activity": "57ed17b4-64bb-549e-bb18-0276f29b35c7",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nx=Fraction(5,2) if n == 1 else Fraction(7,2)\nprint(round(x))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M02-O02/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O02",
+    "activity": "57ed17b4-64bb-549e-bb18-0276f29b35c7",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nx=Fraction(5,2) if n == 1 else Fraction(7,2)\nprint(int(x+Fraction(1,2)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M02-O02/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O02",
+    "activity": "57ed17b4-64bb-549e-bb18-0276f29b35c7",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\nx=Fraction(5,2) if n == 1 else Fraction(7,2)\nprint(round(x))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M02-O03/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O03",
+    "activity": "64be914d-2c25-56ab-bd14-0e6b41c9392b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ne=0 if n == 1 else 2\np=3\nprint(Fraction(1,8))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1/8\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M02-O03/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O03",
+    "activity": "64be914d-2c25-56ab-bd14-0e6b41c9392b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ne=0 if n == 1 else 2\np=3\nprint(Fraction(2)**(e-(p-1)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1/4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M02-O03/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O03",
+    "activity": "64be914d-2c25-56ab-bd14-0e6b41c9392b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ne=0 if n == 1 else 2\np=3\nprint(Fraction(1,8))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1/8\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M02-O03/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M02-O03",
+    "activity": "64be914d-2c25-56ab-bd14-0e6b41c9392b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\ne=0 if n == 1 else 2\np=3\nprint(Fraction(2)**(e-(p-1)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M03-O01/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O01",
+    "activity": "1f4db40b-f098-584b-987d-f066a6ee7e35",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(1,1) if n == 1 else (1,0)\nprint(a | b,a & b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1 1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M03-O01/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O01",
+    "activity": "1f4db40b-f098-584b-987d-f066a6ee7e35",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(1,1) if n == 1 else (1,0)\nprint(a ^ b,a & b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M03-O01/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O01",
+    "activity": "1f4db40b-f098-584b-987d-f066a6ee7e35",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(1,1) if n == 1 else (1,0)\nprint(a | b,a & b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M03-O01/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O01",
+    "activity": "1f4db40b-f098-584b-987d-f066a6ee7e35",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(1,1) if n == 1 else (1,0)\nprint(a ^ b,a & b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M03-O02/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O02",
+    "activity": "ee55c173-4180-5da9-8e63-04c17dadf613",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(1,0,1) if n == 1 else (1,1,0)\ns=a^b^c; carry=a & b\nprint(s,carry)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0 0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M03-O02/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O02",
+    "activity": "ee55c173-4180-5da9-8e63-04c17dadf613",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(1,0,1) if n == 1 else (1,1,0)\ns=a^b^c; carry=(a & b) | (c & (a ^ b))\nprint(s,carry)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M03-O02/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O02",
+    "activity": "ee55c173-4180-5da9-8e63-04c17dadf613",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(1,0,1) if n == 1 else (1,1,0)\ns=a^b^c; carry=a & b\nprint(s,carry)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M03-O02/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O02",
+    "activity": "ee55c173-4180-5da9-8e63-04c17dadf613",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(1,0,1) if n == 1 else (1,1,0)\ns=a^b^c; carry=(a & b) | (c & (a ^ b))\nprint(s,carry)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M03-O03/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O03",
+    "activity": "586ac41d-7d48-511a-94af-382dd1eb4332",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(True,False)]\nprint(all((not (a and b)) == ((not a) and (not b)) for a,b in rows))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M03-O03/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O03",
+    "activity": "586ac41d-7d48-511a-94af-382dd1eb4332",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(True,False)]\nprint(all((not (a and b)) == ((not a) or (not b)) for a,b in rows))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M03-O03/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O03",
+    "activity": "586ac41d-7d48-511a-94af-382dd1eb4332",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(True,False)]\nprint(all((not (a and b)) == ((not a) and (not b)) for a,b in rows))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M03-O03/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M03-O03",
+    "activity": "586ac41d-7d48-511a-94af-382dd1eb4332",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(True,False)]\nprint(all((not (a and b)) == ((not a) or (not b)) for a,b in rows))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M04-O01/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O01",
+    "activity": "8bb0ce0b-ce95-5497-aa48-a9a91f922beb",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(1,2) if n == 1 else (3,3)\na=b\nb=a\nprint(a,b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2 2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M04-O01/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O01",
+    "activity": "8bb0ce0b-ce95-5497-aa48-a9a91f922beb",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(1,2) if n == 1 else (3,3)\na,b=b,a\nprint(a,b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M04-O01/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O01",
+    "activity": "8bb0ce0b-ce95-5497-aa48-a9a91f922beb",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(1,2) if n == 1 else (3,3)\na=b\nb=a\nprint(a,b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3 3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M04-O01/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O01",
+    "activity": "8bb0ce0b-ce95-5497-aa48-a9a91f922beb",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(1,2) if n == 1 else (3,3)\na,b=b,a\nprint(a,b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3 3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M04-O02/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O02",
+    "activity": "96128b12-a712-58f0-8987-a930779aa79e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nq=7; reset=n == 1; enable=n == 1\nif enable: q=(q+1)&255\nelif reset: q=0\nprint(q)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "8\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M04-O02/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O02",
+    "activity": "96128b12-a712-58f0-8987-a930779aa79e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nq=7; reset=n == 1; enable=n == 1\nif reset: q=0\nelif enable: q=(q+1)&255\nprint(q)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M04-O02/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O02",
+    "activity": "96128b12-a712-58f0-8987-a930779aa79e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nq=7; reset=n == 1; enable=n == 1\nif enable: q=(q+1)&255\nelif reset: q=0\nprint(q)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M04-O02/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O02",
+    "activity": "96128b12-a712-58f0-8987-a930779aa79e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nq=7; reset=n == 1; enable=n == 1\nif reset: q=0\nelif enable: q=(q+1)&255\nprint(q)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M04-O03/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O03",
+    "activity": "6d9b4fad-3628-5e5c-9d5c-2360bdb5d266",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npaths=[(1,6,1),(1,2,1)] if n == 1 else [(1,2,1)]\nperiod=5\nprint(any(period >= sum(path) for path in paths))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M04-O03/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O03",
+    "activity": "6d9b4fad-3628-5e5c-9d5c-2360bdb5d266",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npaths=[(1,6,1),(1,2,1)] if n == 1 else [(1,2,1)]\nperiod=5\nprint(all(period >= sum(path) for path in paths))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M04-O03/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O03",
+    "activity": "6d9b4fad-3628-5e5c-9d5c-2360bdb5d266",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npaths=[(1,6,1),(1,2,1)] if n == 1 else [(1,2,1)]\nperiod=5\nprint(any(period >= sum(path) for path in paths))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M04-O03/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M04-O03",
+    "activity": "6d9b4fad-3628-5e5c-9d5c-2360bdb5d266",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npaths=[(1,6,1),(1,2,1)] if n == 1 else [(1,2,1)]\nperiod=5\nprint(all(period >= sum(path) for path in paths))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M05-O01/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O01",
+    "activity": "73fa3d98-39c5-5ab6-822a-629ab9942ae4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword=0x1234 if n == 1 else 0x2000\nprint(word >> 8)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "18\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M05-O01/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O01",
+    "activity": "73fa3d98-39c5-5ab6-822a-629ab9942ae4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword=0x1234 if n == 1 else 0x2000\nprint(word >> 12)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M05-O01/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O01",
+    "activity": "73fa3d98-39c5-5ab6-822a-629ab9942ae4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword=0x1234 if n == 1 else 0x2000\nprint(word >> 8)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "32\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M05-O01/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O01",
+    "activity": "73fa3d98-39c5-5ab6-822a-629ab9942ae4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword=0x1234 if n == 1 else 0x2000\nprint(word >> 12)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M05-O02/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O02",
+    "activity": "696e33ec-4eda-53a1-8d28-a8f13f8b0125",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmemory={4:111,5:222}; base=4; offset=1 if n == 1 else 0\nprint(memory[base])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "111\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M05-O02/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O02",
+    "activity": "696e33ec-4eda-53a1-8d28-a8f13f8b0125",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmemory={4:111,5:222}; base=4; offset=1 if n == 1 else 0\nprint(memory[base+offset])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "222\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M05-O02/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O02",
+    "activity": "696e33ec-4eda-53a1-8d28-a8f13f8b0125",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmemory={4:111,5:222}; base=4; offset=1 if n == 1 else 0\nprint(memory[base])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "111\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M05-O02/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O02",
+    "activity": "696e33ec-4eda-53a1-8d28-a8f13f8b0125",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmemory={4:111,5:222}; base=4; offset=1 if n == 1 else 0\nprint(memory[base+offset])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "111\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M05-O03/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O03",
+    "activity": "37c4230b-c28c-5a8d-891f-b13f1e0cc7de",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(9,2) if n == 1 else (3,3)\nacc=a\nacc=b-acc\nprint(acc & 255)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "249\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M05-O03/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O03",
+    "activity": "37c4230b-c28c-5a8d-891f-b13f1e0cc7de",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(9,2) if n == 1 else (3,3)\nacc=a\nacc=acc-b\nprint(acc & 255)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M05-O03/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O03",
+    "activity": "37c4230b-c28c-5a8d-891f-b13f1e0cc7de",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(9,2) if n == 1 else (3,3)\nacc=a\nacc=b-acc\nprint(acc & 255)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M05-O03/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O03",
+    "activity": "37c4230b-c28c-5a8d-891f-b13f1e0cc7de",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(9,2) if n == 1 else (3,3)\nacc=a\nacc=acc-b\nprint(acc & 255)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M06-O01/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O01",
+    "activity": "0e53a5f9-34a0-577a-8bee-f53075c1729c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprogram=[10,20,30]; pc=0 if n == 1 else 1\npc+=1\ninstruction=program[pc]\nprint(instruction,pc)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "20 1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M06-O01/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O01",
+    "activity": "0e53a5f9-34a0-577a-8bee-f53075c1729c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprogram=[10,20,30]; pc=0 if n == 1 else 1\ninstruction=program[pc]\npc+=1\nprint(instruction,pc)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M06-O01/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O01",
+    "activity": "0e53a5f9-34a0-577a-8bee-f53075c1729c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprogram=[10,20,30]; pc=0 if n == 1 else 1\npc+=1\ninstruction=program[pc]\nprint(instruction,pc)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "30 2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M06-O01/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O01",
+    "activity": "0e53a5f9-34a0-577a-8bee-f53075c1729c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprogram=[10,20,30]; pc=0 if n == 1 else 1\ninstruction=program[pc]\npc+=1\nprint(instruction,pc)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "20 2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M06-O02/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O02",
+    "activity": "6ac7de29-6b4b-5c6f-9f9b-0107e4657630",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nopcode='STORE' if n == 1 else 'ADD'\nreg=3; alu=9\nwrite_enable=True\nif write_enable: reg=alu\nprint(reg)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "9\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M06-O02/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O02",
+    "activity": "6ac7de29-6b4b-5c6f-9f9b-0107e4657630",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nopcode='STORE' if n == 1 else 'ADD'\nreg=3; alu=9\nwrite_enable=opcode == 'ADD'\nif write_enable: reg=alu\nprint(reg)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M06-O02/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O02",
+    "activity": "6ac7de29-6b4b-5c6f-9f9b-0107e4657630",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nopcode='STORE' if n == 1 else 'ADD'\nreg=3; alu=9\nwrite_enable=True\nif write_enable: reg=alu\nprint(reg)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M06-O02/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O02",
+    "activity": "6ac7de29-6b4b-5c6f-9f9b-0107e4657630",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nopcode='STORE' if n == 1 else 'ADD'\nreg=3; alu=9\nwrite_enable=opcode == 'ADD'\nif write_enable: reg=alu\nprint(reg)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M06-O03/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O03",
+    "activity": "d7d9d26b-6801-583e-8f6f-eced066d083c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nread,write=(True,True) if n == 1 else (True,False)\nprint(read or write)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M06-O03/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O03",
+    "activity": "d7d9d26b-6801-583e-8f6f-eced066d083c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nread,write=(True,True) if n == 1 else (True,False)\nprint(not (read and write))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M06-O03/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O03",
+    "activity": "d7d9d26b-6801-583e-8f6f-eced066d083c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nread,write=(True,True) if n == 1 else (True,False)\nprint(read or write)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M06-O03/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O03",
+    "activity": "d7d9d26b-6801-583e-8f6f-eced066d083c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nread,write=(True,True) if n == 1 else (True,False)\nprint(not (read and write))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M07-O01/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O01",
+    "activity": "4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprev={'load':True,'dst':2,'src':1}; next_src=2 if n == 1 else 3\nprint(prev['load'] and prev['src'] == next_src)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M07-O01/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O01",
+    "activity": "4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprev={'load':True,'dst':2,'src':1}; next_src=2 if n == 1 else 3\nprint(prev['load'] and prev['dst'] == next_src)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M07-O01/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O01",
+    "activity": "4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprev={'load':True,'dst':2,'src':1}; next_src=2 if n == 1 else 3\nprint(prev['load'] and prev['src'] == next_src)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M07-O01/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O01",
+    "activity": "4cea1f68-d0a0-5ae6-aac3-bd4dfe05a036",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprev={'load':True,'dst':2,'src':1}; next_src=2 if n == 1 else 3\nprint(prev['load'] and prev['dst'] == next_src)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M07-O02/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O02",
+    "activity": "c94fda68-6691-5f09-81b7-7d3284ff8a0d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nolder=9; newer=7 if n == 1 else None\nvalue=older\nprint(value)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "9\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M07-O02/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O02",
+    "activity": "c94fda68-6691-5f09-81b7-7d3284ff8a0d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nolder=9; newer=7 if n == 1 else None\nvalue=newer if newer is not None else older\nprint(value)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M07-O02/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O02",
+    "activity": "c94fda68-6691-5f09-81b7-7d3284ff8a0d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nolder=9; newer=7 if n == 1 else None\nvalue=older\nprint(value)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M07-O02/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O02",
+    "activity": "c94fda68-6691-5f09-81b7-7d3284ff8a0d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nolder=9; newer=7 if n == 1 else None\nvalue=newer if newer is not None else older\nprint(value)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M07-O03/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O03",
+    "activity": "e7100643-ebb6-5d72-8848-0b53753ad5c3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncount=4 if n == 1 else 1\nprint(count)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M07-O03/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O03",
+    "activity": "e7100643-ebb6-5d72-8848-0b53753ad5c3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncount=4 if n == 1 else 1\nprint(count+4)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M07-O03/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O03",
+    "activity": "e7100643-ebb6-5d72-8848-0b53753ad5c3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncount=4 if n == 1 else 1\nprint(count)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M07-O03/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M07-O03",
+    "activity": "e7100643-ebb6-5d72-8848-0b53753ad5c3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncount=4 if n == 1 else 1\nprint(count+4)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M08-O01/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O01",
+    "activity": "27a79669-ae59-5c99-bd63-2777a43207f3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\naddr=27 if n == 1 else 0\nprint(addr%4,addr//4,addr%4)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3 6 3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M08-O01/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O01",
+    "activity": "27a79669-ae59-5c99-bd63-2777a43207f3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\naddr=27 if n == 1 else 0\nprint((addr//4)%4,(addr//4)//4,addr%4)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2 1 3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M08-O01/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O01",
+    "activity": "27a79669-ae59-5c99-bd63-2777a43207f3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\naddr=27 if n == 1 else 0\nprint(addr%4,addr//4,addr%4)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0 0 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M08-O01/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O01",
+    "activity": "27a79669-ae59-5c99-bd63-2777a43207f3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\naddr=27 if n == 1 else 0\nprint((addr//4)%4,(addr//4)//4,addr%4)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0 0 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M08-O02/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O02",
+    "activity": "7ec7eafd-6344-5f3a-9526-8d2f04cda07d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmemory={0:1}; cache={'address':0,'data':9 if n == 1 else 1,'dirty':n == 1}\ncache=None\nprint(memory[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M08-O02/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O02",
+    "activity": "7ec7eafd-6344-5f3a-9526-8d2f04cda07d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmemory={0:1}; cache={'address':0,'data':9 if n == 1 else 1,'dirty':n == 1}\nif cache['dirty']: memory[cache['address']]=cache['data']\ncache=None\nprint(memory[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M08-O02/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O02",
+    "activity": "7ec7eafd-6344-5f3a-9526-8d2f04cda07d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmemory={0:1}; cache={'address':0,'data':9 if n == 1 else 1,'dirty':n == 1}\ncache=None\nprint(memory[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M08-O02/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O02",
+    "activity": "7ec7eafd-6344-5f3a-9526-8d2f04cda07d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmemory={0:1}; cache={'address':0,'data':9 if n == 1 else 1,'dirty':n == 1}\nif cache['dirty']: memory[cache['address']]=cache['data']\ncache=None\nprint(memory[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M08-O03/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O03",
+    "activity": "6ea4f822-8d10-5805-9f41-92cc1a7cb223",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\naddress=35 if n == 1 else 32\npage,offset=divmod(address,16); table={2:7}\nprint(table[page]+offset)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M08-O03/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O03",
+    "activity": "6ea4f822-8d10-5805-9f41-92cc1a7cb223",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\naddress=35 if n == 1 else 32\npage,offset=divmod(address,16); table={2:7}\nprint(table[page]*16+offset)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "115\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M08-O03/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O03",
+    "activity": "6ea4f822-8d10-5805-9f41-92cc1a7cb223",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\naddress=35 if n == 1 else 32\npage,offset=divmod(address,16); table={2:7}\nprint(table[page]+offset)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M08-O03/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O03",
+    "activity": "6ea4f822-8d10-5805-9f41-92cc1a7cb223",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\naddress=35 if n == 1 else 32\npage,offset=divmod(address,16); table={2:7}\nprint(table[page]*16+offset)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "112\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M09-O01/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O01",
+    "activity": "0547ff2c-d21c-5990-bd24-ac4d9a540e1d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndone=n == 2\nstatus='complete'\nprint(status)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "complete\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M09-O01/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O01",
+    "activity": "0547ff2c-d21c-5990-bd24-ac4d9a540e1d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndone=n == 2\nstatus='complete' if done else 'pending'\nprint(status)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "pending\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M09-O01/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O01",
+    "activity": "0547ff2c-d21c-5990-bd24-ac4d9a540e1d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndone=n == 2\nstatus='complete'\nprint(status)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "complete\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M09-O01/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O01",
+    "activity": "0547ff2c-d21c-5990-bd24-ac4d9a540e1d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndone=n == 2\nstatus='complete' if done else 'pending'\nprint(status)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "complete\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M09-O02/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O02",
+    "activity": "3d18f2a8-4f49-5765-83ea-96ba27938d30",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsize=5 if n == 1 else 8\nprint(size//4)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M09-O02/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O02",
+    "activity": "3d18f2a8-4f49-5765-83ea-96ba27938d30",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsize=5 if n == 1 else 8\nprint((size+3)//4)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M09-O02/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O02",
+    "activity": "3d18f2a8-4f49-5765-83ea-96ba27938d30",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsize=5 if n == 1 else 8\nprint(size//4)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M09-O02/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O02",
+    "activity": "3d18f2a8-4f49-5765-83ea-96ba27938d30",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsize=5 if n == 1 else 8\nprint((size+3)//4)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M09-O03/base/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O03",
+    "activity": "499589e0-bef7-5158-b70f-941d63c3f54b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncpu,io=(3,5) if n == 1 else (7,2)\nprint(cpu+io)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "8\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M09-O03/base/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O03",
+    "activity": "499589e0-bef7-5158-b70f-941d63c3f54b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncpu,io=(3,5) if n == 1 else (7,2)\nprint(max(cpu,io))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS06-M09-O03/changed-condition/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O03",
+    "activity": "499589e0-bef7-5158-b70f-941d63c3f54b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncpu,io=(3,5) if n == 1 else (7,2)\nprint(cpu+io)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "9\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS06-M09-O03/changed-condition/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M09-O03",
+    "activity": "499589e0-bef7-5158-b70f-941d63c3f54b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncpu,io=(3,5) if n == 1 else (7,2)\nprint(max(cpu,io))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7\n",
+    "decision": "met"
+  },
+  {
+    "id": "processor-store/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O03",
+    "activity": "d7d9d26b-6801-583e-8f6f-eced066d083c",
+    "task": "processor-store",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json\ndef load(name):\n    spec=importlib.util.spec_from_file_location(name,name+'.py')\n    m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\n    return m\ncpu=load('cpu');source=load('program').SOURCE\nwords=cpu.assemble(source);r=cpu.run(words)\nreport={\"encoded_words\":words,\"status\":r['status'],\"cycles\":r['cycles'],\"registers\":r['registers'],\"memory\":r['memory'],\"cache_events\":r['cache_events'],\"final_flush\":r['final_flush'],\"trace\":[[t['cycle'],t['phase'],t['pc'],t['registers'],t['controls']] for t in r['trace']]}\nprint(json.dumps(report,sort_keys=True))\n",
+        "cpu.py": "\"\"\"Original educational ISA: 16-bit instructions, 8-bit words, four phases.\n\nNot Hack, x86, a physical processor, pipelined timing or an electrical simulation.\nROM<=256, four writable registers, sixteen words of data RAM, separate I/D space.\nTwo direct-mapped one-word data-cache lines, write-allocate/write-back; flush at end.\nEncoding: opcode[15:12], destination[11:10], source[9:8], operand[7:0].\n\"\"\"\n\nimport copy\nimport re\n\nOPS = {\n    \"HALT\": 0,\n    \"LDI\": 1,\n    \"ADD\": 2,\n    \"SUB\": 3,\n    \"LOAD\": 4,\n    \"STORE\": 5,\n    \"JZ\": 6,\n    \"JMP\": 7,\n}\nARITY = {\n    \"HALT\": 0,\n    \"LDI\": 2,\n    \"ADD\": 2,\n    \"SUB\": 2,\n    \"LOAD\": 2,\n    \"STORE\": 2,\n    \"JZ\": 2,\n    \"JMP\": 1,\n}\n\n\ndef reg(token):\n    if not re.fullmatch(r\"R[0-3]\", token):\n        raise ValueError(\"register must be R0..R3\")\n    return int(token[1])\n\n\ndef assemble(source):\n    if not isinstance(source, str) or len(source) > 8192:\n        raise ValueError(\"source size\")\n    labels, instructions = {}, []\n    for line in source.splitlines():\n        line = line.split(\"#\", 1)[0].strip()\n        if not line:\n            continue\n        if \":\" in line:\n            label, line = line.split(\":\", 1)\n            label = label.strip()\n            if not re.fullmatch(r\"[A-Za-z_][A-Za-z_0-9]*\", label) or label in labels:\n                raise ValueError(\"duplicate or invalid label\")\n            labels[label] = len(instructions)\n            line = line.strip()\n        if line:\n            instructions.append(line.split())\n    if not 0 < len(instructions) <= 256:\n        raise ValueError(\"ROM size\")\n    words = []\n    for tokens in instructions:\n        op, *args = tokens\n        if op not in OPS or len(args) != ARITY[op]:\n            raise ValueError(\"opcode or operand count\")\n        dest = src = value = 0\n        if op not in {\"HALT\", \"JMP\"}:\n            dest = reg(args[0])\n        if op in {\"ADD\", \"SUB\"}:\n            src = reg(args[1])\n        elif op not in {\"HALT\"}:\n            token = args[-1]\n            value = labels[token] if token in labels else int(token, 0)\n            maximum = 15 if op in {\"LOAD\", \"STORE\"} else 255\n            if not 0 <= value <= maximum:\n                raise ValueError(\"operand out of range\")\n            if op in {\"JZ\", \"JMP\"} and value >= len(instructions):\n                raise ValueError(\"branch outside ROM\")\n        words.append((OPS[op] << 12) | (dest << 10) | (src << 8) | value)\n    return words\n\n\ndef decode(word):\n    if type(word) is not int or not 0 <= word <= 65535:\n        raise ValueError(\"instruction width\")\n    opcode = word >> 12\n    if opcode not in OPS.values():\n        raise ValueError(\"unknown opcode\")\n    op = next(name for name, code in OPS.items() if code == opcode)\n    dest, src, value = (word >> 10) & 3, (word >> 8) & 3, word & 255\n    if op == \"HALT\" and word != 0:\n        raise ValueError(\"HALT reserved bits\")\n    if op in {\"ADD\", \"SUB\"} and value:\n        raise ValueError(\"ALU reserved bits\")\n    if op not in {\"ADD\", \"SUB\"} and src:\n        raise ValueError(\"source reserved bits\")\n    if op == \"JMP\" and dest:\n        raise ValueError(\"jump reserved bits\")\n    if op in {\"LOAD\", \"STORE\"} and value > 15:\n        raise ValueError(\"RAM address\")\n    return op, dest, src, value\n\n\ndef validate_controls(controls):\n    if controls.get(\"reg_write\") and controls.get(\"mem_write\"):\n        raise ValueError(\"simultaneous register/memory write is unsupported\")\n\n\ndef run(program, memory=None, max_cycles=256):\n    if not isinstance(program, list) or not 0 < len(program) <= 256:\n        raise ValueError(\"ROM size\")\n    for word in program:\n        decode(word)\n    if type(max_cycles) is not int or not 4 <= max_cycles <= 4096:\n        raise ValueError(\"cycle budget\")\n    ram = list(memory) if memory is not None else [0] * 16\n    if len(ram) != 16 or any(type(v) is not int or not 0 <= v <= 255 for v in ram):\n        raise ValueError(\"RAM words\")\n    registers, trace, events = [0] * 4, [], []\n    cache = [{\"valid\": False, \"tag\": 0, \"value\": 0, \"dirty\": False} for _ in range(2)]\n    pc, cycles, status = 0, 0, \"budget_exhausted\"\n\n    def access(address, operation, value=None):\n        line = cache[address % 2]\n        hit = line[\"valid\"] and line[\"tag\"] == address // 2\n        writeback = None\n        if not hit:\n            if line[\"valid\"] and line[\"dirty\"]:\n                writeback = line[\"tag\"] * 2 + address % 2\n                ram[writeback] = line[\"value\"]\n            line.update(valid=True, tag=address // 2, value=ram[address], dirty=False)\n        if operation == \"store\":\n            line.update(value=value, dirty=True)\n        events.append(\n            {\n                \"address\": address,\n                \"operation\": operation,\n                \"hit\": hit,\n                \"writeback\": writeback,\n            }\n        )\n        return line[\"value\"]\n\n    def snapshot(phase, controls=None, **values):\n        nonlocal cycles\n        cycles += 1\n        trace.append(\n            {\n                \"cycle\": cycles,\n                \"phase\": phase,\n                \"pc\": pc,\n                \"registers\": registers.copy(),\n                \"controls\": controls or {},\n                **copy.deepcopy(values),\n            }\n        )\n\n    while cycles + 4 <= max_cycles:\n        if not 0 <= pc < len(program):\n            status = \"rom_exhausted\"\n            break\n        word = program[pc]\n        snapshot(\"fetch\", instruction=word)\n        op, dest, src, operand = decode(word)\n        controls = {\n            \"reg_write\": op in {\"LDI\", \"ADD\", \"SUB\", \"LOAD\"},\n            \"mem_write\": False,\n            \"branch\": op in {\"JZ\", \"JMP\"},\n        }\n        validate_controls(controls)\n        snapshot(\n            \"decode\", controls, opcode=op, destination=dest, source=src, operand=operand\n        )\n        result = None\n        next_pc = pc + 1\n        if op == \"LDI\":\n            result = operand\n        elif op == \"ADD\":\n            result = (registers[dest] + registers[src]) & 255\n        elif op == \"SUB\":\n            result = (registers[dest] - registers[src]) & 255\n        elif op == \"LOAD\":\n            result = access(operand, \"load\")\n        elif op == \"JMP\" or (op == \"JZ\" and registers[dest] == 0):\n            next_pc = operand\n        snapshot(\"execute\", controls, alu_result=result, next_pc=next_pc)\n        if controls[\"reg_write\"]:\n            registers[dest] = result\n        if controls[\"mem_write\"]:\n            access(operand, \"store\", registers[dest])\n        snapshot(\"commit\", controls, next_pc=next_pc)\n        pc = next_pc\n        if op == \"HALT\":\n            status = \"halted\"\n            break\n    # Explicit diagnostic write-back, separate from instruction cycles/events.\n    flushed = []\n    for index, line in enumerate(cache):\n        if line[\"valid\"] and line[\"dirty\"]:\n            address = line[\"tag\"] * 2 + index\n            ram[address] = line[\"value\"]\n            flushed.append(address)\n            line[\"dirty\"] = False\n    return {\n        \"status\": status,\n        \"cycles\": cycles,\n        \"pc\": pc,\n        \"registers\": registers,\n        \"memory\": ram,\n        \"trace\": trace,\n        \"cache_events\": events,\n        \"cache\": cache,\n        \"final_flush\": flushed,\n    }\n",
+        "program.py": "SOURCE = 'LDI R0 7\\nLDI R1 5\\nADD R0 R1\\nSTORE R0 3\\nLOAD R2 3\\nHALT'\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "{\"cache_events\": [{\"address\": 3, \"hit\": false, \"operation\": \"load\", \"writeback\": null}], \"cycles\": 24, \"encoded_words\": [4103, 5125, 8448, 20483, 18435, 0], \"final_flush\": [], \"memory\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], \"registers\": [12, 5, 0, 0], \"status\": \"halted\", \"trace\": [[1, \"fetch\", 0, [0, 0, 0, 0], {}], [2, \"decode\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [3, \"execute\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [4, \"commit\", 0, [7, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [5, \"fetch\", 1, [7, 0, 0, 0], {}], [6, \"decode\", 1, [7, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [7, \"execute\", 1, [7, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [8, \"commit\", 1, [7, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [9, \"fetch\", 2, [7, 5, 0, 0], {}], [10, \"decode\", 2, [7, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [11, \"execute\", 2, [7, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [12, \"commit\", 2, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [13, \"fetch\", 3, [12, 5, 0, 0], {}], [14, \"decode\", 3, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [15, \"execute\", 3, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [16, \"commit\", 3, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [17, \"fetch\", 4, [12, 5, 0, 0], {}], [18, \"decode\", 4, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [19, \"execute\", 4, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [20, \"commit\", 4, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [21, \"fetch\", 5, [12, 5, 0, 0], {}], [22, \"decode\", 5, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [23, \"execute\", 5, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [24, \"commit\", 5, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}]]}\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "processor-store/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M06-O03",
+    "activity": "d7d9d26b-6801-583e-8f6f-eced066d083c",
+    "task": "processor-store",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json\ndef load(name):\n    spec=importlib.util.spec_from_file_location(name,name+'.py')\n    m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\n    return m\ncpu=load('cpu');source=load('program').SOURCE\nwords=cpu.assemble(source);r=cpu.run(words)\nreport={\"encoded_words\":words,\"status\":r['status'],\"cycles\":r['cycles'],\"registers\":r['registers'],\"memory\":r['memory'],\"cache_events\":r['cache_events'],\"final_flush\":r['final_flush'],\"trace\":[[t['cycle'],t['phase'],t['pc'],t['registers'],t['controls']] for t in r['trace']]}\nprint(json.dumps(report,sort_keys=True))\n",
+        "cpu.py": "\"\"\"Original educational ISA: 16-bit instructions, 8-bit words, four phases.\n\nNot Hack, x86, a physical processor, pipelined timing or an electrical simulation.\nROM<=256, four writable registers, sixteen words of data RAM, separate I/D space.\nTwo direct-mapped one-word data-cache lines, write-allocate/write-back; flush at end.\nEncoding: opcode[15:12], destination[11:10], source[9:8], operand[7:0].\n\"\"\"\n\nimport copy\nimport re\n\nOPS = {\n    \"HALT\": 0,\n    \"LDI\": 1,\n    \"ADD\": 2,\n    \"SUB\": 3,\n    \"LOAD\": 4,\n    \"STORE\": 5,\n    \"JZ\": 6,\n    \"JMP\": 7,\n}\nARITY = {\n    \"HALT\": 0,\n    \"LDI\": 2,\n    \"ADD\": 2,\n    \"SUB\": 2,\n    \"LOAD\": 2,\n    \"STORE\": 2,\n    \"JZ\": 2,\n    \"JMP\": 1,\n}\n\n\ndef reg(token):\n    if not re.fullmatch(r\"R[0-3]\", token):\n        raise ValueError(\"register must be R0..R3\")\n    return int(token[1])\n\n\ndef assemble(source):\n    if not isinstance(source, str) or len(source) > 8192:\n        raise ValueError(\"source size\")\n    labels, instructions = {}, []\n    for line in source.splitlines():\n        line = line.split(\"#\", 1)[0].strip()\n        if not line:\n            continue\n        if \":\" in line:\n            label, line = line.split(\":\", 1)\n            label = label.strip()\n            if not re.fullmatch(r\"[A-Za-z_][A-Za-z_0-9]*\", label) or label in labels:\n                raise ValueError(\"duplicate or invalid label\")\n            labels[label] = len(instructions)\n            line = line.strip()\n        if line:\n            instructions.append(line.split())\n    if not 0 < len(instructions) <= 256:\n        raise ValueError(\"ROM size\")\n    words = []\n    for tokens in instructions:\n        op, *args = tokens\n        if op not in OPS or len(args) != ARITY[op]:\n            raise ValueError(\"opcode or operand count\")\n        dest = src = value = 0\n        if op not in {\"HALT\", \"JMP\"}:\n            dest = reg(args[0])\n        if op in {\"ADD\", \"SUB\"}:\n            src = reg(args[1])\n        elif op not in {\"HALT\"}:\n            token = args[-1]\n            value = labels[token] if token in labels else int(token, 0)\n            maximum = 15 if op in {\"LOAD\", \"STORE\"} else 255\n            if not 0 <= value <= maximum:\n                raise ValueError(\"operand out of range\")\n            if op in {\"JZ\", \"JMP\"} and value >= len(instructions):\n                raise ValueError(\"branch outside ROM\")\n        words.append((OPS[op] << 12) | (dest << 10) | (src << 8) | value)\n    return words\n\n\ndef decode(word):\n    if type(word) is not int or not 0 <= word <= 65535:\n        raise ValueError(\"instruction width\")\n    opcode = word >> 12\n    if opcode not in OPS.values():\n        raise ValueError(\"unknown opcode\")\n    op = next(name for name, code in OPS.items() if code == opcode)\n    dest, src, value = (word >> 10) & 3, (word >> 8) & 3, word & 255\n    if op == \"HALT\" and word != 0:\n        raise ValueError(\"HALT reserved bits\")\n    if op in {\"ADD\", \"SUB\"} and value:\n        raise ValueError(\"ALU reserved bits\")\n    if op not in {\"ADD\", \"SUB\"} and src:\n        raise ValueError(\"source reserved bits\")\n    if op == \"JMP\" and dest:\n        raise ValueError(\"jump reserved bits\")\n    if op in {\"LOAD\", \"STORE\"} and value > 15:\n        raise ValueError(\"RAM address\")\n    return op, dest, src, value\n\n\ndef validate_controls(controls):\n    if controls.get(\"reg_write\") and controls.get(\"mem_write\"):\n        raise ValueError(\"simultaneous register/memory write is unsupported\")\n\n\ndef run(program, memory=None, max_cycles=256):\n    if not isinstance(program, list) or not 0 < len(program) <= 256:\n        raise ValueError(\"ROM size\")\n    for word in program:\n        decode(word)\n    if type(max_cycles) is not int or not 4 <= max_cycles <= 4096:\n        raise ValueError(\"cycle budget\")\n    ram = list(memory) if memory is not None else [0] * 16\n    if len(ram) != 16 or any(type(v) is not int or not 0 <= v <= 255 for v in ram):\n        raise ValueError(\"RAM words\")\n    registers, trace, events = [0] * 4, [], []\n    cache = [{\"valid\": False, \"tag\": 0, \"value\": 0, \"dirty\": False} for _ in range(2)]\n    pc, cycles, status = 0, 0, \"budget_exhausted\"\n\n    def access(address, operation, value=None):\n        line = cache[address % 2]\n        hit = line[\"valid\"] and line[\"tag\"] == address // 2\n        writeback = None\n        if not hit:\n            if line[\"valid\"] and line[\"dirty\"]:\n                writeback = line[\"tag\"] * 2 + address % 2\n                ram[writeback] = line[\"value\"]\n            line.update(valid=True, tag=address // 2, value=ram[address], dirty=False)\n        if operation == \"store\":\n            line.update(value=value, dirty=True)\n        events.append(\n            {\n                \"address\": address,\n                \"operation\": operation,\n                \"hit\": hit,\n                \"writeback\": writeback,\n            }\n        )\n        return line[\"value\"]\n\n    def snapshot(phase, controls=None, **values):\n        nonlocal cycles\n        cycles += 1\n        trace.append(\n            {\n                \"cycle\": cycles,\n                \"phase\": phase,\n                \"pc\": pc,\n                \"registers\": registers.copy(),\n                \"controls\": controls or {},\n                **copy.deepcopy(values),\n            }\n        )\n\n    while cycles + 4 <= max_cycles:\n        if not 0 <= pc < len(program):\n            status = \"rom_exhausted\"\n            break\n        word = program[pc]\n        snapshot(\"fetch\", instruction=word)\n        op, dest, src, operand = decode(word)\n        controls = {\n            \"reg_write\": op in {\"LDI\", \"ADD\", \"SUB\", \"LOAD\"},\n            \"mem_write\": op == \"STORE\",\n            \"branch\": op in {\"JZ\", \"JMP\"},\n        }\n        validate_controls(controls)\n        snapshot(\n            \"decode\", controls, opcode=op, destination=dest, source=src, operand=operand\n        )\n        result = None\n        next_pc = pc + 1\n        if op == \"LDI\":\n            result = operand\n        elif op == \"ADD\":\n            result = (registers[dest] + registers[src]) & 255\n        elif op == \"SUB\":\n            result = (registers[dest] - registers[src]) & 255\n        elif op == \"LOAD\":\n            result = access(operand, \"load\")\n        elif op == \"JMP\" or (op == \"JZ\" and registers[dest] == 0):\n            next_pc = operand\n        snapshot(\"execute\", controls, alu_result=result, next_pc=next_pc)\n        if controls[\"reg_write\"]:\n            registers[dest] = result\n        if controls[\"mem_write\"]:\n            access(operand, \"store\", registers[dest])\n        snapshot(\"commit\", controls, next_pc=next_pc)\n        pc = next_pc\n        if op == \"HALT\":\n            status = \"halted\"\n            break\n    # Explicit diagnostic write-back, separate from instruction cycles/events.\n    flushed = []\n    for index, line in enumerate(cache):\n        if line[\"valid\"] and line[\"dirty\"]:\n            address = line[\"tag\"] * 2 + index\n            ram[address] = line[\"value\"]\n            flushed.append(address)\n            line[\"dirty\"] = False\n    return {\n        \"status\": status,\n        \"cycles\": cycles,\n        \"pc\": pc,\n        \"registers\": registers,\n        \"memory\": ram,\n        \"trace\": trace,\n        \"cache_events\": events,\n        \"cache\": cache,\n        \"final_flush\": flushed,\n    }\n",
+        "program.py": "SOURCE = 'LDI R0 7\\nLDI R1 5\\nADD R0 R1\\nSTORE R0 3\\nLOAD R2 3\\nHALT'\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "{\"cache_events\": [{\"address\": 3, \"hit\": false, \"operation\": \"store\", \"writeback\": null}, {\"address\": 3, \"hit\": true, \"operation\": \"load\", \"writeback\": null}], \"cycles\": 24, \"encoded_words\": [4103, 5125, 8448, 20483, 18435, 0], \"final_flush\": [3], \"memory\": [0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], \"registers\": [12, 5, 12, 0], \"status\": \"halted\", \"trace\": [[1, \"fetch\", 0, [0, 0, 0, 0], {}], [2, \"decode\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [3, \"execute\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [4, \"commit\", 0, [7, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [5, \"fetch\", 1, [7, 0, 0, 0], {}], [6, \"decode\", 1, [7, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [7, \"execute\", 1, [7, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [8, \"commit\", 1, [7, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [9, \"fetch\", 2, [7, 5, 0, 0], {}], [10, \"decode\", 2, [7, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [11, \"execute\", 2, [7, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [12, \"commit\", 2, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [13, \"fetch\", 3, [12, 5, 0, 0], {}], [14, \"decode\", 3, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": true, \"reg_write\": false}], [15, \"execute\", 3, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": true, \"reg_write\": false}], [16, \"commit\", 3, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": true, \"reg_write\": false}], [17, \"fetch\", 4, [12, 5, 0, 0], {}], [18, \"decode\", 4, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [19, \"execute\", 4, [12, 5, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [20, \"commit\", 4, [12, 5, 12, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [21, \"fetch\", 5, [12, 5, 12, 0], {}], [22, \"decode\", 5, [12, 5, 12, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [23, \"execute\", 5, [12, 5, 12, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [24, \"commit\", 5, [12, 5, 12, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}]]}\n",
+    "decision": "met"
+  },
+  {
+    "id": "processor-branch/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O03",
+    "activity": "37c4230b-c28c-5a8d-891f-b13f1e0cc7de",
+    "task": "processor-branch",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json\ndef load(name):\n    spec=importlib.util.spec_from_file_location(name,name+'.py')\n    m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\n    return m\ncpu=load('cpu');source=load('program').SOURCE\nwords=cpu.assemble(source);r=cpu.run(words)\nreport={\"encoded_words\":words,\"status\":r['status'],\"cycles\":r['cycles'],\"registers\":r['registers'],\"memory\":r['memory'],\"cache_events\":r['cache_events'],\"final_flush\":r['final_flush'],\"trace\":[[t['cycle'],t['phase'],t['pc'],t['registers'],t['controls']] for t in r['trace']]}\nprint(json.dumps(report,sort_keys=True))\n",
+        "cpu.py": "\"\"\"Original educational ISA: 16-bit instructions, 8-bit words, four phases.\n\nNot Hack, x86, a physical processor, pipelined timing or an electrical simulation.\nROM<=256, four writable registers, sixteen words of data RAM, separate I/D space.\nTwo direct-mapped one-word data-cache lines, write-allocate/write-back; flush at end.\nEncoding: opcode[15:12], destination[11:10], source[9:8], operand[7:0].\n\"\"\"\n\nimport copy\nimport re\n\nOPS = {\n    \"HALT\": 0,\n    \"LDI\": 1,\n    \"ADD\": 2,\n    \"SUB\": 3,\n    \"LOAD\": 4,\n    \"STORE\": 5,\n    \"JZ\": 6,\n    \"JMP\": 7,\n}\nARITY = {\n    \"HALT\": 0,\n    \"LDI\": 2,\n    \"ADD\": 2,\n    \"SUB\": 2,\n    \"LOAD\": 2,\n    \"STORE\": 2,\n    \"JZ\": 2,\n    \"JMP\": 1,\n}\n\n\ndef reg(token):\n    if not re.fullmatch(r\"R[0-3]\", token):\n        raise ValueError(\"register must be R0..R3\")\n    return int(token[1])\n\n\ndef assemble(source):\n    if not isinstance(source, str) or len(source) > 8192:\n        raise ValueError(\"source size\")\n    labels, instructions = {}, []\n    for line in source.splitlines():\n        line = line.split(\"#\", 1)[0].strip()\n        if not line:\n            continue\n        if \":\" in line:\n            label, line = line.split(\":\", 1)\n            label = label.strip()\n            if not re.fullmatch(r\"[A-Za-z_][A-Za-z_0-9]*\", label) or label in labels:\n                raise ValueError(\"duplicate or invalid label\")\n            labels[label] = len(instructions)\n            line = line.strip()\n        if line:\n            instructions.append(line.split())\n    if not 0 < len(instructions) <= 256:\n        raise ValueError(\"ROM size\")\n    words = []\n    for tokens in instructions:\n        op, *args = tokens\n        if op not in OPS or len(args) != ARITY[op]:\n            raise ValueError(\"opcode or operand count\")\n        dest = src = value = 0\n        if op not in {\"HALT\", \"JMP\"}:\n            dest = reg(args[0])\n        if op in {\"ADD\", \"SUB\"}:\n            src = reg(args[1])\n        elif op not in {\"HALT\"}:\n            token = args[-1]\n            value = labels[token] if token in labels else int(token, 0)\n            maximum = 15 if op in {\"LOAD\", \"STORE\"} else 255\n            if not 0 <= value <= maximum:\n                raise ValueError(\"operand out of range\")\n            if op in {\"JZ\", \"JMP\"} and value >= len(instructions):\n                raise ValueError(\"branch outside ROM\")\n        words.append((OPS[op] << 12) | (dest << 10) | (src << 8) | value)\n    return words\n\n\ndef decode(word):\n    if type(word) is not int or not 0 <= word <= 65535:\n        raise ValueError(\"instruction width\")\n    opcode = word >> 12\n    if opcode not in OPS.values():\n        raise ValueError(\"unknown opcode\")\n    op = next(name for name, code in OPS.items() if code == opcode)\n    dest, src, value = (word >> 10) & 3, (word >> 8) & 3, word & 255\n    if op == \"HALT\" and word != 0:\n        raise ValueError(\"HALT reserved bits\")\n    if op in {\"ADD\", \"SUB\"} and value:\n        raise ValueError(\"ALU reserved bits\")\n    if op not in {\"ADD\", \"SUB\"} and src:\n        raise ValueError(\"source reserved bits\")\n    if op == \"JMP\" and dest:\n        raise ValueError(\"jump reserved bits\")\n    if op in {\"LOAD\", \"STORE\"} and value > 15:\n        raise ValueError(\"RAM address\")\n    return op, dest, src, value\n\n\ndef validate_controls(controls):\n    if controls.get(\"reg_write\") and controls.get(\"mem_write\"):\n        raise ValueError(\"simultaneous register/memory write is unsupported\")\n\n\ndef run(program, memory=None, max_cycles=256):\n    if not isinstance(program, list) or not 0 < len(program) <= 256:\n        raise ValueError(\"ROM size\")\n    for word in program:\n        decode(word)\n    if type(max_cycles) is not int or not 4 <= max_cycles <= 4096:\n        raise ValueError(\"cycle budget\")\n    ram = list(memory) if memory is not None else [0] * 16\n    if len(ram) != 16 or any(type(v) is not int or not 0 <= v <= 255 for v in ram):\n        raise ValueError(\"RAM words\")\n    registers, trace, events = [0] * 4, [], []\n    cache = [{\"valid\": False, \"tag\": 0, \"value\": 0, \"dirty\": False} for _ in range(2)]\n    pc, cycles, status = 0, 0, \"budget_exhausted\"\n\n    def access(address, operation, value=None):\n        line = cache[address % 2]\n        hit = line[\"valid\"] and line[\"tag\"] == address // 2\n        writeback = None\n        if not hit:\n            if line[\"valid\"] and line[\"dirty\"]:\n                writeback = line[\"tag\"] * 2 + address % 2\n                ram[writeback] = line[\"value\"]\n            line.update(valid=True, tag=address // 2, value=ram[address], dirty=False)\n        if operation == \"store\":\n            line.update(value=value, dirty=True)\n        events.append(\n            {\n                \"address\": address,\n                \"operation\": operation,\n                \"hit\": hit,\n                \"writeback\": writeback,\n            }\n        )\n        return line[\"value\"]\n\n    def snapshot(phase, controls=None, **values):\n        nonlocal cycles\n        cycles += 1\n        trace.append(\n            {\n                \"cycle\": cycles,\n                \"phase\": phase,\n                \"pc\": pc,\n                \"registers\": registers.copy(),\n                \"controls\": controls or {},\n                **copy.deepcopy(values),\n            }\n        )\n\n    while cycles + 4 <= max_cycles:\n        if not 0 <= pc < len(program):\n            status = \"rom_exhausted\"\n            break\n        word = program[pc]\n        snapshot(\"fetch\", instruction=word)\n        op, dest, src, operand = decode(word)\n        controls = {\n            \"reg_write\": op in {\"LDI\", \"ADD\", \"SUB\", \"LOAD\"},\n            \"mem_write\": op == \"STORE\",\n            \"branch\": op in {\"JZ\", \"JMP\"},\n        }\n        validate_controls(controls)\n        snapshot(\n            \"decode\", controls, opcode=op, destination=dest, source=src, operand=operand\n        )\n        result = None\n        next_pc = pc + 1\n        if op == \"LDI\":\n            result = operand\n        elif op == \"ADD\":\n            result = (registers[dest] + registers[src]) & 255\n        elif op == \"SUB\":\n            result = (registers[dest] - registers[src]) & 255\n        elif op == \"LOAD\":\n            result = access(operand, \"load\")\n        elif op == \"JMP\" or (op == \"JZ\" and registers[dest] != 0):\n            next_pc = operand\n        snapshot(\"execute\", controls, alu_result=result, next_pc=next_pc)\n        if controls[\"reg_write\"]:\n            registers[dest] = result\n        if controls[\"mem_write\"]:\n            access(operand, \"store\", registers[dest])\n        snapshot(\"commit\", controls, next_pc=next_pc)\n        pc = next_pc\n        if op == \"HALT\":\n            status = \"halted\"\n            break\n    # Explicit diagnostic write-back, separate from instruction cycles/events.\n    flushed = []\n    for index, line in enumerate(cache):\n        if line[\"valid\"] and line[\"dirty\"]:\n            address = line[\"tag\"] * 2 + index\n            ram[address] = line[\"value\"]\n            flushed.append(address)\n            line[\"dirty\"] = False\n    return {\n        \"status\": status,\n        \"cycles\": cycles,\n        \"pc\": pc,\n        \"registers\": registers,\n        \"memory\": ram,\n        \"trace\": trace,\n        \"cache_events\": events,\n        \"cache\": cache,\n        \"final_flush\": flushed,\n    }\n",
+        "program.py": "SOURCE = 'LDI R0 255\\nLDI R1 1\\nADD R0 R1\\nJZ R0 end\\nLDI R2 99\\nend: HALT'\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "{\"cache_events\": [], \"cycles\": 24, \"encoded_words\": [4351, 5121, 8448, 24581, 6243, 0], \"final_flush\": [], \"memory\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], \"registers\": [0, 1, 99, 0], \"status\": \"halted\", \"trace\": [[1, \"fetch\", 0, [0, 0, 0, 0], {}], [2, \"decode\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [3, \"execute\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [4, \"commit\", 0, [255, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [5, \"fetch\", 1, [255, 0, 0, 0], {}], [6, \"decode\", 1, [255, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [7, \"execute\", 1, [255, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [8, \"commit\", 1, [255, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [9, \"fetch\", 2, [255, 1, 0, 0], {}], [10, \"decode\", 2, [255, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [11, \"execute\", 2, [255, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [12, \"commit\", 2, [0, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [13, \"fetch\", 3, [0, 1, 0, 0], {}], [14, \"decode\", 3, [0, 1, 0, 0], {\"branch\": true, \"mem_write\": false, \"reg_write\": false}], [15, \"execute\", 3, [0, 1, 0, 0], {\"branch\": true, \"mem_write\": false, \"reg_write\": false}], [16, \"commit\", 3, [0, 1, 0, 0], {\"branch\": true, \"mem_write\": false, \"reg_write\": false}], [17, \"fetch\", 4, [0, 1, 0, 0], {}], [18, \"decode\", 4, [0, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [19, \"execute\", 4, [0, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [20, \"commit\", 4, [0, 1, 99, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [21, \"fetch\", 5, [0, 1, 99, 0], {}], [22, \"decode\", 5, [0, 1, 99, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [23, \"execute\", 5, [0, 1, 99, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [24, \"commit\", 5, [0, 1, 99, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}]]}\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "processor-branch/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M05-O03",
+    "activity": "37c4230b-c28c-5a8d-891f-b13f1e0cc7de",
+    "task": "processor-branch",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json\ndef load(name):\n    spec=importlib.util.spec_from_file_location(name,name+'.py')\n    m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\n    return m\ncpu=load('cpu');source=load('program').SOURCE\nwords=cpu.assemble(source);r=cpu.run(words)\nreport={\"encoded_words\":words,\"status\":r['status'],\"cycles\":r['cycles'],\"registers\":r['registers'],\"memory\":r['memory'],\"cache_events\":r['cache_events'],\"final_flush\":r['final_flush'],\"trace\":[[t['cycle'],t['phase'],t['pc'],t['registers'],t['controls']] for t in r['trace']]}\nprint(json.dumps(report,sort_keys=True))\n",
+        "cpu.py": "\"\"\"Original educational ISA: 16-bit instructions, 8-bit words, four phases.\n\nNot Hack, x86, a physical processor, pipelined timing or an electrical simulation.\nROM<=256, four writable registers, sixteen words of data RAM, separate I/D space.\nTwo direct-mapped one-word data-cache lines, write-allocate/write-back; flush at end.\nEncoding: opcode[15:12], destination[11:10], source[9:8], operand[7:0].\n\"\"\"\n\nimport copy\nimport re\n\nOPS = {\n    \"HALT\": 0,\n    \"LDI\": 1,\n    \"ADD\": 2,\n    \"SUB\": 3,\n    \"LOAD\": 4,\n    \"STORE\": 5,\n    \"JZ\": 6,\n    \"JMP\": 7,\n}\nARITY = {\n    \"HALT\": 0,\n    \"LDI\": 2,\n    \"ADD\": 2,\n    \"SUB\": 2,\n    \"LOAD\": 2,\n    \"STORE\": 2,\n    \"JZ\": 2,\n    \"JMP\": 1,\n}\n\n\ndef reg(token):\n    if not re.fullmatch(r\"R[0-3]\", token):\n        raise ValueError(\"register must be R0..R3\")\n    return int(token[1])\n\n\ndef assemble(source):\n    if not isinstance(source, str) or len(source) > 8192:\n        raise ValueError(\"source size\")\n    labels, instructions = {}, []\n    for line in source.splitlines():\n        line = line.split(\"#\", 1)[0].strip()\n        if not line:\n            continue\n        if \":\" in line:\n            label, line = line.split(\":\", 1)\n            label = label.strip()\n            if not re.fullmatch(r\"[A-Za-z_][A-Za-z_0-9]*\", label) or label in labels:\n                raise ValueError(\"duplicate or invalid label\")\n            labels[label] = len(instructions)\n            line = line.strip()\n        if line:\n            instructions.append(line.split())\n    if not 0 < len(instructions) <= 256:\n        raise ValueError(\"ROM size\")\n    words = []\n    for tokens in instructions:\n        op, *args = tokens\n        if op not in OPS or len(args) != ARITY[op]:\n            raise ValueError(\"opcode or operand count\")\n        dest = src = value = 0\n        if op not in {\"HALT\", \"JMP\"}:\n            dest = reg(args[0])\n        if op in {\"ADD\", \"SUB\"}:\n            src = reg(args[1])\n        elif op not in {\"HALT\"}:\n            token = args[-1]\n            value = labels[token] if token in labels else int(token, 0)\n            maximum = 15 if op in {\"LOAD\", \"STORE\"} else 255\n            if not 0 <= value <= maximum:\n                raise ValueError(\"operand out of range\")\n            if op in {\"JZ\", \"JMP\"} and value >= len(instructions):\n                raise ValueError(\"branch outside ROM\")\n        words.append((OPS[op] << 12) | (dest << 10) | (src << 8) | value)\n    return words\n\n\ndef decode(word):\n    if type(word) is not int or not 0 <= word <= 65535:\n        raise ValueError(\"instruction width\")\n    opcode = word >> 12\n    if opcode not in OPS.values():\n        raise ValueError(\"unknown opcode\")\n    op = next(name for name, code in OPS.items() if code == opcode)\n    dest, src, value = (word >> 10) & 3, (word >> 8) & 3, word & 255\n    if op == \"HALT\" and word != 0:\n        raise ValueError(\"HALT reserved bits\")\n    if op in {\"ADD\", \"SUB\"} and value:\n        raise ValueError(\"ALU reserved bits\")\n    if op not in {\"ADD\", \"SUB\"} and src:\n        raise ValueError(\"source reserved bits\")\n    if op == \"JMP\" and dest:\n        raise ValueError(\"jump reserved bits\")\n    if op in {\"LOAD\", \"STORE\"} and value > 15:\n        raise ValueError(\"RAM address\")\n    return op, dest, src, value\n\n\ndef validate_controls(controls):\n    if controls.get(\"reg_write\") and controls.get(\"mem_write\"):\n        raise ValueError(\"simultaneous register/memory write is unsupported\")\n\n\ndef run(program, memory=None, max_cycles=256):\n    if not isinstance(program, list) or not 0 < len(program) <= 256:\n        raise ValueError(\"ROM size\")\n    for word in program:\n        decode(word)\n    if type(max_cycles) is not int or not 4 <= max_cycles <= 4096:\n        raise ValueError(\"cycle budget\")\n    ram = list(memory) if memory is not None else [0] * 16\n    if len(ram) != 16 or any(type(v) is not int or not 0 <= v <= 255 for v in ram):\n        raise ValueError(\"RAM words\")\n    registers, trace, events = [0] * 4, [], []\n    cache = [{\"valid\": False, \"tag\": 0, \"value\": 0, \"dirty\": False} for _ in range(2)]\n    pc, cycles, status = 0, 0, \"budget_exhausted\"\n\n    def access(address, operation, value=None):\n        line = cache[address % 2]\n        hit = line[\"valid\"] and line[\"tag\"] == address // 2\n        writeback = None\n        if not hit:\n            if line[\"valid\"] and line[\"dirty\"]:\n                writeback = line[\"tag\"] * 2 + address % 2\n                ram[writeback] = line[\"value\"]\n            line.update(valid=True, tag=address // 2, value=ram[address], dirty=False)\n        if operation == \"store\":\n            line.update(value=value, dirty=True)\n        events.append(\n            {\n                \"address\": address,\n                \"operation\": operation,\n                \"hit\": hit,\n                \"writeback\": writeback,\n            }\n        )\n        return line[\"value\"]\n\n    def snapshot(phase, controls=None, **values):\n        nonlocal cycles\n        cycles += 1\n        trace.append(\n            {\n                \"cycle\": cycles,\n                \"phase\": phase,\n                \"pc\": pc,\n                \"registers\": registers.copy(),\n                \"controls\": controls or {},\n                **copy.deepcopy(values),\n            }\n        )\n\n    while cycles + 4 <= max_cycles:\n        if not 0 <= pc < len(program):\n            status = \"rom_exhausted\"\n            break\n        word = program[pc]\n        snapshot(\"fetch\", instruction=word)\n        op, dest, src, operand = decode(word)\n        controls = {\n            \"reg_write\": op in {\"LDI\", \"ADD\", \"SUB\", \"LOAD\"},\n            \"mem_write\": op == \"STORE\",\n            \"branch\": op in {\"JZ\", \"JMP\"},\n        }\n        validate_controls(controls)\n        snapshot(\n            \"decode\", controls, opcode=op, destination=dest, source=src, operand=operand\n        )\n        result = None\n        next_pc = pc + 1\n        if op == \"LDI\":\n            result = operand\n        elif op == \"ADD\":\n            result = (registers[dest] + registers[src]) & 255\n        elif op == \"SUB\":\n            result = (registers[dest] - registers[src]) & 255\n        elif op == \"LOAD\":\n            result = access(operand, \"load\")\n        elif op == \"JMP\" or (op == \"JZ\" and registers[dest] == 0):\n            next_pc = operand\n        snapshot(\"execute\", controls, alu_result=result, next_pc=next_pc)\n        if controls[\"reg_write\"]:\n            registers[dest] = result\n        if controls[\"mem_write\"]:\n            access(operand, \"store\", registers[dest])\n        snapshot(\"commit\", controls, next_pc=next_pc)\n        pc = next_pc\n        if op == \"HALT\":\n            status = \"halted\"\n            break\n    # Explicit diagnostic write-back, separate from instruction cycles/events.\n    flushed = []\n    for index, line in enumerate(cache):\n        if line[\"valid\"] and line[\"dirty\"]:\n            address = line[\"tag\"] * 2 + index\n            ram[address] = line[\"value\"]\n            flushed.append(address)\n            line[\"dirty\"] = False\n    return {\n        \"status\": status,\n        \"cycles\": cycles,\n        \"pc\": pc,\n        \"registers\": registers,\n        \"memory\": ram,\n        \"trace\": trace,\n        \"cache_events\": events,\n        \"cache\": cache,\n        \"final_flush\": flushed,\n    }\n",
+        "program.py": "SOURCE = 'LDI R0 255\\nLDI R1 1\\nADD R0 R1\\nJZ R0 end\\nLDI R2 99\\nend: HALT'\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "{\"cache_events\": [], \"cycles\": 20, \"encoded_words\": [4351, 5121, 8448, 24581, 6243, 0], \"final_flush\": [], \"memory\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], \"registers\": [0, 1, 0, 0], \"status\": \"halted\", \"trace\": [[1, \"fetch\", 0, [0, 0, 0, 0], {}], [2, \"decode\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [3, \"execute\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [4, \"commit\", 0, [255, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [5, \"fetch\", 1, [255, 0, 0, 0], {}], [6, \"decode\", 1, [255, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [7, \"execute\", 1, [255, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [8, \"commit\", 1, [255, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [9, \"fetch\", 2, [255, 1, 0, 0], {}], [10, \"decode\", 2, [255, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [11, \"execute\", 2, [255, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [12, \"commit\", 2, [0, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [13, \"fetch\", 3, [0, 1, 0, 0], {}], [14, \"decode\", 3, [0, 1, 0, 0], {\"branch\": true, \"mem_write\": false, \"reg_write\": false}], [15, \"execute\", 3, [0, 1, 0, 0], {\"branch\": true, \"mem_write\": false, \"reg_write\": false}], [16, \"commit\", 3, [0, 1, 0, 0], {\"branch\": true, \"mem_write\": false, \"reg_write\": false}], [17, \"fetch\", 5, [0, 1, 0, 0], {}], [18, \"decode\", 5, [0, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [19, \"execute\", 5, [0, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [20, \"commit\", 5, [0, 1, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}]]}\n",
+    "decision": "met"
+  },
+  {
+    "id": "processor-cache/initial",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O02",
+    "activity": "7ec7eafd-6344-5f3a-9526-8d2f04cda07d",
+    "task": "processor-cache",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json\ndef load(name):\n    spec=importlib.util.spec_from_file_location(name,name+'.py')\n    m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\n    return m\ncpu=load('cpu');source=load('program').SOURCE\nwords=cpu.assemble(source);r=cpu.run(words)\nreport={\"encoded_words\":words,\"status\":r['status'],\"cycles\":r['cycles'],\"registers\":r['registers'],\"memory\":r['memory'],\"cache_events\":r['cache_events'],\"final_flush\":r['final_flush'],\"trace\":[[t['cycle'],t['phase'],t['pc'],t['registers'],t['controls']] for t in r['trace']]}\nprint(json.dumps(report,sort_keys=True))\n",
+        "cpu.py": "\"\"\"Original educational ISA: 16-bit instructions, 8-bit words, four phases.\n\nNot Hack, x86, a physical processor, pipelined timing or an electrical simulation.\nROM<=256, four writable registers, sixteen words of data RAM, separate I/D space.\nTwo direct-mapped one-word data-cache lines, write-allocate/write-back; flush at end.\nEncoding: opcode[15:12], destination[11:10], source[9:8], operand[7:0].\n\"\"\"\n\nimport copy\nimport re\n\nOPS = {\n    \"HALT\": 0,\n    \"LDI\": 1,\n    \"ADD\": 2,\n    \"SUB\": 3,\n    \"LOAD\": 4,\n    \"STORE\": 5,\n    \"JZ\": 6,\n    \"JMP\": 7,\n}\nARITY = {\n    \"HALT\": 0,\n    \"LDI\": 2,\n    \"ADD\": 2,\n    \"SUB\": 2,\n    \"LOAD\": 2,\n    \"STORE\": 2,\n    \"JZ\": 2,\n    \"JMP\": 1,\n}\n\n\ndef reg(token):\n    if not re.fullmatch(r\"R[0-3]\", token):\n        raise ValueError(\"register must be R0..R3\")\n    return int(token[1])\n\n\ndef assemble(source):\n    if not isinstance(source, str) or len(source) > 8192:\n        raise ValueError(\"source size\")\n    labels, instructions = {}, []\n    for line in source.splitlines():\n        line = line.split(\"#\", 1)[0].strip()\n        if not line:\n            continue\n        if \":\" in line:\n            label, line = line.split(\":\", 1)\n            label = label.strip()\n            if not re.fullmatch(r\"[A-Za-z_][A-Za-z_0-9]*\", label) or label in labels:\n                raise ValueError(\"duplicate or invalid label\")\n            labels[label] = len(instructions)\n            line = line.strip()\n        if line:\n            instructions.append(line.split())\n    if not 0 < len(instructions) <= 256:\n        raise ValueError(\"ROM size\")\n    words = []\n    for tokens in instructions:\n        op, *args = tokens\n        if op not in OPS or len(args) != ARITY[op]:\n            raise ValueError(\"opcode or operand count\")\n        dest = src = value = 0\n        if op not in {\"HALT\", \"JMP\"}:\n            dest = reg(args[0])\n        if op in {\"ADD\", \"SUB\"}:\n            src = reg(args[1])\n        elif op not in {\"HALT\"}:\n            token = args[-1]\n            value = labels[token] if token in labels else int(token, 0)\n            maximum = 15 if op in {\"LOAD\", \"STORE\"} else 255\n            if not 0 <= value <= maximum:\n                raise ValueError(\"operand out of range\")\n            if op in {\"JZ\", \"JMP\"} and value >= len(instructions):\n                raise ValueError(\"branch outside ROM\")\n        words.append((OPS[op] << 12) | (dest << 10) | (src << 8) | value)\n    return words\n\n\ndef decode(word):\n    if type(word) is not int or not 0 <= word <= 65535:\n        raise ValueError(\"instruction width\")\n    opcode = word >> 12\n    if opcode not in OPS.values():\n        raise ValueError(\"unknown opcode\")\n    op = next(name for name, code in OPS.items() if code == opcode)\n    dest, src, value = (word >> 10) & 3, (word >> 8) & 3, word & 255\n    if op == \"HALT\" and word != 0:\n        raise ValueError(\"HALT reserved bits\")\n    if op in {\"ADD\", \"SUB\"} and value:\n        raise ValueError(\"ALU reserved bits\")\n    if op not in {\"ADD\", \"SUB\"} and src:\n        raise ValueError(\"source reserved bits\")\n    if op == \"JMP\" and dest:\n        raise ValueError(\"jump reserved bits\")\n    if op in {\"LOAD\", \"STORE\"} and value > 15:\n        raise ValueError(\"RAM address\")\n    return op, dest, src, value\n\n\ndef validate_controls(controls):\n    if controls.get(\"reg_write\") and controls.get(\"mem_write\"):\n        raise ValueError(\"simultaneous register/memory write is unsupported\")\n\n\ndef run(program, memory=None, max_cycles=256):\n    if not isinstance(program, list) or not 0 < len(program) <= 256:\n        raise ValueError(\"ROM size\")\n    for word in program:\n        decode(word)\n    if type(max_cycles) is not int or not 4 <= max_cycles <= 4096:\n        raise ValueError(\"cycle budget\")\n    ram = list(memory) if memory is not None else [0] * 16\n    if len(ram) != 16 or any(type(v) is not int or not 0 <= v <= 255 for v in ram):\n        raise ValueError(\"RAM words\")\n    registers, trace, events = [0] * 4, [], []\n    cache = [{\"valid\": False, \"tag\": 0, \"value\": 0, \"dirty\": False} for _ in range(2)]\n    pc, cycles, status = 0, 0, \"budget_exhausted\"\n\n    def access(address, operation, value=None):\n        line = cache[address % 2]\n        hit = line[\"valid\"] and line[\"tag\"] == address // 2\n        writeback = None\n        if not hit:\n            if False:  # missing dirty eviction writeback\n                writeback = line[\"tag\"] * 2 + address % 2\n                ram[writeback] = line[\"value\"]\n            line.update(valid=True, tag=address // 2, value=ram[address], dirty=False)\n        if operation == \"store\":\n            line.update(value=value, dirty=True)\n        events.append(\n            {\n                \"address\": address,\n                \"operation\": operation,\n                \"hit\": hit,\n                \"writeback\": writeback,\n            }\n        )\n        return line[\"value\"]\n\n    def snapshot(phase, controls=None, **values):\n        nonlocal cycles\n        cycles += 1\n        trace.append(\n            {\n                \"cycle\": cycles,\n                \"phase\": phase,\n                \"pc\": pc,\n                \"registers\": registers.copy(),\n                \"controls\": controls or {},\n                **copy.deepcopy(values),\n            }\n        )\n\n    while cycles + 4 <= max_cycles:\n        if not 0 <= pc < len(program):\n            status = \"rom_exhausted\"\n            break\n        word = program[pc]\n        snapshot(\"fetch\", instruction=word)\n        op, dest, src, operand = decode(word)\n        controls = {\n            \"reg_write\": op in {\"LDI\", \"ADD\", \"SUB\", \"LOAD\"},\n            \"mem_write\": op == \"STORE\",\n            \"branch\": op in {\"JZ\", \"JMP\"},\n        }\n        validate_controls(controls)\n        snapshot(\n            \"decode\", controls, opcode=op, destination=dest, source=src, operand=operand\n        )\n        result = None\n        next_pc = pc + 1\n        if op == \"LDI\":\n            result = operand\n        elif op == \"ADD\":\n            result = (registers[dest] + registers[src]) & 255\n        elif op == \"SUB\":\n            result = (registers[dest] - registers[src]) & 255\n        elif op == \"LOAD\":\n            result = access(operand, \"load\")\n        elif op == \"JMP\" or (op == \"JZ\" and registers[dest] == 0):\n            next_pc = operand\n        snapshot(\"execute\", controls, alu_result=result, next_pc=next_pc)\n        if controls[\"reg_write\"]:\n            registers[dest] = result\n        if controls[\"mem_write\"]:\n            access(operand, \"store\", registers[dest])\n        snapshot(\"commit\", controls, next_pc=next_pc)\n        pc = next_pc\n        if op == \"HALT\":\n            status = \"halted\"\n            break\n    # Explicit diagnostic write-back, separate from instruction cycles/events.\n    flushed = []\n    for index, line in enumerate(cache):\n        if line[\"valid\"] and line[\"dirty\"]:\n            address = line[\"tag\"] * 2 + index\n            ram[address] = line[\"value\"]\n            flushed.append(address)\n            line[\"dirty\"] = False\n    return {\n        \"status\": status,\n        \"cycles\": cycles,\n        \"pc\": pc,\n        \"registers\": registers,\n        \"memory\": ram,\n        \"trace\": trace,\n        \"cache_events\": events,\n        \"cache\": cache,\n        \"final_flush\": flushed,\n    }\n",
+        "program.py": "SOURCE = 'LDI R0 9\\nSTORE R0 0\\nLOAD R1 2\\nLOAD R2 0\\nHALT'\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "{\"cache_events\": [{\"address\": 0, \"hit\": false, \"operation\": \"store\", \"writeback\": null}, {\"address\": 2, \"hit\": false, \"operation\": \"load\", \"writeback\": null}, {\"address\": 0, \"hit\": false, \"operation\": \"load\", \"writeback\": null}], \"cycles\": 20, \"encoded_words\": [4105, 20480, 17410, 18432, 0], \"final_flush\": [], \"memory\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], \"registers\": [9, 0, 0, 0], \"status\": \"halted\", \"trace\": [[1, \"fetch\", 0, [0, 0, 0, 0], {}], [2, \"decode\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [3, \"execute\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [4, \"commit\", 0, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [5, \"fetch\", 1, [9, 0, 0, 0], {}], [6, \"decode\", 1, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": true, \"reg_write\": false}], [7, \"execute\", 1, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": true, \"reg_write\": false}], [8, \"commit\", 1, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": true, \"reg_write\": false}], [9, \"fetch\", 2, [9, 0, 0, 0], {}], [10, \"decode\", 2, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [11, \"execute\", 2, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [12, \"commit\", 2, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [13, \"fetch\", 3, [9, 0, 0, 0], {}], [14, \"decode\", 3, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [15, \"execute\", 3, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [16, \"commit\", 3, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [17, \"fetch\", 4, [9, 0, 0, 0], {}], [18, \"decode\", 4, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [19, \"execute\", 4, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [20, \"commit\", 4, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}]]}\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "processor-cache/repaired",
+    "version": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+    "goal": "CS06-M08-O02",
+    "activity": "7ec7eafd-6344-5f3a-9526-8d2f04cda07d",
+    "task": "processor-cache",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import importlib.util,json\ndef load(name):\n    spec=importlib.util.spec_from_file_location(name,name+'.py')\n    m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\n    return m\ncpu=load('cpu');source=load('program').SOURCE\nwords=cpu.assemble(source);r=cpu.run(words)\nreport={\"encoded_words\":words,\"status\":r['status'],\"cycles\":r['cycles'],\"registers\":r['registers'],\"memory\":r['memory'],\"cache_events\":r['cache_events'],\"final_flush\":r['final_flush'],\"trace\":[[t['cycle'],t['phase'],t['pc'],t['registers'],t['controls']] for t in r['trace']]}\nprint(json.dumps(report,sort_keys=True))\n",
+        "cpu.py": "\"\"\"Original educational ISA: 16-bit instructions, 8-bit words, four phases.\n\nNot Hack, x86, a physical processor, pipelined timing or an electrical simulation.\nROM<=256, four writable registers, sixteen words of data RAM, separate I/D space.\nTwo direct-mapped one-word data-cache lines, write-allocate/write-back; flush at end.\nEncoding: opcode[15:12], destination[11:10], source[9:8], operand[7:0].\n\"\"\"\n\nimport copy\nimport re\n\nOPS = {\n    \"HALT\": 0,\n    \"LDI\": 1,\n    \"ADD\": 2,\n    \"SUB\": 3,\n    \"LOAD\": 4,\n    \"STORE\": 5,\n    \"JZ\": 6,\n    \"JMP\": 7,\n}\nARITY = {\n    \"HALT\": 0,\n    \"LDI\": 2,\n    \"ADD\": 2,\n    \"SUB\": 2,\n    \"LOAD\": 2,\n    \"STORE\": 2,\n    \"JZ\": 2,\n    \"JMP\": 1,\n}\n\n\ndef reg(token):\n    if not re.fullmatch(r\"R[0-3]\", token):\n        raise ValueError(\"register must be R0..R3\")\n    return int(token[1])\n\n\ndef assemble(source):\n    if not isinstance(source, str) or len(source) > 8192:\n        raise ValueError(\"source size\")\n    labels, instructions = {}, []\n    for line in source.splitlines():\n        line = line.split(\"#\", 1)[0].strip()\n        if not line:\n            continue\n        if \":\" in line:\n            label, line = line.split(\":\", 1)\n            label = label.strip()\n            if not re.fullmatch(r\"[A-Za-z_][A-Za-z_0-9]*\", label) or label in labels:\n                raise ValueError(\"duplicate or invalid label\")\n            labels[label] = len(instructions)\n            line = line.strip()\n        if line:\n            instructions.append(line.split())\n    if not 0 < len(instructions) <= 256:\n        raise ValueError(\"ROM size\")\n    words = []\n    for tokens in instructions:\n        op, *args = tokens\n        if op not in OPS or len(args) != ARITY[op]:\n            raise ValueError(\"opcode or operand count\")\n        dest = src = value = 0\n        if op not in {\"HALT\", \"JMP\"}:\n            dest = reg(args[0])\n        if op in {\"ADD\", \"SUB\"}:\n            src = reg(args[1])\n        elif op not in {\"HALT\"}:\n            token = args[-1]\n            value = labels[token] if token in labels else int(token, 0)\n            maximum = 15 if op in {\"LOAD\", \"STORE\"} else 255\n            if not 0 <= value <= maximum:\n                raise ValueError(\"operand out of range\")\n            if op in {\"JZ\", \"JMP\"} and value >= len(instructions):\n                raise ValueError(\"branch outside ROM\")\n        words.append((OPS[op] << 12) | (dest << 10) | (src << 8) | value)\n    return words\n\n\ndef decode(word):\n    if type(word) is not int or not 0 <= word <= 65535:\n        raise ValueError(\"instruction width\")\n    opcode = word >> 12\n    if opcode not in OPS.values():\n        raise ValueError(\"unknown opcode\")\n    op = next(name for name, code in OPS.items() if code == opcode)\n    dest, src, value = (word >> 10) & 3, (word >> 8) & 3, word & 255\n    if op == \"HALT\" and word != 0:\n        raise ValueError(\"HALT reserved bits\")\n    if op in {\"ADD\", \"SUB\"} and value:\n        raise ValueError(\"ALU reserved bits\")\n    if op not in {\"ADD\", \"SUB\"} and src:\n        raise ValueError(\"source reserved bits\")\n    if op == \"JMP\" and dest:\n        raise ValueError(\"jump reserved bits\")\n    if op in {\"LOAD\", \"STORE\"} and value > 15:\n        raise ValueError(\"RAM address\")\n    return op, dest, src, value\n\n\ndef validate_controls(controls):\n    if controls.get(\"reg_write\") and controls.get(\"mem_write\"):\n        raise ValueError(\"simultaneous register/memory write is unsupported\")\n\n\ndef run(program, memory=None, max_cycles=256):\n    if not isinstance(program, list) or not 0 < len(program) <= 256:\n        raise ValueError(\"ROM size\")\n    for word in program:\n        decode(word)\n    if type(max_cycles) is not int or not 4 <= max_cycles <= 4096:\n        raise ValueError(\"cycle budget\")\n    ram = list(memory) if memory is not None else [0] * 16\n    if len(ram) != 16 or any(type(v) is not int or not 0 <= v <= 255 for v in ram):\n        raise ValueError(\"RAM words\")\n    registers, trace, events = [0] * 4, [], []\n    cache = [{\"valid\": False, \"tag\": 0, \"value\": 0, \"dirty\": False} for _ in range(2)]\n    pc, cycles, status = 0, 0, \"budget_exhausted\"\n\n    def access(address, operation, value=None):\n        line = cache[address % 2]\n        hit = line[\"valid\"] and line[\"tag\"] == address // 2\n        writeback = None\n        if not hit:\n            if line[\"valid\"] and line[\"dirty\"]:\n                writeback = line[\"tag\"] * 2 + address % 2\n                ram[writeback] = line[\"value\"]\n            line.update(valid=True, tag=address // 2, value=ram[address], dirty=False)\n        if operation == \"store\":\n            line.update(value=value, dirty=True)\n        events.append(\n            {\n                \"address\": address,\n                \"operation\": operation,\n                \"hit\": hit,\n                \"writeback\": writeback,\n            }\n        )\n        return line[\"value\"]\n\n    def snapshot(phase, controls=None, **values):\n        nonlocal cycles\n        cycles += 1\n        trace.append(\n            {\n                \"cycle\": cycles,\n                \"phase\": phase,\n                \"pc\": pc,\n                \"registers\": registers.copy(),\n                \"controls\": controls or {},\n                **copy.deepcopy(values),\n            }\n        )\n\n    while cycles + 4 <= max_cycles:\n        if not 0 <= pc < len(program):\n            status = \"rom_exhausted\"\n            break\n        word = program[pc]\n        snapshot(\"fetch\", instruction=word)\n        op, dest, src, operand = decode(word)\n        controls = {\n            \"reg_write\": op in {\"LDI\", \"ADD\", \"SUB\", \"LOAD\"},\n            \"mem_write\": op == \"STORE\",\n            \"branch\": op in {\"JZ\", \"JMP\"},\n        }\n        validate_controls(controls)\n        snapshot(\n            \"decode\", controls, opcode=op, destination=dest, source=src, operand=operand\n        )\n        result = None\n        next_pc = pc + 1\n        if op == \"LDI\":\n            result = operand\n        elif op == \"ADD\":\n            result = (registers[dest] + registers[src]) & 255\n        elif op == \"SUB\":\n            result = (registers[dest] - registers[src]) & 255\n        elif op == \"LOAD\":\n            result = access(operand, \"load\")\n        elif op == \"JMP\" or (op == \"JZ\" and registers[dest] == 0):\n            next_pc = operand\n        snapshot(\"execute\", controls, alu_result=result, next_pc=next_pc)\n        if controls[\"reg_write\"]:\n            registers[dest] = result\n        if controls[\"mem_write\"]:\n            access(operand, \"store\", registers[dest])\n        snapshot(\"commit\", controls, next_pc=next_pc)\n        pc = next_pc\n        if op == \"HALT\":\n            status = \"halted\"\n            break\n    # Explicit diagnostic write-back, separate from instruction cycles/events.\n    flushed = []\n    for index, line in enumerate(cache):\n        if line[\"valid\"] and line[\"dirty\"]:\n            address = line[\"tag\"] * 2 + index\n            ram[address] = line[\"value\"]\n            flushed.append(address)\n            line[\"dirty\"] = False\n    return {\n        \"status\": status,\n        \"cycles\": cycles,\n        \"pc\": pc,\n        \"registers\": registers,\n        \"memory\": ram,\n        \"trace\": trace,\n        \"cache_events\": events,\n        \"cache\": cache,\n        \"final_flush\": flushed,\n    }\n",
+        "program.py": "SOURCE = 'LDI R0 9\\nSTORE R0 0\\nLOAD R1 2\\nLOAD R2 0\\nHALT'\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "{\"cache_events\": [{\"address\": 0, \"hit\": false, \"operation\": \"store\", \"writeback\": null}, {\"address\": 2, \"hit\": false, \"operation\": \"load\", \"writeback\": 0}, {\"address\": 0, \"hit\": false, \"operation\": \"load\", \"writeback\": null}], \"cycles\": 20, \"encoded_words\": [4105, 20480, 17410, 18432, 0], \"final_flush\": [], \"memory\": [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], \"registers\": [9, 0, 9, 0], \"status\": \"halted\", \"trace\": [[1, \"fetch\", 0, [0, 0, 0, 0], {}], [2, \"decode\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [3, \"execute\", 0, [0, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [4, \"commit\", 0, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [5, \"fetch\", 1, [9, 0, 0, 0], {}], [6, \"decode\", 1, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": true, \"reg_write\": false}], [7, \"execute\", 1, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": true, \"reg_write\": false}], [8, \"commit\", 1, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": true, \"reg_write\": false}], [9, \"fetch\", 2, [9, 0, 0, 0], {}], [10, \"decode\", 2, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [11, \"execute\", 2, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [12, \"commit\", 2, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [13, \"fetch\", 3, [9, 0, 0, 0], {}], [14, \"decode\", 3, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [15, \"execute\", 3, [9, 0, 0, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [16, \"commit\", 3, [9, 0, 9, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": true}], [17, \"fetch\", 4, [9, 0, 9, 0], {}], [18, \"decode\", 4, [9, 0, 9, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [19, \"execute\", 4, [9, 0, 9, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}], [20, \"commit\", 4, [9, 0, 9, 0], {\"branch\": false, \"mem_write\": false, \"reg_write\": false}]]}\n",
+    "decision": "met"
+  }
+]

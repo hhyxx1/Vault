@@ -4387,3 +4387,12 @@ main:focus {
 .structured-criteria li::before { content: "◦"; position: absolute; left: 2px; color: #6f8f7c; }
 .structured-criteria li:last-child { color: #738373; font-style: italic; }
 @media (max-width: 600px) { .structured-table, .structured-table-wide, .bracket-table { min-width: 0; } }
+.processor-trace { border-top: 1px solid var(--line, #d8ddd3); margin-top: 24px; padding-top: 20px; }
+.processor-phases, .processor-registers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.processor-phases span { padding: 8px 2px; text-align: center; border-bottom: 2px solid transparent; color: var(--muted); }
+.processor-phases [aria-current="step"] { color: var(--forest); border-color: var(--forest); background: var(--sage); }
+.processor-registers { margin: 16px 0; }
+.processor-registers div { padding: 10px 8px; border: 1px solid var(--line); }
+.processor-registers dt { color: var(--muted); font-size: 12px; }
+.processor-registers dd { margin: 4px 0 0; font-size: 24px; font-variant-numeric: tabular-nums; }
+.processor-trace input[type="range"] { width: 100%; accent-color: var(--forest); }
