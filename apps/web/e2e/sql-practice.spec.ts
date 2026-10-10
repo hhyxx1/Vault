@@ -1,0 +1,22 @@
+import { expect, test } from '@playwright/test'
+
+test('real PostgreSQL SQL errors, fresh data and browser restoration', async ({ page }) => {
+  test.setTimeout(90000)
+  await page.goto('/code')
+  await page.getByLabel('运行语言').selectOption('postgres18')
+  await expect(page.getByLabel('标准输入')).toBeDisabled()
+  await page.getByLabel('代码源文件').fill('CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(1),(NULL); SELECT count(*),count(x),count(DISTINCT x) FROM scores;')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('3|2|1\n', { timeout: 60000 })
+  await page.reload()
+  await expect(page.getByLabel('标准输出')).toHaveText('3|2|1\n')
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  await page.getByLabel('代码源文件').fill('CREATE TABLE positive(x integer CHECK(x>0)); INSERT INTO positive VALUES(-1);')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('错误输出')).toContainText('check constraint', { timeout: 60000 })
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  await page.getByLabel('代码源文件').fill("SELECT to_regclass('workspace.scores') IS NULL;")
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('t\n', { timeout: 60000 })
+  expect(await page.evaluate(() => document.body.scrollWidth <= window.innerWidth)).toBe(true)
+})

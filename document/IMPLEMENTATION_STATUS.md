@@ -1,3 +1,7 @@
+## 2026-10-10 SQL 真实执行底座
+
+公共工作台新增 PostgreSQL18.6 独立沙箱脚本执行，作品／刷新／同步沿用现有链路。桌面／手机2项、Linux 执行14项、私有 HTTP7项通过；完整后端269通过41跳过，前端88通过及构建／契约检查通过。双连接事务调度和完整 CS09 内容尚缺。见 course-construction/E03_SQL_EXECUTION_IMPLEMENTATION.md。
+
 ## 2026-10-10 CS08 局部网络实践推进
 
 30 目标的局部真实 TCP/UDP/HTTP 与协议模型、120 份 Linux 实际运行作者工件、桌面／手机 4 项闭环通过。完整 containerlab/FRR、VLAN、抓包及双网段恢复尚缺，不计整课完成。见 course-construction/units/CS08-CORE-PRACTICE.md。

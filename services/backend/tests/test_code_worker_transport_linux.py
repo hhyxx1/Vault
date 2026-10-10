@@ -39,6 +39,7 @@ def client():
             'import os\nassert "VAULT_CODE_WORKER_TOKEN" not in os.environ\nprint(42)',
         ),
         ("node24", "main.js", "console.log(42)"),
+        ("postgres18", "main.sql", "SELECT 42;"),
     ],
 )
 async def test_private_transport_runs_real_code_and_binds_snapshot(language, entry, source):

@@ -820,7 +820,8 @@
               "cpp17",
               "java21",
               "python313",
-              "node24"
+              "node24",
+              "postgres18"
             ],
             "title": "Language",
             "type": "string"

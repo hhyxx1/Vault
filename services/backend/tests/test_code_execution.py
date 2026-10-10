@@ -46,3 +46,21 @@ def test_request_hash_binds_files_language_entry_and_input():
     assert request_hash(request) != request_hash(
         request.model_copy(update={"files": {"main.c": ""}})
     )
+
+
+def test_postgres18_sources_are_sql_only_and_cannot_be_psql_commands():
+    assert CodeRequest(language="postgres18", files={"main.sql": "SELECT 1;"}, entry="main.sql")
+    for source in (
+        "\\connect postgres",
+        "  \\! id",
+        "-- comment\n\\connect postgres",
+        "SELECT 1;\\connect postgres",
+    ):
+        with pytest.raises(ValidationError):
+            CodeRequest(language="postgres18", files={"main.sql": source}, entry="main.sql")
+    with pytest.raises(ValidationError):
+        CodeRequest(language="postgres18", files={"main.py": "print(1)"}, entry="main.py")
+    with pytest.raises(ValidationError):
+        CodeRequest(
+            language="postgres18", files={"main.sql": "SELECT 1;"}, entry="main.sql", stdin="input"
+        )

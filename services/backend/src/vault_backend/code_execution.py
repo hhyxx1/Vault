@@ -18,19 +18,27 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-Language = Literal["c17", "cpp17", "java21", "python313", "node24"]
+Language = Literal["c17", "cpp17", "java21", "python313", "node24", "postgres18"]
 Status = Literal[
     "success", "compile_error", "runtime_error", "timeout", "resource_limit", "environment_error"
 ]
-FILENAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]{0,50}\.(c|cpp|h|hpp|java|py|js)\Z")
+FILENAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]{0,50}\.(c|cpp|h|hpp|java|py|js|sql)\Z")
 EXTENSIONS = {
     "c17": {"c", "h"},
     "cpp17": {"cpp", "h", "hpp"},
     "java21": {"java"},
     "python313": {"py"},
     "node24": {"js"},
+    "postgres18": {"sql"},
 }
-ENTRY_EXT = {"c17": "c", "cpp17": "cpp", "java21": "java", "python313": "py", "node24": "js"}
+ENTRY_EXT = {
+    "c17": "c",
+    "cpp17": "cpp",
+    "java21": "java",
+    "python313": "py",
+    "node24": "js",
+    "postgres18": "sql",
+}
 
 
 class CodeRequest(BaseModel):
@@ -54,6 +62,11 @@ class CodeRequest(BaseModel):
             raise ValueError("source exceeds 64 KiB")
         if len(self.stdin.encode("utf-8")) > 16384:
             raise ValueError("input exceeds 16 KiB")
+        if self.language == "postgres18":
+            if self.stdin or len(self.files) != 1:
+                raise ValueError("SQL execution accepts one source file and no stdin")
+            if "\\" in self.files[self.entry]:
+                raise ValueError("psql client commands are not accepted")
         return self
 
 
@@ -190,6 +203,13 @@ class IsolateWorker:
                 "-I",
                 "/box/" + request.entry,
             ]
+        if request.language == "postgres18":
+            return None, [
+                "/opt/vault-toolchains/python-3.13/bin/python3.13",
+                "-I",
+                "/opt/vault-toolchains/pg18/run_sql.py",
+                "/box/" + request.entry,
+            ]
         return None, ["/opt/vault-toolchains/node-24/bin/node", "/box/" + request.entry]
 
     async def _phase(
@@ -202,6 +222,7 @@ class IsolateWorker:
     ) -> CodeResult:
         meta_path = scratch / (phase + ".meta")
         seconds = 30 if phase == "compile" else 5
+        sql = "/opt/vault-toolchains/pg18/run_sql.py" in command
         args = [
             self.isolate,
             "--cg",
@@ -211,7 +232,7 @@ class IsolateWorker:
             "--wall-time=" + str(seconds + 5),
             "--cg-mem=524288",
             "--processes=32",
-            "--fsize=1024",
+            "--fsize=" + ("32768" if sql else "1024"),
             "--open-files=64",
             "--env=PATH=/usr/bin:/bin",
             "--env=LANG=C.UTF-8",
@@ -230,6 +251,9 @@ class IsolateWorker:
             # Bind only the selected interpreter, never the controller's /opt tree.
             toolchain = Path(command[0]).parents[1]
             args.insert(args.index("--run"), "--dir=" + str(toolchain))
+        if sql:
+            args.insert(args.index("--run"), "--dir=/opt/vault-toolchains/pg18")
+            args.insert(args.index("--run"), "--dir=/etc=" + str(box / "pg-etc") + ":rw")
         if command[0].startswith("/usr/lib/jvm/java-21-openjdk-amd64/"):
             # Debian's JDK configuration is symlinked outside /usr. Expose this
             # public toolchain configuration only, never all of host /etc.
@@ -238,6 +262,9 @@ class IsolateWorker:
         meta_text, _ = read_output(meta_path, 16384)
         meta = dict(line.split(":", 1) for line in meta_text.splitlines() if ":" in line)
         status = execution_status(meta, code)
+        if sql and meta.get("exitcode") == "70":
+            status = "environment_error"
+            phase = "prepare"
         if phase == "compile" and status == "runtime_error":
             status = "compile_error"
         stdout, out_cut = read_output(box / "stdout")
@@ -287,13 +314,18 @@ class IsolateWorker:
                     if reported != box.parent.resolve():
                         raise OSError("unexpected isolate root")
                     owner = box.stat()
+                    scratch_limit = (
+                        "size=128m,nr_inodes=8192"
+                        if request.language == "postgres18"
+                        else "size=16m,nr_inodes=256"
+                    )
                     code, _ = await self._command(
                         [
                             "/usr/bin/mount",
                             "-t",
                             "tmpfs",
                             "-o",
-                            f"size=16m,nr_inodes=256,nodev,nosuid,uid={owner.st_uid},gid={owner.st_gid}",
+                            f"{scratch_limit},nodev,nosuid,uid={owner.st_uid},gid={owner.st_gid}",
                             "vault-code",
                             str(box),
                         ],
@@ -307,10 +339,19 @@ class IsolateWorker:
                     for name, source in request.files.items():
                         (box / name).write_text(source, encoding="utf-8")
                     (box / "input").write_text(request.stdin, encoding="utf-8")
+                    if request.language == "postgres18":
+                        configuration = box / "pg-etc"
+                        configuration.mkdir(mode=0o777)
+                        os.chmod(configuration, 0o777)
                     compile_plan, run_plan = self._plans(request)
                     executable = compile_plan[0] if compile_plan else run_plan[0]
                     if not Path(executable).is_file():
                         raise OSError("configured toolchain unavailable")
+                    if (
+                        request.language == "postgres18"
+                        and not Path("/opt/vault-toolchains/pg18/run_sql.py").is_file()
+                    ):
+                        raise OSError("configured PostgreSQL runtime unavailable")
                     if (
                         request.language == "java21"
                         and not Path("/etc/java-21-openjdk/security/java.security").is_file()

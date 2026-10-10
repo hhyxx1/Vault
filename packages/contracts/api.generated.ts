@@ -967,7 +967,7 @@ export interface components {
              * Language
              * @enum {string}
              */
-            language: "c17" | "cpp17" | "java21" | "python313" | "node24";
+            language: "c17" | "cpp17" | "java21" | "python313" | "node24" | "postgres18";
             /**
              * Stdin
              * @default
