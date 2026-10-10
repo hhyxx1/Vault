@@ -1,0 +1,33 @@
+import { expect, test } from '@playwright/test'
+
+test('dirty cache eviction writes back and its work survives reload', async ({ page }) => {
+  test.setTimeout(90000)
+  await page.goto('/learn/CS06-M08-O02')
+  await expect(page.getByRole('heading', { name: '写回缓存淘汰脏块先回写', exact: true })).toBeVisible()
+  await page.getByLabel('运行前预测').fill('缓存脏值九替换前未写回会让内存仍为一。')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('1\n', { timeout: 60000 })
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  const source = page.getByLabel('代码源文件')
+  await source.fill((await source.inputValue()).replace('cache=None', "if cache['dirty']: memory[cache['address']]=cache['data']\ncache=None"))
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('9\n', { timeout: 60000 })
+  await page.reload()
+  await expect(page.getByLabel('标准输出')).toHaveText('9\n')
+  await page.getByRole('link', { name: '回到知识图谱' }).click()
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 27')
+  await expect(page.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
+  expect(await page.evaluate(() => document.body.scrollWidth <= window.innerWidth)).toBe(true)
+})
+
+test('same-clock registers consume previous state together', async ({ page }) => {
+  test.setTimeout(90000)
+  await page.goto('/learn/CS06-M04-O01')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('2 2\n', { timeout: 60000 })
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  const source = page.getByLabel('代码源文件')
+  await source.fill((await source.inputValue()).replace('a=b\nb=a', 'a,b=b,a'))
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('2 1\n', { timeout: 60000 })
+})

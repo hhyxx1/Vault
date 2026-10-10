@@ -1,0 +1,28 @@
+﻿goal,activity,conditions,full_model_and_transfer,review
+CS06-M01-O01,负整数编码须按八位取模,2,needs_review,unavailable
+CS06-M01-O02,同一字节的有符号解释不同,2,needs_review,unavailable
+CS06-M01-O03,八位有符号上界是 127,2,needs_review,unavailable
+CS06-M02-O01,八位 ALU 加法保存低八位,2,needs_review,unavailable
+CS06-M02-O02,最近舍入中点选择偶数,2,needs_review,unavailable
+CS06-M02-O03,精度间距随指数变化,2,needs_review,unavailable
+CS06-M03-O01,半加器和位需要异或,2,needs_review,unavailable
+CS06-M03-O02,全加器进位包含输入进位,2,needs_review,unavailable
+CS06-M03-O03,门网络等价核对全部输入,2,needs_review,unavailable
+CS06-M04-O01,同一时钟沿寄存器读旧状态,2,needs_review,unavailable
+CS06-M04-O02,复位和使能冲突按已声明优先级,2,needs_review,unavailable
+CS06-M04-O03,时钟周期须覆盖最长组合路径,2,needs_review,unavailable
+CS06-M05-O01,教学指令高四位才是 opcode,2,needs_review,unavailable
+CS06-M05-O02,基址偏移寻址需先求有效地址,2,needs_review,unavailable
+CS06-M05-O03,减法指令操作数顺序有意义,2,needs_review,unavailable
+CS06-M06-O01,取指先读取当前 PC 再推进,2,needs_review,unavailable
+CS06-M06-O02,无目的寄存器的指令不能写寄存器,2,needs_review,unavailable
+CS06-M06-O03,单端口互斥读写信号不能同时开,2,needs_review,unavailable
+CS06-M07-O01,load-use 检测比较目的与后继源,2,needs_review,unavailable
+CS06-M07-O02,多条转发来源优先最近生产者,2,needs_review,unavailable
+CS06-M07-O03,理想流水有限程序包括填充排空,2,needs_review,unavailable
+CS06-M08-O01,缓存组下标来自块号而非字节号,2,needs_review,unavailable
+CS06-M08-O02,写回缓存淘汰脏块先回写,2,needs_review,unavailable
+CS06-M08-O03,地址转换保留页内偏移,2,needs_review,unavailable
+CS06-M09-O01,DMA 启动不等于传输完成,2,needs_review,unavailable
+CS06-M09-O02,末尾不足一个总线单位仍需传输拍,2,needs_review,unavailable
+CS06-M09-O03,重叠执行取瓶颈而非相加,2,needs_review,unavailable

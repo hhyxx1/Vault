@@ -49,9 +49,9 @@
       "id": "bb42adbc-30f6-4548-8de7-6819e9e6b6b1",
       "code": "CS06",
       "title": "计算机组成原理",
-      "version_id": "c627b6af-7b9c-5fce-a36b-12edd5249eae",
-      "version": "CS06-core-scope-0.1.0",
-      "package_path": "CS06/CS06-core-scope-0.1.0/manifest.json",
+      "version_id": "e705e65d-61f5-5475-92a3-6c9ad7672898",
+      "version": "CS06-core-practice-0.1.0",
+      "package_path": "CS06/CS06-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -243,6 +243,15 @@
       "version_id": "409ded3e-81ec-534c-b79c-70269d8fad62",
       "version": "CS05-core-scope-0.1.0",
       "package_path": "CS05/CS05-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "bb42adbc-30f6-4548-8de7-6819e9e6b6b1",
+      "code": "CS06",
+      "title": "计算机组成原理",
+      "version_id": "c627b6af-7b9c-5fce-a36b-12edd5249eae",
+      "version": "CS06-core-scope-0.1.0",
+      "package_path": "CS06/CS06-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]
