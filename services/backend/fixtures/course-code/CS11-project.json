@@ -1,0 +1,1982 @@
+[
+  {
+    "id": "CS11-M01-O01/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O01",
+    "activity": "02eb570f-4898-599c-ba4a-9daf3d6daf23",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntype_ok=n==2\nstages=['lex','parse','emit']\nprint(' '.join(stages))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "lex parse emit\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M01-O01/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O01",
+    "activity": "02eb570f-4898-599c-ba4a-9daf3d6daf23",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntype_ok=n==2\nstages=['lex','parse','type']+(['emit'] if type_ok else [])\nprint(' '.join(stages))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "lex parse type\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M01-O01/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O01",
+    "activity": "02eb570f-4898-599c-ba4a-9daf3d6daf23",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntype_ok=n==2\nstages=['lex','parse','emit']\nprint(' '.join(stages))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "lex parse emit\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M01-O01/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O01",
+    "activity": "02eb570f-4898-599c-ba4a-9daf3d6daf23",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntype_ok=n==2\nstages=['lex','parse','type']+(['emit'] if type_ok else [])\nprint(' '.join(stages))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "lex parse type emit\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M01-O02/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O02",
+    "activity": "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=-7 if n==1 else 7;b=3\nprint(a//b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "-3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M01-O02/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O02",
+    "activity": "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=-7 if n==1 else 7;b=3\nprint((1 if a*b>=0 else -1)*(abs(a)//abs(b)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "-2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M01-O02/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O02",
+    "activity": "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=-7 if n==1 else 7;b=3\nprint(a//b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M01-O02/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O02",
+    "activity": "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=-7 if n==1 else 7;b=3\nprint((1 if a*b>=0 else -1)*(abs(a)//abs(b)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M01-O03/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O03",
+    "activity": "04369fb8-821b-5d38-bdbd-e8f816545d81",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntext='1@2' if n==1 else '1+2'\nbad=next((i for i,c in enumerate(text) if not(c.isdigit() or c in '+ ')),None)\nprint('ok')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "ok\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M01-O03/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O03",
+    "activity": "04369fb8-821b-5d38-bdbd-e8f816545d81",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntext='1@2' if n==1 else '1+2'\nbad=next((i for i,c in enumerate(text) if not(c.isdigit() or c in '+ ')),None)\nprint('lex:'+str(bad) if bad is not None else 'ok')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "lex:1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M01-O03/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O03",
+    "activity": "04369fb8-821b-5d38-bdbd-e8f816545d81",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntext='1@2' if n==1 else '1+2'\nbad=next((i for i,c in enumerate(text) if not(c.isdigit() or c in '+ ')),None)\nprint('ok')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "ok\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M01-O03/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M01-O03",
+    "activity": "04369fb8-821b-5d38-bdbd-e8f816545d81",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntext='1@2' if n==1 else '1+2'\nbad=next((i for i,c in enumerate(text) if not(c.isdigit() or c in '+ ')),None)\nprint('lex:'+str(bad) if bad is not None else 'ok')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "ok\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M02-O01/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O01",
+    "activity": "62e7c3f4-5d81-5931-b168-51ee568c82ca",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport re\ntext='2x' if n==1 else 'x2'\nprint(bool(re.fullmatch('[A-Za-z0-9_]+',text)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M02-O01/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O01",
+    "activity": "62e7c3f4-5d81-5931-b168-51ee568c82ca",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport re\ntext='2x' if n==1 else 'x2'\nprint(bool(re.fullmatch('[A-Za-z_][A-Za-z0-9_]*',text)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M02-O01/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O01",
+    "activity": "62e7c3f4-5d81-5931-b168-51ee568c82ca",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport re\ntext='2x' if n==1 else 'x2'\nprint(bool(re.fullmatch('[A-Za-z0-9_]+',text)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M02-O01/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O01",
+    "activity": "62e7c3f4-5d81-5931-b168-51ee568c82ca",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport re\ntext='2x' if n==1 else 'x2'\nprint(bool(re.fullmatch('[A-Za-z_][A-Za-z0-9_]*',text)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M02-O02/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O02",
+    "activity": "87199749-f173-5cfd-8eda-576932c69620",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\neps={0:{1}};states={0} if n==1 else {1}\nfor c in 'a':states={2 for q in states if q==1 and c=='a'}\nprint(2 in states)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M02-O02/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O02",
+    "activity": "87199749-f173-5cfd-8eda-576932c69620",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\neps={0:{1}};states={0} if n==1 else {1}\ntodo=list(states)\nwhile todo:\n q=todo.pop()\n for r in eps.get(q,set())-states:states.add(r);todo.append(r)\nfor c in 'a':states={2 for q in states if q==1 and c=='a'}\nprint(2 in states)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M02-O02/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O02",
+    "activity": "87199749-f173-5cfd-8eda-576932c69620",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\neps={0:{1}};states={0} if n==1 else {1}\nfor c in 'a':states={2 for q in states if q==1 and c=='a'}\nprint(2 in states)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M02-O02/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O02",
+    "activity": "87199749-f173-5cfd-8eda-576932c69620",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\neps={0:{1}};states={0} if n==1 else {1}\ntodo=list(states)\nwhile todo:\n q=todo.pop()\n for r in eps.get(q,set())-states:states.add(r);todo.append(r)\nfor c in 'a':states={2 for q in states if q==1 and c=='a'}\nprint(2 in states)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M02-O03/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O03",
+    "activity": "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntext='>=1' if n==1 else '>1'\nmatches=[op for op in ['>','>='] if text.startswith(op)]\nprint(matches[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": ">\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M02-O03/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O03",
+    "activity": "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntext='>=1' if n==1 else '>1'\nmatches=[op for op in ['>','>='] if text.startswith(op)]\nprint(max(matches,key=len))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": ">=\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M02-O03/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O03",
+    "activity": "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntext='>=1' if n==1 else '>1'\nmatches=[op for op in ['>','>='] if text.startswith(op)]\nprint(matches[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": ">\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M02-O03/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M02-O03",
+    "activity": "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntext='>=1' if n==1 else '>1'\nmatches=[op for op in ['>','>='] if text.startswith(op)]\nprint(max(matches,key=len))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": ">\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M03-O01/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O01",
+    "activity": "bb511987-1967-5247-9b6d-62feba383952",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword='' if n==1 else 'aa'\nprint(bool(word) and all(c=='a' for c in word))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M03-O01/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O01",
+    "activity": "bb511987-1967-5247-9b6d-62feba383952",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword='' if n==1 else 'aa'\nprint(all(c=='a' for c in word))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M03-O01/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O01",
+    "activity": "bb511987-1967-5247-9b6d-62feba383952",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword='' if n==1 else 'aa'\nprint(bool(word) and all(c=='a' for c in word))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M03-O01/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O01",
+    "activity": "bb511987-1967-5247-9b6d-62feba383952",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword='' if n==1 else 'aa'\nprint(all(c=='a' for c in word))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M03-O02/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O02",
+    "activity": "97930e73-5e36-5231-bc16-13a5459986c5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(2,3,4) if n==1 else (1,1,1)\nleft=(a+b)*c;right=a+b*c\nprint(left==right)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M03-O02/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O02",
+    "activity": "97930e73-5e36-5231-bc16-13a5459986c5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(2,3,4) if n==1 else (1,1,1)\nleft=(a+b)*c;right=a+b*c\nprint(str(left)+' '+str(right))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "20 14\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M03-O02/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O02",
+    "activity": "97930e73-5e36-5231-bc16-13a5459986c5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(2,3,4) if n==1 else (1,1,1)\nleft=(a+b)*c;right=a+b*c\nprint(left==right)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M03-O02/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O02",
+    "activity": "97930e73-5e36-5231-bc16-13a5459986c5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(2,3,4) if n==1 else (1,1,1)\nleft=(a+b)*c;right=a+b*c\nprint(str(left)+' '+str(right))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2 2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M03-O03/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O03",
+    "activity": "dc44f399-f390-5849-a2bf-95e9ad36fb77",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(8,3,1) if n==1 else (6,2,0)\nprint(a-(b-c))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "6\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M03-O03/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O03",
+    "activity": "dc44f399-f390-5849-a2bf-95e9ad36fb77",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(8,3,1) if n==1 else (6,2,0)\nprint((a-b)-c)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M03-O03/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O03",
+    "activity": "dc44f399-f390-5849-a2bf-95e9ad36fb77",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(8,3,1) if n==1 else (6,2,0)\nprint(a-(b-c))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M03-O03/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M03-O03",
+    "activity": "dc44f399-f390-5849-a2bf-95e9ad36fb77",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(8,3,1) if n==1 else (6,2,0)\nprint((a-b)-c)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M04-O01/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O01",
+    "activity": "f09d2473-2719-5faf-afb5-532495102c65",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nnullable=n==1\nfirst_a={'a'};first_b={'b'}\nfirst_s=first_a\nprint(' '.join(sorted(first_s)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "a\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M04-O01/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O01",
+    "activity": "f09d2473-2719-5faf-afb5-532495102c65",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nnullable=n==1\nfirst_a={'a'};first_b={'b'}\nfirst_s=first_a|first_b if nullable else first_a\nprint(' '.join(sorted(first_s)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "a b\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M04-O01/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O01",
+    "activity": "f09d2473-2719-5faf-afb5-532495102c65",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nnullable=n==1\nfirst_a={'a'};first_b={'b'}\nfirst_s=first_a\nprint(' '.join(sorted(first_s)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "a\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M04-O01/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O01",
+    "activity": "f09d2473-2719-5faf-afb5-532495102c65",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nnullable=n==1\nfirst_a={'a'};first_b={'b'}\nfirst_s=first_a|first_b if nullable else first_a\nprint(' '.join(sorted(first_s)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "a\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M04-O02/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O02",
+    "activity": "dd493563-e25c-5670-a419-becb42fa08ef",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrules=['a','ab'] if n==1 else ['a']\ntable={}\nfor rule in rules:table['a']=rule\nprint(len(table))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M04-O02/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O02",
+    "activity": "dd493563-e25c-5670-a419-becb42fa08ef",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrules=['a','ab'] if n==1 else ['a']\ntable={}\nfor rule in rules:table.setdefault('a',[]).append(rule)\nprint(len(table['a']))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M04-O02/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O02",
+    "activity": "dd493563-e25c-5670-a419-becb42fa08ef",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrules=['a','ab'] if n==1 else ['a']\ntable={}\nfor rule in rules:table['a']=rule\nprint(len(table))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M04-O02/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O02",
+    "activity": "dd493563-e25c-5670-a419-becb42fa08ef",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrules=['a','ab'] if n==1 else ['a']\ntable={}\nfor rule in rules:table.setdefault('a',[]).append(rule)\nprint(len(table['a']))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M04-O03/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O03",
+    "activity": "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntokens=['1','2'] if n==1 else ['1']\nindex=0\ndef integer():\n global index\n value=int(tokens[index]);index+=1;return value\nvalue=integer()\nprint(value)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M04-O03/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O03",
+    "activity": "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntokens=['1','2'] if n==1 else ['1']\nindex=0\ndef integer():\n global index\n value=int(tokens[index]);index+=1;return value\nvalue=integer()\nprint(value if index==len(tokens) else 'syntax:extra')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "syntax:extra\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M04-O03/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O03",
+    "activity": "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntokens=['1','2'] if n==1 else ['1']\nindex=0\ndef integer():\n global index\n value=int(tokens[index]);index+=1;return value\nvalue=integer()\nprint(value)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M04-O03/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M04-O03",
+    "activity": "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntokens=['1','2'] if n==1 else ['1']\nindex=0\ndef integer():\n global index\n value=int(tokens[index]);index+=1;return value\nvalue=integer()\nprint(value if index==len(tokens) else 'syntax:extra')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M05-O01/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O01",
+    "activity": "dfe0ca85-a561-508e-bfea-2a05f7119a14",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstack=['$','a','b'] if n==1 else ['x','$','a','b']\ndel stack[-3:];stack.append('S')\nprint(' '.join(stack))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "S\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M05-O01/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O01",
+    "activity": "dfe0ca85-a561-508e-bfea-2a05f7119a14",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstack=['$','a','b'] if n==1 else ['x','$','a','b']\ndel stack[-2:];stack.append('S')\nprint(' '.join(stack))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "$ S\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M05-O01/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O01",
+    "activity": "dfe0ca85-a561-508e-bfea-2a05f7119a14",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstack=['$','a','b'] if n==1 else ['x','$','a','b']\ndel stack[-3:];stack.append('S')\nprint(' '.join(stack))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "x S\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M05-O01/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O01",
+    "activity": "dfe0ca85-a561-508e-bfea-2a05f7119a14",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstack=['$','a','b'] if n==1 else ['x','$','a','b']\ndel stack[-2:];stack.append('S')\nprint(' '.join(stack))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "x $ S\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M05-O02/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O02",
+    "activity": "a7ace736-860c-547e-91d3-5182214ace3c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrules={'S':('A',),'A':('a',)}\nitems={('P',('S',),0)} if n==1 else {('S',('A',),0)}\nfor left,right,dot in list(items):\n if dot<len(right) and right[dot] in rules:items.add((right[dot],rules[right[dot]],0))\nprint(len(items))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M05-O02/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O02",
+    "activity": "a7ace736-860c-547e-91d3-5182214ace3c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrules={'S':('A',),'A':('a',)}\nitems={('P',('S',),0)} if n==1 else {('S',('A',),0)}\ntodo=list(items)\nwhile todo:\n left,right,dot=todo.pop()\n if dot<len(right) and right[dot] in rules:\n  new=(right[dot],rules[right[dot]],0)\n  if new not in items:items.add(new);todo.append(new)\nprint(len(items))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M05-O02/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O02",
+    "activity": "a7ace736-860c-547e-91d3-5182214ace3c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrules={'S':('A',),'A':('a',)}\nitems={('P',('S',),0)} if n==1 else {('S',('A',),0)}\nfor left,right,dot in list(items):\n if dot<len(right) and right[dot] in rules:items.add((right[dot],rules[right[dot]],0))\nprint(len(items))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M05-O02/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O02",
+    "activity": "a7ace736-860c-547e-91d3-5182214ace3c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrules={'S':('A',),'A':('a',)}\nitems={('P',('S',),0)} if n==1 else {('S',('A',),0)}\ntodo=list(items)\nwhile todo:\n left,right,dot=todo.pop()\n if dot<len(right) and right[dot] in rules:\n  new=(right[dot],rules[right[dot]],0)\n  if new not in items:items.add(new);todo.append(new)\nprint(len(items))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M05-O03/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O03",
+    "activity": "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nactions=['shift','reduce'] if n==1 else ['reduce']\nprint(actions[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "shift\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M05-O03/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O03",
+    "activity": "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nactions=['shift','reduce'] if n==1 else ['reduce']\nprint('conflict' if len(set(actions))>1 else actions[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "conflict\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M05-O03/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O03",
+    "activity": "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nactions=['shift','reduce'] if n==1 else ['reduce']\nprint(actions[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "reduce\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M05-O03/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M05-O03",
+    "activity": "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nactions=['shift','reduce'] if n==1 else ['reduce']\nprint('conflict' if len(set(actions))>1 else actions[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "reduce\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M06-O01/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O01",
+    "activity": "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nenv={'x':7};name='y' if n==1 else 'x'\nprint(env.get(name,0))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M06-O01/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O01",
+    "activity": "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nenv={'x':7};name='y' if n==1 else 'x'\nprint(env[name] if name in env else 'undeclared:'+name)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "undeclared:y\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M06-O01/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O01",
+    "activity": "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nenv={'x':7};name='y' if n==1 else 'x'\nprint(env.get(name,0))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M06-O01/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O01",
+    "activity": "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nenv={'x':7};name='y' if n==1 else 'x'\nprint(env[name] if name in env else 'undeclared:'+name)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M06-O02/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O02",
+    "activity": "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nscopes=[{'x':1},{'x':2}] if n==1 else [{'x':1},{}]\nvalue=next(scope['x'] for scope in scopes if 'x' in scope)\nprint(value)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M06-O02/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O02",
+    "activity": "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nscopes=[{'x':1},{'x':2}] if n==1 else [{'x':1},{}]\nvalue=next(scope['x'] for scope in reversed(scopes) if 'x' in scope)\nprint(value)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M06-O02/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O02",
+    "activity": "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nscopes=[{'x':1},{'x':2}] if n==1 else [{'x':1},{}]\nvalue=next(scope['x'] for scope in scopes if 'x' in scope)\nprint(value)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M06-O02/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O02",
+    "activity": "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nscopes=[{'x':1},{'x':2}] if n==1 else [{'x':1},{}]\nvalue=next(scope['x'] for scope in reversed(scopes) if 'x' in scope)\nprint(value)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M06-O03/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O03",
+    "activity": "e99717df-2028-5c6b-b185-569ec371bfb5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=True if n==1 else 2\nprint(isinstance(value,int))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M06-O03/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O03",
+    "activity": "e99717df-2028-5c6b-b185-569ec371bfb5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=True if n==1 else 2\nprint(type(value) is int)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M06-O03/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O03",
+    "activity": "e99717df-2028-5c6b-b185-569ec371bfb5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=True if n==1 else 2\nprint(isinstance(value,int))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M06-O03/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M06-O03",
+    "activity": "e99717df-2028-5c6b-b185-569ec371bfb5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=True if n==1 else 2\nprint(type(value) is int)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M07-O01/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O01",
+    "activity": "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(2,3,4) if n==1 else (0,1,1)\nt=b*c;t=a+b\nprint(t)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M07-O01/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O01",
+    "activity": "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(2,3,4) if n==1 else (0,1,1)\nt=b*c;t=a+t\nprint(t)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "14\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M07-O01/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O01",
+    "activity": "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(2,3,4) if n==1 else (0,1,1)\nt=b*c;t=a+b\nprint(t)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M07-O01/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O01",
+    "activity": "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(2,3,4) if n==1 else (0,1,1)\nt=b*c;t=a+t\nprint(t)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M07-O02/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O02",
+    "activity": "e1e9f56a-6acf-5ccf-9886-2958174de085",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nconditional=n==1\nsuccessors={1}\nprint(' '.join(map(str,sorted(successors))))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M07-O02/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O02",
+    "activity": "e1e9f56a-6acf-5ccf-9886-2958174de085",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nconditional=n==1\nsuccessors={1,2} if conditional else {1}\nprint(' '.join(map(str,sorted(successors))))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1 2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M07-O02/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O02",
+    "activity": "e1e9f56a-6acf-5ccf-9886-2958174de085",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nconditional=n==1\nsuccessors={1}\nprint(' '.join(map(str,sorted(successors))))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M07-O02/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O02",
+    "activity": "e1e9f56a-6acf-5ccf-9886-2958174de085",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nconditional=n==1\nsuccessors={1,2} if conditional else {1}\nprint(' '.join(map(str,sorted(successors))))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M07-O03/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O03",
+    "activity": "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncalls=[]\ndef rhs():calls.append('rhs');return True\nleft=n==2\nright=rhs();result=left and right\nprint(len(calls))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M07-O03/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O03",
+    "activity": "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncalls=[]\ndef rhs():calls.append('rhs');return True\nleft=n==2\nresult=left and rhs()\nprint(len(calls))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M07-O03/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O03",
+    "activity": "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncalls=[]\ndef rhs():calls.append('rhs');return True\nleft=n==2\nright=rhs();result=left and right\nprint(len(calls))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M07-O03/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M07-O03",
+    "activity": "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncalls=[]\ndef rhs():calls.append('rhs');return True\nleft=n==2\nresult=left and rhs()\nprint(len(calls))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M08-O01/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O01",
+    "activity": "3a290580-d367-5086-9ff5-58379c791075",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft={'x':1};right={'x':2 if n==1 else 1}\nmerged=dict(left)\nprint(merged.get('x','unknown'))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M08-O01/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O01",
+    "activity": "3a290580-d367-5086-9ff5-58379c791075",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft={'x':1};right={'x':2 if n==1 else 1}\nmerged={k:v for k,v in left.items() if right.get(k)==v}\nprint(merged.get('x','unknown'))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unknown\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M08-O01/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O01",
+    "activity": "3a290580-d367-5086-9ff5-58379c791075",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft={'x':1};right={'x':2 if n==1 else 1}\nmerged=dict(left)\nprint(merged.get('x','unknown'))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M08-O01/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O01",
+    "activity": "3a290580-d367-5086-9ff5-58379c791075",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft={'x':1};right={'x':2 if n==1 else 1}\nmerged={k:v for k,v in left.items() if right.get(k)==v}\nprint(merged.get('x','unknown'))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M08-O02/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O02",
+    "activity": "09d73447-68ed-5404-bf59-560ba9e386ae",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nuse={'y'};defs={'x'};out={'x','z'} if n==1 else {'z'}\nlive=use|out\nprint(' '.join(sorted(live)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "x y z\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M08-O02/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O02",
+    "activity": "09d73447-68ed-5404-bf59-560ba9e386ae",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nuse={'y'};defs={'x'};out={'x','z'} if n==1 else {'z'}\nlive=use|(out-defs)\nprint(' '.join(sorted(live)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "y z\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M08-O02/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O02",
+    "activity": "09d73447-68ed-5404-bf59-560ba9e386ae",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nuse={'y'};defs={'x'};out={'x','z'} if n==1 else {'z'}\nlive=use|out\nprint(' '.join(sorted(live)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "y z\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M08-O02/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O02",
+    "activity": "09d73447-68ed-5404-bf59-560ba9e386ae",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nuse={'y'};defs={'x'};out={'x','z'} if n==1 else {'z'}\nlive=use|(out-defs)\nprint(' '.join(sorted(live)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "y z\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M08-O03/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O03",
+    "activity": "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncalls=[]\ndef rhs():\n if n==1:calls.append('effect')\n return 7\nresult=0\nprint(len(calls),result)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "0 0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M08-O03/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O03",
+    "activity": "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncalls=[]\ndef rhs():\n if n==1:calls.append('effect')\n return 7\nrhs();result=0\nprint(len(calls),result)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M08-O03/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O03",
+    "activity": "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncalls=[]\ndef rhs():\n if n==1:calls.append('effect')\n return 7\nresult=0\nprint(len(calls),result)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M08-O03/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M08-O03",
+    "activity": "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncalls=[]\ndef rhs():\n if n==1:calls.append('effect')\n return 7\nrhs();result=0\nprint(len(calls),result)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M09-O01/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O01",
+    "activity": "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nslots={};a=0;b=0 if n==1 else 1\nslots[a]=2;slots[b]=3\nprint(slots[a]+slots[b])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "6\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M09-O01/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O01",
+    "activity": "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nslots={};a=0;b=1\nslots[a]=2;slots[b]=3\nprint(slots[a]+slots[b])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M09-O01/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O01",
+    "activity": "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nslots={};a=0;b=0 if n==1 else 1\nslots[a]=2;slots[b]=3\nprint(slots[a]+slots[b])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M09-O01/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O01",
+    "activity": "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nslots={};a=0;b=1\nslots[a]=2;slots[b]=3\nprint(slots[a]+slots[b])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M09-O02/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O02",
+    "activity": "8b873d71-aa14-5b12-bcc4-605eba95e08d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstack=[8,3] if n==1 else [2,2]\nright=stack.pop();left=stack.pop();stack.append(right-left)\nprint(stack[-1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "-5\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M09-O02/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O02",
+    "activity": "8b873d71-aa14-5b12-bcc4-605eba95e08d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstack=[8,3] if n==1 else [2,2]\nright=stack.pop();left=stack.pop();stack.append(left-right)\nprint(stack[-1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M09-O02/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O02",
+    "activity": "8b873d71-aa14-5b12-bcc4-605eba95e08d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstack=[8,3] if n==1 else [2,2]\nright=stack.pop();left=stack.pop();stack.append(right-left)\nprint(stack[-1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M09-O02/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O02",
+    "activity": "8b873d71-aa14-5b12-bcc4-605eba95e08d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstack=[8,3] if n==1 else [2,2]\nright=stack.pop();left=stack.pop();stack.append(left-right)\nprint(stack[-1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M09-O03/base/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(8,3,1) if n==1 else (4,2,0)\nreference=(a-b)-c\nstack=[a,b,c];right=stack.pop();left=stack.pop();stack.append(left-right);right=stack.pop();left=stack.pop();stack.append(left-right)\nprint('compiled')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "compiled\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M09-O03/base/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(8,3,1) if n==1 else (4,2,0)\nreference=(a-b)-c\nstack=[a,b,c];right=stack.pop();left=stack.pop();stack.append(left-right);right=stack.pop();left=stack.pop();stack.append(left-right)\nstack=[a,b];right=stack.pop();left=stack.pop();stack.append(left-right);stack.append(c);right=stack.pop();left=stack.pop();stack.append(left-right)\nprint(reference==stack[-1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS11-M09-O03/changed-condition/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(8,3,1) if n==1 else (4,2,0)\nreference=(a-b)-c\nstack=[a,b,c];right=stack.pop();left=stack.pop();stack.append(left-right);right=stack.pop();left=stack.pop();stack.append(left-right)\nprint('compiled')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "compiled\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS11-M09-O03/changed-condition/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b,c=(8,3,1) if n==1 else (4,2,0)\nreference=(a-b)-c\nstack=[a,b,c];right=stack.pop();left=stack.pop();stack.append(left-right);right=stack.pop();left=stack.pop();stack.append(left-right)\nstack=[a,b];right=stack.pop();left=stack.pop();stack.append(left-right);stack.append(c);right=stack.pop();left=stack.pop();stack.append(left-right)\nprint(reference==stack[-1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "compiler-expression/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "compiler-expression",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import json,sys\nimport importlib.util\nspec=importlib.util.spec_from_file_location('tiny','tiny.py')\ntiny=importlib.util.module_from_spec(spec);spec.loader.exec_module(tiny)\nrun=tiny.run\nresult=run(sys.stdin.read())\nprint('tokens='+json.dumps(result['tokens'],sort_keys=True))\nprint('ast='+json.dumps(result['ast'],sort_keys=True))\nprint('instructions='+json.dumps(result['instructions'],sort_keys=True))\nprint(json.dumps({'source_result':result['interpreted'],'machine_result':result['compiled'],'equivalent':result['interpreted']==result['compiled']},sort_keys=True))\n",
+        "tiny.py": "\"\"\"Original Tiny classroom language; no eval, host AST, LLVM or external packages.\"\"\"\n\nimport re\nfrom typing import ClassVar\n\n\nclass LanguageError(Exception):\n    def __init__(self, stage, position, message):\n        self.stage, self.position = stage, position\n        super().__init__(f\"{stage}@{position}: {message}\")\n\n\nKEYWORDS = {\"let\", \"print\", \"if\", \"else\", \"while\", \"true\", \"false\"}\nPATTERN = re.compile(\n    r\"\\s+|[0-9]+|[A-Za-z_][A-Za-z0-9_]*|&&|\\|\\||==|!=|<=|>=|[+*/<>=!;(){}-]\"\n)\n\n\ndef lex(source):\n    if len(source) > 16384:\n        raise LanguageError(\"lex\", 0, \"source budget\")\n    tokens, offset = [], 0\n    while offset < len(source):\n        match = PATTERN.match(source, offset)\n        if match is None:\n            raise LanguageError(\"lex\", offset, \"illegal character\")\n        text = match.group()\n        if not text.isspace():\n            kind = (\n                \"number\"\n                if text[0].isdigit()\n                else \"name\"\n                if re.fullmatch(r\"[A-Za-z_]\\w*\", text) and text not in KEYWORDS\n                else text\n            )\n            tokens.append((kind, text, offset))\n        offset = match.end()\n    tokens.append((\"eof\", \"\", len(source)))\n    return tokens\n\n\nclass Parser:\n    precedence: ClassVar[dict[str, int]] = {\n        \"||\": 1,\n        \"&&\": 2,\n        \"==\": 3,\n        \"!=\": 3,\n        \"<\": 4,\n        \">\": 4,\n        \"<=\": 4,\n        \">=\": 4,\n        \"+\": 5,\n        \"-\": 5,\n        \"*\": 6,\n        \"/\": 6,\n    }\n\n    def __init__(self, tokens):\n        self.tokens, self.index = tokens, 0\n\n    def peek(self):\n        return self.tokens[self.index][0]\n\n    def take(self, kind=None):\n        token = self.tokens[self.index]\n        if kind is not None and token[0] != kind:\n            raise LanguageError(\"parse\", token[2], \"expected \" + kind)\n        self.index += 1\n        return token\n\n    def expression(self, minimum=1):\n        kind, text, pos = self.take()\n        if kind == \"number\":\n            node = {\"kind\": \"literal\", \"value\": int(text), \"pos\": pos}\n        elif kind in (\"true\", \"false\"):\n            node = {\"kind\": \"literal\", \"value\": kind == \"true\", \"pos\": pos}\n        elif kind == \"name\":\n            node = {\"kind\": \"variable\", \"name\": text, \"pos\": pos}\n        elif kind == \"(\":\n            node = self.expression()\n            self.take(\")\")\n        elif kind in (\"-\", \"!\"):\n            node = {\n                \"kind\": \"unary\",\n                \"op\": kind,\n                \"right\": self.expression(7),\n                \"pos\": pos,\n            }\n        else:\n            raise LanguageError(\"parse\", pos, \"expected expression\")\n        while self.precedence.get(self.peek(), 0) >= minimum:\n            _, op, pos = self.take()\n            right = self.expression(self.precedence[op] + 1)\n            node = {\n                \"kind\": \"binary\",\n                \"op\": op,\n                \"left\": node,\n                \"right\": right,\n                \"pos\": pos,\n            }\n        return node\n\n    def block(self):\n        self.take(\"{\")\n        body = []\n        while self.peek() not in (\"}\", \"eof\"):\n            body.append(self.statement())\n        self.take(\"}\")\n        return body\n\n    def statement(self):\n        kind, text, pos = self.tokens[self.index]\n        if kind == \"{\":\n            return {\"kind\": \"block\", \"body\": self.block(), \"pos\": pos}\n        self.take()\n        if kind == \"let\":\n            _, name, _ = self.take(\"name\")\n            self.take(\"=\")\n            node = {\"kind\": \"let\", \"name\": name, \"expr\": self.expression(), \"pos\": pos}\n        elif kind == \"name\":\n            self.take(\"=\")\n            node = {\n                \"kind\": \"assign\",\n                \"name\": text,\n                \"expr\": self.expression(),\n                \"pos\": pos,\n            }\n        elif kind == \"print\":\n            self.take(\"(\")\n            node = {\"kind\": \"print\", \"expr\": self.expression(), \"pos\": pos}\n            self.take(\")\")\n        elif kind in (\"if\", \"while\"):\n            self.take(\"(\")\n            cond = self.expression()\n            self.take(\")\")\n            body = self.block()\n            node = {\"kind\": kind, \"cond\": cond, \"body\": body, \"pos\": pos}\n            if kind == \"if\":\n                node[\"else\"] = []\n                if self.peek() == \"else\":\n                    self.take()\n                    node[\"else\"] = self.block()\n            return node\n        else:\n            raise LanguageError(\"parse\", pos, \"expected statement\")\n        self.take(\";\")\n        return node\n\n    def program(self):\n        body = []\n        while self.peek() != \"eof\":\n            body.append(self.statement())\n        return body\n\n\nclass Compiler:\n    def __init__(self):\n        self.scopes, self.code, self.slots = [{}], [], 0\n\n    def emit(self, op, value=None, pos=0):\n        self.code.append([op, value, pos])\n        return len(self.code) - 1\n\n    def lookup(self, name, pos):\n        for scope in reversed(self.scopes):\n            if name in scope:\n                return scope[name]\n        raise LanguageError(\"type\", pos, \"undeclared \" + name)\n\n    def require(self, condition, pos):\n        if not condition:\n            raise LanguageError(\"type\", pos, \"incompatible types\")\n\n    def expression(self, node):\n        kind, pos = node[\"kind\"], node[\"pos\"]\n        if kind == \"literal\":\n            self.emit(\"PUSH\", node[\"value\"], pos)\n            return type(node[\"value\"])\n        if kind == \"variable\":\n            slot, category = self.lookup(node[\"name\"], pos)\n            self.emit(\"LOAD\", slot, pos)\n            return category\n        if kind == \"unary\":\n            category = self.expression(node[\"right\"])\n            self.require(category is (int if node[\"op\"] == \"-\" else bool), pos)\n            self.emit(\"UNARY\", node[\"op\"], pos)\n            return category\n        op = node[\"op\"]\n        left = self.expression(node[\"left\"])\n        if op in (\"&&\", \"||\"):\n            self.require(left is bool, pos)\n            jump = self.emit(\"JF\", pos=pos)\n            if op == \"||\":\n                self.emit(\"PUSH\", True, pos)\n            else:\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            end = self.emit(\"JMP\", pos=pos)\n            self.code[jump][1] = len(self.code)\n            if op == \"||\":\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            else:\n                self.emit(\"PUSH\", False, pos)\n            self.code[end][1] = len(self.code)\n            return bool\n        right = self.expression(node[\"right\"])\n        self.require(left is right, pos)\n        if op not in (\"==\", \"!=\"):\n            self.require(left is int, pos)\n        self.emit(\"BINARY\", op, pos)\n        return bool if op in (\"==\", \"!=\", \"<\", \"<=\", \">\", \">=\") else int\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            kind, pos = node[\"kind\"], node[\"pos\"]\n            if kind in (\"let\", \"assign\"):\n                category = self.expression(node[\"expr\"])\n                if kind == \"let\":\n                    self.require(node[\"name\"] not in self.scopes[-1], pos)\n                    slot = self.slots\n                    self.slots += 1\n                    self.scopes[-1][node[\"name\"]] = (slot, category)\n                else:\n                    slot, previous = self.lookup(node[\"name\"], pos)\n                    self.require(category is previous, pos)\n                self.emit(\"STORE\", slot, pos)\n            elif kind == \"print\":\n                self.expression(node[\"expr\"])\n                self.emit(\"PRINT\", pos=pos)\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            else:\n                start = len(self.code)\n                self.require(self.expression(node[\"cond\"]) is bool, pos)\n                exit_jump = self.emit(\"JF\", pos=pos)\n                self.body(node[\"body\"], True)\n                if kind == \"while\":\n                    self.emit(\"JMP\", start, pos)\n                    self.code[exit_jump][1] = len(self.code)\n                else:\n                    end_jump = self.emit(\"JMP\", pos=pos)\n                    self.code[exit_jump][1] = len(self.code)\n                    self.body(node[\"else\"], True)\n                    self.code[end_jump][1] = len(self.code)\n        if scoped:\n            self.scopes.pop()\n        return self.code\n\n\ndef stack_run(code, budget):\n    stack, slots, output, pc = [], {}, [], 0\n    while pc < len(code):\n        budget -= 1\n        op, value, pos = code[pc]\n        if budget < 0:\n            raise LanguageError(\"run\", pos, \"instruction budget\")\n        pc += 1\n        if op == \"PUSH\":\n            stack.append(value)\n        elif op == \"LOAD\":\n            stack.append(slots[value])\n        elif op == \"STORE\":\n            slots[value] = stack.pop()\n        elif op == \"PRINT\":\n            output.append(stack.pop())\n        elif op == \"JMP\":\n            pc = value\n        elif op == \"JF\":\n            if not stack.pop():\n                pc = value\n        elif op == \"UNARY\":\n            operand = stack.pop()\n            stack.append(-operand if value == \"-\" else not operand)\n        else:\n            right, left = stack.pop(), stack.pop()\n            if value == \"+\":\n                result = left + right\n            elif value == \"-\":\n                result = right - left\n            elif value == \"*\":\n                result = left * right\n            elif value == \"/\":\n                if right == 0:\n                    raise LanguageError(\"run\", pos, \"division by zero\")\n                result = (1 if left * right >= 0 else -1) * (abs(left) // abs(right))\n            elif value == \"<\":\n                result = left < right\n            elif value == \"<=\":\n                result = left <= right\n            elif value == \">\":\n                result = left > right\n            elif value == \">=\":\n                result = left >= right\n            elif value == \"==\":\n                result = left == right\n            else:\n                result = left != right\n            stack.append(result)\n    return output\n\n\nclass Interpreter:\n    def __init__(self, budget):\n        self.scopes, self.output, self.budget = [{}], [], budget\n\n    def tick(self, pos):\n        self.budget -= 1\n        if self.budget < 0:\n            raise LanguageError(\"run\", pos, \"source budget\")\n\n    def binding(self, name):\n        return next(scope for scope in reversed(self.scopes) if name in scope)\n\n    def expression(self, node):\n        self.tick(node[\"pos\"])\n        kind = node[\"kind\"]\n        if kind == \"literal\":\n            return node[\"value\"]\n        if kind == \"variable\":\n            return self.binding(node[\"name\"])[node[\"name\"]]\n        if kind == \"unary\":\n            right = self.expression(node[\"right\"])\n            return -right if node[\"op\"] == \"-\" else not right\n        left = self.expression(node[\"left\"])\n        op = node[\"op\"]\n        if op == \"&&\":\n            return left and self.expression(node[\"right\"])\n        if op == \"||\":\n            return left or self.expression(node[\"right\"])\n        right = self.expression(node[\"right\"])\n        if op == \"+\":\n            return left + right\n        if op == \"-\":\n            return left - right\n        if op == \"*\":\n            return left * right\n        if op == \"/\":\n            if right == 0:\n                raise LanguageError(\"run\", node[\"pos\"], \"division by zero\")\n            quotient = abs(left) // abs(right)\n            return -quotient if (left < 0) != (right < 0) else quotient\n        if op == \"<\":\n            return left < right\n        if op == \"<=\":\n            return left <= right\n        if op == \">\":\n            return left > right\n        if op == \">=\":\n            return left >= right\n        if op == \"==\":\n            return left == right\n        return left != right\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            self.tick(node[\"pos\"])\n            kind = node[\"kind\"]\n            if kind == \"let\":\n                self.scopes[-1][node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"assign\":\n                self.binding(node[\"name\"])[node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"print\":\n                self.output.append(self.expression(node[\"expr\"]))\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            elif kind == \"if\":\n                self.body(\n                    node[\"body\"] if self.expression(node[\"cond\"]) else node[\"else\"],\n                    True,\n                )\n            else:\n                while self.expression(node[\"cond\"]):\n                    self.body(node[\"body\"], True)\n        if scoped:\n            self.scopes.pop()\n        return self.output\n\n\ndef run(source, budget=10000):\n    tokens = lex(source)\n    ast = Parser(tokens).program()\n    code = Compiler().body(ast)\n    interpreted = Interpreter(budget).body(ast)\n    compiled = stack_run(code, budget)\n    return {\n        \"tokens\": tokens,\n        \"ast\": ast,\n        \"instructions\": code,\n        \"interpreted\": interpreted,\n        \"compiled\": compiled,\n    }\n"
+      },
+      "stdin": "print(8-3-1);print(-7/3);\n"
+    },
+    "stdout": "tokens=[[\"print\", \"print\", 0], [\"(\", \"(\", 5], [\"number\", \"8\", 6], [\"-\", \"-\", 7], [\"number\", \"3\", 8], [\"-\", \"-\", 9], [\"number\", \"1\", 10], [\")\", \")\", 11], [\";\", \";\", 12], [\"print\", \"print\", 13], [\"(\", \"(\", 18], [\"-\", \"-\", 19], [\"number\", \"7\", 20], [\"/\", \"/\", 21], [\"number\", \"3\", 22], [\")\", \")\", 23], [\";\", \";\", 24], [\"eof\", \"\", 26]]\nast=[{\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 6, \"value\": 8}, \"op\": \"-\", \"pos\": 7, \"right\": {\"kind\": \"literal\", \"pos\": 8, \"value\": 3}}, \"op\": \"-\", \"pos\": 9, \"right\": {\"kind\": \"literal\", \"pos\": 10, \"value\": 1}}, \"kind\": \"print\", \"pos\": 0}, {\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"unary\", \"op\": \"-\", \"pos\": 19, \"right\": {\"kind\": \"literal\", \"pos\": 20, \"value\": 7}}, \"op\": \"/\", \"pos\": 21, \"right\": {\"kind\": \"literal\", \"pos\": 22, \"value\": 3}}, \"kind\": \"print\", \"pos\": 13}]\ninstructions=[[\"PUSH\", 8, 6], [\"PUSH\", 3, 8], [\"BINARY\", \"-\", 7], [\"PUSH\", 1, 10], [\"BINARY\", \"-\", 9], [\"PRINT\", null, 0], [\"PUSH\", 7, 20], [\"UNARY\", \"-\", 19], [\"PUSH\", 3, 22], [\"BINARY\", \"/\", 21], [\"PRINT\", null, 13]]\n{\"equivalent\": false, \"machine_result\": [6, -2], \"source_result\": [4, -2]}\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "compiler-expression/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "compiler-expression",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import json,sys\nimport importlib.util\nspec=importlib.util.spec_from_file_location('tiny','tiny.py')\ntiny=importlib.util.module_from_spec(spec);spec.loader.exec_module(tiny)\nrun=tiny.run\nresult=run(sys.stdin.read())\nprint('tokens='+json.dumps(result['tokens'],sort_keys=True))\nprint('ast='+json.dumps(result['ast'],sort_keys=True))\nprint('instructions='+json.dumps(result['instructions'],sort_keys=True))\nprint(json.dumps({'source_result':result['interpreted'],'machine_result':result['compiled'],'equivalent':result['interpreted']==result['compiled']},sort_keys=True))\n",
+        "tiny.py": "\"\"\"Original Tiny classroom language; no eval, host AST, LLVM or external packages.\"\"\"\n\nimport re\nfrom typing import ClassVar\n\n\nclass LanguageError(Exception):\n    def __init__(self, stage, position, message):\n        self.stage, self.position = stage, position\n        super().__init__(f\"{stage}@{position}: {message}\")\n\n\nKEYWORDS = {\"let\", \"print\", \"if\", \"else\", \"while\", \"true\", \"false\"}\nPATTERN = re.compile(\n    r\"\\s+|[0-9]+|[A-Za-z_][A-Za-z0-9_]*|&&|\\|\\||==|!=|<=|>=|[+*/<>=!;(){}-]\"\n)\n\n\ndef lex(source):\n    if len(source) > 16384:\n        raise LanguageError(\"lex\", 0, \"source budget\")\n    tokens, offset = [], 0\n    while offset < len(source):\n        match = PATTERN.match(source, offset)\n        if match is None:\n            raise LanguageError(\"lex\", offset, \"illegal character\")\n        text = match.group()\n        if not text.isspace():\n            kind = (\n                \"number\"\n                if text[0].isdigit()\n                else \"name\"\n                if re.fullmatch(r\"[A-Za-z_]\\w*\", text) and text not in KEYWORDS\n                else text\n            )\n            tokens.append((kind, text, offset))\n        offset = match.end()\n    tokens.append((\"eof\", \"\", len(source)))\n    return tokens\n\n\nclass Parser:\n    precedence: ClassVar[dict[str, int]] = {\n        \"||\": 1,\n        \"&&\": 2,\n        \"==\": 3,\n        \"!=\": 3,\n        \"<\": 4,\n        \">\": 4,\n        \"<=\": 4,\n        \">=\": 4,\n        \"+\": 5,\n        \"-\": 5,\n        \"*\": 6,\n        \"/\": 6,\n    }\n\n    def __init__(self, tokens):\n        self.tokens, self.index = tokens, 0\n\n    def peek(self):\n        return self.tokens[self.index][0]\n\n    def take(self, kind=None):\n        token = self.tokens[self.index]\n        if kind is not None and token[0] != kind:\n            raise LanguageError(\"parse\", token[2], \"expected \" + kind)\n        self.index += 1\n        return token\n\n    def expression(self, minimum=1):\n        kind, text, pos = self.take()\n        if kind == \"number\":\n            node = {\"kind\": \"literal\", \"value\": int(text), \"pos\": pos}\n        elif kind in (\"true\", \"false\"):\n            node = {\"kind\": \"literal\", \"value\": kind == \"true\", \"pos\": pos}\n        elif kind == \"name\":\n            node = {\"kind\": \"variable\", \"name\": text, \"pos\": pos}\n        elif kind == \"(\":\n            node = self.expression()\n            self.take(\")\")\n        elif kind in (\"-\", \"!\"):\n            node = {\n                \"kind\": \"unary\",\n                \"op\": kind,\n                \"right\": self.expression(7),\n                \"pos\": pos,\n            }\n        else:\n            raise LanguageError(\"parse\", pos, \"expected expression\")\n        while self.precedence.get(self.peek(), 0) >= minimum:\n            _, op, pos = self.take()\n            right = self.expression(self.precedence[op] + 1)\n            node = {\n                \"kind\": \"binary\",\n                \"op\": op,\n                \"left\": node,\n                \"right\": right,\n                \"pos\": pos,\n            }\n        return node\n\n    def block(self):\n        self.take(\"{\")\n        body = []\n        while self.peek() not in (\"}\", \"eof\"):\n            body.append(self.statement())\n        self.take(\"}\")\n        return body\n\n    def statement(self):\n        kind, text, pos = self.tokens[self.index]\n        if kind == \"{\":\n            return {\"kind\": \"block\", \"body\": self.block(), \"pos\": pos}\n        self.take()\n        if kind == \"let\":\n            _, name, _ = self.take(\"name\")\n            self.take(\"=\")\n            node = {\"kind\": \"let\", \"name\": name, \"expr\": self.expression(), \"pos\": pos}\n        elif kind == \"name\":\n            self.take(\"=\")\n            node = {\n                \"kind\": \"assign\",\n                \"name\": text,\n                \"expr\": self.expression(),\n                \"pos\": pos,\n            }\n        elif kind == \"print\":\n            self.take(\"(\")\n            node = {\"kind\": \"print\", \"expr\": self.expression(), \"pos\": pos}\n            self.take(\")\")\n        elif kind in (\"if\", \"while\"):\n            self.take(\"(\")\n            cond = self.expression()\n            self.take(\")\")\n            body = self.block()\n            node = {\"kind\": kind, \"cond\": cond, \"body\": body, \"pos\": pos}\n            if kind == \"if\":\n                node[\"else\"] = []\n                if self.peek() == \"else\":\n                    self.take()\n                    node[\"else\"] = self.block()\n            return node\n        else:\n            raise LanguageError(\"parse\", pos, \"expected statement\")\n        self.take(\";\")\n        return node\n\n    def program(self):\n        body = []\n        while self.peek() != \"eof\":\n            body.append(self.statement())\n        return body\n\n\nclass Compiler:\n    def __init__(self):\n        self.scopes, self.code, self.slots = [{}], [], 0\n\n    def emit(self, op, value=None, pos=0):\n        self.code.append([op, value, pos])\n        return len(self.code) - 1\n\n    def lookup(self, name, pos):\n        for scope in reversed(self.scopes):\n            if name in scope:\n                return scope[name]\n        raise LanguageError(\"type\", pos, \"undeclared \" + name)\n\n    def require(self, condition, pos):\n        if not condition:\n            raise LanguageError(\"type\", pos, \"incompatible types\")\n\n    def expression(self, node):\n        kind, pos = node[\"kind\"], node[\"pos\"]\n        if kind == \"literal\":\n            self.emit(\"PUSH\", node[\"value\"], pos)\n            return type(node[\"value\"])\n        if kind == \"variable\":\n            slot, category = self.lookup(node[\"name\"], pos)\n            self.emit(\"LOAD\", slot, pos)\n            return category\n        if kind == \"unary\":\n            category = self.expression(node[\"right\"])\n            self.require(category is (int if node[\"op\"] == \"-\" else bool), pos)\n            self.emit(\"UNARY\", node[\"op\"], pos)\n            return category\n        op = node[\"op\"]\n        left = self.expression(node[\"left\"])\n        if op in (\"&&\", \"||\"):\n            self.require(left is bool, pos)\n            jump = self.emit(\"JF\", pos=pos)\n            if op == \"||\":\n                self.emit(\"PUSH\", True, pos)\n            else:\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            end = self.emit(\"JMP\", pos=pos)\n            self.code[jump][1] = len(self.code)\n            if op == \"||\":\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            else:\n                self.emit(\"PUSH\", False, pos)\n            self.code[end][1] = len(self.code)\n            return bool\n        right = self.expression(node[\"right\"])\n        self.require(left is right, pos)\n        if op not in (\"==\", \"!=\"):\n            self.require(left is int, pos)\n        self.emit(\"BINARY\", op, pos)\n        return bool if op in (\"==\", \"!=\", \"<\", \"<=\", \">\", \">=\") else int\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            kind, pos = node[\"kind\"], node[\"pos\"]\n            if kind in (\"let\", \"assign\"):\n                category = self.expression(node[\"expr\"])\n                if kind == \"let\":\n                    self.require(node[\"name\"] not in self.scopes[-1], pos)\n                    slot = self.slots\n                    self.slots += 1\n                    self.scopes[-1][node[\"name\"]] = (slot, category)\n                else:\n                    slot, previous = self.lookup(node[\"name\"], pos)\n                    self.require(category is previous, pos)\n                self.emit(\"STORE\", slot, pos)\n            elif kind == \"print\":\n                self.expression(node[\"expr\"])\n                self.emit(\"PRINT\", pos=pos)\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            else:\n                start = len(self.code)\n                self.require(self.expression(node[\"cond\"]) is bool, pos)\n                exit_jump = self.emit(\"JF\", pos=pos)\n                self.body(node[\"body\"], True)\n                if kind == \"while\":\n                    self.emit(\"JMP\", start, pos)\n                    self.code[exit_jump][1] = len(self.code)\n                else:\n                    end_jump = self.emit(\"JMP\", pos=pos)\n                    self.code[exit_jump][1] = len(self.code)\n                    self.body(node[\"else\"], True)\n                    self.code[end_jump][1] = len(self.code)\n        if scoped:\n            self.scopes.pop()\n        return self.code\n\n\ndef stack_run(code, budget):\n    stack, slots, output, pc = [], {}, [], 0\n    while pc < len(code):\n        budget -= 1\n        op, value, pos = code[pc]\n        if budget < 0:\n            raise LanguageError(\"run\", pos, \"instruction budget\")\n        pc += 1\n        if op == \"PUSH\":\n            stack.append(value)\n        elif op == \"LOAD\":\n            stack.append(slots[value])\n        elif op == \"STORE\":\n            slots[value] = stack.pop()\n        elif op == \"PRINT\":\n            output.append(stack.pop())\n        elif op == \"JMP\":\n            pc = value\n        elif op == \"JF\":\n            if not stack.pop():\n                pc = value\n        elif op == \"UNARY\":\n            operand = stack.pop()\n            stack.append(-operand if value == \"-\" else not operand)\n        else:\n            right, left = stack.pop(), stack.pop()\n            if value == \"+\":\n                result = left + right\n            elif value == \"-\":\n                result = left - right\n            elif value == \"*\":\n                result = left * right\n            elif value == \"/\":\n                if right == 0:\n                    raise LanguageError(\"run\", pos, \"division by zero\")\n                result = (1 if left * right >= 0 else -1) * (abs(left) // abs(right))\n            elif value == \"<\":\n                result = left < right\n            elif value == \"<=\":\n                result = left <= right\n            elif value == \">\":\n                result = left > right\n            elif value == \">=\":\n                result = left >= right\n            elif value == \"==\":\n                result = left == right\n            else:\n                result = left != right\n            stack.append(result)\n    return output\n\n\nclass Interpreter:\n    def __init__(self, budget):\n        self.scopes, self.output, self.budget = [{}], [], budget\n\n    def tick(self, pos):\n        self.budget -= 1\n        if self.budget < 0:\n            raise LanguageError(\"run\", pos, \"source budget\")\n\n    def binding(self, name):\n        return next(scope for scope in reversed(self.scopes) if name in scope)\n\n    def expression(self, node):\n        self.tick(node[\"pos\"])\n        kind = node[\"kind\"]\n        if kind == \"literal\":\n            return node[\"value\"]\n        if kind == \"variable\":\n            return self.binding(node[\"name\"])[node[\"name\"]]\n        if kind == \"unary\":\n            right = self.expression(node[\"right\"])\n            return -right if node[\"op\"] == \"-\" else not right\n        left = self.expression(node[\"left\"])\n        op = node[\"op\"]\n        if op == \"&&\":\n            return left and self.expression(node[\"right\"])\n        if op == \"||\":\n            return left or self.expression(node[\"right\"])\n        right = self.expression(node[\"right\"])\n        if op == \"+\":\n            return left + right\n        if op == \"-\":\n            return left - right\n        if op == \"*\":\n            return left * right\n        if op == \"/\":\n            if right == 0:\n                raise LanguageError(\"run\", node[\"pos\"], \"division by zero\")\n            quotient = abs(left) // abs(right)\n            return -quotient if (left < 0) != (right < 0) else quotient\n        if op == \"<\":\n            return left < right\n        if op == \"<=\":\n            return left <= right\n        if op == \">\":\n            return left > right\n        if op == \">=\":\n            return left >= right\n        if op == \"==\":\n            return left == right\n        return left != right\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            self.tick(node[\"pos\"])\n            kind = node[\"kind\"]\n            if kind == \"let\":\n                self.scopes[-1][node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"assign\":\n                self.binding(node[\"name\"])[node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"print\":\n                self.output.append(self.expression(node[\"expr\"]))\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            elif kind == \"if\":\n                self.body(\n                    node[\"body\"] if self.expression(node[\"cond\"]) else node[\"else\"],\n                    True,\n                )\n            else:\n                while self.expression(node[\"cond\"]):\n                    self.body(node[\"body\"], True)\n        if scoped:\n            self.scopes.pop()\n        return self.output\n\n\ndef run(source, budget=10000):\n    tokens = lex(source)\n    ast = Parser(tokens).program()\n    code = Compiler().body(ast)\n    interpreted = Interpreter(budget).body(ast)\n    compiled = stack_run(code, budget)\n    return {\n        \"tokens\": tokens,\n        \"ast\": ast,\n        \"instructions\": code,\n        \"interpreted\": interpreted,\n        \"compiled\": compiled,\n    }\n"
+      },
+      "stdin": "print(8-3-1);print(-7/3);\n"
+    },
+    "stdout": "tokens=[[\"print\", \"print\", 0], [\"(\", \"(\", 5], [\"number\", \"8\", 6], [\"-\", \"-\", 7], [\"number\", \"3\", 8], [\"-\", \"-\", 9], [\"number\", \"1\", 10], [\")\", \")\", 11], [\";\", \";\", 12], [\"print\", \"print\", 13], [\"(\", \"(\", 18], [\"-\", \"-\", 19], [\"number\", \"7\", 20], [\"/\", \"/\", 21], [\"number\", \"3\", 22], [\")\", \")\", 23], [\";\", \";\", 24], [\"eof\", \"\", 26]]\nast=[{\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 6, \"value\": 8}, \"op\": \"-\", \"pos\": 7, \"right\": {\"kind\": \"literal\", \"pos\": 8, \"value\": 3}}, \"op\": \"-\", \"pos\": 9, \"right\": {\"kind\": \"literal\", \"pos\": 10, \"value\": 1}}, \"kind\": \"print\", \"pos\": 0}, {\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"unary\", \"op\": \"-\", \"pos\": 19, \"right\": {\"kind\": \"literal\", \"pos\": 20, \"value\": 7}}, \"op\": \"/\", \"pos\": 21, \"right\": {\"kind\": \"literal\", \"pos\": 22, \"value\": 3}}, \"kind\": \"print\", \"pos\": 13}]\ninstructions=[[\"PUSH\", 8, 6], [\"PUSH\", 3, 8], [\"BINARY\", \"-\", 7], [\"PUSH\", 1, 10], [\"BINARY\", \"-\", 9], [\"PRINT\", null, 0], [\"PUSH\", 7, 20], [\"UNARY\", \"-\", 19], [\"PUSH\", 3, 22], [\"BINARY\", \"/\", 21], [\"PRINT\", null, 13]]\n{\"equivalent\": true, \"machine_result\": [4, -2], \"source_result\": [4, -2]}\n",
+    "decision": "met"
+  },
+  {
+    "id": "compiler-loop/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "compiler-loop",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import json,sys\nimport importlib.util\nspec=importlib.util.spec_from_file_location('tiny','tiny.py')\ntiny=importlib.util.module_from_spec(spec);spec.loader.exec_module(tiny)\nrun=tiny.run\nresult=run(sys.stdin.read())\nprint('tokens='+json.dumps(result['tokens'],sort_keys=True))\nprint('ast='+json.dumps(result['ast'],sort_keys=True))\nprint('instructions='+json.dumps(result['instructions'],sort_keys=True))\nprint(json.dumps({'source_result':result['interpreted'],'machine_result':result['compiled'],'equivalent':result['interpreted']==result['compiled']},sort_keys=True))\n",
+        "tiny.py": "\"\"\"Original Tiny classroom language; no eval, host AST, LLVM or external packages.\"\"\"\n\nimport re\nfrom typing import ClassVar\n\n\nclass LanguageError(Exception):\n    def __init__(self, stage, position, message):\n        self.stage, self.position = stage, position\n        super().__init__(f\"{stage}@{position}: {message}\")\n\n\nKEYWORDS = {\"let\", \"print\", \"if\", \"else\", \"while\", \"true\", \"false\"}\nPATTERN = re.compile(\n    r\"\\s+|[0-9]+|[A-Za-z_][A-Za-z0-9_]*|&&|\\|\\||==|!=|<=|>=|[+*/<>=!;(){}-]\"\n)\n\n\ndef lex(source):\n    if len(source) > 16384:\n        raise LanguageError(\"lex\", 0, \"source budget\")\n    tokens, offset = [], 0\n    while offset < len(source):\n        match = PATTERN.match(source, offset)\n        if match is None:\n            raise LanguageError(\"lex\", offset, \"illegal character\")\n        text = match.group()\n        if not text.isspace():\n            kind = (\n                \"number\"\n                if text[0].isdigit()\n                else \"name\"\n                if re.fullmatch(r\"[A-Za-z_]\\w*\", text) and text not in KEYWORDS\n                else text\n            )\n            tokens.append((kind, text, offset))\n        offset = match.end()\n    tokens.append((\"eof\", \"\", len(source)))\n    return tokens\n\n\nclass Parser:\n    precedence: ClassVar[dict[str, int]] = {\n        \"||\": 1,\n        \"&&\": 2,\n        \"==\": 3,\n        \"!=\": 3,\n        \"<\": 4,\n        \">\": 4,\n        \"<=\": 4,\n        \">=\": 4,\n        \"+\": 5,\n        \"-\": 5,\n        \"*\": 6,\n        \"/\": 6,\n    }\n\n    def __init__(self, tokens):\n        self.tokens, self.index = tokens, 0\n\n    def peek(self):\n        return self.tokens[self.index][0]\n\n    def take(self, kind=None):\n        token = self.tokens[self.index]\n        if kind is not None and token[0] != kind:\n            raise LanguageError(\"parse\", token[2], \"expected \" + kind)\n        self.index += 1\n        return token\n\n    def expression(self, minimum=1):\n        kind, text, pos = self.take()\n        if kind == \"number\":\n            node = {\"kind\": \"literal\", \"value\": int(text), \"pos\": pos}\n        elif kind in (\"true\", \"false\"):\n            node = {\"kind\": \"literal\", \"value\": kind == \"true\", \"pos\": pos}\n        elif kind == \"name\":\n            node = {\"kind\": \"variable\", \"name\": text, \"pos\": pos}\n        elif kind == \"(\":\n            node = self.expression()\n            self.take(\")\")\n        elif kind in (\"-\", \"!\"):\n            node = {\n                \"kind\": \"unary\",\n                \"op\": kind,\n                \"right\": self.expression(7),\n                \"pos\": pos,\n            }\n        else:\n            raise LanguageError(\"parse\", pos, \"expected expression\")\n        while self.precedence.get(self.peek(), 0) >= minimum:\n            _, op, pos = self.take()\n            right = self.expression(self.precedence[op] + 1)\n            node = {\n                \"kind\": \"binary\",\n                \"op\": op,\n                \"left\": node,\n                \"right\": right,\n                \"pos\": pos,\n            }\n        return node\n\n    def block(self):\n        self.take(\"{\")\n        body = []\n        while self.peek() not in (\"}\", \"eof\"):\n            body.append(self.statement())\n        self.take(\"}\")\n        return body\n\n    def statement(self):\n        kind, text, pos = self.tokens[self.index]\n        if kind == \"{\":\n            return {\"kind\": \"block\", \"body\": self.block(), \"pos\": pos}\n        self.take()\n        if kind == \"let\":\n            _, name, _ = self.take(\"name\")\n            self.take(\"=\")\n            node = {\"kind\": \"let\", \"name\": name, \"expr\": self.expression(), \"pos\": pos}\n        elif kind == \"name\":\n            self.take(\"=\")\n            node = {\n                \"kind\": \"assign\",\n                \"name\": text,\n                \"expr\": self.expression(),\n                \"pos\": pos,\n            }\n        elif kind == \"print\":\n            self.take(\"(\")\n            node = {\"kind\": \"print\", \"expr\": self.expression(), \"pos\": pos}\n            self.take(\")\")\n        elif kind in (\"if\", \"while\"):\n            self.take(\"(\")\n            cond = self.expression()\n            self.take(\")\")\n            body = self.block()\n            node = {\"kind\": kind, \"cond\": cond, \"body\": body, \"pos\": pos}\n            if kind == \"if\":\n                node[\"else\"] = []\n                if self.peek() == \"else\":\n                    self.take()\n                    node[\"else\"] = self.block()\n            return node\n        else:\n            raise LanguageError(\"parse\", pos, \"expected statement\")\n        self.take(\";\")\n        return node\n\n    def program(self):\n        body = []\n        while self.peek() != \"eof\":\n            body.append(self.statement())\n        return body\n\n\nclass Compiler:\n    def __init__(self):\n        self.scopes, self.code, self.slots = [{}], [], 0\n\n    def emit(self, op, value=None, pos=0):\n        self.code.append([op, value, pos])\n        return len(self.code) - 1\n\n    def lookup(self, name, pos):\n        for scope in reversed(self.scopes):\n            if name in scope:\n                return scope[name]\n        raise LanguageError(\"type\", pos, \"undeclared \" + name)\n\n    def require(self, condition, pos):\n        if not condition:\n            raise LanguageError(\"type\", pos, \"incompatible types\")\n\n    def expression(self, node):\n        kind, pos = node[\"kind\"], node[\"pos\"]\n        if kind == \"literal\":\n            self.emit(\"PUSH\", node[\"value\"], pos)\n            return type(node[\"value\"])\n        if kind == \"variable\":\n            slot, category = self.lookup(node[\"name\"], pos)\n            self.emit(\"LOAD\", slot, pos)\n            return category\n        if kind == \"unary\":\n            category = self.expression(node[\"right\"])\n            self.require(category is (int if node[\"op\"] == \"-\" else bool), pos)\n            self.emit(\"UNARY\", node[\"op\"], pos)\n            return category\n        op = node[\"op\"]\n        left = self.expression(node[\"left\"])\n        if op in (\"&&\", \"||\"):\n            self.require(left is bool, pos)\n            jump = self.emit(\"JF\", pos=pos)\n            if op == \"||\":\n                self.emit(\"PUSH\", True, pos)\n            else:\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            end = self.emit(\"JMP\", pos=pos)\n            self.code[jump][1] = len(self.code)\n            if op == \"||\":\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            else:\n                self.emit(\"PUSH\", False, pos)\n            self.code[end][1] = len(self.code)\n            return bool\n        right = self.expression(node[\"right\"])\n        self.require(left is right, pos)\n        if op not in (\"==\", \"!=\"):\n            self.require(left is int, pos)\n        self.emit(\"BINARY\", op, pos)\n        return bool if op in (\"==\", \"!=\", \"<\", \"<=\", \">\", \">=\") else int\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            kind, pos = node[\"kind\"], node[\"pos\"]\n            if kind in (\"let\", \"assign\"):\n                category = self.expression(node[\"expr\"])\n                if kind == \"let\":\n                    self.require(node[\"name\"] not in self.scopes[-1], pos)\n                    slot = self.slots\n                    self.slots += 1\n                    self.scopes[-1][node[\"name\"]] = (slot, category)\n                else:\n                    slot, previous = self.lookup(node[\"name\"], pos)\n                    self.require(category is previous, pos)\n                self.emit(\"STORE\", slot, pos)\n            elif kind == \"print\":\n                self.expression(node[\"expr\"])\n                self.emit(\"PRINT\", pos=pos)\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            else:\n                start = len(self.code)\n                self.require(self.expression(node[\"cond\"]) is bool, pos)\n                exit_jump = self.emit(\"JF\", pos=pos)\n                self.body(node[\"body\"], True)\n                if kind == \"while\":\n                    self.emit(\"JMP\", start, pos)\n                    self.code[exit_jump][1] = len(self.code)\n                else:\n                    end_jump = self.emit(\"JMP\", pos=pos)\n                    self.code[exit_jump][1] = len(self.code)\n                    self.body(node[\"else\"], True)\n                    self.code[end_jump][1] = len(self.code)\n        if scoped:\n            self.scopes.pop()\n        return self.code\n\n\ndef stack_run(code, budget):\n    stack, slots, output, pc = [], {}, [], 0\n    while pc < len(code):\n        budget -= 1\n        op, value, pos = code[pc]\n        if budget < 0:\n            raise LanguageError(\"run\", pos, \"instruction budget\")\n        pc += 1\n        if op == \"PUSH\":\n            stack.append(value)\n        elif op == \"LOAD\":\n            stack.append(slots[value])\n        elif op == \"STORE\":\n            slots[value] = stack.pop()\n        elif op == \"PRINT\":\n            output.append(stack.pop())\n        elif op == \"JMP\":\n            pc = value\n        elif op == \"JF\":\n            if not stack.pop():\n                pc = value\n        elif op == \"UNARY\":\n            operand = stack.pop()\n            stack.append(-operand if value == \"-\" else not operand)\n        else:\n            right, left = stack.pop(), stack.pop()\n            if value == \"+\":\n                result = left + right\n            elif value == \"-\":\n                result = right - left\n            elif value == \"*\":\n                result = left * right\n            elif value == \"/\":\n                if right == 0:\n                    raise LanguageError(\"run\", pos, \"division by zero\")\n                result = (1 if left * right >= 0 else -1) * (abs(left) // abs(right))\n            elif value == \"<\":\n                result = left < right\n            elif value == \"<=\":\n                result = left <= right\n            elif value == \">\":\n                result = left > right\n            elif value == \">=\":\n                result = left >= right\n            elif value == \"==\":\n                result = left == right\n            else:\n                result = left != right\n            stack.append(result)\n    return output\n\n\nclass Interpreter:\n    def __init__(self, budget):\n        self.scopes, self.output, self.budget = [{}], [], budget\n\n    def tick(self, pos):\n        self.budget -= 1\n        if self.budget < 0:\n            raise LanguageError(\"run\", pos, \"source budget\")\n\n    def binding(self, name):\n        return next(scope for scope in reversed(self.scopes) if name in scope)\n\n    def expression(self, node):\n        self.tick(node[\"pos\"])\n        kind = node[\"kind\"]\n        if kind == \"literal\":\n            return node[\"value\"]\n        if kind == \"variable\":\n            return self.binding(node[\"name\"])[node[\"name\"]]\n        if kind == \"unary\":\n            right = self.expression(node[\"right\"])\n            return -right if node[\"op\"] == \"-\" else not right\n        left = self.expression(node[\"left\"])\n        op = node[\"op\"]\n        if op == \"&&\":\n            return left and self.expression(node[\"right\"])\n        if op == \"||\":\n            return left or self.expression(node[\"right\"])\n        right = self.expression(node[\"right\"])\n        if op == \"+\":\n            return left + right\n        if op == \"-\":\n            return left - right\n        if op == \"*\":\n            return left * right\n        if op == \"/\":\n            if right == 0:\n                raise LanguageError(\"run\", node[\"pos\"], \"division by zero\")\n            quotient = abs(left) // abs(right)\n            return -quotient if (left < 0) != (right < 0) else quotient\n        if op == \"<\":\n            return left < right\n        if op == \"<=\":\n            return left <= right\n        if op == \">\":\n            return left > right\n        if op == \">=\":\n            return left >= right\n        if op == \"==\":\n            return left == right\n        return left != right\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            self.tick(node[\"pos\"])\n            kind = node[\"kind\"]\n            if kind == \"let\":\n                self.scopes[-1][node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"assign\":\n                self.binding(node[\"name\"])[node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"print\":\n                self.output.append(self.expression(node[\"expr\"]))\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            elif kind == \"if\":\n                self.body(\n                    node[\"body\"] if self.expression(node[\"cond\"]) else node[\"else\"],\n                    True,\n                )\n            else:\n                while self.expression(node[\"cond\"]):\n                    self.body(node[\"body\"], True)\n        if scoped:\n            self.scopes.pop()\n        return self.output\n\n\ndef run(source, budget=10000):\n    tokens = lex(source)\n    ast = Parser(tokens).program()\n    code = Compiler().body(ast)\n    interpreted = Interpreter(budget).body(ast)\n    compiled = stack_run(code, budget)\n    return {\n        \"tokens\": tokens,\n        \"ast\": ast,\n        \"instructions\": code,\n        \"interpreted\": interpreted,\n        \"compiled\": compiled,\n    }\n"
+      },
+      "stdin": "let x=3;while(x>0){x=x-1;}print(x);\n"
+    },
+    "stdout": "tokens=[[\"let\", \"let\", 0], [\"name\", \"x\", 4], [\"=\", \"=\", 5], [\"number\", \"3\", 6], [\";\", \";\", 7], [\"while\", \"while\", 8], [\"(\", \"(\", 13], [\"name\", \"x\", 14], [\">\", \">\", 15], [\"number\", \"0\", 16], [\")\", \")\", 17], [\"{\", \"{\", 18], [\"name\", \"x\", 19], [\"=\", \"=\", 20], [\"name\", \"x\", 21], [\"-\", \"-\", 22], [\"number\", \"1\", 23], [\";\", \";\", 24], [\"}\", \"}\", 25], [\"print\", \"print\", 26], [\"(\", \"(\", 31], [\"name\", \"x\", 32], [\")\", \")\", 33], [\";\", \";\", 34], [\"eof\", \"\", 36]]\nast=[{\"expr\": {\"kind\": \"literal\", \"pos\": 6, \"value\": 3}, \"kind\": \"let\", \"name\": \"x\", \"pos\": 0}, {\"body\": [{\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 21}, \"op\": \"-\", \"pos\": 22, \"right\": {\"kind\": \"literal\", \"pos\": 23, \"value\": 1}}, \"kind\": \"assign\", \"name\": \"x\", \"pos\": 19}], \"cond\": {\"kind\": \"binary\", \"left\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 14}, \"op\": \">\", \"pos\": 15, \"right\": {\"kind\": \"literal\", \"pos\": 16, \"value\": 0}}, \"kind\": \"while\", \"pos\": 8}, {\"expr\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 32}, \"kind\": \"print\", \"pos\": 26}]\ninstructions=[[\"PUSH\", 3, 6], [\"STORE\", 0, 0], [\"LOAD\", 0, 14], [\"PUSH\", 0, 16], [\"BINARY\", \">\", 15], [\"JF\", 11, 8], [\"LOAD\", 0, 21], [\"PUSH\", 1, 23], [\"BINARY\", \"-\", 22], [\"STORE\", 0, 19], [\"JMP\", 2, 8], [\"LOAD\", 0, 32], [\"PRINT\", null, 26]]\n{\"equivalent\": false, \"machine_result\": [-2], \"source_result\": [0]}\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "compiler-loop/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "compiler-loop",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import json,sys\nimport importlib.util\nspec=importlib.util.spec_from_file_location('tiny','tiny.py')\ntiny=importlib.util.module_from_spec(spec);spec.loader.exec_module(tiny)\nrun=tiny.run\nresult=run(sys.stdin.read())\nprint('tokens='+json.dumps(result['tokens'],sort_keys=True))\nprint('ast='+json.dumps(result['ast'],sort_keys=True))\nprint('instructions='+json.dumps(result['instructions'],sort_keys=True))\nprint(json.dumps({'source_result':result['interpreted'],'machine_result':result['compiled'],'equivalent':result['interpreted']==result['compiled']},sort_keys=True))\n",
+        "tiny.py": "\"\"\"Original Tiny classroom language; no eval, host AST, LLVM or external packages.\"\"\"\n\nimport re\nfrom typing import ClassVar\n\n\nclass LanguageError(Exception):\n    def __init__(self, stage, position, message):\n        self.stage, self.position = stage, position\n        super().__init__(f\"{stage}@{position}: {message}\")\n\n\nKEYWORDS = {\"let\", \"print\", \"if\", \"else\", \"while\", \"true\", \"false\"}\nPATTERN = re.compile(\n    r\"\\s+|[0-9]+|[A-Za-z_][A-Za-z0-9_]*|&&|\\|\\||==|!=|<=|>=|[+*/<>=!;(){}-]\"\n)\n\n\ndef lex(source):\n    if len(source) > 16384:\n        raise LanguageError(\"lex\", 0, \"source budget\")\n    tokens, offset = [], 0\n    while offset < len(source):\n        match = PATTERN.match(source, offset)\n        if match is None:\n            raise LanguageError(\"lex\", offset, \"illegal character\")\n        text = match.group()\n        if not text.isspace():\n            kind = (\n                \"number\"\n                if text[0].isdigit()\n                else \"name\"\n                if re.fullmatch(r\"[A-Za-z_]\\w*\", text) and text not in KEYWORDS\n                else text\n            )\n            tokens.append((kind, text, offset))\n        offset = match.end()\n    tokens.append((\"eof\", \"\", len(source)))\n    return tokens\n\n\nclass Parser:\n    precedence: ClassVar[dict[str, int]] = {\n        \"||\": 1,\n        \"&&\": 2,\n        \"==\": 3,\n        \"!=\": 3,\n        \"<\": 4,\n        \">\": 4,\n        \"<=\": 4,\n        \">=\": 4,\n        \"+\": 5,\n        \"-\": 5,\n        \"*\": 6,\n        \"/\": 6,\n    }\n\n    def __init__(self, tokens):\n        self.tokens, self.index = tokens, 0\n\n    def peek(self):\n        return self.tokens[self.index][0]\n\n    def take(self, kind=None):\n        token = self.tokens[self.index]\n        if kind is not None and token[0] != kind:\n            raise LanguageError(\"parse\", token[2], \"expected \" + kind)\n        self.index += 1\n        return token\n\n    def expression(self, minimum=1):\n        kind, text, pos = self.take()\n        if kind == \"number\":\n            node = {\"kind\": \"literal\", \"value\": int(text), \"pos\": pos}\n        elif kind in (\"true\", \"false\"):\n            node = {\"kind\": \"literal\", \"value\": kind == \"true\", \"pos\": pos}\n        elif kind == \"name\":\n            node = {\"kind\": \"variable\", \"name\": text, \"pos\": pos}\n        elif kind == \"(\":\n            node = self.expression()\n            self.take(\")\")\n        elif kind in (\"-\", \"!\"):\n            node = {\n                \"kind\": \"unary\",\n                \"op\": kind,\n                \"right\": self.expression(7),\n                \"pos\": pos,\n            }\n        else:\n            raise LanguageError(\"parse\", pos, \"expected expression\")\n        while self.precedence.get(self.peek(), 0) >= minimum:\n            _, op, pos = self.take()\n            right = self.expression(self.precedence[op] + 1)\n            node = {\n                \"kind\": \"binary\",\n                \"op\": op,\n                \"left\": node,\n                \"right\": right,\n                \"pos\": pos,\n            }\n        return node\n\n    def block(self):\n        self.take(\"{\")\n        body = []\n        while self.peek() not in (\"}\", \"eof\"):\n            body.append(self.statement())\n        self.take(\"}\")\n        return body\n\n    def statement(self):\n        kind, text, pos = self.tokens[self.index]\n        if kind == \"{\":\n            return {\"kind\": \"block\", \"body\": self.block(), \"pos\": pos}\n        self.take()\n        if kind == \"let\":\n            _, name, _ = self.take(\"name\")\n            self.take(\"=\")\n            node = {\"kind\": \"let\", \"name\": name, \"expr\": self.expression(), \"pos\": pos}\n        elif kind == \"name\":\n            self.take(\"=\")\n            node = {\n                \"kind\": \"assign\",\n                \"name\": text,\n                \"expr\": self.expression(),\n                \"pos\": pos,\n            }\n        elif kind == \"print\":\n            self.take(\"(\")\n            node = {\"kind\": \"print\", \"expr\": self.expression(), \"pos\": pos}\n            self.take(\")\")\n        elif kind in (\"if\", \"while\"):\n            self.take(\"(\")\n            cond = self.expression()\n            self.take(\")\")\n            body = self.block()\n            node = {\"kind\": kind, \"cond\": cond, \"body\": body, \"pos\": pos}\n            if kind == \"if\":\n                node[\"else\"] = []\n                if self.peek() == \"else\":\n                    self.take()\n                    node[\"else\"] = self.block()\n            return node\n        else:\n            raise LanguageError(\"parse\", pos, \"expected statement\")\n        self.take(\";\")\n        return node\n\n    def program(self):\n        body = []\n        while self.peek() != \"eof\":\n            body.append(self.statement())\n        return body\n\n\nclass Compiler:\n    def __init__(self):\n        self.scopes, self.code, self.slots = [{}], [], 0\n\n    def emit(self, op, value=None, pos=0):\n        self.code.append([op, value, pos])\n        return len(self.code) - 1\n\n    def lookup(self, name, pos):\n        for scope in reversed(self.scopes):\n            if name in scope:\n                return scope[name]\n        raise LanguageError(\"type\", pos, \"undeclared \" + name)\n\n    def require(self, condition, pos):\n        if not condition:\n            raise LanguageError(\"type\", pos, \"incompatible types\")\n\n    def expression(self, node):\n        kind, pos = node[\"kind\"], node[\"pos\"]\n        if kind == \"literal\":\n            self.emit(\"PUSH\", node[\"value\"], pos)\n            return type(node[\"value\"])\n        if kind == \"variable\":\n            slot, category = self.lookup(node[\"name\"], pos)\n            self.emit(\"LOAD\", slot, pos)\n            return category\n        if kind == \"unary\":\n            category = self.expression(node[\"right\"])\n            self.require(category is (int if node[\"op\"] == \"-\" else bool), pos)\n            self.emit(\"UNARY\", node[\"op\"], pos)\n            return category\n        op = node[\"op\"]\n        left = self.expression(node[\"left\"])\n        if op in (\"&&\", \"||\"):\n            self.require(left is bool, pos)\n            jump = self.emit(\"JF\", pos=pos)\n            if op == \"||\":\n                self.emit(\"PUSH\", True, pos)\n            else:\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            end = self.emit(\"JMP\", pos=pos)\n            self.code[jump][1] = len(self.code)\n            if op == \"||\":\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            else:\n                self.emit(\"PUSH\", False, pos)\n            self.code[end][1] = len(self.code)\n            return bool\n        right = self.expression(node[\"right\"])\n        self.require(left is right, pos)\n        if op not in (\"==\", \"!=\"):\n            self.require(left is int, pos)\n        self.emit(\"BINARY\", op, pos)\n        return bool if op in (\"==\", \"!=\", \"<\", \"<=\", \">\", \">=\") else int\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            kind, pos = node[\"kind\"], node[\"pos\"]\n            if kind in (\"let\", \"assign\"):\n                category = self.expression(node[\"expr\"])\n                if kind == \"let\":\n                    self.require(node[\"name\"] not in self.scopes[-1], pos)\n                    slot = self.slots\n                    self.slots += 1\n                    self.scopes[-1][node[\"name\"]] = (slot, category)\n                else:\n                    slot, previous = self.lookup(node[\"name\"], pos)\n                    self.require(category is previous, pos)\n                self.emit(\"STORE\", slot, pos)\n            elif kind == \"print\":\n                self.expression(node[\"expr\"])\n                self.emit(\"PRINT\", pos=pos)\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            else:\n                start = len(self.code)\n                self.require(self.expression(node[\"cond\"]) is bool, pos)\n                exit_jump = self.emit(\"JF\", pos=pos)\n                self.body(node[\"body\"], True)\n                if kind == \"while\":\n                    self.emit(\"JMP\", start, pos)\n                    self.code[exit_jump][1] = len(self.code)\n                else:\n                    end_jump = self.emit(\"JMP\", pos=pos)\n                    self.code[exit_jump][1] = len(self.code)\n                    self.body(node[\"else\"], True)\n                    self.code[end_jump][1] = len(self.code)\n        if scoped:\n            self.scopes.pop()\n        return self.code\n\n\ndef stack_run(code, budget):\n    stack, slots, output, pc = [], {}, [], 0\n    while pc < len(code):\n        budget -= 1\n        op, value, pos = code[pc]\n        if budget < 0:\n            raise LanguageError(\"run\", pos, \"instruction budget\")\n        pc += 1\n        if op == \"PUSH\":\n            stack.append(value)\n        elif op == \"LOAD\":\n            stack.append(slots[value])\n        elif op == \"STORE\":\n            slots[value] = stack.pop()\n        elif op == \"PRINT\":\n            output.append(stack.pop())\n        elif op == \"JMP\":\n            pc = value\n        elif op == \"JF\":\n            if not stack.pop():\n                pc = value\n        elif op == \"UNARY\":\n            operand = stack.pop()\n            stack.append(-operand if value == \"-\" else not operand)\n        else:\n            right, left = stack.pop(), stack.pop()\n            if value == \"+\":\n                result = left + right\n            elif value == \"-\":\n                result = left - right\n            elif value == \"*\":\n                result = left * right\n            elif value == \"/\":\n                if right == 0:\n                    raise LanguageError(\"run\", pos, \"division by zero\")\n                result = (1 if left * right >= 0 else -1) * (abs(left) // abs(right))\n            elif value == \"<\":\n                result = left < right\n            elif value == \"<=\":\n                result = left <= right\n            elif value == \">\":\n                result = left > right\n            elif value == \">=\":\n                result = left >= right\n            elif value == \"==\":\n                result = left == right\n            else:\n                result = left != right\n            stack.append(result)\n    return output\n\n\nclass Interpreter:\n    def __init__(self, budget):\n        self.scopes, self.output, self.budget = [{}], [], budget\n\n    def tick(self, pos):\n        self.budget -= 1\n        if self.budget < 0:\n            raise LanguageError(\"run\", pos, \"source budget\")\n\n    def binding(self, name):\n        return next(scope for scope in reversed(self.scopes) if name in scope)\n\n    def expression(self, node):\n        self.tick(node[\"pos\"])\n        kind = node[\"kind\"]\n        if kind == \"literal\":\n            return node[\"value\"]\n        if kind == \"variable\":\n            return self.binding(node[\"name\"])[node[\"name\"]]\n        if kind == \"unary\":\n            right = self.expression(node[\"right\"])\n            return -right if node[\"op\"] == \"-\" else not right\n        left = self.expression(node[\"left\"])\n        op = node[\"op\"]\n        if op == \"&&\":\n            return left and self.expression(node[\"right\"])\n        if op == \"||\":\n            return left or self.expression(node[\"right\"])\n        right = self.expression(node[\"right\"])\n        if op == \"+\":\n            return left + right\n        if op == \"-\":\n            return left - right\n        if op == \"*\":\n            return left * right\n        if op == \"/\":\n            if right == 0:\n                raise LanguageError(\"run\", node[\"pos\"], \"division by zero\")\n            quotient = abs(left) // abs(right)\n            return -quotient if (left < 0) != (right < 0) else quotient\n        if op == \"<\":\n            return left < right\n        if op == \"<=\":\n            return left <= right\n        if op == \">\":\n            return left > right\n        if op == \">=\":\n            return left >= right\n        if op == \"==\":\n            return left == right\n        return left != right\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            self.tick(node[\"pos\"])\n            kind = node[\"kind\"]\n            if kind == \"let\":\n                self.scopes[-1][node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"assign\":\n                self.binding(node[\"name\"])[node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"print\":\n                self.output.append(self.expression(node[\"expr\"]))\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            elif kind == \"if\":\n                self.body(\n                    node[\"body\"] if self.expression(node[\"cond\"]) else node[\"else\"],\n                    True,\n                )\n            else:\n                while self.expression(node[\"cond\"]):\n                    self.body(node[\"body\"], True)\n        if scoped:\n            self.scopes.pop()\n        return self.output\n\n\ndef run(source, budget=10000):\n    tokens = lex(source)\n    ast = Parser(tokens).program()\n    code = Compiler().body(ast)\n    interpreted = Interpreter(budget).body(ast)\n    compiled = stack_run(code, budget)\n    return {\n        \"tokens\": tokens,\n        \"ast\": ast,\n        \"instructions\": code,\n        \"interpreted\": interpreted,\n        \"compiled\": compiled,\n    }\n"
+      },
+      "stdin": "let x=3;while(x>0){x=x-1;}print(x);\n"
+    },
+    "stdout": "tokens=[[\"let\", \"let\", 0], [\"name\", \"x\", 4], [\"=\", \"=\", 5], [\"number\", \"3\", 6], [\";\", \";\", 7], [\"while\", \"while\", 8], [\"(\", \"(\", 13], [\"name\", \"x\", 14], [\">\", \">\", 15], [\"number\", \"0\", 16], [\")\", \")\", 17], [\"{\", \"{\", 18], [\"name\", \"x\", 19], [\"=\", \"=\", 20], [\"name\", \"x\", 21], [\"-\", \"-\", 22], [\"number\", \"1\", 23], [\";\", \";\", 24], [\"}\", \"}\", 25], [\"print\", \"print\", 26], [\"(\", \"(\", 31], [\"name\", \"x\", 32], [\")\", \")\", 33], [\";\", \";\", 34], [\"eof\", \"\", 36]]\nast=[{\"expr\": {\"kind\": \"literal\", \"pos\": 6, \"value\": 3}, \"kind\": \"let\", \"name\": \"x\", \"pos\": 0}, {\"body\": [{\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 21}, \"op\": \"-\", \"pos\": 22, \"right\": {\"kind\": \"literal\", \"pos\": 23, \"value\": 1}}, \"kind\": \"assign\", \"name\": \"x\", \"pos\": 19}], \"cond\": {\"kind\": \"binary\", \"left\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 14}, \"op\": \">\", \"pos\": 15, \"right\": {\"kind\": \"literal\", \"pos\": 16, \"value\": 0}}, \"kind\": \"while\", \"pos\": 8}, {\"expr\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 32}, \"kind\": \"print\", \"pos\": 26}]\ninstructions=[[\"PUSH\", 3, 6], [\"STORE\", 0, 0], [\"LOAD\", 0, 14], [\"PUSH\", 0, 16], [\"BINARY\", \">\", 15], [\"JF\", 11, 8], [\"LOAD\", 0, 21], [\"PUSH\", 1, 23], [\"BINARY\", \"-\", 22], [\"STORE\", 0, 19], [\"JMP\", 2, 8], [\"LOAD\", 0, 32], [\"PRINT\", null, 26]]\n{\"equivalent\": true, \"machine_result\": [0], \"source_result\": [0]}\n",
+    "decision": "met"
+  },
+  {
+    "id": "compiler-scope/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "compiler-scope",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import json,sys\nimport importlib.util\nspec=importlib.util.spec_from_file_location('tiny','tiny.py')\ntiny=importlib.util.module_from_spec(spec);spec.loader.exec_module(tiny)\nrun=tiny.run\nresult=run(sys.stdin.read())\nprint('tokens='+json.dumps(result['tokens'],sort_keys=True))\nprint('ast='+json.dumps(result['ast'],sort_keys=True))\nprint('instructions='+json.dumps(result['instructions'],sort_keys=True))\nprint(json.dumps({'source_result':result['interpreted'],'machine_result':result['compiled'],'equivalent':result['interpreted']==result['compiled']},sort_keys=True))\n",
+        "tiny.py": "\"\"\"Original Tiny classroom language; no eval, host AST, LLVM or external packages.\"\"\"\n\nimport re\nfrom typing import ClassVar\n\n\nclass LanguageError(Exception):\n    def __init__(self, stage, position, message):\n        self.stage, self.position = stage, position\n        super().__init__(f\"{stage}@{position}: {message}\")\n\n\nKEYWORDS = {\"let\", \"print\", \"if\", \"else\", \"while\", \"true\", \"false\"}\nPATTERN = re.compile(\n    r\"\\s+|[0-9]+|[A-Za-z_][A-Za-z0-9_]*|&&|\\|\\||==|!=|<=|>=|[+*/<>=!;(){}-]\"\n)\n\n\ndef lex(source):\n    if len(source) > 16384:\n        raise LanguageError(\"lex\", 0, \"source budget\")\n    tokens, offset = [], 0\n    while offset < len(source):\n        match = PATTERN.match(source, offset)\n        if match is None:\n            raise LanguageError(\"lex\", offset, \"illegal character\")\n        text = match.group()\n        if not text.isspace():\n            kind = (\n                \"number\"\n                if text[0].isdigit()\n                else \"name\"\n                if re.fullmatch(r\"[A-Za-z_]\\w*\", text) and text not in KEYWORDS\n                else text\n            )\n            tokens.append((kind, text, offset))\n        offset = match.end()\n    tokens.append((\"eof\", \"\", len(source)))\n    return tokens\n\n\nclass Parser:\n    precedence: ClassVar[dict[str, int]] = {\n        \"||\": 1,\n        \"&&\": 2,\n        \"==\": 3,\n        \"!=\": 3,\n        \"<\": 4,\n        \">\": 4,\n        \"<=\": 4,\n        \">=\": 4,\n        \"+\": 5,\n        \"-\": 5,\n        \"*\": 6,\n        \"/\": 6,\n    }\n\n    def __init__(self, tokens):\n        self.tokens, self.index = tokens, 0\n\n    def peek(self):\n        return self.tokens[self.index][0]\n\n    def take(self, kind=None):\n        token = self.tokens[self.index]\n        if kind is not None and token[0] != kind:\n            raise LanguageError(\"parse\", token[2], \"expected \" + kind)\n        self.index += 1\n        return token\n\n    def expression(self, minimum=1):\n        kind, text, pos = self.take()\n        if kind == \"number\":\n            node = {\"kind\": \"literal\", \"value\": int(text), \"pos\": pos}\n        elif kind in (\"true\", \"false\"):\n            node = {\"kind\": \"literal\", \"value\": kind == \"true\", \"pos\": pos}\n        elif kind == \"name\":\n            node = {\"kind\": \"variable\", \"name\": text, \"pos\": pos}\n        elif kind == \"(\":\n            node = self.expression()\n            self.take(\")\")\n        elif kind in (\"-\", \"!\"):\n            node = {\n                \"kind\": \"unary\",\n                \"op\": kind,\n                \"right\": self.expression(7),\n                \"pos\": pos,\n            }\n        else:\n            raise LanguageError(\"parse\", pos, \"expected expression\")\n        while self.precedence.get(self.peek(), 0) >= minimum:\n            _, op, pos = self.take()\n            right = self.expression(self.precedence[op] + 1)\n            node = {\n                \"kind\": \"binary\",\n                \"op\": op,\n                \"left\": node,\n                \"right\": right,\n                \"pos\": pos,\n            }\n        return node\n\n    def block(self):\n        self.take(\"{\")\n        body = []\n        while self.peek() not in (\"}\", \"eof\"):\n            body.append(self.statement())\n        self.take(\"}\")\n        return body\n\n    def statement(self):\n        kind, text, pos = self.tokens[self.index]\n        if kind == \"{\":\n            return {\"kind\": \"block\", \"body\": self.block(), \"pos\": pos}\n        self.take()\n        if kind == \"let\":\n            _, name, _ = self.take(\"name\")\n            self.take(\"=\")\n            node = {\"kind\": \"let\", \"name\": name, \"expr\": self.expression(), \"pos\": pos}\n        elif kind == \"name\":\n            self.take(\"=\")\n            node = {\n                \"kind\": \"assign\",\n                \"name\": text,\n                \"expr\": self.expression(),\n                \"pos\": pos,\n            }\n        elif kind == \"print\":\n            self.take(\"(\")\n            node = {\"kind\": \"print\", \"expr\": self.expression(), \"pos\": pos}\n            self.take(\")\")\n        elif kind in (\"if\", \"while\"):\n            self.take(\"(\")\n            cond = self.expression()\n            self.take(\")\")\n            body = self.block()\n            node = {\"kind\": kind, \"cond\": cond, \"body\": body, \"pos\": pos}\n            if kind == \"if\":\n                node[\"else\"] = []\n                if self.peek() == \"else\":\n                    self.take()\n                    node[\"else\"] = self.block()\n            return node\n        else:\n            raise LanguageError(\"parse\", pos, \"expected statement\")\n        self.take(\";\")\n        return node\n\n    def program(self):\n        body = []\n        while self.peek() != \"eof\":\n            body.append(self.statement())\n        return body\n\n\nclass Compiler:\n    def __init__(self):\n        self.scopes, self.code, self.slots = [{}], [], 0\n\n    def emit(self, op, value=None, pos=0):\n        self.code.append([op, value, pos])\n        return len(self.code) - 1\n\n    def lookup(self, name, pos):\n        for scope in reversed(self.scopes):\n            if name in scope:\n                return scope[name]\n        raise LanguageError(\"type\", pos, \"undeclared \" + name)\n\n    def require(self, condition, pos):\n        if not condition:\n            raise LanguageError(\"type\", pos, \"incompatible types\")\n\n    def expression(self, node):\n        kind, pos = node[\"kind\"], node[\"pos\"]\n        if kind == \"literal\":\n            self.emit(\"PUSH\", node[\"value\"], pos)\n            return type(node[\"value\"])\n        if kind == \"variable\":\n            slot, category = self.lookup(node[\"name\"], pos)\n            self.emit(\"LOAD\", slot, pos)\n            return category\n        if kind == \"unary\":\n            category = self.expression(node[\"right\"])\n            self.require(category is (int if node[\"op\"] == \"-\" else bool), pos)\n            self.emit(\"UNARY\", node[\"op\"], pos)\n            return category\n        op = node[\"op\"]\n        left = self.expression(node[\"left\"])\n        if op in (\"&&\", \"||\"):\n            self.require(left is bool, pos)\n            jump = self.emit(\"JF\", pos=pos)\n            if op == \"||\":\n                self.emit(\"PUSH\", True, pos)\n            else:\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            end = self.emit(\"JMP\", pos=pos)\n            self.code[jump][1] = len(self.code)\n            if op == \"||\":\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            else:\n                self.emit(\"PUSH\", False, pos)\n            self.code[end][1] = len(self.code)\n            return bool\n        right = self.expression(node[\"right\"])\n        self.require(left is right, pos)\n        if op not in (\"==\", \"!=\"):\n            self.require(left is int, pos)\n        self.emit(\"BINARY\", op, pos)\n        return bool if op in (\"==\", \"!=\", \"<\", \"<=\", \">\", \">=\") else int\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            kind, pos = node[\"kind\"], node[\"pos\"]\n            if kind in (\"let\", \"assign\"):\n                category = self.expression(node[\"expr\"])\n                if kind == \"let\":\n                    self.require(node[\"name\"] not in self.scopes[-1], pos)\n                    slot = self.slots\n                    self.slots += 1\n                    self.scopes[-1][node[\"name\"]] = (slot, category)\n                else:\n                    slot, previous = self.lookup(node[\"name\"], pos)\n                    self.require(category is previous, pos)\n                self.emit(\"STORE\", slot, pos)\n            elif kind == \"print\":\n                self.expression(node[\"expr\"])\n                self.emit(\"PRINT\", pos=pos)\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            else:\n                start = len(self.code)\n                self.require(self.expression(node[\"cond\"]) is bool, pos)\n                exit_jump = self.emit(\"JF\", pos=pos)\n                self.body(node[\"body\"], True)\n                if kind == \"while\":\n                    self.emit(\"JMP\", start, pos)\n                    self.code[exit_jump][1] = len(self.code)\n                else:\n                    end_jump = self.emit(\"JMP\", pos=pos)\n                    self.code[exit_jump][1] = len(self.code)\n                    self.body(node[\"else\"], True)\n                    self.code[end_jump][1] = len(self.code)\n        if scoped:\n            self.scopes.pop()\n        return self.code\n\n\ndef stack_run(code, budget):\n    stack, slots, output, pc = [], {}, [], 0\n    while pc < len(code):\n        budget -= 1\n        op, value, pos = code[pc]\n        if budget < 0:\n            raise LanguageError(\"run\", pos, \"instruction budget\")\n        pc += 1\n        if op == \"PUSH\":\n            stack.append(value)\n        elif op == \"LOAD\":\n            stack.append(slots[value])\n        elif op == \"STORE\":\n            slots[value] = stack.pop()\n        elif op == \"PRINT\":\n            output.append(stack.pop())\n        elif op == \"JMP\":\n            pc = value\n        elif op == \"JF\":\n            if not stack.pop():\n                pc = value\n        elif op == \"UNARY\":\n            operand = stack.pop()\n            stack.append(-operand if value == \"-\" else not operand)\n        else:\n            right, left = stack.pop(), stack.pop()\n            if value == \"+\":\n                result = left + right\n            elif value == \"-\":\n                result = right - left\n            elif value == \"*\":\n                result = left * right\n            elif value == \"/\":\n                if right == 0:\n                    raise LanguageError(\"run\", pos, \"division by zero\")\n                result = (1 if left * right >= 0 else -1) * (abs(left) // abs(right))\n            elif value == \"<\":\n                result = left < right\n            elif value == \"<=\":\n                result = left <= right\n            elif value == \">\":\n                result = left > right\n            elif value == \">=\":\n                result = left >= right\n            elif value == \"==\":\n                result = left == right\n            else:\n                result = left != right\n            stack.append(result)\n    return output\n\n\nclass Interpreter:\n    def __init__(self, budget):\n        self.scopes, self.output, self.budget = [{}], [], budget\n\n    def tick(self, pos):\n        self.budget -= 1\n        if self.budget < 0:\n            raise LanguageError(\"run\", pos, \"source budget\")\n\n    def binding(self, name):\n        return next(scope for scope in reversed(self.scopes) if name in scope)\n\n    def expression(self, node):\n        self.tick(node[\"pos\"])\n        kind = node[\"kind\"]\n        if kind == \"literal\":\n            return node[\"value\"]\n        if kind == \"variable\":\n            return self.binding(node[\"name\"])[node[\"name\"]]\n        if kind == \"unary\":\n            right = self.expression(node[\"right\"])\n            return -right if node[\"op\"] == \"-\" else not right\n        left = self.expression(node[\"left\"])\n        op = node[\"op\"]\n        if op == \"&&\":\n            return left and self.expression(node[\"right\"])\n        if op == \"||\":\n            return left or self.expression(node[\"right\"])\n        right = self.expression(node[\"right\"])\n        if op == \"+\":\n            return left + right\n        if op == \"-\":\n            return left - right\n        if op == \"*\":\n            return left * right\n        if op == \"/\":\n            if right == 0:\n                raise LanguageError(\"run\", node[\"pos\"], \"division by zero\")\n            quotient = abs(left) // abs(right)\n            return -quotient if (left < 0) != (right < 0) else quotient\n        if op == \"<\":\n            return left < right\n        if op == \"<=\":\n            return left <= right\n        if op == \">\":\n            return left > right\n        if op == \">=\":\n            return left >= right\n        if op == \"==\":\n            return left == right\n        return left != right\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            self.tick(node[\"pos\"])\n            kind = node[\"kind\"]\n            if kind == \"let\":\n                self.scopes[-1][node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"assign\":\n                self.binding(node[\"name\"])[node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"print\":\n                self.output.append(self.expression(node[\"expr\"]))\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            elif kind == \"if\":\n                self.body(\n                    node[\"body\"] if self.expression(node[\"cond\"]) else node[\"else\"],\n                    True,\n                )\n            else:\n                while self.expression(node[\"cond\"]):\n                    self.body(node[\"body\"], True)\n        if scoped:\n            self.scopes.pop()\n        return self.output\n\n\ndef run(source, budget=10000):\n    tokens = lex(source)\n    ast = Parser(tokens).program()\n    code = Compiler().body(ast)\n    interpreted = Interpreter(budget).body(ast)\n    compiled = stack_run(code, budget)\n    return {\n        \"tokens\": tokens,\n        \"ast\": ast,\n        \"instructions\": code,\n        \"interpreted\": interpreted,\n        \"compiled\": compiled,\n    }\n"
+      },
+      "stdin": "let x=7;{let x=2;print(x);}print(x);\n"
+    },
+    "stdout": "tokens=[[\"let\", \"let\", 0], [\"name\", \"x\", 4], [\"=\", \"=\", 5], [\"number\", \"7\", 6], [\";\", \";\", 7], [\"{\", \"{\", 8], [\"let\", \"let\", 9], [\"name\", \"x\", 13], [\"=\", \"=\", 14], [\"number\", \"2\", 15], [\";\", \";\", 16], [\"print\", \"print\", 17], [\"(\", \"(\", 22], [\"name\", \"x\", 23], [\")\", \")\", 24], [\";\", \";\", 25], [\"}\", \"}\", 26], [\"print\", \"print\", 27], [\"(\", \"(\", 32], [\"name\", \"x\", 33], [\")\", \")\", 34], [\";\", \";\", 35], [\"eof\", \"\", 37]]\nast=[{\"expr\": {\"kind\": \"literal\", \"pos\": 6, \"value\": 7}, \"kind\": \"let\", \"name\": \"x\", \"pos\": 0}, {\"body\": [{\"expr\": {\"kind\": \"literal\", \"pos\": 15, \"value\": 2}, \"kind\": \"let\", \"name\": \"x\", \"pos\": 9}, {\"expr\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 23}, \"kind\": \"print\", \"pos\": 17}], \"kind\": \"block\", \"pos\": 8}, {\"expr\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 33}, \"kind\": \"print\", \"pos\": 27}]\ninstructions=[[\"PUSH\", 7, 6], [\"STORE\", 0, 0], [\"PUSH\", 2, 15], [\"STORE\", 1, 9], [\"LOAD\", 1, 23], [\"PRINT\", null, 17], [\"LOAD\", 0, 33], [\"PRINT\", null, 27]]\n{\"equivalent\": true, \"machine_result\": [2, 7], \"source_result\": [2, 7]}\n",
+    "decision": "met"
+  },
+  {
+    "id": "compiler-scope/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "compiler-scope",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import json,sys\nimport importlib.util\nspec=importlib.util.spec_from_file_location('tiny','tiny.py')\ntiny=importlib.util.module_from_spec(spec);spec.loader.exec_module(tiny)\nrun=tiny.run\nresult=run(sys.stdin.read())\nprint('tokens='+json.dumps(result['tokens'],sort_keys=True))\nprint('ast='+json.dumps(result['ast'],sort_keys=True))\nprint('instructions='+json.dumps(result['instructions'],sort_keys=True))\nprint(json.dumps({'source_result':result['interpreted'],'machine_result':result['compiled'],'equivalent':result['interpreted']==result['compiled']},sort_keys=True))\n",
+        "tiny.py": "\"\"\"Original Tiny classroom language; no eval, host AST, LLVM or external packages.\"\"\"\n\nimport re\nfrom typing import ClassVar\n\n\nclass LanguageError(Exception):\n    def __init__(self, stage, position, message):\n        self.stage, self.position = stage, position\n        super().__init__(f\"{stage}@{position}: {message}\")\n\n\nKEYWORDS = {\"let\", \"print\", \"if\", \"else\", \"while\", \"true\", \"false\"}\nPATTERN = re.compile(\n    r\"\\s+|[0-9]+|[A-Za-z_][A-Za-z0-9_]*|&&|\\|\\||==|!=|<=|>=|[+*/<>=!;(){}-]\"\n)\n\n\ndef lex(source):\n    if len(source) > 16384:\n        raise LanguageError(\"lex\", 0, \"source budget\")\n    tokens, offset = [], 0\n    while offset < len(source):\n        match = PATTERN.match(source, offset)\n        if match is None:\n            raise LanguageError(\"lex\", offset, \"illegal character\")\n        text = match.group()\n        if not text.isspace():\n            kind = (\n                \"number\"\n                if text[0].isdigit()\n                else \"name\"\n                if re.fullmatch(r\"[A-Za-z_]\\w*\", text) and text not in KEYWORDS\n                else text\n            )\n            tokens.append((kind, text, offset))\n        offset = match.end()\n    tokens.append((\"eof\", \"\", len(source)))\n    return tokens\n\n\nclass Parser:\n    precedence: ClassVar[dict[str, int]] = {\n        \"||\": 1,\n        \"&&\": 2,\n        \"==\": 3,\n        \"!=\": 3,\n        \"<\": 4,\n        \">\": 4,\n        \"<=\": 4,\n        \">=\": 4,\n        \"+\": 5,\n        \"-\": 5,\n        \"*\": 6,\n        \"/\": 6,\n    }\n\n    def __init__(self, tokens):\n        self.tokens, self.index = tokens, 0\n\n    def peek(self):\n        return self.tokens[self.index][0]\n\n    def take(self, kind=None):\n        token = self.tokens[self.index]\n        if kind is not None and token[0] != kind:\n            raise LanguageError(\"parse\", token[2], \"expected \" + kind)\n        self.index += 1\n        return token\n\n    def expression(self, minimum=1):\n        kind, text, pos = self.take()\n        if kind == \"number\":\n            node = {\"kind\": \"literal\", \"value\": int(text), \"pos\": pos}\n        elif kind in (\"true\", \"false\"):\n            node = {\"kind\": \"literal\", \"value\": kind == \"true\", \"pos\": pos}\n        elif kind == \"name\":\n            node = {\"kind\": \"variable\", \"name\": text, \"pos\": pos}\n        elif kind == \"(\":\n            node = self.expression()\n            self.take(\")\")\n        elif kind in (\"-\", \"!\"):\n            node = {\n                \"kind\": \"unary\",\n                \"op\": kind,\n                \"right\": self.expression(7),\n                \"pos\": pos,\n            }\n        else:\n            raise LanguageError(\"parse\", pos, \"expected expression\")\n        while self.precedence.get(self.peek(), 0) >= minimum:\n            _, op, pos = self.take()\n            right = self.expression(self.precedence[op] + 1)\n            node = {\n                \"kind\": \"binary\",\n                \"op\": op,\n                \"left\": node,\n                \"right\": right,\n                \"pos\": pos,\n            }\n        return node\n\n    def block(self):\n        self.take(\"{\")\n        body = []\n        while self.peek() not in (\"}\", \"eof\"):\n            body.append(self.statement())\n        self.take(\"}\")\n        return body\n\n    def statement(self):\n        kind, text, pos = self.tokens[self.index]\n        if kind == \"{\":\n            return {\"kind\": \"block\", \"body\": self.block(), \"pos\": pos}\n        self.take()\n        if kind == \"let\":\n            _, name, _ = self.take(\"name\")\n            self.take(\"=\")\n            node = {\"kind\": \"let\", \"name\": name, \"expr\": self.expression(), \"pos\": pos}\n        elif kind == \"name\":\n            self.take(\"=\")\n            node = {\n                \"kind\": \"assign\",\n                \"name\": text,\n                \"expr\": self.expression(),\n                \"pos\": pos,\n            }\n        elif kind == \"print\":\n            self.take(\"(\")\n            node = {\"kind\": \"print\", \"expr\": self.expression(), \"pos\": pos}\n            self.take(\")\")\n        elif kind in (\"if\", \"while\"):\n            self.take(\"(\")\n            cond = self.expression()\n            self.take(\")\")\n            body = self.block()\n            node = {\"kind\": kind, \"cond\": cond, \"body\": body, \"pos\": pos}\n            if kind == \"if\":\n                node[\"else\"] = []\n                if self.peek() == \"else\":\n                    self.take()\n                    node[\"else\"] = self.block()\n            return node\n        else:\n            raise LanguageError(\"parse\", pos, \"expected statement\")\n        self.take(\";\")\n        return node\n\n    def program(self):\n        body = []\n        while self.peek() != \"eof\":\n            body.append(self.statement())\n        return body\n\n\nclass Compiler:\n    def __init__(self):\n        self.scopes, self.code, self.slots = [{}], [], 0\n\n    def emit(self, op, value=None, pos=0):\n        self.code.append([op, value, pos])\n        return len(self.code) - 1\n\n    def lookup(self, name, pos):\n        for scope in reversed(self.scopes):\n            if name in scope:\n                return scope[name]\n        raise LanguageError(\"type\", pos, \"undeclared \" + name)\n\n    def require(self, condition, pos):\n        if not condition:\n            raise LanguageError(\"type\", pos, \"incompatible types\")\n\n    def expression(self, node):\n        kind, pos = node[\"kind\"], node[\"pos\"]\n        if kind == \"literal\":\n            self.emit(\"PUSH\", node[\"value\"], pos)\n            return type(node[\"value\"])\n        if kind == \"variable\":\n            slot, category = self.lookup(node[\"name\"], pos)\n            self.emit(\"LOAD\", slot, pos)\n            return category\n        if kind == \"unary\":\n            category = self.expression(node[\"right\"])\n            self.require(category is (int if node[\"op\"] == \"-\" else bool), pos)\n            self.emit(\"UNARY\", node[\"op\"], pos)\n            return category\n        op = node[\"op\"]\n        left = self.expression(node[\"left\"])\n        if op in (\"&&\", \"||\"):\n            self.require(left is bool, pos)\n            jump = self.emit(\"JF\", pos=pos)\n            if op == \"||\":\n                self.emit(\"PUSH\", True, pos)\n            else:\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            end = self.emit(\"JMP\", pos=pos)\n            self.code[jump][1] = len(self.code)\n            if op == \"||\":\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            else:\n                self.emit(\"PUSH\", False, pos)\n            self.code[end][1] = len(self.code)\n            return bool\n        right = self.expression(node[\"right\"])\n        self.require(left is right, pos)\n        if op not in (\"==\", \"!=\"):\n            self.require(left is int, pos)\n        self.emit(\"BINARY\", op, pos)\n        return bool if op in (\"==\", \"!=\", \"<\", \"<=\", \">\", \">=\") else int\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            kind, pos = node[\"kind\"], node[\"pos\"]\n            if kind in (\"let\", \"assign\"):\n                category = self.expression(node[\"expr\"])\n                if kind == \"let\":\n                    self.require(node[\"name\"] not in self.scopes[-1], pos)\n                    slot = self.slots\n                    self.slots += 1\n                    self.scopes[-1][node[\"name\"]] = (slot, category)\n                else:\n                    slot, previous = self.lookup(node[\"name\"], pos)\n                    self.require(category is previous, pos)\n                self.emit(\"STORE\", slot, pos)\n            elif kind == \"print\":\n                self.expression(node[\"expr\"])\n                self.emit(\"PRINT\", pos=pos)\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            else:\n                start = len(self.code)\n                self.require(self.expression(node[\"cond\"]) is bool, pos)\n                exit_jump = self.emit(\"JF\", pos=pos)\n                self.body(node[\"body\"], True)\n                if kind == \"while\":\n                    self.emit(\"JMP\", start, pos)\n                    self.code[exit_jump][1] = len(self.code)\n                else:\n                    end_jump = self.emit(\"JMP\", pos=pos)\n                    self.code[exit_jump][1] = len(self.code)\n                    self.body(node[\"else\"], True)\n                    self.code[end_jump][1] = len(self.code)\n        if scoped:\n            self.scopes.pop()\n        return self.code\n\n\ndef stack_run(code, budget):\n    stack, slots, output, pc = [], {}, [], 0\n    while pc < len(code):\n        budget -= 1\n        op, value, pos = code[pc]\n        if budget < 0:\n            raise LanguageError(\"run\", pos, \"instruction budget\")\n        pc += 1\n        if op == \"PUSH\":\n            stack.append(value)\n        elif op == \"LOAD\":\n            stack.append(slots[value])\n        elif op == \"STORE\":\n            slots[value] = stack.pop()\n        elif op == \"PRINT\":\n            output.append(stack.pop())\n        elif op == \"JMP\":\n            pc = value\n        elif op == \"JF\":\n            if not stack.pop():\n                pc = value\n        elif op == \"UNARY\":\n            operand = stack.pop()\n            stack.append(-operand if value == \"-\" else not operand)\n        else:\n            right, left = stack.pop(), stack.pop()\n            if value == \"+\":\n                result = left + right\n            elif value == \"-\":\n                result = left - right\n            elif value == \"*\":\n                result = left * right\n            elif value == \"/\":\n                if right == 0:\n                    raise LanguageError(\"run\", pos, \"division by zero\")\n                result = (1 if left * right >= 0 else -1) * (abs(left) // abs(right))\n            elif value == \"<\":\n                result = left < right\n            elif value == \"<=\":\n                result = left <= right\n            elif value == \">\":\n                result = left > right\n            elif value == \">=\":\n                result = left >= right\n            elif value == \"==\":\n                result = left == right\n            else:\n                result = left != right\n            stack.append(result)\n    return output\n\n\nclass Interpreter:\n    def __init__(self, budget):\n        self.scopes, self.output, self.budget = [{}], [], budget\n\n    def tick(self, pos):\n        self.budget -= 1\n        if self.budget < 0:\n            raise LanguageError(\"run\", pos, \"source budget\")\n\n    def binding(self, name):\n        return next(scope for scope in reversed(self.scopes) if name in scope)\n\n    def expression(self, node):\n        self.tick(node[\"pos\"])\n        kind = node[\"kind\"]\n        if kind == \"literal\":\n            return node[\"value\"]\n        if kind == \"variable\":\n            return self.binding(node[\"name\"])[node[\"name\"]]\n        if kind == \"unary\":\n            right = self.expression(node[\"right\"])\n            return -right if node[\"op\"] == \"-\" else not right\n        left = self.expression(node[\"left\"])\n        op = node[\"op\"]\n        if op == \"&&\":\n            return left and self.expression(node[\"right\"])\n        if op == \"||\":\n            return left or self.expression(node[\"right\"])\n        right = self.expression(node[\"right\"])\n        if op == \"+\":\n            return left + right\n        if op == \"-\":\n            return left - right\n        if op == \"*\":\n            return left * right\n        if op == \"/\":\n            if right == 0:\n                raise LanguageError(\"run\", node[\"pos\"], \"division by zero\")\n            quotient = abs(left) // abs(right)\n            return -quotient if (left < 0) != (right < 0) else quotient\n        if op == \"<\":\n            return left < right\n        if op == \"<=\":\n            return left <= right\n        if op == \">\":\n            return left > right\n        if op == \">=\":\n            return left >= right\n        if op == \"==\":\n            return left == right\n        return left != right\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            self.tick(node[\"pos\"])\n            kind = node[\"kind\"]\n            if kind == \"let\":\n                self.scopes[-1][node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"assign\":\n                self.binding(node[\"name\"])[node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"print\":\n                self.output.append(self.expression(node[\"expr\"]))\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            elif kind == \"if\":\n                self.body(\n                    node[\"body\"] if self.expression(node[\"cond\"]) else node[\"else\"],\n                    True,\n                )\n            else:\n                while self.expression(node[\"cond\"]):\n                    self.body(node[\"body\"], True)\n        if scoped:\n            self.scopes.pop()\n        return self.output\n\n\ndef run(source, budget=10000):\n    tokens = lex(source)\n    ast = Parser(tokens).program()\n    code = Compiler().body(ast)\n    interpreted = Interpreter(budget).body(ast)\n    compiled = stack_run(code, budget)\n    return {\n        \"tokens\": tokens,\n        \"ast\": ast,\n        \"instructions\": code,\n        \"interpreted\": interpreted,\n        \"compiled\": compiled,\n    }\n"
+      },
+      "stdin": "let x=7;{let x=2;print(x);}print(x);\n"
+    },
+    "stdout": "tokens=[[\"let\", \"let\", 0], [\"name\", \"x\", 4], [\"=\", \"=\", 5], [\"number\", \"7\", 6], [\";\", \";\", 7], [\"{\", \"{\", 8], [\"let\", \"let\", 9], [\"name\", \"x\", 13], [\"=\", \"=\", 14], [\"number\", \"2\", 15], [\";\", \";\", 16], [\"print\", \"print\", 17], [\"(\", \"(\", 22], [\"name\", \"x\", 23], [\")\", \")\", 24], [\";\", \";\", 25], [\"}\", \"}\", 26], [\"print\", \"print\", 27], [\"(\", \"(\", 32], [\"name\", \"x\", 33], [\")\", \")\", 34], [\";\", \";\", 35], [\"eof\", \"\", 37]]\nast=[{\"expr\": {\"kind\": \"literal\", \"pos\": 6, \"value\": 7}, \"kind\": \"let\", \"name\": \"x\", \"pos\": 0}, {\"body\": [{\"expr\": {\"kind\": \"literal\", \"pos\": 15, \"value\": 2}, \"kind\": \"let\", \"name\": \"x\", \"pos\": 9}, {\"expr\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 23}, \"kind\": \"print\", \"pos\": 17}], \"kind\": \"block\", \"pos\": 8}, {\"expr\": {\"kind\": \"variable\", \"name\": \"x\", \"pos\": 33}, \"kind\": \"print\", \"pos\": 27}]\ninstructions=[[\"PUSH\", 7, 6], [\"STORE\", 0, 0], [\"PUSH\", 2, 15], [\"STORE\", 1, 9], [\"LOAD\", 1, 23], [\"PRINT\", null, 17], [\"LOAD\", 0, 33], [\"PRINT\", null, 27]]\n{\"equivalent\": true, \"machine_result\": [2, 7], \"source_result\": [2, 7]}\n",
+    "decision": "met"
+  },
+  {
+    "id": "compiler-shortcircuit/initial",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "compiler-shortcircuit",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import json,sys\nimport importlib.util\nspec=importlib.util.spec_from_file_location('tiny','tiny.py')\ntiny=importlib.util.module_from_spec(spec);spec.loader.exec_module(tiny)\nrun=tiny.run\nresult=run(sys.stdin.read())\nprint('tokens='+json.dumps(result['tokens'],sort_keys=True))\nprint('ast='+json.dumps(result['ast'],sort_keys=True))\nprint('instructions='+json.dumps(result['instructions'],sort_keys=True))\nprint(json.dumps({'source_result':result['interpreted'],'machine_result':result['compiled'],'equivalent':result['interpreted']==result['compiled']},sort_keys=True))\n",
+        "tiny.py": "\"\"\"Original Tiny classroom language; no eval, host AST, LLVM or external packages.\"\"\"\n\nimport re\nfrom typing import ClassVar\n\n\nclass LanguageError(Exception):\n    def __init__(self, stage, position, message):\n        self.stage, self.position = stage, position\n        super().__init__(f\"{stage}@{position}: {message}\")\n\n\nKEYWORDS = {\"let\", \"print\", \"if\", \"else\", \"while\", \"true\", \"false\"}\nPATTERN = re.compile(\n    r\"\\s+|[0-9]+|[A-Za-z_][A-Za-z0-9_]*|&&|\\|\\||==|!=|<=|>=|[+*/<>=!;(){}-]\"\n)\n\n\ndef lex(source):\n    if len(source) > 16384:\n        raise LanguageError(\"lex\", 0, \"source budget\")\n    tokens, offset = [], 0\n    while offset < len(source):\n        match = PATTERN.match(source, offset)\n        if match is None:\n            raise LanguageError(\"lex\", offset, \"illegal character\")\n        text = match.group()\n        if not text.isspace():\n            kind = (\n                \"number\"\n                if text[0].isdigit()\n                else \"name\"\n                if re.fullmatch(r\"[A-Za-z_]\\w*\", text) and text not in KEYWORDS\n                else text\n            )\n            tokens.append((kind, text, offset))\n        offset = match.end()\n    tokens.append((\"eof\", \"\", len(source)))\n    return tokens\n\n\nclass Parser:\n    precedence: ClassVar[dict[str, int]] = {\n        \"||\": 1,\n        \"&&\": 2,\n        \"==\": 3,\n        \"!=\": 3,\n        \"<\": 4,\n        \">\": 4,\n        \"<=\": 4,\n        \">=\": 4,\n        \"+\": 5,\n        \"-\": 5,\n        \"*\": 6,\n        \"/\": 6,\n    }\n\n    def __init__(self, tokens):\n        self.tokens, self.index = tokens, 0\n\n    def peek(self):\n        return self.tokens[self.index][0]\n\n    def take(self, kind=None):\n        token = self.tokens[self.index]\n        if kind is not None and token[0] != kind:\n            raise LanguageError(\"parse\", token[2], \"expected \" + kind)\n        self.index += 1\n        return token\n\n    def expression(self, minimum=1):\n        kind, text, pos = self.take()\n        if kind == \"number\":\n            node = {\"kind\": \"literal\", \"value\": int(text), \"pos\": pos}\n        elif kind in (\"true\", \"false\"):\n            node = {\"kind\": \"literal\", \"value\": kind == \"true\", \"pos\": pos}\n        elif kind == \"name\":\n            node = {\"kind\": \"variable\", \"name\": text, \"pos\": pos}\n        elif kind == \"(\":\n            node = self.expression()\n            self.take(\")\")\n        elif kind in (\"-\", \"!\"):\n            node = {\n                \"kind\": \"unary\",\n                \"op\": kind,\n                \"right\": self.expression(7),\n                \"pos\": pos,\n            }\n        else:\n            raise LanguageError(\"parse\", pos, \"expected expression\")\n        while self.precedence.get(self.peek(), 0) >= minimum:\n            _, op, pos = self.take()\n            right = self.expression(self.precedence[op] + 1)\n            node = {\n                \"kind\": \"binary\",\n                \"op\": op,\n                \"left\": node,\n                \"right\": right,\n                \"pos\": pos,\n            }\n        return node\n\n    def block(self):\n        self.take(\"{\")\n        body = []\n        while self.peek() not in (\"}\", \"eof\"):\n            body.append(self.statement())\n        self.take(\"}\")\n        return body\n\n    def statement(self):\n        kind, text, pos = self.tokens[self.index]\n        if kind == \"{\":\n            return {\"kind\": \"block\", \"body\": self.block(), \"pos\": pos}\n        self.take()\n        if kind == \"let\":\n            _, name, _ = self.take(\"name\")\n            self.take(\"=\")\n            node = {\"kind\": \"let\", \"name\": name, \"expr\": self.expression(), \"pos\": pos}\n        elif kind == \"name\":\n            self.take(\"=\")\n            node = {\n                \"kind\": \"assign\",\n                \"name\": text,\n                \"expr\": self.expression(),\n                \"pos\": pos,\n            }\n        elif kind == \"print\":\n            self.take(\"(\")\n            node = {\"kind\": \"print\", \"expr\": self.expression(), \"pos\": pos}\n            self.take(\")\")\n        elif kind in (\"if\", \"while\"):\n            self.take(\"(\")\n            cond = self.expression()\n            self.take(\")\")\n            body = self.block()\n            node = {\"kind\": kind, \"cond\": cond, \"body\": body, \"pos\": pos}\n            if kind == \"if\":\n                node[\"else\"] = []\n                if self.peek() == \"else\":\n                    self.take()\n                    node[\"else\"] = self.block()\n            return node\n        else:\n            raise LanguageError(\"parse\", pos, \"expected statement\")\n        self.take(\";\")\n        return node\n\n    def program(self):\n        body = []\n        while self.peek() != \"eof\":\n            body.append(self.statement())\n        return body\n\n\nclass Compiler:\n    def __init__(self):\n        self.scopes, self.code, self.slots = [{}], [], 0\n\n    def emit(self, op, value=None, pos=0):\n        self.code.append([op, value, pos])\n        return len(self.code) - 1\n\n    def lookup(self, name, pos):\n        for scope in reversed(self.scopes):\n            if name in scope:\n                return scope[name]\n        raise LanguageError(\"type\", pos, \"undeclared \" + name)\n\n    def require(self, condition, pos):\n        if not condition:\n            raise LanguageError(\"type\", pos, \"incompatible types\")\n\n    def expression(self, node):\n        kind, pos = node[\"kind\"], node[\"pos\"]\n        if kind == \"literal\":\n            self.emit(\"PUSH\", node[\"value\"], pos)\n            return type(node[\"value\"])\n        if kind == \"variable\":\n            slot, category = self.lookup(node[\"name\"], pos)\n            self.emit(\"LOAD\", slot, pos)\n            return category\n        if kind == \"unary\":\n            category = self.expression(node[\"right\"])\n            self.require(category is (int if node[\"op\"] == \"-\" else bool), pos)\n            self.emit(\"UNARY\", node[\"op\"], pos)\n            return category\n        op = node[\"op\"]\n        left = self.expression(node[\"left\"])\n        if op in (\"&&\", \"||\"):\n            self.require(left is bool, pos)\n            jump = self.emit(\"JF\", pos=pos)\n            if op == \"||\":\n                self.emit(\"PUSH\", True, pos)\n            else:\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            end = self.emit(\"JMP\", pos=pos)\n            self.code[jump][1] = len(self.code)\n            if op == \"||\":\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            else:\n                self.emit(\"PUSH\", False, pos)\n            self.code[end][1] = len(self.code)\n            return bool\n        right = self.expression(node[\"right\"])\n        self.require(left is right, pos)\n        if op not in (\"==\", \"!=\"):\n            self.require(left is int, pos)\n        self.emit(\"BINARY\", op, pos)\n        return bool if op in (\"==\", \"!=\", \"<\", \"<=\", \">\", \">=\") else int\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            kind, pos = node[\"kind\"], node[\"pos\"]\n            if kind in (\"let\", \"assign\"):\n                category = self.expression(node[\"expr\"])\n                if kind == \"let\":\n                    self.require(node[\"name\"] not in self.scopes[-1], pos)\n                    slot = self.slots\n                    self.slots += 1\n                    self.scopes[-1][node[\"name\"]] = (slot, category)\n                else:\n                    slot, previous = self.lookup(node[\"name\"], pos)\n                    self.require(category is previous, pos)\n                self.emit(\"STORE\", slot, pos)\n            elif kind == \"print\":\n                self.expression(node[\"expr\"])\n                self.emit(\"PRINT\", pos=pos)\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            else:\n                start = len(self.code)\n                self.require(self.expression(node[\"cond\"]) is bool, pos)\n                exit_jump = self.emit(\"JF\", pos=pos)\n                self.body(node[\"body\"], True)\n                if kind == \"while\":\n                    self.emit(\"JMP\", start, pos)\n                    self.code[exit_jump][1] = len(self.code)\n                else:\n                    end_jump = self.emit(\"JMP\", pos=pos)\n                    self.code[exit_jump][1] = len(self.code)\n                    self.body(node[\"else\"], True)\n                    self.code[end_jump][1] = len(self.code)\n        if scoped:\n            self.scopes.pop()\n        return self.code\n\n\ndef stack_run(code, budget):\n    stack, slots, output, pc = [], {}, [], 0\n    while pc < len(code):\n        budget -= 1\n        op, value, pos = code[pc]\n        if budget < 0:\n            raise LanguageError(\"run\", pos, \"instruction budget\")\n        pc += 1\n        if op == \"PUSH\":\n            stack.append(value)\n        elif op == \"LOAD\":\n            stack.append(slots[value])\n        elif op == \"STORE\":\n            slots[value] = stack.pop()\n        elif op == \"PRINT\":\n            output.append(stack.pop())\n        elif op == \"JMP\":\n            pc = value\n        elif op == \"JF\":\n            if not stack.pop():\n                pc = value\n        elif op == \"UNARY\":\n            operand = stack.pop()\n            stack.append(-operand if value == \"-\" else not operand)\n        else:\n            right, left = stack.pop(), stack.pop()\n            if value == \"+\":\n                result = left + right\n            elif value == \"-\":\n                result = right - left\n            elif value == \"*\":\n                result = left * right\n            elif value == \"/\":\n                if right == 0:\n                    raise LanguageError(\"run\", pos, \"division by zero\")\n                result = (1 if left * right >= 0 else -1) * (abs(left) // abs(right))\n            elif value == \"<\":\n                result = left < right\n            elif value == \"<=\":\n                result = left <= right\n            elif value == \">\":\n                result = left > right\n            elif value == \">=\":\n                result = left >= right\n            elif value == \"==\":\n                result = left == right\n            else:\n                result = left != right\n            stack.append(result)\n    return output\n\n\nclass Interpreter:\n    def __init__(self, budget):\n        self.scopes, self.output, self.budget = [{}], [], budget\n\n    def tick(self, pos):\n        self.budget -= 1\n        if self.budget < 0:\n            raise LanguageError(\"run\", pos, \"source budget\")\n\n    def binding(self, name):\n        return next(scope for scope in reversed(self.scopes) if name in scope)\n\n    def expression(self, node):\n        self.tick(node[\"pos\"])\n        kind = node[\"kind\"]\n        if kind == \"literal\":\n            return node[\"value\"]\n        if kind == \"variable\":\n            return self.binding(node[\"name\"])[node[\"name\"]]\n        if kind == \"unary\":\n            right = self.expression(node[\"right\"])\n            return -right if node[\"op\"] == \"-\" else not right\n        left = self.expression(node[\"left\"])\n        op = node[\"op\"]\n        if op == \"&&\":\n            return left and self.expression(node[\"right\"])\n        if op == \"||\":\n            return left or self.expression(node[\"right\"])\n        right = self.expression(node[\"right\"])\n        if op == \"+\":\n            return left + right\n        if op == \"-\":\n            return left - right\n        if op == \"*\":\n            return left * right\n        if op == \"/\":\n            if right == 0:\n                raise LanguageError(\"run\", node[\"pos\"], \"division by zero\")\n            quotient = abs(left) // abs(right)\n            return -quotient if (left < 0) != (right < 0) else quotient\n        if op == \"<\":\n            return left < right\n        if op == \"<=\":\n            return left <= right\n        if op == \">\":\n            return left > right\n        if op == \">=\":\n            return left >= right\n        if op == \"==\":\n            return left == right\n        return left != right\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            self.tick(node[\"pos\"])\n            kind = node[\"kind\"]\n            if kind == \"let\":\n                self.scopes[-1][node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"assign\":\n                self.binding(node[\"name\"])[node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"print\":\n                self.output.append(self.expression(node[\"expr\"]))\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            elif kind == \"if\":\n                self.body(\n                    node[\"body\"] if self.expression(node[\"cond\"]) else node[\"else\"],\n                    True,\n                )\n            else:\n                while self.expression(node[\"cond\"]):\n                    self.body(node[\"body\"], True)\n        if scoped:\n            self.scopes.pop()\n        return self.output\n\n\ndef run(source, budget=10000):\n    tokens = lex(source)\n    ast = Parser(tokens).program()\n    code = Compiler().body(ast)\n    interpreted = Interpreter(budget).body(ast)\n    compiled = stack_run(code, budget)\n    return {\n        \"tokens\": tokens,\n        \"ast\": ast,\n        \"instructions\": code,\n        \"interpreted\": interpreted,\n        \"compiled\": compiled,\n    }\n"
+      },
+      "stdin": "print(false && (1/0==0));print(true || (1/0==0));\n"
+    },
+    "stdout": "tokens=[[\"print\", \"print\", 0], [\"(\", \"(\", 5], [\"false\", \"false\", 6], [\"&&\", \"&&\", 12], [\"(\", \"(\", 15], [\"number\", \"1\", 16], [\"/\", \"/\", 17], [\"number\", \"0\", 18], [\"==\", \"==\", 19], [\"number\", \"0\", 21], [\")\", \")\", 22], [\")\", \")\", 23], [\";\", \";\", 24], [\"print\", \"print\", 25], [\"(\", \"(\", 30], [\"true\", \"true\", 31], [\"||\", \"||\", 36], [\"(\", \"(\", 39], [\"number\", \"1\", 40], [\"/\", \"/\", 41], [\"number\", \"0\", 42], [\"==\", \"==\", 43], [\"number\", \"0\", 45], [\")\", \")\", 46], [\")\", \")\", 47], [\";\", \";\", 48], [\"eof\", \"\", 50]]\nast=[{\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 6, \"value\": false}, \"op\": \"&&\", \"pos\": 12, \"right\": {\"kind\": \"binary\", \"left\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 16, \"value\": 1}, \"op\": \"/\", \"pos\": 17, \"right\": {\"kind\": \"literal\", \"pos\": 18, \"value\": 0}}, \"op\": \"==\", \"pos\": 19, \"right\": {\"kind\": \"literal\", \"pos\": 21, \"value\": 0}}}, \"kind\": \"print\", \"pos\": 0}, {\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 31, \"value\": true}, \"op\": \"||\", \"pos\": 36, \"right\": {\"kind\": \"binary\", \"left\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 40, \"value\": 1}, \"op\": \"/\", \"pos\": 41, \"right\": {\"kind\": \"literal\", \"pos\": 42, \"value\": 0}}, \"op\": \"==\", \"pos\": 43, \"right\": {\"kind\": \"literal\", \"pos\": 45, \"value\": 0}}}, \"kind\": \"print\", \"pos\": 25}]\ninstructions=[[\"PUSH\", false, 6], [\"JF\", 8, 12], [\"PUSH\", 1, 16], [\"PUSH\", 0, 18], [\"BINARY\", \"/\", 17], [\"PUSH\", 0, 21], [\"BINARY\", \"==\", 19], [\"JMP\", 9, 12], [\"PUSH\", false, 12], [\"PRINT\", null, 0], [\"PUSH\", true, 31], [\"JF\", 14, 36], [\"PUSH\", true, 36], [\"JMP\", 19, 36], [\"PUSH\", 1, 40], [\"PUSH\", 0, 42], [\"BINARY\", \"/\", 41], [\"PUSH\", 0, 45], [\"BINARY\", \"==\", 43], [\"PRINT\", null, 25]]\n{\"equivalent\": true, \"machine_result\": [false, true], \"source_result\": [false, true]}\n",
+    "decision": "met"
+  },
+  {
+    "id": "compiler-shortcircuit/repaired",
+    "version": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+    "goal": "CS11-M09-O03",
+    "activity": "59927887-1c20-5f92-a473-12daa86fd6ef",
+    "task": "compiler-shortcircuit",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "import json,sys\nimport importlib.util\nspec=importlib.util.spec_from_file_location('tiny','tiny.py')\ntiny=importlib.util.module_from_spec(spec);spec.loader.exec_module(tiny)\nrun=tiny.run\nresult=run(sys.stdin.read())\nprint('tokens='+json.dumps(result['tokens'],sort_keys=True))\nprint('ast='+json.dumps(result['ast'],sort_keys=True))\nprint('instructions='+json.dumps(result['instructions'],sort_keys=True))\nprint(json.dumps({'source_result':result['interpreted'],'machine_result':result['compiled'],'equivalent':result['interpreted']==result['compiled']},sort_keys=True))\n",
+        "tiny.py": "\"\"\"Original Tiny classroom language; no eval, host AST, LLVM or external packages.\"\"\"\n\nimport re\nfrom typing import ClassVar\n\n\nclass LanguageError(Exception):\n    def __init__(self, stage, position, message):\n        self.stage, self.position = stage, position\n        super().__init__(f\"{stage}@{position}: {message}\")\n\n\nKEYWORDS = {\"let\", \"print\", \"if\", \"else\", \"while\", \"true\", \"false\"}\nPATTERN = re.compile(\n    r\"\\s+|[0-9]+|[A-Za-z_][A-Za-z0-9_]*|&&|\\|\\||==|!=|<=|>=|[+*/<>=!;(){}-]\"\n)\n\n\ndef lex(source):\n    if len(source) > 16384:\n        raise LanguageError(\"lex\", 0, \"source budget\")\n    tokens, offset = [], 0\n    while offset < len(source):\n        match = PATTERN.match(source, offset)\n        if match is None:\n            raise LanguageError(\"lex\", offset, \"illegal character\")\n        text = match.group()\n        if not text.isspace():\n            kind = (\n                \"number\"\n                if text[0].isdigit()\n                else \"name\"\n                if re.fullmatch(r\"[A-Za-z_]\\w*\", text) and text not in KEYWORDS\n                else text\n            )\n            tokens.append((kind, text, offset))\n        offset = match.end()\n    tokens.append((\"eof\", \"\", len(source)))\n    return tokens\n\n\nclass Parser:\n    precedence: ClassVar[dict[str, int]] = {\n        \"||\": 1,\n        \"&&\": 2,\n        \"==\": 3,\n        \"!=\": 3,\n        \"<\": 4,\n        \">\": 4,\n        \"<=\": 4,\n        \">=\": 4,\n        \"+\": 5,\n        \"-\": 5,\n        \"*\": 6,\n        \"/\": 6,\n    }\n\n    def __init__(self, tokens):\n        self.tokens, self.index = tokens, 0\n\n    def peek(self):\n        return self.tokens[self.index][0]\n\n    def take(self, kind=None):\n        token = self.tokens[self.index]\n        if kind is not None and token[0] != kind:\n            raise LanguageError(\"parse\", token[2], \"expected \" + kind)\n        self.index += 1\n        return token\n\n    def expression(self, minimum=1):\n        kind, text, pos = self.take()\n        if kind == \"number\":\n            node = {\"kind\": \"literal\", \"value\": int(text), \"pos\": pos}\n        elif kind in (\"true\", \"false\"):\n            node = {\"kind\": \"literal\", \"value\": kind == \"true\", \"pos\": pos}\n        elif kind == \"name\":\n            node = {\"kind\": \"variable\", \"name\": text, \"pos\": pos}\n        elif kind == \"(\":\n            node = self.expression()\n            self.take(\")\")\n        elif kind in (\"-\", \"!\"):\n            node = {\n                \"kind\": \"unary\",\n                \"op\": kind,\n                \"right\": self.expression(7),\n                \"pos\": pos,\n            }\n        else:\n            raise LanguageError(\"parse\", pos, \"expected expression\")\n        while self.precedence.get(self.peek(), 0) >= minimum:\n            _, op, pos = self.take()\n            right = self.expression(self.precedence[op] + 1)\n            node = {\n                \"kind\": \"binary\",\n                \"op\": op,\n                \"left\": node,\n                \"right\": right,\n                \"pos\": pos,\n            }\n        return node\n\n    def block(self):\n        self.take(\"{\")\n        body = []\n        while self.peek() not in (\"}\", \"eof\"):\n            body.append(self.statement())\n        self.take(\"}\")\n        return body\n\n    def statement(self):\n        kind, text, pos = self.tokens[self.index]\n        if kind == \"{\":\n            return {\"kind\": \"block\", \"body\": self.block(), \"pos\": pos}\n        self.take()\n        if kind == \"let\":\n            _, name, _ = self.take(\"name\")\n            self.take(\"=\")\n            node = {\"kind\": \"let\", \"name\": name, \"expr\": self.expression(), \"pos\": pos}\n        elif kind == \"name\":\n            self.take(\"=\")\n            node = {\n                \"kind\": \"assign\",\n                \"name\": text,\n                \"expr\": self.expression(),\n                \"pos\": pos,\n            }\n        elif kind == \"print\":\n            self.take(\"(\")\n            node = {\"kind\": \"print\", \"expr\": self.expression(), \"pos\": pos}\n            self.take(\")\")\n        elif kind in (\"if\", \"while\"):\n            self.take(\"(\")\n            cond = self.expression()\n            self.take(\")\")\n            body = self.block()\n            node = {\"kind\": kind, \"cond\": cond, \"body\": body, \"pos\": pos}\n            if kind == \"if\":\n                node[\"else\"] = []\n                if self.peek() == \"else\":\n                    self.take()\n                    node[\"else\"] = self.block()\n            return node\n        else:\n            raise LanguageError(\"parse\", pos, \"expected statement\")\n        self.take(\";\")\n        return node\n\n    def program(self):\n        body = []\n        while self.peek() != \"eof\":\n            body.append(self.statement())\n        return body\n\n\nclass Compiler:\n    def __init__(self):\n        self.scopes, self.code, self.slots = [{}], [], 0\n\n    def emit(self, op, value=None, pos=0):\n        self.code.append([op, value, pos])\n        return len(self.code) - 1\n\n    def lookup(self, name, pos):\n        for scope in reversed(self.scopes):\n            if name in scope:\n                return scope[name]\n        raise LanguageError(\"type\", pos, \"undeclared \" + name)\n\n    def require(self, condition, pos):\n        if not condition:\n            raise LanguageError(\"type\", pos, \"incompatible types\")\n\n    def expression(self, node):\n        kind, pos = node[\"kind\"], node[\"pos\"]\n        if kind == \"literal\":\n            self.emit(\"PUSH\", node[\"value\"], pos)\n            return type(node[\"value\"])\n        if kind == \"variable\":\n            slot, category = self.lookup(node[\"name\"], pos)\n            self.emit(\"LOAD\", slot, pos)\n            return category\n        if kind == \"unary\":\n            category = self.expression(node[\"right\"])\n            self.require(category is (int if node[\"op\"] == \"-\" else bool), pos)\n            self.emit(\"UNARY\", node[\"op\"], pos)\n            return category\n        op = node[\"op\"]\n        left = self.expression(node[\"left\"])\n        if op in (\"&&\", \"||\"):\n            self.require(left is bool, pos)\n            jump = self.emit(\"JF\", pos=pos)\n            if op == \"||\":\n                self.emit(\"PUSH\", True, pos)\n            else:\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            end = self.emit(\"JMP\", pos=pos)\n            self.code[jump][1] = len(self.code)\n            if op == \"||\":\n                self.require(self.expression(node[\"right\"]) is bool, pos)\n            else:\n                self.emit(\"PUSH\", False, pos)\n            self.code[end][1] = len(self.code)\n            return bool\n        right = self.expression(node[\"right\"])\n        self.require(left is right, pos)\n        if op not in (\"==\", \"!=\"):\n            self.require(left is int, pos)\n        self.emit(\"BINARY\", op, pos)\n        return bool if op in (\"==\", \"!=\", \"<\", \"<=\", \">\", \">=\") else int\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            kind, pos = node[\"kind\"], node[\"pos\"]\n            if kind in (\"let\", \"assign\"):\n                category = self.expression(node[\"expr\"])\n                if kind == \"let\":\n                    self.require(node[\"name\"] not in self.scopes[-1], pos)\n                    slot = self.slots\n                    self.slots += 1\n                    self.scopes[-1][node[\"name\"]] = (slot, category)\n                else:\n                    slot, previous = self.lookup(node[\"name\"], pos)\n                    self.require(category is previous, pos)\n                self.emit(\"STORE\", slot, pos)\n            elif kind == \"print\":\n                self.expression(node[\"expr\"])\n                self.emit(\"PRINT\", pos=pos)\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            else:\n                start = len(self.code)\n                self.require(self.expression(node[\"cond\"]) is bool, pos)\n                exit_jump = self.emit(\"JF\", pos=pos)\n                self.body(node[\"body\"], True)\n                if kind == \"while\":\n                    self.emit(\"JMP\", start, pos)\n                    self.code[exit_jump][1] = len(self.code)\n                else:\n                    end_jump = self.emit(\"JMP\", pos=pos)\n                    self.code[exit_jump][1] = len(self.code)\n                    self.body(node[\"else\"], True)\n                    self.code[end_jump][1] = len(self.code)\n        if scoped:\n            self.scopes.pop()\n        return self.code\n\n\ndef stack_run(code, budget):\n    stack, slots, output, pc = [], {}, [], 0\n    while pc < len(code):\n        budget -= 1\n        op, value, pos = code[pc]\n        if budget < 0:\n            raise LanguageError(\"run\", pos, \"instruction budget\")\n        pc += 1\n        if op == \"PUSH\":\n            stack.append(value)\n        elif op == \"LOAD\":\n            stack.append(slots[value])\n        elif op == \"STORE\":\n            slots[value] = stack.pop()\n        elif op == \"PRINT\":\n            output.append(stack.pop())\n        elif op == \"JMP\":\n            pc = value\n        elif op == \"JF\":\n            if not stack.pop():\n                pc = value\n        elif op == \"UNARY\":\n            operand = stack.pop()\n            stack.append(-operand if value == \"-\" else not operand)\n        else:\n            right, left = stack.pop(), stack.pop()\n            if value == \"+\":\n                result = left + right\n            elif value == \"-\":\n                result = left - right\n            elif value == \"*\":\n                result = left * right\n            elif value == \"/\":\n                if right == 0:\n                    raise LanguageError(\"run\", pos, \"division by zero\")\n                result = (1 if left * right >= 0 else -1) * (abs(left) // abs(right))\n            elif value == \"<\":\n                result = left < right\n            elif value == \"<=\":\n                result = left <= right\n            elif value == \">\":\n                result = left > right\n            elif value == \">=\":\n                result = left >= right\n            elif value == \"==\":\n                result = left == right\n            else:\n                result = left != right\n            stack.append(result)\n    return output\n\n\nclass Interpreter:\n    def __init__(self, budget):\n        self.scopes, self.output, self.budget = [{}], [], budget\n\n    def tick(self, pos):\n        self.budget -= 1\n        if self.budget < 0:\n            raise LanguageError(\"run\", pos, \"source budget\")\n\n    def binding(self, name):\n        return next(scope for scope in reversed(self.scopes) if name in scope)\n\n    def expression(self, node):\n        self.tick(node[\"pos\"])\n        kind = node[\"kind\"]\n        if kind == \"literal\":\n            return node[\"value\"]\n        if kind == \"variable\":\n            return self.binding(node[\"name\"])[node[\"name\"]]\n        if kind == \"unary\":\n            right = self.expression(node[\"right\"])\n            return -right if node[\"op\"] == \"-\" else not right\n        left = self.expression(node[\"left\"])\n        op = node[\"op\"]\n        if op == \"&&\":\n            return left and self.expression(node[\"right\"])\n        if op == \"||\":\n            return left or self.expression(node[\"right\"])\n        right = self.expression(node[\"right\"])\n        if op == \"+\":\n            return left + right\n        if op == \"-\":\n            return left - right\n        if op == \"*\":\n            return left * right\n        if op == \"/\":\n            if right == 0:\n                raise LanguageError(\"run\", node[\"pos\"], \"division by zero\")\n            quotient = abs(left) // abs(right)\n            return -quotient if (left < 0) != (right < 0) else quotient\n        if op == \"<\":\n            return left < right\n        if op == \"<=\":\n            return left <= right\n        if op == \">\":\n            return left > right\n        if op == \">=\":\n            return left >= right\n        if op == \"==\":\n            return left == right\n        return left != right\n\n    def body(self, nodes, scoped=False):\n        if scoped:\n            self.scopes.append({})\n        for node in nodes:\n            self.tick(node[\"pos\"])\n            kind = node[\"kind\"]\n            if kind == \"let\":\n                self.scopes[-1][node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"assign\":\n                self.binding(node[\"name\"])[node[\"name\"]] = self.expression(node[\"expr\"])\n            elif kind == \"print\":\n                self.output.append(self.expression(node[\"expr\"]))\n            elif kind == \"block\":\n                self.body(node[\"body\"], True)\n            elif kind == \"if\":\n                self.body(\n                    node[\"body\"] if self.expression(node[\"cond\"]) else node[\"else\"],\n                    True,\n                )\n            else:\n                while self.expression(node[\"cond\"]):\n                    self.body(node[\"body\"], True)\n        if scoped:\n            self.scopes.pop()\n        return self.output\n\n\ndef run(source, budget=10000):\n    tokens = lex(source)\n    ast = Parser(tokens).program()\n    code = Compiler().body(ast)\n    interpreted = Interpreter(budget).body(ast)\n    compiled = stack_run(code, budget)\n    return {\n        \"tokens\": tokens,\n        \"ast\": ast,\n        \"instructions\": code,\n        \"interpreted\": interpreted,\n        \"compiled\": compiled,\n    }\n"
+      },
+      "stdin": "print(false && (1/0==0));print(true || (1/0==0));\n"
+    },
+    "stdout": "tokens=[[\"print\", \"print\", 0], [\"(\", \"(\", 5], [\"false\", \"false\", 6], [\"&&\", \"&&\", 12], [\"(\", \"(\", 15], [\"number\", \"1\", 16], [\"/\", \"/\", 17], [\"number\", \"0\", 18], [\"==\", \"==\", 19], [\"number\", \"0\", 21], [\")\", \")\", 22], [\")\", \")\", 23], [\";\", \";\", 24], [\"print\", \"print\", 25], [\"(\", \"(\", 30], [\"true\", \"true\", 31], [\"||\", \"||\", 36], [\"(\", \"(\", 39], [\"number\", \"1\", 40], [\"/\", \"/\", 41], [\"number\", \"0\", 42], [\"==\", \"==\", 43], [\"number\", \"0\", 45], [\")\", \")\", 46], [\")\", \")\", 47], [\";\", \";\", 48], [\"eof\", \"\", 50]]\nast=[{\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 6, \"value\": false}, \"op\": \"&&\", \"pos\": 12, \"right\": {\"kind\": \"binary\", \"left\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 16, \"value\": 1}, \"op\": \"/\", \"pos\": 17, \"right\": {\"kind\": \"literal\", \"pos\": 18, \"value\": 0}}, \"op\": \"==\", \"pos\": 19, \"right\": {\"kind\": \"literal\", \"pos\": 21, \"value\": 0}}}, \"kind\": \"print\", \"pos\": 0}, {\"expr\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 31, \"value\": true}, \"op\": \"||\", \"pos\": 36, \"right\": {\"kind\": \"binary\", \"left\": {\"kind\": \"binary\", \"left\": {\"kind\": \"literal\", \"pos\": 40, \"value\": 1}, \"op\": \"/\", \"pos\": 41, \"right\": {\"kind\": \"literal\", \"pos\": 42, \"value\": 0}}, \"op\": \"==\", \"pos\": 43, \"right\": {\"kind\": \"literal\", \"pos\": 45, \"value\": 0}}}, \"kind\": \"print\", \"pos\": 25}]\ninstructions=[[\"PUSH\", false, 6], [\"JF\", 8, 12], [\"PUSH\", 1, 16], [\"PUSH\", 0, 18], [\"BINARY\", \"/\", 17], [\"PUSH\", 0, 21], [\"BINARY\", \"==\", 19], [\"JMP\", 9, 12], [\"PUSH\", false, 12], [\"PRINT\", null, 0], [\"PUSH\", true, 31], [\"JF\", 14, 36], [\"PUSH\", true, 36], [\"JMP\", 19, 36], [\"PUSH\", 1, 40], [\"PUSH\", 0, 42], [\"BINARY\", \"/\", 41], [\"PUSH\", 0, 45], [\"BINARY\", \"==\", 43], [\"PRINT\", null, 25]]\n{\"equivalent\": true, \"machine_result\": [false, true], \"source_result\": [false, true]}\n",
+    "decision": "met"
+  }
+]

@@ -1183,6 +1183,1036 @@ GENERIC_RULES = {
             "",
         ),
     },
+    "3d7622ca-492d-5f1e-83d4-bcb992d1d29c": {
+        ("CS11-M01-O01", "base"): (
+            "02eb570f-4898-599c-ba4a-9daf3d6daf23",
+            "1\n",
+            "success",
+            "lex parse type\n",
+            "",
+        ),
+        ("CS11-M01-O01", "changed-condition"): (
+            "02eb570f-4898-599c-ba4a-9daf3d6daf23",
+            "2\n",
+            "success",
+            "lex parse type emit\n",
+            "",
+        ),
+        ("CS11-M01-O02", "base"): (
+            "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
+            "1\n",
+            "success",
+            "-2\n",
+            "",
+        ),
+        ("CS11-M01-O02", "changed-condition"): (
+            "6f2e0a49-5697-5ebf-bf25-7412ce49a403",
+            "2\n",
+            "success",
+            "2\n",
+            "",
+        ),
+        ("CS11-M01-O03", "base"): (
+            "04369fb8-821b-5d38-bdbd-e8f816545d81",
+            "1\n",
+            "success",
+            "lex:1\n",
+            "",
+        ),
+        ("CS11-M01-O03", "changed-condition"): (
+            "04369fb8-821b-5d38-bdbd-e8f816545d81",
+            "2\n",
+            "success",
+            "ok\n",
+            "",
+        ),
+        ("CS11-M02-O01", "base"): (
+            "62e7c3f4-5d81-5931-b168-51ee568c82ca",
+            "1\n",
+            "success",
+            "False\n",
+            "",
+        ),
+        ("CS11-M02-O01", "changed-condition"): (
+            "62e7c3f4-5d81-5931-b168-51ee568c82ca",
+            "2\n",
+            "success",
+            "True\n",
+            "",
+        ),
+        ("CS11-M02-O02", "base"): (
+            "87199749-f173-5cfd-8eda-576932c69620",
+            "1\n",
+            "success",
+            "True\n",
+            "",
+        ),
+        ("CS11-M02-O02", "changed-condition"): (
+            "87199749-f173-5cfd-8eda-576932c69620",
+            "2\n",
+            "success",
+            "True\n",
+            "",
+        ),
+        ("CS11-M02-O03", "base"): (
+            "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
+            "1\n",
+            "success",
+            ">=\n",
+            "",
+        ),
+        ("CS11-M02-O03", "changed-condition"): (
+            "3e7bb4f8-68f8-5aea-a4d4-1d8f1fb16b9d",
+            "2\n",
+            "success",
+            ">\n",
+            "",
+        ),
+        ("CS11-M03-O01", "base"): (
+            "bb511987-1967-5247-9b6d-62feba383952",
+            "1\n",
+            "success",
+            "True\n",
+            "",
+        ),
+        ("CS11-M03-O01", "changed-condition"): (
+            "bb511987-1967-5247-9b6d-62feba383952",
+            "2\n",
+            "success",
+            "True\n",
+            "",
+        ),
+        ("CS11-M03-O02", "base"): (
+            "97930e73-5e36-5231-bc16-13a5459986c5",
+            "1\n",
+            "success",
+            "20 14\n",
+            "",
+        ),
+        ("CS11-M03-O02", "changed-condition"): (
+            "97930e73-5e36-5231-bc16-13a5459986c5",
+            "2\n",
+            "success",
+            "2 2\n",
+            "",
+        ),
+        ("CS11-M03-O03", "base"): (
+            "dc44f399-f390-5849-a2bf-95e9ad36fb77",
+            "1\n",
+            "success",
+            "4\n",
+            "",
+        ),
+        ("CS11-M03-O03", "changed-condition"): (
+            "dc44f399-f390-5849-a2bf-95e9ad36fb77",
+            "2\n",
+            "success",
+            "4\n",
+            "",
+        ),
+        ("CS11-M04-O01", "base"): (
+            "f09d2473-2719-5faf-afb5-532495102c65",
+            "1\n",
+            "success",
+            "a b\n",
+            "",
+        ),
+        ("CS11-M04-O01", "changed-condition"): (
+            "f09d2473-2719-5faf-afb5-532495102c65",
+            "2\n",
+            "success",
+            "a\n",
+            "",
+        ),
+        ("CS11-M04-O02", "base"): (
+            "dd493563-e25c-5670-a419-becb42fa08ef",
+            "1\n",
+            "success",
+            "2\n",
+            "",
+        ),
+        ("CS11-M04-O02", "changed-condition"): (
+            "dd493563-e25c-5670-a419-becb42fa08ef",
+            "2\n",
+            "success",
+            "1\n",
+            "",
+        ),
+        ("CS11-M04-O03", "base"): (
+            "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
+            "1\n",
+            "success",
+            "syntax:extra\n",
+            "",
+        ),
+        ("CS11-M04-O03", "changed-condition"): (
+            "31bacbcf-5f65-5a43-9d35-148cc6170eb8",
+            "2\n",
+            "success",
+            "1\n",
+            "",
+        ),
+        ("CS11-M05-O01", "base"): (
+            "dfe0ca85-a561-508e-bfea-2a05f7119a14",
+            "1\n",
+            "success",
+            "$ S\n",
+            "",
+        ),
+        ("CS11-M05-O01", "changed-condition"): (
+            "dfe0ca85-a561-508e-bfea-2a05f7119a14",
+            "2\n",
+            "success",
+            "x $ S\n",
+            "",
+        ),
+        ("CS11-M05-O02", "base"): (
+            "a7ace736-860c-547e-91d3-5182214ace3c",
+            "1\n",
+            "success",
+            "3\n",
+            "",
+        ),
+        ("CS11-M05-O02", "changed-condition"): (
+            "a7ace736-860c-547e-91d3-5182214ace3c",
+            "2\n",
+            "success",
+            "2\n",
+            "",
+        ),
+        ("CS11-M05-O03", "base"): (
+            "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
+            "1\n",
+            "success",
+            "conflict\n",
+            "",
+        ),
+        ("CS11-M05-O03", "changed-condition"): (
+            "db41ab62-56b5-5f9a-9d23-b862ae8b5978",
+            "2\n",
+            "success",
+            "reduce\n",
+            "",
+        ),
+        ("CS11-M06-O01", "base"): (
+            "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
+            "1\n",
+            "success",
+            "undeclared:y\n",
+            "",
+        ),
+        ("CS11-M06-O01", "changed-condition"): (
+            "6e4ce8c9-862a-522d-b265-55ecf79a74ae",
+            "2\n",
+            "success",
+            "7\n",
+            "",
+        ),
+        ("CS11-M06-O02", "base"): (
+            "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
+            "1\n",
+            "success",
+            "2\n",
+            "",
+        ),
+        ("CS11-M06-O02", "changed-condition"): (
+            "74cb26dc-a054-5ff2-af1d-de0b2ef8d495",
+            "2\n",
+            "success",
+            "1\n",
+            "",
+        ),
+        ("CS11-M06-O03", "base"): (
+            "e99717df-2028-5c6b-b185-569ec371bfb5",
+            "1\n",
+            "success",
+            "False\n",
+            "",
+        ),
+        ("CS11-M06-O03", "changed-condition"): (
+            "e99717df-2028-5c6b-b185-569ec371bfb5",
+            "2\n",
+            "success",
+            "True\n",
+            "",
+        ),
+        ("CS11-M07-O01", "base"): (
+            "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
+            "1\n",
+            "success",
+            "14\n",
+            "",
+        ),
+        ("CS11-M07-O01", "changed-condition"): (
+            "87b5f4fa-1e4b-52ff-b037-546daefd9f68",
+            "2\n",
+            "success",
+            "1\n",
+            "",
+        ),
+        ("CS11-M07-O02", "base"): (
+            "e1e9f56a-6acf-5ccf-9886-2958174de085",
+            "1\n",
+            "success",
+            "1 2\n",
+            "",
+        ),
+        ("CS11-M07-O02", "changed-condition"): (
+            "e1e9f56a-6acf-5ccf-9886-2958174de085",
+            "2\n",
+            "success",
+            "1\n",
+            "",
+        ),
+        ("CS11-M07-O03", "base"): (
+            "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
+            "1\n",
+            "success",
+            "0\n",
+            "",
+        ),
+        ("CS11-M07-O03", "changed-condition"): (
+            "0add1c83-f3ea-5753-9fbd-d482a5cdd84a",
+            "2\n",
+            "success",
+            "1\n",
+            "",
+        ),
+        ("CS11-M08-O01", "base"): (
+            "3a290580-d367-5086-9ff5-58379c791075",
+            "1\n",
+            "success",
+            "unknown\n",
+            "",
+        ),
+        ("CS11-M08-O01", "changed-condition"): (
+            "3a290580-d367-5086-9ff5-58379c791075",
+            "2\n",
+            "success",
+            "1\n",
+            "",
+        ),
+        ("CS11-M08-O02", "base"): (
+            "09d73447-68ed-5404-bf59-560ba9e386ae",
+            "1\n",
+            "success",
+            "y z\n",
+            "",
+        ),
+        ("CS11-M08-O02", "changed-condition"): (
+            "09d73447-68ed-5404-bf59-560ba9e386ae",
+            "2\n",
+            "success",
+            "y z\n",
+            "",
+        ),
+        ("CS11-M08-O03", "base"): (
+            "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
+            "1\n",
+            "success",
+            "1 0\n",
+            "",
+        ),
+        ("CS11-M08-O03", "changed-condition"): (
+            "d8fd6401-57d1-51cb-ba4a-3727e2b99dcb",
+            "2\n",
+            "success",
+            "0 0\n",
+            "",
+        ),
+        ("CS11-M09-O01", "base"): (
+            "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
+            "1\n",
+            "success",
+            "5\n",
+            "",
+        ),
+        ("CS11-M09-O01", "changed-condition"): (
+            "028f22e6-d8d1-5d78-a56b-1359ceb6fb44",
+            "2\n",
+            "success",
+            "5\n",
+            "",
+        ),
+        ("CS11-M09-O02", "base"): (
+            "8b873d71-aa14-5b12-bcc4-605eba95e08d",
+            "1\n",
+            "success",
+            "5\n",
+            "",
+        ),
+        ("CS11-M09-O02", "changed-condition"): (
+            "8b873d71-aa14-5b12-bcc4-605eba95e08d",
+            "2\n",
+            "success",
+            "0\n",
+            "",
+        ),
+        ("CS11-M09-O03", "base"): (
+            "59927887-1c20-5f92-a473-12daa86fd6ef",
+            "1\n",
+            "success",
+            "True\n",
+            "",
+        ),
+        ("CS11-M09-O03", "changed-condition"): (
+            "59927887-1c20-5f92-a473-12daa86fd6ef",
+            "2\n",
+            "success",
+            "True\n",
+            "",
+        ),
+        ("CS11-M09-O03", "compiler-expression"): (
+            "59927887-1c20-5f92-a473-12daa86fd6ef",
+            "print(8-3-1);print(-7/3);\n",
+            "success",
+            'tokens=[["print", '
+            '"print", '
+            "0], "
+            '["(", '
+            '"(", 5], '
+            '["number", '
+            '"8", 6], '
+            '["-", '
+            '"-", 7], '
+            '["number", '
+            '"3", 8], '
+            '["-", '
+            '"-", 9], '
+            '["number", '
+            '"1", '
+            "10], "
+            '[")", '
+            '")", '
+            "11], "
+            '[";", '
+            '";", '
+            "12], "
+            '["print", '
+            '"print", '
+            "13], "
+            '["(", '
+            '"(", '
+            "18], "
+            '["-", '
+            '"-", '
+            "19], "
+            '["number", '
+            '"7", '
+            "20], "
+            '["/", '
+            '"/", '
+            "21], "
+            '["number", '
+            '"3", '
+            "22], "
+            '[")", '
+            '")", '
+            "23], "
+            '[";", '
+            '";", '
+            "24], "
+            '["eof", '
+            '"", '
+            "26]]\n"
+            'ast=[{"expr": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "6, "
+            '"value": '
+            "8}, "
+            '"op": '
+            '"-", '
+            '"pos": '
+            "7, "
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "8, "
+            '"value": '
+            "3}}, "
+            '"op": '
+            '"-", '
+            '"pos": '
+            "9, "
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "10, "
+            '"value": '
+            "1}}, "
+            '"kind": '
+            '"print", '
+            '"pos": '
+            "0}, "
+            '{"expr": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"unary", '
+            '"op": '
+            '"-", '
+            '"pos": '
+            "19, "
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "20, "
+            '"value": '
+            "7}}, "
+            '"op": '
+            '"/", '
+            '"pos": '
+            "21, "
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "22, "
+            '"value": '
+            "3}}, "
+            '"kind": '
+            '"print", '
+            '"pos": '
+            "13}]\n"
+            'instructions=[["PUSH", '
+            "8, 6], "
+            '["PUSH", '
+            "3, 8], "
+            '["BINARY", '
+            '"-", 7], '
+            '["PUSH", '
+            "1, 10], "
+            '["BINARY", '
+            '"-", 9], '
+            '["PRINT", '
+            "null, "
+            "0], "
+            '["PUSH", '
+            "7, 20], "
+            '["UNARY", '
+            '"-", '
+            "19], "
+            '["PUSH", '
+            "3, 22], "
+            '["BINARY", '
+            '"/", '
+            "21], "
+            '["PRINT", '
+            "null, "
+            "13]]\n"
+            '{"equivalent": '
+            "true, "
+            '"machine_result": '
+            "[4, -2], "
+            '"source_result": '
+            "[4, "
+            "-2]}\n",
+            "",
+        ),
+        ("CS11-M09-O03", "compiler-loop"): (
+            "59927887-1c20-5f92-a473-12daa86fd6ef",
+            "let x=3;while(x>0){x=x-1;}print(x);\n",
+            "success",
+            'tokens=[["let", '
+            '"let", 0], '
+            '["name", "x", '
+            '4], ["=", "=", '
+            '5], ["number", '
+            '"3", 6], [";", '
+            '";", 7], '
+            '["while", '
+            '"while", 8], '
+            '["(", "(", '
+            '13], ["name", '
+            '"x", 14], '
+            '[">", ">", '
+            "15], "
+            '["number", '
+            '"0", 16], '
+            '[")", ")", '
+            '17], ["{", '
+            '"{", 18], '
+            '["name", "x", '
+            '19], ["=", '
+            '"=", 20], '
+            '["name", "x", '
+            '21], ["-", '
+            '"-", 22], '
+            '["number", '
+            '"1", 23], '
+            '[";", ";", '
+            '24], ["}", '
+            '"}", 25], '
+            '["print", '
+            '"print", 26], '
+            '["(", "(", '
+            '31], ["name", '
+            '"x", 32], '
+            '[")", ")", '
+            '33], [";", '
+            '";", 34], '
+            '["eof", "", '
+            "36]]\n"
+            'ast=[{"expr": '
+            '{"kind": '
+            '"literal", '
+            '"pos": 6, '
+            '"value": 3}, '
+            '"kind": "let", '
+            '"name": "x", '
+            '"pos": 0}, '
+            '{"body": '
+            '[{"expr": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"variable", '
+            '"name": "x", '
+            '"pos": 21}, '
+            '"op": "-", '
+            '"pos": 22, '
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": 23, '
+            '"value": 1}}, '
+            '"kind": '
+            '"assign", '
+            '"name": "x", '
+            '"pos": 19}], '
+            '"cond": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"variable", '
+            '"name": "x", '
+            '"pos": 14}, '
+            '"op": ">", '
+            '"pos": 15, '
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": 16, '
+            '"value": 0}}, '
+            '"kind": '
+            '"while", '
+            '"pos": 8}, '
+            '{"expr": '
+            '{"kind": '
+            '"variable", '
+            '"name": "x", '
+            '"pos": 32}, '
+            '"kind": '
+            '"print", '
+            '"pos": 26}]\n'
+            'instructions=[["PUSH", '
+            "3, 6], "
+            '["STORE", 0, '
+            '0], ["LOAD", '
+            "0, 14], "
+            '["PUSH", 0, '
+            "16], "
+            '["BINARY", '
+            '">", 15], '
+            '["JF", 11, 8], '
+            '["LOAD", 0, '
+            '21], ["PUSH", '
+            "1, 23], "
+            '["BINARY", '
+            '"-", 22], '
+            '["STORE", 0, '
+            '19], ["JMP", '
+            "2, 8], "
+            '["LOAD", 0, '
+            '32], ["PRINT", '
+            "null, 26]]\n"
+            '{"equivalent": '
+            "true, "
+            '"machine_result": '
+            "[0], "
+            '"source_result": '
+            "[0]}\n",
+            "",
+        ),
+        ("CS11-M09-O03", "compiler-scope"): (
+            "59927887-1c20-5f92-a473-12daa86fd6ef",
+            "let x=7;{let x=2;print(x);}print(x);\n",
+            "success",
+            'tokens=[["let", '
+            '"let", 0], '
+            '["name", "x", '
+            '4], ["=", '
+            '"=", 5], '
+            '["number", '
+            '"7", 6], '
+            '[";", ";", '
+            '7], ["{", '
+            '"{", 8], '
+            '["let", '
+            '"let", 9], '
+            '["name", "x", '
+            '13], ["=", '
+            '"=", 14], '
+            '["number", '
+            '"2", 15], '
+            '[";", ";", '
+            "16], "
+            '["print", '
+            '"print", 17], '
+            '["(", "(", '
+            '22], ["name", '
+            '"x", 23], '
+            '[")", ")", '
+            '24], [";", '
+            '";", 25], '
+            '["}", "}", '
+            "26], "
+            '["print", '
+            '"print", 27], '
+            '["(", "(", '
+            '32], ["name", '
+            '"x", 33], '
+            '[")", ")", '
+            '34], [";", '
+            '";", 35], '
+            '["eof", "", '
+            "37]]\n"
+            'ast=[{"expr": '
+            '{"kind": '
+            '"literal", '
+            '"pos": 6, '
+            '"value": 7}, '
+            '"kind": '
+            '"let", '
+            '"name": "x", '
+            '"pos": 0}, '
+            '{"body": '
+            '[{"expr": '
+            '{"kind": '
+            '"literal", '
+            '"pos": 15, '
+            '"value": 2}, '
+            '"kind": '
+            '"let", '
+            '"name": "x", '
+            '"pos": 9}, '
+            '{"expr": '
+            '{"kind": '
+            '"variable", '
+            '"name": "x", '
+            '"pos": 23}, '
+            '"kind": '
+            '"print", '
+            '"pos": 17}], '
+            '"kind": '
+            '"block", '
+            '"pos": 8}, '
+            '{"expr": '
+            '{"kind": '
+            '"variable", '
+            '"name": "x", '
+            '"pos": 33}, '
+            '"kind": '
+            '"print", '
+            '"pos": 27}]\n'
+            'instructions=[["PUSH", '
+            "7, 6], "
+            '["STORE", 0, '
+            '0], ["PUSH", '
+            "2, 15], "
+            '["STORE", 1, '
+            '9], ["LOAD", '
+            "1, 23], "
+            '["PRINT", '
+            "null, 17], "
+            '["LOAD", 0, '
+            "33], "
+            '["PRINT", '
+            "null, 27]]\n"
+            '{"equivalent": '
+            "true, "
+            '"machine_result": '
+            "[2, 7], "
+            '"source_result": '
+            "[2, 7]}\n",
+            "",
+        ),
+        ("CS11-M09-O03", "compiler-shortcircuit"): (
+            "59927887-1c20-5f92-a473-12daa86fd6ef",
+            "print(false && (1/0==0));print(true || (1/0==0));\n",
+            "success",
+            'tokens=[["print", '
+            '"print", '
+            "0], "
+            '["(", '
+            '"(", '
+            "5], "
+            '["false", '
+            '"false", '
+            "6], "
+            '["&&", '
+            '"&&", '
+            "12], "
+            '["(", '
+            '"(", '
+            "15], "
+            '["number", '
+            '"1", '
+            "16], "
+            '["/", '
+            '"/", '
+            "17], "
+            '["number", '
+            '"0", '
+            "18], "
+            '["==", '
+            '"==", '
+            "19], "
+            '["number", '
+            '"0", '
+            "21], "
+            '[")", '
+            '")", '
+            "22], "
+            '[")", '
+            '")", '
+            "23], "
+            '[";", '
+            '";", '
+            "24], "
+            '["print", '
+            '"print", '
+            "25], "
+            '["(", '
+            '"(", '
+            "30], "
+            '["true", '
+            '"true", '
+            "31], "
+            '["||", '
+            '"||", '
+            "36], "
+            '["(", '
+            '"(", '
+            "39], "
+            '["number", '
+            '"1", '
+            "40], "
+            '["/", '
+            '"/", '
+            "41], "
+            '["number", '
+            '"0", '
+            "42], "
+            '["==", '
+            '"==", '
+            "43], "
+            '["number", '
+            '"0", '
+            "45], "
+            '[")", '
+            '")", '
+            "46], "
+            '[")", '
+            '")", '
+            "47], "
+            '[";", '
+            '";", '
+            "48], "
+            '["eof", '
+            '"", '
+            "50]]\n"
+            'ast=[{"expr": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "6, "
+            '"value": '
+            "false}, "
+            '"op": '
+            '"&&", '
+            '"pos": '
+            "12, "
+            '"right": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "16, "
+            '"value": '
+            "1}, "
+            '"op": '
+            '"/", '
+            '"pos": '
+            "17, "
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "18, "
+            '"value": '
+            "0}}, "
+            '"op": '
+            '"==", '
+            '"pos": '
+            "19, "
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "21, "
+            '"value": '
+            "0}}}, "
+            '"kind": '
+            '"print", '
+            '"pos": '
+            "0}, "
+            '{"expr": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "31, "
+            '"value": '
+            "true}, "
+            '"op": '
+            '"||", '
+            '"pos": '
+            "36, "
+            '"right": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"binary", '
+            '"left": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "40, "
+            '"value": '
+            "1}, "
+            '"op": '
+            '"/", '
+            '"pos": '
+            "41, "
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "42, "
+            '"value": '
+            "0}}, "
+            '"op": '
+            '"==", '
+            '"pos": '
+            "43, "
+            '"right": '
+            '{"kind": '
+            '"literal", '
+            '"pos": '
+            "45, "
+            '"value": '
+            "0}}}, "
+            '"kind": '
+            '"print", '
+            '"pos": '
+            "25}]\n"
+            'instructions=[["PUSH", '
+            "false, "
+            "6], "
+            '["JF", '
+            "8, "
+            "12], "
+            '["PUSH", '
+            "1, "
+            "16], "
+            '["PUSH", '
+            "0, "
+            "18], "
+            '["BINARY", '
+            '"/", '
+            "17], "
+            '["PUSH", '
+            "0, "
+            "21], "
+            '["BINARY", '
+            '"==", '
+            "19], "
+            '["JMP", '
+            "9, "
+            "12], "
+            '["PUSH", '
+            "false, "
+            "12], "
+            '["PRINT", '
+            "null, "
+            "0], "
+            '["PUSH", '
+            "true, "
+            "31], "
+            '["JF", '
+            "14, "
+            "36], "
+            '["PUSH", '
+            "true, "
+            "36], "
+            '["JMP", '
+            "19, "
+            "36], "
+            '["PUSH", '
+            "1, "
+            "40], "
+            '["PUSH", '
+            "0, "
+            "42], "
+            '["BINARY", '
+            '"/", '
+            "41], "
+            '["PUSH", '
+            "0, "
+            "45], "
+            '["BINARY", '
+            '"==", '
+            "43], "
+            '["PRINT", '
+            "null, "
+            "25]]\n"
+            '{"equivalent": '
+            "true, "
+            '"machine_result": '
+            "[false, "
+            "true], "
+            '"source_result": '
+            "[false, "
+            "true]}\n",
+            "",
+        ),
+    },
     "8653760c-bf00-5358-88ec-df56160ecc65": {
         ("CS07-M01-O01", "base"): (
             "8c0c62ea-771e-573b-80d9-6cbbf72dd6bd",
