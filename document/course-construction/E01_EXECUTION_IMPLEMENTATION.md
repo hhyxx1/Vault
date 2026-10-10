@@ -1,0 +1,66 @@
+# E01 隔离代码执行建设记录
+
+日期：2026-10-09。状态：执行核心和私有通信已实测，尚未接入学习工作台、持久证据和课程核验。13 门课程整课验收仍为 0/13。
+
+## 本轮实际完成
+
+`code_execution.py` 在独立 Linux 执行控制器调用原生 isolate；业务服务不得调用学生程序、编译器或 WSL 作为回退。编译阶段同样进入沙箱。接收受控单文件及最多 8 个平面源文件；拒绝路径、编译选项文件名、越界扩展名和未声明入口。不接受学生传入启动命令或环境变量。
+
+`code_worker.py` 提供私有 `/v1/runs`，本地入口仅监听 `127.0.0.1:8091`。私有凭据在执行主机保存，不能发给浏览器、写入 Git 或作为课程资料。单次一个作业，不排队；请求体最多 512 KiB、读取期限 10 秒，过大或繁忙拒绝。调用方断开后取消程序，并等待进程、挂载和 box 清理才重新接受作业。访问日志、交互文档和 OpenAPI 入口关闭。
+
+`code_worker_client.py` 仅使用 HTTP 转发受控作品；禁用环境代理和自动重试，流式读取有上限。非回环连接要求 HTTPS 私有网关。工具结果绑定语言、全部源文件、入口和输入的规范 SHA-256；错绑结果、传输故障、非成功 HTTP 或非法结果返回环境故障。工具结果不宣称知识掌握。
+
+## 已测开发环境
+
+这是本机 WSL Ubuntu 24.04 的开发验证环境，不是 ADR 要求的公开服务专用 VM，不能据此宣布生产部署通过。
+
+| 项目 | 实测版本 / 位置 |
+| --- | --- |
+| isolate | 2.7；官方提交 `8f185bb37f3f23e29b33b0c7727c91c13429abe3`；`/usr/local/bin/isolate`，0755，非 setuid |
+| C17 / C++17 | Ubuntu GCC / G++ 13.3.0，显式 `-std=c17` / `-std=c++17` |
+| Java21 | OpenJDK / javac 21.0.12.1；`/usr/lib/jvm/java-21-openjdk-amd64` |
+| Python3.13 | CPython 3.13.16；`/opt/vault-toolchains/python-3.13` |
+| Node24 | Node v24.21.0；`/opt/vault-toolchains/node-24` |
+
+Node Linux x64 下载包 SHA-256 为 `fd8e59d5a511510f6a298afb548f18c7d2b1be404d8b4a27d94fbe49f56cb2d6`，已与官方 SHASUMS256.txt 比较。版本不自动漂移；升级要重新执行正确作品和超限回归。
+
+isolate 由 systemd cgroup keeper 管理 cgroup v2。开发机 root 控制器调用，`restricted_init=1`，box ID 700，UID/GID 区间 60000–60999；部署前须确认无用户冲突。内核、控制器、工具链、公共配置及专用主机边界仍属于可信环境，不能把沙箱描述为绝对安全。
+
+## 当前开发 profile 限制
+
+- 源文件总计最多 64 KiB，标准输入最多 16 KiB；文件名及扩展名按语言限制。
+- 编译 CPU 30 秒、墙钟 35 秒；运行 CPU 5 秒、墙钟 10 秒；控制器另有超时及清理期限。
+- cgroup 内存 512 MiB、进程数 32、打开文件 64；Java 编译与运行显式限制堆 128 MiB 和处理器数 1。
+- `/box` 与 `/tmp` 使用同一 16 MiB tmpfs，最多 256 inode；单文件上限 1 MiB；stdout / stderr 每流最多返回 64 KiB并标记截断。此为当前实测配置，未完成公开并发压测。
+- 不继承控制器环境，不共享外部网络；取消时终止控制进程并回收整个 isolate box/cgroup。只挂载选定解释器和 Java 公共配置目录，不挂载宿主 `/opt` 或 `/etc` 整棵目录。
+- 输出必须为普通单链接文件，用 no-follow / non-blocking 打开并检查读取前后状态；链接和特殊文件触发环境故障。
+
+## 已运行的测试
+
+Windows 控制器 / 客户端单元与协议测试：11 项通过，包括路径限制、输出限制、错误类别、作品 hash、鉴权、过大请求、单作业准入、断连回收、控制器异常后的恢复、错绑结果与无自动重试。
+
+真实 Linux 沙箱：11 项通过，覆盖 C 输入输出、C++ 多文件与头文件、Java/Python/Node 指定主版本、编译/运行错误、超时和取消、私有文件/环境不可读、控制器回环端口不可达、单文件超限、临时磁盘上限及 box 清理。
+
+真实私有 HTTP：6 项通过，五种语言真实执行及返回作品 hash，Python 无执行服务凭据；另验证客户端取消回收沙箱后能够继续运行。此测试尚未覆盖业务 API 租约或浏览器按钮。
+
+执行命令示例（仅在隔离执行开发主机，不能在业务宿主运行学生代码）：
+
+```sh
+VAULT_ISOLATE_INTEGRATION=1 PYTHONPATH=services/backend/src python -m pytest \
+  --noconftest -o asyncio_mode=auto -p no:cacheprovider \
+  services/backend/tests/test_code_execution_linux.py
+```
+
+私有 HTTP 测试额外设置 `VAULT_CODE_WORKER_HTTP_INTEGRATION=1` 与执行主机私有 `VAULT_CODE_WORKER_TOKEN`，不在聊天或测试输出中打印凭据。
+
+## 接下来必须完成
+
+1. 将运行加入已有访客租约、幂等、预算、取消、过期清理和结果确认；服务未配置时明确不可用。
+2. 学习工作台选择语言、编辑受控文件和输入、运行、观察编译与结果、修改再运行；作品 hash / 环境 / 输入输出绑定不可变提交。
+3. 工具事实作为实践记录保存、恢复及账号承接；只有注册并审校的目标条件检查器可以贡献达标条件，输出正确不等于解释和迁移达标。
+4. 逐课建立可运行任务、边界/错误作品、分层提示和独立变体；CS03 括号实现不再由学生填写预期判定代替真实程序。
+5. 专用 VM 配置、完整环境锁定、内存/进程/网络/并发故障回归、重启清理、容量与隐私验收后再考虑公开部署。
+
+## 技术依据
+
+采用 [IOI isolate 官方仓库](https://github.com/ioi/isolate)与[官方手册](https://www.ucw.cz/isolate/isolate.1.html)的原生 Linux、namespace、cgroup 和元数据语义。Node 包校验依据[官方版本目录](https://nodejs.org/dist/v24.21.0/)；Python 版本安装使用受控工具链目录。外部资料只支持执行方案，不代替各课理论来源筛选或专业审校。
