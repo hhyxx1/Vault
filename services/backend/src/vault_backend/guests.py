@@ -14,6 +14,7 @@ from vault_backend.course_checks.brackets import (
     BRACKET_CONTEXT,
     verify_bracket_judgements,
 )
+from vault_backend.course_checks.code_tasks import assess_task, resolve_task
 from vault_backend.course_checks.structured_trace import (
     TRUSTED_TRACE_SPECS,
     get_trace_spec,
@@ -337,6 +338,13 @@ class GuestLeaseStore:
         async with self.lock:
             lease = self._lease(lease_id, token, origin)
             if isinstance(submission, CodeSubmission):
+                if submission.task:
+                    resolve_task(
+                        str(submission.task.course_version_id),
+                        submission.task.objective_code,
+                        submission.task.task_code,
+                        str(submission.task.activity_version_id),
+                    )
                 if self.code_runner is None or self.code_cleanup_blocked:
                     raise ApiError(503, "CODE_WORKER_UNAVAILABLE", "隔离代码执行环境尚未配置。")
                 context = {"available": True}
@@ -413,6 +421,14 @@ class GuestLeaseStore:
                         "client_artifact_id": str(submission.client_artifact_id),
                         "client_revision_id": str(submission.client_revision_id),
                     }
+                    if submission.task:
+                        task = resolve_task(
+                            str(submission.task.course_version_id),
+                            submission.task.objective_code,
+                            submission.task.task_code,
+                            str(submission.task.activity_version_id),
+                        )
+                        op.result["task_assessment"] = assess_task(task, submission.code, result)
                     op.submission, op.state = None, "completed"
                     op.revision += 1
                     self._event(lease, op, "execution.completed")

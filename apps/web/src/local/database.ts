@@ -5,6 +5,7 @@ import type { PersonalAssist, PersonalAttempt, PersonalCourse, PersonalCourseVer
 import { completeLogicRows, type CourseAttempt } from '../domain/logic'
 import type { StructuredAttempt } from '../domain/structured'
 import { validateCodeRequest, type CodeAttempt, type CodeDraft } from '../domain/code'
+import { hasCodeAssessmentBinding } from '../domain/code-assessment'
 import { canonicalHash } from '../domain/integrity'
 
 export type ObjectType = 'draft' | 'revision' | 'evidence' | 'help' | 'teacher_draft' | 'personal_course' | 'personal_course_version' | 'personal_attempt' | 'personal_assist' | 'course_attempt' | 'structured_attempt' | 'code_attempt' | 'code_draft' | 'position'
@@ -65,6 +66,7 @@ export const syncKey = (spaceId: string, type: ObjectType, id: string) => `${spa
 export const MAX_SYNC_OPERATION_BYTES = 59000
 export async function saveCodeAttempt(attempt: CodeAttempt, db = database): Promise<CodeAttempt> {
   validateCodeRequest(attempt.request)
+  if (attempt.result?.task_assessment && !hasCodeAssessmentBinding(attempt)) throw new Error('课程核验与作品的活动、目标或版本不一致。')
   const request = { ...attempt.request, stdin: attempt.request.stdin ?? '' }
   if (await canonicalHash(request) !== attempt.requestHash) throw new Error('代码内容与提交摘要不一致。')
   if (attempt.result && (attempt.result.client_artifact_id !== attempt.artifactId || attempt.result.client_revision_id !== attempt.id || attempt.result.request_sha256 !== attempt.requestHash || attempt.result.mastery_asserted !== false)) throw new Error('运行结果与代码版本不一致。')

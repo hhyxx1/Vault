@@ -105,12 +105,20 @@ class OperationInput(WriteModel):
     explanation: str = Field(default="", max_length=4000)
 
 
+class CodeTaskRef(WriteModel):
+    course_version_id: UUID
+    activity_version_id: UUID
+    objective_code: str = Field(min_length=1, max_length=80)
+    task_code: str = Field(min_length=1, max_length=100)
+
+
 class CodeSubmission(WriteModel):
     # Tool execution only: no client-supplied course grading standard.
     kind: Literal["run_code"] = "run_code"
     client_artifact_id: UUID
     client_revision_id: UUID
     code: CodeRequest
+    task: CodeTaskRef | None = None
 
 
 class RevisionCommand(WriteModel):

@@ -7,11 +7,14 @@ test('CS01 money task retains units, corrected source and a separate rounding co
   await page.getByLabel('运行前预测').fill('先除以 100 丢掉分，输出 3，不满足 5.97。')
   await page.getByRole('button', { name: '保存并运行这一版' }).click()
   await expect(page.getByLabel('标准输出')).toHaveText('3\n', { timeout: 60000 })
+  await expect(page.getByRole('region', { name: '任务条件核验' })).toContainText('本次固定条件：未满足')
   await page.getByRole('button', { name: '修改并开始新版本' }).click()
   await page.getByLabel('代码源文件').fill('#include <stdio.h>\nint main(void) { int cents = 199 * 3; printf("%d.%02d\\n", cents / 100, cents % 100); return 0; }')
   await page.getByLabel('运行前预测').fill('597 分显示为 5.97。')
   await page.getByRole('button', { name: '保存并运行这一版' }).click()
   await expect(page.getByLabel('标准输出')).toHaveText('5.97\n', { timeout: 60000 })
+  await expect(page.getByRole('region', { name: '任务条件核验' })).toContainText('本次固定条件：满足')
+  await expect(page.getByRole('region', { name: '任务条件核验' })).toContainText('原理解释：待复核')
   await page.getByLabel('运行后解释与下一步').fill('保存分而不是提前舍去，下一步检查折扣的舍入协议。')
   await expect(page.getByText('草稿已保存到本机。', { exact: true })).toBeVisible()
   await page.getByRole('link', { name: '新条件：舍去不足一分的折扣' }).click()
@@ -21,6 +24,7 @@ test('CS01 money task retains units, corrected source and a separate rounding co
   await expect(page.getByLabel('标准输出')).toHaveText('5.37\n', { timeout: 60000 })
   await page.getByRole('link', { name: '回到知识图谱' }).click()
   await expect(page.locator('.scope-total strong')).toContainText('0 / 30')
+  await expect(page.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
 })
 
 test('CS01 course goal opens its C17 task, records help and continues to a distinct changed condition', async ({ page }) => {

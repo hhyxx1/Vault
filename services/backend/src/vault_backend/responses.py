@@ -174,9 +174,27 @@ class LogicVerificationResult(BaseModel):
     summary: str
 
 
+class CodeTaskCriterion(BaseModel):
+    id: Literal["fixed_condition", "explanation", "independent_transfer"]
+    status: Literal["met", "not_met", "needs_review"]
+    reason: str = Field(max_length=500)
+
+
+class CodeTaskAssessment(BaseModel):
+    course_version_id: str = Field(max_length=36)
+    activity_version_id: str = Field(max_length=36)
+    objective_code: str = Field(max_length=80)
+    task_code: str = Field(max_length=100)
+    standard_version: Literal["cs01-fixed-condition-v1"]
+    provenance: Literal["server_deterministic_checker"]
+    criteria: list[CodeTaskCriterion] = Field(min_length=3, max_length=3)
+    mastery_asserted: Literal[False]
+
+
 class CodeOperationResult(CodeResult):
     client_artifact_id: UUID
     client_revision_id: UUID
+    task_assessment: CodeTaskAssessment | None = None
 
 
 class OperationResponse(BaseModel):

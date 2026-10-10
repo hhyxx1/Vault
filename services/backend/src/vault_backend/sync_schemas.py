@@ -558,6 +558,24 @@ class CodeAttemptPayload(LocalPayload):
             or self.result.mastery_asserted is not False
         ):
             raise ValueError("result must match the submitted code version")
+        check = self.result.task_assessment if self.result else None
+        if check:
+            context = self.learning.context if self.learning else None
+            if not context or (
+                check.course_version_id != str(context.courseVersionId)
+                or check.activity_version_id != str(context.activityVersionId)
+                or check.objective_code != context.objectiveCode
+                or check.task_code != context.taskCode
+            ):
+                raise ValueError("task assessment must match the frozen learning context")
+            if {c.id for c in check.criteria} != {
+                "fixed_condition",
+                "explanation",
+                "independent_transfer",
+            } or any(
+                c.status != "needs_review" for c in check.criteria if c.id != "fixed_condition"
+            ):
+                raise ValueError("fixed-condition checks cannot grant independent mastery")
         return self
 
 

@@ -99,6 +99,27 @@ test('course code draft and prediction follow the claimed student account across
   await expect(page.getByLabel('代码源文件')).not.toHaveValue(/draft only/)
   await expect(page.getByLabel('运行前预测')).toHaveValue('')
 })
+
+test('restored course code feedback remains client reported and does not upgrade the graph', async ({ page, browser, isMobile }) => {
+  test.setTimeout(120000)
+  const email = `code-feedback-${Date.now()}-${isMobile ? 'mobile' : 'desktop'}@example.test`
+  await page.goto('/learn/CS01-M02-O02')
+  await page.getByLabel('代码源文件').fill('#include <stdio.h>\nint main(void) { puts("5.97"); return 0; }')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByRole('region', { name: '任务条件核验' })).toContainText('本次固定条件：满足', { timeout: 60000 })
+  await register(page, email, 'student', '核验同步测试'); await login(page, email); await confirmedSync(page)
+  const context = await browser.newContext({ baseURL: appOrigin })
+  try {
+    const second = await context.newPage()
+    await login(second, email); await confirmedSync(second); await selectRecoveredSpace(second)
+    await second.goto('/learn/CS01-M02-O02')
+    await expect(second.getByRole('region', { name: '任务条件核验' })).toContainText('账号恢复的客户端记录，需重新核验。')
+    await expect(second.getByLabel('标准输出')).toHaveText('5.97\n')
+    await second.getByRole('link', { name: '回到知识图谱' }).click()
+    await expect(second.locator('.objective-inspector .evidence-pill')).toHaveText('尚未有效评估')
+    await expect(second.locator('.scope-total strong')).toContainText('0 / 30')
+  } finally { await context.close() }
+})
 test('real teacher and student accounts claim work, restore across devices, isolate identities and recover a lost claim', async ({ page, browser, isMobile }) => {
   test.setTimeout(180000)
   const suffix = `${Date.now()}-${isMobile ? 'mobile' : 'desktop'}`

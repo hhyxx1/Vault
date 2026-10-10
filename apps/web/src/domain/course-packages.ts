@@ -9,6 +9,7 @@ export type CourseCodeActivity = {
   student_action: string; theory: string[]; code_request: CodeRequest
   prediction_prompt?: string; reflection_prompt?: string; hints?: string[]
   reference_answer?: CodeRequest; variants?: CodeVariant[]; source_refs: string[]; completion_limit: string
+  check_version?: string | null
 }
 
 export type AtlasGoal = { id: string; code: string; title: string; criteria: Array<{ id: string; title: string; verification: string }> }

@@ -90,6 +90,7 @@ class Activity(PublicRecord):
     hints: list[str] = Field(default_factory=list, max_length=10)
     reference_answer: CodeRequest | None = None
     variants: list[CodeVariant] = Field(default_factory=list, max_length=10)
+    check_version: str | None = Field(default=None, max_length=100)
 
     @model_validator(mode="after")
     def execution_request(self):

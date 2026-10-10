@@ -52,6 +52,40 @@ def submission():
     )
 
 
+async def test_task_context_checks_output_and_rejects_unknown_context_before_execution(settings):
+    from pydantic import ValidationError
+
+    runner = Runner()
+    store = GuestLeaseStore(settings, code_runner=runner)
+    lease_id, token = await grant(store)
+    payload = submission().model_dump(mode="json")
+    payload["task"] = {
+        "course_version_id": "ad970167-0230-5141-8027-cc535f3ed22e",
+        "activity_version_id": "07fe337c-cafd-550c-ac1c-4ac964b005f6",
+        "objective_code": "CS01-M01-O02",
+        "task_code": "base",
+    }
+    body = CodeSubmission.model_validate(payload)
+    job = await store.start(lease_id, token, ORIGIN, uuid4(), body)
+    await runner.started.wait()
+    runner.release.set()
+    await asyncio.gather(*store.code_tasks.values())
+    snapshot = await store.snapshot(lease_id, token, UUID(job["operation_id"]))
+    check = snapshot["result"]["task_assessment"]
+    assert check["criteria"][0]["status"] == "not_met"
+    assert check["objective_code"] == "CS01-M01-O02"
+    assert snapshot["result"]["stdout"] == "42\n"
+    assert snapshot["result"]["request_sha256"] == request_hash(body.code)
+    payload["task"]["objective_code"] = "MISSING"
+    with pytest.raises(ApiError):
+        await store.start(lease_id, token, ORIGIN, uuid4(), CodeSubmission.model_validate(payload))
+    assert runner.calls == 1
+    payload["task"]["expected_stdout"] = "42\n"
+    with pytest.raises(ValidationError):
+        CodeSubmission.model_validate(payload)
+    await store.close()
+
+
 async def test_code_job_is_idempotent_and_does_not_hold_store_lock(settings):
     runner = Runner()
     store = GuestLeaseStore(settings, code_runner=runner)

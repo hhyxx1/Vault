@@ -772,6 +772,16 @@
             "title": "Stdout",
             "type": "string"
           },
+          "task_assessment": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CodeTaskAssessment"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "truncated": {
             "default": false,
             "title": "Truncated",
@@ -851,6 +861,16 @@
             "default": "run_code",
             "title": "Kind",
             "type": "string"
+          },
+          "task": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CodeTaskRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
@@ -859,6 +879,135 @@
           "code"
         ],
         "title": "CodeSubmission",
+        "type": "object"
+      },
+      "CodeTaskAssessment": {
+        "properties": {
+          "activity_version_id": {
+            "maxLength": 36,
+            "title": "Activity Version Id",
+            "type": "string"
+          },
+          "course_version_id": {
+            "maxLength": 36,
+            "title": "Course Version Id",
+            "type": "string"
+          },
+          "criteria": {
+            "items": {
+              "$ref": "#/components/schemas/CodeTaskCriterion"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "title": "Criteria",
+            "type": "array"
+          },
+          "mastery_asserted": {
+            "const": false,
+            "title": "Mastery Asserted",
+            "type": "boolean"
+          },
+          "objective_code": {
+            "maxLength": 80,
+            "title": "Objective Code",
+            "type": "string"
+          },
+          "provenance": {
+            "const": "server_deterministic_checker",
+            "title": "Provenance",
+            "type": "string"
+          },
+          "standard_version": {
+            "const": "cs01-fixed-condition-v1",
+            "title": "Standard Version",
+            "type": "string"
+          },
+          "task_code": {
+            "maxLength": 100,
+            "title": "Task Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "course_version_id",
+          "activity_version_id",
+          "objective_code",
+          "task_code",
+          "standard_version",
+          "provenance",
+          "criteria",
+          "mastery_asserted"
+        ],
+        "title": "CodeTaskAssessment",
+        "type": "object"
+      },
+      "CodeTaskCriterion": {
+        "properties": {
+          "id": {
+            "enum": [
+              "fixed_condition",
+              "explanation",
+              "independent_transfer"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 500,
+            "title": "Reason",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "met",
+              "not_met",
+              "needs_review"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "reason"
+        ],
+        "title": "CodeTaskCriterion",
+        "type": "object"
+      },
+      "CodeTaskRef": {
+        "additionalProperties": false,
+        "properties": {
+          "activity_version_id": {
+            "format": "uuid",
+            "title": "Activity Version Id",
+            "type": "string"
+          },
+          "course_version_id": {
+            "format": "uuid",
+            "title": "Course Version Id",
+            "type": "string"
+          },
+          "objective_code": {
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Objective Code",
+            "type": "string"
+          },
+          "task_code": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Task Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "course_version_id",
+          "activity_version_id",
+          "objective_code",
+          "task_code"
+        ],
+        "title": "CodeTaskRef",
         "type": "object"
       },
       "ConfirmationOutput": {

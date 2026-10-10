@@ -948,6 +948,7 @@ export interface components {
              * @default
              */
             stdout: string;
+            task_assessment?: components["schemas"]["CodeTaskAssessment"] | null;
             /**
              * Truncated
              * @default false
@@ -991,6 +992,67 @@ export interface components {
              * @enum {string}
              */
             kind: "run_code";
+            task?: components["schemas"]["CodeTaskRef"] | null;
+        };
+        /** CodeTaskAssessment */
+        CodeTaskAssessment: {
+            /** Activity Version Id */
+            activity_version_id: string;
+            /** Course Version Id */
+            course_version_id: string;
+            /** Criteria */
+            criteria: components["schemas"]["CodeTaskCriterion"][];
+            /**
+             * Mastery Asserted
+             * @constant
+             */
+            mastery_asserted: false;
+            /** Objective Code */
+            objective_code: string;
+            /**
+             * Provenance
+             * @constant
+             */
+            provenance: "server_deterministic_checker";
+            /**
+             * Standard Version
+             * @constant
+             */
+            standard_version: "cs01-fixed-condition-v1";
+            /** Task Code */
+            task_code: string;
+        };
+        /** CodeTaskCriterion */
+        CodeTaskCriterion: {
+            /**
+             * Id
+             * @enum {string}
+             */
+            id: "fixed_condition" | "explanation" | "independent_transfer";
+            /** Reason */
+            reason: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "met" | "not_met" | "needs_review";
+        };
+        /** CodeTaskRef */
+        CodeTaskRef: {
+            /**
+             * Activity Version Id
+             * Format: uuid
+             */
+            activity_version_id: string;
+            /**
+             * Course Version Id
+             * Format: uuid
+             */
+            course_version_id: string;
+            /** Objective Code */
+            objective_code: string;
+            /** Task Code */
+            task_code: string;
         };
         /** ConfirmationOutput */
         ConfirmationOutput: {

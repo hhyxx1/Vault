@@ -103,7 +103,8 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
       await saveCodeAttempt(attempt)
       if (currentContext.current !== captured) return
       setSelected(attempt); setMessage('这一版已保存，正在隔离环境中运行…')
-      const response = await runCode(attempt, controller.signal)
+      const checkContext = attempt.learning?.context
+      const response = await runCode(attempt, controller.signal, lesson?.activity.check_version && checkContext ? { course_version_id: checkContext.courseVersionId, activity_version_id: checkContext.activityVersionId, objective_code: checkContext.objectiveCode, task_code: checkContext.taskCode } : undefined)
       controller.signal.throwIfAborted()
       if (currentContext.current !== captured) return
       const saved = await saveCodeAttempt({ ...attempt, result: boundedResult(response.result), updatedAt: new Date().toISOString() })
@@ -149,6 +150,7 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
         <section><span className="eyebrow">OBSERVE / RESULT</span><h2>{selected?.result ? statusNames[selected.result.status] : '先写下你的预测'}</h2>
           {selected?.result ? <><h3>标准输出</h3><pre aria-label="标准输出">{selected.result.stdout || '（无输出）'}</pre><h3>错误输出</h3><pre aria-label="错误输出">{selected.result.stderr || '（无错误输出）'}</pre>{selected.result.truncated && <p>输出已截断，已保存可显示的部分。</p>}<p>{selected.resultTrust ? '此记录来自账号恢复，需重新运行复核。' : selected.result.status === 'environment_error' ? '执行服务未完成本次运行，不计为能力错误。可开始新版本重新尝试。' : '这是该版本的实际工具结果。'}</p></> : <p>输入改变后会得到什么？结果与你预测的一致吗？先运行，再根据差异修改。</p>}
           <p className="muted">运行成功表示程序在这组输入下完成；课程目标还需要测试条件、解释和独立验证。</p>
+          {selected?.result?.task_assessment && <section aria-label="任务条件核验"><h3>任务条件核验</h3>{selected.result.task_assessment.criteria.map(row => <p key={row.id}><strong>{row.id === 'fixed_condition' ? '本次固定条件' : row.id === 'explanation' ? '原理解释' : '独立迁移'}：{row.status === 'met' ? '满足' : row.status === 'not_met' ? '未满足' : '待复核'}</strong><br/>{row.reason}</p>)}<p className="muted">{selected.resultTrust ? '账号恢复的客户端记录，需重新核验。' : '服务端按登记标准比较本次工具事实。'} 固定输出可被硬编码；不证明一般程序正确或独立掌握。</p></section>}
           <label>运行后解释与下一步<textarea aria-label="运行后解释与下一步" placeholder={task?.reflection_prompt} maxLength={4000} disabled={!ready || busy} value={reflection} onChange={event => { const text = event.target.value; setReflection(text); if (selected) setReflections(previous => ({ ...previous, [selected.id]: text })) }}/></label>
         </section>
         <section><span className="eyebrow">VERSIONS / YOUR WORK</span><h2>已保存的尝试</h2>{history.length ? <ol className="code-version-list">{history.map((row, index) => <li key={row.id}><button disabled={busy} aria-pressed={selected?.id === row.id} onClick={() => { setSelected(row); setRequest(structuredClone(row.request)); setFile(row.request.entry); setPrediction(row.learning?.prediction ?? ''); setReflection(reflections[row.id] ?? ''); setMessage('正在查看已保存版本。') }}>{templates[row.request.language].label} · 第 {history.length-index} 版<span>{row.result ? statusNames[row.result.status] : '已保存 · 未取得结果'}</span></button></li>)}</ol> : <p>保存后可回来查看代码和运行结果。</p>}</section>
