@@ -1,3 +1,7 @@
+## 2026-10-10 CS08 局部网络实践推进
+
+30 目标的局部真实 TCP/UDP/HTTP 与协议模型、120 份 Linux 实际运行作者工件、桌面／手机 4 项闭环通过。完整 containerlab/FRR、VLAN、抓包及双网段恢复尚缺，不计整课完成。见 course-construction/units/CS08-CORE-PRACTICE.md。
+
 ## 2026-10-10 CS07 系统实践推进
 
 27 目标的实际系统接口与明示教学模型已接入，108 份作者工件在 Linux isolate 实际运行通过，另行核验真实父子进程接口；桌面／手机 4 项闭环通过。完整系统轨迹、独立迁移及作业观察器项目仍缺，整课不计完成。见 course-construction/units/CS07-CORE-PRACTICE.md。

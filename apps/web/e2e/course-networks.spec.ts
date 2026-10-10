@@ -1,0 +1,33 @@
+import { expect, test } from '@playwright/test'
+
+test('real TCP half-close preserves receive direction and evidence restores', async ({ page }) => {
+  test.setTimeout(90000)
+  await page.goto('/learn/CS08-M07-O01')
+  await expect(page.getByRole('heading', { name: '真实 TCP 半关闭后仍可读取响应', exact: true })).toBeVisible()
+  await page.getByLabel('运行前预测').fill('关闭发送方向让服务端读到 EOF，但仍可接收服务端响应。')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('closed\n', { timeout: 60000 })
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  const source = page.getByLabel('代码源文件')
+  await source.fill((await source.inputValue()).replace("print('closed')", 'print(reply.decode())'))
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('5\n', { timeout: 60000 })
+  await page.reload()
+  await expect(page.getByLabel('标准输出')).toHaveText('5\n')
+  await page.getByRole('link', { name: '回到知识图谱' }).click()
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 30')
+  await expect(page.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
+  expect(await page.evaluate(() => document.body.scrollWidth <= window.innerWidth)).toBe(true)
+})
+
+test('real UDP truncated datagram does not carry its tail into the next read', async ({ page }) => {
+  test.setTimeout(90000)
+  await page.goto('/learn/CS08-M07-O03')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('alZ\n', { timeout: 60000 })
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  const source = page.getByLabel('代码源文件')
+  await source.fill((await source.inputValue()).replace('print((first+second).decode())', 'print(second.decode())'))
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('Z\n', { timeout: 60000 })
+})

@@ -1,0 +1,2042 @@
+[
+  {
+    "id": "CS08-M01-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O01",
+    "activity": "af1079df-ff98-5d7a-8274-c18ec0b27893",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlayers=['Ethernet','IP','TCP','application'] if n==1 else ['IP','UDP','application']\nprint(layers[-1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "application\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M01-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O01",
+    "activity": "af1079df-ff98-5d7a-8274-c18ec0b27893",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlayers=['Ethernet','IP','TCP','application'] if n==1 else ['IP','UDP','application']\nprint(layers[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "Ethernet\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M01-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O01",
+    "activity": "af1079df-ff98-5d7a-8274-c18ec0b27893",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlayers=['Ethernet','IP','TCP','application'] if n==1 else ['IP','UDP','application']\nprint(layers[-1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "application\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M01-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O01",
+    "activity": "af1079df-ff98-5d7a-8274-c18ec0b27893",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlayers=['Ethernet','IP','TCP','application'] if n==1 else ['IP','UDP','application']\nprint(layers[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "IP\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M01-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O02",
+    "activity": "fbc685f3-f1bf-5abd-bf66-63c01e4c965a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbits=8000 if n==1 else 0\nrate=2000\npropagation=1\nprint(bits//rate)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M01-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O02",
+    "activity": "fbc685f3-f1bf-5abd-bf66-63c01e4c965a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbits=8000 if n==1 else 0\nrate=2000\npropagation=1\nprint(bits//rate+propagation)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M01-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O02",
+    "activity": "fbc685f3-f1bf-5abd-bf66-63c01e4c965a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbits=8000 if n==1 else 0\nrate=2000\npropagation=1\nprint(bits//rate)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M01-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O02",
+    "activity": "fbc685f3-f1bf-5abd-bf66-63c01e4c965a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbits=8000 if n==1 else 0\nrate=2000\npropagation=1\nprint(bits//rate+propagation)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M01-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O03",
+    "activity": "3eebec76-5e01-515f-8e45-ff7f6d41d2b5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrates=[10,2] if n==1 else [4,4]\nprint(max(rates))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M01-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O03",
+    "activity": "3eebec76-5e01-515f-8e45-ff7f6d41d2b5",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrates=[10,2] if n==1 else [4,4]\nprint(min(rates))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M01-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O03",
+    "activity": "3eebec76-5e01-515f-8e45-ff7f6d41d2b5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrates=[10,2] if n==1 else [4,4]\nprint(max(rates))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M01-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M01-O03",
+    "activity": "3eebec76-5e01-515f-8e45-ff7f6d41d2b5",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrates=[10,2] if n==1 else [4,4]\nprint(min(rates))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M02-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O01",
+    "activity": "8a941582-7bd4-5cd4-9ede-831bdff61116",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npayload='a~b' if n==1 else 'ab'\nencoded=payload\nprint('~'+encoded+'~')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "~a~b~\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M02-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O01",
+    "activity": "8a941582-7bd4-5cd4-9ede-831bdff61116",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npayload='a~b' if n==1 else 'ab'\nencoded=''.join(('}'+c) if c in '~}' else c for c in payload)\nprint('~'+encoded+'~')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "~a}~b~\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M02-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O01",
+    "activity": "8a941582-7bd4-5cd4-9ede-831bdff61116",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npayload='a~b' if n==1 else 'ab'\nencoded=payload\nprint('~'+encoded+'~')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "~ab~\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M02-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O01",
+    "activity": "8a941582-7bd4-5cd4-9ede-831bdff61116",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npayload='a~b' if n==1 else 'ab'\nencoded=''.join(('}'+c) if c in '~}' else c for c in payload)\nprint('~'+encoded+'~')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "~ab~\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M02-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O02",
+    "activity": "165da738-e431-5003-b9a1-728c1f3a6e83",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword=0b1101 if n==1 else 0\ngenerator=0b1011\nx=word\nwhile x.bit_length()>=generator.bit_length():\n x^=generator<<(x.bit_length()-generator.bit_length())\nprint(word%generator)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M02-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O02",
+    "activity": "165da738-e431-5003-b9a1-728c1f3a6e83",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword=0b1101 if n==1 else 0\ngenerator=0b1011\nx=word\nwhile x.bit_length()>=generator.bit_length():\n x^=generator<<(x.bit_length()-generator.bit_length())\nprint(x)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M02-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O02",
+    "activity": "165da738-e431-5003-b9a1-728c1f3a6e83",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword=0b1101 if n==1 else 0\ngenerator=0b1011\nx=word\nwhile x.bit_length()>=generator.bit_length():\n x^=generator<<(x.bit_length()-generator.bit_length())\nprint(word%generator)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M02-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O02",
+    "activity": "165da738-e431-5003-b9a1-728c1f3a6e83",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nword=0b1101 if n==1 else 0\ngenerator=0b1011\nx=word\nwhile x.bit_length()>=generator.bit_length():\n x^=generator<<(x.bit_length()-generator.bit_length())\nprint(x)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M02-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O03",
+    "activity": "add32e4b-2e58-51e0-a408-5965d62c9b9d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmode='full_duplex' if n==1 else 'shared'\nprint(True)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M02-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O03",
+    "activity": "add32e4b-2e58-51e0-a408-5965d62c9b9d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmode='full_duplex' if n==1 else 'shared'\nprint(mode=='shared')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M02-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O03",
+    "activity": "add32e4b-2e58-51e0-a408-5965d62c9b9d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmode='full_duplex' if n==1 else 'shared'\nprint(True)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M02-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M02-O03",
+    "activity": "add32e4b-2e58-51e0-a408-5965d62c9b9d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmode='full_duplex' if n==1 else 'shared'\nprint(mode=='shared')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M03-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O01",
+    "activity": "d469d36b-1ddd-547f-a3ca-6c193de34a38",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsource='A';destination='B' if n==1 else 'A'\nport=1;table={}\ntable[destination]=port\nprint(table.get(source,'unknown'))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unknown\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M03-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O01",
+    "activity": "d469d36b-1ddd-547f-a3ca-6c193de34a38",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsource='A';destination='B' if n==1 else 'A'\nport=1;table={}\ntable[source]=port\nprint(table.get(source,'unknown'))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M03-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O01",
+    "activity": "d469d36b-1ddd-547f-a3ca-6c193de34a38",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsource='A';destination='B' if n==1 else 'A'\nport=1;table={}\ntable[destination]=port\nprint(table.get(source,'unknown'))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M03-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O01",
+    "activity": "d469d36b-1ddd-547f-a3ca-6c193de34a38",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsource='A';destination='B' if n==1 else 'A'\nport=1;table={}\ntable[source]=port\nprint(table.get(source,'unknown'))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M03-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O02",
+    "activity": "94e53053-24e8-5736-9f61-4d77d7eb5b03",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft=10;right=20 if n==1 else 10\nprint(True)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M03-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O02",
+    "activity": "94e53053-24e8-5736-9f61-4d77d7eb5b03",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft=10;right=20 if n==1 else 10\nprint(left==right)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M03-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O02",
+    "activity": "94e53053-24e8-5736-9f61-4d77d7eb5b03",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft=10;right=20 if n==1 else 10\nprint(True)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M03-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O02",
+    "activity": "94e53053-24e8-5736-9f61-4d77d7eb5b03",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft=10;right=20 if n==1 else 10\nprint(left==right)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M03-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O03",
+    "activity": "1b8db023-de19-55c2-9325-d0914fcc6886",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[('A','B'),('B','C'),('C','A')] if n==1 else [('A','B'),('B','C')]\nparent={}\ndef root(x):\n parent.setdefault(x,x)\n while parent[x]!=x:x=parent[x]\n return x\ncycle=False\nfor a,b in edges:\n ra,rb=root(a),root(b)\n if ra==rb:cycle=True\n else:parent[ra]=rb\nprint(False)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M03-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O03",
+    "activity": "1b8db023-de19-55c2-9325-d0914fcc6886",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[('A','B'),('B','C'),('C','A')] if n==1 else [('A','B'),('B','C')]\nparent={}\ndef root(x):\n parent.setdefault(x,x)\n while parent[x]!=x:x=parent[x]\n return x\ncycle=False\nfor a,b in edges:\n ra,rb=root(a),root(b)\n if ra==rb:cycle=True\n else:parent[ra]=rb\nprint(cycle)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M03-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O03",
+    "activity": "1b8db023-de19-55c2-9325-d0914fcc6886",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[('A','B'),('B','C'),('C','A')] if n==1 else [('A','B'),('B','C')]\nparent={}\ndef root(x):\n parent.setdefault(x,x)\n while parent[x]!=x:x=parent[x]\n return x\ncycle=False\nfor a,b in edges:\n ra,rb=root(a),root(b)\n if ra==rb:cycle=True\n else:parent[ra]=rb\nprint(False)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M03-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M03-O03",
+    "activity": "1b8db023-de19-55c2-9325-d0914fcc6886",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[('A','B'),('B','C'),('C','A')] if n==1 else [('A','B'),('B','C')]\nparent={}\ndef root(x):\n parent.setdefault(x,x)\n while parent[x]!=x:x=parent[x]\n return x\ncycle=False\nfor a,b in edges:\n ra,rb=root(a),root(b)\n if ra==rb:cycle=True\n else:parent[ra]=rb\nprint(cycle)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M04-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O01",
+    "activity": "2b4645cd-8344-5c27-8972-be431f43ac60",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\nprefix=30 if n==1 else 31\nnet=ipaddress.ip_network('192.0.2.0/'+str(prefix))\nprint(net.num_addresses-2)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M04-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O01",
+    "activity": "2b4645cd-8344-5c27-8972-be431f43ac60",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\nprefix=30 if n==1 else 31\nnet=ipaddress.ip_network('192.0.2.0/'+str(prefix))\nprint(len(list(net.hosts())))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M04-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O01",
+    "activity": "2b4645cd-8344-5c27-8972-be431f43ac60",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\nprefix=30 if n==1 else 31\nnet=ipaddress.ip_network('192.0.2.0/'+str(prefix))\nprint(net.num_addresses-2)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M04-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O01",
+    "activity": "2b4645cd-8344-5c27-8972-be431f43ac60",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\nprefix=30 if n==1 else 31\nnet=ipaddress.ip_network('192.0.2.0/'+str(prefix))\nprint(len(list(net.hosts())))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M04-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O02",
+    "activity": "c569b257-dab1-5fa0-8f3d-b2fc392ec100",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nhop=64 if n==1 else 255\nprint(True)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M04-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O02",
+    "activity": "c569b257-dab1-5fa0-8f3d-b2fc392ec100",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nhop=64 if n==1 else 255\nprint(hop==255)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M04-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O02",
+    "activity": "c569b257-dab1-5fa0-8f3d-b2fc392ec100",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nhop=64 if n==1 else 255\nprint(True)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M04-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O02",
+    "activity": "c569b257-dab1-5fa0-8f3d-b2fc392ec100",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nhop=64 if n==1 else 255\nprint(hop==255)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M04-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O03",
+    "activity": "6d36a5d5-a56f-5a6e-9e20-241aa0848beb",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\nlocal=ipaddress.ip_interface('192.0.2.2/24')\ngateway=ipaddress.ip_address('198.51.100.1' if n==1 else '192.0.2.1')\nprint(True)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M04-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O03",
+    "activity": "6d36a5d5-a56f-5a6e-9e20-241aa0848beb",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\nlocal=ipaddress.ip_interface('192.0.2.2/24')\ngateway=ipaddress.ip_address('198.51.100.1' if n==1 else '192.0.2.1')\nprint(gateway in local.network)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M04-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O03",
+    "activity": "6d36a5d5-a56f-5a6e-9e20-241aa0848beb",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\nlocal=ipaddress.ip_interface('192.0.2.2/24')\ngateway=ipaddress.ip_address('198.51.100.1' if n==1 else '192.0.2.1')\nprint(True)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M04-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M04-O03",
+    "activity": "6d36a5d5-a56f-5a6e-9e20-241aa0848beb",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\nlocal=ipaddress.ip_interface('192.0.2.2/24')\ngateway=ipaddress.ip_address('198.51.100.1' if n==1 else '192.0.2.1')\nprint(gateway in local.network)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M05-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O01",
+    "activity": "f232aa73-20ce-583a-8ac6-0edf9e745365",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\naddress=ipaddress.ip_address('192.0.2.9' if n==1 else '198.51.100.9')\nroutes=[(ipaddress.ip_network('0.0.0.0/0'),'default'),(ipaddress.ip_network('192.0.2.0/24'),'local')]\nmatches=[r for r in routes if address in r[0]]\nprint(matches[0][1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "default\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M05-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O01",
+    "activity": "f232aa73-20ce-583a-8ac6-0edf9e745365",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\naddress=ipaddress.ip_address('192.0.2.9' if n==1 else '198.51.100.9')\nroutes=[(ipaddress.ip_network('0.0.0.0/0'),'default'),(ipaddress.ip_network('192.0.2.0/24'),'local')]\nmatches=[r for r in routes if address in r[0]]\nprint(max(matches,key=lambda r:r[0].prefixlen)[1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "local\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M05-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O01",
+    "activity": "f232aa73-20ce-583a-8ac6-0edf9e745365",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\naddress=ipaddress.ip_address('192.0.2.9' if n==1 else '198.51.100.9')\nroutes=[(ipaddress.ip_network('0.0.0.0/0'),'default'),(ipaddress.ip_network('192.0.2.0/24'),'local')]\nmatches=[r for r in routes if address in r[0]]\nprint(matches[0][1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "default\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M05-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O01",
+    "activity": "f232aa73-20ce-583a-8ac6-0edf9e745365",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport ipaddress\naddress=ipaddress.ip_address('192.0.2.9' if n==1 else '198.51.100.9')\nroutes=[(ipaddress.ip_network('0.0.0.0/0'),'default'),(ipaddress.ip_network('192.0.2.0/24'),'local')]\nmatches=[r for r in routes if address in r[0]]\nprint(max(matches,key=lambda r:r[0].prefixlen)[1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "default\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M05-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O02",
+    "activity": "22a948b7-69d7-563d-bd50-c5c2795630da",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nforward=True;reverse=False if n==1 else True\nprint(forward)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M05-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O02",
+    "activity": "22a948b7-69d7-563d-bd50-c5c2795630da",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nforward=True;reverse=False if n==1 else True\nprint(forward and reverse)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M05-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O02",
+    "activity": "22a948b7-69d7-563d-bd50-c5c2795630da",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nforward=True;reverse=False if n==1 else True\nprint(forward)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M05-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O02",
+    "activity": "22a948b7-69d7-563d-bd50-c5c2795630da",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nforward=True;reverse=False if n==1 else True\nprint(forward and reverse)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M05-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O03",
+    "activity": "f7a555c3-a238-55f7-b834-04ef2643c362",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges={'A':[('C',2)],'C':[('B',2)],'B':[]} if n==1 else {'A':[('B',1)],'B':[]}\ndist={'A':0};todo=[(0,'A')]\nimport heapq\nwhile todo:\n cost,node=heapq.heappop(todo)\n if cost!=dist[node]:continue\n for target,weight in edges[node]:\n  value=cost+weight\n  if value<dist.get(target,999):dist[target]=value;heapq.heappush(todo,(value,target))\nprint(1)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M05-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O03",
+    "activity": "f7a555c3-a238-55f7-b834-04ef2643c362",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges={'A':[('C',2)],'C':[('B',2)],'B':[]} if n==1 else {'A':[('B',1)],'B':[]}\ndist={'A':0};todo=[(0,'A')]\nimport heapq\nwhile todo:\n cost,node=heapq.heappop(todo)\n if cost!=dist[node]:continue\n for target,weight in edges[node]:\n  value=cost+weight\n  if value<dist.get(target,999):dist[target]=value;heapq.heappush(todo,(value,target))\nprint(dist['B'])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M05-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O03",
+    "activity": "f7a555c3-a238-55f7-b834-04ef2643c362",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges={'A':[('C',2)],'C':[('B',2)],'B':[]} if n==1 else {'A':[('B',1)],'B':[]}\ndist={'A':0};todo=[(0,'A')]\nimport heapq\nwhile todo:\n cost,node=heapq.heappop(todo)\n if cost!=dist[node]:continue\n for target,weight in edges[node]:\n  value=cost+weight\n  if value<dist.get(target,999):dist[target]=value;heapq.heappush(todo,(value,target))\nprint(1)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M05-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M05-O03",
+    "activity": "f7a555c3-a238-55f7-b834-04ef2643c362",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges={'A':[('C',2)],'C':[('B',2)],'B':[]} if n==1 else {'A':[('B',1)],'B':[]}\ndist={'A':0};todo=[(0,'A')]\nimport heapq\nwhile todo:\n cost,node=heapq.heappop(todo)\n if cost!=dist[node]:continue\n for target,weight in edges[node]:\n  value=cost+weight\n  if value<dist.get(target,999):dist[target]=value;heapq.heappush(todo,(value,target))\nprint(dist['B'])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M06-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O01",
+    "activity": "0501c425-de5c-5f8c-858b-d6d602cb8fac",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndestination='198.51.100.8' if n==1 else '192.0.2.8'\ngateway='192.0.2.1'\nimport ipaddress\nonlink=ipaddress.ip_address(destination) in ipaddress.ip_network('192.0.2.0/24')\nprint(destination)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "198.51.100.8\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M06-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O01",
+    "activity": "0501c425-de5c-5f8c-858b-d6d602cb8fac",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndestination='198.51.100.8' if n==1 else '192.0.2.8'\ngateway='192.0.2.1'\nimport ipaddress\nonlink=ipaddress.ip_address(destination) in ipaddress.ip_network('192.0.2.0/24')\nprint(destination if onlink else gateway)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "192.0.2.1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M06-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O01",
+    "activity": "0501c425-de5c-5f8c-858b-d6d602cb8fac",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndestination='198.51.100.8' if n==1 else '192.0.2.8'\ngateway='192.0.2.1'\nimport ipaddress\nonlink=ipaddress.ip_address(destination) in ipaddress.ip_network('192.0.2.0/24')\nprint(destination)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "192.0.2.8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M06-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O01",
+    "activity": "0501c425-de5c-5f8c-858b-d6d602cb8fac",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndestination='198.51.100.8' if n==1 else '192.0.2.8'\ngateway='192.0.2.1'\nimport ipaddress\nonlink=ipaddress.ip_address(destination) in ipaddress.ip_network('192.0.2.0/24')\nprint(destination if onlink else gateway)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "192.0.2.8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M06-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O02",
+    "activity": "fe202dd4-589d-564d-844c-8f8e278a61ec",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsize=1500 if n==1 else 1280\nmtu=1280\nprint('forward')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "forward\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M06-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O02",
+    "activity": "fe202dd4-589d-564d-844c-8f8e278a61ec",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsize=1500 if n==1 else 1280\nmtu=1280\nprint('packet_too_big' if size>mtu else 'forward')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "packet_too_big\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M06-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O02",
+    "activity": "fe202dd4-589d-564d-844c-8f8e278a61ec",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsize=1500 if n==1 else 1280\nmtu=1280\nprint('forward')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "forward\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M06-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O02",
+    "activity": "fe202dd4-589d-564d-844c-8f8e278a61ec",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsize=1500 if n==1 else 1280\nmtu=1280\nprint('packet_too_big' if size>mtu else 'forward')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "forward\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M06-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O03",
+    "activity": "069a1c97-ab9c-513a-9eca-6a1a2581055b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmapped=True;allowed=False if n==1 else True\nprint(mapped)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M06-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O03",
+    "activity": "069a1c97-ab9c-513a-9eca-6a1a2581055b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmapped=True;allowed=False if n==1 else True\nprint(mapped and allowed)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M06-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O03",
+    "activity": "069a1c97-ab9c-513a-9eca-6a1a2581055b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmapped=True;allowed=False if n==1 else True\nprint(mapped)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M06-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M06-O03",
+    "activity": "069a1c97-ab9c-513a-9eca-6a1a2581055b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nmapped=True;allowed=False if n==1 else True\nprint(mapped and allowed)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M07-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O01",
+    "activity": "5f4fded5-4178-5d95-8378-3bccd565bd85",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,threading\npayload=b'alpha' if n==1 else b'xy'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);data=b''\n  while True:\n   chunk=conn.recv(2)\n   if not chunk:break\n   data+=chunk\n  conn.sendall(str(len(data)).encode())\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(payload);client.shutdown(socket.SHUT_WR)\n reply=client.recv(8)\n print('closed')\nthread.join();server.close()\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "closed\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M07-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O01",
+    "activity": "5f4fded5-4178-5d95-8378-3bccd565bd85",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,threading\npayload=b'alpha' if n==1 else b'xy'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);data=b''\n  while True:\n   chunk=conn.recv(2)\n   if not chunk:break\n   data+=chunk\n  conn.sendall(str(len(data)).encode())\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(payload);client.shutdown(socket.SHUT_WR)\n reply=client.recv(8)\n print(reply.decode())\nthread.join();server.close()\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M07-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O01",
+    "activity": "5f4fded5-4178-5d95-8378-3bccd565bd85",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,threading\npayload=b'alpha' if n==1 else b'xy'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);data=b''\n  while True:\n   chunk=conn.recv(2)\n   if not chunk:break\n   data+=chunk\n  conn.sendall(str(len(data)).encode())\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(payload);client.shutdown(socket.SHUT_WR)\n reply=client.recv(8)\n print('closed')\nthread.join();server.close()\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "closed\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M07-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O01",
+    "activity": "5f4fded5-4178-5d95-8378-3bccd565bd85",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,threading\npayload=b'alpha' if n==1 else b'xy'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);data=b''\n  while True:\n   chunk=conn.recv(2)\n   if not chunk:break\n   data+=chunk\n  conn.sendall(str(len(data)).encode())\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(payload);client.shutdown(socket.SHUT_WR)\n reply=client.recv(8)\n print(reply.decode())\nthread.join();server.close()\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M07-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O02",
+    "activity": "2235d63c-40f7-51e2-ba8c-2d78c6e09e02",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrwnd=3;cwnd=10;flight=2 if n==1 else 3\nprint(max(0,cwnd-flight))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "8\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M07-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O02",
+    "activity": "2235d63c-40f7-51e2-ba8c-2d78c6e09e02",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrwnd=3;cwnd=10;flight=2 if n==1 else 3\nprint(max(0,min(rwnd,cwnd)-flight))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M07-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O02",
+    "activity": "2235d63c-40f7-51e2-ba8c-2d78c6e09e02",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrwnd=3;cwnd=10;flight=2 if n==1 else 3\nprint(max(0,cwnd-flight))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M07-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O02",
+    "activity": "2235d63c-40f7-51e2-ba8c-2d78c6e09e02",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrwnd=3;cwnd=10;flight=2 if n==1 else 3\nprint(max(0,min(rwnd,cwnd)-flight))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M07-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O03",
+    "activity": "99619d09-b1ca-526d-8e36-770d11000bec",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as receiver, socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as sender:\n receiver.bind(('127.0.0.1',0));receiver.settimeout(2)\n sender.sendto(b'alpha' if n==1 else b'xy',receiver.getsockname());sender.sendto(b'Z',receiver.getsockname())\n first=receiver.recvfrom(2)[0];second=receiver.recvfrom(8)[0]\n print((first+second).decode())\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "alZ\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M07-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O03",
+    "activity": "99619d09-b1ca-526d-8e36-770d11000bec",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as receiver, socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as sender:\n receiver.bind(('127.0.0.1',0));receiver.settimeout(2)\n sender.sendto(b'alpha' if n==1 else b'xy',receiver.getsockname());sender.sendto(b'Z',receiver.getsockname())\n first=receiver.recvfrom(2)[0];second=receiver.recvfrom(8)[0]\n print(second.decode())\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "Z\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M07-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O03",
+    "activity": "99619d09-b1ca-526d-8e36-770d11000bec",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as receiver, socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as sender:\n receiver.bind(('127.0.0.1',0));receiver.settimeout(2)\n sender.sendto(b'alpha' if n==1 else b'xy',receiver.getsockname());sender.sendto(b'Z',receiver.getsockname())\n first=receiver.recvfrom(2)[0];second=receiver.recvfrom(8)[0]\n print((first+second).decode())\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "xyZ\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M07-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M07-O03",
+    "activity": "99619d09-b1ca-526d-8e36-770d11000bec",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as receiver, socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as sender:\n receiver.bind(('127.0.0.1',0));receiver.settimeout(2)\n sender.sendto(b'alpha' if n==1 else b'xy',receiver.getsockname());sender.sendto(b'Z',receiver.getsockname())\n first=receiver.recvfrom(2)[0];second=receiver.recvfrom(8)[0]\n print(second.decode())\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "Z\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M08-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O01",
+    "activity": "6d9146dd-79ea-5d4a-bca6-5b09be76c73b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,struct,threading\nidentifier=7\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n server.bind(('127.0.0.1',0));server.settimeout(2);client.settimeout(2)\n def respond():\n  query,address=server.recvfrom(512)\n  server.sendto(struct.pack('!HHHHHH',8 if n==1 else 7,0x8000,0,0,0,0),address)\n thread=threading.Thread(target=respond);thread.start()\n client.sendto(struct.pack('!HHHHHH',identifier,0,0,0,0,0),server.getsockname())\n response=client.recvfrom(512)[0];thread.join()\n response_id,flags=struct.unpack('!HH',response[:4])\n print(bool(flags&0x8000))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M08-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O01",
+    "activity": "6d9146dd-79ea-5d4a-bca6-5b09be76c73b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,struct,threading\nidentifier=7\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n server.bind(('127.0.0.1',0));server.settimeout(2);client.settimeout(2)\n def respond():\n  query,address=server.recvfrom(512)\n  server.sendto(struct.pack('!HHHHHH',8 if n==1 else 7,0x8000,0,0,0,0),address)\n thread=threading.Thread(target=respond);thread.start()\n client.sendto(struct.pack('!HHHHHH',identifier,0,0,0,0,0),server.getsockname())\n response=client.recvfrom(512)[0];thread.join()\n response_id,flags=struct.unpack('!HH',response[:4])\n print(response_id==identifier and bool(flags&0x8000))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M08-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O01",
+    "activity": "6d9146dd-79ea-5d4a-bca6-5b09be76c73b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,struct,threading\nidentifier=7\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n server.bind(('127.0.0.1',0));server.settimeout(2);client.settimeout(2)\n def respond():\n  query,address=server.recvfrom(512)\n  server.sendto(struct.pack('!HHHHHH',8 if n==1 else 7,0x8000,0,0,0,0),address)\n thread=threading.Thread(target=respond);thread.start()\n client.sendto(struct.pack('!HHHHHH',identifier,0,0,0,0,0),server.getsockname())\n response=client.recvfrom(512)[0];thread.join()\n response_id,flags=struct.unpack('!HH',response[:4])\n print(bool(flags&0x8000))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M08-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O01",
+    "activity": "6d9146dd-79ea-5d4a-bca6-5b09be76c73b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,struct,threading\nidentifier=7\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n server.bind(('127.0.0.1',0));server.settimeout(2);client.settimeout(2)\n def respond():\n  query,address=server.recvfrom(512)\n  server.sendto(struct.pack('!HHHHHH',8 if n==1 else 7,0x8000,0,0,0,0),address)\n thread=threading.Thread(target=respond);thread.start()\n client.sendto(struct.pack('!HHHHHH',identifier,0,0,0,0,0),server.getsockname())\n response=client.recvfrom(512)[0];thread.join()\n response_id,flags=struct.unpack('!HH',response[:4])\n print(response_id==identifier and bool(flags&0x8000))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M08-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O02",
+    "activity": "c559f193-61bb-5f86-b562-fd3e752858c2",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,threading\nbody=b'ok' if n==1 else b'hello'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);request=b''\n  while b'\\r\\n\\r\\n' not in request:request+=conn.recv(4096)\n  conn.sendall(b'HTTP/1.1 200 OK\\r\\nConnection: close\\r\\nContent-Length: '+str(len(body)).encode()+b'\\r\\n\\r\\n'+body)\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(b'GET / HTTP/1.1\\r\\nHost: lab.test\\r\\nConnection: close\\r\\n\\r\\n');raw=b''\n while True:\n  chunk=client.recv(2)\n  if not chunk:break\n  raw+=chunk\n print(raw.split(b'\\r\\n')[0].decode())\nthread.join();server.close()\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "HTTP/1.1 200 OK\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M08-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O02",
+    "activity": "c559f193-61bb-5f86-b562-fd3e752858c2",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,threading\nbody=b'ok' if n==1 else b'hello'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);request=b''\n  while b'\\r\\n\\r\\n' not in request:request+=conn.recv(4096)\n  conn.sendall(b'HTTP/1.1 200 OK\\r\\nConnection: close\\r\\nContent-Length: '+str(len(body)).encode()+b'\\r\\n\\r\\n'+body)\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(b'GET / HTTP/1.1\\r\\nHost: lab.test\\r\\nConnection: close\\r\\n\\r\\n');raw=b''\n while True:\n  chunk=client.recv(2)\n  if not chunk:break\n  raw+=chunk\n print(raw.split(b'\\r\\n\\r\\n',1)[1].decode())\nthread.join();server.close()\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "ok\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M08-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O02",
+    "activity": "c559f193-61bb-5f86-b562-fd3e752858c2",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,threading\nbody=b'ok' if n==1 else b'hello'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);request=b''\n  while b'\\r\\n\\r\\n' not in request:request+=conn.recv(4096)\n  conn.sendall(b'HTTP/1.1 200 OK\\r\\nConnection: close\\r\\nContent-Length: '+str(len(body)).encode()+b'\\r\\n\\r\\n'+body)\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(b'GET / HTTP/1.1\\r\\nHost: lab.test\\r\\nConnection: close\\r\\n\\r\\n');raw=b''\n while True:\n  chunk=client.recv(2)\n  if not chunk:break\n  raw+=chunk\n print(raw.split(b'\\r\\n')[0].decode())\nthread.join();server.close()\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "HTTP/1.1 200 OK\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M08-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O02",
+    "activity": "c559f193-61bb-5f86-b562-fd3e752858c2",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket,threading\nbody=b'ok' if n==1 else b'hello'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);request=b''\n  while b'\\r\\n\\r\\n' not in request:request+=conn.recv(4096)\n  conn.sendall(b'HTTP/1.1 200 OK\\r\\nConnection: close\\r\\nContent-Length: '+str(len(body)).encode()+b'\\r\\n\\r\\n'+body)\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(b'GET / HTTP/1.1\\r\\nHost: lab.test\\r\\nConnection: close\\r\\n\\r\\n');raw=b''\n while True:\n  chunk=client.recv(2)\n  if not chunk:break\n  raw+=chunk\n print(raw.split(b'\\r\\n\\r\\n',1)[1].decode())\nthread.join();server.close()\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "hello\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M08-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O03",
+    "activity": "0d4bccf9-58da-5f98-b52b-624b5d0f5af3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntls_ok=True;http_status=403 if n==1 else 200\nprint(tls_ok)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M08-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O03",
+    "activity": "0d4bccf9-58da-5f98-b52b-624b5d0f5af3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntls_ok=True;http_status=403 if n==1 else 200\nprint(tls_ok and http_status==200)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M08-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O03",
+    "activity": "0d4bccf9-58da-5f98-b52b-624b5d0f5af3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntls_ok=True;http_status=403 if n==1 else 200\nprint(tls_ok)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M08-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M08-O03",
+    "activity": "0d4bccf9-58da-5f98-b52b-624b5d0f5af3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ntls_ok=True;http_status=403 if n==1 else 200\nprint(tls_ok and http_status==200)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M09-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O01",
+    "activity": "a0c33fb5-1836-5fe8-b273-6bb592ce4e78",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nhear_each_other=False;at_receiver=2 if n==1 else 1\nprint(hear_each_other)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M09-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O01",
+    "activity": "a0c33fb5-1836-5fe8-b273-6bb592ce4e78",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nhear_each_other=False;at_receiver=2 if n==1 else 1\nprint(at_receiver>1)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M09-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O01",
+    "activity": "a0c33fb5-1836-5fe8-b273-6bb592ce4e78",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nhear_each_other=False;at_receiver=2 if n==1 else 1\nprint(hear_each_other)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M09-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O01",
+    "activity": "a0c33fb5-1836-5fe8-b273-6bb592ce4e78",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nhear_each_other=False;at_receiver=2 if n==1 else 1\nprint(at_receiver>1)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M09-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O02",
+    "activity": "1d1bccdc-d538-5289-948e-59e3d2588b51",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport hmac\nkey=b'public-teaching-key';message=b'pay=1'\ntag=hmac.digest(key,message,'sha256')\nreceived=b'pay=9' if n==1 else message\nexpected=hmac.digest(key,received,'sha256')\nprint(True)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M09-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O02",
+    "activity": "1d1bccdc-d538-5289-948e-59e3d2588b51",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport hmac\nkey=b'public-teaching-key';message=b'pay=1'\ntag=hmac.digest(key,message,'sha256')\nreceived=b'pay=9' if n==1 else message\nexpected=hmac.digest(key,received,'sha256')\nprint(hmac.compare_digest(tag,expected))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M09-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O02",
+    "activity": "1d1bccdc-d538-5289-948e-59e3d2588b51",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport hmac\nkey=b'public-teaching-key';message=b'pay=1'\ntag=hmac.digest(key,message,'sha256')\nreceived=b'pay=9' if n==1 else message\nexpected=hmac.digest(key,received,'sha256')\nprint(True)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M09-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O02",
+    "activity": "1d1bccdc-d538-5289-948e-59e3d2588b51",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport hmac\nkey=b'public-teaching-key';message=b'pay=1'\ntag=hmac.digest(key,message,'sha256')\nreceived=b'pay=9' if n==1 else message\nexpected=hmac.digest(key,received,'sha256')\nprint(hmac.compare_digest(tag,expected))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M09-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O03",
+    "activity": "585a3ba6-53da-5ab4-8403-95707dd15c8f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nseen={1};sequence=1 if n==1 else 2;tag_valid=True\nprint(tag_valid)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M09-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O03",
+    "activity": "585a3ba6-53da-5ab4-8403-95707dd15c8f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nseen={1};sequence=1 if n==1 else 2;tag_valid=True\nprint(tag_valid and sequence not in seen)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M09-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O03",
+    "activity": "585a3ba6-53da-5ab4-8403-95707dd15c8f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nseen={1};sequence=1 if n==1 else 2;tag_valid=True\nprint(tag_valid)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M09-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M09-O03",
+    "activity": "585a3ba6-53da-5ab4-8403-95707dd15c8f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nseen={1};sequence=1 if n==1 else 2;tag_valid=True\nprint(tag_valid and sequence not in seen)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M10-O01/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O01",
+    "activity": "dbf707f9-1a25-5fa1-85b1-88df95917e52",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndns_ok=True;tcp_ok=False if n==1 else True\nprint('application')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "application\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M10-O01/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O01",
+    "activity": "dbf707f9-1a25-5fa1-85b1-88df95917e52",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndns_ok=True;tcp_ok=False if n==1 else True\nprint('application' if tcp_ok else 'tcp_listener')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "tcp_listener\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M10-O01/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O01",
+    "activity": "dbf707f9-1a25-5fa1-85b1-88df95917e52",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndns_ok=True;tcp_ok=False if n==1 else True\nprint('application')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "application\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M10-O01/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O01",
+    "activity": "dbf707f9-1a25-5fa1-85b1-88df95917e52",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndns_ok=True;tcp_ok=False if n==1 else True\nprint('application' if tcp_ok else 'tcp_listener')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "application\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M10-O02/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O02",
+    "activity": "d6212864-b872-546d-bd46-09aec246cb7e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nwith socket.socket() as service,socket.socket() as unused,socket.socket() as client:\n service.bind(('127.0.0.1',0));service.listen();unused.bind(('127.0.0.1',0));client.settimeout(2)\n address=unused.getsockname() if n==1 else service.getsockname()\n error=client.connect_ex(address)\n print('connected')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "connected\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M10-O02/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O02",
+    "activity": "d6212864-b872-546d-bd46-09aec246cb7e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nwith socket.socket() as service,socket.socket() as unused,socket.socket() as client:\n service.bind(('127.0.0.1',0));service.listen();unused.bind(('127.0.0.1',0));client.settimeout(2)\n address=unused.getsockname() if n==1 else service.getsockname()\n error=client.connect_ex(address)\n print('connected' if error==0 else 'refused')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "refused\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M10-O02/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O02",
+    "activity": "d6212864-b872-546d-bd46-09aec246cb7e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nwith socket.socket() as service,socket.socket() as unused,socket.socket() as client:\n service.bind(('127.0.0.1',0));service.listen();unused.bind(('127.0.0.1',0));client.settimeout(2)\n address=unused.getsockname() if n==1 else service.getsockname()\n error=client.connect_ex(address)\n print('connected')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "connected\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M10-O02/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O02",
+    "activity": "d6212864-b872-546d-bd46-09aec246cb7e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nwith socket.socket() as service,socket.socket() as unused,socket.socket() as client:\n service.bind(('127.0.0.1',0));service.listen();unused.bind(('127.0.0.1',0));client.settimeout(2)\n address=unused.getsockname() if n==1 else service.getsockname()\n error=client.connect_ex(address)\n print('connected' if error==0 else 'refused')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "connected\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M10-O03/base/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O03",
+    "activity": "758b6c3f-bd98-5121-8051-240e2191c5de",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nresults=[]\nfor payload in [b'first',b'second' if n==1 else b'first']:\n with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n  server.bind(('127.0.0.1',0));server.settimeout(2);client.sendto(payload,server.getsockname());results.append(server.recvfrom(64)[0].decode())\nprint(results[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "first\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS08-M10-O03/base/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O03",
+    "activity": "758b6c3f-bd98-5121-8051-240e2191c5de",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nresults=[]\nfor payload in [b'first',b'second' if n==1 else b'first']:\n with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n  server.bind(('127.0.0.1',0));server.settimeout(2);client.sendto(payload,server.getsockname());results.append(server.recvfrom(64)[0].decode())\nprint(results[-1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "second\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M10-O03/changed-condition/initial",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O03",
+    "activity": "758b6c3f-bd98-5121-8051-240e2191c5de",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nresults=[]\nfor payload in [b'first',b'second' if n==1 else b'first']:\n with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n  server.bind(('127.0.0.1',0));server.settimeout(2);client.sendto(payload,server.getsockname());results.append(server.recvfrom(64)[0].decode())\nprint(results[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "first\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS08-M10-O03/changed-condition/repaired",
+    "version": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+    "goal": "CS08-M10-O03",
+    "activity": "758b6c3f-bd98-5121-8051-240e2191c5de",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport socket\nresults=[]\nfor payload in [b'first',b'second' if n==1 else b'first']:\n with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n  server.bind(('127.0.0.1',0));server.settimeout(2);client.sendto(payload,server.getsockname());results.append(server.recvfrom(64)[0].decode())\nprint(results[-1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "first\n",
+    "decision": "met"
+  }
+]

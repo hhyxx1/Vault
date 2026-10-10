@@ -1,0 +1,3427 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "3915babb-09a6-442b-ada7-ec0ef6271995",
+  "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+  "course_code": "CS08",
+  "version": "CS08-core-practice-0.1.0",
+  "title": "计算机网络",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "局部真实 TCP/UDP/HTTP 与明示协议模型；完整网桥、VLAN、FRR、抓包及重建实验待建设。",
+  "objectives": [
+    {
+      "id": "1f6b9216-3ce2-5eb9-bb9e-0e2d7182eeea",
+      "code": "CS08-M01-O01",
+      "title": "解释分层封装",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7c21de63-b333-5a10-bd7b-d716658bbfb1",
+      "code": "CS08-M01-O02",
+      "title": "计算传输传播时延",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "58f79cc0-6c87-5bd8-9af7-6a79107057af",
+      "code": "CS08-M01-O03",
+      "title": "区分吞吐和带宽",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "c2f4302f-ae92-571c-89ee-3d4217ed1dd1",
+      "code": "CS08-M02-O01",
+      "title": "推演帧边界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e83d2c71-3229-5b85-a3ba-abd427229c34",
+      "code": "CS08-M02-O02",
+      "title": "计算校验及重传",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "8c5342f1-354d-52f8-a329-eac63403db5c",
+      "code": "CS08-M02-O03",
+      "title": "解释介质访问限制",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b3fb57c2-63ba-57d3-bd8f-14a8f71ce33c",
+      "code": "CS08-M03-O01",
+      "title": "观察 MAC 学习",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "8ab4cfd6-79cb-555c-8ab8-d21418ccd5da",
+      "code": "CS08-M03-O02",
+      "title": "配置二层连通及 VLAN",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7d6d4a8a-4c30-53bf-9294-d477a1756577",
+      "code": "CS08-M03-O03",
+      "title": "定位广播与环路问题",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "be4df181-9978-5799-870d-66b98506ee0f",
+      "code": "CS08-M04-O01",
+      "title": "规划 IPv4 子网",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "cd64294c-f622-56e1-a914-e9ca3ac72173",
+      "code": "CS08-M04-O02",
+      "title": "解释 IPv6 地址及邻居发现",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "c2ced5f4-f21a-5c9e-8782-23c6cfbaf8ee",
+      "code": "CS08-M04-O03",
+      "title": "配置接口和网关",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "6370bb0e-d789-59e1-ad8d-4c5507ff0194",
+      "code": "CS08-M05-O01",
+      "title": "匹配最长前缀",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "05ac38f3-45e2-542d-83b1-6806c2eec36f",
+      "code": "CS08-M05-O02",
+      "title": "配置静态路由",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "4d3c22b6-41ef-5715-bb69-d719dd93fea4",
+      "code": "CS08-M05-O03",
+      "title": "观察动态路由收敛",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e7d4879e-ab5b-5316-8b44-db16db8c26df",
+      "code": "CS08-M06-O01",
+      "title": "观察 ARP/ICMP",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "8feffeef-bca4-5ff1-a618-397a42f44615",
+      "code": "CS08-M06-O02",
+      "title": "解释 MTU 和分片条件",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "fe4acd92-72a5-5bd6-82fb-ebe1b6c921f9",
+      "code": "CS08-M06-O03",
+      "title": "配置受控 NAT 与过滤",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "8b720e75-aac2-5d66-aefe-0ce9b7dcfdab",
+      "code": "CS08-M07-O01",
+      "title": "追踪 TCP 建连关闭",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "0c0afa2b-34a2-50d2-81cd-f8e10ad24c37",
+      "code": "CS08-M07-O02",
+      "title": "解释重传流控和拥塞",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "bb983923-3dc3-57ee-a52e-e6023783fc36",
+      "code": "CS08-M07-O03",
+      "title": "比较 UDP 语义",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "47025049-ba49-50ac-ba9f-7b44bbd7b67d",
+      "code": "CS08-M08-O01",
+      "title": "观察 DNS 解析",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "a8c0e214-d5ce-5e9b-9b95-b2ef603ae624",
+      "code": "CS08-M08-O02",
+      "title": "解释 HTTP 请求响应",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e47f89be-eb02-594f-8a93-fd3a92f5136f",
+      "code": "CS08-M08-O03",
+      "title": "区分 TLS 与应用授权",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7729304f-6428-5bd6-8c66-368db6a6ca9c",
+      "code": "CS08-M09-O01",
+      "title": "分析无线共享介质",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "9b05d4ac-bdf3-5e1f-bb81-c8a8b13f0bed",
+      "code": "CS08-M09-O02",
+      "title": "区分加密认证完整性",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e980e657-7be7-5cd7-ba45-a8a38eb1df86",
+      "code": "CS08-M09-O03",
+      "title": "识别协议攻击面",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7816af9d-cb7e-593a-b8b4-9ada38486568",
+      "code": "CS08-M10-O01",
+      "title": "按层提出可检验假设",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e516eea6-51ae-5fb5-8de1-02159c62a052",
+      "code": "CS08-M10-O02",
+      "title": "用证据缩小故障",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "1ff2ab97-95f8-586d-b727-3a99cdce2897",
+      "code": "CS08-M10-O03",
+      "title": "重建并验证拓扑",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS08-M01",
+      "title": "分层与性能",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M01-O01-unit",
+          "title": "解释分层封装",
+          "objective_refs": [
+            "CS08-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M01-O02-unit",
+          "title": "计算传输传播时延",
+          "objective_refs": [
+            "CS08-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M01-O03-unit",
+          "title": "区分吞吐和带宽",
+          "objective_refs": [
+            "CS08-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M02",
+      "title": "链路与差错",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M02-O01-unit",
+          "title": "推演帧边界",
+          "objective_refs": [
+            "CS08-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M02-O02-unit",
+          "title": "计算校验及重传",
+          "objective_refs": [
+            "CS08-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M02-O03-unit",
+          "title": "解释介质访问限制",
+          "objective_refs": [
+            "CS08-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M03",
+      "title": "以太网与交换",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M03-O01-unit",
+          "title": "观察 MAC 学习",
+          "objective_refs": [
+            "CS08-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M03-O02-unit",
+          "title": "配置二层连通及 VLAN",
+          "objective_refs": [
+            "CS08-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M03-O03-unit",
+          "title": "定位广播与环路问题",
+          "objective_refs": [
+            "CS08-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M04",
+      "title": "IP 与地址",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M04-O01-unit",
+          "title": "规划 IPv4 子网",
+          "objective_refs": [
+            "CS08-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M04-O02-unit",
+          "title": "解释 IPv6 地址及邻居发现",
+          "objective_refs": [
+            "CS08-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M04-O03-unit",
+          "title": "配置接口和网关",
+          "objective_refs": [
+            "CS08-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M05",
+      "title": "转发与路由",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M05-O01-unit",
+          "title": "匹配最长前缀",
+          "objective_refs": [
+            "CS08-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M05-O02-unit",
+          "title": "配置静态路由",
+          "objective_refs": [
+            "CS08-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M05-O03-unit",
+          "title": "观察动态路由收敛",
+          "objective_refs": [
+            "CS08-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M06",
+      "title": "网络控制与边界",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M06-O01-unit",
+          "title": "观察 ARP/ICMP",
+          "objective_refs": [
+            "CS08-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M06-O02-unit",
+          "title": "解释 MTU 和分片条件",
+          "objective_refs": [
+            "CS08-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M06-O03-unit",
+          "title": "配置受控 NAT 与过滤",
+          "objective_refs": [
+            "CS08-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M07",
+      "title": "传输层",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M07-O01-unit",
+          "title": "追踪 TCP 建连关闭",
+          "objective_refs": [
+            "CS08-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M07-O02-unit",
+          "title": "解释重传流控和拥塞",
+          "objective_refs": [
+            "CS08-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M07-O03-unit",
+          "title": "比较 UDP 语义",
+          "objective_refs": [
+            "CS08-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M08",
+      "title": "应用协议",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M08-O01-unit",
+          "title": "观察 DNS 解析",
+          "objective_refs": [
+            "CS08-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M08-O02-unit",
+          "title": "解释 HTTP 请求响应",
+          "objective_refs": [
+            "CS08-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M08-O03-unit",
+          "title": "区分 TLS 与应用授权",
+          "objective_refs": [
+            "CS08-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M09",
+      "title": "无线与安全基础",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M09-O01-unit",
+          "title": "分析无线共享介质",
+          "objective_refs": [
+            "CS08-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M09-O02-unit",
+          "title": "区分加密认证完整性",
+          "objective_refs": [
+            "CS08-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M09-O03-unit",
+          "title": "识别协议攻击面",
+          "objective_refs": [
+            "CS08-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS08-M10",
+      "title": "综合排障与恢复",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS08-M10-O01-unit",
+          "title": "按层提出可检验假设",
+          "objective_refs": [
+            "CS08-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M10-O02-unit",
+          "title": "用证据缩小故障",
+          "objective_refs": [
+            "CS08-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS08-M10-O03-unit",
+          "title": "重建并验证拓扑",
+          "objective_refs": [
+            "CS08-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "CS08-M01-O01",
+      "to": "CS08-M01-O02",
+      "kind": "conceptual_association",
+      "reason": "分层封装增加实际传输字节，时延计算须标注层次",
+      "source_locator": "net-tcp",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：分层封装增加实际传输字节，时延计算须标注层次；机制参见 net-tcp；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M01-O02",
+      "to": "CS08-M01-O03",
+      "kind": "conceptual_association",
+      "reason": "单链路串行化时间与串联瓶颈分别约束性能",
+      "source_locator": "net-mac",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：单链路串行化时间与串联瓶颈分别约束性能；机制参见 net-mac；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M02-O01",
+      "to": "CS08-M02-O02",
+      "kind": "conceptual_association",
+      "reason": "定界与校验分别处理边界和内容错误",
+      "source_locator": "net-frame",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：定界与校验分别处理边界和内容错误；机制参见 net-frame；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M02-O02",
+      "to": "CS08-M02-O03",
+      "kind": "conceptual_association",
+      "reason": "差错检出不能取代介质访问规则",
+      "source_locator": "net-mac",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：差错检出不能取代介质访问规则；机制参见 net-mac；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M03-O01",
+      "to": "CS08-M03-O02",
+      "kind": "conceptual_association",
+      "reason": "转发表学习需要保留广播域范围",
+      "source_locator": "net-switch",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：转发表学习需要保留广播域范围；机制参见 net-switch；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M03-O02",
+      "to": "CS08-M03-O03",
+      "kind": "conceptual_association",
+      "reason": "VLAN 分区与广播环路是不同条件",
+      "source_locator": "net-switch",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：VLAN 分区与广播环路是不同条件；机制参见 net-switch；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M04-O01",
+      "to": "CS08-M04-O03",
+      "kind": "conceptual_association",
+      "reason": "本地前缀决定普通 onlink 下一跳约束",
+      "source_locator": "net-ip",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：本地前缀决定普通 onlink 下一跳约束；机制参见 net-ip；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M04-O02",
+      "to": "CS08-M04-O03",
+      "kind": "conceptual_association",
+      "reason": "接口下一跳解析在 IPv6 使用邻居发现",
+      "source_locator": "net-nd",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：接口下一跳解析在 IPv6 使用邻居发现；机制参见 net-nd；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M05-O01",
+      "to": "CS08-M05-O02",
+      "kind": "conceptual_association",
+      "reason": "双向路径分别选择相应目的最长前缀",
+      "source_locator": "net-prefix",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：双向路径分别选择相应目的最长前缀；机制参见 net-prefix；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M05-O02",
+      "to": "CS08-M05-O03",
+      "kind": "conceptual_association",
+      "reason": "断链后需重新检查可用返回路径",
+      "source_locator": "net-prefix",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：断链后需重新检查可用返回路径；机制参见 net-prefix；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M06-O01",
+      "to": "CS08-M06-O02",
+      "kind": "conceptual_association",
+      "reason": "本地下一跳解析与路径 MTU 是不同层的检查",
+      "source_locator": "net-ipv6",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：本地下一跳解析与路径 MTU 是不同层的检查；机制参见 net-ipv6；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M06-O02",
+      "to": "CS08-M06-O03",
+      "kind": "conceptual_association",
+      "reason": "服务不可达还需区分超 MTU 与过滤条件",
+      "source_locator": "net-http",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：服务不可达还需区分超 MTU 与过滤条件；机制参见 net-http；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M07-O01",
+      "to": "CS08-M07-O02",
+      "kind": "conceptual_association",
+      "reason": "TCP 生命周期与字节窗口是不同运行约束",
+      "source_locator": "net-tcp",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：TCP 生命周期与字节窗口是不同运行约束；机制参见 net-tcp；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M07-O01",
+      "to": "CS08-M07-O03",
+      "kind": "conceptual_association",
+      "reason": "字节流与数据报的边界及关闭语义不同",
+      "source_locator": "net-udp",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：字节流与数据报的边界及关闭语义不同；机制参见 net-udp；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M08-O01",
+      "to": "CS08-M08-O02",
+      "kind": "conceptual_association",
+      "reason": "名称解析输出只提供地址，不保证 HTTP 响应",
+      "source_locator": "net-http",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：名称解析输出只提供地址，不保证 HTTP 响应；机制参见 net-http；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M08-O02",
+      "to": "CS08-M08-O03",
+      "kind": "conceptual_association",
+      "reason": "HTTP 业务拒绝与安全传输通道必须分开定位",
+      "source_locator": "net-http",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：HTTP 业务拒绝与安全传输通道必须分开定位；机制参见 net-http；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M09-O01",
+      "to": "CS08-M09-O02",
+      "kind": "conceptual_association",
+      "reason": "物理碰撞和消息完整性是不同失败来源",
+      "source_locator": "net-wireless",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：物理碰撞和消息完整性是不同失败来源；机制参见 net-wireless；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M09-O02",
+      "to": "CS08-M09-O03",
+      "kind": "conceptual_association",
+      "reason": "标签验证与序号防重放需不同证据",
+      "source_locator": "net-hmac",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：标签验证与序号防重放需不同证据；机制参见 net-hmac；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M10-O01",
+      "to": "CS08-M10-O02",
+      "kind": "conceptual_association",
+      "reason": "连接假设必须通过新的实际端口观察取证",
+      "source_locator": "net-socket",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：连接假设必须通过新的实际端口观察取证；机制参见 net-socket；专业审校不可用。"
+    },
+    {
+      "from": "CS08-M10-O02",
+      "to": "CS08-M10-O03",
+      "kind": "conceptual_association",
+      "reason": "重建后不能沿用旧端口与历史连接结果",
+      "source_locator": "net-socket",
+      "course_version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：重建后不能沿用旧端口与历史连接结果；机制参见 net-socket；专业审校不可用。"
+    }
+  ],
+  "activities": [
+    {
+      "id": "a723905a-2a7d-5fce-9793-03c0302006f4",
+      "version_id": "af1079df-ff98-5d7a-8274-c18ec0b27893",
+      "code": "CS08-M01-O01-CODE",
+      "version": "CS08-M01-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M01-O01"
+      ],
+      "kind": "code",
+      "title": "教学封装顺序保留层次",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "本例规定从外到内为 Ethernet/IP/TCP/application，不是完整报文字节解析；解封装应先移除外层。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-tcp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nlayers=['Ethernet','IP','TCP','application'] if n==1 else ['IP','UDP','application']\nprint(layers[-1])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nlayers=['Ethernet','IP','TCP','application'] if n==1 else ['IP','UDP','application']\nprint(layers[0])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "换用 UDP 承载",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nlayers=['Ethernet','IP','TCP','application'] if n==1 else ['IP','UDP','application']\nprint(layers[-1])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nlayers=['Ethernet','IP','TCP','application'] if n==1 else ['IP','UDP','application']\nprint(layers[0])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "fbb24a72-a200-508d-a600-c95d72ba5cb2",
+      "version_id": "fbc685f3-f1bf-5abd-bf66-63c01e4c965a",
+      "code": "CS08-M01-O02-CODE",
+      "version": "CS08-M01-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M01-O02"
+      ],
+      "kind": "code",
+      "title": "串行化和传播时延分别计单位",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创无排队单链路：8000 bit、速率 2000 bit/s、传播 1s；长度除速率，再加传播。不得把往返和单程混用。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-mac"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nbits=8000 if n==1 else 0\nrate=2000\npropagation=1\nprint(bits//rate)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nbits=8000 if n==1 else 0\nrate=2000\npropagation=1\nprint(bits//rate+propagation)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "零长度仍有传播模型项",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nbits=8000 if n==1 else 0\nrate=2000\npropagation=1\nprint(bits//rate)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nbits=8000 if n==1 else 0\nrate=2000\npropagation=1\nprint(bits//rate+propagation)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "8d578928-9c45-5658-9f0f-d80370ad9a9f",
+      "version_id": "3eebec76-5e01-515f-8e45-ff7f6d41d2b5",
+      "code": "CS08-M01-O03-CODE",
+      "version": "CS08-M01-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M01-O03"
+      ],
+      "kind": "code",
+      "title": "串联路径的理想瓶颈上界",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创持续流、忽略开销与竞争的两段串联链路上界为较小容量，实际吞吐仍须测量。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-mac"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nrates=[10,2] if n==1 else [4,4]\nprint(max(rates))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nrates=[10,2] if n==1 else [4,4]\nprint(min(rates))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "等容量链路",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nrates=[10,2] if n==1 else [4,4]\nprint(max(rates))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nrates=[10,2] if n==1 else [4,4]\nprint(min(rates))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "8953e1d4-541e-5a71-ba92-100fb9bee176",
+      "version_id": "8a941582-7bd4-5cd4-9ede-831bdff61116",
+      "code": "CS08-M02-O01-CODE",
+      "version": "CS08-M02-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M02-O01"
+      ],
+      "kind": "code",
+      "title": "教学字节定界必须转义载荷",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创帧使用 ~ 为边界、} 为转义，载荷内两者都前置 }；这是自定义教学编码，不是直接实现 PPP。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-frame"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npayload='a~b' if n==1 else 'ab'\nencoded=payload\nprint('~'+encoded+'~')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npayload='a~b' if n==1 else 'ab'\nencoded=''.join(('}'+c) if c in '~}' else c for c in payload)\nprint('~'+encoded+'~')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "不含保留字符",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npayload='a~b' if n==1 else 'ab'\nencoded=payload\nprint('~'+encoded+'~')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npayload='a~b' if n==1 else 'ab'\nencoded=''.join(('}'+c) if c in '~}' else c for c in payload)\nprint('~'+encoded+'~')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e04ef38d-7a46-55ac-bf3a-5653862da2ec",
+      "version_id": "165da738-e431-5003-b9a1-728c1f3a6e83",
+      "code": "CS08-M02-O02-CODE",
+      "version": "CS08-M02-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M02-O02"
+      ],
+      "kind": "code",
+      "title": "CRC 使用模二除法而非整数余数",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创生成多项式 1011，收到的位串直接作 GF(2) 除法；余数非零说明检出错误，零不能证明绝无错误。尚未承载停止等待重传目标全部条件。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-crc"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nword=0b1101 if n==1 else 0\ngenerator=0b1011\nx=word\nwhile x.bit_length()>=generator.bit_length():\n x^=generator<<(x.bit_length()-generator.bit_length())\nprint(word%generator)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nword=0b1101 if n==1 else 0\ngenerator=0b1011\nx=word\nwhile x.bit_length()>=generator.bit_length():\n x^=generator<<(x.bit_length()-generator.bit_length())\nprint(x)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "全零位串",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nword=0b1101 if n==1 else 0\ngenerator=0b1011\nx=word\nwhile x.bit_length()>=generator.bit_length():\n x^=generator<<(x.bit_length()-generator.bit_length())\nprint(word%generator)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nword=0b1101 if n==1 else 0\ngenerator=0b1011\nx=word\nwhile x.bit_length()>=generator.bit_length():\n x^=generator<<(x.bit_length()-generator.bit_length())\nprint(x)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "5286f011-88ab-524d-8d92-33becaea6095",
+      "version_id": "add32e4b-2e58-51e0-a408-5965d62c9b9d",
+      "code": "CS08-M02-O03-CODE",
+      "version": "CS08-M02-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M02-O03"
+      ],
+      "kind": "code",
+      "title": "现代全双工链路不运行共享碰撞规则",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "对明示 full_duplex/shared 模式选择是否适用经典 CSMA/CD；并非交换式以太网全部共享碰撞域，也不模拟真实退避。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-mac"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nmode='full_duplex' if n==1 else 'shared'\nprint(True)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nmode='full_duplex' if n==1 else 'shared'\nprint(mode=='shared')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "共享半双工教学介质",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nmode='full_duplex' if n==1 else 'shared'\nprint(True)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nmode='full_duplex' if n==1 else 'shared'\nprint(mode=='shared')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "9df15f69-e00d-5cd9-9889-822d66efd935",
+      "version_id": "d469d36b-1ddd-547f-a3ca-6c193de34a38",
+      "code": "CS08-M03-O01-CODE",
+      "version": "CS08-M03-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M03-O01"
+      ],
+      "kind": "code",
+      "title": "MAC 学习绑定收到帧的源地址",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创学习表：收到帧的源 MAC 与入口绑定，目的 MAC 用于查询。只核验表更新，非真实网桥。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-switch"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsource='A';destination='B' if n==1 else 'A'\nport=1;table={}\ntable[destination]=port\nprint(table.get(source,'unknown'))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsource='A';destination='B' if n==1 else 'A'\nport=1;table={}\ntable[source]=port\nprint(table.get(source,'unknown'))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "源目的相同的观察条件",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsource='A';destination='B' if n==1 else 'A'\nport=1;table={}\ntable[destination]=port\nprint(table.get(source,'unknown'))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsource='A';destination='B' if n==1 else 'A'\nport=1;table={}\ntable[source]=port\nprint(table.get(source,'unknown'))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "b84d0dd9-c8cf-53da-9a6b-69f5402b27ec",
+      "version_id": "94e53053-24e8-5736-9f61-4d77d7eb5b03",
+      "code": "CS08-M03-O02-CODE",
+      "version": "CS08-M03-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M03-O02"
+      ],
+      "kind": "code",
+      "title": "VLAN 教学分区须检查禁止通信",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创二层无路由模型：VLAN 不同不可直接转发；此布尔模型不是实际 VLAN 配置或连通证据。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-switch"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nleft=10;right=20 if n==1 else 10\nprint(True)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nleft=10;right=20 if n==1 else 10\nprint(left==right)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "同 VLAN 条件",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nleft=10;right=20 if n==1 else 10\nprint(True)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nleft=10;right=20 if n==1 else 10\nprint(left==right)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "731296b2-7ad7-5f3e-aa8d-c70458c42210",
+      "version_id": "1b8db023-de19-55c2-9325-d0914fcc6886",
+      "code": "CS08-M03-O03-CODE",
+      "version": "CS08-M03-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M03-O03"
+      ],
+      "kind": "code",
+      "title": "广播环路需切断转发环",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创三网桥图使用无向连通 DFS 检测环，不实现 STP 选举／BPDU，输出不能当真实交换设备状态。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-switch"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges=[('A','B'),('B','C'),('C','A')] if n==1 else [('A','B'),('B','C')]\nparent={}\ndef root(x):\n parent.setdefault(x,x)\n while parent[x]!=x:x=parent[x]\n return x\ncycle=False\nfor a,b in edges:\n ra,rb=root(a),root(b)\n if ra==rb:cycle=True\n else:parent[ra]=rb\nprint(False)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges=[('A','B'),('B','C'),('C','A')] if n==1 else [('A','B'),('B','C')]\nparent={}\ndef root(x):\n parent.setdefault(x,x)\n while parent[x]!=x:x=parent[x]\n return x\ncycle=False\nfor a,b in edges:\n ra,rb=root(a),root(b)\n if ra==rb:cycle=True\n else:parent[ra]=rb\nprint(cycle)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "移除一条边",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges=[('A','B'),('B','C'),('C','A')] if n==1 else [('A','B'),('B','C')]\nparent={}\ndef root(x):\n parent.setdefault(x,x)\n while parent[x]!=x:x=parent[x]\n return x\ncycle=False\nfor a,b in edges:\n ra,rb=root(a),root(b)\n if ra==rb:cycle=True\n else:parent[ra]=rb\nprint(False)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges=[('A','B'),('B','C'),('C','A')] if n==1 else [('A','B'),('B','C')]\nparent={}\ndef root(x):\n parent.setdefault(x,x)\n while parent[x]!=x:x=parent[x]\n return x\ncycle=False\nfor a,b in edges:\n ra,rb=root(a),root(b)\n if ra==rb:cycle=True\n else:parent[ra]=rb\nprint(cycle)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2f623cb7-5bd2-5757-a01c-826c1e76b707",
+      "version_id": "2b4645cd-8344-5c27-8972-be431f43ac60",
+      "code": "CS08-M04-O01-CODE",
+      "version": "CS08-M04-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M04-O01"
+      ],
+      "kind": "code",
+      "title": "IPv4 可用地址不能一律减二",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "使用真实 ipaddress API：普通 /30 有两个可用主机，/31 点到点语义含两个端点。此任务只做地址规划，不配置接口。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-ip"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport ipaddress\nprefix=30 if n==1 else 31\nnet=ipaddress.ip_network('192.0.2.0/'+str(prefix))\nprint(net.num_addresses-2)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport ipaddress\nprefix=30 if n==1 else 31\nnet=ipaddress.ip_network('192.0.2.0/'+str(prefix))\nprint(len(list(net.hosts())))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "点到点 /31",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport ipaddress\nprefix=30 if n==1 else 31\nnet=ipaddress.ip_network('192.0.2.0/'+str(prefix))\nprint(net.num_addresses-2)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport ipaddress\nprefix=30 if n==1 else 31\nnet=ipaddress.ip_network('192.0.2.0/'+str(prefix))\nprint(len(list(net.hosts())))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "9c70f538-2eca-57f8-b818-5c5d8f095b50",
+      "version_id": "c569b257-dab1-5fa0-8f3d-b2fc392ec100",
+      "code": "CS08-M04-O02-CODE",
+      "version": "CS08-M04-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M04-O02"
+      ],
+      "kind": "code",
+      "title": "IPv6 邻居请求必须验证 Hop Limit",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "对原创报文字段记录检查 ND 的 Hop Limit=255 条件，避免接受经路由转发的请求；只是一项必要条件，尚须 ICMPv6 校验和及地址规则。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-nd"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nhop=64 if n==1 else 255\nprint(True)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nhop=64 if n==1 else 255\nprint(hop==255)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "合法 Hop Limit",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nhop=64 if n==1 else 255\nprint(True)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nhop=64 if n==1 else 255\nprint(hop==255)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "08b9f803-e126-5639-b77b-1b1a9c6e51db",
+      "version_id": "6d36a5d5-a56f-5a6e-9e20-241aa0848beb",
+      "code": "CS08-M04-O03-CODE",
+      "version": "CS08-M04-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M04-O03"
+      ],
+      "kind": "code",
+      "title": "下一跳网关须按接口前缀核对",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创明确在链路网关场景：192.0.2.2/24 的下一跳必须在本地前缀内；特殊 onlink 与隧道例外不在题面。不构成真实接口配置。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-ip"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport ipaddress\nlocal=ipaddress.ip_interface('192.0.2.2/24')\ngateway=ipaddress.ip_address('198.51.100.1' if n==1 else '192.0.2.1')\nprint(True)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport ipaddress\nlocal=ipaddress.ip_interface('192.0.2.2/24')\ngateway=ipaddress.ip_address('198.51.100.1' if n==1 else '192.0.2.1')\nprint(gateway in local.network)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "换成本地下一跳",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport ipaddress\nlocal=ipaddress.ip_interface('192.0.2.2/24')\ngateway=ipaddress.ip_address('198.51.100.1' if n==1 else '192.0.2.1')\nprint(True)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport ipaddress\nlocal=ipaddress.ip_interface('192.0.2.2/24')\ngateway=ipaddress.ip_address('198.51.100.1' if n==1 else '192.0.2.1')\nprint(gateway in local.network)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "0fc4a38e-d94c-5426-9bfa-d7f82efc1e3c",
+      "version_id": "f232aa73-20ce-583a-8ac6-0edf9e745365",
+      "code": "CS08-M05-O01-CODE",
+      "version": "CS08-M05-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M05-O01"
+      ],
+      "kind": "code",
+      "title": "最长前缀须在所有匹配项中选择",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创路由表先列默认，再列 /24；顺序不是前缀优先级。相同前缀的管理距离或多路径不在本例。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-prefix"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport ipaddress\naddress=ipaddress.ip_address('192.0.2.9' if n==1 else '198.51.100.9')\nroutes=[(ipaddress.ip_network('0.0.0.0/0'),'default'),(ipaddress.ip_network('192.0.2.0/24'),'local')]\nmatches=[r for r in routes if address in r[0]]\nprint(matches[0][1])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport ipaddress\naddress=ipaddress.ip_address('192.0.2.9' if n==1 else '198.51.100.9')\nroutes=[(ipaddress.ip_network('0.0.0.0/0'),'default'),(ipaddress.ip_network('192.0.2.0/24'),'local')]\nmatches=[r for r in routes if address in r[0]]\nprint(max(matches,key=lambda r:r[0].prefixlen)[1])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "仅匹配默认路由",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport ipaddress\naddress=ipaddress.ip_address('192.0.2.9' if n==1 else '198.51.100.9')\nroutes=[(ipaddress.ip_network('0.0.0.0/0'),'default'),(ipaddress.ip_network('192.0.2.0/24'),'local')]\nmatches=[r for r in routes if address in r[0]]\nprint(matches[0][1])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport ipaddress\naddress=ipaddress.ip_address('192.0.2.9' if n==1 else '198.51.100.9')\nroutes=[(ipaddress.ip_network('0.0.0.0/0'),'default'),(ipaddress.ip_network('192.0.2.0/24'),'local')]\nmatches=[r for r in routes if address in r[0]]\nprint(max(matches,key=lambda r:r[0].prefixlen)[1])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "eeb8f3cc-c2c1-5d1e-b7d6-2b74a7fcee8e",
+      "version_id": "22a948b7-69d7-563d-bd50-c5c2795630da",
+      "code": "CS08-M05-O02-CODE",
+      "version": "CS08-M05-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M05-O02"
+      ],
+      "kind": "code",
+      "title": "静态路径需同时考虑回程",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创方向图分别核对请求路径和返回路径，正向可达不保证往返。不是 FRR 路由生效证据。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-prefix"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nforward=True;reverse=False if n==1 else True\nprint(forward)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nforward=True;reverse=False if n==1 else True\nprint(forward and reverse)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "补上返回方向",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nforward=True;reverse=False if n==1 else True\nprint(forward)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nforward=True;reverse=False if n==1 else True\nprint(forward and reverse)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c3b39c72-372b-5625-b02d-fb198b487c35",
+      "version_id": "f7a555c3-a238-55f7-b834-04ef2643c362",
+      "code": "CS08-M05-O03-CODE",
+      "version": "CS08-M05-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M05-O03"
+      ],
+      "kind": "code",
+      "title": "断链后只在现存路径中重算",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创小图最短路径重算，断开 A-B 后应经 C 到 B；这是图模型而非 OSPF 收敛时序或真实 FRR。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-prefix"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges={'A':[('C',2)],'C':[('B',2)],'B':[]} if n==1 else {'A':[('B',1)],'B':[]}\ndist={'A':0};todo=[(0,'A')]\nimport heapq\nwhile todo:\n cost,node=heapq.heappop(todo)\n if cost!=dist[node]:continue\n for target,weight in edges[node]:\n  value=cost+weight\n  if value<dist.get(target,999):dist[target]=value;heapq.heappush(todo,(value,target))\nprint(1)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nedges={'A':[('C',2)],'C':[('B',2)],'B':[]} if n==1 else {'A':[('B',1)],'B':[]}\ndist={'A':0};todo=[(0,'A')]\nimport heapq\nwhile todo:\n cost,node=heapq.heappop(todo)\n if cost!=dist[node]:continue\n for target,weight in edges[node]:\n  value=cost+weight\n  if value<dist.get(target,999):dist[target]=value;heapq.heappush(todo,(value,target))\nprint(dist['B'])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "恢复直接链路",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges={'A':[('C',2)],'C':[('B',2)],'B':[]} if n==1 else {'A':[('B',1)],'B':[]}\ndist={'A':0};todo=[(0,'A')]\nimport heapq\nwhile todo:\n cost,node=heapq.heappop(todo)\n if cost!=dist[node]:continue\n for target,weight in edges[node]:\n  value=cost+weight\n  if value<dist.get(target,999):dist[target]=value;heapq.heappush(todo,(value,target))\nprint(1)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nedges={'A':[('C',2)],'C':[('B',2)],'B':[]} if n==1 else {'A':[('B',1)],'B':[]}\ndist={'A':0};todo=[(0,'A')]\nimport heapq\nwhile todo:\n cost,node=heapq.heappop(todo)\n if cost!=dist[node]:continue\n for target,weight in edges[node]:\n  value=cost+weight\n  if value<dist.get(target,999):dist[target]=value;heapq.heappush(todo,(value,target))\nprint(dist['B'])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "7796ae2b-2e1a-5054-885e-b5a444ebf1bd",
+      "version_id": "0501c425-de5c-5f8c-858b-d6d602cb8fac",
+      "code": "CS08-M06-O01-CODE",
+      "version": "CS08-M06-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M06-O01"
+      ],
+      "kind": "code",
+      "title": "ARP 查询本链路下一跳而非远端主机",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创有网关的 IPv4 路径：远端服务的目的 IP 保持不变，本链路 ARP 查询下一跳网关；本例未发送真实 ARP/ICMP。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-arp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndestination='198.51.100.8' if n==1 else '192.0.2.8'\ngateway='192.0.2.1'\nimport ipaddress\nonlink=ipaddress.ip_address(destination) in ipaddress.ip_network('192.0.2.0/24')\nprint(destination)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndestination='198.51.100.8' if n==1 else '192.0.2.8'\ngateway='192.0.2.1'\nimport ipaddress\nonlink=ipaddress.ip_address(destination) in ipaddress.ip_network('192.0.2.0/24')\nprint(destination if onlink else gateway)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "目的就在本链路",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndestination='198.51.100.8' if n==1 else '192.0.2.8'\ngateway='192.0.2.1'\nimport ipaddress\nonlink=ipaddress.ip_address(destination) in ipaddress.ip_network('192.0.2.0/24')\nprint(destination)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndestination='198.51.100.8' if n==1 else '192.0.2.8'\ngateway='192.0.2.1'\nimport ipaddress\nonlink=ipaddress.ip_address(destination) in ipaddress.ip_network('192.0.2.0/24')\nprint(destination if onlink else gateway)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "ea39d2be-6e0d-575a-b8bb-641d2851943f",
+      "version_id": "fe202dd4-589d-564d-844c-8f8e278a61ec",
+      "code": "CS08-M06-O02-CODE",
+      "version": "CS08-M06-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M06-O02"
+      ],
+      "kind": "code",
+      "title": "IPv6 路由器不能分片超 MTU 报文",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创记录仅判断路由器遇到超 MTU 时选择 Packet Too Big；IPv6 分片仅源端可做，此处不发送真实 ICMPv6。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-ipv6"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize=1500 if n==1 else 1280\nmtu=1280\nprint('forward')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize=1500 if n==1 else 1280\nmtu=1280\nprint('packet_too_big' if size>mtu else 'forward')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "恰好 MTU",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize=1500 if n==1 else 1280\nmtu=1280\nprint('forward')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize=1500 if n==1 else 1280\nmtu=1280\nprint('packet_too_big' if size>mtu else 'forward')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2d8994da-4894-5ec3-9a02-c91587cffcf1",
+      "version_id": "069a1c97-ab9c-513a-9eca-6a1a2581055b",
+      "code": "CS08-M06-O03-CODE",
+      "version": "CS08-M06-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M06-O03"
+      ],
+      "kind": "code",
+      "title": "教学 NAT 映射不能替代过滤授权",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创两项独立条件：存在地址转换映射且过滤允许才能通过；不是实际 NAT conntrack 或防火墙配置。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-http"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nmapped=True;allowed=False if n==1 else True\nprint(mapped)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nmapped=True;allowed=False if n==1 else True\nprint(mapped and allowed)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "允许的映射流",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nmapped=True;allowed=False if n==1 else True\nprint(mapped)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nmapped=True;allowed=False if n==1 else True\nprint(mapped and allowed)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "d4c7b2de-df4b-5634-b54a-3b7b00521d5d",
+      "version_id": "5f4fded5-4178-5d95-8378-3bccd565bd85",
+      "code": "CS08-M07-O01-CODE",
+      "version": "CS08-M07-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M07-O01"
+      ],
+      "kind": "code",
+      "title": "真实 TCP 半关闭后仍可读取响应",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "仅本沙箱 IPv4 回环：客户端 shutdown(SHUT_WR) 后服务端读 EOF，再回送长度；接收方向仍开放。没有抓包，不能声称观察三次握手细节。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-socket"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket,threading\npayload=b'alpha' if n==1 else b'xy'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);data=b''\n  while True:\n   chunk=conn.recv(2)\n   if not chunk:break\n   data+=chunk\n  conn.sendall(str(len(data)).encode())\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(payload);client.shutdown(socket.SHUT_WR)\n reply=client.recv(8)\n print('closed')\nthread.join();server.close()\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket,threading\npayload=b'alpha' if n==1 else b'xy'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);data=b''\n  while True:\n   chunk=conn.recv(2)\n   if not chunk:break\n   data+=chunk\n  conn.sendall(str(len(data)).encode())\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(payload);client.shutdown(socket.SHUT_WR)\n reply=client.recv(8)\n print(reply.decode())\nthread.join();server.close()\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变请求载荷长度",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket,threading\npayload=b'alpha' if n==1 else b'xy'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);data=b''\n  while True:\n   chunk=conn.recv(2)\n   if not chunk:break\n   data+=chunk\n  conn.sendall(str(len(data)).encode())\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(payload);client.shutdown(socket.SHUT_WR)\n reply=client.recv(8)\n print('closed')\nthread.join();server.close()\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket,threading\npayload=b'alpha' if n==1 else b'xy'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);data=b''\n  while True:\n   chunk=conn.recv(2)\n   if not chunk:break\n   data+=chunk\n  conn.sendall(str(len(data)).encode())\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(payload);client.shutdown(socket.SHUT_WR)\n reply=client.recv(8)\n print(reply.decode())\nthread.join();server.close()\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "9d93c3a6-d39f-506e-8a09-ee7b6bec88e2",
+      "version_id": "2235d63c-40f7-51e2-ba8c-2d78c6e09e02",
+      "code": "CS08-M07-O02-CODE",
+      "version": "CS08-M07-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M07-O02"
+      ],
+      "kind": "code",
+      "title": "发送额度受接收及拥塞窗口共同限制",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创静态字节窗口模型：可发新数据=min(rwnd,cwnd)-flight，不低于零。没有实现重传、拥塞算法或真实时延丢包测量。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-tcp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nrwnd=3;cwnd=10;flight=2 if n==1 else 3\nprint(max(0,cwnd-flight))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nrwnd=3;cwnd=10;flight=2 if n==1 else 3\nprint(max(0,min(rwnd,cwnd)-flight))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "接收窗口已满",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nrwnd=3;cwnd=10;flight=2 if n==1 else 3\nprint(max(0,cwnd-flight))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nrwnd=3;cwnd=10;flight=2 if n==1 else 3\nprint(max(0,min(rwnd,cwnd)-flight))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "3abc37c4-0bda-5942-8f5e-b0c8968c4bfb",
+      "version_id": "99619d09-b1ca-526d-8e36-770d11000bec",
+      "code": "CS08-M07-O03-CODE",
+      "version": "CS08-M07-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M07-O03"
+      ],
+      "kind": "code",
+      "title": "真实 UDP 截断不保留数据报尾部",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "仅本沙箱 UDP 回环：首次 recvfrom(2) 截断较长数据报，下一次读到下一报，不会接续上一报的尾部；不证明可靠性。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-udp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as receiver, socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as sender:\n receiver.bind(('127.0.0.1',0));receiver.settimeout(2)\n sender.sendto(b'alpha' if n==1 else b'xy',receiver.getsockname());sender.sendto(b'Z',receiver.getsockname())\n first=receiver.recvfrom(2)[0];second=receiver.recvfrom(8)[0]\n print((first+second).decode())\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as receiver, socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as sender:\n receiver.bind(('127.0.0.1',0));receiver.settimeout(2)\n sender.sendto(b'alpha' if n==1 else b'xy',receiver.getsockname());sender.sendto(b'Z',receiver.getsockname())\n first=receiver.recvfrom(2)[0];second=receiver.recvfrom(8)[0]\n print(second.decode())\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "第一报恰好两字节",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as receiver, socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as sender:\n receiver.bind(('127.0.0.1',0));receiver.settimeout(2)\n sender.sendto(b'alpha' if n==1 else b'xy',receiver.getsockname());sender.sendto(b'Z',receiver.getsockname())\n first=receiver.recvfrom(2)[0];second=receiver.recvfrom(8)[0]\n print((first+second).decode())\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as receiver, socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as sender:\n receiver.bind(('127.0.0.1',0));receiver.settimeout(2)\n sender.sendto(b'alpha' if n==1 else b'xy',receiver.getsockname());sender.sendto(b'Z',receiver.getsockname())\n first=receiver.recvfrom(2)[0];second=receiver.recvfrom(8)[0]\n print(second.decode())\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "20cab3c5-ff1a-56f8-aac1-1ab59de3d6f6",
+      "version_id": "6d9146dd-79ea-5d4a-bca6-5b09be76c73b",
+      "code": "CS08-M08-O01-CODE",
+      "version": "CS08-M08-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M08-O01"
+      ],
+      "kind": "code",
+      "title": "真实 UDP DNS 应答需对应事务编号",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创仅含 12 字节头的本地 DNS 格式应答器：检查 ID 及 QR，不支持完整递归、压缩名或记录；不能据此认定 DNS 解析功能完成。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-dns"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket,struct,threading\nidentifier=7\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n server.bind(('127.0.0.1',0));server.settimeout(2);client.settimeout(2)\n def respond():\n  query,address=server.recvfrom(512)\n  server.sendto(struct.pack('!HHHHHH',8 if n==1 else 7,0x8000,0,0,0,0),address)\n thread=threading.Thread(target=respond);thread.start()\n client.sendto(struct.pack('!HHHHHH',identifier,0,0,0,0,0),server.getsockname())\n response=client.recvfrom(512)[0];thread.join()\n response_id,flags=struct.unpack('!HH',response[:4])\n print(bool(flags&0x8000))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket,struct,threading\nidentifier=7\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n server.bind(('127.0.0.1',0));server.settimeout(2);client.settimeout(2)\n def respond():\n  query,address=server.recvfrom(512)\n  server.sendto(struct.pack('!HHHHHH',8 if n==1 else 7,0x8000,0,0,0,0),address)\n thread=threading.Thread(target=respond);thread.start()\n client.sendto(struct.pack('!HHHHHH',identifier,0,0,0,0,0),server.getsockname())\n response=client.recvfrom(512)[0];thread.join()\n response_id,flags=struct.unpack('!HH',response[:4])\n print(response_id==identifier and bool(flags&0x8000))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "对应的事务编号",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket,struct,threading\nidentifier=7\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n server.bind(('127.0.0.1',0));server.settimeout(2);client.settimeout(2)\n def respond():\n  query,address=server.recvfrom(512)\n  server.sendto(struct.pack('!HHHHHH',8 if n==1 else 7,0x8000,0,0,0,0),address)\n thread=threading.Thread(target=respond);thread.start()\n client.sendto(struct.pack('!HHHHHH',identifier,0,0,0,0,0),server.getsockname())\n response=client.recvfrom(512)[0];thread.join()\n response_id,flags=struct.unpack('!HH',response[:4])\n print(bool(flags&0x8000))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket,struct,threading\nidentifier=7\nwith socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n server.bind(('127.0.0.1',0));server.settimeout(2);client.settimeout(2)\n def respond():\n  query,address=server.recvfrom(512)\n  server.sendto(struct.pack('!HHHHHH',8 if n==1 else 7,0x8000,0,0,0,0),address)\n thread=threading.Thread(target=respond);thread.start()\n client.sendto(struct.pack('!HHHHHH',identifier,0,0,0,0,0),server.getsockname())\n response=client.recvfrom(512)[0];thread.join()\n response_id,flags=struct.unpack('!HH',response[:4])\n print(response_id==identifier and bool(flags&0x8000))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "7ad61132-0be2-59ba-a8e1-b17a0f7eee3b",
+      "version_id": "c559f193-61bb-5f86-b562-fd3e752858c2",
+      "code": "CS08-M08-O02-CODE",
+      "version": "CS08-M08-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M08-O02"
+      ],
+      "kind": "code",
+      "title": "真实 HTTP 字节响应先分头再读正文",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "仅回环 TCP 实际交换 HTTP/1.1，Connection: close 和 Content-Length 明确，读取到 EOF 再解析；本任务不是通用 HTTP 解析器，不支持分块、压缩或 HTTP2。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-http"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket,threading\nbody=b'ok' if n==1 else b'hello'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);request=b''\n  while b'\\r\\n\\r\\n' not in request:request+=conn.recv(4096)\n  conn.sendall(b'HTTP/1.1 200 OK\\r\\nConnection: close\\r\\nContent-Length: '+str(len(body)).encode()+b'\\r\\n\\r\\n'+body)\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(b'GET / HTTP/1.1\\r\\nHost: lab.test\\r\\nConnection: close\\r\\n\\r\\n');raw=b''\n while True:\n  chunk=client.recv(2)\n  if not chunk:break\n  raw+=chunk\n print(raw.split(b'\\r\\n')[0].decode())\nthread.join();server.close()\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket,threading\nbody=b'ok' if n==1 else b'hello'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);request=b''\n  while b'\\r\\n\\r\\n' not in request:request+=conn.recv(4096)\n  conn.sendall(b'HTTP/1.1 200 OK\\r\\nConnection: close\\r\\nContent-Length: '+str(len(body)).encode()+b'\\r\\n\\r\\n'+body)\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(b'GET / HTTP/1.1\\r\\nHost: lab.test\\r\\nConnection: close\\r\\n\\r\\n');raw=b''\n while True:\n  chunk=client.recv(2)\n  if not chunk:break\n  raw+=chunk\n print(raw.split(b'\\r\\n\\r\\n',1)[1].decode())\nthread.join();server.close()\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "更长的 HTTP 正文",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket,threading\nbody=b'ok' if n==1 else b'hello'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);request=b''\n  while b'\\r\\n\\r\\n' not in request:request+=conn.recv(4096)\n  conn.sendall(b'HTTP/1.1 200 OK\\r\\nConnection: close\\r\\nContent-Length: '+str(len(body)).encode()+b'\\r\\n\\r\\n'+body)\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(b'GET / HTTP/1.1\\r\\nHost: lab.test\\r\\nConnection: close\\r\\n\\r\\n');raw=b''\n while True:\n  chunk=client.recv(2)\n  if not chunk:break\n  raw+=chunk\n print(raw.split(b'\\r\\n')[0].decode())\nthread.join();server.close()\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket,threading\nbody=b'ok' if n==1 else b'hello'\nserver=socket.socket();server.settimeout(2);server.bind(('127.0.0.1',0));server.listen()\ndef serve():\n with server.accept()[0] as conn:\n  conn.settimeout(2);request=b''\n  while b'\\r\\n\\r\\n' not in request:request+=conn.recv(4096)\n  conn.sendall(b'HTTP/1.1 200 OK\\r\\nConnection: close\\r\\nContent-Length: '+str(len(body)).encode()+b'\\r\\n\\r\\n'+body)\nthread=threading.Thread(target=serve);thread.start()\nwith socket.socket() as client:\n client.settimeout(2);client.connect(server.getsockname());client.sendall(b'GET / HTTP/1.1\\r\\nHost: lab.test\\r\\nConnection: close\\r\\n\\r\\n');raw=b''\n while True:\n  chunk=client.recv(2)\n  if not chunk:break\n  raw+=chunk\n print(raw.split(b'\\r\\n\\r\\n',1)[1].decode())\nthread.join();server.close()\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "be97b8a4-bf18-5c71-9a64-7a87feb41156",
+      "version_id": "0d4bccf9-58da-5f98-b52b-624b5d0f5af3",
+      "code": "CS08-M08-O03-CODE",
+      "version": "CS08-M08-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M08-O03"
+      ],
+      "kind": "code",
+      "title": "TLS 通过不等于应用授权通过",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创分层判断：证书校验通过但 HTTP403 仍拒绝业务请求；布尔输入是给定证据，不是本实验 TLS 握手结果。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-tls"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntls_ok=True;http_status=403 if n==1 else 200\nprint(tls_ok)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ntls_ok=True;http_status=403 if n==1 else 200\nprint(tls_ok and http_status==200)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "应用允许访问",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntls_ok=True;http_status=403 if n==1 else 200\nprint(tls_ok)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ntls_ok=True;http_status=403 if n==1 else 200\nprint(tls_ok and http_status==200)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "167af13f-16b3-5be8-99cf-8c5d29e44dd7",
+      "version_id": "a0c33fb5-1836-5fe8-b273-6bb592ce4e78",
+      "code": "CS08-M09-O01-CODE",
+      "version": "CS08-M09-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M09-O01"
+      ],
+      "kind": "code",
+      "title": "隐藏终端在接收端仍可能冲突",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创无线可达关系：A 和 C 互相听不到但都能到 B，同时发送可在 B 冲突；未模拟功率、退避或真实无线设备。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-wireless"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nhear_each_other=False;at_receiver=2 if n==1 else 1\nprint(hear_each_other)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nhear_each_other=False;at_receiver=2 if n==1 else 1\nprint(at_receiver>1)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "只有一个发送者",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nhear_each_other=False;at_receiver=2 if n==1 else 1\nprint(hear_each_other)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nhear_each_other=False;at_receiver=2 if n==1 else 1\nprint(at_receiver>1)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "6a308392-d6e2-5cd2-bfcd-4576f95f0f0b",
+      "version_id": "1d1bccdc-d538-5289-948e-59e3d2588b51",
+      "code": "CS08-M09-O02-CODE",
+      "version": "CS08-M09-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M09-O02"
+      ],
+      "kind": "code",
+      "title": "真实 HMAC 检验篡改不提供加密",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "用公开教学密钥 hmac SHA256 对比原消息与改动消息，compare_digest 返回完整性验证结果；密钥公开不能保护真实通信，HMAC 不隐藏明文。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-hmac"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport hmac\nkey=b'public-teaching-key';message=b'pay=1'\ntag=hmac.digest(key,message,'sha256')\nreceived=b'pay=9' if n==1 else message\nexpected=hmac.digest(key,received,'sha256')\nprint(True)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport hmac\nkey=b'public-teaching-key';message=b'pay=1'\ntag=hmac.digest(key,message,'sha256')\nreceived=b'pay=9' if n==1 else message\nexpected=hmac.digest(key,received,'sha256')\nprint(hmac.compare_digest(tag,expected))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "未改动的明文",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport hmac\nkey=b'public-teaching-key';message=b'pay=1'\ntag=hmac.digest(key,message,'sha256')\nreceived=b'pay=9' if n==1 else message\nexpected=hmac.digest(key,received,'sha256')\nprint(True)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport hmac\nkey=b'public-teaching-key';message=b'pay=1'\ntag=hmac.digest(key,message,'sha256')\nreceived=b'pay=9' if n==1 else message\nexpected=hmac.digest(key,received,'sha256')\nprint(hmac.compare_digest(tag,expected))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "4cd3c3c9-1510-5ba1-8d21-4d378b656831",
+      "version_id": "585a3ba6-53da-5ab4-8403-95707dd15c8f",
+      "code": "CS08-M09-O03-CODE",
+      "version": "CS08-M09-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M09-O03"
+      ],
+      "kind": "code",
+      "title": "有效认证标签也需要防重放状态",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创请求序号集合：同一有效序号第二次拒绝；本例给定 tag_valid，不构成 TLS replay 检查器或网络攻击实验。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-tls"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nseen={1};sequence=1 if n==1 else 2;tag_valid=True\nprint(tag_valid)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nseen={1};sequence=1 if n==1 else 2;tag_valid=True\nprint(tag_valid and sequence not in seen)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "新序号请求",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nseen={1};sequence=1 if n==1 else 2;tag_valid=True\nprint(tag_valid)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nseen={1};sequence=1 if n==1 else 2;tag_valid=True\nprint(tag_valid and sequence not in seen)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "6f51e39f-9d93-5253-b086-339b062514f0",
+      "version_id": "dbf707f9-1a25-5fa1-85b1-88df95917e52",
+      "code": "CS08-M10-O01-CODE",
+      "version": "CS08-M10-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M10-O01"
+      ],
+      "kind": "code",
+      "title": "服务排障需提出可检验的分层假设",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创提供 DNS 成功、TCP 拒绝、HTTP 未执行的证据；应优先检查端口监听／连接，不从 DNS 成功推定应用成功。实际故障原因仍需新证据。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-http"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndns_ok=True;tcp_ok=False if n==1 else True\nprint('application')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndns_ok=True;tcp_ok=False if n==1 else True\nprint('application' if tcp_ok else 'tcp_listener')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "TCP 成功后再查应用",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndns_ok=True;tcp_ok=False if n==1 else True\nprint('application')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndns_ok=True;tcp_ok=False if n==1 else True\nprint('application' if tcp_ok else 'tcp_listener')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "fc39acff-d9cb-5a55-8ed3-42cfcdb743c1",
+      "version_id": "d6212864-b872-546d-bd46-09aec246cb7e",
+      "code": "CS08-M10-O02-CODE",
+      "version": "CS08-M10-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M10-O02"
+      ],
+      "kind": "code",
+      "title": "真实回环拒绝与监听成功分别取证",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "在本沙箱建立监听 socket，另占用但不 listen 的端口，分别 connect_ex；拒绝说明该时刻连接未建立，不能由此推定所有故障原因。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-socket"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket\nwith socket.socket() as service,socket.socket() as unused,socket.socket() as client:\n service.bind(('127.0.0.1',0));service.listen();unused.bind(('127.0.0.1',0));client.settimeout(2)\n address=unused.getsockname() if n==1 else service.getsockname()\n error=client.connect_ex(address)\n print('connected')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket\nwith socket.socket() as service,socket.socket() as unused,socket.socket() as client:\n service.bind(('127.0.0.1',0));service.listen();unused.bind(('127.0.0.1',0));client.settimeout(2)\n address=unused.getsockname() if n==1 else service.getsockname()\n error=client.connect_ex(address)\n print('connected' if error==0 else 'refused')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "目标端口处于监听状态",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket\nwith socket.socket() as service,socket.socket() as unused,socket.socket() as client:\n service.bind(('127.0.0.1',0));service.listen();unused.bind(('127.0.0.1',0));client.settimeout(2)\n address=unused.getsockname() if n==1 else service.getsockname()\n error=client.connect_ex(address)\n print('connected')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket\nwith socket.socket() as service,socket.socket() as unused,socket.socket() as client:\n service.bind(('127.0.0.1',0));service.listen();unused.bind(('127.0.0.1',0));client.settimeout(2)\n address=unused.getsockname() if n==1 else service.getsockname()\n error=client.connect_ex(address)\n print('connected' if error==0 else 'refused')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "8709eb13-9b50-5b23-801a-357307635b18",
+      "version_id": "758b6c3f-bd98-5121-8051-240e2191c5de",
+      "code": "CS08-M10-O03-CODE",
+      "version": "CS08-M10-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS08-M10-O03"
+      ],
+      "kind": "code",
+      "title": "真实服务重建后重新核对通信",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "本沙箱顺序创建两个独立 UDP 服务实例，端口由内核分配。第二次需实际通信验证，不把第一次输出当新环境证据；不构成双网段拓扑完整恢复项目。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "net-socket"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket\nresults=[]\nfor payload in [b'first',b'second' if n==1 else b'first']:\n with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n  server.bind(('127.0.0.1',0));server.settimeout(2);client.sendto(payload,server.getsockname());results.append(server.recvfrom(64)[0].decode())\nprint(results[0])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport socket\nresults=[]\nfor payload in [b'first',b'second' if n==1 else b'first']:\n with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n  server.bind(('127.0.0.1',0));server.settimeout(2);client.sendto(payload,server.getsockname());results.append(server.recvfrom(64)[0].decode())\nprint(results[-1])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "相同载荷仍须实际重跑",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket\nresults=[]\nfor payload in [b'first',b'second' if n==1 else b'first']:\n with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n  server.bind(('127.0.0.1',0));server.settimeout(2);client.sendto(payload,server.getsockname());results.append(server.recvfrom(64)[0].decode())\nprint(results[0])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport socket\nresults=[]\nfor payload in [b'first',b'second' if n==1 else b'first']:\n with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as server,socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as client:\n  server.bind(('127.0.0.1',0));server.settimeout(2);client.sendto(payload,server.getsockname());results.append(server.recvfrom(64)[0].decode())\nprint(results[-1])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "net-socket",
+      "title": "Python3.13 socket",
+      "url": "https://docs.python.org/3.13/library/socket.html",
+      "locator": "recv, shutdown, recvfrom, bind and timeout",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-ip",
+      "title": "Python3.13 ipaddress",
+      "url": "https://docs.python.org/3.13/library/ipaddress.html",
+      "locator": "network membership, usable hosts including /31 and /32",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-tcp",
+      "title": "RFC9293 TCP",
+      "url": "https://www.rfc-editor.org/rfc/rfc9293.html",
+      "locator": "2.2 byte stream; 3.8 flow control; original finite examples",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-ipv6",
+      "title": "RFC8200 IPv6",
+      "url": "https://www.rfc-editor.org/rfc/rfc8200.html",
+      "locator": "4.5 and 5 source fragmentation, router restriction",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-http",
+      "title": "RFC9110 HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "locator": "15.5.4 403; requests and responses",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-frame",
+      "title": "Systems Approach Framing",
+      "url": "https://github.com/SystemsApproach/book/blob/master/direct/framing.rst",
+      "locator": "2.3.2 sentinel and stuffing",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-crc",
+      "title": "Systems Approach Error Detection",
+      "url": "https://github.com/SystemsApproach/book/blob/master/direct/error.rst",
+      "locator": "2.4 modulo two polynomial remainder",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-mac",
+      "title": "Systems Approach Ethernet",
+      "url": "https://github.com/SystemsApproach/book/blob/master/direct/ethernet.rst",
+      "locator": "2.6 shared medium vs modern point-to-point",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-switch",
+      "title": "Systems Approach Ethernet Switching",
+      "url": "https://github.com/SystemsApproach/book/blob/master/internetworking/ethernet.rst",
+      "locator": "learning bridges and spanning tree; finite VLAN example is original",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-prefix",
+      "title": "RFC4632 CIDR",
+      "url": "https://www.rfc-editor.org/rfc/rfc4632.html",
+      "locator": "5.1 longest-match forwarding",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-arp",
+      "title": "RFC826 ARP",
+      "url": "https://www.rfc-editor.org/rfc/rfc826.html",
+      "locator": "protocol address to local hardware address mapping",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-nd",
+      "title": "RFC4861 Neighbor Discovery",
+      "url": "https://www.rfc-editor.org/rfc/rfc4861.html",
+      "locator": "3.1, 7.1 solicitation hop limit validation",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-udp",
+      "title": "RFC768 UDP",
+      "url": "https://www.rfc-editor.org/rfc/rfc768.html",
+      "locator": "datagram service; no guaranteed delivery or duplicate protection",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-dns",
+      "title": "RFC1035 DNS",
+      "url": "https://www.rfc-editor.org/rfc/rfc1035.html",
+      "locator": "4.1.1 transaction ID and QR; TTL; original limited responder",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-wireless",
+      "title": "Systems Approach Wireless",
+      "url": "https://github.com/SystemsApproach/book/blob/master/direct/wireless.rst",
+      "locator": "2.7 hidden terminals at receiver",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-tls",
+      "title": "RFC8446 TLS1.3",
+      "url": "https://www.rfc-editor.org/rfc/rfc8446.html",
+      "locator": "1 channel authentication confidentiality integrity; application authorization separate",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    },
+    {
+      "id": "net-hmac",
+      "title": "Python3.13 hmac",
+      "url": "https://docs.python.org/3.13/library/hmac.html",
+      "locator": "keyed integrity and compare_digest; no encryption",
+      "status": "authority_checked",
+      "checked_at": "2026-10-10"
+    }
+  ]
+}

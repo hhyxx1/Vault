@@ -67,9 +67,9 @@
       "id": "3915babb-09a6-442b-ada7-ec0ef6271995",
       "code": "CS08",
       "title": "计算机网络",
-      "version_id": "e8f376ad-5477-56a5-a112-7efa9a7e5030",
-      "version": "CS08-core-scope-0.1.0",
-      "package_path": "CS08/CS08-core-scope-0.1.0/manifest.json",
+      "version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "version": "CS08-core-practice-0.1.0",
+      "package_path": "CS08/CS08-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -261,6 +261,15 @@
       "version_id": "ce1fdf9d-a940-5d77-8dc3-4924d9941507",
       "version": "CS07-core-scope-0.1.0",
       "package_path": "CS07/CS07-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "3915babb-09a6-442b-ada7-ec0ef6271995",
+      "code": "CS08",
+      "title": "计算机网络",
+      "version_id": "e8f376ad-5477-56a5-a112-7efa9a7e5030",
+      "version": "CS08-core-scope-0.1.0",
+      "package_path": "CS08/CS08-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]
