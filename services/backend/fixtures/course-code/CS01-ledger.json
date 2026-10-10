@@ -1,0 +1,104 @@
+[
+  {
+    "id": "ledger-recovery/initial",
+    "version": "7ca20169-02d2-5719-b3f0-eff208ae89db",
+    "goal": "CS01-M10-O03",
+    "activity": "a8eb7d99-4139-53a5-ba00-0f56fe330ff8",
+    "task": "ledger-recovery",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <string.h>\ntypedef struct { int cents; } Ledger;\nstatic int add(Ledger *book, int delta) {\n    if (delta < -10000 || delta > 10000) return 0;\n    int candidate = book->cents + delta;\n    book->cents = candidate; /* BUG: rejected withdrawal changes the ledger */\n    if (candidate < 0 || candidate > 10000) return 0;\n    return 1;\n}\nstatic int save(const Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"w\");\n    if (!f) return 0;\n    int written = fprintf(f, \"%d\\n\", book->cents) > 0;\n    int closed = fclose(f) == 0;\n    return written && closed;\n}\nstatic int load(Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"r\");\n    if (!f) return 0;\n    int candidate = 0;\n    int parsed = fscanf(f, \"%d\", &candidate) == 1;\n    int closed = fclose(f) == 0;\n    if (!parsed || !closed || candidate < 0 || candidate > 10000) return 0;\n    book->cents = candidate;\n    return 1;\n}\nint main(void) {\n    Ledger book = {0};\n    char command[16];\n    while (scanf(\"%15s\", command) == 1) {\n        if (strcmp(command, \"add\") == 0) {\n            int delta;\n            if (scanf(\"%d\", &delta) != 1) return 2;\n            int ok = add(&book, delta);\n            printf(\"%s balance=%d\\n\", ok ? \"accepted\" : \"rejected\", book.cents);\n        } else if (strcmp(command, \"save\") == 0) {\n            puts(save(&book) ? \"saved\" : \"save-failed\");\n        } else if (strcmp(command, \"reset\") == 0) {\n            book.cents = 0;\n            puts(\"memory-reset\");\n        } else if (strcmp(command, \"load\") == 0) {\n            int ok = load(&book);\n            printf(\"%s balance=%d\\n\", ok ? \"loaded\" : \"load-failed\", book.cents);\n        } else if (strcmp(command, \"show\") == 0) {\n            printf(\"balance=%d\\n\", book.cents);\n        } else return 3;\n    }\n    return 0;\n}\n"
+      },
+      "stdin": "add 1250\nadd -250\nadd -2000\nsave\nreset\nload\nshow\n"
+    },
+    "stdout": "accepted balance=1250\naccepted balance=1000\nrejected balance=-1000\nsaved\nmemory-reset\nload-failed balance=0\nbalance=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "ledger-recovery/repaired",
+    "version": "7ca20169-02d2-5719-b3f0-eff208ae89db",
+    "goal": "CS01-M10-O03",
+    "activity": "a8eb7d99-4139-53a5-ba00-0f56fe330ff8",
+    "task": "ledger-recovery",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <string.h>\ntypedef struct { int cents; } Ledger;\nstatic int add(Ledger *book, int delta) {\n    if (delta < -10000 || delta > 10000) return 0;\n    int candidate = book->cents + delta;\n    if (candidate < 0 || candidate > 10000) return 0;\n    book->cents = candidate;\n    return 1;\n}\nstatic int save(const Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"w\");\n    if (!f) return 0;\n    int written = fprintf(f, \"%d\\n\", book->cents) > 0;\n    int closed = fclose(f) == 0;\n    return written && closed;\n}\nstatic int load(Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"r\");\n    if (!f) return 0;\n    int candidate = 0;\n    int parsed = fscanf(f, \"%d\", &candidate) == 1;\n    int closed = fclose(f) == 0;\n    if (!parsed || !closed || candidate < 0 || candidate > 10000) return 0;\n    book->cents = candidate;\n    return 1;\n}\nint main(void) {\n    Ledger book = {0};\n    char command[16];\n    while (scanf(\"%15s\", command) == 1) {\n        if (strcmp(command, \"add\") == 0) {\n            int delta;\n            if (scanf(\"%d\", &delta) != 1) return 2;\n            int ok = add(&book, delta);\n            printf(\"%s balance=%d\\n\", ok ? \"accepted\" : \"rejected\", book.cents);\n        } else if (strcmp(command, \"save\") == 0) {\n            puts(save(&book) ? \"saved\" : \"save-failed\");\n        } else if (strcmp(command, \"reset\") == 0) {\n            book.cents = 0;\n            puts(\"memory-reset\");\n        } else if (strcmp(command, \"load\") == 0) {\n            int ok = load(&book);\n            printf(\"%s balance=%d\\n\", ok ? \"loaded\" : \"load-failed\", book.cents);\n        } else if (strcmp(command, \"show\") == 0) {\n            printf(\"balance=%d\\n\", book.cents);\n        } else return 3;\n    }\n    return 0;\n}\n"
+      },
+      "stdin": "add 1250\nadd -250\nadd -2000\nsave\nreset\nload\nshow\n"
+    },
+    "stdout": "accepted balance=1250\naccepted balance=1000\nrejected balance=1000\nsaved\nmemory-reset\nloaded balance=1000\nbalance=1000\n",
+    "decision": "met"
+  },
+  {
+    "id": "ledger-empty/initial",
+    "version": "7ca20169-02d2-5719-b3f0-eff208ae89db",
+    "goal": "CS01-M10-O03",
+    "activity": "a8eb7d99-4139-53a5-ba00-0f56fe330ff8",
+    "task": "ledger-empty",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <string.h>\ntypedef struct { int cents; } Ledger;\nstatic int add(Ledger *book, int delta) {\n    if (delta < -10000 || delta > 10000) return 0;\n    int candidate = book->cents + delta;\n    book->cents = candidate; /* BUG: rejected withdrawal changes the ledger */\n    if (candidate < 0 || candidate > 10000) return 0;\n    return 1;\n}\nstatic int save(const Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"w\");\n    if (!f) return 0;\n    int written = fprintf(f, \"%d\\n\", book->cents) > 0;\n    int closed = fclose(f) == 0;\n    return written && closed;\n}\nstatic int load(Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"r\");\n    if (!f) return 0;\n    int candidate = 0;\n    int parsed = fscanf(f, \"%d\", &candidate) == 1;\n    int closed = fclose(f) == 0;\n    if (!parsed || !closed || candidate < 0 || candidate > 10000) return 0;\n    book->cents = candidate;\n    return 1;\n}\nint main(void) {\n    Ledger book = {0};\n    char command[16];\n    while (scanf(\"%15s\", command) == 1) {\n        if (strcmp(command, \"add\") == 0) {\n            int delta;\n            if (scanf(\"%d\", &delta) != 1) return 2;\n            int ok = add(&book, delta);\n            printf(\"%s balance=%d\\n\", ok ? \"accepted\" : \"rejected\", book.cents);\n        } else if (strcmp(command, \"save\") == 0) {\n            puts(save(&book) ? \"saved\" : \"save-failed\");\n        } else if (strcmp(command, \"reset\") == 0) {\n            book.cents = 0;\n            puts(\"memory-reset\");\n        } else if (strcmp(command, \"load\") == 0) {\n            int ok = load(&book);\n            printf(\"%s balance=%d\\n\", ok ? \"loaded\" : \"load-failed\", book.cents);\n        } else if (strcmp(command, \"show\") == 0) {\n            printf(\"balance=%d\\n\", book.cents);\n        } else return 3;\n    }\n    return 0;\n}\n"
+      },
+      "stdin": "load\nadd -1\nsave\nreset\nload\n"
+    },
+    "stdout": "load-failed balance=0\nrejected balance=-1\nsaved\nmemory-reset\nload-failed balance=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "ledger-empty/repaired",
+    "version": "7ca20169-02d2-5719-b3f0-eff208ae89db",
+    "goal": "CS01-M10-O03",
+    "activity": "a8eb7d99-4139-53a5-ba00-0f56fe330ff8",
+    "task": "ledger-empty",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <string.h>\ntypedef struct { int cents; } Ledger;\nstatic int add(Ledger *book, int delta) {\n    if (delta < -10000 || delta > 10000) return 0;\n    int candidate = book->cents + delta;\n    if (candidate < 0 || candidate > 10000) return 0;\n    book->cents = candidate;\n    return 1;\n}\nstatic int save(const Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"w\");\n    if (!f) return 0;\n    int written = fprintf(f, \"%d\\n\", book->cents) > 0;\n    int closed = fclose(f) == 0;\n    return written && closed;\n}\nstatic int load(Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"r\");\n    if (!f) return 0;\n    int candidate = 0;\n    int parsed = fscanf(f, \"%d\", &candidate) == 1;\n    int closed = fclose(f) == 0;\n    if (!parsed || !closed || candidate < 0 || candidate > 10000) return 0;\n    book->cents = candidate;\n    return 1;\n}\nint main(void) {\n    Ledger book = {0};\n    char command[16];\n    while (scanf(\"%15s\", command) == 1) {\n        if (strcmp(command, \"add\") == 0) {\n            int delta;\n            if (scanf(\"%d\", &delta) != 1) return 2;\n            int ok = add(&book, delta);\n            printf(\"%s balance=%d\\n\", ok ? \"accepted\" : \"rejected\", book.cents);\n        } else if (strcmp(command, \"save\") == 0) {\n            puts(save(&book) ? \"saved\" : \"save-failed\");\n        } else if (strcmp(command, \"reset\") == 0) {\n            book.cents = 0;\n            puts(\"memory-reset\");\n        } else if (strcmp(command, \"load\") == 0) {\n            int ok = load(&book);\n            printf(\"%s balance=%d\\n\", ok ? \"loaded\" : \"load-failed\", book.cents);\n        } else if (strcmp(command, \"show\") == 0) {\n            printf(\"balance=%d\\n\", book.cents);\n        } else return 3;\n    }\n    return 0;\n}\n"
+      },
+      "stdin": "load\nadd -1\nsave\nreset\nload\n"
+    },
+    "stdout": "load-failed balance=0\nrejected balance=0\nsaved\nmemory-reset\nloaded balance=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "ledger-boundary/initial",
+    "version": "7ca20169-02d2-5719-b3f0-eff208ae89db",
+    "goal": "CS01-M10-O03",
+    "activity": "a8eb7d99-4139-53a5-ba00-0f56fe330ff8",
+    "task": "ledger-boundary",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <string.h>\ntypedef struct { int cents; } Ledger;\nstatic int add(Ledger *book, int delta) {\n    if (delta < -10000 || delta > 10000) return 0;\n    int candidate = book->cents + delta;\n    book->cents = candidate; /* BUG: rejected withdrawal changes the ledger */\n    if (candidate < 0 || candidate > 10000) return 0;\n    return 1;\n}\nstatic int save(const Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"w\");\n    if (!f) return 0;\n    int written = fprintf(f, \"%d\\n\", book->cents) > 0;\n    int closed = fclose(f) == 0;\n    return written && closed;\n}\nstatic int load(Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"r\");\n    if (!f) return 0;\n    int candidate = 0;\n    int parsed = fscanf(f, \"%d\", &candidate) == 1;\n    int closed = fclose(f) == 0;\n    if (!parsed || !closed || candidate < 0 || candidate > 10000) return 0;\n    book->cents = candidate;\n    return 1;\n}\nint main(void) {\n    Ledger book = {0};\n    char command[16];\n    while (scanf(\"%15s\", command) == 1) {\n        if (strcmp(command, \"add\") == 0) {\n            int delta;\n            if (scanf(\"%d\", &delta) != 1) return 2;\n            int ok = add(&book, delta);\n            printf(\"%s balance=%d\\n\", ok ? \"accepted\" : \"rejected\", book.cents);\n        } else if (strcmp(command, \"save\") == 0) {\n            puts(save(&book) ? \"saved\" : \"save-failed\");\n        } else if (strcmp(command, \"reset\") == 0) {\n            book.cents = 0;\n            puts(\"memory-reset\");\n        } else if (strcmp(command, \"load\") == 0) {\n            int ok = load(&book);\n            printf(\"%s balance=%d\\n\", ok ? \"loaded\" : \"load-failed\", book.cents);\n        } else if (strcmp(command, \"show\") == 0) {\n            printf(\"balance=%d\\n\", book.cents);\n        } else return 3;\n    }\n    return 0;\n}\n"
+      },
+      "stdin": "add 10000\nadd 1\nadd -10000\nsave\nreset\nload\n"
+    },
+    "stdout": "accepted balance=10000\nrejected balance=10001\naccepted balance=1\nsaved\nmemory-reset\nloaded balance=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "ledger-boundary/repaired",
+    "version": "7ca20169-02d2-5719-b3f0-eff208ae89db",
+    "goal": "CS01-M10-O03",
+    "activity": "a8eb7d99-4139-53a5-ba00-0f56fe330ff8",
+    "task": "ledger-boundary",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <string.h>\ntypedef struct { int cents; } Ledger;\nstatic int add(Ledger *book, int delta) {\n    if (delta < -10000 || delta > 10000) return 0;\n    int candidate = book->cents + delta;\n    if (candidate < 0 || candidate > 10000) return 0;\n    book->cents = candidate;\n    return 1;\n}\nstatic int save(const Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"w\");\n    if (!f) return 0;\n    int written = fprintf(f, \"%d\\n\", book->cents) > 0;\n    int closed = fclose(f) == 0;\n    return written && closed;\n}\nstatic int load(Ledger *book) {\n    FILE *f = fopen(\"/box/tmp/ledger.txt\", \"r\");\n    if (!f) return 0;\n    int candidate = 0;\n    int parsed = fscanf(f, \"%d\", &candidate) == 1;\n    int closed = fclose(f) == 0;\n    if (!parsed || !closed || candidate < 0 || candidate > 10000) return 0;\n    book->cents = candidate;\n    return 1;\n}\nint main(void) {\n    Ledger book = {0};\n    char command[16];\n    while (scanf(\"%15s\", command) == 1) {\n        if (strcmp(command, \"add\") == 0) {\n            int delta;\n            if (scanf(\"%d\", &delta) != 1) return 2;\n            int ok = add(&book, delta);\n            printf(\"%s balance=%d\\n\", ok ? \"accepted\" : \"rejected\", book.cents);\n        } else if (strcmp(command, \"save\") == 0) {\n            puts(save(&book) ? \"saved\" : \"save-failed\");\n        } else if (strcmp(command, \"reset\") == 0) {\n            book.cents = 0;\n            puts(\"memory-reset\");\n        } else if (strcmp(command, \"load\") == 0) {\n            int ok = load(&book);\n            printf(\"%s balance=%d\\n\", ok ? \"loaded\" : \"load-failed\", book.cents);\n        } else if (strcmp(command, \"show\") == 0) {\n            printf(\"balance=%d\\n\", book.cents);\n        } else return 3;\n    }\n    return 0;\n}\n"
+      },
+      "stdin": "add 10000\nadd 1\nadd -10000\nsave\nreset\nload\n"
+    },
+    "stdout": "accepted balance=10000\nrejected balance=10000\naccepted balance=0\nsaved\nmemory-reset\nloaded balance=0\n",
+    "decision": "met"
+  }
+]

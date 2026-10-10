@@ -2,7 +2,7 @@ import catalog from '../../../../content/courses/catalog.json'
 import scopeCatalog from '../../../../content/courses/scope-catalog.json'
 import { courseMapFromPackage } from './course-map'
 import type { CodeRequest } from './code'
-export type CodeVariant = { code: string; title: string; student_action: string; code_request: CodeRequest; prediction_prompt: string; reflection_prompt: string }
+export type CodeVariant = { code: string; title: string; student_action: string; code_request: CodeRequest; reference_answer?: CodeRequest; prediction_prompt: string; reflection_prompt: string }
 export type CourseCodeActivity = {
   id: string; version_id: string; code: string; version: string; objective_codes: string[]
   kind: 'code'; availability: 'pending' | 'practice_ready'; title?: string

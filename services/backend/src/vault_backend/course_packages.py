@@ -70,6 +70,7 @@ class CodeVariant(PublicRecord):
     title: str = Field(min_length=1)
     student_action: str = Field(min_length=1)
     code_request: CodeRequest
+    reference_answer: CodeRequest | None = None
     prediction_prompt: str = Field(min_length=1)
     reflection_prompt: str = Field(min_length=1)
 

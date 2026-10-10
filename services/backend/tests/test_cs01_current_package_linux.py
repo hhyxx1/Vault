@@ -19,10 +19,10 @@ ROOT = Path(__file__).resolve().parents[3]
     reason="requires dedicated Linux authoring worker",
 )
 async def test_every_current_public_artifact_matches_independent_authoring_decision():
+    catalog = json.loads((ROOT / "content/courses/scope-catalog.json").read_text(encoding="utf-8"))
+    current = next(course for course in catalog["courses"] if course["code"] == "CS01")
     package = json.loads(
-        (ROOT / "content/courses/CS01/CS01-core-practice-0.8.0/manifest.json").read_text(
-            encoding="utf-8"
-        )
+        (ROOT / "content/courses" / current["package_path"]).read_text(encoding="utf-8")
     )
     expected = {}
     for name in (
@@ -31,6 +31,7 @@ async def test_every_current_public_artifact_matches_independent_authoring_decis
         "CS01-memory",
         "CS01-records",
         "CS01-files-testing",
+        "CS01-ledger",
     ):
         rows = json.loads(
             (ROOT / f"services/backend/fixtures/course-code/{name}.json").read_text(

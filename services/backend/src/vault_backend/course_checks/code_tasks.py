@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from uuid import NAMESPACE_URL, uuid5
 
 from vault_backend.code_execution import CodeRequest, CodeResult, request_hash
+from vault_backend.course_checks.published_rules import PUBLISHED_RULES
 from vault_backend.errors import ApiError
 
 STANDARD = "cs01-fixed-condition-v1"
@@ -75,6 +76,11 @@ VERSION_ACTIVITIES["87b9961f-90e6-5e5b-8e27-44f9901e843c"] = {
         for module in (9, 10)
         for goal in (1, 2, 3)
     },
+}
+
+VERSION_ACTIVITIES["7ca20169-02d2-5719-b3f0-eff208ae89db"] = {
+    **VERSION_ACTIVITIES["87b9961f-90e6-5e5b-8e27-44f9901e843c"],
+    "CS01-M10-O03": "a8eb7d99-4139-53a5-ba00-0f56fe330ff8",
 }
 
 
@@ -208,7 +214,7 @@ def resolve_task(
     task_code: str,
     activity_version_id: str | None = None,
 ) -> Task:
-    rule = RULES.get((objective_code, task_code))
+    rule = PUBLISHED_RULES.get(course_version_id, {}).get((objective_code, task_code))
     expected_activity = VERSION_ACTIVITIES.get(course_version_id, {}).get(objective_code)
     if (
         expected_activity is None
