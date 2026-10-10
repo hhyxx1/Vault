@@ -1,0 +1,3114 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "cb74e6d0-2c7b-4cf9-a42e-de4d6b88a1fc",
+  "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+  "course_code": "CS12",
+  "version": "CS12-core-practice-0.2.0",
+  "title": "人工智能基础",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "27目标局部实践及真实加权网格BFS/A*/Dijkstra路线比较、展开轨迹和障碍反例；全课程深度仍待完成。",
+  "objectives": [
+    {
+      "id": "54a6459d-4762-5b29-8160-89155b8bd274",
+      "code": "CS12-M01-O01",
+      "title": "建立状态动作目标",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "9d4dc70b-ac41-554a-884d-4f555409b070",
+      "code": "CS12-M01-O02",
+      "title": "定义评价准则",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f06a7508-d819-5391-98ed-5b3c06f73839",
+      "code": "CS12-M01-O03",
+      "title": "说明环境假设",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "200f766e-183b-5aae-8045-8b1b30862036",
+      "code": "CS12-M02-O01",
+      "title": "实现 BFS/DFS/一致代价",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "3b1f1906-b49e-5cab-9903-f0cb5eb7816a",
+      "code": "CS12-M02-O02",
+      "title": "比较完备性",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "d4bcce2e-dc57-57a9-b3d8-e3eec35ea086",
+      "code": "CS12-M02-O03",
+      "title": "分析时间空间",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "1f790d79-7a83-587f-b513-e846bd10ecbe",
+      "code": "CS12-M03-O01",
+      "title": "构造启发函数",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f0b6393a-7b55-5575-939e-1c74f23e30d5",
+      "code": "CS12-M03-O02",
+      "title": "检验可采纳与一致条件",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "1d6e771f-7e51-52d7-978e-d02fc984e6a3",
+      "code": "CS12-M03-O03",
+      "title": "实现 A*",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7e9ab3bc-c4c3-5fc3-ba6b-13695ab7166a",
+      "code": "CS12-M04-O01",
+      "title": "实现 minimax 与剪枝",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "38633e93-dc52-5225-b17c-7d4323c77971",
+      "code": "CS12-M04-O02",
+      "title": "解释局部极值",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "c5be971c-babb-5a67-abf2-27c598ad5340",
+      "code": "CS12-M04-O03",
+      "title": "比较随机重启",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "2c63bbfd-5eda-5993-ba4a-440a7f03df59",
+      "code": "CS12-M05-O01",
+      "title": "表达变量域约束",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "dad15210-680d-56b8-bde8-1c1b9ff93781",
+      "code": "CS12-M05-O02",
+      "title": "实现约束传播",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "738aa250-a5ec-58a9-9f19-502abe7ed8fe",
+      "code": "CS12-M05-O03",
+      "title": "回溯求解",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "3f98da2d-af56-5ffa-81d4-7ad3dba3b95b",
+      "code": "CS12-M06-O01",
+      "title": "选择事实和规则表示",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "0f2892b0-06d9-5eea-b201-596a14e72559",
+      "code": "CS12-M06-O02",
+      "title": "执行归结或前向推理",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b832afc2-d833-56cd-b0a4-8832ba6c44be",
+      "code": "CS12-M06-O03",
+      "title": "发现冲突",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "87ec6dc7-4fc7-596b-b757-8622e9af1dbb",
+      "code": "CS12-M07-O01",
+      "title": "计算条件概率",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "0ee3c5ef-0f11-5339-bfbb-1eac96d0c15d",
+      "code": "CS12-M07-O02",
+      "title": "构造小贝叶斯网络",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "26bf687d-bb8e-581d-8d7a-2888af9f4d07",
+      "code": "CS12-M07-O03",
+      "title": "解释独立性假设",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7dafe547-c666-5bcf-9bf9-ddf56bdbc03f",
+      "code": "CS12-M08-O01",
+      "title": "表达动作前置与效果",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "15bf86b3-5ad3-53a9-ace4-337f9cc0fdfa",
+      "code": "CS12-M08-O02",
+      "title": "搜索计划",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "8280f925-9570-5965-8253-b2683a1f68dd",
+      "code": "CS12-M08-O03",
+      "title": "区分监督与强化学习问题",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "8199ce0c-563f-5e3f-b7f7-1118213afb57",
+      "code": "CS12-M09-O01",
+      "title": "比较系统性能与成本",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b99e5521-67ad-525c-8b41-b7cd74034416",
+      "code": "CS12-M09-O02",
+      "title": "分析错误及偏差",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "6bc94288-9da1-582a-b8bb-4f4a89ffe6e1",
+      "code": "CS12-M09-O03",
+      "title": "解释模型适用边界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS12-M01",
+      "title": "问题与智能体",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M01-O01-unit",
+          "title": "建立状态动作目标",
+          "objective_refs": [
+            "CS12-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M01-O02-unit",
+          "title": "定义评价准则",
+          "objective_refs": [
+            "CS12-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M01-O03-unit",
+          "title": "说明环境假设",
+          "objective_refs": [
+            "CS12-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M02",
+      "title": "无信息搜索",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M02-O01-unit",
+          "title": "实现 BFS/DFS/一致代价",
+          "objective_refs": [
+            "CS12-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M02-O02-unit",
+          "title": "比较完备性",
+          "objective_refs": [
+            "CS12-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M02-O03-unit",
+          "title": "分析时间空间",
+          "objective_refs": [
+            "CS12-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M03",
+      "title": "启发式搜索",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M03-O01-unit",
+          "title": "构造启发函数",
+          "objective_refs": [
+            "CS12-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M03-O02-unit",
+          "title": "检验可采纳与一致条件",
+          "objective_refs": [
+            "CS12-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M03-O03-unit",
+          "title": "实现 A*",
+          "objective_refs": [
+            "CS12-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M04",
+      "title": "对抗与局部搜索",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M04-O01-unit",
+          "title": "实现 minimax 与剪枝",
+          "objective_refs": [
+            "CS12-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M04-O02-unit",
+          "title": "解释局部极值",
+          "objective_refs": [
+            "CS12-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M04-O03-unit",
+          "title": "比较随机重启",
+          "objective_refs": [
+            "CS12-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M05",
+      "title": "约束满足",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M05-O01-unit",
+          "title": "表达变量域约束",
+          "objective_refs": [
+            "CS12-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M05-O02-unit",
+          "title": "实现约束传播",
+          "objective_refs": [
+            "CS12-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M05-O03-unit",
+          "title": "回溯求解",
+          "objective_refs": [
+            "CS12-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M06",
+      "title": "知识表示与逻辑推理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M06-O01-unit",
+          "title": "选择事实和规则表示",
+          "objective_refs": [
+            "CS12-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M06-O02-unit",
+          "title": "执行归结或前向推理",
+          "objective_refs": [
+            "CS12-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M06-O03-unit",
+          "title": "发现冲突",
+          "objective_refs": [
+            "CS12-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M07",
+      "title": "不确定推理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M07-O01-unit",
+          "title": "计算条件概率",
+          "objective_refs": [
+            "CS12-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M07-O02-unit",
+          "title": "构造小贝叶斯网络",
+          "objective_refs": [
+            "CS12-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M07-O03-unit",
+          "title": "解释独立性假设",
+          "objective_refs": [
+            "CS12-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M08",
+      "title": "规划与学习概览",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M08-O01-unit",
+          "title": "表达动作前置与效果",
+          "objective_refs": [
+            "CS12-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M08-O02-unit",
+          "title": "搜索计划",
+          "objective_refs": [
+            "CS12-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M08-O03-unit",
+          "title": "区分监督与强化学习问题",
+          "objective_refs": [
+            "CS12-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS12-M09",
+      "title": "综合与责任边界",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS12-M09-O01-unit",
+          "title": "比较系统性能与成本",
+          "objective_refs": [
+            "CS12-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M09-O02-unit",
+          "title": "分析错误及偏差",
+          "objective_refs": [
+            "CS12-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS12-M09-O03-unit",
+          "title": "解释模型适用边界",
+          "objective_refs": [
+            "CS12-M09-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "CS12-M01-O01",
+      "to": "CS12-M01-O02",
+      "kind": "conceptual_association",
+      "reason": "条件对照：状态键不能漏掉钥匙信息与路径评价应累加各边代价",
+      "source_locator": "ai-search",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M01-O02",
+      "to": "CS12-M01-O03",
+      "kind": "conceptual_association",
+      "reason": "条件对照：路径评价应累加各边代价与不可观测状态不能假定已知",
+      "source_locator": "ai-search",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M02-O01",
+      "to": "CS12-M02-O02",
+      "kind": "conceptual_association",
+      "reason": "条件对照：BFS的队列不能当DFS栈使用与有界DFS未找到不证明目标不存在",
+      "source_locator": "ai-pruning",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M02-O02",
+      "to": "CS12-M02-O03",
+      "kind": "conceptual_association",
+      "reason": "条件对照：有界DFS未找到不证明目标不存在与搜索峰值前沿不能以当前大小代替",
+      "source_locator": "ai-search",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M03-O01",
+      "to": "CS12-M03-O02",
+      "kind": "conceptual_association",
+      "reason": "条件对照：启发距离不得超过已知最短代价与一致性必须核对边上的三角条件",
+      "source_locator": "ai-search",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M03-O02",
+      "to": "CS12-M03-O03",
+      "kind": "conceptual_association",
+      "reason": "条件对照：一致性必须核对边上的三角条件与A星必须按g加h而非只按h扩展",
+      "source_locator": "ai-search",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M04-O01",
+      "to": "CS12-M04-O02",
+      "kind": "conceptual_association",
+      "reason": "条件对照：对手节点在minimax中选择最小值与局部极值停止不代表全局最优",
+      "source_locator": "ai-local",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M04-O02",
+      "to": "CS12-M04-O03",
+      "kind": "conceptual_association",
+      "reason": "条件对照：局部极值停止不代表全局最优与相同解值还需比较展开代价",
+      "source_locator": "ai-game",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M05-O01",
+      "to": "CS12-M05-O02",
+      "kind": "conceptual_association",
+      "reason": "条件对照：CSP赋值必须同时满足域与约束与弧修正删除没有支持的值",
+      "source_locator": "ai-filter",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M05-O02",
+      "to": "CS12-M05-O03",
+      "kind": "conceptual_association",
+      "reason": "条件对照：弧修正删除没有支持的值与空域必须报告不满足而非选默认值",
+      "source_locator": "ai-csp",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M06-O01",
+      "to": "CS12-M06-O02",
+      "kind": "conceptual_association",
+      "reason": "条件对照：未知事实不能自动作假与前向链须迭代到固定点",
+      "source_locator": "ai-logic",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M06-O02",
+      "to": "CS12-M06-O03",
+      "kind": "conceptual_association",
+      "reason": "条件对照：前向链须迭代到固定点与显式正负冲突不能被忽略",
+      "source_locator": "ai-logic",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M07-O01",
+      "to": "CS12-M07-O02",
+      "kind": "conceptual_association",
+      "reason": "条件对照：条件概率需要除以证据概率与贝叶斯网络边缘化要包含全部父值",
+      "source_locator": "ai-prob",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M07-O02",
+      "to": "CS12-M07-O03",
+      "kind": "conceptual_association",
+      "reason": "条件对照：贝叶斯网络边缘化要包含全部父值与独立性假设需用联合表核对",
+      "source_locator": "ai-prob",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M08-O01",
+      "to": "CS12-M08-O02",
+      "kind": "conceptual_association",
+      "reason": "条件对照：动作不满足前提不能执行效果与计划回放必须逐步检查前提与目标",
+      "source_locator": "ai-plan",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M08-O02",
+      "to": "CS12-M08-O03",
+      "kind": "conceptual_association",
+      "reason": "条件对照：计划回放必须逐步检查前提与目标与奖励反馈不能当监督标签",
+      "source_locator": "ai-plan",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M09-O01",
+      "to": "CS12-M09-O02",
+      "kind": "conceptual_association",
+      "reason": "条件对照：相同成功数下仍须比较资源预算与总准确率不能掩盖组间误差",
+      "source_locator": "ai-prob",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    },
+    {
+      "from": "CS12-M09-O02",
+      "to": "CS12-M09-O03",
+      "kind": "conceptual_association",
+      "reason": "条件对照：总准确率不能掩盖组间误差与应用边界需处理分布外输入",
+      "source_locator": "ai-plan",
+      "course_version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "review_state": "authority_checked",
+      "source": "原创算法工件关联，非教学顺序生成严格先修；专业审校不可用。"
+    }
+  ],
+  "activities": [
+    {
+      "id": "9be314cc-9d14-5142-a43a-1c4cd823b066",
+      "version_id": "bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768",
+      "code": "CS12-M01-O01-CODE",
+      "version": "CS12-M01-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M01-O01"
+      ],
+      "kind": "code",
+      "title": "状态键不能漏掉钥匙信息",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创门禁路径，位置相同但钥匙状态不同决定后续可行动作。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\na=(0,False);b=(0,n==1)\nprint(a[0]==b[0])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\na=(0,False);b=(0,n==1)\nprint(a==b)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "钥匙状态也相同",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\na=(0,False);b=(0,n==1)\nprint(a[0]==b[0])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\na=(0,False);b=(0,n==1)\nprint(a==b)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "977fdd28-5611-5bd1-95d8-90b10ee60f70",
+      "version_id": "8b9f1427-226a-5804-8cb1-2ab8d1d9e472",
+      "code": "CS12-M01-O02-CODE",
+      "version": "CS12-M01-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M01-O02"
+      ],
+      "kind": "code",
+      "title": "路径评价应累加各边代价",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创路径边权均非负，不以边数代替总代价。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncosts=[2,8] if n==1 else [1,1]\nprint(len(costs))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncosts=[2,8] if n==1 else [1,1]\nprint(sum(costs))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单位边权",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncosts=[2,8] if n==1 else [1,1]\nprint(len(costs))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncosts=[2,8] if n==1 else [1,1]\nprint(sum(costs))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "cb828c94-6fb4-51b4-accd-c8e41d3e2d1c",
+      "version_id": "d30541e5-8c28-5350-bfc7-4450fbc7ac45",
+      "code": "CS12-M01-O03-CODE",
+      "version": "CS12-M01-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M01-O03"
+      ],
+      "kind": "code",
+      "title": "不可观测状态不能假定已知",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创机器人信念集包含左/右两位置，观测未知时保留候选，不伪造真实位置。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nbelief={'left','right'} if n==1 else {'left'}\nprint('left')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nbelief={'left','right'} if n==1 else {'left'}\nprint(' '.join(sorted(belief)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "确定位置",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nbelief={'left','right'} if n==1 else {'left'}\nprint('left')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nbelief={'left','right'} if n==1 else {'left'}\nprint(' '.join(sorted(belief)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e26036ac-f810-59b0-998f-208cb2e3d56a",
+      "version_id": "3cf76d51-057a-560b-bf7c-dbef88a90222",
+      "code": "CS12-M02-O01-CODE",
+      "version": "CS12-M02-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M02-O01"
+      ],
+      "kind": "code",
+      "title": "BFS的队列不能当DFS栈使用",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创有限无权图S直接邻居G，同时A继续到B；队列选先入，比较访问轨迹不证明全部算法。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-pruning"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ngraph={'S':['G','A'],'A':['B'],'B':[],'G':[]} if n==1 else {'S':['G'],'G':[]}\nqueue=['S'];seen={'S'};order=[]\nwhile queue:\n v=queue.pop();order.append(v)\n if v=='G':break\n for w in graph[v]:\n  if w not in seen:seen.add(w);queue.append(w)\nprint(' '.join(order))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ngraph={'S':['G','A'],'A':['B'],'B':[],'G':[]} if n==1 else {'S':['G'],'G':[]}\nqueue=['S'];seen={'S'};order=[]\nwhile queue:\n v=queue.pop(0);order.append(v)\n if v=='G':break\n for w in graph[v]:\n  if w not in seen:seen.add(w);queue.append(w)\nprint(' '.join(order))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "无分支图",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ngraph={'S':['G','A'],'A':['B'],'B':[],'G':[]} if n==1 else {'S':['G'],'G':[]}\nqueue=['S'];seen={'S'};order=[]\nwhile queue:\n v=queue.pop();order.append(v)\n if v=='G':break\n for w in graph[v]:\n  if w not in seen:seen.add(w);queue.append(w)\nprint(' '.join(order))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ngraph={'S':['G','A'],'A':['B'],'B':[],'G':[]} if n==1 else {'S':['G'],'G':[]}\nqueue=['S'];seen={'S'};order=[]\nwhile queue:\n v=queue.pop(0);order.append(v)\n if v=='G':break\n for w in graph[v]:\n  if w not in seen:seen.add(w);queue.append(w)\nprint(' '.join(order))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "f449a594-cca6-5fd6-b00e-941b870c4bf7",
+      "version_id": "71513591-5fb3-5db3-9c84-ed249632598a",
+      "code": "CS12-M02-O02-CODE",
+      "version": "CS12-M02-O02-CODE@0.2.0",
+      "objective_codes": [
+        "CS12-M02-O02"
+      ],
+      "kind": "code",
+      "title": "有界DFS未找到不证明目标不存在",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创无限链模型只探索预算内前缀，目标在预算外时结果应为未知，而非不存在。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。",
+        "原创四邻域正进入代价网格项目，A*使用曼哈顿距离乘最小格代价。此条件下启发值一致且可采纳；不是对任意图/启发式承诺最优。BFS最少边数不保证最少加权代价。",
+        "输出真实优先队列展开、g/h/priority、父节点恢复的路径和代价，并与独立均匀代价实现比较。无路可达与展开预算耗尽是不同状态；有限差分比较不是所有地图的一般正确性证明。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-pruning",
+        "ai-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nlimit=3;goal=5 if n==1 else 2\nfound=goal<limit\nprint('found' if found else 'absent')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nlimit=3;goal=5 if n==1 else 2\nfound=goal<limit\nprint('found' if found else 'unknown:budget')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "目标位于预算内",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nlimit=3;goal=5 if n==1 else 2\nfound=goal<limit\nprint('found' if found else 'absent')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nlimit=3;goal=5 if n==1 else 2\nfound=goal<limit\nprint('found' if found else 'unknown:budget')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        },
+        {
+          "code": "route-weighted",
+          "title": "综合项目：修复加权路线的贪心优先级",
+          "student_action": "先预测三种搜索的路径代价，执行并查看真实展开，修改search.py，改变障碍后再次比较。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('search','search.py')\nsearch=importlib.util.module_from_spec(spec);spec.loader.exec_module(search)\nproblem=json.loads(sys.stdin.read())\nprint(json.dumps(search.compare(problem['grid'],problem['start'],problem['goal']),sort_keys=True))\n",
+              "search.py": "\"\"\"Original finite orthogonal weighted-grid search lab.\"\"\"\n\nimport heapq\nimport math\nfrom collections import deque\n\n\ndef validate(grid, start, goal):\n    if not grid or not grid[0] or len(grid) * len(grid[0]) > 400:\n        raise ValueError(\"nonempty grid with at most 400 cells required\")\n    if any(len(row) != len(grid[0]) for row in grid):\n        raise ValueError(\"grid must be rectangular\")\n    for row in grid:\n        for cost in row:\n            if cost is not None and (\n                isinstance(cost, bool)\n                or not isinstance(cost, (int, float))\n                or not math.isfinite(cost)\n                or cost <= 0\n            ):\n                raise ValueError(\"cell cost must be positive finite or null wall\")\n    for endpoint in (start, goal):\n        if len(endpoint) != 2 or any(type(v) is not int for v in endpoint):\n            raise ValueError(\"coordinates must be integer pairs\")\n        x, y = endpoint\n        if not (0 <= y < len(grid) and 0 <= x < len(grid[0])) or grid[y][x] is None:\n            raise ValueError(\"endpoint must be inside traversable grid\")\n\n\ndef neighbors(grid, node):\n    x, y = node\n    for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:\n        nx, ny = x + dx, y + dy\n        if 0 <= ny < len(grid) and 0 <= nx < len(grid[0]) and grid[ny][nx] is not None:\n            yield (nx, ny), grid[ny][nx]\n\n\ndef finish(grid, start, goal, parents, trace, status):\n    path = []\n    if status == \"found\":\n        node = goal\n        while node != start:\n            path.append(node)\n            node = parents[node]\n        path.append(start)\n        path.reverse()\n    total = sum(grid[y][x] for x, y in path[1:]) if path else None\n    return {\n        \"status\": status,\n        \"path\": [list(p) for p in path],\n        \"cost\": total,\n        \"replayed_cost\": total,\n        \"trace\": trace,\n        \"expanded\": len(trace),\n    }\n\n\ndef solve(grid, start, goal, budget=1000):\n    validate(grid, start, goal)\n    if type(budget) is not int or budget <= 0:\n        raise ValueError(\"positive expansion budget required\")\n    start, goal = tuple(start), tuple(goal)\n    minimum = min(v for row in grid for v in row if v is not None)\n    heuristic = lambda node: minimum * (abs(node[0] - goal[0]) + abs(node[1] - goal[1]))\n    costs = {start: 0}\n    parents = {}\n    frontier = [(heuristic(start), 0, start)]\n    trace = []\n    while frontier:\n        priority, g, node = heapq.heappop(frontier)\n        if g != costs[node]:\n            continue\n        if len(trace) >= budget:\n            return finish(grid, start, goal, parents, trace, \"budget_exhausted\")\n        trace.append(\n            {\n                \"node\": list(node),\n                \"g\": g,\n                \"h\": heuristic(node),\n                \"priority\": priority,\n                \"frontier_size\": len(frontier),\n            }\n        )\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for next_node, weight in neighbors(grid, node):\n            tentative = g + weight\n            if tentative < costs.get(next_node, math.inf):\n                costs[next_node] = tentative\n                parents[next_node] = node\n                priority = heuristic(next_node)\n                heapq.heappush(frontier, (priority, tentative, next_node))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef breadth_first(grid, start, goal):\n    start, goal = tuple(start), tuple(goal)\n    queue = deque([start])\n    seen = {start}\n    parents = {}\n    trace = []\n    while queue:\n        node = queue.popleft()\n        trace.append({\"node\": list(node), \"frontier_size\": len(queue)})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, _ in neighbors(grid, node):\n            if neighbor not in seen:\n                seen.add(neighbor)\n                parents[neighbor] = node\n                queue.append(neighbor)\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef dijkstra(grid, start, goal):\n    # Separate uniform-cost implementation without the A* priority expression.\n    start, goal = tuple(start), tuple(goal)\n    frontier = [(0, start)]\n    settled = set()\n    best = {start: 0}\n    parents = {}\n    trace = []\n    while frontier:\n        cost, node = heapq.heappop(frontier)\n        if node in settled:\n            continue\n        settled.add(node)\n        trace.append({\"node\": list(node), \"g\": cost})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, weight in neighbors(grid, node):\n            candidate = cost + weight\n            if candidate < best.get(neighbor, math.inf):\n                best[neighbor] = candidate\n                parents[neighbor] = node\n                heapq.heappush(frontier, (candidate, neighbor))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef compare(grid, start, goal):\n    validate(grid, start, goal)\n    a = solve(grid, start, goal)\n    reference = dijkstra(grid, start, goal)\n    return {\n        \"astar\": a,\n        \"dijkstra\": reference,\n        \"bfs\": breadth_first(grid, start, goal),\n        \"matches_optimal_cost\": a[\"status\"] == reference[\"status\"]\n        and a[\"cost\"] == reference[\"cost\"],\n        \"assumptions\": \"four-neighbor positive entry costs; Manhattan times minimum cell cost; start cost excluded\",\n    }\n"
+            },
+            "stdin": "{\"goal\": [2, 1], \"grid\": [[1, 1, 1], [1, 9, 1], [1, 1, 1]], \"start\": [0, 1]}\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('search','search.py')\nsearch=importlib.util.module_from_spec(spec);spec.loader.exec_module(search)\nproblem=json.loads(sys.stdin.read())\nprint(json.dumps(search.compare(problem['grid'],problem['start'],problem['goal']),sort_keys=True))\n",
+              "search.py": "\"\"\"Original finite orthogonal weighted-grid search lab.\"\"\"\n\nimport heapq\nimport math\nfrom collections import deque\n\n\ndef validate(grid, start, goal):\n    if not grid or not grid[0] or len(grid) * len(grid[0]) > 400:\n        raise ValueError(\"nonempty grid with at most 400 cells required\")\n    if any(len(row) != len(grid[0]) for row in grid):\n        raise ValueError(\"grid must be rectangular\")\n    for row in grid:\n        for cost in row:\n            if cost is not None and (\n                isinstance(cost, bool)\n                or not isinstance(cost, (int, float))\n                or not math.isfinite(cost)\n                or cost <= 0\n            ):\n                raise ValueError(\"cell cost must be positive finite or null wall\")\n    for endpoint in (start, goal):\n        if len(endpoint) != 2 or any(type(v) is not int for v in endpoint):\n            raise ValueError(\"coordinates must be integer pairs\")\n        x, y = endpoint\n        if not (0 <= y < len(grid) and 0 <= x < len(grid[0])) or grid[y][x] is None:\n            raise ValueError(\"endpoint must be inside traversable grid\")\n\n\ndef neighbors(grid, node):\n    x, y = node\n    for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:\n        nx, ny = x + dx, y + dy\n        if 0 <= ny < len(grid) and 0 <= nx < len(grid[0]) and grid[ny][nx] is not None:\n            yield (nx, ny), grid[ny][nx]\n\n\ndef finish(grid, start, goal, parents, trace, status):\n    path = []\n    if status == \"found\":\n        node = goal\n        while node != start:\n            path.append(node)\n            node = parents[node]\n        path.append(start)\n        path.reverse()\n    total = sum(grid[y][x] for x, y in path[1:]) if path else None\n    return {\n        \"status\": status,\n        \"path\": [list(p) for p in path],\n        \"cost\": total,\n        \"replayed_cost\": total,\n        \"trace\": trace,\n        \"expanded\": len(trace),\n    }\n\n\ndef solve(grid, start, goal, budget=1000):\n    validate(grid, start, goal)\n    if type(budget) is not int or budget <= 0:\n        raise ValueError(\"positive expansion budget required\")\n    start, goal = tuple(start), tuple(goal)\n    minimum = min(v for row in grid for v in row if v is not None)\n    heuristic = lambda node: minimum * (abs(node[0] - goal[0]) + abs(node[1] - goal[1]))\n    costs = {start: 0}\n    parents = {}\n    frontier = [(heuristic(start), 0, start)]\n    trace = []\n    while frontier:\n        priority, g, node = heapq.heappop(frontier)\n        if g != costs[node]:\n            continue\n        if len(trace) >= budget:\n            return finish(grid, start, goal, parents, trace, \"budget_exhausted\")\n        trace.append(\n            {\n                \"node\": list(node),\n                \"g\": g,\n                \"h\": heuristic(node),\n                \"priority\": priority,\n                \"frontier_size\": len(frontier),\n            }\n        )\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for next_node, weight in neighbors(grid, node):\n            tentative = g + weight\n            if tentative < costs.get(next_node, math.inf):\n                costs[next_node] = tentative\n                parents[next_node] = node\n                priority = tentative + heuristic(next_node)\n                heapq.heappush(frontier, (priority, tentative, next_node))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef breadth_first(grid, start, goal):\n    start, goal = tuple(start), tuple(goal)\n    queue = deque([start])\n    seen = {start}\n    parents = {}\n    trace = []\n    while queue:\n        node = queue.popleft()\n        trace.append({\"node\": list(node), \"frontier_size\": len(queue)})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, _ in neighbors(grid, node):\n            if neighbor not in seen:\n                seen.add(neighbor)\n                parents[neighbor] = node\n                queue.append(neighbor)\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef dijkstra(grid, start, goal):\n    # Separate uniform-cost implementation without the A* priority expression.\n    start, goal = tuple(start), tuple(goal)\n    frontier = [(0, start)]\n    settled = set()\n    best = {start: 0}\n    parents = {}\n    trace = []\n    while frontier:\n        cost, node = heapq.heappop(frontier)\n        if node in settled:\n            continue\n        settled.add(node)\n        trace.append({\"node\": list(node), \"g\": cost})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, weight in neighbors(grid, node):\n            candidate = cost + weight\n            if candidate < best.get(neighbor, math.inf):\n                best[neighbor] = candidate\n                parents[neighbor] = node\n                heapq.heappush(frontier, (candidate, neighbor))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef compare(grid, start, goal):\n    validate(grid, start, goal)\n    a = solve(grid, start, goal)\n    reference = dijkstra(grid, start, goal)\n    return {\n        \"astar\": a,\n        \"dijkstra\": reference,\n        \"bfs\": breadth_first(grid, start, goal),\n        \"matches_optimal_cost\": a[\"status\"] == reference[\"status\"]\n        and a[\"cost\"] == reference[\"cost\"],\n        \"assumptions\": \"four-neighbor positive entry costs; Manhattan times minimum cell cost; start cost excluded\",\n    }\n"
+            },
+            "stdin": "{\"goal\": [2, 1], \"grid\": [[1, 1, 1], [1, 9, 1], [1, 1, 1]], \"start\": [0, 1]}\n"
+          },
+          "prediction_prompt": "优先级是h还是g+h？最短边数路径是否最小代价？预估哪条路线会先展开。",
+          "reflection_prompt": "从g/h/priority说明反例与修复；解释启发式适用条件、无路和预算耗尽的区别，列出仍未验证的情形。"
+        },
+        {
+          "code": "route-wall",
+          "title": "综合新条件：障碍改变后的加权路线",
+          "student_action": "先预测三种搜索的路径代价，执行并查看真实展开，修改search.py，改变障碍后再次比较。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('search','search.py')\nsearch=importlib.util.module_from_spec(spec);spec.loader.exec_module(search)\nproblem=json.loads(sys.stdin.read())\nprint(json.dumps(search.compare(problem['grid'],problem['start'],problem['goal']),sort_keys=True))\n",
+              "search.py": "\"\"\"Original finite orthogonal weighted-grid search lab.\"\"\"\n\nimport heapq\nimport math\nfrom collections import deque\n\n\ndef validate(grid, start, goal):\n    if not grid or not grid[0] or len(grid) * len(grid[0]) > 400:\n        raise ValueError(\"nonempty grid with at most 400 cells required\")\n    if any(len(row) != len(grid[0]) for row in grid):\n        raise ValueError(\"grid must be rectangular\")\n    for row in grid:\n        for cost in row:\n            if cost is not None and (\n                isinstance(cost, bool)\n                or not isinstance(cost, (int, float))\n                or not math.isfinite(cost)\n                or cost <= 0\n            ):\n                raise ValueError(\"cell cost must be positive finite or null wall\")\n    for endpoint in (start, goal):\n        if len(endpoint) != 2 or any(type(v) is not int for v in endpoint):\n            raise ValueError(\"coordinates must be integer pairs\")\n        x, y = endpoint\n        if not (0 <= y < len(grid) and 0 <= x < len(grid[0])) or grid[y][x] is None:\n            raise ValueError(\"endpoint must be inside traversable grid\")\n\n\ndef neighbors(grid, node):\n    x, y = node\n    for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:\n        nx, ny = x + dx, y + dy\n        if 0 <= ny < len(grid) and 0 <= nx < len(grid[0]) and grid[ny][nx] is not None:\n            yield (nx, ny), grid[ny][nx]\n\n\ndef finish(grid, start, goal, parents, trace, status):\n    path = []\n    if status == \"found\":\n        node = goal\n        while node != start:\n            path.append(node)\n            node = parents[node]\n        path.append(start)\n        path.reverse()\n    total = sum(grid[y][x] for x, y in path[1:]) if path else None\n    return {\n        \"status\": status,\n        \"path\": [list(p) for p in path],\n        \"cost\": total,\n        \"replayed_cost\": total,\n        \"trace\": trace,\n        \"expanded\": len(trace),\n    }\n\n\ndef solve(grid, start, goal, budget=1000):\n    validate(grid, start, goal)\n    if type(budget) is not int or budget <= 0:\n        raise ValueError(\"positive expansion budget required\")\n    start, goal = tuple(start), tuple(goal)\n    minimum = min(v for row in grid for v in row if v is not None)\n    heuristic = lambda node: minimum * (abs(node[0] - goal[0]) + abs(node[1] - goal[1]))\n    costs = {start: 0}\n    parents = {}\n    frontier = [(heuristic(start), 0, start)]\n    trace = []\n    while frontier:\n        priority, g, node = heapq.heappop(frontier)\n        if g != costs[node]:\n            continue\n        if len(trace) >= budget:\n            return finish(grid, start, goal, parents, trace, \"budget_exhausted\")\n        trace.append(\n            {\n                \"node\": list(node),\n                \"g\": g,\n                \"h\": heuristic(node),\n                \"priority\": priority,\n                \"frontier_size\": len(frontier),\n            }\n        )\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for next_node, weight in neighbors(grid, node):\n            tentative = g + weight\n            if tentative < costs.get(next_node, math.inf):\n                costs[next_node] = tentative\n                parents[next_node] = node\n                priority = heuristic(next_node)\n                heapq.heappush(frontier, (priority, tentative, next_node))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef breadth_first(grid, start, goal):\n    start, goal = tuple(start), tuple(goal)\n    queue = deque([start])\n    seen = {start}\n    parents = {}\n    trace = []\n    while queue:\n        node = queue.popleft()\n        trace.append({\"node\": list(node), \"frontier_size\": len(queue)})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, _ in neighbors(grid, node):\n            if neighbor not in seen:\n                seen.add(neighbor)\n                parents[neighbor] = node\n                queue.append(neighbor)\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef dijkstra(grid, start, goal):\n    # Separate uniform-cost implementation without the A* priority expression.\n    start, goal = tuple(start), tuple(goal)\n    frontier = [(0, start)]\n    settled = set()\n    best = {start: 0}\n    parents = {}\n    trace = []\n    while frontier:\n        cost, node = heapq.heappop(frontier)\n        if node in settled:\n            continue\n        settled.add(node)\n        trace.append({\"node\": list(node), \"g\": cost})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, weight in neighbors(grid, node):\n            candidate = cost + weight\n            if candidate < best.get(neighbor, math.inf):\n                best[neighbor] = candidate\n                parents[neighbor] = node\n                heapq.heappush(frontier, (candidate, neighbor))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef compare(grid, start, goal):\n    validate(grid, start, goal)\n    a = solve(grid, start, goal)\n    reference = dijkstra(grid, start, goal)\n    return {\n        \"astar\": a,\n        \"dijkstra\": reference,\n        \"bfs\": breadth_first(grid, start, goal),\n        \"matches_optimal_cost\": a[\"status\"] == reference[\"status\"]\n        and a[\"cost\"] == reference[\"cost\"],\n        \"assumptions\": \"four-neighbor positive entry costs; Manhattan times minimum cell cost; start cost excluded\",\n    }\n"
+            },
+            "stdin": "{\"goal\": [2, 1], \"grid\": [[1, 1, 1], [1, 7, 1], [1, null, 1]], \"start\": [0, 1]}\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('search','search.py')\nsearch=importlib.util.module_from_spec(spec);spec.loader.exec_module(search)\nproblem=json.loads(sys.stdin.read())\nprint(json.dumps(search.compare(problem['grid'],problem['start'],problem['goal']),sort_keys=True))\n",
+              "search.py": "\"\"\"Original finite orthogonal weighted-grid search lab.\"\"\"\n\nimport heapq\nimport math\nfrom collections import deque\n\n\ndef validate(grid, start, goal):\n    if not grid or not grid[0] or len(grid) * len(grid[0]) > 400:\n        raise ValueError(\"nonempty grid with at most 400 cells required\")\n    if any(len(row) != len(grid[0]) for row in grid):\n        raise ValueError(\"grid must be rectangular\")\n    for row in grid:\n        for cost in row:\n            if cost is not None and (\n                isinstance(cost, bool)\n                or not isinstance(cost, (int, float))\n                or not math.isfinite(cost)\n                or cost <= 0\n            ):\n                raise ValueError(\"cell cost must be positive finite or null wall\")\n    for endpoint in (start, goal):\n        if len(endpoint) != 2 or any(type(v) is not int for v in endpoint):\n            raise ValueError(\"coordinates must be integer pairs\")\n        x, y = endpoint\n        if not (0 <= y < len(grid) and 0 <= x < len(grid[0])) or grid[y][x] is None:\n            raise ValueError(\"endpoint must be inside traversable grid\")\n\n\ndef neighbors(grid, node):\n    x, y = node\n    for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:\n        nx, ny = x + dx, y + dy\n        if 0 <= ny < len(grid) and 0 <= nx < len(grid[0]) and grid[ny][nx] is not None:\n            yield (nx, ny), grid[ny][nx]\n\n\ndef finish(grid, start, goal, parents, trace, status):\n    path = []\n    if status == \"found\":\n        node = goal\n        while node != start:\n            path.append(node)\n            node = parents[node]\n        path.append(start)\n        path.reverse()\n    total = sum(grid[y][x] for x, y in path[1:]) if path else None\n    return {\n        \"status\": status,\n        \"path\": [list(p) for p in path],\n        \"cost\": total,\n        \"replayed_cost\": total,\n        \"trace\": trace,\n        \"expanded\": len(trace),\n    }\n\n\ndef solve(grid, start, goal, budget=1000):\n    validate(grid, start, goal)\n    if type(budget) is not int or budget <= 0:\n        raise ValueError(\"positive expansion budget required\")\n    start, goal = tuple(start), tuple(goal)\n    minimum = min(v for row in grid for v in row if v is not None)\n    heuristic = lambda node: minimum * (abs(node[0] - goal[0]) + abs(node[1] - goal[1]))\n    costs = {start: 0}\n    parents = {}\n    frontier = [(heuristic(start), 0, start)]\n    trace = []\n    while frontier:\n        priority, g, node = heapq.heappop(frontier)\n        if g != costs[node]:\n            continue\n        if len(trace) >= budget:\n            return finish(grid, start, goal, parents, trace, \"budget_exhausted\")\n        trace.append(\n            {\n                \"node\": list(node),\n                \"g\": g,\n                \"h\": heuristic(node),\n                \"priority\": priority,\n                \"frontier_size\": len(frontier),\n            }\n        )\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for next_node, weight in neighbors(grid, node):\n            tentative = g + weight\n            if tentative < costs.get(next_node, math.inf):\n                costs[next_node] = tentative\n                parents[next_node] = node\n                priority = tentative + heuristic(next_node)\n                heapq.heappush(frontier, (priority, tentative, next_node))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef breadth_first(grid, start, goal):\n    start, goal = tuple(start), tuple(goal)\n    queue = deque([start])\n    seen = {start}\n    parents = {}\n    trace = []\n    while queue:\n        node = queue.popleft()\n        trace.append({\"node\": list(node), \"frontier_size\": len(queue)})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, _ in neighbors(grid, node):\n            if neighbor not in seen:\n                seen.add(neighbor)\n                parents[neighbor] = node\n                queue.append(neighbor)\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef dijkstra(grid, start, goal):\n    # Separate uniform-cost implementation without the A* priority expression.\n    start, goal = tuple(start), tuple(goal)\n    frontier = [(0, start)]\n    settled = set()\n    best = {start: 0}\n    parents = {}\n    trace = []\n    while frontier:\n        cost, node = heapq.heappop(frontier)\n        if node in settled:\n            continue\n        settled.add(node)\n        trace.append({\"node\": list(node), \"g\": cost})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, weight in neighbors(grid, node):\n            candidate = cost + weight\n            if candidate < best.get(neighbor, math.inf):\n                best[neighbor] = candidate\n                parents[neighbor] = node\n                heapq.heappush(frontier, (candidate, neighbor))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef compare(grid, start, goal):\n    validate(grid, start, goal)\n    a = solve(grid, start, goal)\n    reference = dijkstra(grid, start, goal)\n    return {\n        \"astar\": a,\n        \"dijkstra\": reference,\n        \"bfs\": breadth_first(grid, start, goal),\n        \"matches_optimal_cost\": a[\"status\"] == reference[\"status\"]\n        and a[\"cost\"] == reference[\"cost\"],\n        \"assumptions\": \"four-neighbor positive entry costs; Manhattan times minimum cell cost; start cost excluded\",\n    }\n"
+            },
+            "stdin": "{\"goal\": [2, 1], \"grid\": [[1, 1, 1], [1, 7, 1], [1, null, 1]], \"start\": [0, 1]}\n"
+          },
+          "prediction_prompt": "优先级是h还是g+h？最短边数路径是否最小代价？预估哪条路线会先展开。",
+          "reflection_prompt": "从g/h/priority说明反例与修复；解释启发式适用条件、无路和预算耗尽的区别，列出仍未验证的情形。"
+        },
+        {
+          "code": "route-unreachable",
+          "title": "综合边界：无路可达不等于预算不足",
+          "student_action": "先预测三种搜索的路径代价，执行并查看真实展开，修改search.py，改变障碍后再次比较。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('search','search.py')\nsearch=importlib.util.module_from_spec(spec);spec.loader.exec_module(search)\nproblem=json.loads(sys.stdin.read())\nprint(json.dumps(search.compare(problem['grid'],problem['start'],problem['goal']),sort_keys=True))\n",
+              "search.py": "\"\"\"Original finite orthogonal weighted-grid search lab.\"\"\"\n\nimport heapq\nimport math\nfrom collections import deque\n\n\ndef validate(grid, start, goal):\n    if not grid or not grid[0] or len(grid) * len(grid[0]) > 400:\n        raise ValueError(\"nonempty grid with at most 400 cells required\")\n    if any(len(row) != len(grid[0]) for row in grid):\n        raise ValueError(\"grid must be rectangular\")\n    for row in grid:\n        for cost in row:\n            if cost is not None and (\n                isinstance(cost, bool)\n                or not isinstance(cost, (int, float))\n                or not math.isfinite(cost)\n                or cost <= 0\n            ):\n                raise ValueError(\"cell cost must be positive finite or null wall\")\n    for endpoint in (start, goal):\n        if len(endpoint) != 2 or any(type(v) is not int for v in endpoint):\n            raise ValueError(\"coordinates must be integer pairs\")\n        x, y = endpoint\n        if not (0 <= y < len(grid) and 0 <= x < len(grid[0])) or grid[y][x] is None:\n            raise ValueError(\"endpoint must be inside traversable grid\")\n\n\ndef neighbors(grid, node):\n    x, y = node\n    for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:\n        nx, ny = x + dx, y + dy\n        if 0 <= ny < len(grid) and 0 <= nx < len(grid[0]) and grid[ny][nx] is not None:\n            yield (nx, ny), grid[ny][nx]\n\n\ndef finish(grid, start, goal, parents, trace, status):\n    path = []\n    if status == \"found\":\n        node = goal\n        while node != start:\n            path.append(node)\n            node = parents[node]\n        path.append(start)\n        path.reverse()\n    total = sum(grid[y][x] for x, y in path[1:]) if path else None\n    return {\n        \"status\": status,\n        \"path\": [list(p) for p in path],\n        \"cost\": total,\n        \"replayed_cost\": total,\n        \"trace\": trace,\n        \"expanded\": len(trace),\n    }\n\n\ndef solve(grid, start, goal, budget=1000):\n    validate(grid, start, goal)\n    if type(budget) is not int or budget <= 0:\n        raise ValueError(\"positive expansion budget required\")\n    start, goal = tuple(start), tuple(goal)\n    minimum = min(v for row in grid for v in row if v is not None)\n    heuristic = lambda node: minimum * (abs(node[0] - goal[0]) + abs(node[1] - goal[1]))\n    costs = {start: 0}\n    parents = {}\n    frontier = [(heuristic(start), 0, start)]\n    trace = []\n    while frontier:\n        priority, g, node = heapq.heappop(frontier)\n        if g != costs[node]:\n            continue\n        if len(trace) >= budget:\n            return finish(grid, start, goal, parents, trace, \"budget_exhausted\")\n        trace.append(\n            {\n                \"node\": list(node),\n                \"g\": g,\n                \"h\": heuristic(node),\n                \"priority\": priority,\n                \"frontier_size\": len(frontier),\n            }\n        )\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for next_node, weight in neighbors(grid, node):\n            tentative = g + weight\n            if tentative < costs.get(next_node, math.inf):\n                costs[next_node] = tentative\n                parents[next_node] = node\n                priority = heuristic(next_node)\n                heapq.heappush(frontier, (priority, tentative, next_node))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef breadth_first(grid, start, goal):\n    start, goal = tuple(start), tuple(goal)\n    queue = deque([start])\n    seen = {start}\n    parents = {}\n    trace = []\n    while queue:\n        node = queue.popleft()\n        trace.append({\"node\": list(node), \"frontier_size\": len(queue)})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, _ in neighbors(grid, node):\n            if neighbor not in seen:\n                seen.add(neighbor)\n                parents[neighbor] = node\n                queue.append(neighbor)\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef dijkstra(grid, start, goal):\n    # Separate uniform-cost implementation without the A* priority expression.\n    start, goal = tuple(start), tuple(goal)\n    frontier = [(0, start)]\n    settled = set()\n    best = {start: 0}\n    parents = {}\n    trace = []\n    while frontier:\n        cost, node = heapq.heappop(frontier)\n        if node in settled:\n            continue\n        settled.add(node)\n        trace.append({\"node\": list(node), \"g\": cost})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, weight in neighbors(grid, node):\n            candidate = cost + weight\n            if candidate < best.get(neighbor, math.inf):\n                best[neighbor] = candidate\n                parents[neighbor] = node\n                heapq.heappush(frontier, (candidate, neighbor))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef compare(grid, start, goal):\n    validate(grid, start, goal)\n    a = solve(grid, start, goal)\n    reference = dijkstra(grid, start, goal)\n    return {\n        \"astar\": a,\n        \"dijkstra\": reference,\n        \"bfs\": breadth_first(grid, start, goal),\n        \"matches_optimal_cost\": a[\"status\"] == reference[\"status\"]\n        and a[\"cost\"] == reference[\"cost\"],\n        \"assumptions\": \"four-neighbor positive entry costs; Manhattan times minimum cell cost; start cost excluded\",\n    }\n"
+            },
+            "stdin": "{\"goal\": [2, 0], \"grid\": [[1, null, 1], [1, null, 1]], \"start\": [0, 0]}\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "import importlib.util,json,sys\nspec=importlib.util.spec_from_file_location('search','search.py')\nsearch=importlib.util.module_from_spec(spec);spec.loader.exec_module(search)\nproblem=json.loads(sys.stdin.read())\nprint(json.dumps(search.compare(problem['grid'],problem['start'],problem['goal']),sort_keys=True))\n",
+              "search.py": "\"\"\"Original finite orthogonal weighted-grid search lab.\"\"\"\n\nimport heapq\nimport math\nfrom collections import deque\n\n\ndef validate(grid, start, goal):\n    if not grid or not grid[0] or len(grid) * len(grid[0]) > 400:\n        raise ValueError(\"nonempty grid with at most 400 cells required\")\n    if any(len(row) != len(grid[0]) for row in grid):\n        raise ValueError(\"grid must be rectangular\")\n    for row in grid:\n        for cost in row:\n            if cost is not None and (\n                isinstance(cost, bool)\n                or not isinstance(cost, (int, float))\n                or not math.isfinite(cost)\n                or cost <= 0\n            ):\n                raise ValueError(\"cell cost must be positive finite or null wall\")\n    for endpoint in (start, goal):\n        if len(endpoint) != 2 or any(type(v) is not int for v in endpoint):\n            raise ValueError(\"coordinates must be integer pairs\")\n        x, y = endpoint\n        if not (0 <= y < len(grid) and 0 <= x < len(grid[0])) or grid[y][x] is None:\n            raise ValueError(\"endpoint must be inside traversable grid\")\n\n\ndef neighbors(grid, node):\n    x, y = node\n    for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:\n        nx, ny = x + dx, y + dy\n        if 0 <= ny < len(grid) and 0 <= nx < len(grid[0]) and grid[ny][nx] is not None:\n            yield (nx, ny), grid[ny][nx]\n\n\ndef finish(grid, start, goal, parents, trace, status):\n    path = []\n    if status == \"found\":\n        node = goal\n        while node != start:\n            path.append(node)\n            node = parents[node]\n        path.append(start)\n        path.reverse()\n    total = sum(grid[y][x] for x, y in path[1:]) if path else None\n    return {\n        \"status\": status,\n        \"path\": [list(p) for p in path],\n        \"cost\": total,\n        \"replayed_cost\": total,\n        \"trace\": trace,\n        \"expanded\": len(trace),\n    }\n\n\ndef solve(grid, start, goal, budget=1000):\n    validate(grid, start, goal)\n    if type(budget) is not int or budget <= 0:\n        raise ValueError(\"positive expansion budget required\")\n    start, goal = tuple(start), tuple(goal)\n    minimum = min(v for row in grid for v in row if v is not None)\n    heuristic = lambda node: minimum * (abs(node[0] - goal[0]) + abs(node[1] - goal[1]))\n    costs = {start: 0}\n    parents = {}\n    frontier = [(heuristic(start), 0, start)]\n    trace = []\n    while frontier:\n        priority, g, node = heapq.heappop(frontier)\n        if g != costs[node]:\n            continue\n        if len(trace) >= budget:\n            return finish(grid, start, goal, parents, trace, \"budget_exhausted\")\n        trace.append(\n            {\n                \"node\": list(node),\n                \"g\": g,\n                \"h\": heuristic(node),\n                \"priority\": priority,\n                \"frontier_size\": len(frontier),\n            }\n        )\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for next_node, weight in neighbors(grid, node):\n            tentative = g + weight\n            if tentative < costs.get(next_node, math.inf):\n                costs[next_node] = tentative\n                parents[next_node] = node\n                priority = tentative + heuristic(next_node)\n                heapq.heappush(frontier, (priority, tentative, next_node))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef breadth_first(grid, start, goal):\n    start, goal = tuple(start), tuple(goal)\n    queue = deque([start])\n    seen = {start}\n    parents = {}\n    trace = []\n    while queue:\n        node = queue.popleft()\n        trace.append({\"node\": list(node), \"frontier_size\": len(queue)})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, _ in neighbors(grid, node):\n            if neighbor not in seen:\n                seen.add(neighbor)\n                parents[neighbor] = node\n                queue.append(neighbor)\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef dijkstra(grid, start, goal):\n    # Separate uniform-cost implementation without the A* priority expression.\n    start, goal = tuple(start), tuple(goal)\n    frontier = [(0, start)]\n    settled = set()\n    best = {start: 0}\n    parents = {}\n    trace = []\n    while frontier:\n        cost, node = heapq.heappop(frontier)\n        if node in settled:\n            continue\n        settled.add(node)\n        trace.append({\"node\": list(node), \"g\": cost})\n        if node == goal:\n            return finish(grid, start, goal, parents, trace, \"found\")\n        for neighbor, weight in neighbors(grid, node):\n            candidate = cost + weight\n            if candidate < best.get(neighbor, math.inf):\n                best[neighbor] = candidate\n                parents[neighbor] = node\n                heapq.heappush(frontier, (candidate, neighbor))\n    return finish(grid, start, goal, parents, trace, \"unreachable\")\n\n\ndef compare(grid, start, goal):\n    validate(grid, start, goal)\n    a = solve(grid, start, goal)\n    reference = dijkstra(grid, start, goal)\n    return {\n        \"astar\": a,\n        \"dijkstra\": reference,\n        \"bfs\": breadth_first(grid, start, goal),\n        \"matches_optimal_cost\": a[\"status\"] == reference[\"status\"]\n        and a[\"cost\"] == reference[\"cost\"],\n        \"assumptions\": \"four-neighbor positive entry costs; Manhattan times minimum cell cost; start cost excluded\",\n    }\n"
+            },
+            "stdin": "{\"goal\": [2, 0], \"grid\": [[1, null, 1], [1, null, 1]], \"start\": [0, 0]}\n"
+          },
+          "prediction_prompt": "优先级是h还是g+h？最短边数路径是否最小代价？预估哪条路线会先展开。",
+          "reflection_prompt": "从g/h/priority说明反例与修复；解释启发式适用条件、无路和预算耗尽的区别，列出仍未验证的情形。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "8bcc0c0b-8ae7-5bc4-997a-a2001f011b22",
+      "version_id": "4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97",
+      "code": "CS12-M02-O03-CODE",
+      "version": "CS12-M02-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M02-O03"
+      ],
+      "kind": "code",
+      "title": "搜索峰值前沿不能以当前大小代替",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "实际队列大小轨迹给定2、5、1，空间观察应取峰值；节点字节和算法一般界另需说明。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsizes=[2,5,1] if n==1 else [1,2,3]\nprint(sizes[-1])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsizes=[2,5,1] if n==1 else [1,2,3]\nprint(max(sizes))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "递增前沿",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsizes=[2,5,1] if n==1 else [1,2,3]\nprint(sizes[-1])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsizes=[2,5,1] if n==1 else [1,2,3]\nprint(max(sizes))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "735f6beb-9e94-5705-acd3-aba05914b3b0",
+      "version_id": "72bbfa38-ca85-5cad-8778-cde994295e95",
+      "code": "CS12-M03-O01-CODE",
+      "version": "CS12-M03-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M03-O01"
+      ],
+      "kind": "code",
+      "title": "启发距离不得超过已知最短代价",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创有限图给定真实最短代价2，h=3过估计；此核对只支持所列节点，不证明全部状态可采纳。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndistance=2;h=3 if n==1 else 1\nprint(h>=0)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndistance=2;h=3 if n==1 else 1\nprint(0<=h<=distance)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "低估启发值",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndistance=2;h=3 if n==1 else 1\nprint(h>=0)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndistance=2;h=3 if n==1 else 1\nprint(0<=h<=distance)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "eed02c21-6491-5456-b0e5-a001b1b9d757",
+      "version_id": "e2d22c37-77ae-54ba-87fe-d9fca237ff57",
+      "code": "CS12-M03-O02-CODE",
+      "version": "CS12-M03-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M03-O02"
+      ],
+      "kind": "code",
+      "title": "一致性必须核对边上的三角条件",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创边u到v代价1，h(u)=3,h(v)=1不一致；非负启发不自动一致。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncost=1;hu=3 if n==1 else 2;hv=1\nprint(hu>=0 and hv>=0)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncost=1;hu=3 if n==1 else 2;hv=1\nprint(hu<=cost+hv)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "满足边约束",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncost=1;hu=3 if n==1 else 2;hv=1\nprint(hu>=0 and hv>=0)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncost=1;hu=3 if n==1 else 2;hv=1\nprint(hu<=cost+hv)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "8a228c37-fa32-54a4-bbd5-f1a9273503c5",
+      "version_id": "4d0133a8-c5d1-5e9b-b455-302eb4d23d7d",
+      "code": "CS12-M03-O03-CODE",
+      "version": "CS12-M03-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M03-O03"
+      ],
+      "kind": "code",
+      "title": "A星必须按g加h而非只按h扩展",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "真实堆搜索有限非负图：S到G代价5/S到A1/A到G1，可采纳一致h(A)=1；弹出目标时结束。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport heapq\ngraph={'S':[('G',5),('A',1)],'A':[('G',1)],'G':[]}\nif n==2:graph['S']=[('G',1)]\nh={'S':0,'A':1,'G':0};front=[(0,0,'S')];best={'S':0}\nwhile front:\n _,g,v=heapq.heappop(front)\n if g!=best[v]:continue\n if v=='G':print(g);break\n for w,c in graph[v]:\n  ng=g+c\n  if ng<best.get(w,float('inf')):best[w]=ng;heapq.heappush(front,(h[w],ng,w))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport heapq\ngraph={'S':[('G',5),('A',1)],'A':[('G',1)],'G':[]}\nif n==2:graph['S']=[('G',1)]\nh={'S':0,'A':1,'G':0};front=[(0,0,'S')];best={'S':0}\nwhile front:\n _,g,v=heapq.heappop(front)\n if g!=best[v]:continue\n if v=='G':print(g);break\n for w,c in graph[v]:\n  ng=g+c\n  if ng<best.get(w,float('inf')):best[w]=ng;heapq.heappush(front,(ng+h[w],ng,w))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "仅直达边",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport heapq\ngraph={'S':[('G',5),('A',1)],'A':[('G',1)],'G':[]}\nif n==2:graph['S']=[('G',1)]\nh={'S':0,'A':1,'G':0};front=[(0,0,'S')];best={'S':0}\nwhile front:\n _,g,v=heapq.heappop(front)\n if g!=best[v]:continue\n if v=='G':print(g);break\n for w,c in graph[v]:\n  ng=g+c\n  if ng<best.get(w,float('inf')):best[w]=ng;heapq.heappush(front,(h[w],ng,w))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport heapq\ngraph={'S':[('G',5),('A',1)],'A':[('G',1)],'G':[]}\nif n==2:graph['S']=[('G',1)]\nh={'S':0,'A':1,'G':0};front=[(0,0,'S')];best={'S':0}\nwhile front:\n _,g,v=heapq.heappop(front)\n if g!=best[v]:continue\n if v=='G':print(g);break\n for w,c in graph[v]:\n  ng=g+c\n  if ng<best.get(w,float('inf')):best[w]=ng;heapq.heappush(front,(ng+h[w],ng,w))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "a3e86fdf-aeb6-58e1-9e5b-4627baa4989c",
+      "version_id": "61354f25-204f-5ba3-b420-1dbb5303a6b1",
+      "code": "CS12-M04-O01-CODE",
+      "version": "CS12-M04-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M04-O01"
+      ],
+      "kind": "code",
+      "title": "对手节点在minimax中选择最小值",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创深度二零和完全信息树，根max、下一层min；不默认对手帮助我方。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-game"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nbranches=[[3,1],[2,2]] if n==1 else [[1,1],[2,2]]\nprint(max(max(row) for row in branches))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nbranches=[[3,1],[2,2]] if n==1 else [[1,1],[2,2]]\nprint(max(min(row) for row in branches))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "分支结果相同",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nbranches=[[3,1],[2,2]] if n==1 else [[1,1],[2,2]]\nprint(max(max(row) for row in branches))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nbranches=[[3,1],[2,2]] if n==1 else [[1,1],[2,2]]\nprint(max(min(row) for row in branches))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c63c0cc9-2a72-5255-86e3-480296cb814c",
+      "version_id": "c39f950c-0118-54ce-a9fa-c34deb5e5d83",
+      "code": "CS12-M04-O02-CODE",
+      "version": "CS12-M04-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M04-O02"
+      ],
+      "kind": "code",
+      "title": "局部极值停止不代表全局最优",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创目标序列1、3、2、5，严格爬山在3停；保存局部与枚举全局对照，不宣称重启一定全局。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-local"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvalues=[1,3,2,5] if n==1 else [1,2,3]\ni=0\nwhile i+1<len(values) and values[i+1]>values[i]:i+=1\nprint(values[i]==max(values))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvalues=[1,3,2,5] if n==1 else [1,2,3]\ni=0\nwhile i+1<len(values) and values[i+1]>values[i]:i+=1\nprint(str(values[i])+' '+str(max(values)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单调目标",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvalues=[1,3,2,5] if n==1 else [1,2,3]\ni=0\nwhile i+1<len(values) and values[i+1]>values[i]:i+=1\nprint(values[i]==max(values))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvalues=[1,3,2,5] if n==1 else [1,2,3]\ni=0\nwhile i+1<len(values) and values[i+1]>values[i]:i+=1\nprint(str(values[i])+' '+str(max(values)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "6e33f3c2-33d6-53ad-9d51-f7dd098ae541",
+      "version_id": "fc4ed591-cb3c-5c75-a6ce-6abc7911b276",
+      "code": "CS12-M04-O03-CODE",
+      "version": "CS12-M04-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M04-O03"
+      ],
+      "kind": "code",
+      "title": "相同解值还需比较展开代价",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创两个已验证解值相同的记录，比较访问计数；不是实际alpha-beta实现性能测量。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-game"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvalue={'plain':2,'pruned':2};nodes={'plain':7,'pruned':5 if n==1 else 7}\nprint(value['plain']==value['pruned'])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvalue={'plain':2,'pruned':2};nodes={'plain':7,'pruned':5 if n==1 else 7}\nprint(value['plain']==value['pruned'],nodes['plain']-nodes['pruned'])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "无剪枝收益",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvalue={'plain':2,'pruned':2};nodes={'plain':7,'pruned':5 if n==1 else 7}\nprint(value['plain']==value['pruned'])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvalue={'plain':2,'pruned':2};nodes={'plain':7,'pruned':5 if n==1 else 7}\nprint(value['plain']==value['pruned'],nodes['plain']-nodes['pruned'])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "3b7b0d10-6fc9-5dd6-b8bb-5640fd8f4e7e",
+      "version_id": "fe831e39-8136-5daa-99a5-acc510078100",
+      "code": "CS12-M05-O01-CODE",
+      "version": "CS12-M05-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M05-O01"
+      ],
+      "kind": "code",
+      "title": "CSP赋值必须同时满足域与约束",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创X,Y域1/2且不等，域内赋值仍可能冲突。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-csp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nx=1;y=1 if n==1 else 2\nprint(x in {1,2} and y in {1,2})\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nx=1;y=1 if n==1 else 2\nprint(x in {1,2} and y in {1,2} and x!=y)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "有效不等赋值",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nx=1;y=1 if n==1 else 2\nprint(x in {1,2} and y in {1,2})\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nx=1;y=1 if n==1 else 2\nprint(x in {1,2} and y in {1,2} and x!=y)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "a2bf030d-ce06-5010-a422-b93fd44138ee",
+      "version_id": "4e837992-2ce0-520f-bc5d-dce12e3fa930",
+      "code": "CS12-M05-O02-CODE",
+      "version": "CS12-M05-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M05-O02"
+      ],
+      "kind": "code",
+      "title": "弧修正删除没有支持的值",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创X!=Y，Y域仅1时X值1无支持；只做一次弧修正，不称完整AC3。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-filter"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndx={1,2};dy={1} if n==1 else {1,2}\nprint(' '.join(map(str,sorted(dx))))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndx={1,2};dy={1} if n==1 else {1,2}\nprint(' '.join(map(str,sorted(x for x in dx if any(x!=y for y in dy)))))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "两个值均有支持",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndx={1,2};dy={1} if n==1 else {1,2}\nprint(' '.join(map(str,sorted(dx))))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndx={1,2};dy={1} if n==1 else {1,2}\nprint(' '.join(map(str,sorted(x for x in dx if any(x!=y for y in dy)))))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "eef2d8e3-888b-50c8-a361-2da30d79ccab",
+      "version_id": "c16dac75-f63a-5f8c-8908-2379eea98a6f",
+      "code": "CS12-M05-O03-CODE",
+      "version": "CS12-M05-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M05-O03"
+      ],
+      "kind": "code",
+      "title": "空域必须报告不满足而非选默认值",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创X!=Y且两域仅1无解；完整枚举有限两变量，不能硬写默认赋值。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-csp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndx=[1];dy=[1] if n==1 else [2]\nsolutions=[(x,y) for x in dx for y in dy if x!=y]\nprint('1 1')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ndx=[1];dy=[1] if n==1 else [2]\nsolutions=[(x,y) for x in dx for y in dy if x!=y]\nprint('unsat' if not solutions else ' '.join(map(str,solutions[0])))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "存在解",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndx=[1];dy=[1] if n==1 else [2]\nsolutions=[(x,y) for x in dx for y in dy if x!=y]\nprint('1 1')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ndx=[1];dy=[1] if n==1 else [2]\nsolutions=[(x,y) for x in dx for y in dy if x!=y]\nprint('unsat' if not solutions else ' '.join(map(str,solutions[0])))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "720c9eff-8f56-52dc-8ad5-56ea3b8d2ce2",
+      "version_id": "61e95bbc-4d36-5151-8fa7-828b115d01fd",
+      "code": "CS12-M06-O01-CODE",
+      "version": "CS12-M06-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M06-O01"
+      ],
+      "kind": "code",
+      "title": "未知事实不能自动作假",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创开放世界事实查询：未登记不是已证伪，正负事实分别存储。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-logic"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npositive={'ready'};negative=set();fact='door' if n==1 else 'ready'\nprint(fact in positive)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npositive={'ready'};negative=set();fact='door' if n==1 else 'ready'\nprint('true' if fact in positive else 'false' if fact in negative else 'unknown')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "明确已知事实",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npositive={'ready'};negative=set();fact='door' if n==1 else 'ready'\nprint(fact in positive)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npositive={'ready'};negative=set();fact='door' if n==1 else 'ready'\nprint('true' if fact in positive else 'false' if fact in negative else 'unknown')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "a1432123-aa1c-5c92-ba1b-44217ec85888",
+      "version_id": "26d62f37-11a6-5662-b8fc-c42e0dc186a4",
+      "code": "CS12-M06-O02-CODE",
+      "version": "CS12-M06-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M06-O02"
+      ],
+      "kind": "code",
+      "title": "前向链须迭代到固定点",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创正Horn规则b到c排在a到b前，单轮会漏c；有限事实闭包可终止。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-logic"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfacts={'a'} if n==1 else {'b'}\nrules=[({'b'},'c'),({'a'},'b')]\nfor pre,out in rules:\n if pre<=facts:facts.add(out)\nprint(' '.join(sorted(facts)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfacts={'a'} if n==1 else {'b'}\nrules=[({'b'},'c'),({'a'},'b')]\nwhile True:\n before=set(facts)\n for pre,out in rules:\n  if pre<=facts:facts.add(out)\n if before==facts:break\nprint(' '.join(sorted(facts)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "从中间事实起步",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfacts={'a'} if n==1 else {'b'}\nrules=[({'b'},'c'),({'a'},'b')]\nfor pre,out in rules:\n if pre<=facts:facts.add(out)\nprint(' '.join(sorted(facts)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfacts={'a'} if n==1 else {'b'}\nrules=[({'b'},'c'),({'a'},'b')]\nwhile True:\n before=set(facts)\n for pre,out in rules:\n  if pre<=facts:facts.add(out)\n if before==facts:break\nprint(' '.join(sorted(facts)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "ab056b7b-6812-52b9-97f9-27f5a46400cd",
+      "version_id": "66f4299c-03ee-5006-95e7-735ded0abdfd",
+      "code": "CS12-M06-O03-CODE",
+      "version": "CS12-M06-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M06-O03"
+      ],
+      "kind": "code",
+      "title": "显式正负冲突不能被忽略",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创带符号事实仓库需报告同一事实正负同时出现；这是冲突检查策略，不称完整非单调逻辑。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-logic"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npositive={'ready'};negative={'ready'} if n==1 else {'locked'}\nprint('consistent')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\npositive={'ready'};negative={'ready'} if n==1 else {'locked'}\nprint('conflict' if positive&negative else 'consistent')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "没有相反事实",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npositive={'ready'};negative={'ready'} if n==1 else {'locked'}\nprint('consistent')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\npositive={'ready'};negative={'ready'} if n==1 else {'locked'}\nprint('conflict' if positive&negative else 'consistent')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "7a0b2f24-603e-5f42-a2e5-422d38babe83",
+      "version_id": "a825aefe-4b5b-5ae1-87a7-01aeff1ff346",
+      "code": "CS12-M07-O01-CODE",
+      "version": "CS12-M07-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M07-O01"
+      ],
+      "kind": "code",
+      "title": "条件概率需要除以证据概率",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创联合概率P(A且B)=1/8、P(B)=1/4，P(A|B)=1/2；分母零不能定义普通条件概率。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-prob"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\njoint=Fraction(1,8);evidence=Fraction(1,4) if n==1 else Fraction(1)\nprint(joint)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\njoint=Fraction(1,8);evidence=Fraction(1,4) if n==1 else Fraction(1)\nprint(joint/evidence)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "证据概率为一",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\njoint=Fraction(1,8);evidence=Fraction(1,4) if n==1 else Fraction(1)\nprint(joint)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\njoint=Fraction(1,8);evidence=Fraction(1,4) if n==1 else Fraction(1)\nprint(joint/evidence)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "183973c5-343c-5bc9-983c-f1cfd21ebbd6",
+      "version_id": "7d6030df-a704-5349-a1b0-1fa50714c85b",
+      "code": "CS12-M07-O02-CODE",
+      "version": "CS12-M07-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M07-O02"
+      ],
+      "kind": "code",
+      "title": "贝叶斯网络边缘化要包含全部父值",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创二值A到B，P(A)=1/2，P(B|A)=3/4，P(B|非A)=1/4，结果1/2；不能只算A真项。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-prob"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\np=Fraction(1,2) if n==1 else Fraction(1);yes=Fraction(3,4);no=Fraction(1,4)\nprint(p*yes)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\np=Fraction(1,2) if n==1 else Fraction(1);yes=Fraction(3,4);no=Fraction(1,4)\nprint(p*yes+(1-p)*no)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "父变量总为真",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\np=Fraction(1,2) if n==1 else Fraction(1);yes=Fraction(3,4);no=Fraction(1,4)\nprint(p*yes)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\np=Fraction(1,2) if n==1 else Fraction(1);yes=Fraction(3,4);no=Fraction(1,4)\nprint(p*yes+(1-p)*no)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "b26d0644-56f7-504c-b193-f4b2f9dd9cc6",
+      "version_id": "bfc070f1-dc3e-5df2-b69b-a43d34ece393",
+      "code": "CS12-M07-O03-CODE",
+      "version": "CS12-M07-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M07-O03"
+      ],
+      "kind": "code",
+      "title": "独立性假设需用联合表核对",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创二值联合表对角各1/2，边缘各1/2但联合1/2不等1/4；单对值可否定却不能证明全表独立。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-prob"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\npa=pb=Fraction(1,2);joint=Fraction(1,2) if n==1 else Fraction(1,4)\nprint(pa==pb)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\npa=pb=Fraction(1,2);joint=Fraction(1,2) if n==1 else Fraction(1,4)\nprint(joint==pa*pb)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "这一个格满足分解",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\npa=pb=Fraction(1,2);joint=Fraction(1,2) if n==1 else Fraction(1,4)\nprint(pa==pb)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\npa=pb=Fraction(1,2);joint=Fraction(1,2) if n==1 else Fraction(1,4)\nprint(joint==pa*pb)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1413c596-6aa9-5bf5-9d11-4b7cd836bd06",
+      "version_id": "4b89ed4d-0469-57e0-92b3-e26554bf9762",
+      "code": "CS12-M08-O01-CODE",
+      "version": "CS12-M08-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M08-O01"
+      ],
+      "kind": "code",
+      "title": "动作不满足前提不能执行效果",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创开门动作需要key，未满足时返回原状态并报告blocked。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-plan"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nstate={'key'} if n==2 else set();pre={'key'}\nstate.add('open');print(' '.join(sorted(state)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nstate={'key'} if n==2 else set();pre={'key'}\nif pre<=state:state.add('open');print(' '.join(sorted(state)))\nelse:print('blocked')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "前提已满足",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nstate={'key'} if n==2 else set();pre={'key'}\nstate.add('open');print(' '.join(sorted(state)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nstate={'key'} if n==2 else set();pre={'key'}\nif pre<=state:state.add('open');print(' '.join(sorted(state)))\nelse:print('blocked')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "6e1c1784-7967-59bc-b30f-748d1bd1e5fa",
+      "version_id": "11f6d812-6340-58be-a02d-b5221d6096cc",
+      "code": "CS12-M08-O02-CODE",
+      "version": "CS12-M08-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M08-O02"
+      ],
+      "kind": "code",
+      "title": "计划回放必须逐步检查前提与目标",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创取钥匙再开门计划，逆序执行失败；不能只因动作名单含open就视为计划成功。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-plan"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nplan=['open','take'] if n==1 else ['take','open'];state=set()\nprint('open' in plan)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nplan=['open','take'] if n==1 else ['take','open'];state=set()\nvalid=True\nfor action in plan:\n if action=='take':state.add('key')\n elif 'key' in state:state.add('open')\n else:valid=False;break\nprint(valid and 'open' in state)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "合法动作次序",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nplan=['open','take'] if n==1 else ['take','open'];state=set()\nprint('open' in plan)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nplan=['open','take'] if n==1 else ['take','open'];state=set()\nvalid=True\nfor action in plan:\n if action=='take':state.add('key')\n elif 'key' in state:state.add('open')\n else:valid=False;break\nprint(valid and 'open' in state)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "cef33801-2e29-5a15-9b52-2a055f00c5dd",
+      "version_id": "c585ec57-2152-5de6-802d-291e5bcbccf4",
+      "code": "CS12-M08-O03-CODE",
+      "version": "CS12-M08-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M08-O03"
+      ],
+      "kind": "code",
+      "title": "奖励反馈不能当监督标签",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创记录以显式signal_kind标识监督label或强化reward，不根据数值0/1猜任务。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-plan"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nrecord={'value':1,'signal_kind':'reward' if n==1 else 'label'}\nprint('supervised')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nrecord={'value':1,'signal_kind':'reward' if n==1 else 'label'}\nprint('reinforcement' if record['signal_kind']=='reward' else 'supervised')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "监督标签记录",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nrecord={'value':1,'signal_kind':'reward' if n==1 else 'label'}\nprint('supervised')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nrecord={'value':1,'signal_kind':'reward' if n==1 else 'label'}\nprint('reinforcement' if record['signal_kind']=='reward' else 'supervised')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "daf39eec-6efa-57b0-a5c2-1d0fe140051d",
+      "version_id": "49489567-a442-5504-8b65-9d2b6d89fbbb",
+      "code": "CS12-M09-O01-CODE",
+      "version": "CS12-M09-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M09-O01"
+      ],
+      "kind": "code",
+      "title": "相同成功数下仍须比较资源预算",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创固定评估记录成功数相同，模型预算按给定成本排序；不声称真实平台模型测评。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-search"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncost={'A':8,'B':2 if n==1 else 8}\nprint('A')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncost={'A':8,'B':2 if n==1 else 8}\nprint(min(cost,key=lambda k:(cost[k],k)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "成本相同按名称稳定选择",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncost={'A':8,'B':2 if n==1 else 8}\nprint('A')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncost={'A':8,'B':2 if n==1 else 8}\nprint(min(cost,key=lambda k:(cost[k],k)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "9d26cda2-9f10-56f0-bda2-e30c4374e2fa",
+      "version_id": "20b00edf-228e-5caf-8225-77ff13166838",
+      "code": "CS12-M09-O02-CODE",
+      "version": "CS12-M09-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M09-O02"
+      ],
+      "kind": "code",
+      "title": "总准确率不能掩盖组间误差",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创固定评估A组9/10，B组1/2；这是描述性组差异，不证明歧视原因或完整公平性。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-prob"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\na=Fraction(9,10);b=Fraction(1,2) if n==1 else Fraction(9,10)\nprint(a==a)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom fractions import Fraction\na=Fraction(9,10);b=Fraction(1,2) if n==1 else Fraction(9,10)\nprint(a==b)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "两组正确率相同",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\na=Fraction(9,10);b=Fraction(1,2) if n==1 else Fraction(9,10)\nprint(a==a)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom fractions import Fraction\na=Fraction(9,10);b=Fraction(1,2) if n==1 else Fraction(9,10)\nprint(a==b)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "44f95e9f-5f7f-515b-919c-51fb0ba66518",
+      "version_id": "c62f0ecf-702b-5f90-91d8-c7ca13f54445",
+      "code": "CS12-M09-O03-CODE",
+      "version": "CS12-M09-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS12-M09-O03"
+      ],
+      "kind": "code",
+      "title": "应用边界需处理分布外输入",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创规则只支持整数0到10，超范围应拒绝自动结论并保留核验；拒绝不证明全部安全性。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "ai-plan"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvalue=20 if n==1 else 5\nprint('automatic')\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nvalue=20 if n==1 else 5\nprint('automatic' if type(value) is int and 0<=value<=10 else 'needs_review')\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "声明范围内输入",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvalue=20 if n==1 else 5\nprint('automatic')\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nvalue=20 if n==1 else 5\nprint('automatic' if type(value) is int and 0<=value<=10 else 'needs_review')\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "ai-search",
+      "title": "Berkeley Informed Search",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/search/informed.html",
+      "locator": "cost, heuristic and A star",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ai-pruning",
+      "title": "Poole and Mackworth Pruning",
+      "url": "https://artint.info/3e/html/ArtInt3e.Ch3.S7.html",
+      "locator": "cycle and multiple-path pruning",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ai-filter",
+      "title": "Berkeley CSP Filtering",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/csp/filtering.html",
+      "locator": "support and arc revision",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ai-local",
+      "title": "Berkeley Local Search",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/search/local.html",
+      "locator": "local optima and search limitations",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ai-csp",
+      "title": "Berkeley CSP Solving",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/csp/solving.html",
+      "locator": "backtracking and constraint checking",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ai-game",
+      "title": "Berkeley Minimax",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/games/minimax.html",
+      "locator": "adversarial alternating value",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ai-logic",
+      "title": "Poole and Mackworth Definite Clauses",
+      "url": "https://artint.info/3e/html/ArtInt3e.Ch5.S3.html",
+      "locator": "positive Horn inference; signed facts are original extension",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ai-prob",
+      "title": "Berkeley Probability Inference",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/bayes-nets/inference.html",
+      "locator": "enumeration, marginalization and normalization",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "ai-plan",
+      "title": "Poole and Mackworth Planning",
+      "url": "https://artint.info/3e/html/ArtInt3e.Ch6.S1.html",
+      "locator": "preconditions and effects",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ]
+}

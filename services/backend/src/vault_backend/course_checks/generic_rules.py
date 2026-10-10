@@ -1,6 +1,598 @@
 """Frozen additional code-course rules. Never change published entries."""
 
-GENERIC_RULES = {'10f64de2-acaf-5de8-8d02-dda9422af822': {('CS10-M01-O01', 'base'): ('66acb8e2-1c22-54ac-8d30-ba4b5420c807',
+GENERIC_RULES = {'01e157b8-021c-53ca-b743-39af3957c3b1': {('CS12-M01-O01', 'base'): ('bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M01-O01', 'changed-condition'): ('bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M01-O02', 'base'): ('8b9f1427-226a-5804-8cb1-2ab8d1d9e472',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '10\n',
+                                                                     ''),
+                                          ('CS12-M01-O02', 'changed-condition'): ('8b9f1427-226a-5804-8cb1-2ab8d1d9e472',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS12-M01-O03', 'base'): ('d30541e5-8c28-5350-bfc7-4450fbc7ac45',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'left right\n',
+                                                                     ''),
+                                          ('CS12-M01-O03', 'changed-condition'): ('d30541e5-8c28-5350-bfc7-4450fbc7ac45',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'left\n',
+                                                                                  ''),
+                                          ('CS12-M02-O01', 'base'): ('3cf76d51-057a-560b-bf7c-dbef88a90222',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'S G\n',
+                                                                     ''),
+                                          ('CS12-M02-O01', 'changed-condition'): ('3cf76d51-057a-560b-bf7c-dbef88a90222',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'S G\n',
+                                                                                  ''),
+                                          ('CS12-M02-O02', 'base'): ('71513591-5fb3-5db3-9c84-ed249632598a',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unknown:budget\n',
+                                                                     ''),
+                                          ('CS12-M02-O02', 'changed-condition'): ('71513591-5fb3-5db3-9c84-ed249632598a',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'found\n',
+                                                                                  ''),
+                                          ('CS12-M02-O02', 'route-unreachable'): ('71513591-5fb3-5db3-9c84-ed249632598a',
+                                                                                  '{"goal": '
+                                                                                  '[2, 0], '
+                                                                                  '"grid": '
+                                                                                  '[[1, null, '
+                                                                                  '1], [1, '
+                                                                                  'null, 1]], '
+                                                                                  '"start": '
+                                                                                  '[0, 0]}\n',
+                                                                                  'success',
+                                                                                  '{"assumptions": '
+                                                                                  '"four-neighbor '
+                                                                                  'positive '
+                                                                                  'entry '
+                                                                                  'costs; '
+                                                                                  'Manhattan '
+                                                                                  'times '
+                                                                                  'minimum '
+                                                                                  'cell cost; '
+                                                                                  'start cost '
+                                                                                  'excluded", '
+                                                                                  '"astar": '
+                                                                                  '{"cost": '
+                                                                                  'null, '
+                                                                                  '"expanded": '
+                                                                                  '2, "path": '
+                                                                                  '[], '
+                                                                                  '"replayed_cost": '
+                                                                                  'null, '
+                                                                                  '"status": '
+                                                                                  '"unreachable", '
+                                                                                  '"trace": '
+                                                                                  '[{"frontier_size": '
+                                                                                  '0, "g": 0, '
+                                                                                  '"h": 2, '
+                                                                                  '"node": '
+                                                                                  '[0, 0], '
+                                                                                  '"priority": '
+                                                                                  '2}, '
+                                                                                  '{"frontier_size": '
+                                                                                  '0, "g": 1, '
+                                                                                  '"h": 3, '
+                                                                                  '"node": '
+                                                                                  '[0, 1], '
+                                                                                  '"priority": '
+                                                                                  '4}]}, '
+                                                                                  '"bfs": '
+                                                                                  '{"cost": '
+                                                                                  'null, '
+                                                                                  '"expanded": '
+                                                                                  '2, "path": '
+                                                                                  '[], '
+                                                                                  '"replayed_cost": '
+                                                                                  'null, '
+                                                                                  '"status": '
+                                                                                  '"unreachable", '
+                                                                                  '"trace": '
+                                                                                  '[{"frontier_size": '
+                                                                                  '0, "node": '
+                                                                                  '[0, 0]}, '
+                                                                                  '{"frontier_size": '
+                                                                                  '0, "node": '
+                                                                                  '[0, 1]}]}, '
+                                                                                  '"dijkstra": '
+                                                                                  '{"cost": '
+                                                                                  'null, '
+                                                                                  '"expanded": '
+                                                                                  '2, "path": '
+                                                                                  '[], '
+                                                                                  '"replayed_cost": '
+                                                                                  'null, '
+                                                                                  '"status": '
+                                                                                  '"unreachable", '
+                                                                                  '"trace": '
+                                                                                  '[{"g": 0, '
+                                                                                  '"node": '
+                                                                                  '[0, 0]}, '
+                                                                                  '{"g": 1, '
+                                                                                  '"node": '
+                                                                                  '[0, 1]}]}, '
+                                                                                  '"matches_optimal_cost": '
+                                                                                  'true}\n',
+                                                                                  ''),
+                                          ('CS12-M02-O02', 'route-wall'): ('71513591-5fb3-5db3-9c84-ed249632598a',
+                                                                           '{"goal": [2, 1], '
+                                                                           '"grid": [[1, 1, '
+                                                                           '1], [1, 7, 1], '
+                                                                           '[1, null, 1]], '
+                                                                           '"start": [0, '
+                                                                           '1]}\n',
+                                                                           'success',
+                                                                           '{"assumptions": '
+                                                                           '"four-neighbor '
+                                                                           'positive entry '
+                                                                           'costs; Manhattan '
+                                                                           'times minimum '
+                                                                           'cell cost; start '
+                                                                           'cost excluded", '
+                                                                           '"astar": {"cost": '
+                                                                           '4, "expanded": 6, '
+                                                                           '"path": [[0, 1], '
+                                                                           '[0, 0], [1, 0], '
+                                                                           '[2, 0], [2, 1]], '
+                                                                           '"replayed_cost": '
+                                                                           '4, "status": '
+                                                                           '"found", "trace": '
+                                                                           '[{"frontier_size": '
+                                                                           '0, "g": 0, "h": '
+                                                                           '2, "node": [0, '
+                                                                           '1], "priority": '
+                                                                           '2}, '
+                                                                           '{"frontier_size": '
+                                                                           '2, "g": 1, "h": '
+                                                                           '3, "node": [0, '
+                                                                           '0], "priority": '
+                                                                           '4}, '
+                                                                           '{"frontier_size": '
+                                                                           '2, "g": 1, "h": '
+                                                                           '3, "node": [0, '
+                                                                           '2], "priority": '
+                                                                           '4}, '
+                                                                           '{"frontier_size": '
+                                                                           '1, "g": 2, "h": '
+                                                                           '2, "node": [1, '
+                                                                           '0], "priority": '
+                                                                           '4}, '
+                                                                           '{"frontier_size": '
+                                                                           '1, "g": 3, "h": '
+                                                                           '1, "node": [2, '
+                                                                           '0], "priority": '
+                                                                           '4}, '
+                                                                           '{"frontier_size": '
+                                                                           '1, "g": 4, "h": '
+                                                                           '0, "node": [2, '
+                                                                           '1], "priority": '
+                                                                           '4}]}, "bfs": '
+                                                                           '{"cost": 8, '
+                                                                           '"expanded": 5, '
+                                                                           '"path": [[0, 1], '
+                                                                           '[1, 1], [2, 1]], '
+                                                                           '"replayed_cost": '
+                                                                           '8, "status": '
+                                                                           '"found", "trace": '
+                                                                           '[{"frontier_size": '
+                                                                           '0, "node": [0, '
+                                                                           '1]}, '
+                                                                           '{"frontier_size": '
+                                                                           '2, "node": [1, '
+                                                                           '1]}, '
+                                                                           '{"frontier_size": '
+                                                                           '3, "node": [0, '
+                                                                           '2]}, '
+                                                                           '{"frontier_size": '
+                                                                           '2, "node": [0, '
+                                                                           '0]}, '
+                                                                           '{"frontier_size": '
+                                                                           '1, "node": [2, '
+                                                                           '1]}]}, '
+                                                                           '"dijkstra": '
+                                                                           '{"cost": 4, '
+                                                                           '"expanded": 6, '
+                                                                           '"path": [[0, 1], '
+                                                                           '[0, 0], [1, 0], '
+                                                                           '[2, 0], [2, 1]], '
+                                                                           '"replayed_cost": '
+                                                                           '4, "status": '
+                                                                           '"found", "trace": '
+                                                                           '[{"g": 0, "node": '
+                                                                           '[0, 1]}, {"g": 1, '
+                                                                           '"node": [0, 0]}, '
+                                                                           '{"g": 1, "node": '
+                                                                           '[0, 2]}, {"g": 2, '
+                                                                           '"node": [1, 0]}, '
+                                                                           '{"g": 3, "node": '
+                                                                           '[2, 0]}, {"g": 4, '
+                                                                           '"node": [2, '
+                                                                           '1]}]}, '
+                                                                           '"matches_optimal_cost": '
+                                                                           'true}\n',
+                                                                           ''),
+                                          ('CS12-M02-O02', 'route-weighted'): ('71513591-5fb3-5db3-9c84-ed249632598a',
+                                                                               '{"goal": [2, '
+                                                                               '1], "grid": '
+                                                                               '[[1, 1, 1], '
+                                                                               '[1, 9, 1], '
+                                                                               '[1, 1, 1]], '
+                                                                               '"start": [0, '
+                                                                               '1]}\n',
+                                                                               'success',
+                                                                               '{"assumptions": '
+                                                                               '"four-neighbor '
+                                                                               'positive '
+                                                                               'entry costs; '
+                                                                               'Manhattan '
+                                                                               'times minimum '
+                                                                               'cell cost; '
+                                                                               'start cost '
+                                                                               'excluded", '
+                                                                               '"astar": '
+                                                                               '{"cost": 4, '
+                                                                               '"expanded": '
+                                                                               '8, "path": '
+                                                                               '[[0, 1], [0, '
+                                                                               '0], [1, 0], '
+                                                                               '[2, 0], [2, '
+                                                                               '1]], '
+                                                                               '"replayed_cost": '
+                                                                               '4, "status": '
+                                                                               '"found", '
+                                                                               '"trace": '
+                                                                               '[{"frontier_size": '
+                                                                               '0, "g": 0, '
+                                                                               '"h": 2, '
+                                                                               '"node": [0, '
+                                                                               '1], '
+                                                                               '"priority": '
+                                                                               '2}, '
+                                                                               '{"frontier_size": '
+                                                                               '2, "g": 1, '
+                                                                               '"h": 3, '
+                                                                               '"node": [0, '
+                                                                               '0], '
+                                                                               '"priority": '
+                                                                               '4}, '
+                                                                               '{"frontier_size": '
+                                                                               '2, "g": 1, '
+                                                                               '"h": 3, '
+                                                                               '"node": [0, '
+                                                                               '2], '
+                                                                               '"priority": '
+                                                                               '4}, '
+                                                                               '{"frontier_size": '
+                                                                               '2, "g": 2, '
+                                                                               '"h": 2, '
+                                                                               '"node": [1, '
+                                                                               '0], '
+                                                                               '"priority": '
+                                                                               '4}, '
+                                                                               '{"frontier_size": '
+                                                                               '2, "g": 2, '
+                                                                               '"h": 2, '
+                                                                               '"node": [1, '
+                                                                               '2], '
+                                                                               '"priority": '
+                                                                               '4}, '
+                                                                               '{"frontier_size": '
+                                                                               '2, "g": 3, '
+                                                                               '"h": 1, '
+                                                                               '"node": [2, '
+                                                                               '0], '
+                                                                               '"priority": '
+                                                                               '4}, '
+                                                                               '{"frontier_size": '
+                                                                               '2, "g": 3, '
+                                                                               '"h": 1, '
+                                                                               '"node": [2, '
+                                                                               '2], '
+                                                                               '"priority": '
+                                                                               '4}, '
+                                                                               '{"frontier_size": '
+                                                                               '1, "g": 4, '
+                                                                               '"h": 0, '
+                                                                               '"node": [2, '
+                                                                               '1], '
+                                                                               '"priority": '
+                                                                               '4}]}, "bfs": '
+                                                                               '{"cost": 10, '
+                                                                               '"expanded": '
+                                                                               '5, "path": '
+                                                                               '[[0, 1], [1, '
+                                                                               '1], [2, 1]], '
+                                                                               '"replayed_cost": '
+                                                                               '10, "status": '
+                                                                               '"found", '
+                                                                               '"trace": '
+                                                                               '[{"frontier_size": '
+                                                                               '0, "node": '
+                                                                               '[0, 1]}, '
+                                                                               '{"frontier_size": '
+                                                                               '2, "node": '
+                                                                               '[1, 1]}, '
+                                                                               '{"frontier_size": '
+                                                                               '4, "node": '
+                                                                               '[0, 2]}, '
+                                                                               '{"frontier_size": '
+                                                                               '3, "node": '
+                                                                               '[0, 0]}, '
+                                                                               '{"frontier_size": '
+                                                                               '2, "node": '
+                                                                               '[2, 1]}]}, '
+                                                                               '"dijkstra": '
+                                                                               '{"cost": 4, '
+                                                                               '"expanded": '
+                                                                               '8, "path": '
+                                                                               '[[0, 1], [0, '
+                                                                               '0], [1, 0], '
+                                                                               '[2, 0], [2, '
+                                                                               '1]], '
+                                                                               '"replayed_cost": '
+                                                                               '4, "status": '
+                                                                               '"found", '
+                                                                               '"trace": '
+                                                                               '[{"g": 0, '
+                                                                               '"node": [0, '
+                                                                               '1]}, {"g": 1, '
+                                                                               '"node": [0, '
+                                                                               '0]}, {"g": 1, '
+                                                                               '"node": [0, '
+                                                                               '2]}, {"g": 2, '
+                                                                               '"node": [1, '
+                                                                               '0]}, {"g": 2, '
+                                                                               '"node": [1, '
+                                                                               '2]}, {"g": 3, '
+                                                                               '"node": [2, '
+                                                                               '0]}, {"g": 3, '
+                                                                               '"node": [2, '
+                                                                               '2]}, {"g": 4, '
+                                                                               '"node": [2, '
+                                                                               '1]}]}, '
+                                                                               '"matches_optimal_cost": '
+                                                                               'true}\n',
+                                                                               ''),
+                                          ('CS12-M02-O03', 'base'): ('4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '5\n',
+                                                                     ''),
+                                          ('CS12-M02-O03', 'changed-condition'): ('4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3\n',
+                                                                                  ''),
+                                          ('CS12-M03-O01', 'base'): ('72bbfa38-ca85-5cad-8778-cde994295e95',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M03-O01', 'changed-condition'): ('72bbfa38-ca85-5cad-8778-cde994295e95',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M03-O02', 'base'): ('e2d22c37-77ae-54ba-87fe-d9fca237ff57',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M03-O02', 'changed-condition'): ('e2d22c37-77ae-54ba-87fe-d9fca237ff57',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M03-O03', 'base'): ('4d0133a8-c5d1-5e9b-b455-302eb4d23d7d',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS12-M03-O03', 'changed-condition'): ('4d0133a8-c5d1-5e9b-b455-302eb4d23d7d',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1\n',
+                                                                                  ''),
+                                          ('CS12-M04-O01', 'base'): ('61354f25-204f-5ba3-b420-1dbb5303a6b1',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS12-M04-O01', 'changed-condition'): ('61354f25-204f-5ba3-b420-1dbb5303a6b1',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '2\n',
+                                                                                  ''),
+                                          ('CS12-M04-O02', 'base'): ('c39f950c-0118-54ce-a9fa-c34deb5e5d83',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '3 5\n',
+                                                                     ''),
+                                          ('CS12-M04-O02', 'changed-condition'): ('c39f950c-0118-54ce-a9fa-c34deb5e5d83',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3 3\n',
+                                                                                  ''),
+                                          ('CS12-M04-O03', 'base'): ('fc4ed591-cb3c-5c75-a6ce-6abc7911b276',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'True 2\n',
+                                                                     ''),
+                                          ('CS12-M04-O03', 'changed-condition'): ('fc4ed591-cb3c-5c75-a6ce-6abc7911b276',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True 0\n',
+                                                                                  ''),
+                                          ('CS12-M05-O01', 'base'): ('fe831e39-8136-5daa-99a5-acc510078100',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M05-O01', 'changed-condition'): ('fe831e39-8136-5daa-99a5-acc510078100',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M05-O02', 'base'): ('4e837992-2ce0-520f-bc5d-dce12e3fa930',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '2\n',
+                                                                     ''),
+                                          ('CS12-M05-O02', 'changed-condition'): ('4e837992-2ce0-520f-bc5d-dce12e3fa930',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 2\n',
+                                                                                  ''),
+                                          ('CS12-M05-O03', 'base'): ('c16dac75-f63a-5f8c-8908-2379eea98a6f',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unsat\n',
+                                                                     ''),
+                                          ('CS12-M05-O03', 'changed-condition'): ('c16dac75-f63a-5f8c-8908-2379eea98a6f',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1 2\n',
+                                                                                  ''),
+                                          ('CS12-M06-O01', 'base'): ('61e95bbc-4d36-5151-8fa7-828b115d01fd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'unknown\n',
+                                                                     ''),
+                                          ('CS12-M06-O01', 'changed-condition'): ('61e95bbc-4d36-5151-8fa7-828b115d01fd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'true\n',
+                                                                                  ''),
+                                          ('CS12-M06-O02', 'base'): ('26d62f37-11a6-5662-b8fc-c42e0dc186a4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'a b c\n',
+                                                                     ''),
+                                          ('CS12-M06-O02', 'changed-condition'): ('26d62f37-11a6-5662-b8fc-c42e0dc186a4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'b c\n',
+                                                                                  ''),
+                                          ('CS12-M06-O03', 'base'): ('66f4299c-03ee-5006-95e7-735ded0abdfd',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'conflict\n',
+                                                                     ''),
+                                          ('CS12-M06-O03', 'changed-condition'): ('66f4299c-03ee-5006-95e7-735ded0abdfd',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'consistent\n',
+                                                                                  ''),
+                                          ('CS12-M07-O01', 'base'): ('a825aefe-4b5b-5ae1-87a7-01aeff1ff346',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/2\n',
+                                                                     ''),
+                                          ('CS12-M07-O01', 'changed-condition'): ('a825aefe-4b5b-5ae1-87a7-01aeff1ff346',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '1/8\n',
+                                                                                  ''),
+                                          ('CS12-M07-O02', 'base'): ('7d6030df-a704-5349-a1b0-1fa50714c85b',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     '1/2\n',
+                                                                     ''),
+                                          ('CS12-M07-O02', 'changed-condition'): ('7d6030df-a704-5349-a1b0-1fa50714c85b',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  '3/4\n',
+                                                                                  ''),
+                                          ('CS12-M07-O03', 'base'): ('bfc070f1-dc3e-5df2-b69b-a43d34ece393',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M07-O03', 'changed-condition'): ('bfc070f1-dc3e-5df2-b69b-a43d34ece393',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M08-O01', 'base'): ('4b89ed4d-0469-57e0-92b3-e26554bf9762',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'blocked\n',
+                                                                     ''),
+                                          ('CS12-M08-O01', 'changed-condition'): ('4b89ed4d-0469-57e0-92b3-e26554bf9762',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'key open\n',
+                                                                                  ''),
+                                          ('CS12-M08-O02', 'base'): ('11f6d812-6340-58be-a02d-b5221d6096cc',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M08-O02', 'changed-condition'): ('11f6d812-6340-58be-a02d-b5221d6096cc',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M08-O03', 'base'): ('c585ec57-2152-5de6-802d-291e5bcbccf4',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'reinforcement\n',
+                                                                     ''),
+                                          ('CS12-M08-O03', 'changed-condition'): ('c585ec57-2152-5de6-802d-291e5bcbccf4',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'supervised\n',
+                                                                                  ''),
+                                          ('CS12-M09-O01', 'base'): ('49489567-a442-5504-8b65-9d2b6d89fbbb',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'B\n',
+                                                                     ''),
+                                          ('CS12-M09-O01', 'changed-condition'): ('49489567-a442-5504-8b65-9d2b6d89fbbb',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'A\n',
+                                                                                  ''),
+                                          ('CS12-M09-O02', 'base'): ('20b00edf-228e-5caf-8225-77ff13166838',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'False\n',
+                                                                     ''),
+                                          ('CS12-M09-O02', 'changed-condition'): ('20b00edf-228e-5caf-8225-77ff13166838',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'True\n',
+                                                                                  ''),
+                                          ('CS12-M09-O03', 'base'): ('c62f0ecf-702b-5f90-91d8-c7ca13f54445',
+                                                                     '1\n',
+                                                                     'success',
+                                                                     'needs_review\n',
+                                                                     ''),
+                                          ('CS12-M09-O03', 'changed-condition'): ('c62f0ecf-702b-5f90-91d8-c7ca13f54445',
+                                                                                  '2\n',
+                                                                                  'success',
+                                                                                  'automatic\n',
+                                                                                  '')},
+ '10f64de2-acaf-5de8-8d02-dda9422af822': {('CS10-M01-O01', 'base'): ('66acb8e2-1c22-54ac-8d30-ba4b5420c807',
                                                                      '1\n',
                                                                      'success',
                                                                      'False\n',

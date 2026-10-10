@@ -1,3 +1,7 @@
+## 2026-10-10 CS12 加权搜索综合项目
+
+真实BFS/A*/Dijkstra、优先队列轨迹、路线代价与障碍反例接入；114份作者工件Linux、8项语义/边界测试、桌面/手机4项闭环通过。其他AI算法完整深度仍缺，整课0/13。见 course-construction/units/CS12-WEIGHTED-SEARCH.md。
+
 ## 2026-10-10 CS13 数据流水线综合项目
 
 新增实际训练/验证/测试、最小二乘拟合、训练均值填补、验证选择及JSON重载预测；124份作者工件Linux核对、7项语义测试和桌面/手机4项闭环通过。全算法深度、库环境和独立测试尚缺，整课仍0/13。见 course-construction/units/CS13-DATA-PIPELINE.md。
