@@ -1,0 +1,146 @@
+[
+  [
+    "CS03-M01-O01",
+    "base",
+    "1\n",
+    "success",
+    "1\n",
+    ""
+  ],
+  [
+    "CS03-M01-O01",
+    "changed-condition",
+    "2\n",
+    "success",
+    "2\n",
+    ""
+  ],
+  [
+    "CS03-M01-O02",
+    "base",
+    "1\n",
+    "success",
+    "10 20 30 \n",
+    ""
+  ],
+  [
+    "CS03-M01-O02",
+    "changed-condition",
+    "2\n",
+    "success",
+    "30 \n",
+    ""
+  ],
+  [
+    "CS03-M01-O03",
+    "base",
+    "1\n",
+    "success",
+    "1\n",
+    ""
+  ],
+  [
+    "CS03-M01-O03",
+    "changed-condition",
+    "2\n",
+    "success",
+    "3\n",
+    ""
+  ],
+  [
+    "CS03-M02-O01",
+    "base",
+    "1\n",
+    "success",
+    "7 10 20 30 \n",
+    ""
+  ],
+  [
+    "CS03-M02-O01",
+    "changed-condition",
+    "2\n",
+    "success",
+    "10 20 30 7 \n",
+    ""
+  ],
+  [
+    "CS03-M02-O02",
+    "base",
+    "1\n",
+    "success",
+    "7 10 20 \n",
+    ""
+  ],
+  [
+    "CS03-M02-O02",
+    "changed-condition",
+    "2\n",
+    "success",
+    "7 \n",
+    ""
+  ],
+  [
+    "CS03-M02-O03",
+    "base",
+    "1\n",
+    "success",
+    "10 7 20 | 20 7 10 \n",
+    ""
+  ],
+  [
+    "CS03-M02-O03",
+    "changed-condition",
+    "2\n",
+    "success",
+    "10 7 20 | 20 7 10 \n",
+    ""
+  ],
+  [
+    "CS03-M03-O01",
+    "base",
+    "1\n",
+    "success",
+    "20 10 empty=1\n",
+    ""
+  ],
+  [
+    "CS03-M03-O01",
+    "changed-condition",
+    "2\n",
+    "success",
+    "empty=1\n",
+    ""
+  ],
+  [
+    "CS03-M03-O02",
+    "base",
+    "1\n",
+    "success",
+    "20 30 40 empty=0\n",
+    ""
+  ],
+  [
+    "CS03-M03-O02",
+    "changed-condition",
+    "2\n",
+    "success",
+    "10 20 empty=0\n",
+    ""
+  ],
+  [
+    "CS03-M03-O03",
+    "base",
+    "1\n",
+    "success",
+    "invalid\n",
+    ""
+  ],
+  [
+    "CS03-M03-O03",
+    "changed-condition",
+    "2\n",
+    "success",
+    "valid\n",
+    ""
+  ]
+]

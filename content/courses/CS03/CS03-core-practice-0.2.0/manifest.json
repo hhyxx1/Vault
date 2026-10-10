@@ -1,0 +1,3409 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+  "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+  "course_code": "CS03",
+  "version": "CS03-core-practice-0.2.0",
+  "title": "数据结构",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "30 目标各有受限 C++17 实践；完整目标深度、结构轨迹、独立迁移、综合项目与专业审校未完成。",
+  "objectives": [
+    {
+      "id": "5420c960-ca58-500d-9d24-212a78d11cd2",
+      "code": "CS03-M01-O01",
+      "title": "描述抽象操作契约",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b112ac2b-8a74-51e0-809d-2c32769eade2",
+      "code": "CS03-M01-O02",
+      "title": "区分逻辑与存储结构",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "44ae3088-fa7c-5f07-b873-0dbc3bcbc990",
+      "code": "CS03-M01-O03",
+      "title": "计数基本操作",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "5d9e0c4f-7e19-5a78-b772-2ea6dd098ae9",
+      "code": "CS03-M02-O01",
+      "title": "实现顺序表插删",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b83ceb19-9766-54ec-acb6-8e6223b82644",
+      "code": "CS03-M02-O02",
+      "title": "实现单链表操作",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "cd0d2cc7-5c73-5251-ac12-03905cad96eb",
+      "code": "CS03-M02-O03",
+      "title": "处理循环和双向链接",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "88b6d706-d7e9-5c4b-adaf-401242f63f7e",
+      "code": "CS03-M03-O01",
+      "title": "推演栈状态和边界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "03dbdded-3b72-523e-8040-9f6768b748e4",
+      "code": "CS03-M03-O02",
+      "title": "实现循环及链式队列",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "a36d1129-432b-5af7-a90e-0f552d138bd5",
+      "code": "CS03-M03-O03",
+      "title": "用栈解决括号匹配",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "73fd6ad6-5b2c-5170-809d-4e9b003f5c30",
+      "code": "CS03-M04-O01",
+      "title": "实现字符串匹配",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "352db4e4-da50-5153-8187-1275c0729be2",
+      "code": "CS03-M04-O02",
+      "title": "推导 KMP 前缀信息",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "16ab616c-f5cc-5685-9d62-f672008ccac4",
+      "code": "CS03-M04-O03",
+      "title": "表示稀疏矩阵和广义表",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b60d6775-e8a5-5bd5-8cad-e9b5e4ab0476",
+      "code": "CS03-M05-O01",
+      "title": "转换树的表示",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "02790c09-bd18-5e3b-8614-e3f796455603",
+      "code": "CS03-M05-O02",
+      "title": "实现递归及迭代遍历",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "d30c92fa-a51f-54d9-8ce6-b303d29a025b",
+      "code": "CS03-M05-O03",
+      "title": "构建 Huffman 编码",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "0db226cf-93c1-5649-9f6c-a7932f525743",
+      "code": "CS03-M06-O01",
+      "title": "实现二叉搜索树",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "37c51f7d-d759-519d-bcbe-386e3b0d795d",
+      "code": "CS03-M06-O02",
+      "title": "维护平衡约束",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "1fcc74b0-fd2b-5fc9-be9b-14c85142f8cd",
+      "code": "CS03-M06-O03",
+      "title": "解释 B/B+ 树查找与更新",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b3ed33dd-caa5-52f0-a72f-4a34eae6fd0b",
+      "code": "CS03-M07-O01",
+      "title": "建立邻接表示",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "2084e408-44a2-5d3e-91b7-518a1fbf0f6c",
+      "code": "CS03-M07-O02",
+      "title": "实现 DFS/BFS",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "48ea1f3e-770d-5355-b20a-8b6e4e6d4bb8",
+      "code": "CS03-M07-O03",
+      "title": "分析连通及生成树",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "ba3ce29c-08bf-57cb-9bcd-4b55566d0192",
+      "code": "CS03-M08-O01",
+      "title": "实现最短路",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "356327f9-f42d-5f9e-9f04-b1d05ecf1640",
+      "code": "CS03-M08-O02",
+      "title": "完成拓扑排序",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "2b451bfb-fa54-5853-ab25-955954843bfd",
+      "code": "CS03-M08-O03",
+      "title": "处理关键路径与适用前提",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "74d6a593-0270-56d8-89d5-592d6c81fc8a",
+      "code": "CS03-M09-O01",
+      "title": "实现散列查找",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7aea805a-42f3-5a0b-a14b-ca6cd25e4d3a",
+      "code": "CS03-M09-O02",
+      "title": "处理冲突和删除",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "4b6ce557-a9f7-5500-815f-133c885e025b",
+      "code": "CS03-M09-O03",
+      "title": "分析装载率影响",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "a44af9e7-97b9-5ab9-b9ca-6a667563522f",
+      "code": "CS03-M10-O01",
+      "title": "实现内部排序",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f2393212-a07a-5d31-bf70-735405aa4c06",
+      "code": "CS03-M10-O02",
+      "title": "比较稳定性和复杂度",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "574212aa-1181-5b93-834a-06fe2a9a55fc",
+      "code": "CS03-M10-O03",
+      "title": "解释外部排序及结构选型",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS03-M01",
+      "title": "抽象类型与复杂度",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M01-O01-unit",
+          "title": "描述抽象操作契约",
+          "objective_refs": [
+            "CS03-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M01-O02-unit",
+          "title": "区分逻辑与存储结构",
+          "objective_refs": [
+            "CS03-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M01-O03-unit",
+          "title": "计数基本操作",
+          "objective_refs": [
+            "CS03-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M02",
+      "title": "线性表",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M02-O01-unit",
+          "title": "实现顺序表插删",
+          "objective_refs": [
+            "CS03-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M02-O02-unit",
+          "title": "实现单链表操作",
+          "objective_refs": [
+            "CS03-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M02-O03-unit",
+          "title": "处理循环和双向链接",
+          "objective_refs": [
+            "CS03-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M03",
+      "title": "栈与队列",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M03-O01-unit",
+          "title": "推演栈状态和边界",
+          "objective_refs": [
+            "CS03-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M03-O02-unit",
+          "title": "实现循环及链式队列",
+          "objective_refs": [
+            "CS03-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M03-O03-unit",
+          "title": "用栈解决括号匹配",
+          "objective_refs": [
+            "CS03-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M04",
+      "title": "串与特殊存储",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M04-O01-unit",
+          "title": "实现字符串匹配",
+          "objective_refs": [
+            "CS03-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M04-O02-unit",
+          "title": "推导 KMP 前缀信息",
+          "objective_refs": [
+            "CS03-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M04-O03-unit",
+          "title": "表示稀疏矩阵和广义表",
+          "objective_refs": [
+            "CS03-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M05",
+      "title": "树与二叉树",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M05-O01-unit",
+          "title": "转换树的表示",
+          "objective_refs": [
+            "CS03-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M05-O02-unit",
+          "title": "实现递归及迭代遍历",
+          "objective_refs": [
+            "CS03-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M05-O03-unit",
+          "title": "构建 Huffman 编码",
+          "objective_refs": [
+            "CS03-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M06",
+      "title": "查找树",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M06-O01-unit",
+          "title": "实现二叉搜索树",
+          "objective_refs": [
+            "CS03-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M06-O02-unit",
+          "title": "维护平衡约束",
+          "objective_refs": [
+            "CS03-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M06-O03-unit",
+          "title": "解释 B/B+ 树查找与更新",
+          "objective_refs": [
+            "CS03-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M07",
+      "title": "图与遍历",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M07-O01-unit",
+          "title": "建立邻接表示",
+          "objective_refs": [
+            "CS03-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M07-O02-unit",
+          "title": "实现 DFS/BFS",
+          "objective_refs": [
+            "CS03-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M07-O03-unit",
+          "title": "分析连通及生成树",
+          "objective_refs": [
+            "CS03-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M08",
+      "title": "图的应用",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M08-O01-unit",
+          "title": "实现最短路",
+          "objective_refs": [
+            "CS03-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M08-O02-unit",
+          "title": "完成拓扑排序",
+          "objective_refs": [
+            "CS03-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M08-O03-unit",
+          "title": "处理关键路径与适用前提",
+          "objective_refs": [
+            "CS03-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M09",
+      "title": "散列与索引",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M09-O01-unit",
+          "title": "实现散列查找",
+          "objective_refs": [
+            "CS03-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M09-O02-unit",
+          "title": "处理冲突和删除",
+          "objective_refs": [
+            "CS03-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M09-O03-unit",
+          "title": "分析装载率影响",
+          "objective_refs": [
+            "CS03-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS03-M10",
+      "title": "排序与综合选型",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS03-M10-O01-unit",
+          "title": "实现内部排序",
+          "objective_refs": [
+            "CS03-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M10-O02-unit",
+          "title": "比较稳定性和复杂度",
+          "objective_refs": [
+            "CS03-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS03-M10-O03-unit",
+          "title": "解释外部排序及结构选型",
+          "objective_refs": [
+            "CS03-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "CS03-M01-O01",
+      "to": "CS03-M01-O02",
+      "kind": "conceptual_association",
+      "reason": "契约与存储表示是两个不同层次。",
+      "source_locator": "mit6006-sequences",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：契约与存储表示是两个不同层次。 机制参见 mit6006-sequences；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M01-O02",
+      "to": "CS03-M02-O01",
+      "kind": "application",
+      "reason": "连续存储对应顺序表元素搬移。",
+      "source_locator": "mit6006-sequences",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：连续存储对应顺序表元素搬移。 机制参见 mit6006-sequences；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M01-O03",
+      "to": "CS03-M10-O01",
+      "kind": "application",
+      "reason": "比较与搬移计数用于分析内部排序代价。",
+      "source_locator": "mit-sort",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：比较与搬移计数用于分析内部排序代价。 机制参见 mit-sort；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M02-O02",
+      "to": "CS03-M02-O03",
+      "kind": "conceptual_association",
+      "reason": "单向和双向链接分别检查后继与前驱。",
+      "source_locator": "mit6006-sequences",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：单向和双向链接分别检查后继与前驱。 机制参见 mit6006-sequences；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M02-O02",
+      "to": "CS03-M03-O02",
+      "kind": "application",
+      "reason": "链接操作用于链式队列；当前实践深度尚未覆盖链式队列。",
+      "source_locator": "mit6006-sequences",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：链接操作用于链式队列；当前实践深度尚未覆盖链式队列。 机制参见 mit6006-sequences；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M03-O01",
+      "to": "CS03-M03-O03",
+      "kind": "application",
+      "reason": "后进先出结构用于记录未闭合括号。",
+      "source_locator": "mit6006-sequences",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：后进先出结构用于记录未闭合括号。 机制参见 mit6006-sequences；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M03-O02",
+      "to": "CS03-M07-O02",
+      "kind": "application",
+      "reason": "先进先出队列用于 BFS 逐层推进。",
+      "source_locator": "mit-bfs",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：先进先出队列用于 BFS 逐层推进。 机制参见 mit-bfs；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M04-O01",
+      "to": "CS03-M04-O02",
+      "kind": "conceptual_association",
+      "reason": "朴素匹配与前缀回退处理同一匹配接口。",
+      "source_locator": "cornell-kmp",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：朴素匹配与前缀回退处理同一匹配接口。 机制参见 cornell-kmp；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M04-O03",
+      "to": "CS03-M07-O01",
+      "kind": "conceptual_association",
+      "reason": "稀疏坐标与邻接表示都需要定义未存项的语义。",
+      "source_locator": "mit-bfs",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：稀疏坐标与邻接表示都需要定义未存项的语义。 机制参见 mit-bfs；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M05-O01",
+      "to": "CS03-M05-O02",
+      "kind": "application",
+      "reason": "遍历应用于节点链接表示。",
+      "source_locator": "mit-trees",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：遍历应用于节点链接表示。 机制参见 mit-trees；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M05-O02",
+      "to": "CS03-M06-O01",
+      "kind": "conceptual_association",
+      "reason": "中序有序性用于检查搜索树；遍历不是唯一查找实现，未设严格先修。",
+      "source_locator": "mit-trees",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：中序有序性用于检查搜索树；遍历不是唯一查找实现，未设严格先修。 机制参见 mit-trees；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M05-O03",
+      "to": "CS03-M05-O01",
+      "kind": "application",
+      "reason": "Huffman 合并产物可以表示为带权二叉树。",
+      "source_locator": "odsa-huffman",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：Huffman 合并产物可以表示为带权二叉树。 机制参见 odsa-huffman；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M06-O01",
+      "to": "CS03-M06-O02",
+      "kind": "application",
+      "reason": "旋转须保持搜索树有序性与子树内容。",
+      "source_locator": "mit-avl",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：旋转须保持搜索树有序性与子树内容。 机制参见 mit-avl；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M06-O03",
+      "to": "CS03-M10-O03",
+      "kind": "conceptual_association",
+      "reason": "页容量与外部存储访问影响索引及排序选择。",
+      "source_locator": "cmu-bplus",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：页容量与外部存储访问影响索引及排序选择。 机制参见 cmu-bplus；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M07-O02",
+      "to": "CS03-M07-O03",
+      "kind": "application",
+      "reason": "重复启动搜索用于覆盖各连通分量。",
+      "source_locator": "mit-dfs",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：重复启动搜索用于覆盖各连通分量。 机制参见 mit-dfs；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M07-O02",
+      "to": "CS03-M08-O01",
+      "kind": "conceptual_association",
+      "reason": "无权逐层距离与带权最短路的适用条件不同。",
+      "source_locator": "mit-dijkstra",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：无权逐层距离与带权最短路的适用条件不同。 机制参见 mit-dijkstra；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M07-O02",
+      "to": "CS03-M08-O02",
+      "kind": "application",
+      "reason": "图遍历可用于拓扑排序，但不是唯一实现。",
+      "source_locator": "mit-dfs",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：图遍历可用于拓扑排序，但不是唯一实现。 机制参见 mit-dfs；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M08-O02",
+      "to": "CS03-M08-O03",
+      "kind": "application",
+      "reason": "拓扑次序用于 DAG 事件时间的递推。",
+      "source_locator": "gordon-cpm",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：拓扑次序用于 DAG 事件时间的递推。 机制参见 gordon-cpm；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M09-O01",
+      "to": "CS03-M09-O02",
+      "kind": "application",
+      "reason": "同槽冲突需要定义完整探查与删除状态语义。",
+      "source_locator": "mit-hash",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：同槽冲突需要定义完整探查与删除状态语义。 机制参见 mit-hash；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M09-O02",
+      "to": "CS03-M09-O03",
+      "kind": "conceptual_association",
+      "reason": "装载率和删除状态共同影响探查工作量。",
+      "source_locator": "mit-hash",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：装载率和删除状态共同影响探查工作量。 机制参见 mit-hash；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M10-O01",
+      "to": "CS03-M10-O02",
+      "kind": "application",
+      "reason": "排序移动规则决定同键稳定性。",
+      "source_locator": "mit-sort",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：排序移动规则决定同键稳定性。 机制参见 mit-sort；专业审校不可用。"
+    },
+    {
+      "from": "CS03-M10-O01",
+      "to": "CS03-M10-O03",
+      "kind": "application",
+      "reason": "内部排序生成有序段用于外部归并。",
+      "source_locator": "odsa-external",
+      "course_version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "review_state": "authority_checked",
+      "source": "原创教学工件关联：内部排序生成有序段用于外部归并。 机制参见 odsa-external；专业审校不可用。"
+    }
+  ],
+  "activities": [
+    {
+      "id": "c31fc9a7-c028-56ee-b00a-8bb53b3ecd01",
+      "version_id": "9dc038dd-008b-58f6-acee-32a17cddd73d",
+      "code": "CS03-M01-O01-CODE",
+      "version": "CS03-M01-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M01-O01"
+      ],
+      "kind": "code",
+      "title": "集合插入不能悄悄产生重复键",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "抽象数据类型先约定操作行为，再选择表示。这里约定整数集合的插入幂等：已有键再次插入不改变成员数。顺序容器允许重复并不意味着集合接口可以违反契约。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit6006-sequences"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct IntSet{ vector<int> values; void insert(int x){ values.push_back(x); } };\nint main(){ int n; cin>>n;\nIntSet s; s.insert(4); s.insert(n==1?4:7); cout<<s.values.size()<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct IntSet{ vector<int> values; void insert(int x){ if(find(values.begin(),values.end(),x)==values.end()) values.push_back(x); } };\nint main(){ int n; cin>>n;\nIntSet s; s.insert(4); s.insert(n==1?4:7); cout<<s.values.size()<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改为两个不同键，检查正向路径",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct IntSet{ vector<int> values; void insert(int x){ values.push_back(x); } };\nint main(){ int n; cin>>n;\nIntSet s; s.insert(4); s.insert(n==1?4:7); cout<<s.values.size()<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct IntSet{ vector<int> values; void insert(int x){ if(find(values.begin(),values.end(),x)==values.end()) values.push_back(x); } };\nint main(){ int n; cin>>n;\nIntSet s; s.insert(4); s.insert(n==1?4:7); cout<<s.values.size()<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "cd07ea27-1f5b-5247-8ade-84a4a303a4c3",
+      "version_id": "4a7a61ec-6921-573a-9410-032966472a72",
+      "code": "CS03-M01-O02-CODE",
+      "version": "CS03-M01-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M01-O02"
+      ],
+      "kind": "code",
+      "title": "逻辑顺序不能由存储地址猜测",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "同一逻辑序列可以用数组或链接表示。遍历链接必须沿 next，而非按节点声明顺序。节点在栈上创建只为演示链接，地址大小不表达元素先后。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit6006-sequences"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode c{30,nullptr}; Node b{20,&c}; Node a{10,&b}; Node* p=n==1?&a:&c; while(p){cout<<p->value<<' '; p=nullptr;} cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode c{30,nullptr}; Node b{20,&c}; Node a{10,&b}; Node* p=n==1?&a:&c; while(p){cout<<p->value<<' '; p=p->next;} cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "从尾节点开始，检验终止条件",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode c{30,nullptr}; Node b{20,&c}; Node a{10,&b}; Node* p=n==1?&a:&c; while(p){cout<<p->value<<' '; p=nullptr;} cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode c{30,nullptr}; Node b{20,&c}; Node a{10,&b}; Node* p=n==1?&a:&c; while(p){cout<<p->value<<' '; p=p->next;} cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "783777a5-bab9-5fde-b342-726a6d4a5c39",
+      "version_id": "364b32ed-18ca-5bc4-9ed1-6e02e454f5b7",
+      "code": "CS03-M01-O03-CODE",
+      "version": "CS03-M01-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M01-O03"
+      ],
+      "kind": "code",
+      "title": "用真实比较次数区分最好与未命中路径",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "渐近复杂度讨论随输入规模的增长。这里固定三个元素，仅计相等比较次数，不能把单次时间测量当复杂度证明；首位命中与完全未命中访问数量不同。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit6006-sequences"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\nvector<int> a{8,9,10}; int key=n==1?8:99; int count=0; for(int x:a){count=3; if(x==key)break;} cout<<count<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\nvector<int> a{8,9,10}; int key=n==1?8:99; int count=0; for(int x:a){++count; if(x==key)break;} cout<<count<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改为未命中，必须检查全部元素",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\nvector<int> a{8,9,10}; int key=n==1?8:99; int count=0; for(int x:a){count=3; if(x==key)break;} cout<<count<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\nvector<int> a{8,9,10}; int key=n==1?8:99; int count=0; for(int x:a){++count; if(x==key)break;} cout<<count<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "398e62af-f1ef-5a7a-8075-4ff73c8e552f",
+      "version_id": "9d6cfed3-f3af-58be-b2ec-c8e36eaf9804",
+      "code": "CS03-M02-O01-CODE",
+      "version": "CS03-M02-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M02-O01"
+      ],
+      "kind": "code",
+      "title": "顺序表插入要避免覆盖尚未搬移的元素",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "连续存储中向中间插入时，从末尾向右搬移才能保留旧值。有效长度与容量分别管理；示例先检查容量，才允许写入新增位置。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit6006-sequences"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\narray<int,4> a{10,20,30,0}; int size=3; int pos=n==1?0:3; if(size==int(a.size()))return 0; for(int i=pos;i<size;++i)a[i+1]=a[i]; a[pos]=7; ++size; for(int i=0;i<size;++i)cout<<a[i]<<' '; cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\narray<int,4> a{10,20,30,0}; int size=3; int pos=n==1?0:3; if(size==int(a.size()))return 0; for(int i=size;i>pos;--i)a[i]=a[i-1]; a[pos]=7; ++size; for(int i=0;i<size;++i)cout<<a[i]<<' '; cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改为尾部插入，比较搬移次数",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\narray<int,4> a{10,20,30,0}; int size=3; int pos=n==1?0:3; if(size==int(a.size()))return 0; for(int i=pos;i<size;++i)a[i+1]=a[i]; a[pos]=7; ++size; for(int i=0;i<size;++i)cout<<a[i]<<' '; cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\narray<int,4> a{10,20,30,0}; int size=3; int pos=n==1?0:3; if(size==int(a.size()))return 0; for(int i=size;i>pos;--i)a[i]=a[i-1]; a[pos]=7; ++size; for(int i=0;i<size;++i)cout<<a[i]<<' '; cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "8dcbdc44-f734-56a4-bcf3-41078f9690a5",
+      "version_id": "90979e0e-ed31-537f-b86e-d01a1425ef07",
+      "code": "CS03-M02-O02-CODE",
+      "version": "CS03-M02-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M02-O02"
+      ],
+      "kind": "code",
+      "title": "单链表头插保留原后继",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "头插的新节点先指向旧头，再修改头指针。若只改头而丢弃旧链，本例不会出现非法内存访问，但逻辑序列已经被截断。空链表的旧头为 nullptr。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit6006-sequences"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode b{20,nullptr}; Node a{10,&b}; Node* head=n==1?&a:nullptr; Node fresh{7,nullptr}; fresh.next=nullptr; head=&fresh; for(Node* p=head;p;p=p->next)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode b{20,nullptr}; Node a{10,&b}; Node* head=n==1?&a:nullptr; Node fresh{7,nullptr}; fresh.next=head; head=&fresh; for(Node* p=head;p;p=p->next)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "对空链表插入，避免解引用空指针",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode b{20,nullptr}; Node a{10,&b}; Node* head=n==1?&a:nullptr; Node fresh{7,nullptr}; fresh.next=nullptr; head=&fresh; for(Node* p=head;p;p=p->next)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode b{20,nullptr}; Node a{10,&b}; Node* head=n==1?&a:nullptr; Node fresh{7,nullptr}; fresh.next=head; head=&fresh; for(Node* p=head;p;p=p->next)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "febca2a0-11e9-50e7-89be-02fe640ebc23",
+      "version_id": "64c2adf5-7c4c-54b6-bba2-6638b02f0ee3",
+      "code": "CS03-M02-O03-CODE",
+      "version": "CS03-M02-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M02-O03"
+      ],
+      "kind": "code",
+      "title": "双向链表两条方向的链接必须一致",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "在 a 与 b 间插入节点 x 时，a.next、x.prev、x.next、b.prev 都须更新。正向遍历正确不等于反向遍历正确。这里不含循环链表，循环终止条件另需验证。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit6006-sequences"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* prev; Node* next;};\nint main(){ int n; cin>>n;\nNode a{10,nullptr,nullptr}; Node b{20,&a,nullptr}; a.next=&b; Node x{7,&a,&b}; a.next=&x; if(n==2)b.prev=&x; for(Node* p=&a;p;p=p->next)cout<<p->value<<' '; cout<<\"| \"; for(Node* p=&b;p;p=p->prev)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* prev; Node* next;};\nint main(){ int n; cin>>n;\nNode a{10,nullptr,nullptr}; Node b{20,&a,nullptr}; a.next=&b; Node x{7,&a,&b}; a.next=&x; b.prev=&x; for(Node* p=&a;p;p=p->next)cout<<p->value<<' '; cout<<\"| \"; for(Node* p=&b;p;p=p->prev)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "原程序已更新反向链接时，检验正向保持一致",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* prev; Node* next;};\nint main(){ int n; cin>>n;\nNode a{10,nullptr,nullptr}; Node b{20,&a,nullptr}; a.next=&b; Node x{7,&a,&b}; a.next=&x; if(n==2)b.prev=&x; for(Node* p=&a;p;p=p->next)cout<<p->value<<' '; cout<<\"| \"; for(Node* p=&b;p;p=p->prev)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* prev; Node* next;};\nint main(){ int n; cin>>n;\nNode a{10,nullptr,nullptr}; Node b{20,&a,nullptr}; a.next=&b; Node x{7,&a,&b}; a.next=&x; b.prev=&x; for(Node* p=&a;p;p=p->next)cout<<p->value<<' '; cout<<\"| \"; for(Node* p=&b;p;p=p->prev)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "26515b3d-a5e0-5897-8267-d747b0db41c7",
+      "version_id": "b819c717-8de4-532e-b340-09eb5d3f3abf",
+      "code": "CS03-M03-O01-CODE",
+      "version": "CS03-M03-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M03-O01"
+      ],
+      "kind": "code",
+      "title": "栈的出栈顺序与空栈边界",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "栈在同一端插入和删除，后进先出。pop 在本例先检查空栈，空栈返回 false 而不读取元素；删除第一项会使它变成先进先出的行为。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit6006-sequences"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Stack{vector<int> a; bool pop(int& x){if(a.empty())return false; x=a.front(); a.erase(a.begin()); return true;}};\nint main(){ int n; cin>>n;\nStack s; if(n==1)s.a={10,20}; int x; while(s.pop(x))cout<<x<<' '; cout<<\"empty=\"<<s.a.empty()<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Stack{vector<int> a; bool pop(int& x){if(a.empty())return false; x=a.back(); a.pop_back(); return true;}};\nint main(){ int n; cin>>n;\nStack s; if(n==1)s.a={10,20}; int x; while(s.pop(x))cout<<x<<' '; cout<<\"empty=\"<<s.a.empty()<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "初始空栈，必须拒绝读取",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Stack{vector<int> a; bool pop(int& x){if(a.empty())return false; x=a.front(); a.erase(a.begin()); return true;}};\nint main(){ int n; cin>>n;\nStack s; if(n==1)s.a={10,20}; int x; while(s.pop(x))cout<<x<<' '; cout<<\"empty=\"<<s.a.empty()<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Stack{vector<int> a; bool pop(int& x){if(a.empty())return false; x=a.back(); a.pop_back(); return true;}};\nint main(){ int n; cin>>n;\nStack s; if(n==1)s.a={10,20}; int x; while(s.pop(x))cout<<x<<' '; cout<<\"empty=\"<<s.a.empty()<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "efa0a5e0-0a23-5b53-a7ae-12a46412189c",
+      "version_id": "67e91e67-790a-5801-b9a9-987ea5374302",
+      "code": "CS03-M03-O02-CODE",
+      "version": "CS03-M03-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M03-O02"
+      ],
+      "kind": "code",
+      "title": "循环队列在回绕后保持先进先出",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "本例用 head、tail 与 count 区分空和满，容量为三。删除后空出的槽可再次入队；索引回绕必须对容量取模。本例只验证循环数组队列，链式队列需另行验证。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit6006-sequences"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Queue{array<int,3>a{}; int head=0,tail=0,count=0; bool push(int x){if(count==3)return false; a[tail]=x; tail=tail==2?1:tail+1; ++count; return true;} bool pop(int&x){if(count==0)return false; x=a[head]; head=(head+1)%3; --count; return true;}};\nint main(){ int n; cin>>n;\nQueue q; q.push(10); q.push(20); if(n==1){q.push(30); int discarded; q.pop(discarded); q.push(40);} int x; while(q.pop(x))cout<<x<<' '; cout<<\"empty=\"<<q.count<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Queue{array<int,3>a{}; int head=0,tail=0,count=0; bool push(int x){if(count==3)return false; a[tail]=x; tail=(tail+1)%3; ++count; return true;} bool pop(int&x){if(count==0)return false; x=a[head]; head=(head+1)%3; --count; return true;}};\nint main(){ int n; cin>>n;\nQueue q; q.push(10); q.push(20); if(n==1){q.push(30); int discarded; q.pop(discarded); q.push(40);} int x; while(q.pop(x))cout<<x<<' '; cout<<\"empty=\"<<q.count<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "不发生回绕的短队列，区分条件覆盖",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Queue{array<int,3>a{}; int head=0,tail=0,count=0; bool push(int x){if(count==3)return false; a[tail]=x; tail=tail==2?1:tail+1; ++count; return true;} bool pop(int&x){if(count==0)return false; x=a[head]; head=(head+1)%3; --count; return true;}};\nint main(){ int n; cin>>n;\nQueue q; q.push(10); q.push(20); if(n==1){q.push(30); int discarded; q.pop(discarded); q.push(40);} int x; while(q.pop(x))cout<<x<<' '; cout<<\"empty=\"<<q.count<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Queue{array<int,3>a{}; int head=0,tail=0,count=0; bool push(int x){if(count==3)return false; a[tail]=x; tail=(tail+1)%3; ++count; return true;} bool pop(int&x){if(count==0)return false; x=a[head]; head=(head+1)%3; --count; return true;}};\nint main(){ int n; cin>>n;\nQueue q; q.push(10); q.push(20); if(n==1){q.push(30); int discarded; q.pop(discarded); q.push(40);} int x; while(q.pop(x))cout<<x<<' '; cout<<\"empty=\"<<q.count<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "61c907bf-2ca7-5c07-9329-6fc997d97da6",
+      "version_id": "1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5",
+      "code": "CS03-M03-O03-CODE",
+      "version": "CS03-M03-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M03-O03"
+      ],
+      "kind": "code",
+      "title": "括号数量相等仍可能配对错误",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "括号匹配须记住尚未闭合的左括号类型和嵌套顺序。遇到右括号时检查非空并与栈顶类型对应；仅计数或仅弹栈会错误接受交叉闭合。这里只允许 () 与 []，其他字符按无效处理。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit6006-sequences"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nbool matches(char l,char r){return (l=='('&&r==')')||(l=='['&&r==']');}\nint main(){ int n; cin>>n;\nstring s=n==1?\"([)]\":\"([])\"; stack<char> st; bool ok=true; for(char c:s){if(c=='('||c=='[')st.push(c); else{if(st.empty()){ok=false;break;} st.pop();}} cout<<(ok&&st.empty()?\"valid\":\"invalid\")<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nbool matches(char l,char r){return (l=='('&&r==')')||(l=='['&&r==']');}\nint main(){ int n; cin>>n;\nstring s=n==1?\"([)]\":\"([])\"; stack<char> st; bool ok=true; for(char c:s){if(c=='('||c=='[')st.push(c); else{if(st.empty()){ok=false;break;} if(!matches(st.top(),c)){ok=false;break;} st.pop();}} cout<<(ok&&st.empty()?\"valid\":\"invalid\")<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "合法嵌套，避免一律拒绝的错误修复",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nbool matches(char l,char r){return (l=='('&&r==')')||(l=='['&&r==']');}\nint main(){ int n; cin>>n;\nstring s=n==1?\"([)]\":\"([])\"; stack<char> st; bool ok=true; for(char c:s){if(c=='('||c=='[')st.push(c); else{if(st.empty()){ok=false;break;} st.pop();}} cout<<(ok&&st.empty()?\"valid\":\"invalid\")<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nbool matches(char l,char r){return (l=='('&&r==')')||(l=='['&&r==']');}\nint main(){ int n; cin>>n;\nstring s=n==1?\"([)]\":\"([])\"; stack<char> st; bool ok=true; for(char c:s){if(c=='('||c=='[')st.push(c); else{if(st.empty()){ok=false;break;} if(!matches(st.top(),c)){ok=false;break;} st.pop();}} cout<<(ok&&st.empty()?\"valid\":\"invalid\")<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "4da8e316-d5f0-581c-8c4c-318a34c0309d",
+      "version_id": "53b5f953-81ae-58ac-994f-573f368a61ea",
+      "code": "CS03-M04-O01-CODE",
+      "version": "CS03-M04-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M04-O01"
+      ],
+      "kind": "code",
+      "title": "朴素串匹配不能漏掉最后一个候选位置",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "这里的匹配契约是返回首个零基起点，未找到返回 -1，空模式返回 0。只在完整模式仍落在文本内时比较；边界包含 i+m=n。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "cornell-kmp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nstring t=\"abababac\",p=n==1?\"ababac\":\"ab\"; int answer=-1; for(int i=0;i+int(p.size())<int(t.size());++i){int j=0; while(j<int(p.size())&&t[i+j]==p[j])++j; if(j==int(p.size())){answer=i;break;}} cout<<answer<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nstring t=\"abababac\",p=n==1?\"ababac\":\"ab\"; int answer=-1; for(int i=0;i+int(p.size())<=int(t.size());++i){int j=0; while(j<int(p.size())&&t[i+j]==p[j])++j; if(j==int(p.size())){answer=i;break;}} cout<<answer<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "首位即可命中的短模式",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nstring t=\"abababac\",p=n==1?\"ababac\":\"ab\"; int answer=-1; for(int i=0;i+int(p.size())<int(t.size());++i){int j=0; while(j<int(p.size())&&t[i+j]==p[j])++j; if(j==int(p.size())){answer=i;break;}} cout<<answer<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nstring t=\"abababac\",p=n==1?\"ababac\":\"ab\"; int answer=-1; for(int i=0;i+int(p.size())<=int(t.size());++i){int j=0; while(j<int(p.size())&&t[i+j]==p[j])++j; if(j==int(p.size())){answer=i;break;}} cout<<answer<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "8a45a16f-afe3-5052-99d4-63bdb97d5aba",
+      "version_id": "c4089419-e172-5edb-8513-97349592282c",
+      "code": "CS03-M04-O02-CODE",
+      "version": "CS03-M04-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M04-O02"
+      ],
+      "kind": "code",
+      "title": "前缀回退不能把已有重叠全部丢弃",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "本例 pi[i] 是 s[0..i] 的最长真前缀与后缀相同长度。失配时沿 pi[j-1] 继续回退，直到匹配或 j=0。它与讲义按前缀长度索引的 prefix[j] 相差一位，不能混用。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "cornell-kmp"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nstring s=n==1?\"aabaaab\":\"abab\"; vector<int> pi(s.size()); for(int i=1;i<int(s.size());++i){int j=pi[i-1]; while(j>0&&s[i]!=s[j])j=0; if(s[i]==s[j])++j; pi[i]=j;} for(int x:pi)cout<<x<<' '; cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nstring s=n==1?\"aabaaab\":\"abab\"; vector<int> pi(s.size()); for(int i=1;i<int(s.size());++i){int j=pi[i-1]; while(j>0&&s[i]!=s[j])j=pi[j-1]; if(s[i]==s[j])++j; pi[i]=j;} for(int x:pi)cout<<x<<' '; cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "没有多次失配回退的交替模式",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nstring s=n==1?\"aabaaab\":\"abab\"; vector<int> pi(s.size()); for(int i=1;i<int(s.size());++i){int j=pi[i-1]; while(j>0&&s[i]!=s[j])j=0; if(s[i]==s[j])++j; pi[i]=j;} for(int x:pi)cout<<x<<' '; cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nstring s=n==1?\"aabaaab\":\"abab\"; vector<int> pi(s.size()); for(int i=1;i<int(s.size());++i){int j=pi[i-1]; while(j>0&&s[i]!=s[j])j=pi[j-1]; if(s[i]==s[j])++j; pi[i]=j;} for(int x:pi)cout<<x<<' '; cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c265645b-46f7-5c65-8e26-870855384fb8",
+      "version_id": "9bc96683-f87d-5712-94ca-34628a35f960",
+      "code": "CS03-M04-O03-CODE",
+      "version": "CS03-M04-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M04-O03"
+      ],
+      "kind": "code",
+      "title": "稀疏坐标重复项按约定相加",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "稀疏坐标保存行、列、值，未存坐标表示零。此例选择重复坐标求和的契约，与 COO 转换中的合并语义一致；覆盖写入不是同一契约。这里未实现广义表，不能据此认定该复合目标已完成。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "scipy-coo"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Term{int row,col,value;};\nint main(){ int n; cin>>n;\nvector<Term> terms{{0,0,3},{0,n==1?0:1,2}}; int dense[2][2]{}; for(auto x:terms)dense[x.row][x.col]=x.value; cout<<dense[0][0]<<' '<<dense[0][1]<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Term{int row,col,value;};\nint main(){ int n; cin>>n;\nvector<Term> terms{{0,0,3},{0,n==1?0:1,2}}; int dense[2][2]{}; for(auto x:terms)dense[x.row][x.col]+=x.value; cout<<dense[0][0]<<' '<<dense[0][1]<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改为两个不同坐标",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Term{int row,col,value;};\nint main(){ int n; cin>>n;\nvector<Term> terms{{0,0,3},{0,n==1?0:1,2}}; int dense[2][2]{}; for(auto x:terms)dense[x.row][x.col]=x.value; cout<<dense[0][0]<<' '<<dense[0][1]<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Term{int row,col,value;};\nint main(){ int n; cin>>n;\nvector<Term> terms{{0,0,3},{0,n==1?0:1,2}}; int dense[2][2]{}; for(auto x:terms)dense[x.row][x.col]+=x.value; cout<<dense[0][0]<<' '<<dense[0][1]<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "26527676-4724-5a82-8eef-f8492dee09ae",
+      "version_id": "030748bf-bbad-5948-a1ba-f1f772a79de7",
+      "code": "CS03-M05-O01-CODE",
+      "version": "CS03-M05-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M05-O01"
+      ],
+      "kind": "code",
+      "title": "父节点表转换不能丢掉根的孩子",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "父节点数组用 -1 表示根，非负下标表示父节点。转换为孩子列表时，下标 0 也是合法父节点。本例输入预先保证是树，非法父下标、多根与环仍需分别验证。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-trees"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> parent=n==1?vector<int>{-1,0,0,1}:vector<int>{-1,0}; vector<vector<int>> children(parent.size()); for(int i=0;i<int(parent.size());++i)if(parent[i]>0)children[parent[i]].push_back(i); cout<<children[0].size()<<' '<<children[1].size()<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> parent=n==1?vector<int>{-1,0,0,1}:vector<int>{-1,0}; vector<vector<int>> children(parent.size()); for(int i=0;i<int(parent.size());++i)if(parent[i]>=0)children[parent[i]].push_back(i); cout<<children[0].size()<<' '<<children[1].size()<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "只有根和一个孩子",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> parent=n==1?vector<int>{-1,0,0,1}:vector<int>{-1,0}; vector<vector<int>> children(parent.size()); for(int i=0;i<int(parent.size());++i)if(parent[i]>0)children[parent[i]].push_back(i); cout<<children[0].size()<<' '<<children[1].size()<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> parent=n==1?vector<int>{-1,0,0,1}:vector<int>{-1,0}; vector<vector<int>> children(parent.size()); for(int i=0;i<int(parent.size());++i)if(parent[i]>=0)children[parent[i]].push_back(i); cout<<children[0].size()<<' '<<children[1].size()<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "4b3f52d1-625b-5935-a517-26da5c652f0d",
+      "version_id": "541160c4-a6eb-56e0-820d-4d6587501758",
+      "code": "CS03-M05-O02-CODE",
+      "version": "CS03-M05-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M05-O02"
+      ],
+      "kind": "code",
+      "title": "递归与迭代中序遍历应遵循同一顺序",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "二叉树中序遍历为左子树、当前节点、右子树。递归调用栈与显式栈是两种实现；它们输出一致只验证本次结构，空树和偏斜树也要考虑。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-trees"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node* left;Node* right;}; void walk(Node*p){if(!p)return; cout<<p->key<<' '; walk(p->left); walk(p->right);}\nint main(){ int n; cin>>n;\nNode l{1,nullptr,nullptr},r{3,nullptr,nullptr},root{2,&l,&r}; Node* p=n==1?&root:nullptr; walk(p); cout<<\"| \"; stack<Node*> st; while(p||!st.empty()){while(p){st.push(p);p=p->left;} p=st.top();st.pop();cout<<p->key<<' ';p=p->right;} cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node* left;Node* right;}; void walk(Node*p){if(!p)return; walk(p->left); cout<<p->key<<' '; walk(p->right);}\nint main(){ int n; cin>>n;\nNode l{1,nullptr,nullptr},r{3,nullptr,nullptr},root{2,&l,&r}; Node* p=n==1?&root:nullptr; walk(p); cout<<\"| \"; stack<Node*> st; while(p||!st.empty()){while(p){st.push(p);p=p->left;} p=st.top();st.pop();cout<<p->key<<' ';p=p->right;} cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "空树的两个实现都应终止",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node* left;Node* right;}; void walk(Node*p){if(!p)return; cout<<p->key<<' '; walk(p->left); walk(p->right);}\nint main(){ int n; cin>>n;\nNode l{1,nullptr,nullptr},r{3,nullptr,nullptr},root{2,&l,&r}; Node* p=n==1?&root:nullptr; walk(p); cout<<\"| \"; stack<Node*> st; while(p||!st.empty()){while(p){st.push(p);p=p->left;} p=st.top();st.pop();cout<<p->key<<' ';p=p->right;} cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node* left;Node* right;}; void walk(Node*p){if(!p)return; walk(p->left); cout<<p->key<<' '; walk(p->right);}\nint main(){ int n; cin>>n;\nNode l{1,nullptr,nullptr},r{3,nullptr,nullptr},root{2,&l,&r}; Node* p=n==1?&root:nullptr; walk(p); cout<<\"| \"; stack<Node*> st; while(p||!st.empty()){while(p){st.push(p);p=p->left;} p=st.top();st.pop();cout<<p->key<<' ';p=p->right;} cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "ba43fe68-a10c-550f-a574-474bc9881159",
+      "version_id": "7dceae25-7466-5080-afb6-98287bfba0ba",
+      "code": "CS03-M05-O03-CODE",
+      "version": "CS03-M05-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M05-O03"
+      ],
+      "kind": "code",
+      "title": "Huffman 每次合并两个最小权重",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "对给定正权重，Huffman 反复合并两个最小子树。各次合并权重之和等于最终叶子的加权路径长度；同权节点允许不同码字。此处比较代价，不强制唯一编码，也尚未核验码字前缀性质。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "odsa-huffman"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> q=n==1?vector<int>{1,2,5}:vector<int>{1,1,1}; int cost=0; while(q.size()>1){sort(q.begin(),q.end(),greater<int>()); int sum=q[0]+q[1];q.erase(q.begin(),q.begin()+2);q.push_back(sum);cost+=sum;} cout<<cost<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> q=n==1?vector<int>{1,2,5}:vector<int>{1,1,1}; int cost=0; while(q.size()>1){sort(q.begin(),q.end()); int sum=q[0]+q[1];q.erase(q.begin(),q.begin()+2);q.push_back(sum);cost+=sum;} cout<<cost<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "三个相同权重，允许同权选择差异",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> q=n==1?vector<int>{1,2,5}:vector<int>{1,1,1}; int cost=0; while(q.size()>1){sort(q.begin(),q.end(),greater<int>()); int sum=q[0]+q[1];q.erase(q.begin(),q.begin()+2);q.push_back(sum);cost+=sum;} cout<<cost<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> q=n==1?vector<int>{1,2,5}:vector<int>{1,1,1}; int cost=0; while(q.size()>1){sort(q.begin(),q.end()); int sum=q[0]+q[1];q.erase(q.begin(),q.begin()+2);q.push_back(sum);cost+=sum;} cout<<cost<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "98203d21-30cc-5bad-b568-3f6251d80226",
+      "version_id": "0b5bc167-da7f-5e6a-b0b8-1d737deee01b",
+      "code": "CS03-M06-O01-CODE",
+      "version": "CS03-M06-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M06-O01"
+      ],
+      "kind": "code",
+      "title": "搜索树查找必须沿正确的比较方向",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "这里二叉搜索树的键互异，左子树较小、右子树较大。查找由键比较决定方向；成功查找不证明插入、删除或整树有序性，这些条件须分别检查。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-trees"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node*left;Node*right;}; bool contains(Node*p,int key){while(p){if(p->key==key)return true;p=key<p->key?p->right:p->left;}return false;}\nint main(){ int n; cin>>n;\nNode l{10,nullptr,nullptr},r{30,nullptr,nullptr},root{20,&l,&r};cout<<contains(&root,n==1?10:20)<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node*left;Node*right;}; bool contains(Node*p,int key){while(p){if(p->key==key)return true;p=key<p->key?p->left:p->right;}return false;}\nint main(){ int n; cin>>n;\nNode l{10,nullptr,nullptr},r{30,nullptr,nullptr},root{20,&l,&r};cout<<contains(&root,n==1?10:20)<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "根键命中不需要走分支",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node*left;Node*right;}; bool contains(Node*p,int key){while(p){if(p->key==key)return true;p=key<p->key?p->right:p->left;}return false;}\nint main(){ int n; cin>>n;\nNode l{10,nullptr,nullptr},r{30,nullptr,nullptr},root{20,&l,&r};cout<<contains(&root,n==1?10:20)<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node*left;Node*right;}; bool contains(Node*p,int key){while(p){if(p->key==key)return true;p=key<p->key?p->left:p->right;}return false;}\nint main(){ int n; cin>>n;\nNode l{10,nullptr,nullptr},r{30,nullptr,nullptr},root{20,&l,&r};cout<<contains(&root,n==1?10:20)<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "7809fd99-5191-5d6b-933b-2df8de4ba883",
+      "version_id": "f51718a3-dda5-5360-b0eb-74fd085483f1",
+      "code": "CS03-M06-O02-CODE",
+      "version": "CS03-M06-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M06-O02"
+      ],
+      "kind": "code",
+      "title": "旋转必须保留中间子树",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "右旋将左孩子升为子树根，左孩子原右子树移交旧根的左链接，中序顺序应保持。这里只检查单次右旋的内容保留，不覆盖所有 AVL 平衡条件、双旋或删除回溯。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-avl"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node*left;Node*right;}; void walk(Node*p){if(!p)return;walk(p->left);cout<<p->key<<' ';walk(p->right);}\nint main(){ int n; cin>>n;\nNode mid{25,nullptr,nullptr},b{20,nullptr,n==1?&mid:nullptr},a{30,&b,nullptr}; Node* top=&b; a.left=nullptr; b.right=&a; walk(top); cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node*left;Node*right;}; void walk(Node*p){if(!p)return;walk(p->left);cout<<p->key<<' ';walk(p->right);}\nint main(){ int n; cin>>n;\nNode mid{25,nullptr,nullptr},b{20,nullptr,n==1?&mid:nullptr},a{30,&b,nullptr}; Node* top=&b; a.left=b.right; b.right=&a; walk(top); cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "中间子树为空时的旋转",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node*left;Node*right;}; void walk(Node*p){if(!p)return;walk(p->left);cout<<p->key<<' ';walk(p->right);}\nint main(){ int n; cin>>n;\nNode mid{25,nullptr,nullptr},b{20,nullptr,n==1?&mid:nullptr},a{30,&b,nullptr}; Node* top=&b; a.left=nullptr; b.right=&a; walk(top); cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Node{int key;Node*left;Node*right;}; void walk(Node*p){if(!p)return;walk(p->left);cout<<p->key<<' ';walk(p->right);}\nint main(){ int n; cin>>n;\nNode mid{25,nullptr,nullptr},b{20,nullptr,n==1?&mid:nullptr},a{30,&b,nullptr}; Node* top=&b; a.left=b.right; b.right=&a; walk(top); cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "a3fd41bb-727b-5e97-80cf-632414efadc9",
+      "version_id": "5e954988-06c2-5d4b-89cb-c80eb5edbbc4",
+      "code": "CS03-M06-O03-CODE",
+      "version": "CS03-M06-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M06-O03"
+      ],
+      "kind": "code",
+      "title": "B+ 树叶分裂复制分隔键而非移走记录",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "本例叶容量三，第四条记录使叶溢出；以右叶最小键作父分隔键，该记录仍留在右叶。内节点分裂的提升规则不同。本例只是受限页分裂工件，不是完整 B/B+ 树，尚未包含根传播、合并和范围扫描。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "cmu-bplus"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> page=n==1?vector<int>{1,3,5,7}:vector<int>{1,3,5,7,9,11};int split=page.size()/2;int separator=page[split];vector<int> left(page.begin(),page.begin()+split),right(page.begin()+split+1,page.end());cout<<\"sep=\"<<separator<<\" left=\";for(int x:left)cout<<x<<' ';cout<<\"right=\";for(int x:right)cout<<x<<' ';cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> page=n==1?vector<int>{1,3,5,7}:vector<int>{1,3,5,7,9,11};int split=page.size()/2;int separator=page[split];vector<int> left(page.begin(),page.begin()+split),right(page.begin()+split,page.end());cout<<\"sep=\"<<separator<<\" left=\";for(int x:left)cout<<x<<' ';cout<<\"right=\";for(int x:right)cout<<x<<' ';cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "容量五的叶溢出，分隔键仍保留",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> page=n==1?vector<int>{1,3,5,7}:vector<int>{1,3,5,7,9,11};int split=page.size()/2;int separator=page[split];vector<int> left(page.begin(),page.begin()+split),right(page.begin()+split+1,page.end());cout<<\"sep=\"<<separator<<\" left=\";for(int x:left)cout<<x<<' ';cout<<\"right=\";for(int x:right)cout<<x<<' ';cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int> page=n==1?vector<int>{1,3,5,7}:vector<int>{1,3,5,7,9,11};int split=page.size()/2;int separator=page[split];vector<int> left(page.begin(),page.begin()+split),right(page.begin()+split,page.end());cout<<\"sep=\"<<separator<<\" left=\";for(int x:left)cout<<x<<' ';cout<<\"right=\";for(int x:right)cout<<x<<' ';cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "16e0e914-2eeb-508e-999e-ac04b2d1095a",
+      "version_id": "52b9b0bf-020c-54d1-a8ff-0f57f2d99323",
+      "code": "CS03-M07-O01-CODE",
+      "version": "CS03-M07-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M07-O01"
+      ],
+      "kind": "code",
+      "title": "无向边在邻接表中登记两个方向",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "有向边只登记起点的出邻接，无向边在两端邻接表登记。输入中的图类型决定存储行为；两个邻接项表示同一条无向边，而非两条不同边。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-bfs"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj(2);adj[0].push_back(1);cout<<adj[0].size()<<' '<<adj[1].size()<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj(2);adj[0].push_back(1);if(n==1)adj[1].push_back(0);cout<<adj[0].size()<<' '<<adj[1].size()<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "换为有向图，不应添加反向边",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj(2);adj[0].push_back(1);cout<<adj[0].size()<<' '<<adj[1].size()<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj(2);adj[0].push_back(1);if(n==1)adj[1].push_back(0);cout<<adj[0].size()<<' '<<adj[1].size()<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "01380247-aa27-521c-a163-b8fe904b7fe8",
+      "version_id": "a7d17c07-b6e1-5e21-a88f-0bfb120afa24",
+      "code": "CS03-M07-O02-CODE",
+      "version": "CS03-M07-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M07-O02"
+      ],
+      "kind": "code",
+      "title": "BFS 入队时登记已发现节点",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "本例以固定邻接顺序展示 BFS。入队时登记已发现可避免同一个节点由多个前驱重复加入队列；合法访问顺序可能不唯一。这里只检查给定工件的规范轨迹，不将另一合法顺序判为算法错误。DFS 另需实践。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-bfs"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1,2},{3},{3},{}}:vector<vector<int>>{{1},{2},{3},{}};vector<bool> seen(4);queue<int> q;q.push(0);seen[0]=true;while(!q.empty()){int u=q.front();q.pop();cout<<u<<' ';for(int v:adj[u])if(!seen[v]){q.push(v);}}cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1,2},{3},{3},{}}:vector<vector<int>>{{1},{2},{3},{}};vector<bool> seen(4);queue<int> q;q.push(0);seen[0]=true;while(!q.empty()){int u=q.front();q.pop();cout<<u<<' ';for(int v:adj[u])if(!seen[v]){seen[v]=true;q.push(v);}}cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单一路径不会暴露重复入队错误",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1,2},{3},{3},{}}:vector<vector<int>>{{1},{2},{3},{}};vector<bool> seen(4);queue<int> q;q.push(0);seen[0]=true;while(!q.empty()){int u=q.front();q.pop();cout<<u<<' ';for(int v:adj[u])if(!seen[v]){q.push(v);}}cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1,2},{3},{3},{}}:vector<vector<int>>{{1},{2},{3},{}};vector<bool> seen(4);queue<int> q;q.push(0);seen[0]=true;while(!q.empty()){int u=q.front();q.pop();cout<<u<<' ';for(int v:adj[u])if(!seen[v]){seen[v]=true;q.push(v);}}cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "aed5a964-760f-51fe-b0d2-1f4e3da39ee2",
+      "version_id": "102247f1-0d78-533e-bcf0-a8865fd839dd",
+      "code": "CS03-M07-O03-CODE",
+      "version": "CS03-M07-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M07-O03"
+      ],
+      "kind": "code",
+      "title": "遍历整图必须重新启动未访问的分量",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "从一个起点搜索只保证覆盖可达部分。无向图的每个连通分量需单独启动搜索，孤立顶点也算一个分量；搜索森林每个分量贡献一棵树。这里不求最小生成树。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-dfs"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1},{0},{},{}}:vector<vector<int>>{{1},{0,2},{1,3},{2}};vector<bool> seen(4);int components=0;for(int start=0;start<4;++start){if(seen[start])continue;++components;queue<int> q;q.push(start);seen[start]=true;while(!q.empty()){int u=q.front();q.pop();for(int v:adj[u])if(!seen[v]){seen[v]=true;q.push(v);}}break;}cout<<components<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1},{0},{},{}}:vector<vector<int>>{{1},{0,2},{1,3},{2}};vector<bool> seen(4);int components=0;for(int start=0;start<4;++start){if(seen[start])continue;++components;queue<int> q;q.push(start);seen[start]=true;while(!q.empty()){int u=q.front();q.pop();for(int v:adj[u])if(!seen[v]){seen[v]=true;q.push(v);}}}cout<<components<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改为一个连通分量",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1},{0},{},{}}:vector<vector<int>>{{1},{0,2},{1,3},{2}};vector<bool> seen(4);int components=0;for(int start=0;start<4;++start){if(seen[start])continue;++components;queue<int> q;q.push(start);seen[start]=true;while(!q.empty()){int u=q.front();q.pop();for(int v:adj[u])if(!seen[v]){seen[v]=true;q.push(v);}}break;}cout<<components<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1},{0},{},{}}:vector<vector<int>>{{1},{0,2},{1,3},{2}};vector<bool> seen(4);int components=0;for(int start=0;start<4;++start){if(seen[start])continue;++components;queue<int> q;q.push(start);seen[start]=true;while(!q.empty()){int u=q.front();q.pop();for(int v:adj[u])if(!seen[v]){seen[v]=true;q.push(v);}}}cout<<components<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "30ae603e-ab18-5200-84de-7ee3e09ca0c4",
+      "version_id": "8a99b36c-85d0-5e90-aa70-455d5d4bf173",
+      "code": "CS03-M08-O01-CODE",
+      "version": "CS03-M08-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M08-O01"
+      ],
+      "kind": "code",
+      "title": "最短路松弛使用整条已知路径代价",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "松弛候选为 d[u]+w(u,v)，并与当前 d[v] 比较。本例用数组选择当前最小未访问距离实现非负权 Dijkstra；固定小图不构成复杂度或负权适用性证明。不可达项不能当成零。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-dijkstra"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nconst int INF=100000;int w[3][3]={{INF,n==1?2:0,9},{INF,INF,3},{INF,INF,INF}};array<int,3>d{0,INF,INF};array<bool,3> used{};for(int k=0;k<3;++k){int u=-1;for(int v=0;v<3;++v)if(!used[v]&&(u==-1||d[v]<d[u]))u=v;if(u==-1||d[u]==INF)break;used[u]=true;for(int v=0;v<3;++v)if(w[u][v]!=INF)d[v]=min(d[v],w[u][v]);}cout<<d[2]<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nconst int INF=100000;int w[3][3]={{INF,n==1?2:0,9},{INF,INF,3},{INF,INF,INF}};array<int,3>d{0,INF,INF};array<bool,3> used{};for(int k=0;k<3;++k){int u=-1;for(int v=0;v<3;++v)if(!used[v]&&(u==-1||d[v]<d[u]))u=v;if(u==-1||d[u]==INF)break;used[u]=true;for(int v=0;v<3;++v)if(w[u][v]!=INF)d[v]=min(d[v],d[u]+w[u][v]);}cout<<d[2]<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "首条边权为零，仍符合适用前提",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nconst int INF=100000;int w[3][3]={{INF,n==1?2:0,9},{INF,INF,3},{INF,INF,INF}};array<int,3>d{0,INF,INF};array<bool,3> used{};for(int k=0;k<3;++k){int u=-1;for(int v=0;v<3;++v)if(!used[v]&&(u==-1||d[v]<d[u]))u=v;if(u==-1||d[u]==INF)break;used[u]=true;for(int v=0;v<3;++v)if(w[u][v]!=INF)d[v]=min(d[v],w[u][v]);}cout<<d[2]<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nconst int INF=100000;int w[3][3]={{INF,n==1?2:0,9},{INF,INF,3},{INF,INF,INF}};array<int,3>d{0,INF,INF};array<bool,3> used{};for(int k=0;k<3;++k){int u=-1;for(int v=0;v<3;++v)if(!used[v]&&(u==-1||d[v]<d[u]))u=v;if(u==-1||d[u]==INF)break;used[u]=true;for(int v=0;v<3;++v)if(w[u][v]!=INF)d[v]=min(d[v],d[u]+w[u][v]);}cout<<d[2]<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "25303a7e-c258-595a-a2d1-ad191ee00660",
+      "version_id": "be863f03-f700-596f-a702-b1107d5d1f21",
+      "code": "CS03-M08-O02-CODE",
+      "version": "CS03-M08-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M08-O02"
+      ],
+      "kind": "code",
+      "title": "拓扑排序必须报告环导致的未完成",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "Kahn 算法从入度零节点推进。取出的节点数不足声明顶点数时存在环，不能报告完整拓扑序。DAG 可能有多个合法序，本工件只比较完成数量与是否有环。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-dfs"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1},{2},{0}}:vector<vector<int>>{{1},{2},{}};array<int,3> degree{};for(auto row:adj)for(int v:row)++degree[v];queue<int>q;for(int v=0;v<3;++v)if(degree[v]==0)q.push(v);int count=0;while(!q.empty()){int u=q.front();q.pop();++count;for(int v:adj[u])if(--degree[v]==0)q.push(v);}cout<<\"dag \"<<count<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1},{2},{0}}:vector<vector<int>>{{1},{2},{}};array<int,3> degree{};for(auto row:adj)for(int v:row)++degree[v];queue<int>q;for(int v=0;v<3;++v)if(degree[v]==0)q.push(v);int count=0;while(!q.empty()){int u=q.front();q.pop();++count;for(int v:adj[u])if(--degree[v]==0)q.push(v);}cout<<(count==3?\"dag \":\"cycle \")<<count<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "移除回边后能够完成全部节点",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1},{2},{0}}:vector<vector<int>>{{1},{2},{}};array<int,3> degree{};for(auto row:adj)for(int v:row)++degree[v];queue<int>q;for(int v=0;v<3;++v)if(degree[v]==0)q.push(v);int count=0;while(!q.empty()){int u=q.front();q.pop();++count;for(int v:adj[u])if(--degree[v]==0)q.push(v);}cout<<\"dag \"<<count<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<vector<int>> adj=n==1?vector<vector<int>>{{1},{2},{0}}:vector<vector<int>>{{1},{2},{}};array<int,3> degree{};for(auto row:adj)for(int v:row)++degree[v];queue<int>q;for(int v=0;v<3;++v)if(degree[v]==0)q.push(v);int count=0;while(!q.empty()){int u=q.front();q.pop();++count;for(int v:adj[u])if(--degree[v]==0)q.push(v);}cout<<(count==3?\"dag \":\"cycle \")<<count<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "595bba07-207e-5d29-a377-6faedc03da33",
+      "version_id": "1a346b70-7c14-54be-8332-6c9b15312955",
+      "code": "CS03-M08-O03-CODE",
+      "version": "CS03-M08-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M08-O03"
+      ],
+      "kind": "code",
+      "title": "事件最早发生时间取所有前驱约束的最大值",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "在活动置于边上的 DAG 中，事件须等待全部前驱活动完成，因此最早时间采用最长路径递推，不是最短路。此例事件已经按拓扑次序编号，非负活动时长；尚未检查有环拒绝、最晚时间与全部关键活动。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "gordon-cpm"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Edge{int u,v,w;};\nint main(){ int n; cin>>n;\nvector<Edge> edges{{0,1,n==1?2:0},{0,2,n==1?5:0},{1,3,n==1?4:0},{2,3,n==1?3:0}};array<int,4> earliest{};for(int u=0;u<4;++u)for(auto e:edges)if(e.u==u)earliest[e.v]=min(earliest[e.v],earliest[u]+e.w);cout<<earliest[3]<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Edge{int u,v,w;};\nint main(){ int n; cin>>n;\nvector<Edge> edges{{0,1,n==1?2:0},{0,2,n==1?5:0},{1,3,n==1?4:0},{2,3,n==1?3:0}};array<int,4> earliest{};for(int u=0;u<4;++u)for(auto e:edges)if(e.u==u)earliest[e.v]=max(earliest[e.v],earliest[u]+e.w);cout<<earliest[3]<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "所有活动时长为零，完工时间允许为零",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Edge{int u,v,w;};\nint main(){ int n; cin>>n;\nvector<Edge> edges{{0,1,n==1?2:0},{0,2,n==1?5:0},{1,3,n==1?4:0},{2,3,n==1?3:0}};array<int,4> earliest{};for(int u=0;u<4;++u)for(auto e:edges)if(e.u==u)earliest[e.v]=min(earliest[e.v],earliest[u]+e.w);cout<<earliest[3]<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\nstruct Edge{int u,v,w;};\nint main(){ int n; cin>>n;\nvector<Edge> edges{{0,1,n==1?2:0},{0,2,n==1?5:0},{1,3,n==1?4:0},{2,3,n==1?3:0}};array<int,4> earliest{};for(int u=0;u<4;++u)for(auto e:edges)if(e.u==u)earliest[e.v]=max(earliest[e.v],earliest[u]+e.w);cout<<earliest[3]<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "9d2abd6c-10bc-5800-be21-3baf42e786f0",
+      "version_id": "6e89177e-31aa-5e59-9165-a5a750269679",
+      "code": "CS03-M09-O01-CODE",
+      "version": "CS03-M09-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M09-O01"
+      ],
+      "kind": "code",
+      "title": "散列下标需要落在有效槽范围",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "此任务允许负整数键，容量五；将 C++ 余数规范到 [0,5) 后才访问数组。合法下标不代表良好哈希分布；本任务也没有覆盖全部查找或重散列行为。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "cpp17-draft"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nint key=n==1?-1:6;int index=key%5;array<int,5> table{};if(index<0||index>=5){cout<<\"bad-index\\n\";return 0;}table[index]=77;cout<<table[index]<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nint key=n==1?-1:6;int index=(key%5+5)%5;array<int,5> table{};if(index<0||index>=5){cout<<\"bad-index\\n\";return 0;}table[index]=77;cout<<table[index]<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "正整数键的原路径仍应可用",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nint key=n==1?-1:6;int index=key%5;array<int,5> table{};if(index<0||index>=5){cout<<\"bad-index\\n\";return 0;}table[index]=77;cout<<table[index]<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nint key=n==1?-1:6;int index=(key%5+5)%5;array<int,5> table{};if(index<0||index>=5){cout<<\"bad-index\\n\";return 0;}table[index]=77;cout<<table[index]<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "a26a78c0-b52c-5796-9e40-e11357b55053",
+      "version_id": "06c9d459-676a-5cf8-ab22-123c7839c041",
+      "code": "CS03-M09-O02-CODE",
+      "version": "CS03-M09-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M09-O02"
+      ],
+      "kind": "code",
+      "title": "墓碑不能截断线性探查链",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "开放寻址中从未使用的空槽与删除后的墓碑是不同状态。遇墓碑继续探查，否则同一探查链后续键被错误报告缺失。本例容量三、-1 为空、-2 为墓碑，键限制为非负。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "odsa-hash-delete"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\narray<int,3> table{n==1?-2:3,6,-1};int key=6,found=-1;for(int step=0;step<3;++step){int slot=(key%3+step)%3;if(table[slot]<0)break;if(table[slot]==key){found=slot;break;}}cout<<found<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\narray<int,3> table{n==1?-2:3,6,-1};int key=6,found=-1;for(int step=0;step<3;++step){int slot=(key%3+step)%3;if(table[slot]==-1)break;if(table[slot]==key){found=slot;break;}}cout<<found<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "未删除的碰撞链仍需正确查找",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\narray<int,3> table{n==1?-2:3,6,-1};int key=6,found=-1;for(int step=0;step<3;++step){int slot=(key%3+step)%3;if(table[slot]<0)break;if(table[slot]==key){found=slot;break;}}cout<<found<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\narray<int,3> table{n==1?-2:3,6,-1};int key=6,found=-1;for(int step=0;step<3;++step){int slot=(key%3+step)%3;if(table[slot]==-1)break;if(table[slot]==key){found=slot;break;}}cout<<found<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "dd04d0be-d8d7-5097-9ee5-3fb68417fbb2",
+      "version_id": "2d552996-b09f-5c51-b8c9-dad661354343",
+      "code": "CS03-M09-O03-CODE",
+      "version": "CS03-M09-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M09-O03"
+      ],
+      "kind": "code",
+      "title": "装载率不能用整数除法计算",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "装载率定义为存储键数除以槽数。它是表示状态的指标，并不能单独证明某种碰撞策略的代价；还需比较探查长度与键分布。本例先纠正指标的整数截断。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-hash"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nint keys=n==1?3:5,capacity=5;double load=keys/capacity;cout<<fixed<<setprecision(3)<<load<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nint keys=n==1?3:5,capacity=5;double load=double(keys)/capacity;cout<<fixed<<setprecision(3)<<load<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "装载率等于一仍不是性能保证",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nint keys=n==1?3:5,capacity=5;double load=keys/capacity;cout<<fixed<<setprecision(3)<<load<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nint keys=n==1?3:5,capacity=5;double load=double(keys)/capacity;cout<<fixed<<setprecision(3)<<load<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "0fd00a7c-e258-58e9-b7eb-af7f5f003044",
+      "version_id": "5b56de31-cea0-58a8-8ebb-7d754b6a8340",
+      "code": "CS03-M10-O01-CODE",
+      "version": "CS03-M10-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M10-O01"
+      ],
+      "kind": "code",
+      "title": "插入排序必须允许搬移首元素",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "插入排序将当前键插入已排序前缀，搬移条件必须包含下标零。排序结果应有序且保留原多重集合；本例固定三个元素，不覆盖其他内部排序算法。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-sort"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int>a=n==1?vector<int>{3,1,2}:vector<int>{1,2,3};for(int i=1;i<int(a.size());++i){int key=a[i],j=i-1;while(j>0&&a[j]>key){a[j+1]=a[j];--j;}a[j+1]=key;}for(int x:a)cout<<x<<' ';cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int>a=n==1?vector<int>{3,1,2}:vector<int>{1,2,3};for(int i=1;i<int(a.size());++i){int key=a[i],j=i-1;while(j>=0&&a[j]>key){a[j+1]=a[j];--j;}a[j+1]=key;}for(int x:a)cout<<x<<' ';cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "已排序输入不能暴露遗漏首元素的错误",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int>a=n==1?vector<int>{3,1,2}:vector<int>{1,2,3};for(int i=1;i<int(a.size());++i){int key=a[i],j=i-1;while(j>0&&a[j]>key){a[j+1]=a[j];--j;}a[j+1]=key;}for(int x:a)cout<<x<<' ';cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int>a=n==1?vector<int>{3,1,2}:vector<int>{1,2,3};for(int i=1;i<int(a.size());++i){int key=a[i],j=i-1;while(j>=0&&a[j]>key){a[j+1]=a[j];--j;}a[j+1]=key;}for(int x:a)cout<<x<<' ';cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "a12eefc2-0ac4-5abd-9b9f-d21407cb5b8b",
+      "version_id": "7fda3928-ccb5-54ba-8ec4-7a8c4c4f40fa",
+      "code": "CS03-M10-O02-CODE",
+      "version": "CS03-M10-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M10-O02"
+      ],
+      "kind": "code",
+      "title": "稳定排序保留同键记录的原相对顺序",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "按键排序时，稳定性保留同键记录原先的先后。插入排序若把相等键也向右搬移会逆转它们；不同键的输入无法验证稳定性。本例未证明所有排序算法的复杂度。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "mit-sort"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<pair<int,char>>a{{2,'A'},{n==1?2:3,'B'},{1,'C'}};for(int i=1;i<int(a.size());++i){auto key=a[i];int j=i-1;while(j>=0&&a[j].first>=key.first){a[j+1]=a[j];--j;}a[j+1]=key;}for(auto x:a)cout<<x.first<<x.second<<' ';cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<pair<int,char>>a{{2,'A'},{n==1?2:3,'B'},{1,'C'}};for(int i=1;i<int(a.size());++i){auto key=a[i];int j=i-1;while(j>=0&&a[j].first>key.first){a[j+1]=a[j];--j;}a[j+1]=key;}for(auto x:a)cout<<x.first<<x.second<<' ';cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "全部键不同不能作为稳定性证据",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<pair<int,char>>a{{2,'A'},{n==1?2:3,'B'},{1,'C'}};for(int i=1;i<int(a.size());++i){auto key=a[i];int j=i-1;while(j>=0&&a[j].first>=key.first){a[j+1]=a[j];--j;}a[j+1]=key;}for(auto x:a)cout<<x.first<<x.second<<' ';cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<pair<int,char>>a{{2,'A'},{n==1?2:3,'B'},{1,'C'}};for(int i=1;i<int(a.size());++i){auto key=a[i];int j=i-1;while(j>=0&&a[j].first>key.first){a[j+1]=a[j];--j;}a[j+1]=key;}for(auto x:a)cout<<x.first<<x.second<<' ';cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "931e765b-48f6-5b70-92d7-78c21770adb4",
+      "version_id": "eee200ae-305f-57f2-9e4f-c6bf146c563e",
+      "code": "CS03-M10-O03-CODE",
+      "version": "CS03-M10-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS03-M10-O03"
+      ],
+      "kind": "code",
+      "title": "磁盘有序段需要归并而非直接拼接",
+      "student_action": "先画状态，再定位代码违背契约的位置并修复。",
+      "theory": [
+        "外部排序先生成有序段，再按内存约束归并。此例在隔离环境真实写入两个小段，归并时各保留一个当前记录；文件只在本次执行存在，尚未验证大文件、I/O 故障、多轮归并或完整目录导航项目。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "odsa-external"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int>a{4,1},b=n==1?vector<int>{3,2}:vector<int>{5,6};sort(a.begin(),a.end());sort(b.begin(),b.end());{ofstream f(\"run-a.txt\"),g(\"run-b.txt\");for(int x:a)f<<x<<'\\n';for(int x:b)g<<x<<'\\n';}ifstream f(\"run-a.txt\"),g(\"run-b.txt\");int x,y;bool hasX=bool(f>>x),hasY=bool(g>>y);while(hasX||hasY){if(hasX){cout<<x<<' ';hasX=bool(f>>x);}else{cout<<y<<' ';hasY=bool(g>>y);}}cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "cpp17",
+        "entry": "main.cpp",
+        "files": {
+          "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int>a{4,1},b=n==1?vector<int>{3,2}:vector<int>{5,6};sort(a.begin(),a.end());sort(b.begin(),b.end());{ofstream f(\"run-a.txt\"),g(\"run-b.txt\");for(int x:a)f<<x<<'\\n';for(int x:b)g<<x<<'\\n';}ifstream f(\"run-a.txt\"),g(\"run-b.txt\");int x,y;bool hasX=bool(f>>x),hasY=bool(g>>y);while(hasX||hasY){if(hasX&&(!hasY||x<=y)){cout<<x<<' ';hasX=bool(f>>x);}else{cout<<y<<' ';hasY=bool(g>>y);}}cout<<'\\n';\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "逐个列出操作前后的元素与链接。",
+        "检查空结构与下标边界；不要把一次通过当成一般正确性。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "两段键范围不重叠时拼接碰巧有序",
+          "student_action": "预测每一步状态与输出；运行、修改并解释边界。",
+          "code_request": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int>a{4,1},b=n==1?vector<int>{3,2}:vector<int>{5,6};sort(a.begin(),a.end());sort(b.begin(),b.end());{ofstream f(\"run-a.txt\"),g(\"run-b.txt\");for(int x:a)f<<x<<'\\n';for(int x:b)g<<x<<'\\n';}ifstream f(\"run-a.txt\"),g(\"run-b.txt\");int x,y;bool hasX=bool(f>>x),hasY=bool(g>>y);while(hasX||hasY){if(hasX){cout<<x<<' ';hasX=bool(f>>x);}else{cout<<y<<' ';hasY=bool(g>>y);}}cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "cpp17",
+            "entry": "main.cpp",
+            "files": {
+              "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n#include <queue>\n#include <functional>\n#include <fstream>\n#include <iomanip>\n#include <utility>\n\nint main(){ int n; cin>>n;\nvector<int>a{4,1},b=n==1?vector<int>{3,2}:vector<int>{5,6};sort(a.begin(),a.end());sort(b.begin(),b.end());{ofstream f(\"run-a.txt\"),g(\"run-b.txt\");for(int x:a)f<<x<<'\\n';for(int x:b)g<<x<<'\\n';}ifstream f(\"run-a.txt\"),g(\"run-b.txt\");int x,y;bool hasX=bool(f>>x),hasY=bool(g>>y);while(hasX||hasY){if(hasX&&(!hasY||x<=y)){cout<<x<<' ';hasX=bool(f>>x);}else{cout<<y<<' ';hasY=bool(g>>y);}}cout<<'\\n';\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "mit6006-sequences",
+      "title": "MIT 6.006 Spring 2020 Lecture 2: Data Structures",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/79a07dc1cb47d76dae2ffedc701e3d2b_MIT6_006S20_lec2.pdf",
+      "locator": "pp.1–4: sequence/set interfaces, arrays, linked lists, amortized cost",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "odsa-hash-delete",
+      "title": "OpenDSA Deletion in Open Addressing",
+      "url": "https://opendsax.cs.vt.edu/ODSA/StandaloneModules/20250507145027/html/HashDel.html",
+      "locator": "Deletion: tombstones and continued search",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "cpp17-draft",
+      "title": "WG21 N4659 C++17 working draft",
+      "url": "https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf",
+      "locator": "8.6 [expr.mul] p.131: integral quotient and remainder",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "cornell-kmp",
+      "title": "Cornell CS312 String Search",
+      "url": "https://www.cs.cornell.edu/courses/cs312/2002fa/lectures/lec26.htm",
+      "locator": "Knuth-Morris-Pratt Algorithm; prefix convention",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "scipy-coo",
+      "title": "SciPy COO sparse representation",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html",
+      "locator": "Notes: duplicate coordinates; construction",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-trees",
+      "title": "MIT 6.006 Binary Trees",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/376714cc85c6c784d90eec9c575ec027_MIT6_006S20_lec6.pdf",
+      "locator": "pp.1–6: traversal, subtree operations, search trees",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-avl",
+      "title": "MIT 6.006 AVL Trees",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/a2c80596cf4a2b5fbc854afdd2f23dcb_MIT6_006S20_lec7.pdf",
+      "locator": "rotation and balancing",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "odsa-huffman",
+      "title": "OpenDSA Huffman Coding Trees",
+      "url": "https://opendsax.cs.vt.edu/ODSA/Books/CS3/html/Huffman.html",
+      "locator": "7.18.1.1 building and assigning codes",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "cmu-bplus",
+      "title": "CMU 15-445 Tree Indexes",
+      "url": "https://15445.courses.cs.cmu.edu/fall2022/notes/08-trees.pdf",
+      "locator": "pp.1–2: leaf and internal node split differ",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-bfs",
+      "title": "MIT 6.006 Breadth-First Search",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/196a95604877d326c6586e60477b59d4_MIT6_006S20_lec9.pdf",
+      "locator": "representations and BFS",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-dfs",
+      "title": "MIT 6.006 Depth-First Search",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/f3e349e0eb3288592289d2c81e0c4f4d_MIT6_006S20_lec10.pdf",
+      "locator": "full graph search and topological order",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-dijkstra",
+      "title": "MIT 6.006 Dijkstra",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/d819e7f4568aced8d5b59e03db6c7b67_MIT6_006S20_lec13.pdf",
+      "locator": "pp.1–2: nonnegative weights and relaxation",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "gordon-cpm",
+      "title": "Gordon College Graphs and Networks",
+      "url": "https://www.math-cs.gordon.edu/courses/cs321/lectures/graphs.html",
+      "locator": "AOE critical path analysis; earliest/latest event times",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-hash",
+      "title": "MIT 6.006 Hashing",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/ce9e94705b914598ce78a00a70a1f734_MIT6_006S20_lec4.pdf",
+      "locator": "hash functions, collisions and load",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "mit-sort",
+      "title": "MIT 6.006 Sorting",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/6d1ae5278d02bbecb5c4428928b24194_MIT6_006S20_lec3.pdf",
+      "locator": "sorting permutation, insertion and merge",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "odsa-external",
+      "title": "OpenDSA External Sorting",
+      "url": "https://opendsax.cs.vt.edu/ODSA/Books/CS3/html/ExternalSort.html",
+      "locator": "9.6 sorted runs and merging",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+[
+  {
+    "id": "CS03-M01-O01/base/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O01",
+    "activity": "9dc038dd-008b-58f6-acee-32a17cddd73d",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct IntSet{ vector<int> values; void insert(int x){ values.push_back(x); } };\nint main(){ int n; cin>>n;\nIntSet s; s.insert(4); s.insert(n==1?4:7); cout<<s.values.size()<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS03-M01-O01/base/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O01",
+    "activity": "9dc038dd-008b-58f6-acee-32a17cddd73d",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct IntSet{ vector<int> values; void insert(int x){ if(find(values.begin(),values.end(),x)==values.end()) values.push_back(x); } };\nint main(){ int n; cin>>n;\nIntSet s; s.insert(4); s.insert(n==1?4:7); cout<<s.values.size()<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M01-O01/changed-condition/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O01",
+    "activity": "9dc038dd-008b-58f6-acee-32a17cddd73d",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct IntSet{ vector<int> values; void insert(int x){ values.push_back(x); } };\nint main(){ int n; cin>>n;\nIntSet s; s.insert(4); s.insert(n==1?4:7); cout<<s.values.size()<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M01-O01/changed-condition/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O01",
+    "activity": "9dc038dd-008b-58f6-acee-32a17cddd73d",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct IntSet{ vector<int> values; void insert(int x){ if(find(values.begin(),values.end(),x)==values.end()) values.push_back(x); } };\nint main(){ int n; cin>>n;\nIntSet s; s.insert(4); s.insert(n==1?4:7); cout<<s.values.size()<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M01-O02/base/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O02",
+    "activity": "4a7a61ec-6921-573a-9410-032966472a72",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode c{30,nullptr}; Node b{20,&c}; Node a{10,&b}; Node* p=n==1?&a:&c; while(p){cout<<p->value<<' '; p=nullptr;} cout<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10 \n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS03-M01-O02/base/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O02",
+    "activity": "4a7a61ec-6921-573a-9410-032966472a72",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode c{30,nullptr}; Node b{20,&c}; Node a{10,&b}; Node* p=n==1?&a:&c; while(p){cout<<p->value<<' '; p=p->next;} cout<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10 20 30 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M01-O02/changed-condition/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O02",
+    "activity": "4a7a61ec-6921-573a-9410-032966472a72",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode c{30,nullptr}; Node b{20,&c}; Node a{10,&b}; Node* p=n==1?&a:&c; while(p){cout<<p->value<<' '; p=nullptr;} cout<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "30 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M01-O02/changed-condition/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O02",
+    "activity": "4a7a61ec-6921-573a-9410-032966472a72",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode c{30,nullptr}; Node b{20,&c}; Node a{10,&b}; Node* p=n==1?&a:&c; while(p){cout<<p->value<<' '; p=p->next;} cout<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "30 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M01-O03/base/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O03",
+    "activity": "364b32ed-18ca-5bc4-9ed1-6e02e454f5b7",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\nvector<int> a{8,9,10}; int key=n==1?8:99; int count=0; for(int x:a){count=3; if(x==key)break;} cout<<count<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS03-M01-O03/base/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O03",
+    "activity": "364b32ed-18ca-5bc4-9ed1-6e02e454f5b7",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\nvector<int> a{8,9,10}; int key=n==1?8:99; int count=0; for(int x:a){++count; if(x==key)break;} cout<<count<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M01-O03/changed-condition/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O03",
+    "activity": "364b32ed-18ca-5bc4-9ed1-6e02e454f5b7",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\nvector<int> a{8,9,10}; int key=n==1?8:99; int count=0; for(int x:a){count=3; if(x==key)break;} cout<<count<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M01-O03/changed-condition/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M01-O03",
+    "activity": "364b32ed-18ca-5bc4-9ed1-6e02e454f5b7",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\nvector<int> a{8,9,10}; int key=n==1?8:99; int count=0; for(int x:a){++count; if(x==key)break;} cout<<count<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M02-O01/base/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O01",
+    "activity": "9d6cfed3-f3af-58be-b2ec-c8e36eaf9804",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\narray<int,4> a{10,20,30,0}; int size=3; int pos=n==1?0:3; if(size==int(a.size()))return 0; for(int i=pos;i<size;++i)a[i+1]=a[i]; a[pos]=7; ++size; for(int i=0;i<size;++i)cout<<a[i]<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "7 10 10 10 \n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS03-M02-O01/base/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O01",
+    "activity": "9d6cfed3-f3af-58be-b2ec-c8e36eaf9804",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\narray<int,4> a{10,20,30,0}; int size=3; int pos=n==1?0:3; if(size==int(a.size()))return 0; for(int i=size;i>pos;--i)a[i]=a[i-1]; a[pos]=7; ++size; for(int i=0;i<size;++i)cout<<a[i]<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "7 10 20 30 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M02-O01/changed-condition/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O01",
+    "activity": "9d6cfed3-f3af-58be-b2ec-c8e36eaf9804",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\narray<int,4> a{10,20,30,0}; int size=3; int pos=n==1?0:3; if(size==int(a.size()))return 0; for(int i=pos;i<size;++i)a[i+1]=a[i]; a[pos]=7; ++size; for(int i=0;i<size;++i)cout<<a[i]<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "10 20 30 7 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M02-O01/changed-condition/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O01",
+    "activity": "9d6cfed3-f3af-58be-b2ec-c8e36eaf9804",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\n\nint main(){ int n; cin>>n;\narray<int,4> a{10,20,30,0}; int size=3; int pos=n==1?0:3; if(size==int(a.size()))return 0; for(int i=size;i>pos;--i)a[i]=a[i-1]; a[pos]=7; ++size; for(int i=0;i<size;++i)cout<<a[i]<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "10 20 30 7 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M02-O02/base/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O02",
+    "activity": "90979e0e-ed31-537f-b86e-d01a1425ef07",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode b{20,nullptr}; Node a{10,&b}; Node* head=n==1?&a:nullptr; Node fresh{7,nullptr}; fresh.next=nullptr; head=&fresh; for(Node* p=head;p;p=p->next)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "7 \n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS03-M02-O02/base/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O02",
+    "activity": "90979e0e-ed31-537f-b86e-d01a1425ef07",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode b{20,nullptr}; Node a{10,&b}; Node* head=n==1?&a:nullptr; Node fresh{7,nullptr}; fresh.next=head; head=&fresh; for(Node* p=head;p;p=p->next)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "7 10 20 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M02-O02/changed-condition/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O02",
+    "activity": "90979e0e-ed31-537f-b86e-d01a1425ef07",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode b{20,nullptr}; Node a{10,&b}; Node* head=n==1?&a:nullptr; Node fresh{7,nullptr}; fresh.next=nullptr; head=&fresh; for(Node* p=head;p;p=p->next)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M02-O02/changed-condition/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O02",
+    "activity": "90979e0e-ed31-537f-b86e-d01a1425ef07",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* next;};\nint main(){ int n; cin>>n;\nNode b{20,nullptr}; Node a{10,&b}; Node* head=n==1?&a:nullptr; Node fresh{7,nullptr}; fresh.next=head; head=&fresh; for(Node* p=head;p;p=p->next)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M02-O03/base/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O03",
+    "activity": "64c2adf5-7c4c-54b6-bba2-6638b02f0ee3",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* prev; Node* next;};\nint main(){ int n; cin>>n;\nNode a{10,nullptr,nullptr}; Node b{20,&a,nullptr}; a.next=&b; Node x{7,&a,&b}; a.next=&x; if(n==2)b.prev=&x; for(Node* p=&a;p;p=p->next)cout<<p->value<<' '; cout<<\"| \"; for(Node* p=&b;p;p=p->prev)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10 7 20 | 20 10 \n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS03-M02-O03/base/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O03",
+    "activity": "64c2adf5-7c4c-54b6-bba2-6638b02f0ee3",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* prev; Node* next;};\nint main(){ int n; cin>>n;\nNode a{10,nullptr,nullptr}; Node b{20,&a,nullptr}; a.next=&b; Node x{7,&a,&b}; a.next=&x; b.prev=&x; for(Node* p=&a;p;p=p->next)cout<<p->value<<' '; cout<<\"| \"; for(Node* p=&b;p;p=p->prev)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10 7 20 | 20 7 10 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M02-O03/changed-condition/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O03",
+    "activity": "64c2adf5-7c4c-54b6-bba2-6638b02f0ee3",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* prev; Node* next;};\nint main(){ int n; cin>>n;\nNode a{10,nullptr,nullptr}; Node b{20,&a,nullptr}; a.next=&b; Node x{7,&a,&b}; a.next=&x; if(n==2)b.prev=&x; for(Node* p=&a;p;p=p->next)cout<<p->value<<' '; cout<<\"| \"; for(Node* p=&b;p;p=p->prev)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "10 7 20 | 20 7 10 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M02-O03/changed-condition/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M02-O03",
+    "activity": "64c2adf5-7c4c-54b6-bba2-6638b02f0ee3",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Node{int value; Node* prev; Node* next;};\nint main(){ int n; cin>>n;\nNode a{10,nullptr,nullptr}; Node b{20,&a,nullptr}; a.next=&b; Node x{7,&a,&b}; a.next=&x; b.prev=&x; for(Node* p=&a;p;p=p->next)cout<<p->value<<' '; cout<<\"| \"; for(Node* p=&b;p;p=p->prev)cout<<p->value<<' '; cout<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "10 7 20 | 20 7 10 \n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M03-O01/base/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O01",
+    "activity": "b819c717-8de4-532e-b340-09eb5d3f3abf",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Stack{vector<int> a; bool pop(int& x){if(a.empty())return false; x=a.front(); a.erase(a.begin()); return true;}};\nint main(){ int n; cin>>n;\nStack s; if(n==1)s.a={10,20}; int x; while(s.pop(x))cout<<x<<' '; cout<<\"empty=\"<<s.a.empty()<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10 20 empty=1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS03-M03-O01/base/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O01",
+    "activity": "b819c717-8de4-532e-b340-09eb5d3f3abf",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Stack{vector<int> a; bool pop(int& x){if(a.empty())return false; x=a.back(); a.pop_back(); return true;}};\nint main(){ int n; cin>>n;\nStack s; if(n==1)s.a={10,20}; int x; while(s.pop(x))cout<<x<<' '; cout<<\"empty=\"<<s.a.empty()<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "20 10 empty=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M03-O01/changed-condition/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O01",
+    "activity": "b819c717-8de4-532e-b340-09eb5d3f3abf",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Stack{vector<int> a; bool pop(int& x){if(a.empty())return false; x=a.front(); a.erase(a.begin()); return true;}};\nint main(){ int n; cin>>n;\nStack s; if(n==1)s.a={10,20}; int x; while(s.pop(x))cout<<x<<' '; cout<<\"empty=\"<<s.a.empty()<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "empty=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M03-O01/changed-condition/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O01",
+    "activity": "b819c717-8de4-532e-b340-09eb5d3f3abf",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Stack{vector<int> a; bool pop(int& x){if(a.empty())return false; x=a.back(); a.pop_back(); return true;}};\nint main(){ int n; cin>>n;\nStack s; if(n==1)s.a={10,20}; int x; while(s.pop(x))cout<<x<<' '; cout<<\"empty=\"<<s.a.empty()<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "empty=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M03-O02/base/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O02",
+    "activity": "67e91e67-790a-5801-b9a9-987ea5374302",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Queue{array<int,3>a{}; int head=0,tail=0,count=0; bool push(int x){if(count==3)return false; a[tail]=x; tail=tail==2?1:tail+1; ++count; return true;} bool pop(int&x){if(count==0)return false; x=a[head]; head=(head+1)%3; --count; return true;}};\nint main(){ int n; cin>>n;\nQueue q; q.push(10); q.push(20); if(n==1){q.push(30); int discarded; q.pop(discarded); q.push(40);} int x; while(q.pop(x))cout<<x<<' '; cout<<\"empty=\"<<q.count<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "40 30 10 empty=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS03-M03-O02/base/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O02",
+    "activity": "67e91e67-790a-5801-b9a9-987ea5374302",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Queue{array<int,3>a{}; int head=0,tail=0,count=0; bool push(int x){if(count==3)return false; a[tail]=x; tail=(tail+1)%3; ++count; return true;} bool pop(int&x){if(count==0)return false; x=a[head]; head=(head+1)%3; --count; return true;}};\nint main(){ int n; cin>>n;\nQueue q; q.push(10); q.push(20); if(n==1){q.push(30); int discarded; q.pop(discarded); q.push(40);} int x; while(q.pop(x))cout<<x<<' '; cout<<\"empty=\"<<q.count<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "20 30 40 empty=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M03-O02/changed-condition/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O02",
+    "activity": "67e91e67-790a-5801-b9a9-987ea5374302",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Queue{array<int,3>a{}; int head=0,tail=0,count=0; bool push(int x){if(count==3)return false; a[tail]=x; tail=tail==2?1:tail+1; ++count; return true;} bool pop(int&x){if(count==0)return false; x=a[head]; head=(head+1)%3; --count; return true;}};\nint main(){ int n; cin>>n;\nQueue q; q.push(10); q.push(20); if(n==1){q.push(30); int discarded; q.pop(discarded); q.push(40);} int x; while(q.pop(x))cout<<x<<' '; cout<<\"empty=\"<<q.count<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "10 20 empty=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M03-O02/changed-condition/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O02",
+    "activity": "67e91e67-790a-5801-b9a9-987ea5374302",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nstruct Queue{array<int,3>a{}; int head=0,tail=0,count=0; bool push(int x){if(count==3)return false; a[tail]=x; tail=(tail+1)%3; ++count; return true;} bool pop(int&x){if(count==0)return false; x=a[head]; head=(head+1)%3; --count; return true;}};\nint main(){ int n; cin>>n;\nQueue q; q.push(10); q.push(20); if(n==1){q.push(30); int discarded; q.pop(discarded); q.push(40);} int x; while(q.pop(x))cout<<x<<' '; cout<<\"empty=\"<<q.count<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "10 20 empty=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M03-O03/base/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O03",
+    "activity": "1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nbool matches(char l,char r){return (l=='('&&r==')')||(l=='['&&r==']');}\nint main(){ int n; cin>>n;\nstring s=n==1?\"([)]\":\"([])\"; stack<char> st; bool ok=true; for(char c:s){if(c=='('||c=='[')st.push(c); else{if(st.empty()){ok=false;break;} st.pop();}} cout<<(ok&&st.empty()?\"valid\":\"invalid\")<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "valid\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS03-M03-O03/base/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O03",
+    "activity": "1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5",
+    "task": "base",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nbool matches(char l,char r){return (l=='('&&r==')')||(l=='['&&r==']');}\nint main(){ int n; cin>>n;\nstring s=n==1?\"([)]\":\"([])\"; stack<char> st; bool ok=true; for(char c:s){if(c=='('||c=='[')st.push(c); else{if(st.empty()){ok=false;break;} if(!matches(st.top(),c)){ok=false;break;} st.pop();}} cout<<(ok&&st.empty()?\"valid\":\"invalid\")<<'\\n';\n}\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "invalid\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M03-O03/changed-condition/initial",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O03",
+    "activity": "1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nbool matches(char l,char r){return (l=='('&&r==')')||(l=='['&&r==']');}\nint main(){ int n; cin>>n;\nstring s=n==1?\"([)]\":\"([])\"; stack<char> st; bool ok=true; for(char c:s){if(c=='('||c=='[')st.push(c); else{if(st.empty()){ok=false;break;} st.pop();}} cout<<(ok&&st.empty()?\"valid\":\"invalid\")<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "valid\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS03-M03-O03/changed-condition/repaired",
+    "version": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+    "goal": "CS03-M03-O03",
+    "activity": "1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5",
+    "task": "changed-condition",
+    "request": {
+      "language": "cpp17",
+      "entry": "main.cpp",
+      "files": {
+        "main.cpp": "#include <iostream>\n#include <vector>\n#include <array>\n#include <algorithm>\n#include <string>\n#include <stack>\nusing namespace std;\nbool matches(char l,char r){return (l=='('&&r==')')||(l=='['&&r==']');}\nint main(){ int n; cin>>n;\nstring s=n==1?\"([)]\":\"([])\"; stack<char> st; bool ok=true; for(char c:s){if(c=='('||c=='[')st.push(c); else{if(st.empty()){ok=false;break;} if(!matches(st.top(),c)){ok=false;break;} st.pop();}} cout<<(ok&&st.empty()?\"valid\":\"invalid\")<<'\\n';\n}\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "valid\n",
+    "decision": "met"
+  }
+]

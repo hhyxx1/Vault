@@ -1,0 +1,31 @@
+goal,title,activity,theory,fixed_checks,explanation,independent_transfer,expert_review,full_delivery
+CS03-M01-O01,描述抽象操作契约,9dc038dd-008b-58f6-acee-32a17cddd73d,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M01-O02,区分逻辑与存储结构,4a7a61ec-6921-573a-9410-032966472a72,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M01-O03,计数基本操作,364b32ed-18ca-5bc4-9ed1-6e02e454f5b7,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M02-O01,实现顺序表插删,9d6cfed3-f3af-58be-b2ec-c8e36eaf9804,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M02-O02,实现单链表操作,90979e0e-ed31-537f-b86e-d01a1425ef07,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M02-O03,处理循环和双向链接,64c2adf5-7c4c-54b6-bba2-6638b02f0ee3,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M03-O01,推演栈状态和边界,b819c717-8de4-532e-b340-09eb5d3f3abf,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M03-O02,实现循环及链式队列,67e91e67-790a-5801-b9a9-987ea5374302,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M03-O03,用栈解决括号匹配,1d35a53c-2e1d-5d9f-9ff4-bf42d5317cf5,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M04-O01,实现字符串匹配,53b5f953-81ae-58ac-994f-573f368a61ea,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M04-O02,推导 KMP 前缀信息,c4089419-e172-5edb-8513-97349592282c,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M04-O03,表示稀疏矩阵和广义表,9bc96683-f87d-5712-94ca-34628a35f960,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M05-O01,转换树的表示,030748bf-bbad-5948-a1ba-f1f772a79de7,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M05-O02,实现递归及迭代遍历,541160c4-a6eb-56e0-820d-4d6587501758,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M05-O03,构建 Huffman 编码,7dceae25-7466-5080-afb6-98287bfba0ba,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M06-O01,实现二叉搜索树,0b5bc167-da7f-5e6a-b0b8-1d737deee01b,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M06-O02,维护平衡约束,f51718a3-dda5-5360-b0eb-74fd085483f1,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M06-O03,解释 B/B+ 树查找与更新,5e954988-06c2-5d4b-89cb-c80eb5edbbc4,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M07-O01,建立邻接表示,52b9b0bf-020c-54d1-a8ff-0f57f2d99323,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M07-O02,实现 DFS/BFS,a7d17c07-b6e1-5e21-a88f-0bfb120afa24,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M07-O03,分析连通及生成树,102247f1-0d78-533e-bcf0-a8865fd839dd,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M08-O01,实现最短路,8a99b36c-85d0-5e90-aa70-455d5d4bf173,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M08-O02,完成拓扑排序,be863f03-f700-596f-a702-b1107d5d1f21,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M08-O03,处理关键路径与适用前提,1a346b70-7c14-54be-8332-6c9b15312955,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M09-O01,实现散列查找,6e89177e-31aa-5e59-9165-a5a750269679,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M09-O02,处理冲突和删除,06c9d459-676a-5cf8-ab22-123c7839c041,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M09-O03,分析装载率影响,2d552996-b09f-5c51-b8c9-dad661354343,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M10-O01,实现内部排序,5b56de31-cea0-58a8-8ebb-7d754b6a8340,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M10-O02,比较稳定性和复杂度,7fda3928-ccb5-54ba-8ec4-7a8c4c4f40fa,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false
+CS03-M10-O03,解释外部排序及结构选型,eee200ae-305f-57f2-9e4f-c6bf146c563e,original_authority_checked,two_conditions_real_cpp17,pending,pending,unavailable,false

@@ -22,9 +22,9 @@
       "id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
       "code": "CS03",
       "title": "数据结构",
-      "version_id": "c86a647a-0e73-5291-bc94-12cd31b18573",
-      "version": "CS03-core-scope-0.1.0",
-      "package_path": "CS03/CS03-core-scope-0.1.0/manifest.json",
+      "version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "version": "CS03-core-practice-0.2.0",
+      "package_path": "CS03/CS03-core-practice-0.2.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -207,6 +207,24 @@
       "version_id": "9efbe4e5-98ea-5c40-b875-ab4f450a9647",
       "version": "CS02-core-scope-0.1.0",
       "package_path": "CS02/CS02-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+      "code": "CS03",
+      "title": "数据结构",
+      "version_id": "c86a647a-0e73-5291-bc94-12cd31b18573",
+      "version": "CS03-core-scope-0.1.0",
+      "package_path": "CS03/CS03-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+      "code": "CS03",
+      "title": "数据结构",
+      "version_id": "89a77e3d-0397-527e-bfaa-89d9009da6c6",
+      "version": "CS03-core-practice-0.1.0",
+      "package_path": "CS03/CS03-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]
