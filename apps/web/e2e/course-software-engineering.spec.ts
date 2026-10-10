@@ -1,0 +1,33 @@
+import { expect, test } from '@playwright/test'
+
+test('actual HTTP authorization repair preserves evidence and graph scope', async ({ page }) => {
+  test.setTimeout(90000)
+  await page.goto('/learn/CS10-M05-O01')
+  await expect(page.getByLabel('运行语言')).toHaveValue('python313')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('200\n', { timeout: 60000 })
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  const source = page.getByLabel('代码源文件')
+  await source.fill((await source.inputValue()).replace('self.send_response(200)', 'self.send_response(200 if authorized else 403)'))
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('403\n', { timeout: 60000 })
+  await page.reload()
+  await expect(page.getByLabel('标准输出')).toHaveText('403\n')
+  await page.getByRole('link', { name: '回到知识图谱' }).click()
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 27')
+  await expect(page.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
+  expect(await page.evaluate(() => document.body.scrollWidth <= window.innerWidth)).toBe(true)
+})
+
+test('actual integration assertion detects missing repository write', async ({ page }) => {
+  test.setTimeout(90000)
+  await page.goto('/learn/CS10-M06-O01')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('0\n', { timeout: 60000 })
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  const source = page.getByLabel('代码源文件')
+  const value = await source.inputValue()
+  await source.fill(value.replace('self.assertTrue(submit(7))', 'submit(7);self.assertEqual(repo,[7])'))
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('1\n', { timeout: 60000 })
+})

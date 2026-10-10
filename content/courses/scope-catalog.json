@@ -85,9 +85,9 @@
       "id": "1cf24f1b-317e-4fd5-add9-3362ea55939b",
       "code": "CS10",
       "title": "软件工程",
-      "version_id": "be603956-24c0-5b52-a87e-adcb4abc418c",
-      "version": "CS10-core-scope-0.1.0",
-      "package_path": "CS10/CS10-core-scope-0.1.0/manifest.json",
+      "version_id": "10f64de2-acaf-5de8-8d02-dda9422af822",
+      "version": "CS10-core-practice-0.1.0",
+      "package_path": "CS10/CS10-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -279,6 +279,15 @@
       "version_id": "4d789b98-4134-52c1-a625-e9e5758554ab",
       "version": "CS09-core-scope-0.1.0",
       "package_path": "CS09/CS09-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "1cf24f1b-317e-4fd5-add9-3362ea55939b",
+      "code": "CS10",
+      "title": "软件工程",
+      "version_id": "be603956-24c0-5b52-a87e-adcb4abc418c",
+      "version": "CS10-core-scope-0.1.0",
+      "package_path": "CS10/CS10-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]
