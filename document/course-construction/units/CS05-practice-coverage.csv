@@ -1,0 +1,31 @@
+﻿goal,activity,conditions,proof_and_transfer,review
+CS05-M01-O01,蕴涵只在前件真而后件假时失败,2,needs_review,unavailable
+CS05-M01-O02,逆否等价而逆命题未必等价,2,needs_review,unavailable
+CS05-M01-O03,反例需要使命题为假,2,needs_review,unavailable
+CS05-M02-O01,每个学生至少选一门课允许不同见证,2,needs_review,unavailable
+CS05-M02-O02,否定全称需要存在一个否定见证,2,needs_review,unavailable
+CS05-M02-O03,同一见证不能放进每个对象内部,2,needs_review,unavailable
+CS05-M04-O01,集合差不是对称差,2,needs_review,unavailable
+CS05-M04-O02,判断单射需检查不同输入的像,2,needs_review,unavailable
+CS05-M04-O03,复合函数先作用内层映射,2,needs_review,unavailable
+CS05-M05-O01,对称性检查反向边而非对角边,2,needs_review,unavailable
+CS05-M05-O02,等价类包括代表元及其全部等价元素,2,needs_review,unavailable
+CS05-M05-O03,Hasse 覆盖边删除自反和中间传递边,2,needs_review,unavailable
+CS05-M03-O01,偶数和的整数见证,2,needs_review,unavailable
+CS05-M03-O02,逆否不能交换成逆命题,2,needs_review,unavailable
+CS05-M03-O03,归纳求和先核对基例及步的候选式,2,needs_review,unavailable
+CS05-M06-O01,重复字母排列应去除重计,2,needs_review,unavailable
+CS05-M06-O02,两个集合并集扣除一次交集,2,needs_review,unavailable
+CS05-M06-O03,禁止相邻一的计数需要两个前态,2,needs_review,unavailable
+CS05-M07-O01,封闭性要求所有运算结果在集合内,2,needs_review,unavailable
+CS05-M07-O02,乘法逆元不能把零算入候选群,2,needs_review,unavailable
+CS05-M07-O03,同态必须保持指定运算,2,needs_review,unavailable
+CS05-M08-O01,异或与或在同真输入不同,2,needs_review,unavailable
+CS05-M08-O02,德摩根化简逐行保持真值,2,needs_review,unavailable
+CS05-M08-O03,集合包含格的确界按偏序比较,2,needs_review,unavailable
+CS05-M09-O01,连通性必须包含声明的孤点,2,needs_review,unavailable
+CS05-M09-O02,Euler 回路还要检查非零度顶点连通,2,needs_review,unavailable
+CS05-M09-O03,合法着色要求每条边端点异色,2,needs_review,unavailable
+CS05-M10-O01,树的边数条件须结合连通,2,needs_review,unavailable
+CS05-M10-O02,最小生成树挑边须拒绝环,2,needs_review,unavailable
+CS05-M10-O03,课程先修约束遇环不能给出完整计划,2,needs_review,unavailable

@@ -1,0 +1,2042 @@
+[
+  {
+    "id": "CS05-M01-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O01",
+    "activity": "02d5f3a0-71aa-5af9-a438-f7b016ce3287",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q = (False,False) if n == 1 else (True,False)\nprint(p and q)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M01-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O01",
+    "activity": "02d5f3a0-71aa-5af9-a438-f7b016ce3287",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q = (False,False) if n == 1 else (True,False)\nprint((not p) or q)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M01-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O01",
+    "activity": "02d5f3a0-71aa-5af9-a438-f7b016ce3287",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q = (False,False) if n == 1 else (True,False)\nprint(p and q)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M01-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O01",
+    "activity": "02d5f3a0-71aa-5af9-a438-f7b016ce3287",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q = (False,False) if n == 1 else (True,False)\nprint((not p) or q)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M01-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O02",
+    "activity": "5c955242-c06e-574e-bca4-a084ea3aa63c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(False,True)]\nprint(all(((not p) or q) == ((not q) or p) for p,q in rows))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M01-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O02",
+    "activity": "5c955242-c06e-574e-bca4-a084ea3aa63c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(False,True)]\nprint(all(((not p) or q) == (q or (not p)) for p,q in rows))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M01-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O02",
+    "activity": "5c955242-c06e-574e-bca4-a084ea3aa63c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(False,True)]\nprint(all(((not p) or q) == ((not q) or p) for p,q in rows))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M01-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O02",
+    "activity": "5c955242-c06e-574e-bca4-a084ea3aa63c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(False,True)]\nprint(all(((not p) or q) == (q or (not p)) for p,q in rows))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M01-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O03",
+    "activity": "e43dc2b3-34d2-58d3-89d3-67b500d066b3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrows=[(True,False),(False,True)] if n == 1 else [(False,False),(True,False)]\nfound=[(int(p),int(q)) for p,q in rows if ((not p) or q)]\nprint(found)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[(0, 1)]\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M01-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O03",
+    "activity": "e43dc2b3-34d2-58d3-89d3-67b500d066b3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrows=[(True,False),(False,True)] if n == 1 else [(False,False),(True,False)]\nfound=[(int(p),int(q)) for p,q in rows if not ((not p) or q)]\nprint(found)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[(1, 0)]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M01-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O03",
+    "activity": "e43dc2b3-34d2-58d3-89d3-67b500d066b3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrows=[(True,False),(False,True)] if n == 1 else [(False,False),(True,False)]\nfound=[(int(p),int(q)) for p,q in rows if ((not p) or q)]\nprint(found)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[(0, 0)]\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M01-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M01-O03",
+    "activity": "e43dc2b3-34d2-58d3-89d3-67b500d066b3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrows=[(True,False),(False,True)] if n == 1 else [(False,False),(True,False)]\nfound=[(int(p),int(q)) for p,q in rows if not ((not p) or q)]\nprint(found)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[(1, 0)]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M02-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O01",
+    "activity": "e4f5655a-7053-56c9-91c4-90a8c4bc3e8e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstudents=[0,1]; courses=[0,1]\nchosen={(0,0),(1,1)} if n == 1 else {(0,0),(1,0)}\nprint(any(all((s,c) in chosen for s in students) for c in courses))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M02-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O01",
+    "activity": "e4f5655a-7053-56c9-91c4-90a8c4bc3e8e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstudents=[0,1]; courses=[0,1]\nchosen={(0,0),(1,1)} if n == 1 else {(0,0),(1,0)}\nprint(all(any((s,c) in chosen for c in courses) for s in students))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M02-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O01",
+    "activity": "e4f5655a-7053-56c9-91c4-90a8c4bc3e8e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstudents=[0,1]; courses=[0,1]\nchosen={(0,0),(1,1)} if n == 1 else {(0,0),(1,0)}\nprint(any(all((s,c) in chosen for s in students) for c in courses))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M02-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O01",
+    "activity": "e4f5655a-7053-56c9-91c4-90a8c4bc3e8e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstudents=[0,1]; courses=[0,1]\nchosen={(0,0),(1,1)} if n == 1 else {(0,0),(1,0)}\nprint(all(any((s,c) in chosen for c in courses) for s in students))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M02-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O02",
+    "activity": "66082aa1-1b14-57c2-bdc6-d04f04e8bf87",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[True,False] if n == 1 else []\nprint(all(not x for x in values))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M02-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O02",
+    "activity": "66082aa1-1b14-57c2-bdc6-d04f04e8bf87",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[True,False] if n == 1 else []\nprint(any(not x for x in values))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M02-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O02",
+    "activity": "66082aa1-1b14-57c2-bdc6-d04f04e8bf87",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[True,False] if n == 1 else []\nprint(all(not x for x in values))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M02-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O02",
+    "activity": "66082aa1-1b14-57c2-bdc6-d04f04e8bf87",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[True,False] if n == 1 else []\nprint(any(not x for x in values))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M02-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O03",
+    "activity": "0e09ee7b-d8de-5ab6-83d4-5050451be5f1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstudents=[0,1]; courses=[0,1]\nchosen={(0,0),(1,1)} if n == 1 else {(0,1),(1,1)}\nprint(all(any((s,c) in chosen for c in courses) for s in students))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M02-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O03",
+    "activity": "0e09ee7b-d8de-5ab6-83d4-5050451be5f1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstudents=[0,1]; courses=[0,1]\nchosen={(0,0),(1,1)} if n == 1 else {(0,1),(1,1)}\nprint(any(all((s,c) in chosen for s in students) for c in courses))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M02-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O03",
+    "activity": "0e09ee7b-d8de-5ab6-83d4-5050451be5f1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstudents=[0,1]; courses=[0,1]\nchosen={(0,0),(1,1)} if n == 1 else {(0,1),(1,1)}\nprint(all(any((s,c) in chosen for c in courses) for s in students))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M02-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M02-O03",
+    "activity": "0e09ee7b-d8de-5ab6-83d4-5050451be5f1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstudents=[0,1]; courses=[0,1]\nchosen={(0,0),(1,1)} if n == 1 else {(0,1),(1,1)}\nprint(any(all((s,c) in chosen for s in students) for c in courses))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M04-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O01",
+    "activity": "6c545c84-ec71-5d8e-953b-59648fecf76f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else set()\nprint(sorted(a ^ b))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[1, 3]\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M04-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O01",
+    "activity": "6c545c84-ec71-5d8e-953b-59648fecf76f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else set()\nprint(sorted(a - b))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[1]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M04-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O01",
+    "activity": "6c545c84-ec71-5d8e-953b-59648fecf76f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else set()\nprint(sorted(a ^ b))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[1, 2]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M04-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O01",
+    "activity": "6c545c84-ec71-5d8e-953b-59648fecf76f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else set()\nprint(sorted(a - b))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[1, 2]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M04-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O02",
+    "activity": "24477bf9-7f9f-5601-aa63-fd3d840c739f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain={0,1}; codomain={0,1}\nf={0:0,1:0} if n == 1 else {0:1,1:0}\nprint(len(domain) == len(codomain))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M04-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O02",
+    "activity": "24477bf9-7f9f-5601-aa63-fd3d840c739f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain={0,1}; codomain={0,1}\nf={0:0,1:0} if n == 1 else {0:1,1:0}\nprint(set(f) == domain and set(f.values()) <= codomain and len(set(f.values())) == len(domain))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M04-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O02",
+    "activity": "24477bf9-7f9f-5601-aa63-fd3d840c739f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain={0,1}; codomain={0,1}\nf={0:0,1:0} if n == 1 else {0:1,1:0}\nprint(len(domain) == len(codomain))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M04-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O02",
+    "activity": "24477bf9-7f9f-5601-aa63-fd3d840c739f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain={0,1}; codomain={0,1}\nf={0:0,1:0} if n == 1 else {0:1,1:0}\nprint(set(f) == domain and set(f.values()) <= codomain and len(set(f.values())) == len(domain))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M04-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O03",
+    "activity": "1e66f5fa-5e2c-54d0-bd99-21dcdd046fea",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nf=lambda x:x+1\ng=lambda x:x*2\nx=1 if n == 1 else 3\nprint(f(g(x)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M04-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O03",
+    "activity": "1e66f5fa-5e2c-54d0-bd99-21dcdd046fea",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nf=lambda x:x+1\ng=lambda x:x*2\nx=1 if n == 1 else 3\nprint(g(f(x)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M04-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O03",
+    "activity": "1e66f5fa-5e2c-54d0-bd99-21dcdd046fea",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nf=lambda x:x+1\ng=lambda x:x*2\nx=1 if n == 1 else 3\nprint(f(g(x)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "7\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M04-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M04-O03",
+    "activity": "1e66f5fa-5e2c-54d0-bd99-21dcdd046fea",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nf=lambda x:x+1\ng=lambda x:x*2\nx=1 if n == 1 else 3\nprint(g(f(x)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M05-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O01",
+    "activity": "eba3f832-ffbd-5731-9d1b-a122742fa0b0",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain={0,1}\nr={(0,0),(1,1),(0,1)} if n == 1 else {(0,1),(1,0)}\nprint(all((a,a) in r for a in domain))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M05-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O01",
+    "activity": "eba3f832-ffbd-5731-9d1b-a122742fa0b0",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain={0,1}\nr={(0,0),(1,1),(0,1)} if n == 1 else {(0,1),(1,0)}\nprint(all((b,a) in r for a,b in r))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M05-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O01",
+    "activity": "eba3f832-ffbd-5731-9d1b-a122742fa0b0",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain={0,1}\nr={(0,0),(1,1),(0,1)} if n == 1 else {(0,1),(1,0)}\nprint(all((a,a) in r for a in domain))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M05-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O01",
+    "activity": "eba3f832-ffbd-5731-9d1b-a122742fa0b0",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain={0,1}\nr={(0,0),(1,1),(0,1)} if n == 1 else {(0,1),(1,0)}\nprint(all((b,a) in r for a,b in r))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M05-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O02",
+    "activity": "4658d15f-18d3-5553-a6f3-768043eddbe0",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain=list(range(6)); k=2 if n == 1 else 3\nrepresentative=1\nprint([x for x in domain if x == representative])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[1]\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M05-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O02",
+    "activity": "4658d15f-18d3-5553-a6f3-768043eddbe0",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain=list(range(6)); k=2 if n == 1 else 3\nrepresentative=1\nprint([x for x in domain if x % k == representative % k])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[1, 3, 5]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M05-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O02",
+    "activity": "4658d15f-18d3-5553-a6f3-768043eddbe0",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain=list(range(6)); k=2 if n == 1 else 3\nrepresentative=1\nprint([x for x in domain if x == representative])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[1]\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M05-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O02",
+    "activity": "4658d15f-18d3-5553-a6f3-768043eddbe0",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain=list(range(6)); k=2 if n == 1 else 3\nrepresentative=1\nprint([x for x in domain if x % k == representative % k])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[1, 4]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M05-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O03",
+    "activity": "6193d107-0654-5062-93cc-eca713da6837",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain=[1,2,4] if n == 1 else [1,2,3]\nless=lambda a,b:a != b and b % a == 0\nedges=[(a,b) for a in domain for b in domain if less(a,b)]\nprint(edges)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[(1, 2), (1, 4), (2, 4)]\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M05-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O03",
+    "activity": "6193d107-0654-5062-93cc-eca713da6837",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain=[1,2,4] if n == 1 else [1,2,3]\nless=lambda a,b:a != b and b % a == 0\nedges=[(a,b) for a in domain for b in domain if less(a,b) and not any(less(a,c) and less(c,b) for c in domain)]\nprint(edges)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[(1, 2), (2, 4)]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M05-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O03",
+    "activity": "6193d107-0654-5062-93cc-eca713da6837",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain=[1,2,4] if n == 1 else [1,2,3]\nless=lambda a,b:a != b and b % a == 0\nedges=[(a,b) for a in domain for b in domain if less(a,b)]\nprint(edges)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[(1, 2), (1, 3)]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M05-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M05-O03",
+    "activity": "6193d107-0654-5062-93cc-eca713da6837",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndomain=[1,2,4] if n == 1 else [1,2,3]\nless=lambda a,b:a != b and b % a == 0\nedges=[(a,b) for a in domain for b in domain if less(a,b) and not any(less(a,c) and less(c,b) for c in domain)]\nprint(edges)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[(1, 2), (1, 3)]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M03-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O01",
+    "activity": "66d350e9-fd6f-571e-9a50-698c693996ae",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(2,3) if n == 1 else (-2,1)\nx,y=2*a,2*b\nwitness=a*b\nprint(x+y == 2*witness)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M03-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O01",
+    "activity": "66d350e9-fd6f-571e-9a50-698c693996ae",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(2,3) if n == 1 else (-2,1)\nx,y=2*a,2*b\nwitness=a+b\nprint(x+y == 2*witness)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M03-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O01",
+    "activity": "66d350e9-fd6f-571e-9a50-698c693996ae",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(2,3) if n == 1 else (-2,1)\nx,y=2*a,2*b\nwitness=a*b\nprint(x+y == 2*witness)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M03-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O01",
+    "activity": "66d350e9-fd6f-571e-9a50-698c693996ae",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na,b=(2,3) if n == 1 else (-2,1)\nx,y=2*a,2*b\nwitness=a+b\nprint(x+y == 2*witness)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M03-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O02",
+    "activity": "a21756ae-bb30-577c-974d-1ea1719bc050",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q=(False,True) if n == 1 else (True,False)\nprint((not q) or p)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M03-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O02",
+    "activity": "a21756ae-bb30-577c-974d-1ea1719bc050",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q=(False,True) if n == 1 else (True,False)\nprint(q or (not p))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M03-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O02",
+    "activity": "a21756ae-bb30-577c-974d-1ea1719bc050",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q=(False,True) if n == 1 else (True,False)\nprint((not q) or p)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M03-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O02",
+    "activity": "a21756ae-bb30-577c-974d-1ea1719bc050",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q=(False,True) if n == 1 else (True,False)\nprint(q or (not p))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M03-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O03",
+    "activity": "1cb9bc50-fb31-58d0-99c8-0f6fe62bd41a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nk=4 if n == 1 else 0\nprint(k*(k-1)//2)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "6\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M03-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O03",
+    "activity": "1cb9bc50-fb31-58d0-99c8-0f6fe62bd41a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nk=4 if n == 1 else 0\nprint(k*(k+1)//2)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M03-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O03",
+    "activity": "1cb9bc50-fb31-58d0-99c8-0f6fe62bd41a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nk=4 if n == 1 else 0\nprint(k*(k-1)//2)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M03-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M03-O03",
+    "activity": "1cb9bc50-fb31-58d0-99c8-0f6fe62bd41a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nk=4 if n == 1 else 0\nprint(k*(k+1)//2)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M06-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O01",
+    "activity": "ec3074b8-2aa3-5b25-9ecd-8ceaae403cce",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import permutations\nword='AAB' if n == 1 else 'AAA'\nrows=list(permutations(word))\nprint(len(rows))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "6\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M06-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O01",
+    "activity": "ec3074b8-2aa3-5b25-9ecd-8ceaae403cce",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import permutations\nword='AAB' if n == 1 else 'AAA'\nrows=list(permutations(word))\nprint(len(set(rows)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M06-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O01",
+    "activity": "ec3074b8-2aa3-5b25-9ecd-8ceaae403cce",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import permutations\nword='AAB' if n == 1 else 'AAA'\nrows=list(permutations(word))\nprint(len(rows))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "6\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M06-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O01",
+    "activity": "ec3074b8-2aa3-5b25-9ecd-8ceaae403cce",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import permutations\nword='AAB' if n == 1 else 'AAA'\nrows=list(permutations(word))\nprint(len(set(rows)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M06-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O02",
+    "activity": "170aa13b-400a-5304-9ef7-ba1d2427b971",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else {3,4}\nprint(len(a)+len(b))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M06-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O02",
+    "activity": "170aa13b-400a-5304-9ef7-ba1d2427b971",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else {3,4}\nprint(len(a)+len(b)-len(a & b))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M06-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O02",
+    "activity": "170aa13b-400a-5304-9ef7-ba1d2427b971",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else {3,4}\nprint(len(a)+len(b))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M06-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O02",
+    "activity": "170aa13b-400a-5304-9ef7-ba1d2427b971",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else {3,4}\nprint(len(a)+len(b)-len(a & b))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M06-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O03",
+    "activity": "28137f77-510b-505d-b155-e177feb0ba13",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nk=4 if n == 1 else 1\na,b=1,2\nfor _ in range(2,k+1): a,b=b,b+1\nprint(a if k == 0 else b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M06-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O03",
+    "activity": "28137f77-510b-505d-b155-e177feb0ba13",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nk=4 if n == 1 else 1\na,b=1,2\nfor _ in range(2,k+1): a,b=b,a+b\nprint(a if k == 0 else b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M06-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O03",
+    "activity": "28137f77-510b-505d-b155-e177feb0ba13",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nk=4 if n == 1 else 1\na,b=1,2\nfor _ in range(2,k+1): a,b=b,b+1\nprint(a if k == 0 else b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M06-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M06-O03",
+    "activity": "28137f77-510b-505d-b155-e177feb0ba13",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nk=4 if n == 1 else 1\na,b=1,2\nfor _ in range(2,k+1): a,b=b,a+b\nprint(a if k == 0 else b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M07-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O01",
+    "activity": "652c3a57-6198-5907-a7bf-c792b010b54e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ng={0,1} if n == 1 else {0}\nprint(any(a+b in g for a in g for b in g))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M07-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O01",
+    "activity": "652c3a57-6198-5907-a7bf-c792b010b54e",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ng={0,1} if n == 1 else {0}\nprint(all(a+b in g for a in g for b in g))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M07-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O01",
+    "activity": "652c3a57-6198-5907-a7bf-c792b010b54e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ng={0,1} if n == 1 else {0}\nprint(any(a+b in g for a in g for b in g))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M07-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O01",
+    "activity": "652c3a57-6198-5907-a7bf-c792b010b54e",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ng={0,1} if n == 1 else {0}\nprint(all(a+b in g for a in g for b in g))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M07-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O02",
+    "activity": "32e6ae77-723d-52f5-93c6-01bee2f35942",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nm=4 if n == 1 else 5\ng=list(range(1,m))\nprint(any(all((a*b)%m != 1 for b in g) for a in g))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M07-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O02",
+    "activity": "32e6ae77-723d-52f5-93c6-01bee2f35942",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nm=4 if n == 1 else 5\ng=list(range(1,m))\nprint(all(any((a*b)%m == 1 for b in g) for a in g))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M07-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O02",
+    "activity": "32e6ae77-723d-52f5-93c6-01bee2f35942",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nm=4 if n == 1 else 5\ng=list(range(1,m))\nprint(any(all((a*b)%m != 1 for b in g) for a in g))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M07-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O02",
+    "activity": "32e6ae77-723d-52f5-93c6-01bee2f35942",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nm=4 if n == 1 else 5\ng=list(range(1,m))\nprint(all(any((a*b)%m == 1 for b in g) for a in g))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M07-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O03",
+    "activity": "bd71fb70-42e8-5acc-a5ec-be7bb59146b8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nm=4 if n == 1 else 5\nh=lambda x:(x+1)%m\nprint(all(h((a+b)%m) == (h(a)+h(b))%m for a in range(m) for b in range(m)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M07-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O03",
+    "activity": "bd71fb70-42e8-5acc-a5ec-be7bb59146b8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nm=4 if n == 1 else 5\nh=lambda x:(2*x)%m\nprint(all(h((a+b)%m) == (h(a)+h(b))%m for a in range(m) for b in range(m)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M07-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O03",
+    "activity": "bd71fb70-42e8-5acc-a5ec-be7bb59146b8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nm=4 if n == 1 else 5\nh=lambda x:(x+1)%m\nprint(all(h((a+b)%m) == (h(a)+h(b))%m for a in range(m) for b in range(m)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M07-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M07-O03",
+    "activity": "bd71fb70-42e8-5acc-a5ec-be7bb59146b8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nm=4 if n == 1 else 5\nh=lambda x:(2*x)%m\nprint(all(h((a+b)%m) == (h(a)+h(b))%m for a in range(m) for b in range(m)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M08-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O01",
+    "activity": "cdead411-c523-5e87-a21c-a92b860c9b98",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q=(True,True) if n == 1 else (True,False)\nprint(p or q)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M08-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O01",
+    "activity": "cdead411-c523-5e87-a21c-a92b860c9b98",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q=(True,True) if n == 1 else (True,False)\nprint(p != q)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M08-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O01",
+    "activity": "cdead411-c523-5e87-a21c-a92b860c9b98",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q=(True,True) if n == 1 else (True,False)\nprint(p or q)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M08-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O01",
+    "activity": "cdead411-c523-5e87-a21c-a92b860c9b98",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\np,q=(True,True) if n == 1 else (True,False)\nprint(p != q)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M08-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O02",
+    "activity": "88eaa826-ae3b-5e5c-950c-420cfb0f5851",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(True,False)]\nprint(all((not (p and q)) == ((not p) and (not q)) for p,q in rows))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M08-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O02",
+    "activity": "88eaa826-ae3b-5e5c-950c-420cfb0f5851",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(True,False)]\nprint(all((not (p and q)) == ((not p) or (not q)) for p,q in rows))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M08-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O02",
+    "activity": "88eaa826-ae3b-5e5c-950c-420cfb0f5851",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(True,False)]\nprint(all((not (p and q)) == ((not p) and (not q)) for p,q in rows))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M08-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O02",
+    "activity": "88eaa826-ae3b-5e5c-950c-420cfb0f5851",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom itertools import product\nrows=list(product([False,True],repeat=2)) if n == 1 else [(True,False)]\nprint(all((not (p and q)) == ((not p) or (not q)) for p,q in rows))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M08-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O03",
+    "activity": "35f4b185-51d4-5162-ac9d-74c05977349c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else {1,2}\nprint(sorted(a | b))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[1, 2, 3]\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M08-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O03",
+    "activity": "35f4b185-51d4-5162-ac9d-74c05977349c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else {1,2}\nprint(sorted(a & b))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "[2]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M08-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O03",
+    "activity": "35f4b185-51d4-5162-ac9d-74c05977349c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else {1,2}\nprint(sorted(a | b))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[1, 2]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M08-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M08-O03",
+    "activity": "35f4b185-51d4-5162-ac9d-74c05977349c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na={1,2}; b={2,3} if n == 1 else {1,2}\nprint(sorted(a & b))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "[1, 2]\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M09-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O01",
+    "activity": "d70250c6-bddc-5326-8596-c43147b0711b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices={0,1,2} if n == 1 else {0,1}\nedges=[(0,1)]\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(seen == {x for e in edges for x in e})\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M09-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O01",
+    "activity": "d70250c6-bddc-5326-8596-c43147b0711b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices={0,1,2} if n == 1 else {0,1}\nedges=[(0,1)]\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(seen == vertices)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M09-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O01",
+    "activity": "d70250c6-bddc-5326-8596-c43147b0711b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices={0,1,2} if n == 1 else {0,1}\nedges=[(0,1)]\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(seen == {x for e in edges for x in e})\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M09-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O01",
+    "activity": "d70250c6-bddc-5326-8596-c43147b0711b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices={0,1,2} if n == 1 else {0,1}\nedges=[(0,1)]\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(seen == vertices)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M09-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O02",
+    "activity": "33ecb3bb-9e70-5ba4-adb8-5881929b4e87",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(0,1),(1,2),(2,0)]+([(3,4),(4,5),(5,3)] if n == 1 else [])\nvertices={x for e in edges for x in e}\ndegree={v:sum(v in e for e in edges) for v in vertices}\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(all(d % 2 == 0 for d in degree.values()))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M09-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O02",
+    "activity": "33ecb3bb-9e70-5ba4-adb8-5881929b4e87",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(0,1),(1,2),(2,0)]+([(3,4),(4,5),(5,3)] if n == 1 else [])\nvertices={x for e in edges for x in e}\ndegree={v:sum(v in e for e in edges) for v in vertices}\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(seen == vertices and all(d % 2 == 0 for d in degree.values()))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M09-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O02",
+    "activity": "33ecb3bb-9e70-5ba4-adb8-5881929b4e87",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(0,1),(1,2),(2,0)]+([(3,4),(4,5),(5,3)] if n == 1 else [])\nvertices={x for e in edges for x in e}\ndegree={v:sum(v in e for e in edges) for v in vertices}\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(all(d % 2 == 0 for d in degree.values()))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M09-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O02",
+    "activity": "33ecb3bb-9e70-5ba4-adb8-5881929b4e87",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(0,1),(1,2),(2,0)]+([(3,4),(4,5),(5,3)] if n == 1 else [])\nvertices={x for e in edges for x in e}\ndegree={v:sum(v in e for e in edges) for v in vertices}\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(seen == vertices and all(d % 2 == 0 for d in degree.values()))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M09-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O03",
+    "activity": "0a712f92-0459-5be5-9543-3d95cbbe74f3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(0,1),(1,2),(2,0)]\ncolors={0:0,1:1,2:0} if n == 1 else {0:0,1:1,2:2}\nprint(any(colors[a] != colors[b] for a,b in edges))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M09-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O03",
+    "activity": "0a712f92-0459-5be5-9543-3d95cbbe74f3",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(0,1),(1,2),(2,0)]\ncolors={0:0,1:1,2:0} if n == 1 else {0:0,1:1,2:2}\nprint(all(colors[a] != colors[b] for a,b in edges))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M09-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O03",
+    "activity": "0a712f92-0459-5be5-9543-3d95cbbe74f3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(0,1),(1,2),(2,0)]\ncolors={0:0,1:1,2:0} if n == 1 else {0:0,1:1,2:2}\nprint(any(colors[a] != colors[b] for a,b in edges))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M09-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M09-O03",
+    "activity": "0a712f92-0459-5be5-9543-3d95cbbe74f3",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(0,1),(1,2),(2,0)]\ncolors={0:0,1:1,2:0} if n == 1 else {0:0,1:1,2:2}\nprint(all(colors[a] != colors[b] for a,b in edges))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M10-O01/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O01",
+    "activity": "86fda19f-eca3-54ba-a69b-31435fe34021",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices={0,1,2,3}\nedges=[(0,1),(1,2),(2,0)] if n == 1 else [(0,1),(1,2),(2,3)]\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(len(edges) == len(vertices)-1)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M10-O01/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O01",
+    "activity": "86fda19f-eca3-54ba-a69b-31435fe34021",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices={0,1,2,3}\nedges=[(0,1),(1,2),(2,0)] if n == 1 else [(0,1),(1,2),(2,3)]\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(seen == vertices and len(edges) == len(vertices)-1)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M10-O01/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O01",
+    "activity": "86fda19f-eca3-54ba-a69b-31435fe34021",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices={0,1,2,3}\nedges=[(0,1),(1,2),(2,0)] if n == 1 else [(0,1),(1,2),(2,3)]\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(len(edges) == len(vertices)-1)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M10-O01/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O01",
+    "activity": "86fda19f-eca3-54ba-a69b-31435fe34021",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices={0,1,2,3}\nedges=[(0,1),(1,2),(2,0)] if n == 1 else [(0,1),(1,2),(2,3)]\nseen={0}\nfor _ in vertices:\n for a,b in edges:\n  if a in seen: seen.add(b)\n  if b in seen: seen.add(a)\nprint(seen == vertices and len(edges) == len(vertices)-1)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M10-O02/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O02",
+    "activity": "35d922ea-f1ec-57ce-95f6-f3786970a73c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(1,0,1),(1,1,2),(1,0,2),(5,2,3)] if n == 1 else [(1,0,1),(2,1,2),(3,2,3)]\nparent=list(range(4))\ndef root(x):\n while parent[x] != x: x=parent[x]\n return x\ntotal=0; selected=0\nfor w,a,b in sorted(edges):\n if selected == 3: break\n if True:\n  total+=w; selected+=1; parent[root(a)]=root(b)\nprint(total)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M10-O02/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O02",
+    "activity": "35d922ea-f1ec-57ce-95f6-f3786970a73c",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(1,0,1),(1,1,2),(1,0,2),(5,2,3)] if n == 1 else [(1,0,1),(2,1,2),(3,2,3)]\nparent=list(range(4))\ndef root(x):\n while parent[x] != x: x=parent[x]\n return x\ntotal=0; selected=0\nfor w,a,b in sorted(edges):\n if selected == 3: break\n if root(a) != root(b):\n  total+=w; selected+=1; parent[root(a)]=root(b)\nprint(total)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M10-O02/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O02",
+    "activity": "35d922ea-f1ec-57ce-95f6-f3786970a73c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(1,0,1),(1,1,2),(1,0,2),(5,2,3)] if n == 1 else [(1,0,1),(2,1,2),(3,2,3)]\nparent=list(range(4))\ndef root(x):\n while parent[x] != x: x=parent[x]\n return x\ntotal=0; selected=0\nfor w,a,b in sorted(edges):\n if selected == 3: break\n if True:\n  total+=w; selected+=1; parent[root(a)]=root(b)\nprint(total)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M10-O02/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O02",
+    "activity": "35d922ea-f1ec-57ce-95f6-f3786970a73c",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nedges=[(1,0,1),(1,1,2),(1,0,2),(5,2,3)] if n == 1 else [(1,0,1),(2,1,2),(3,2,3)]\nparent=list(range(4))\ndef root(x):\n while parent[x] != x: x=parent[x]\n return x\ntotal=0; selected=0\nfor w,a,b in sorted(edges):\n if selected == 3: break\n if root(a) != root(b):\n  total+=w; selected+=1; parent[root(a)]=root(b)\nprint(total)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M10-O03/base/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O03",
+    "activity": "7ece5868-34b5-5832-a544-08e8a57156b0",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices=[0,1,2]; edges=[(0,1),(1,0)] if n == 1 else [(0,1),(1,2)]\ndegree={v:0 for v in vertices}\nfor a,b in edges: degree[b]+=1\nqueue=[v for v in vertices if degree[v] == 0]; count=0\nwhile queue:\n v=queue.pop(0); count+=1\n for a,b in edges:\n  if a == v:\n   degree[b]-=1\n   if degree[b] == 0: queue.append(b)\nprint('ok')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "ok\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS05-M10-O03/base/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O03",
+    "activity": "7ece5868-34b5-5832-a544-08e8a57156b0",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices=[0,1,2]; edges=[(0,1),(1,0)] if n == 1 else [(0,1),(1,2)]\ndegree={v:0 for v in vertices}\nfor a,b in edges: degree[b]+=1\nqueue=[v for v in vertices if degree[v] == 0]; count=0\nwhile queue:\n v=queue.pop(0); count+=1\n for a,b in edges:\n  if a == v:\n   degree[b]-=1\n   if degree[b] == 0: queue.append(b)\nprint('ok' if count == len(vertices) else 'cycle')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "cycle\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M10-O03/changed-condition/initial",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O03",
+    "activity": "7ece5868-34b5-5832-a544-08e8a57156b0",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices=[0,1,2]; edges=[(0,1),(1,0)] if n == 1 else [(0,1),(1,2)]\ndegree={v:0 for v in vertices}\nfor a,b in edges: degree[b]+=1\nqueue=[v for v in vertices if degree[v] == 0]; count=0\nwhile queue:\n v=queue.pop(0); count+=1\n for a,b in edges:\n  if a == v:\n   degree[b]-=1\n   if degree[b] == 0: queue.append(b)\nprint('ok')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "ok\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS05-M10-O03/changed-condition/repaired",
+    "version": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+    "goal": "CS05-M10-O03",
+    "activity": "7ece5868-34b5-5832-a544-08e8a57156b0",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvertices=[0,1,2]; edges=[(0,1),(1,0)] if n == 1 else [(0,1),(1,2)]\ndegree={v:0 for v in vertices}\nfor a,b in edges: degree[b]+=1\nqueue=[v for v in vertices if degree[v] == 0]; count=0\nwhile queue:\n v=queue.pop(0); count+=1\n for a,b in edges:\n  if a == v:\n   degree[b]-=1\n   if degree[b] == 0: queue.append(b)\nprint('ok' if count == len(vertices) else 'cycle')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "ok\n",
+    "decision": "met"
+  }
+]

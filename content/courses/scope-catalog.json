@@ -40,9 +40,9 @@
       "id": "a8b2aaf5-25c5-4da6-893a-3e461b4654d5",
       "code": "CS05",
       "title": "离散数学",
-      "version_id": "409ded3e-81ec-534c-b79c-70269d8fad62",
-      "version": "CS05-core-scope-0.1.0",
-      "package_path": "CS05/CS05-core-scope-0.1.0/manifest.json",
+      "version_id": "ad0499ca-f205-5b96-bb4f-f4c3137e8238",
+      "version": "CS05-core-practice-0.1.0",
+      "package_path": "CS05/CS05-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -234,6 +234,15 @@
       "version_id": "0c798f2f-4f10-5892-9b5d-c0caa97282f4",
       "version": "CS04-core-scope-0.1.0",
       "package_path": "CS04/CS04-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "a8b2aaf5-25c5-4da6-893a-3e461b4654d5",
+      "code": "CS05",
+      "title": "离散数学",
+      "version_id": "409ded3e-81ec-534c-b79c-70269d8fad62",
+      "version": "CS05-core-scope-0.1.0",
+      "package_path": "CS05/CS05-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]
