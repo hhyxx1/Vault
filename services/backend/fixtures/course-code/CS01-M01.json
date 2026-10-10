@@ -1,0 +1,126 @@
+[
+  {
+    "id": "missing-semicolon",
+    "goal": "CS01-M01-O01",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"Hello, learner!\")\n    return 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "compile_error",
+      "phase": "compile"
+    }
+  },
+  {
+    "id": "hello-fixed",
+    "goal": "CS01-M01-O01",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"Hello, learner!\");\n    return 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "phase": "run",
+      "stdout": "Hello, learner!\n",
+      "stderr": ""
+    }
+  },
+  {
+    "id": "wrong-output",
+    "goal": "CS01-M01-O02",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"23\");\n    return 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "success",
+      "phase": "run",
+      "stdout": "23\n",
+      "stderr": ""
+    }
+  },
+  {
+    "id": "nonzero-exit",
+    "goal": "CS01-M01-O02",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"Hello, learner!\");\n    return 3;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "runtime_error",
+      "phase": "run",
+      "stdout": "Hello, learner!\n",
+      "stderr": ""
+    }
+  },
+  {
+    "id": "input-accepted",
+    "goal": "CS01-M01-O03",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+      },
+      "stdin": "A"
+    },
+    "expected": {
+      "status": "success",
+      "phase": "run",
+      "stdout": "accepted\n",
+      "stderr": ""
+    }
+  },
+  {
+    "id": "input-rejected",
+    "goal": "CS01-M01-O03",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+      },
+      "stdin": "B"
+    },
+    "expected": {
+      "status": "runtime_error",
+      "phase": "run",
+      "stdout": "",
+      "stderr": "expected A\n"
+    }
+  },
+  {
+    "id": "input-empty",
+    "goal": "CS01-M01-O03",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "expected": {
+      "status": "runtime_error",
+      "phase": "run",
+      "stdout": "",
+      "stderr": "expected A\n"
+    }
+  }
+]
