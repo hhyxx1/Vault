@@ -1,0 +1,32 @@
+import { expect, test } from '@playwright/test'
+
+test('train-only imputation repair preserves evidence and graph scope', async ({ page }) => {
+  test.setTimeout(90000)
+  await page.goto('/learn/CS13-M02-O02')
+  await expect(page.getByLabel('运行语言')).toHaveValue('python313')
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('106/3\n', { timeout: 60000 })
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  const source = page.getByLabel('代码源文件')
+  await source.fill((await source.inputValue()).replace('Fraction(sum(train+test),len(train+test))', 'Fraction(sum(train),len(train))'))
+  await page.getByRole('button', { name: '保存并运行这一版' }).click()
+  await expect(page.getByLabel('标准输出')).toHaveText('3\n', { timeout: 60000 })
+  await page.reload()
+  await expect(page.getByLabel('标准输出')).toHaveText('3\n')
+  await page.getByRole('link', { name: '回到知识图谱' }).click()
+  await expect(page.locator('.scope-total strong')).toContainText('0 / 30')
+  await expect(page.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
+  expect(await page.evaluate(() => document.body.scrollWidth <= window.innerWidth)).toBe(true)
+})
+
+test('actual gradient descent fixes ascent and lowers training loss', async ({ page }) => {
+ test.setTimeout(90000)
+ await page.goto('/learn/CS13-M08-O02')
+ await page.getByRole('button', { name: '保存并运行这一版' }).click()
+ await expect(page.getByLabel('标准输出')).toHaveText('False\n', { timeout: 60000 })
+ await page.getByRole('button', { name: '修改并开始新版本' }).click()
+ const source=page.getByLabel('代码源文件')
+ await source.fill((await source.inputValue()).replace('w+=.1*grad','w-=.1*grad'))
+ await page.getByRole('button', { name: '保存并运行这一版' }).click()
+ await expect(page.getByLabel('标准输出')).toHaveText('True\n', { timeout: 60000 })
+})
