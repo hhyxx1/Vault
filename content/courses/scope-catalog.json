@@ -103,9 +103,9 @@
       "id": "cb74e6d0-2c7b-4cf9-a42e-de4d6b88a1fc",
       "code": "CS12",
       "title": "人工智能基础",
-      "version_id": "d260853f-9862-5145-8129-cecbb0b050ef",
-      "version": "CS12-core-scope-0.1.0",
-      "package_path": "CS12/CS12-core-scope-0.1.0/manifest.json",
+      "version_id": "3611753a-4f55-5af9-98f8-b6995637e756",
+      "version": "CS12-core-practice-0.1.0",
+      "package_path": "CS12/CS12-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -297,6 +297,15 @@
       "version_id": "fe0da70d-a404-59c7-91f3-9e1605e5aea9",
       "version": "CS11-core-scope-0.1.0",
       "package_path": "CS11/CS11-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "cb74e6d0-2c7b-4cf9-a42e-de4d6b88a1fc",
+      "code": "CS12",
+      "title": "人工智能基础",
+      "version_id": "d260853f-9862-5145-8129-cecbb0b050ef",
+      "version": "CS12-core-scope-0.1.0",
+      "package_path": "CS12/CS12-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]

@@ -1,0 +1,1838 @@
+[
+  {
+    "id": "CS12-M01-O01/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O01",
+    "activity": "bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=(0,False);b=(0,n==1)\nprint(a[0]==b[0])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M01-O01/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O01",
+    "activity": "bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=(0,False);b=(0,n==1)\nprint(a==b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M01-O01/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O01",
+    "activity": "bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=(0,False);b=(0,n==1)\nprint(a[0]==b[0])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M01-O01/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O01",
+    "activity": "bc08e61d-7f8b-5b99-9ce5-c99cb0d7f768",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\na=(0,False);b=(0,n==1)\nprint(a==b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M01-O02/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O02",
+    "activity": "8b9f1427-226a-5804-8cb1-2ab8d1d9e472",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncosts=[2,8] if n==1 else [1,1]\nprint(len(costs))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M01-O02/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O02",
+    "activity": "8b9f1427-226a-5804-8cb1-2ab8d1d9e472",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncosts=[2,8] if n==1 else [1,1]\nprint(sum(costs))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "10\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M01-O02/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O02",
+    "activity": "8b9f1427-226a-5804-8cb1-2ab8d1d9e472",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncosts=[2,8] if n==1 else [1,1]\nprint(len(costs))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M01-O02/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O02",
+    "activity": "8b9f1427-226a-5804-8cb1-2ab8d1d9e472",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncosts=[2,8] if n==1 else [1,1]\nprint(sum(costs))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M01-O03/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O03",
+    "activity": "d30541e5-8c28-5350-bfc7-4450fbc7ac45",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbelief={'left','right'} if n==1 else {'left'}\nprint('left')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "left\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M01-O03/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O03",
+    "activity": "d30541e5-8c28-5350-bfc7-4450fbc7ac45",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbelief={'left','right'} if n==1 else {'left'}\nprint(' '.join(sorted(belief)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "left right\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M01-O03/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O03",
+    "activity": "d30541e5-8c28-5350-bfc7-4450fbc7ac45",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbelief={'left','right'} if n==1 else {'left'}\nprint('left')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "left\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M01-O03/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M01-O03",
+    "activity": "d30541e5-8c28-5350-bfc7-4450fbc7ac45",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbelief={'left','right'} if n==1 else {'left'}\nprint(' '.join(sorted(belief)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "left\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M02-O01/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O01",
+    "activity": "3cf76d51-057a-560b-bf7c-dbef88a90222",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ngraph={'S':['G','A'],'A':['B'],'B':[],'G':[]} if n==1 else {'S':['G'],'G':[]}\nqueue=['S'];seen={'S'};order=[]\nwhile queue:\n v=queue.pop();order.append(v)\n if v=='G':break\n for w in graph[v]:\n  if w not in seen:seen.add(w);queue.append(w)\nprint(' '.join(order))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "S A B G\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M02-O01/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O01",
+    "activity": "3cf76d51-057a-560b-bf7c-dbef88a90222",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ngraph={'S':['G','A'],'A':['B'],'B':[],'G':[]} if n==1 else {'S':['G'],'G':[]}\nqueue=['S'];seen={'S'};order=[]\nwhile queue:\n v=queue.pop(0);order.append(v)\n if v=='G':break\n for w in graph[v]:\n  if w not in seen:seen.add(w);queue.append(w)\nprint(' '.join(order))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "S G\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M02-O01/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O01",
+    "activity": "3cf76d51-057a-560b-bf7c-dbef88a90222",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ngraph={'S':['G','A'],'A':['B'],'B':[],'G':[]} if n==1 else {'S':['G'],'G':[]}\nqueue=['S'];seen={'S'};order=[]\nwhile queue:\n v=queue.pop();order.append(v)\n if v=='G':break\n for w in graph[v]:\n  if w not in seen:seen.add(w);queue.append(w)\nprint(' '.join(order))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "S G\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M02-O01/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O01",
+    "activity": "3cf76d51-057a-560b-bf7c-dbef88a90222",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ngraph={'S':['G','A'],'A':['B'],'B':[],'G':[]} if n==1 else {'S':['G'],'G':[]}\nqueue=['S'];seen={'S'};order=[]\nwhile queue:\n v=queue.pop(0);order.append(v)\n if v=='G':break\n for w in graph[v]:\n  if w not in seen:seen.add(w);queue.append(w)\nprint(' '.join(order))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "S G\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M02-O02/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O02",
+    "activity": "27435fd1-9f80-5223-9779-4f6fe71d2623",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlimit=3;goal=5 if n==1 else 2\nfound=goal<limit\nprint('found' if found else 'absent')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "absent\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M02-O02/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O02",
+    "activity": "27435fd1-9f80-5223-9779-4f6fe71d2623",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlimit=3;goal=5 if n==1 else 2\nfound=goal<limit\nprint('found' if found else 'unknown:budget')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unknown:budget\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M02-O02/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O02",
+    "activity": "27435fd1-9f80-5223-9779-4f6fe71d2623",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlimit=3;goal=5 if n==1 else 2\nfound=goal<limit\nprint('found' if found else 'absent')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "found\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M02-O02/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O02",
+    "activity": "27435fd1-9f80-5223-9779-4f6fe71d2623",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlimit=3;goal=5 if n==1 else 2\nfound=goal<limit\nprint('found' if found else 'unknown:budget')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "found\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M02-O03/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O03",
+    "activity": "4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsizes=[2,5,1] if n==1 else [1,2,3]\nprint(sizes[-1])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M02-O03/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O03",
+    "activity": "4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsizes=[2,5,1] if n==1 else [1,2,3]\nprint(max(sizes))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M02-O03/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O03",
+    "activity": "4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsizes=[2,5,1] if n==1 else [1,2,3]\nprint(sizes[-1])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M02-O03/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M02-O03",
+    "activity": "4b0a2bcb-d1e2-513e-97c9-a5cfd8f59b97",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nsizes=[2,5,1] if n==1 else [1,2,3]\nprint(max(sizes))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M03-O01/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O01",
+    "activity": "72bbfa38-ca85-5cad-8778-cde994295e95",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndistance=2;h=3 if n==1 else 1\nprint(h>=0)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M03-O01/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O01",
+    "activity": "72bbfa38-ca85-5cad-8778-cde994295e95",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndistance=2;h=3 if n==1 else 1\nprint(0<=h<=distance)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M03-O01/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O01",
+    "activity": "72bbfa38-ca85-5cad-8778-cde994295e95",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndistance=2;h=3 if n==1 else 1\nprint(h>=0)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M03-O01/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O01",
+    "activity": "72bbfa38-ca85-5cad-8778-cde994295e95",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndistance=2;h=3 if n==1 else 1\nprint(0<=h<=distance)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M03-O02/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O02",
+    "activity": "e2d22c37-77ae-54ba-87fe-d9fca237ff57",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncost=1;hu=3 if n==1 else 2;hv=1\nprint(hu>=0 and hv>=0)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M03-O02/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O02",
+    "activity": "e2d22c37-77ae-54ba-87fe-d9fca237ff57",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncost=1;hu=3 if n==1 else 2;hv=1\nprint(hu<=cost+hv)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M03-O02/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O02",
+    "activity": "e2d22c37-77ae-54ba-87fe-d9fca237ff57",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncost=1;hu=3 if n==1 else 2;hv=1\nprint(hu>=0 and hv>=0)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M03-O02/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O02",
+    "activity": "e2d22c37-77ae-54ba-87fe-d9fca237ff57",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncost=1;hu=3 if n==1 else 2;hv=1\nprint(hu<=cost+hv)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M03-O03/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O03",
+    "activity": "4d0133a8-c5d1-5e9b-b455-302eb4d23d7d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport heapq\ngraph={'S':[('G',5),('A',1)],'A':[('G',1)],'G':[]}\nif n==2:graph['S']=[('G',1)]\nh={'S':0,'A':1,'G':0};front=[(0,0,'S')];best={'S':0}\nwhile front:\n _,g,v=heapq.heappop(front)\n if g!=best[v]:continue\n if v=='G':print(g);break\n for w,c in graph[v]:\n  ng=g+c\n  if ng<best.get(w,float('inf')):best[w]=ng;heapq.heappush(front,(h[w],ng,w))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "5\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M03-O03/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O03",
+    "activity": "4d0133a8-c5d1-5e9b-b455-302eb4d23d7d",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport heapq\ngraph={'S':[('G',5),('A',1)],'A':[('G',1)],'G':[]}\nif n==2:graph['S']=[('G',1)]\nh={'S':0,'A':1,'G':0};front=[(0,0,'S')];best={'S':0}\nwhile front:\n _,g,v=heapq.heappop(front)\n if g!=best[v]:continue\n if v=='G':print(g);break\n for w,c in graph[v]:\n  ng=g+c\n  if ng<best.get(w,float('inf')):best[w]=ng;heapq.heappush(front,(ng+h[w],ng,w))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M03-O03/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O03",
+    "activity": "4d0133a8-c5d1-5e9b-b455-302eb4d23d7d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport heapq\ngraph={'S':[('G',5),('A',1)],'A':[('G',1)],'G':[]}\nif n==2:graph['S']=[('G',1)]\nh={'S':0,'A':1,'G':0};front=[(0,0,'S')];best={'S':0}\nwhile front:\n _,g,v=heapq.heappop(front)\n if g!=best[v]:continue\n if v=='G':print(g);break\n for w,c in graph[v]:\n  ng=g+c\n  if ng<best.get(w,float('inf')):best[w]=ng;heapq.heappush(front,(h[w],ng,w))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M03-O03/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M03-O03",
+    "activity": "4d0133a8-c5d1-5e9b-b455-302eb4d23d7d",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nimport heapq\ngraph={'S':[('G',5),('A',1)],'A':[('G',1)],'G':[]}\nif n==2:graph['S']=[('G',1)]\nh={'S':0,'A':1,'G':0};front=[(0,0,'S')];best={'S':0}\nwhile front:\n _,g,v=heapq.heappop(front)\n if g!=best[v]:continue\n if v=='G':print(g);break\n for w,c in graph[v]:\n  ng=g+c\n  if ng<best.get(w,float('inf')):best[w]=ng;heapq.heappush(front,(ng+h[w],ng,w))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M04-O01/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O01",
+    "activity": "61354f25-204f-5ba3-b420-1dbb5303a6b1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbranches=[[3,1],[2,2]] if n==1 else [[1,1],[2,2]]\nprint(max(max(row) for row in branches))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M04-O01/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O01",
+    "activity": "61354f25-204f-5ba3-b420-1dbb5303a6b1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbranches=[[3,1],[2,2]] if n==1 else [[1,1],[2,2]]\nprint(max(min(row) for row in branches))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M04-O01/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O01",
+    "activity": "61354f25-204f-5ba3-b420-1dbb5303a6b1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbranches=[[3,1],[2,2]] if n==1 else [[1,1],[2,2]]\nprint(max(max(row) for row in branches))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M04-O01/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O01",
+    "activity": "61354f25-204f-5ba3-b420-1dbb5303a6b1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nbranches=[[3,1],[2,2]] if n==1 else [[1,1],[2,2]]\nprint(max(min(row) for row in branches))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M04-O02/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O02",
+    "activity": "c39f950c-0118-54ce-a9fa-c34deb5e5d83",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[1,3,2,5] if n==1 else [1,2,3]\ni=0\nwhile i+1<len(values) and values[i+1]>values[i]:i+=1\nprint(values[i]==max(values))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M04-O02/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O02",
+    "activity": "c39f950c-0118-54ce-a9fa-c34deb5e5d83",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[1,3,2,5] if n==1 else [1,2,3]\ni=0\nwhile i+1<len(values) and values[i+1]>values[i]:i+=1\nprint(str(values[i])+' '+str(max(values)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3 5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M04-O02/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O02",
+    "activity": "c39f950c-0118-54ce-a9fa-c34deb5e5d83",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[1,3,2,5] if n==1 else [1,2,3]\ni=0\nwhile i+1<len(values) and values[i+1]>values[i]:i+=1\nprint(values[i]==max(values))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M04-O02/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O02",
+    "activity": "c39f950c-0118-54ce-a9fa-c34deb5e5d83",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalues=[1,3,2,5] if n==1 else [1,2,3]\ni=0\nwhile i+1<len(values) and values[i+1]>values[i]:i+=1\nprint(str(values[i])+' '+str(max(values)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3 3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M04-O03/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O03",
+    "activity": "fc4ed591-cb3c-5c75-a6ce-6abc7911b276",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue={'plain':2,'pruned':2};nodes={'plain':7,'pruned':5 if n==1 else 7}\nprint(value['plain']==value['pruned'])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M04-O03/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O03",
+    "activity": "fc4ed591-cb3c-5c75-a6ce-6abc7911b276",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue={'plain':2,'pruned':2};nodes={'plain':7,'pruned':5 if n==1 else 7}\nprint(value['plain']==value['pruned'],nodes['plain']-nodes['pruned'])\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True 2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M04-O03/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O03",
+    "activity": "fc4ed591-cb3c-5c75-a6ce-6abc7911b276",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue={'plain':2,'pruned':2};nodes={'plain':7,'pruned':5 if n==1 else 7}\nprint(value['plain']==value['pruned'])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M04-O03/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M04-O03",
+    "activity": "fc4ed591-cb3c-5c75-a6ce-6abc7911b276",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue={'plain':2,'pruned':2};nodes={'plain':7,'pruned':5 if n==1 else 7}\nprint(value['plain']==value['pruned'],nodes['plain']-nodes['pruned'])\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M05-O01/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O01",
+    "activity": "fe831e39-8136-5daa-99a5-acc510078100",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=1;y=1 if n==1 else 2\nprint(x in {1,2} and y in {1,2})\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M05-O01/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O01",
+    "activity": "fe831e39-8136-5daa-99a5-acc510078100",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=1;y=1 if n==1 else 2\nprint(x in {1,2} and y in {1,2} and x!=y)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M05-O01/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O01",
+    "activity": "fe831e39-8136-5daa-99a5-acc510078100",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=1;y=1 if n==1 else 2\nprint(x in {1,2} and y in {1,2})\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M05-O01/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O01",
+    "activity": "fe831e39-8136-5daa-99a5-acc510078100",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nx=1;y=1 if n==1 else 2\nprint(x in {1,2} and y in {1,2} and x!=y)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M05-O02/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O02",
+    "activity": "4e837992-2ce0-520f-bc5d-dce12e3fa930",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndx={1,2};dy={1} if n==1 else {1,2}\nprint(' '.join(map(str,sorted(dx))))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1 2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M05-O02/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O02",
+    "activity": "4e837992-2ce0-520f-bc5d-dce12e3fa930",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndx={1,2};dy={1} if n==1 else {1,2}\nprint(' '.join(map(str,sorted(x for x in dx if any(x!=y for y in dy)))))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M05-O02/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O02",
+    "activity": "4e837992-2ce0-520f-bc5d-dce12e3fa930",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndx={1,2};dy={1} if n==1 else {1,2}\nprint(' '.join(map(str,sorted(dx))))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1 2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M05-O02/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O02",
+    "activity": "4e837992-2ce0-520f-bc5d-dce12e3fa930",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndx={1,2};dy={1} if n==1 else {1,2}\nprint(' '.join(map(str,sorted(x for x in dx if any(x!=y for y in dy)))))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1 2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M05-O03/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O03",
+    "activity": "c16dac75-f63a-5f8c-8908-2379eea98a6f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndx=[1];dy=[1] if n==1 else [2]\nsolutions=[(x,y) for x in dx for y in dy if x!=y]\nprint('1 1')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1 1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M05-O03/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O03",
+    "activity": "c16dac75-f63a-5f8c-8908-2379eea98a6f",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndx=[1];dy=[1] if n==1 else [2]\nsolutions=[(x,y) for x in dx for y in dy if x!=y]\nprint('unsat' if not solutions else ' '.join(map(str,solutions[0])))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unsat\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M05-O03/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O03",
+    "activity": "c16dac75-f63a-5f8c-8908-2379eea98a6f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndx=[1];dy=[1] if n==1 else [2]\nsolutions=[(x,y) for x in dx for y in dy if x!=y]\nprint('1 1')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1 1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M05-O03/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M05-O03",
+    "activity": "c16dac75-f63a-5f8c-8908-2379eea98a6f",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ndx=[1];dy=[1] if n==1 else [2]\nsolutions=[(x,y) for x in dx for y in dy if x!=y]\nprint('unsat' if not solutions else ' '.join(map(str,solutions[0])))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1 2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M06-O01/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O01",
+    "activity": "61e95bbc-4d36-5151-8fa7-828b115d01fd",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npositive={'ready'};negative=set();fact='door' if n==1 else 'ready'\nprint(fact in positive)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M06-O01/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O01",
+    "activity": "61e95bbc-4d36-5151-8fa7-828b115d01fd",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npositive={'ready'};negative=set();fact='door' if n==1 else 'ready'\nprint('true' if fact in positive else 'false' if fact in negative else 'unknown')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "unknown\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M06-O01/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O01",
+    "activity": "61e95bbc-4d36-5151-8fa7-828b115d01fd",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npositive={'ready'};negative=set();fact='door' if n==1 else 'ready'\nprint(fact in positive)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M06-O01/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O01",
+    "activity": "61e95bbc-4d36-5151-8fa7-828b115d01fd",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npositive={'ready'};negative=set();fact='door' if n==1 else 'ready'\nprint('true' if fact in positive else 'false' if fact in negative else 'unknown')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "true\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M06-O02/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O02",
+    "activity": "26d62f37-11a6-5662-b8fc-c42e0dc186a4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfacts={'a'} if n==1 else {'b'}\nrules=[({'b'},'c'),({'a'},'b')]\nfor pre,out in rules:\n if pre<=facts:facts.add(out)\nprint(' '.join(sorted(facts)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "a b\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M06-O02/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O02",
+    "activity": "26d62f37-11a6-5662-b8fc-c42e0dc186a4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfacts={'a'} if n==1 else {'b'}\nrules=[({'b'},'c'),({'a'},'b')]\nwhile True:\n before=set(facts)\n for pre,out in rules:\n  if pre<=facts:facts.add(out)\n if before==facts:break\nprint(' '.join(sorted(facts)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "a b c\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M06-O02/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O02",
+    "activity": "26d62f37-11a6-5662-b8fc-c42e0dc186a4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfacts={'a'} if n==1 else {'b'}\nrules=[({'b'},'c'),({'a'},'b')]\nfor pre,out in rules:\n if pre<=facts:facts.add(out)\nprint(' '.join(sorted(facts)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "b c\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M06-O02/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O02",
+    "activity": "26d62f37-11a6-5662-b8fc-c42e0dc186a4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfacts={'a'} if n==1 else {'b'}\nrules=[({'b'},'c'),({'a'},'b')]\nwhile True:\n before=set(facts)\n for pre,out in rules:\n  if pre<=facts:facts.add(out)\n if before==facts:break\nprint(' '.join(sorted(facts)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "b c\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M06-O03/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O03",
+    "activity": "66f4299c-03ee-5006-95e7-735ded0abdfd",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npositive={'ready'};negative={'ready'} if n==1 else {'locked'}\nprint('consistent')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "consistent\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M06-O03/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O03",
+    "activity": "66f4299c-03ee-5006-95e7-735ded0abdfd",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npositive={'ready'};negative={'ready'} if n==1 else {'locked'}\nprint('conflict' if positive&negative else 'consistent')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "conflict\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M06-O03/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O03",
+    "activity": "66f4299c-03ee-5006-95e7-735ded0abdfd",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npositive={'ready'};negative={'ready'} if n==1 else {'locked'}\nprint('consistent')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "consistent\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M06-O03/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M06-O03",
+    "activity": "66f4299c-03ee-5006-95e7-735ded0abdfd",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\npositive={'ready'};negative={'ready'} if n==1 else {'locked'}\nprint('conflict' if positive&negative else 'consistent')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "consistent\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M07-O01/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O01",
+    "activity": "a825aefe-4b5b-5ae1-87a7-01aeff1ff346",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\njoint=Fraction(1,8);evidence=Fraction(1,4) if n==1 else Fraction(1)\nprint(joint)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1/8\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M07-O01/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O01",
+    "activity": "a825aefe-4b5b-5ae1-87a7-01aeff1ff346",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\njoint=Fraction(1,8);evidence=Fraction(1,4) if n==1 else Fraction(1)\nprint(joint/evidence)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1/2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M07-O01/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O01",
+    "activity": "a825aefe-4b5b-5ae1-87a7-01aeff1ff346",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\njoint=Fraction(1,8);evidence=Fraction(1,4) if n==1 else Fraction(1)\nprint(joint)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1/8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M07-O01/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O01",
+    "activity": "a825aefe-4b5b-5ae1-87a7-01aeff1ff346",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\njoint=Fraction(1,8);evidence=Fraction(1,4) if n==1 else Fraction(1)\nprint(joint/evidence)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "1/8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M07-O02/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O02",
+    "activity": "7d6030df-a704-5349-a1b0-1fa50714c85b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\np=Fraction(1,2) if n==1 else Fraction(1);yes=Fraction(3,4);no=Fraction(1,4)\nprint(p*yes)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3/8\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M07-O02/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O02",
+    "activity": "7d6030df-a704-5349-a1b0-1fa50714c85b",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\np=Fraction(1,2) if n==1 else Fraction(1);yes=Fraction(3,4);no=Fraction(1,4)\nprint(p*yes+(1-p)*no)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1/2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M07-O02/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O02",
+    "activity": "7d6030df-a704-5349-a1b0-1fa50714c85b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\np=Fraction(1,2) if n==1 else Fraction(1);yes=Fraction(3,4);no=Fraction(1,4)\nprint(p*yes)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3/4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M07-O02/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O02",
+    "activity": "7d6030df-a704-5349-a1b0-1fa50714c85b",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\np=Fraction(1,2) if n==1 else Fraction(1);yes=Fraction(3,4);no=Fraction(1,4)\nprint(p*yes+(1-p)*no)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "3/4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M07-O03/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O03",
+    "activity": "bfc070f1-dc3e-5df2-b69b-a43d34ece393",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\npa=pb=Fraction(1,2);joint=Fraction(1,2) if n==1 else Fraction(1,4)\nprint(pa==pb)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M07-O03/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O03",
+    "activity": "bfc070f1-dc3e-5df2-b69b-a43d34ece393",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\npa=pb=Fraction(1,2);joint=Fraction(1,2) if n==1 else Fraction(1,4)\nprint(joint==pa*pb)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M07-O03/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O03",
+    "activity": "bfc070f1-dc3e-5df2-b69b-a43d34ece393",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\npa=pb=Fraction(1,2);joint=Fraction(1,2) if n==1 else Fraction(1,4)\nprint(pa==pb)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M07-O03/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M07-O03",
+    "activity": "bfc070f1-dc3e-5df2-b69b-a43d34ece393",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\npa=pb=Fraction(1,2);joint=Fraction(1,2) if n==1 else Fraction(1,4)\nprint(joint==pa*pb)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M08-O01/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O01",
+    "activity": "4b89ed4d-0469-57e0-92b3-e26554bf9762",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstate={'key'} if n==2 else set();pre={'key'}\nstate.add('open');print(' '.join(sorted(state)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "open\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M08-O01/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O01",
+    "activity": "4b89ed4d-0469-57e0-92b3-e26554bf9762",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstate={'key'} if n==2 else set();pre={'key'}\nif pre<=state:state.add('open');print(' '.join(sorted(state)))\nelse:print('blocked')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "blocked\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M08-O01/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O01",
+    "activity": "4b89ed4d-0469-57e0-92b3-e26554bf9762",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstate={'key'} if n==2 else set();pre={'key'}\nstate.add('open');print(' '.join(sorted(state)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "key open\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M08-O01/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O01",
+    "activity": "4b89ed4d-0469-57e0-92b3-e26554bf9762",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nstate={'key'} if n==2 else set();pre={'key'}\nif pre<=state:state.add('open');print(' '.join(sorted(state)))\nelse:print('blocked')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "key open\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M08-O02/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O02",
+    "activity": "11f6d812-6340-58be-a02d-b5221d6096cc",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nplan=['open','take'] if n==1 else ['take','open'];state=set()\nprint('open' in plan)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M08-O02/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O02",
+    "activity": "11f6d812-6340-58be-a02d-b5221d6096cc",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nplan=['open','take'] if n==1 else ['take','open'];state=set()\nvalid=True\nfor action in plan:\n if action=='take':state.add('key')\n elif 'key' in state:state.add('open')\n else:valid=False;break\nprint(valid and 'open' in state)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M08-O02/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O02",
+    "activity": "11f6d812-6340-58be-a02d-b5221d6096cc",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nplan=['open','take'] if n==1 else ['take','open'];state=set()\nprint('open' in plan)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M08-O02/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O02",
+    "activity": "11f6d812-6340-58be-a02d-b5221d6096cc",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nplan=['open','take'] if n==1 else ['take','open'];state=set()\nvalid=True\nfor action in plan:\n if action=='take':state.add('key')\n elif 'key' in state:state.add('open')\n else:valid=False;break\nprint(valid and 'open' in state)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M08-O03/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O03",
+    "activity": "c585ec57-2152-5de6-802d-291e5bcbccf4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrecord={'value':1,'signal_kind':'reward' if n==1 else 'label'}\nprint('supervised')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "supervised\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M08-O03/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O03",
+    "activity": "c585ec57-2152-5de6-802d-291e5bcbccf4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrecord={'value':1,'signal_kind':'reward' if n==1 else 'label'}\nprint('reinforcement' if record['signal_kind']=='reward' else 'supervised')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "reinforcement\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M08-O03/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O03",
+    "activity": "c585ec57-2152-5de6-802d-291e5bcbccf4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrecord={'value':1,'signal_kind':'reward' if n==1 else 'label'}\nprint('supervised')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "supervised\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M08-O03/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M08-O03",
+    "activity": "c585ec57-2152-5de6-802d-291e5bcbccf4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nrecord={'value':1,'signal_kind':'reward' if n==1 else 'label'}\nprint('reinforcement' if record['signal_kind']=='reward' else 'supervised')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "supervised\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M09-O01/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O01",
+    "activity": "49489567-a442-5504-8b65-9d2b6d89fbbb",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncost={'A':8,'B':2 if n==1 else 8}\nprint('A')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "A\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M09-O01/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O01",
+    "activity": "49489567-a442-5504-8b65-9d2b6d89fbbb",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncost={'A':8,'B':2 if n==1 else 8}\nprint(min(cost,key=lambda k:(cost[k],k)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "B\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M09-O01/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O01",
+    "activity": "49489567-a442-5504-8b65-9d2b6d89fbbb",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncost={'A':8,'B':2 if n==1 else 8}\nprint('A')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M09-O01/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O01",
+    "activity": "49489567-a442-5504-8b65-9d2b6d89fbbb",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncost={'A':8,'B':2 if n==1 else 8}\nprint(min(cost,key=lambda k:(cost[k],k)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "A\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M09-O02/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O02",
+    "activity": "20b00edf-228e-5caf-8225-77ff13166838",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\na=Fraction(9,10);b=Fraction(1,2) if n==1 else Fraction(9,10)\nprint(a==a)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M09-O02/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O02",
+    "activity": "20b00edf-228e-5caf-8225-77ff13166838",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\na=Fraction(9,10);b=Fraction(1,2) if n==1 else Fraction(9,10)\nprint(a==b)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M09-O02/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O02",
+    "activity": "20b00edf-228e-5caf-8225-77ff13166838",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\na=Fraction(9,10);b=Fraction(1,2) if n==1 else Fraction(9,10)\nprint(a==a)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M09-O02/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O02",
+    "activity": "20b00edf-228e-5caf-8225-77ff13166838",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfrom fractions import Fraction\na=Fraction(9,10);b=Fraction(1,2) if n==1 else Fraction(9,10)\nprint(a==b)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M09-O03/base/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O03",
+    "activity": "c62f0ecf-702b-5f90-91d8-c7ca13f54445",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=20 if n==1 else 5\nprint('automatic')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "automatic\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS12-M09-O03/base/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O03",
+    "activity": "c62f0ecf-702b-5f90-91d8-c7ca13f54445",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=20 if n==1 else 5\nprint('automatic' if type(value) is int and 0<=value<=10 else 'needs_review')\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "needs_review\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M09-O03/changed-condition/initial",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O03",
+    "activity": "c62f0ecf-702b-5f90-91d8-c7ca13f54445",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=20 if n==1 else 5\nprint('automatic')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "automatic\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS12-M09-O03/changed-condition/repaired",
+    "version": "3611753a-4f55-5af9-98f8-b6995637e756",
+    "goal": "CS12-M09-O03",
+    "activity": "c62f0ecf-702b-5f90-91d8-c7ca13f54445",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nvalue=20 if n==1 else 5\nprint('automatic' if type(value) is int and 0<=value<=10 else 'needs_review')\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "automatic\n",
+    "decision": "met"
+  }
+]
