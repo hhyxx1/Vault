@@ -18,25 +18,48 @@ import type {
 type Lease = components['schemas']['LeaseResponse']
 type Operation = components['schemas']['OperationResponse'] & { result: VerificationResult }
 let lease: Lease | null = null
+const guestLeaseStorageKey = 'vault:anonymous-execution-lease:v1'
+class ApiRequestError extends Error {
+  status: number
+  code: string
+  constructor(message: string, status: number, code: string) { super(message); this.status = status; this.code = code }
+}
+function clearLease(current: Lease) {
+  if (lease?.lease_id === current.lease_id) lease = null
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(guestLeaseStorageKey) ?? 'null')
+    if (saved?.lease_id === current.lease_id) sessionStorage.removeItem(guestLeaseStorageKey)
+  } catch { /* Storage may be blocked; in-memory learning still works. */ }
+}
+function reusableLease(value: Lease | null): value is Lease {
+  return !!value && typeof value.lease_id === 'string' && typeof value.token === 'string'
+    && Array.isArray(value.allowed_operations)
+    && Date.parse(value.absolute_expires_at) > Date.now() + 10000
+    && Date.parse(value.idle_expires_at ?? value.absolute_expires_at) > Date.now() + 10000
+}
 
 async function readJson<T>(response: Response): Promise<T> {
   if (!response.ok) {
-    let message = ''
-    try { const body = await response.json(); message = typeof body.detail === 'string' ? body.detail : typeof body.message === 'string' ? body.message : '' } catch { /* HTTP error without body */ }
-    throw new Error(message || (response.status === 429 ? '当前临时核验请求较多，请稍后重试。' : `核验服务暂不可用（${response.status}）。作品仍保留在本地。`))
+    let message = ''; let code = ''
+    try { const body = await response.json(); message = typeof body.detail === 'string' ? body.detail : typeof body.message === 'string' ? body.message : ''; code = typeof body.code === 'string' ? body.code : '' } catch { /* HTTP error without body */ }
+    throw new ApiRequestError(message || (response.status === 429 ? '当前临时核验请求较多，请稍后重试。' : `核验服务暂不可用（${response.status}）。作品仍保留在本地。`), response.status, code)
   }
   return response.json() as Promise<T>
 }
 
 async function activeLease(signal?: AbortSignal) {
-  if (lease && Date.parse(lease.absolute_expires_at) > Date.now() + 10000) return lease
+  if (!lease) {
+    try { const saved = JSON.parse(sessionStorage.getItem(guestLeaseStorageKey) ?? 'null'); if (reusableLease(saved)) lease = saved } catch { /* Anonymous capability only; no account session or learning data. */ }
+  }
+  if (reusableLease(lease)) return lease
   const nonce = await readJson<{ nonce: string }>(await fetch('/api/v1/guest-nonce', { method: 'POST', credentials: 'same-origin', cache: 'no-store', signal }))
   lease = await readJson<Lease>(await fetch('/api/v1/guest-leases', { method: 'POST', credentials: 'same-origin', signal, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nonce: nonce.nonce }) }))
+  try { sessionStorage.setItem(guestLeaseStorageKey, JSON.stringify(lease)) } catch { /* Keep the in-memory fallback. */ }
   return lease
 }
 
 /** Save the returned result before acknowledgement removes temporary server work. */
-export async function runCode(attempt: CodeAttempt, signal?: AbortSignal, task?: components['schemas']['CodeTaskRef']): Promise<{ result: CodeResult; acknowledge: () => Promise<void> }> {
+export async function runCode(attempt: CodeAttempt, signal?: AbortSignal, task?: components['schemas']['CodeTaskRef'], renewed = false): Promise<{ result: CodeResult; acknowledge: () => Promise<void> }> {
   const current = await activeLease(signal)
   if (!current.allowed_operations.includes('run_code')) throw new Error('代码运行服务尚未连接；这一版已保留本地，可稍后重新运行。')
   if (await canonicalHash({ ...attempt.request, stdin: attempt.request.stdin ?? '' }) !== attempt.requestHash) throw new Error('提交内容与版本摘要不一致。')
@@ -71,6 +94,13 @@ export async function runCode(attempt: CodeAttempt, signal?: AbortSignal, task?:
     if ((task || result.task_assessment) && !hasCodeAssessmentBinding({ ...attempt, result })) throw new Error('课程核验与活动、目标或作品不一致，未保存结果。')
     return { result, acknowledge: async () => { await readJson(await fetch(`${root}/${terminal.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers, body: JSON.stringify({ expected_revision: terminal.revision }) })) } }
   } catch (error) {
+    if (!operation && !renewed && error instanceof ApiRequestError && (
+      (error.status === 401 && error.code === 'GUEST_LEASE_EXPIRED') ||
+      (error.status === 429 && error.code === 'GUEST_BUDGET_EXCEEDED')
+    )) {
+      clearLease(current)
+      return runCode(attempt, signal, task, true)
+    }
     if (operation && ['running', 'cancelling'].includes(operation.status)) {
       // Cancellation has its own lifetime: an aborted UI signal must not abort cleanup.
       const cleanupSignal = AbortSignal.timeout(30000)
@@ -131,7 +161,7 @@ export async function requestPersonalLearningAssist(input: PersonalLearningAssis
     headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` },
     body: JSON.stringify(input),
   })
-  if (response.status === 401 || response.status === 410) lease = null
+  if (response.status === 401 || response.status === 410) clearLease(current)
   const reply = await readJson<LearningAssistReply>(response)
   if (reply.mastery_asserted !== false || typeof reply.message !== 'string' || !reply.message.trim()
     || typeof reply.next_action !== 'string' || !reply.next_action.trim()) {
@@ -148,7 +178,7 @@ export async function requestLearningAssist(input: LearningAssistInput, signal?:
     headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` },
     body: JSON.stringify(input),
   })
-  if (response.status === 401 || response.status === 410) lease = null
+  if (response.status === 401 || response.status === 410) clearLease(current)
   return readJson<LearningAssistReply>(response)
 }
 export async function verifyTrace(revision: ArtifactRevision, trace: TracePrediction[], idempotencyKey: string, signal?: AbortSignal): Promise<{ operation: Operation; acknowledge: () => Promise<void> }> {
@@ -161,7 +191,7 @@ export async function verifyTrace(revision: ArtifactRevision, trace: TracePredic
     headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}`, 'Idempotency-Key': idempotencyKey },
     body: JSON.stringify(body),
   })
-  if (response.status === 401 || response.status === 410) lease = null
+  if (response.status === 401 || response.status === 410) clearLease(current)
   const operation = await readJson<Operation>(response)
   const result = operation.result
   if (!result || result.artifact_hash !== expectedHash || result.provenance !== 'server_deterministic_checker' || result.course_version !== COURSE_VERSION || result.standard_version !== STANDARD_VERSION || result.activity_version !== TRACE_ACTIVITY || result.client_revision_id !== revision.revisionId || result.client_artifact_id !== revision.artifactId || result.mastery_asserted !== false || !Array.isArray(result.criteria) || !result.criteria.length || result.criteria.some(criterion => !['met', 'not_met', 'needs_review'].includes(criterion.status))) {
@@ -187,7 +217,7 @@ export async function verifyTruthTable(attempt: CourseAttempt, signal?: AbortSig
     headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}`, 'Idempotency-Key': attempt.id },
     body: JSON.stringify({ kind: 'verify_truth_table', course_code: 'CS05', activity_version: LOGIC_ACTIVITY, standard_version: LOGIC_STANDARD, client_artifact_id: attempt.artifactId, client_revision_id: attempt.id, rows, explanation: attempt.explanation }),
   })
-  if (response.status === 401 || response.status === 410) lease = null
+  if (response.status === 401 || response.status === 410) clearLease(current)
   const operation = await readJson<{ operation_id: string; revision: string; kind: string; result: LogicResult | null }>(response)
   const result = operation.result
   if (operation.kind !== 'verify_truth_table' || !result || result.artifact_hash !== expectedHash || result.provenance !== 'server_deterministic_checker' || result.course_code !== 'CS05' || result.course_version !== LOGIC_VERSION || result.standard_version !== LOGIC_STANDARD || result.activity_version !== LOGIC_ACTIVITY || result.client_revision_id !== attempt.id || result.client_artifact_id !== attempt.artifactId || result.mastery_asserted !== false || !Array.isArray(result.criteria) || result.criteria.length !== 5 || result.criteria.some(criterion => !['met', 'not_met', 'needs_review'].includes(criterion.status))) {
@@ -255,7 +285,7 @@ export async function verifyStructuredTrace(
       explanation: attempt.explanation,
     }),
   })
-  if (response.status === 401 || response.status === 410) lease = null
+  if (response.status === 401 || response.status === 410) clearLease(current)
   const operation = await readJson<StructuredOperationEnvelope & { result: StructuredTraceResult | null }>(response)
   const result = operation.result
   if (operation.kind !== 'verify_structured_trace' || !result || result.artifact_hash !== expectedHash) {
@@ -295,7 +325,7 @@ export async function verifyBracketJudgements(
       explanation: attempt.explanation,
     }),
   })
-  if (response.status === 401 || response.status === 410) lease = null
+  if (response.status === 401 || response.status === 410) clearLease(current)
   const operation = await readJson<StructuredOperationEnvelope & { result: BracketVerificationResult | null }>(response)
   const result = operation.result
   if (operation.kind !== 'verify_bracket_judgement' || !result || result.artifact_hash !== expectedHash) {
