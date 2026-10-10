@@ -1016,9 +1016,9 @@ export interface components {
             provenance: "server_deterministic_checker";
             /**
              * Standard Version
-             * @constant
+             * @enum {string}
              */
-            standard_version: "cs01-fixed-condition-v1";
+            standard_version: "cs01-fixed-condition-v1" | "code-fixed-condition-v1";
             /** Task Code */
             task_code: string;
         };

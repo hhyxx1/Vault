@@ -185,7 +185,7 @@ class CodeTaskAssessment(BaseModel):
     activity_version_id: str = Field(max_length=36)
     objective_code: str = Field(max_length=80)
     task_code: str = Field(max_length=100)
-    standard_version: Literal["cs01-fixed-condition-v1"]
+    standard_version: Literal["cs01-fixed-condition-v1", "code-fixed-condition-v1"]
     provenance: Literal["server_deterministic_checker"]
     criteria: list[CodeTaskCriterion] = Field(min_length=3, max_length=3)
     mastery_asserted: Literal[False]

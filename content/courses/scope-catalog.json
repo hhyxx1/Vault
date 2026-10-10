@@ -13,9 +13,9 @@
       "id": "d79e8db8-043c-4849-83f6-b1a2e14f3b3f",
       "code": "CS02",
       "title": "面向对象程序设计",
-      "version_id": "9efbe4e5-98ea-5c40-b875-ab4f450a9647",
-      "version": "CS02-core-scope-0.1.0",
-      "package_path": "CS02/CS02-core-scope-0.1.0/manifest.json",
+      "version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "version": "CS02-core-practice-0.1.0",
+      "package_path": "CS02/CS02-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -198,6 +198,15 @@
       "version_id": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
       "version": "CS01-core-practice-0.8.0",
       "package_path": "CS01/CS01-core-practice-0.8.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "d79e8db8-043c-4849-83f6-b1a2e14f3b3f",
+      "code": "CS02",
+      "title": "面向对象程序设计",
+      "version_id": "9efbe4e5-98ea-5c40-b875-ab4f450a9647",
+      "version": "CS02-core-scope-0.1.0",
+      "package_path": "CS02/CS02-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]

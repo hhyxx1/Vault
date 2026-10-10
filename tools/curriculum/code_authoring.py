@@ -6,11 +6,22 @@ from uuid import NAMESPACE_URL, uuid5
 
 
 class CodeBook:
-    def __init__(self, root: Path, previous: str, version: str, scope: str):
+    def __init__(
+        self,
+        root: Path,
+        previous: str,
+        version: str,
+        scope: str,
+        *,
+        course="CS01",
+        standard="cs01-fixed-condition-v1",
+    ):
         self.root = root
+        self.course = course
+        self.standard = standard
         self.name = version
         self.package = json.loads(
-            (root / f"content/courses/CS01/{previous}/manifest.json").read_text(
+            (root / f"content/courses/{course}/{previous}/manifest.json").read_text(
                 encoding="utf-8"
             )
         )
@@ -44,7 +55,7 @@ class CodeBook:
             "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
             "hints": hints,
             "variants": [],
-            "check_version": "cs01-fixed-condition-v1",
+            "check_version": self.standard,
         }
         for task, label, instruction, initial, repaired, before, after in cases:
             if task != "base":
@@ -54,6 +65,7 @@ class CodeBook:
                         "title": label,
                         "student_action": instruction,
                         "code_request": initial,
+                        "reference_answer": repaired,
                         "prediction_prompt": activity["prediction_prompt"],
                         "reflection_prompt": activity["reflection_prompt"],
                     }
@@ -96,7 +108,7 @@ class CodeBook:
 
     def save(self, fixture):
         for name, value in [
-            (f"content/courses/CS01/{self.name}/manifest.json", self.package),
+            (f"content/courses/{self.course}/{self.name}/manifest.json", self.package),
             (f"services/backend/fixtures/course-code/{fixture}.json", self.rows),
             (f"services/backend/fixtures/course-code/{fixture}-rules.json", self.rules),
         ]:

@@ -1,0 +1,2735 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "d79e8db8-043c-4849-83f6-b1a2e14f3b3f",
+  "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+  "course_code": "CS02",
+  "version": "CS02-core-practice-0.1.0",
+  "title": "面向对象程序设计",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "24 目标具备受限 Java 实践；设计解释、独立迁移、综合项目深度及整课验收未完成。",
+  "objectives": [
+    {
+      "id": "90cf6d87-9a24-5498-9ead-076f3af59467",
+      "code": "CS02-M01-O01",
+      "title": "区分对象和类",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "de557d6c-8561-5d08-9a5c-2c233816c7f6",
+      "code": "CS02-M01-O02",
+      "title": "设计可见性",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "44c7a88f-0c4f-5ef4-a837-501ed1ecdb69",
+      "code": "CS02-M01-O03",
+      "title": "维持构造与状态不变量",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "926bdeea-0bee-575e-a740-7a4bc7d5d812",
+      "code": "CS02-M02-O01",
+      "title": "分配对象职责",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "5e652a4f-68bc-5768-91ad-3bfbd3a1e4df",
+      "code": "CS02-M02-O02",
+      "title": "表达组合关系",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "fc1d17ac-be1a-51ff-8660-e0375e14cab1",
+      "code": "CS02-M02-O03",
+      "title": "隔离存储和业务接口",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "6a726006-cd5b-564f-ab4b-0b12ea517d0a",
+      "code": "CS02-M03-O01",
+      "title": "实现接口调用",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "38c77a7f-8828-55d7-a5c6-838c0640a223",
+      "code": "CS02-M03-O02",
+      "title": "判断替换是否保持契约",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "8d65cd24-4ef8-5a57-b740-44dcec71dc95",
+      "code": "CS02-M03-O03",
+      "title": "比较组合和继承",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b1d184f3-d4a4-58a5-bb38-ef4f90a99df5",
+      "code": "CS02-M04-O01",
+      "title": "使用类型安全容器",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "0e42d056-3eae-5e25-a05b-8d2d93d3d2f1",
+      "code": "CS02-M04-O02",
+      "title": "选择集合语义",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "3c5b9ae0-86e0-5e92-9aac-81643a6c7d86",
+      "code": "CS02-M04-O03",
+      "title": "实现相等与哈希契约",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "39a5958d-39c8-55c3-85a6-b5b616ca413c",
+      "code": "CS02-M05-O01",
+      "title": "定义异常传播边界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e63a1936-db9a-5da7-8eab-459fe89c1a08",
+      "code": "CS02-M05-O02",
+      "title": "保证失败后对象状态",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "821c164e-fbf1-5e04-907d-c13a32bce350",
+      "code": "CS02-M05-O03",
+      "title": "关闭文件及外部资源",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "891643c8-0321-5eea-a230-cbbee8cec4d7",
+      "code": "CS02-M06-O01",
+      "title": "表达关联及生命周期",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "5fd8c8e2-1aef-5bd7-8993-446b0316a1f1",
+      "code": "CS02-M06-O02",
+      "title": "应用策略或观察者解决实际变化",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "29ab2e3e-9b50-55bd-863e-2ef581311ffe",
+      "code": "CS02-M06-O03",
+      "title": "解释模式取舍",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "19533a5a-ebfd-51e2-9893-14a022a29af3",
+      "code": "CS02-M07-O01",
+      "title": "转换对象与记录",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "2ba74e0a-cf3b-5cc5-ac3c-ac193e49b507",
+      "code": "CS02-M07-O02",
+      "title": "设计可替换依赖",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "2c147a3f-f2a8-52fb-9baa-29cfa22efab7",
+      "code": "CS02-M07-O03",
+      "title": "编写单元及集成测试",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "92dddd77-11df-58c9-828c-9ad722a243de",
+      "code": "CS02-M08-O01",
+      "title": "分析变更影响",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "d554313a-1a84-50b8-aeaf-d19f6af675f2",
+      "code": "CS02-M08-O02",
+      "title": "重构并保持行为",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "10d7f629-28c3-5d2a-bf64-0dd45cee47f1",
+      "code": "CS02-M08-O03",
+      "title": "复核设计约束",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS02-M01",
+      "title": "对象与封装",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M01-O01-unit",
+          "title": "区分对象和类",
+          "objective_refs": [
+            "CS02-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M01-O02-unit",
+          "title": "设计可见性",
+          "objective_refs": [
+            "CS02-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M01-O03-unit",
+          "title": "维持构造与状态不变量",
+          "objective_refs": [
+            "CS02-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M02",
+      "title": "组合与职责",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M02-O01-unit",
+          "title": "分配对象职责",
+          "objective_refs": [
+            "CS02-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M02-O02-unit",
+          "title": "表达组合关系",
+          "objective_refs": [
+            "CS02-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M02-O03-unit",
+          "title": "隔离存储和业务接口",
+          "objective_refs": [
+            "CS02-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M03",
+      "title": "继承与多态",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M03-O01-unit",
+          "title": "实现接口调用",
+          "objective_refs": [
+            "CS02-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M03-O02-unit",
+          "title": "判断替换是否保持契约",
+          "objective_refs": [
+            "CS02-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M03-O03-unit",
+          "title": "比较组合和继承",
+          "objective_refs": [
+            "CS02-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M04",
+      "title": "泛型与集合",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M04-O01-unit",
+          "title": "使用类型安全容器",
+          "objective_refs": [
+            "CS02-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M04-O02-unit",
+          "title": "选择集合语义",
+          "objective_refs": [
+            "CS02-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M04-O03-unit",
+          "title": "实现相等与哈希契约",
+          "objective_refs": [
+            "CS02-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M05",
+      "title": "异常与资源",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M05-O01-unit",
+          "title": "定义异常传播边界",
+          "objective_refs": [
+            "CS02-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M05-O02-unit",
+          "title": "保证失败后对象状态",
+          "objective_refs": [
+            "CS02-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M05-O03-unit",
+          "title": "关闭文件及外部资源",
+          "objective_refs": [
+            "CS02-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M06",
+      "title": "对象关系与模式",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M06-O01-unit",
+          "title": "表达关联及生命周期",
+          "objective_refs": [
+            "CS02-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M06-O02-unit",
+          "title": "应用策略或观察者解决实际变化",
+          "objective_refs": [
+            "CS02-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M06-O03-unit",
+          "title": "解释模式取舍",
+          "objective_refs": [
+            "CS02-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M07",
+      "title": "持久化与测试",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M07-O01-unit",
+          "title": "转换对象与记录",
+          "objective_refs": [
+            "CS02-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M07-O02-unit",
+          "title": "设计可替换依赖",
+          "objective_refs": [
+            "CS02-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M07-O03-unit",
+          "title": "编写单元及集成测试",
+          "objective_refs": [
+            "CS02-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS02-M08",
+      "title": "综合演进",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS02-M08-O01-unit",
+          "title": "分析变更影响",
+          "objective_refs": [
+            "CS02-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M08-O02-unit",
+          "title": "重构并保持行为",
+          "objective_refs": [
+            "CS02-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS02-M08-O03-unit",
+          "title": "复核设计约束",
+          "objective_refs": [
+            "CS02-M08-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "CS02-M01-O01",
+      "to": "CS02-M02-O02",
+      "kind": "conceptual_association",
+      "reason": "区分实例状态用于识别组合服务是否引用同一仓库。",
+      "source_locator": "jls21-classes:8.3",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：区分实例状态用于识别组合服务是否引用同一仓库。 语言机制见 jls21-classes §8.3；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M01-O02",
+      "to": "CS02-M01-O03",
+      "kind": "conceptual_association",
+      "reason": "字段可见性与构造及修改方法共同约束对象状态。",
+      "source_locator": "jls21-classes:8.3,8.8",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：字段可见性与构造及修改方法共同约束对象状态。 语言机制见 jls21-classes §8.3,8.8；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M01-O03",
+      "to": "CS02-M05-O02",
+      "kind": "application",
+      "reason": "对象不变量用于检查存储失败后是否保留有效状态。",
+      "source_locator": "jls21-classes:8.8",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：对象不变量用于检查存储失败后是否保留有效状态。 语言机制见 jls21-classes §8.8；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M02-O01",
+      "to": "CS02-M02-O03",
+      "kind": "conceptual_association",
+      "reason": "职责分离与仓库接口方向共同决定可替换边界。",
+      "source_locator": "jls21-interfaces:9.1",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：职责分离与仓库接口方向共同决定可替换边界。 语言机制见 jls21-interfaces §9.1；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M02-O02",
+      "to": "CS02-M03-O03",
+      "kind": "application",
+      "reason": "持有策略对象是比较组合和继承的具体工件。",
+      "source_locator": "jls21-classes:8.3",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：持有策略对象是比较组合和继承的具体工件。 语言机制见 jls21-classes §8.3；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M02-O03",
+      "to": "CS02-M07-O02",
+      "kind": "application",
+      "reason": "仓库接口用于注入替身并检验业务调用。",
+      "source_locator": "jls21-interfaces:9.1",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：仓库接口用于注入替身并检验业务调用。 语言机制见 jls21-interfaces §9.1；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M03-O01",
+      "to": "CS02-M06-O02",
+      "kind": "application",
+      "reason": "接口分派用于调用不同通知实现。",
+      "source_locator": "jls21-interfaces:9.4",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：接口分派用于调用不同通知实现。 语言机制见 jls21-interfaces §9.4；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M03-O02",
+      "to": "CS02-M08-O03",
+      "kind": "application",
+      "reason": "统一借阅契约用于复核新增预约行为是否破坏旧约束。",
+      "source_locator": "jls21-interfaces:9.1",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：统一借阅契约用于复核新增预约行为是否破坏旧约束。 语言机制见 jls21-interfaces §9.1；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M03-O03",
+      "to": "CS02-M08-O01",
+      "kind": "application",
+      "reason": "可替换政策用于避免新增角色时修改固定业务分支。",
+      "source_locator": "jls21-interfaces:9.1",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：可替换政策用于避免新增角色时修改固定业务分支。 语言机制见 jls21-interfaces §9.1；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M04-O01",
+      "to": "CS02-M04-O02",
+      "kind": "conceptual_association",
+      "reason": "元素类型安全与集合重复语义是不同条件。",
+      "source_locator": "java21-collections:Collection",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：元素类型安全与集合重复语义是不同条件。 语言机制见 java21-collections §Collection；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M04-O02",
+      "to": "CS02-M06-O02",
+      "kind": "application",
+      "reason": "集合去重用于实现本任务的重复订阅政策。",
+      "source_locator": "java21-collections:Collection",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：集合去重用于实现本任务的重复订阅政策。 语言机制见 java21-collections §Collection；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M04-O03",
+      "to": "CS02-M04-O02",
+      "kind": "application",
+      "reason": "相等与哈希契约用于按 ISBN 而非实例去重。",
+      "source_locator": "java21-object:equals,hashCode",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：相等与哈希契约用于按 ISBN 而非实例去重。 语言机制见 java21-object §equals,hashCode；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M05-O01",
+      "to": "CS02-M05-O03",
+      "kind": "conceptual_association",
+      "reason": "异常传播与资源关闭分别需要可观察证据。",
+      "source_locator": "jls21-resources:14.20.3",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：异常传播与资源关闭分别需要可观察证据。 语言机制见 jls21-resources §14.20.3；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M05-O02",
+      "to": "CS02-M07-O01",
+      "kind": "application",
+      "reason": "状态提交约定用于检查记录解码失败时保留旧对象。",
+      "source_locator": "jls21-classes:8.4",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：状态提交约定用于检查记录解码失败时保留旧对象。 语言机制见 jls21-classes §8.4；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M05-O03",
+      "to": "CS02-M07-O03",
+      "kind": "application",
+      "reason": "真实文件往返需要核对资源和错误边界。",
+      "source_locator": "java21-files:writeString,readString",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：真实文件往返需要核对资源和错误边界。 语言机制见 java21-files §writeString,readString；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M06-O01",
+      "to": "CS02-M06-O03",
+      "kind": "conceptual_association",
+      "reason": "订阅生命周期与通知失败政策共同构成观察者取舍。",
+      "source_locator": "java21-collections:Collection",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：订阅生命周期与通知失败政策共同构成观察者取舍。 语言机制见 java21-collections §Collection；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M06-O02",
+      "to": "CS02-M06-O03",
+      "kind": "application",
+      "reason": "通知循环用于暴露单观察者异常影响其他通知的反例。",
+      "source_locator": "jls21-resources:14.20",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：通知循环用于暴露单观察者异常影响其他通知的反例。 语言机制见 jls21-resources §14.20；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M07-O01",
+      "to": "CS02-M07-O03",
+      "kind": "application",
+      "reason": "对象记录转换用于实际持久化往返集成测试。",
+      "source_locator": "java21-files:writeString,readString",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：对象记录转换用于实际持久化往返集成测试。 语言机制见 java21-files §writeString,readString；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M07-O02",
+      "to": "CS02-M08-O01",
+      "kind": "application",
+      "reason": "依赖替换用于观察变更是否越过稳定边界。",
+      "source_locator": "jls21-interfaces:9.1",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：依赖替换用于观察变更是否越过稳定边界。 语言机制见 jls21-interfaces §9.1；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M07-O03",
+      "to": "CS02-M08-O02",
+      "kind": "application",
+      "reason": "实际运行回归用于检测重构后的可观察行为变化。",
+      "source_locator": "java21-files:readString",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：实际运行回归用于检测重构后的可观察行为变化。 语言机制见 java21-files §readString；专业审校不可用。"
+    },
+    {
+      "from": "CS02-M08-O02",
+      "to": "CS02-M08-O03",
+      "kind": "application",
+      "reason": "原借阅回归用于复核预约交付后的库存约束。",
+      "source_locator": "jls21-classes:8.4",
+      "course_version_id": "e48d3468-f3f8-516e-b9ab-dd96b6560cfd",
+      "review_state": "authority_checked",
+      "source": "原创任务关联：原借阅回归用于复核预约交付后的库存约束。 语言机制见 jls21-classes §8.4；专业审校不可用。"
+    }
+  ],
+  "activities": [
+    {
+      "id": "d4931aaa-7946-551a-a305-c732d42223d5",
+      "version_id": "3d183782-5951-567e-9b87-fdcf56c2e361",
+      "code": "CS02-M01-O01-CODE",
+      "version": "CS02-M01-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M01-O01"
+      ],
+      "kind": "code",
+      "title": "两本书不能共用库存字段",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "static 字段属于类，实例字段分别属于对象；创建多个对象不意味着 static 状态自动独立。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-classes"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { static int copies; Book(int x){copies=x;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook a=new Book(n); Book b=new Book(n+1); System.out.println(a.copies+\" \"+b.copies);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { int copies; Book(int x){copies=x;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook a=new Book(n); Book b=new Book(n+1); System.out.println(a.copies+\" \"+b.copies);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { static int copies; Book(int x){copies=x;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook a=new Book(n); Book b=new Book(n+1); System.out.println(a.copies+\" \"+b.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { int copies; Book(int x){copies=x;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook a=new Book(n); Book b=new Book(n+1); System.out.println(a.copies+\" \"+b.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "65017a56-e351-58ec-8748-910345752b41",
+      "version_id": "e7144116-9c19-527d-9828-31998cbd2f5a",
+      "code": "CS02-M01-O02-CODE",
+      "version": "CS02-M01-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M01-O02"
+      ],
+      "kind": "code",
+      "title": "封装库存并保留受控读取",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "private 限制直接字段访问；受控方法和访问修饰符不是同一个问题，隐藏字段仍要验证修改方法。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-classes"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { public int copies; Book(int x){copies=x;} int available(){return copies;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n); System.out.println(\"private=\"+java.lang.reflect.Modifier.isPrivate(Book.class.getDeclaredField(\"copies\").getModifiers())+\" available=\"+b.available());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { private int copies; Book(int x){copies=x;} int available(){return copies;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n); System.out.println(\"private=\"+java.lang.reflect.Modifier.isPrivate(Book.class.getDeclaredField(\"copies\").getModifiers())+\" available=\"+b.available());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { public int copies; Book(int x){copies=x;} int available(){return copies;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n); System.out.println(\"private=\"+java.lang.reflect.Modifier.isPrivate(Book.class.getDeclaredField(\"copies\").getModifiers())+\" available=\"+b.available());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book { private int copies; Book(int x){copies=x;} int available(){return copies;} }\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n); System.out.println(\"private=\"+java.lang.reflect.Modifier.isPrivate(Book.class.getDeclaredField(\"copies\").getModifiers())+\" available=\"+b.available());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "73660851-e55d-5caf-af9c-f0b3a2cbdb63",
+      "version_id": "24c5e72d-7062-5d34-8a72-2453545ffe7f",
+      "code": "CS02-M01-O03-CODE",
+      "version": "CS02-M01-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M01-O03"
+      ],
+      "kind": "code",
+      "title": "负初值与重复归还不能破坏容量",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "对象不变量需要构造器及全部修改路径共同维持；拒绝构造的对象不能被当作有效状态。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-classes"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int count,capacity; Book(int n){capacity=n;count=n;} void giveBack(){if(count<capacity)count++;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\ntry {Book b=new Book(n);b.giveBack();b.giveBack();System.out.println(\"count=\"+b.count);} catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+        },
+        "stdin": "-1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int count,capacity; Book(int n){if(n<0)throw new IllegalArgumentException();capacity=n;count=n;} void giveBack(){if(count<capacity)count++;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\ntry {Book b=new Book(n);b.giveBack();b.giveBack();System.out.println(\"count=\"+b.count);} catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+        },
+        "stdin": "-1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "容量已满时重复归还",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int count,capacity; Book(int n){capacity=n;count=n;} void giveBack(){if(count<capacity)count++;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\ntry {Book b=new Book(n);b.giveBack();b.giveBack();System.out.println(\"count=\"+b.count);} catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int count,capacity; Book(int n){if(n<0)throw new IllegalArgumentException();capacity=n;count=n;} void giveBack(){if(count<capacity)count++;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\ntry {Book b=new Book(n);b.giveBack();b.giveBack();System.out.println(\"count=\"+b.count);} catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "30330f6e-0146-5fd2-ace3-dec7371a40cd",
+      "version_id": "0d78dad8-c5ef-53d8-a37c-a3ec0e076e56",
+      "code": "CS02-M02-O01-CODE",
+      "version": "CS02-M02-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M02-O01"
+      ],
+      "kind": "code",
+      "title": "计费规则由注入的政策负责",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "职责分配可通过可替换策略观察；类数量增加不是设计质量证据。这里不对开放设计作自动结论。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-interfaces"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Fee {int cents(int days);} static class Service {Fee fee;Service(Fee f){fee=f;}int charge(int d){return 1;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService s=new Service(days->days*2);System.out.println(\"fee=\"+s.charge(n));\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Fee {int cents(int days);} static class Service {Fee fee;Service(Fee f){fee=f;}int charge(int d){return fee.cents(d);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService s=new Service(days->days*2);System.out.println(\"fee=\"+s.charge(n));\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Fee {int cents(int days);} static class Service {Fee fee;Service(Fee f){fee=f;}int charge(int d){return 1;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService s=new Service(days->days*2);System.out.println(\"fee=\"+s.charge(n));\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Fee {int cents(int days);} static class Service {Fee fee;Service(Fee f){fee=f;}int charge(int d){return fee.cents(d);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService s=new Service(days->days*2);System.out.println(\"fee=\"+s.charge(n));\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e4273fdb-9458-5a88-967a-01416b974a5f",
+      "version_id": "20742f55-04cf-5ab4-bd04-a3bc6e279020",
+      "code": "CS02-M02-O02-CODE",
+      "version": "CS02-M02-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M02-O02"
+      ],
+      "kind": "code",
+      "title": "组合服务必须使用同一仓库实例",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "对象引用表达关联，业务服务持有仓库可表达组合；复制对象和引用同一对象的后续状态不同。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-classes"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Repo {int copies;Repo(int c){copies=c;}} static class Service {Repo repo;Service(Repo r){repo=new Repo(r.copies);}void borrow(){if(repo.copies>0)repo.copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nRepo r=new Repo(n);Service s=new Service(r);s.borrow();System.out.println(\"repo=\"+r.copies);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Repo {int copies;Repo(int c){copies=c;}} static class Service {Repo repo;Service(Repo r){repo=r;}void borrow(){if(repo.copies>0)repo.copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nRepo r=new Repo(n);Service s=new Service(r);s.borrow();System.out.println(\"repo=\"+r.copies);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Repo {int copies;Repo(int c){copies=c;}} static class Service {Repo repo;Service(Repo r){repo=new Repo(r.copies);}void borrow(){if(repo.copies>0)repo.copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nRepo r=new Repo(n);Service s=new Service(r);s.borrow();System.out.println(\"repo=\"+r.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Repo {int copies;Repo(int c){copies=c;}} static class Service {Repo repo;Service(Repo r){repo=r;}void borrow(){if(repo.copies>0)repo.copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nRepo r=new Repo(n);Service s=new Service(r);s.borrow();System.out.println(\"repo=\"+r.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e734efe6-1716-5b97-9252-cf547b512f43",
+      "version_id": "3ba61b09-4913-5504-8aba-c50391bb9b5f",
+      "code": "CS02-M02-O03-CODE",
+      "version": "CS02-M02-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M02-O03"
+      ],
+      "kind": "code",
+      "title": "替换仓库后业务不得绕过接口",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "业务依赖仓库契约而不是创建固定实现；调用计数可以观察是否真正使用了注入对象，不能证明所有依赖都合理。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-interfaces"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int get();} static class Spy implements Repo {int calls;public int get(){calls++;return 7;}} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return 0;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSpy spy=new Spy();Service s=new Service(spy);for(int i=0;i<n;i++)s.available();System.out.println(\"calls=\"+spy.calls);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int get();} static class Spy implements Repo {int calls;public int get(){calls++;return 7;}} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return r.get();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSpy spy=new Spy();Service s=new Service(spy);for(int i=0;i<n;i++)s.available();System.out.println(\"calls=\"+spy.calls);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int get();} static class Spy implements Repo {int calls;public int get(){calls++;return 7;}} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return 0;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSpy spy=new Spy();Service s=new Service(spy);for(int i=0;i<n;i++)s.available();System.out.println(\"calls=\"+spy.calls);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int get();} static class Spy implements Repo {int calls;public int get(){calls++;return 7;}} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return r.get();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSpy spy=new Spy();Service s=new Service(spy);for(int i=0;i<n;i++)s.available();System.out.println(\"calls=\"+spy.calls);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c9c8e9aa-fd30-5d03-809e-c1b781e58b16",
+      "version_id": "498feb3f-ded2-5159-8926-7bbaed155a68",
+      "code": "CS02-M03-O01-CODE",
+      "version": "CS02-M03-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M03-O01"
+      ],
+      "kind": "code",
+      "title": "通过接口调用实际政策",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "接口变量可引用不同实现，实例方法调用按实际对象分派；选择正确对象是业务逻辑的一部分。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-interfaces"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Standard implements Policy {public int days(){return 14;}} static class Limited implements Policy {int limit;Limited(int x){limit=x;}public int days(){return limit;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited(n);System.out.println(\"days=\"+new Standard().days());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Standard implements Policy {public int days(){return 14;}} static class Limited implements Policy {int limit;Limited(int x){limit=x;}public int days(){return limit;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited(n);System.out.println(\"days=\"+p.days());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Standard implements Policy {public int days(){return 14;}} static class Limited implements Policy {int limit;Limited(int x){limit=x;}public int days(){return limit;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited(n);System.out.println(\"days=\"+new Standard().days());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Standard implements Policy {public int days(){return 14;}} static class Limited implements Policy {int limit;Limited(int x){limit=x;}public int days(){return limit;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited(n);System.out.println(\"days=\"+p.days());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e6d08f75-a79d-55be-ab57-126bea857cd9",
+      "version_id": "4e7e7cfd-89ae-5385-9df7-4c0aa4cab06e",
+      "code": "CS02-M03-O02-CODE",
+      "version": "CS02-M03-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M03-O02"
+      ],
+      "kind": "code",
+      "title": "子类不能额外拒绝契约允许的零天",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "替换原则是业务契约要求，不是 Java 编译器自动证明的性质。本任务接口允许 days>=0，实现不能缩小这个前提。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-interfaces"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int fee(int days);} static class Limited implements Policy {public int fee(int days){if(days<=0)throw new IllegalArgumentException();return days*2;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited();try{System.out.println(\"fee=\"+p.fee(n));}catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+        },
+        "stdin": "0\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int fee(int days);} static class Limited implements Policy {public int fee(int days){if(days<0)throw new IllegalArgumentException();return days*2;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited();try{System.out.println(\"fee=\"+p.fee(n));}catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+        },
+        "stdin": "0\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "正天数回归",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int fee(int days);} static class Limited implements Policy {public int fee(int days){if(days<=0)throw new IllegalArgumentException();return days*2;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited();try{System.out.println(\"fee=\"+p.fee(n));}catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+            },
+            "stdin": "3\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int fee(int days);} static class Limited implements Policy {public int fee(int days){if(days<0)throw new IllegalArgumentException();return days*2;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPolicy p=new Limited();try{System.out.println(\"fee=\"+p.fee(n));}catch(IllegalArgumentException e){System.out.println(\"rejected\");}\n}\n}\n"
+            },
+            "stdin": "3\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "11f52085-c882-5af1-a428-f925465d6bba",
+      "version_id": "087ccd2f-4474-5f5f-81fb-a56aa07210ba",
+      "code": "CS02-M03-O03-CODE",
+      "version": "CS02-M03-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M03-O03"
+      ],
+      "kind": "code",
+      "title": "组合政策变化不需改业务服务",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "继承表达类型关系，组合允许将变化放入持有对象；哪一种更合适要对照变化和契约，不能由出现 interface 自动评分。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-interfaces"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Loan {Policy p;Loan(Policy p){this.p=p;}int due(){return 14;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLoan l=new Loan(()->n*3);System.out.println(\"due=\"+l.due());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Loan {Policy p;Loan(Policy p){this.p=p;}int due(){return p.days();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLoan l=new Loan(()->n*3);System.out.println(\"due=\"+l.due());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Loan {Policy p;Loan(Policy p){this.p=p;}int due(){return 14;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLoan l=new Loan(()->n*3);System.out.println(\"due=\"+l.due());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Policy {int days();} static class Loan {Policy p;Loan(Policy p){this.p=p;}int due(){return p.days();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLoan l=new Loan(()->n*3);System.out.println(\"due=\"+l.due());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "33c6cad6-60f8-5abd-9beb-f942e64477b8",
+      "version_id": "c6e7ff33-da67-5a0f-acb9-6ceb25ebb7e6",
+      "code": "CS02-M04-O01-CODE",
+      "version": "CS02-M04-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M04-O01"
+      ],
+      "kind": "code",
+      "title": "类型化容器不能用错误索引代替业务记录",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "List<Book> 提供元素类型约束，但不会替程序选择正确元素；类型安全与业务正确性分别验证。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "java21-collections"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id) {}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nList<Book> books=List.of(new Book(7),new Book(8));System.out.println(\"id=\"+books.get(0).id());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id) {}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nList<Book> books=List.of(new Book(7),new Book(8));System.out.println(\"id=\"+books.get(n).id());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "首条记录回归",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id) {}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nList<Book> books=List.of(new Book(7),new Book(8));System.out.println(\"id=\"+books.get(0).id());\n}\n}\n"
+            },
+            "stdin": "0\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id) {}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nList<Book> books=List.of(new Book(7),new Book(8));System.out.println(\"id=\"+books.get(n).id());\n}\n}\n"
+            },
+            "stdin": "0\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "852e5298-bc62-5f78-935b-b306e738072c",
+      "version_id": "4007e46f-5f69-527f-b9f8-a80d2857a8aa",
+      "code": "CS02-M04-O02-CODE",
+      "version": "CS02-M04-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M04-O02"
+      ],
+      "kind": "code",
+      "title": "集合去重不等于列表计数",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "List 可保留重复元素，Set 表达不重复语义；题目按 ISBN 值去重，不按插入次数计算图书种类。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "java21-collections"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nCollection<Integer> ids=new ArrayList<>();ids.add(n);ids.add(n);ids.add(n+1);System.out.println(\"unique=\"+ids.size());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nCollection<Integer> ids=new LinkedHashSet<>();ids.add(n);ids.add(n);ids.add(n+1);System.out.println(\"unique=\"+ids.size());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nCollection<Integer> ids=new ArrayList<>();ids.add(n);ids.add(n);ids.add(n+1);System.out.println(\"unique=\"+ids.size());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nCollection<Integer> ids=new LinkedHashSet<>();ids.add(n);ids.add(n);ids.add(n+1);System.out.println(\"unique=\"+ids.size());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "dedaedcf-22a8-53fa-8000-3c2cf88a1c21",
+      "version_id": "8dbf6558-fafe-51c9-b74b-6cce730ec469",
+      "code": "CS02-M04-O03-CODE",
+      "version": "CS02-M04-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M04-O03"
+      ],
+      "kind": "code",
+      "title": "同 ISBN 对象必须满足相等与哈希契约",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "equals 相等的对象必须具有相同 hashCode；同 hashCode 不要求 equals 相等。本任务使用不可变 ISBN，避免可变键导致检索语义变化。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "java21-object"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {final int isbn;Book(int n){isbn=n;}public int hashCode(){return isbn;}public boolean equals(Object other){return this==other;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSet<Book> books=new HashSet<>();books.add(new Book(n));books.add(new Book(n));books.add(new Book(n+1));System.out.println(\"unique=\"+books.size());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {final int isbn;Book(int n){isbn=n;}public int hashCode(){return isbn;}public boolean equals(Object other){return other instanceof Book b && isbn==b.isbn;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSet<Book> books=new HashSet<>();books.add(new Book(n));books.add(new Book(n));books.add(new Book(n+1));System.out.println(\"unique=\"+books.size());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {final int isbn;Book(int n){isbn=n;}public int hashCode(){return isbn;}public boolean equals(Object other){return this==other;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSet<Book> books=new HashSet<>();books.add(new Book(n));books.add(new Book(n));books.add(new Book(n+1));System.out.println(\"unique=\"+books.size());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {final int isbn;Book(int n){isbn=n;}public int hashCode(){return isbn;}public boolean equals(Object other){return other instanceof Book b && isbn==b.isbn;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSet<Book> books=new HashSet<>();books.add(new Book(n));books.add(new Book(n));books.add(new Book(n+1));System.out.println(\"unique=\"+books.size());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "4226b3c0-5f2e-5629-846f-a3ff935c89c4",
+      "version_id": "1fa1c474-f76d-5de6-bc78-96772aed4b0b",
+      "code": "CS02-M05-O01-CODE",
+      "version": "CS02-M05-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M05-O01"
+      ],
+      "kind": "code",
+      "title": "存储异常不能被报告成成功",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "异常边界可以转译错误，但不可吞掉失败再返回成功。这里明确方法成功返回 false，调用者仍须安排重试策略。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-resources"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic boolean store(int n){try{throw new IOException();}catch(IOException e){return true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSystem.out.println(\"saved=\"+store(n));\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic boolean store(int n){try{throw new IOException();}catch(IOException e){return false;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSystem.out.println(\"saved=\"+store(n));\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic boolean store(int n){try{throw new IOException();}catch(IOException e){return true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSystem.out.println(\"saved=\"+store(n));\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic boolean store(int n){try{throw new IOException();}catch(IOException e){return false;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nSystem.out.println(\"saved=\"+store(n));\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "399c8f84-0e6f-5c1f-bf1e-2dbeeda11e53",
+      "version_id": "8e066796-73f9-5ff6-870a-f5ab4b18d4d8",
+      "code": "CS02-M05-O02-CODE",
+      "version": "CS02-M05-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M05-O02"
+      ],
+      "kind": "code",
+      "title": "失败后仍保留旧库存",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "先改变状态再执行可能失败的操作会破坏失败后的约定；本任务以可注入仓库异常观察提交顺序，不证明并发原子性。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-resources"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies=2;void borrow(int n)throws IOException{copies--;if(n==1)throw new IOException();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book();try{b.borrow(n);}catch(IOException e){}System.out.println(\"copies=\"+b.copies);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies=2;void borrow(int n)throws IOException{if(n==1)throw new IOException();copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book();try{b.borrow(n);}catch(IOException e){}System.out.println(\"copies=\"+b.copies);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "存储成功时提交",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies=2;void borrow(int n)throws IOException{copies--;if(n==1)throw new IOException();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book();try{b.borrow(n);}catch(IOException e){}System.out.println(\"copies=\"+b.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies=2;void borrow(int n)throws IOException{if(n==1)throw new IOException();copies--;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book();try{b.borrow(n);}catch(IOException e){}System.out.println(\"copies=\"+b.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "74fb1e2a-8ec7-5dbc-ba81-fd7555a2618d",
+      "version_id": "d552ee3e-86fe-5f69-89d0-3eb64e26648c",
+      "code": "CS02-M05-O03-CODE",
+      "version": "CS02-M05-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M05-O03"
+      ],
+      "kind": "code",
+      "title": "异常离开时资源也应关闭",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "try-with-resources 对成功初始化的资源安排关闭；close 自身也可能失败。任务实际调用 AutoCloseable，未模拟真实网络连接。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-resources"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Resource implements AutoCloseable {boolean closed;public void close(){closed=true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nResource r=new Resource();try {if(n==1)throw new IOException();}catch(IOException e){}System.out.println(\"closed=\"+r.closed);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Resource implements AutoCloseable {boolean closed;public void close(){closed=true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nResource r=new Resource();try(r) {if(n==1)throw new IOException();}catch(IOException e){}System.out.println(\"closed=\"+r.closed);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "正常离开也关闭",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Resource implements AutoCloseable {boolean closed;public void close(){closed=true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nResource r=new Resource();try {if(n==1)throw new IOException();}catch(IOException e){}System.out.println(\"closed=\"+r.closed);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Resource implements AutoCloseable {boolean closed;public void close(){closed=true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nResource r=new Resource();try(r) {if(n==1)throw new IOException();}catch(IOException e){}System.out.println(\"closed=\"+r.closed);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "51fdfca8-8868-5240-b3d0-03a559c0f1a3",
+      "version_id": "802bb561-8714-5a6a-90f2-11d43ac54f0a",
+      "code": "CS02-M06-O01-CODE",
+      "version": "CS02-M06-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M06-O01"
+      ],
+      "kind": "code",
+      "title": "取消订阅解除对象关联",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "取消订阅是本任务显式生命周期协议，不等于保证对象被垃圾回收。引用关系和业务事件订阅要分别观察。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "java21-collections"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Set<Integer> subscribers=new LinkedHashSet<>();void remove(int id){subscribers.add(id);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();b.subscribers.add(n);b.remove(n);System.out.println(\"subscribers=\"+b.subscribers.size());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Set<Integer> subscribers=new LinkedHashSet<>();void remove(int id){subscribers.remove(id);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();b.subscribers.add(n);b.remove(n);System.out.println(\"subscribers=\"+b.subscribers.size());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Set<Integer> subscribers=new LinkedHashSet<>();void remove(int id){subscribers.add(id);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();b.subscribers.add(n);b.remove(n);System.out.println(\"subscribers=\"+b.subscribers.size());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Set<Integer> subscribers=new LinkedHashSet<>();void remove(int id){subscribers.remove(id);}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();b.subscribers.add(n);b.remove(n);System.out.println(\"subscribers=\"+b.subscribers.size());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2c25960b-9306-5a77-83d9-06691cf2c5d9",
+      "version_id": "f47e30d7-a3df-533d-80b8-f22bbf34c602",
+      "code": "CS02-M06-O02-CODE",
+      "version": "CS02-M06-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M06-O02"
+      ],
+      "kind": "code",
+      "title": "重复注册不得重复通知",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "观察者的重复订阅政策由业务约定决定。本任务按同一对象去重；不同对象即使行为相似也可能是不同订阅者。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "java21-collections"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Collection<Runnable> listeners=new ArrayList<>();void publish(){for(Runnable r:listeners)r.run();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};Runnable listener=()->count[0]++;for(int i=0;i<n+1;i++)b.listeners.add(listener);b.publish();System.out.println(\"notified=\"+count[0]);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Collection<Runnable> listeners=new LinkedHashSet<>();void publish(){for(Runnable r:listeners)r.run();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};Runnable listener=()->count[0]++;for(int i=0;i<n+1;i++)b.listeners.add(listener);b.publish();System.out.println(\"notified=\"+count[0]);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Collection<Runnable> listeners=new ArrayList<>();void publish(){for(Runnable r:listeners)r.run();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};Runnable listener=()->count[0]++;for(int i=0;i<n+1;i++)b.listeners.add(listener);b.publish();System.out.println(\"notified=\"+count[0]);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {Collection<Runnable> listeners=new LinkedHashSet<>();void publish(){for(Runnable r:listeners)r.run();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};Runnable listener=()->count[0]++;for(int i=0;i<n+1;i++)b.listeners.add(listener);b.publish();System.out.println(\"notified=\"+count[0]);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "a02ab938-8672-57da-999a-f806e01a9203",
+      "version_id": "9ff81c76-65cc-5dbd-9674-05384bdbf2f3",
+      "code": "CS02-M06-O03-CODE",
+      "version": "CS02-M06-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M06-O03"
+      ],
+      "kind": "code",
+      "title": "按约定隔离观察者失败",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "本任务选择尽力通知其他订阅者，并单独统计错误；传播异常或隔离异常都是可能的设计，必须明确业务要求，不靠模式名判好坏。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-resources"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {List<Runnable> listeners=new ArrayList<>();int errors;void publish(){try{for(Runnable r:listeners)r.run();}catch(IllegalStateException e){errors++;}}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};b.listeners.add(()->{throw new IllegalStateException();});for(int i=0;i<n;i++)b.listeners.add(()->count[0]++);b.publish();System.out.println(\"notified=\"+count[0]+\" errors=\"+b.errors);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {List<Runnable> listeners=new ArrayList<>();int errors;void publish(){for(Runnable r:listeners){try{r.run();}catch(IllegalStateException e){errors++;}}}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};b.listeners.add(()->{throw new IllegalStateException();});for(int i=0;i<n;i++)b.listeners.add(()->count[0]++);b.publish();System.out.println(\"notified=\"+count[0]+\" errors=\"+b.errors);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {List<Runnable> listeners=new ArrayList<>();int errors;void publish(){try{for(Runnable r:listeners)r.run();}catch(IllegalStateException e){errors++;}}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};b.listeners.add(()->{throw new IllegalStateException();});for(int i=0;i<n;i++)b.listeners.add(()->count[0]++);b.publish();System.out.println(\"notified=\"+count[0]+\" errors=\"+b.errors);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Bus {List<Runnable> listeners=new ArrayList<>();int errors;void publish(){for(Runnable r:listeners){try{r.run();}catch(IllegalStateException e){errors++;}}}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBus b=new Bus();int[] count={0};b.listeners.add(()->{throw new IllegalStateException();});for(int i=0;i<n;i++)b.listeners.add(()->count[0]++);b.publish();System.out.println(\"notified=\"+count[0]+\" errors=\"+b.errors);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "33ddc365-9868-549a-ad1b-6d4930f7b836",
+      "version_id": "0b33b5e9-b7f4-57e0-b84b-56444915305f",
+      "code": "CS02-M07-O01-CODE",
+      "version": "CS02-M07-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M07-O01"
+      ],
+      "kind": "code",
+      "title": "对象记录往返不能丢失库存",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "序列化格式须明确版本与字段含义；本单元使用原创两字段文本协议，不冒充 JSON 解析器。JSON 缺失和未知字段仍须后续独立任务。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-classes"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id,int copies) {} static String encode(Book b){return b.id()+\",0\";}static Book decode(String s){String[] p=s.split(\",\");return new Book(Integer.parseInt(p[0]),Integer.parseInt(p[1]));}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=decode(encode(new Book(7,n)));System.out.println(\"id=\"+b.id()+\" copies=\"+b.copies());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id,int copies) {} static String encode(Book b){return b.id()+\",\"+b.copies();}static Book decode(String s){String[] p=s.split(\",\");return new Book(Integer.parseInt(p[0]),Integer.parseInt(p[1]));}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=decode(encode(new Book(7,n)));System.out.println(\"id=\"+b.id()+\" copies=\"+b.copies());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id,int copies) {} static String encode(Book b){return b.id()+\",0\";}static Book decode(String s){String[] p=s.split(\",\");return new Book(Integer.parseInt(p[0]),Integer.parseInt(p[1]));}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=decode(encode(new Book(7,n)));System.out.println(\"id=\"+b.id()+\" copies=\"+b.copies());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nrecord Book(int id,int copies) {} static String encode(Book b){return b.id()+\",\"+b.copies();}static Book decode(String s){String[] p=s.split(\",\");return new Book(Integer.parseInt(p[0]),Integer.parseInt(p[1]));}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=decode(encode(new Book(7,n)));System.out.println(\"id=\"+b.id()+\" copies=\"+b.copies());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "d9cb8f74-f6f9-55fd-900c-6275ee1f0775",
+      "version_id": "3883b5d4-2b36-5909-a92c-878405b5cfec",
+      "code": "CS02-M07-O02-CODE",
+      "version": "CS02-M07-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M07-O02"
+      ],
+      "kind": "code",
+      "title": "仓库替身与真实实现应遵守同一接口",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "替身可以核验业务调用，但不能证明真实文件或数据库工作。本任务确认相同业务逻辑读取两种实现，而非用模拟通过替代集成证据。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-interfaces"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int load();} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return 7;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService first=new Service(()->n);Service second=new Service(()->n+1);System.out.println(first.available()+\" \"+second.available());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int load();} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return r.load();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService first=new Service(()->n);Service second=new Service(()->n+1);System.out.println(first.available()+\" \"+second.available());\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int load();} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return 7;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService first=new Service(()->n);Service second=new Service(()->n+1);System.out.println(first.available()+\" \"+second.available());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Repo {int load();} static class Service {Repo r;Service(Repo r){this.r=r;}int available(){return r.load();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nService first=new Service(()->n);Service second=new Service(()->n+1);System.out.println(first.available()+\" \"+second.available());\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "4cdce61d-23f9-5f19-9064-4e5f545e76c9",
+      "version_id": "cca558ee-f1ad-581a-905a-ec20d0240a54",
+      "code": "CS02-M07-O03-CODE",
+      "version": "CS02-M07-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M07-O03"
+      ],
+      "kind": "code",
+      "title": "集成测试要真正保存并读取文件",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "Files.writeString 和 readString 在当前隔离文件系统执行；关闭作业后文件清理，不能由一次往返推断跨作业恢复或崩溃安全。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "java21-files"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPath p=Path.of(\"/box/tmp/book.txt\");Files.writeString(p,\"7,0\");String loaded=Files.readString(p);System.out.println(\"loaded=\"+loaded);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPath p=Path.of(\"/box/tmp/book.txt\");Files.writeString(p,\"7,\"+n);String loaded=Files.readString(p);System.out.println(\"loaded=\"+loaded);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPath p=Path.of(\"/box/tmp/book.txt\");Files.writeString(p,\"7,0\");String loaded=Files.readString(p);System.out.println(\"loaded=\"+loaded);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\n\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nPath p=Path.of(\"/box/tmp/book.txt\");Files.writeString(p,\"7,\"+n);String loaded=Files.readString(p);System.out.println(\"loaded=\"+loaded);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e251295b-5a59-538a-8036-6be56b2c6f0a",
+      "version_id": "e05dfe52-651f-5a0a-b49d-ef92c2571612",
+      "code": "CS02-M08-O01-CODE",
+      "version": "CS02-M08-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M08-O01"
+      ],
+      "kind": "code",
+      "title": "新增借阅政策不得写死角色分支",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "变化影响分析应寻找稳定契约与可变政策；固定输入的调用测试只能观察这一处依赖，不自动验证整个设计。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-interfaces"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Limit {int copies();}static class Library {Limit limit;Library(Limit l){limit=l;}boolean canBorrow(int held){return held<1;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary library=new Library(()->3);System.out.println(\"allowed=\"+library.canBorrow(n));\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Limit {int copies();}static class Library {Limit limit;Library(Limit l){limit=l;}boolean canBorrow(int held){return held<limit.copies();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary library=new Library(()->3);System.out.println(\"allowed=\"+library.canBorrow(n));\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Limit {int copies();}static class Library {Limit limit;Library(Limit l){limit=l;}boolean canBorrow(int held){return held<1;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary library=new Library(()->3);System.out.println(\"allowed=\"+library.canBorrow(n));\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\ninterface Limit {int copies();}static class Library {Limit limit;Library(Limit l){limit=l;}boolean canBorrow(int held){return held<limit.copies();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary library=new Library(()->3);System.out.println(\"allowed=\"+library.canBorrow(n));\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1711dafb-287c-5b34-bbcf-95bf396a2810",
+      "version_id": "5a2931b7-3a63-5c65-b399-1835f3407623",
+      "code": "CS02-M08-O02-CODE",
+      "version": "CS02-M08-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M08-O02"
+      ],
+      "kind": "code",
+      "title": "重构后复跑零库存与普通借阅",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "重构要求既有可观察行为保持，新增结构不能替代回归。至少区分成功路径与零库存拒绝的状态副作用。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "jls21-classes"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies;Book(int n){copies=n;}boolean borrow(){copies--;return copies>=0;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n);boolean accepted=b.borrow();System.out.println(\"accepted=\"+accepted+\" copies=\"+b.copies);\n}\n}\n"
+        },
+        "stdin": "0\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies;Book(int n){copies=n;}boolean borrow(){if(copies==0)return false;copies--;return true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n);boolean accepted=b.borrow();System.out.println(\"accepted=\"+accepted+\" copies=\"+b.copies);\n}\n}\n"
+        },
+        "stdin": "0\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "原成功路径回归",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies;Book(int n){copies=n;}boolean borrow(){copies--;return copies>=0;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n);boolean accepted=b.borrow();System.out.println(\"accepted=\"+accepted+\" copies=\"+b.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Book {int copies;Book(int n){copies=n;}boolean borrow(){if(copies==0)return false;copies--;return true;}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nBook b=new Book(n);boolean accepted=b.borrow();System.out.println(\"accepted=\"+accepted+\" copies=\"+b.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "af33512f-9760-5188-a9c5-08d3c08b3533",
+      "version_id": "5bf134c6-f41c-5a02-afe3-47097146b396",
+      "code": "CS02-M08-O03-CODE",
+      "version": "CS02-M08-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS02-M08-O03"
+      ],
+      "kind": "code",
+      "title": "借阅与预约使用一致的库存约束",
+      "student_action": "先预测并运行错误作品，修改后比较真实输出；解释依据，再进入新条件。有限比较不证明设计合理或独立掌握。",
+      "theory": [
+        "本任务预约是受限需求：借阅失败才可登记预约，归还后优先交给预约者。测试模型未涉及并发、真实用户权限或持久化。",
+        "本任务业务约束是原创情境规则；必须说明为何修改满足约束，以及未测试的条件。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "java21-collections"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Library {int copies;Queue<Integer> waiting=new ArrayDeque<>();Library(int c){copies=c;}void reserve(int user){waiting.add(user);}int giveBack(){copies++;return waiting.isEmpty()?-1:waiting.remove();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary l=new Library(0);l.reserve(n);int assigned=l.giveBack();System.out.println(\"assigned=\"+assigned+\" available=\"+l.copies);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "java21",
+        "entry": "Main.java",
+        "files": {
+          "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Library {int copies;Queue<Integer> waiting=new ArrayDeque<>();Library(int c){copies=c;}void reserve(int user){waiting.add(user);}int giveBack(){if(waiting.isEmpty()){copies++;return -1;}return waiting.remove();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary l=new Library(0);l.reserve(n);int assigned=l.giveBack();System.out.println(\"assigned=\"+assigned+\" available=\"+l.copies);\n}\n}\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "定位状态变化或依赖调用，先给出反例。",
+        "把约束检查放在状态提交之前；接口使用按对象职责安排。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变条件后复跑",
+          "student_action": "先预测状态、调用和异常；修改后重跑并解释约束。",
+          "code_request": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Library {int copies;Queue<Integer> waiting=new ArrayDeque<>();Library(int c){copies=c;}void reserve(int user){waiting.add(user);}int giveBack(){copies++;return waiting.isEmpty()?-1:waiting.remove();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary l=new Library(0);l.reserve(n);int assigned=l.giveBack();System.out.println(\"assigned=\"+assigned+\" available=\"+l.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "java21",
+            "entry": "Main.java",
+            "files": {
+              "Main.java": "import java.util.*;\nimport java.io.*;\nimport java.nio.file.*;\npublic class Main {\nstatic class Library {int copies;Queue<Integer> waiting=new ArrayDeque<>();Library(int c){copies=c;}void reserve(int user){waiting.add(user);}int giveBack(){if(waiting.isEmpty()){copies++;return -1;}return waiting.remove();}}\npublic static void main(String[] args) throws Exception {\nint n=Integer.parseInt(new Scanner(System.in).nextLine());\nLibrary l=new Library(0);l.reserve(n);int assigned=l.giveBack();System.out.println(\"assigned=\"+assigned+\" available=\"+l.copies);\n}\n}\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "jls21-classes",
+      "title": "Java21 类和对象",
+      "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html",
+      "locator": "8.3.1.1,8.4,8.8",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "jls21-interfaces",
+      "title": "Java21 接口",
+      "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-9.html",
+      "locator": "9.1,9.4",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "jls21-resources",
+      "title": "Java21 异常与资源",
+      "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html",
+      "locator": "14.20.3",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "java21-object",
+      "title": "Java21 Object 契约",
+      "url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html",
+      "locator": "equals,hashCode",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "java21-collections",
+      "title": "Java21 集合",
+      "url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html",
+      "locator": "集合约定",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "java21-files",
+      "title": "Java21 Files",
+      "url": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/nio/file/Files.html",
+      "locator": "writeString,readString",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ]
+}

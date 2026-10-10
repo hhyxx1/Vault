@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from uuid import NAMESPACE_URL, uuid5
 
 from vault_backend.code_execution import CodeRequest, CodeResult, request_hash
+from vault_backend.course_checks.generic_rules import GENERIC_RULES
 from vault_backend.course_checks.published_rules import PUBLISHED_RULES
 from vault_backend.errors import ApiError
 
@@ -94,6 +95,7 @@ class Task:
     stdout: str
     stderr: str = ""
     activity_version_id: str = ""
+    standard_version: str = STANDARD
 
 
 # Authored independently from submitted source; no uploaded grading programs.
@@ -214,6 +216,15 @@ def resolve_task(
     task_code: str,
     activity_version_id: str | None = None,
 ) -> Task:
+    generic = GENERIC_RULES.get(course_version_id, {}).get((objective_code, task_code))
+    if generic is not None:
+        expected_activity, *rule = generic
+        if activity_version_id is not None and expected_activity != activity_version_id:
+            raise ApiError(404, "CODE_TASK_UNAVAILABLE", "该版本没有登记此固定条件核验。")
+        return Task(
+            course_version_id, objective_code, task_code, *rule,
+            activity_version_id=expected_activity, standard_version="code-fixed-condition-v1",
+        )
     rule = PUBLISHED_RULES.get(course_version_id, {}).get((objective_code, task_code))
     expected_activity = VERSION_ACTIVITIES.get(course_version_id, {}).get(objective_code)
     if (
@@ -253,7 +264,7 @@ def assess_task(task: Task, request: CodeRequest, result: CodeResult) -> dict:
         "activity_version_id": task.activity_version_id,
         "objective_code": task.objective_code,
         "task_code": task.task_code,
-        "standard_version": STANDARD,
+        "standard_version": task.standard_version,
         "provenance": "server_deterministic_checker",
         "criteria": [
             {"id": "fixed_condition", "status": outcome, "reason": reason},

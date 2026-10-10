@@ -918,7 +918,10 @@
             "type": "string"
           },
           "standard_version": {
-            "const": "cs01-fixed-condition-v1",
+            "enum": [
+              "cs01-fixed-condition-v1",
+              "code-fixed-condition-v1"
+            ],
             "title": "Standard Version",
             "type": "string"
           },

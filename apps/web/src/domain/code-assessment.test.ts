@@ -14,6 +14,12 @@ it('shows only partial or unmet evidence and keeps uncertain runs unassessed', (
   expect(currentCodeAssessment([attempt()], 'goal', 'version')?.id).toBe('revision')
 })
 
+it('supports the shared code standard without granting complete mastery', () => {
+  const row = attempt()
+  row.result!.task_assessment!.standard_version = 'code-fixed-condition-v1'
+  expect(codeObjectiveState(row)).toBe('partial')
+})
+
 it('does not reuse recovered, wrong-version, wrong-goal or malformed feedback as trusted evidence', () => {
   const row = attempt()
   expect(currentCodeAssessment([{ ...row, resultTrust: 'client_reported' }], 'goal', 'version')).toBeUndefined()
