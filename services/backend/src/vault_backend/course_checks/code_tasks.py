@@ -39,6 +39,14 @@ VERSION_ACTIVITIES["fc44376d-c32e-58ed-a4cf-9f98b5a80811"] = {
     },
 }
 
+VERSION_ACTIVITIES["21b3d7a3-609a-508a-923c-ea92cc1a32ef"] = {
+    **VERSION_ACTIVITIES["fc44376d-c32e-58ed-a4cf-9f98b5a80811"],
+    **{
+        f"CS01-M05-O{goal:02d}": str(uuid5(NAMESPACE_URL, f"vault:CS01-M05-O{goal:02d}-CODE:0.1.0"))
+        for goal in (1, 2, 3)
+    },
+}
+
 
 @dataclass(frozen=True)
 class Task:
@@ -96,6 +104,31 @@ RULES = {
 
 
 RULES[("CS01-M04-O02", "missing-termination")] = ("", "success", "3\n2\n1\n", "")
+
+RULES[("CS01-M05-O01", "base")] = ("", "success", "4\n", "")
+RULES[("CS01-M05-O01", "negative-value")] = ("", "success", "-1\n", "")
+RULES[("CS01-M05-O02", "base")] = (
+    "",
+    "success",
+    "inner=12\nouter=2\ninner=13\nouter=3\nreturns=2 3\n",
+    "",
+)
+RULES[("CS01-M05-O02", "zero-seed")] = (
+    "",
+    "success",
+    "inner=10\nouter=0\ninner=11\nouter=1\nreturns=0 1\n",
+    "",
+)
+RULES[("CS01-M05-O03", "base")] = (
+    "",
+    "success",
+    "enter=3\nenter=2\nenter=1\nenter=0\n"
+    "leave=1 result=1\nleave=2 result=2\nleave=3 result=6\nresult=6\n",
+    "",
+)
+RULES[("CS01-M05-O03", "zero-base")] = ("", "success", "enter=0\nresult=1\n", "")
+RULES[("CS01-M05-O03", "reject-negative")] = ("", "success", "rejected\n", "")
+RULES[("CS01-M05-O03", "reject-large")] = ("", "success", "rejected\n", "")
 
 
 def resolve_task(

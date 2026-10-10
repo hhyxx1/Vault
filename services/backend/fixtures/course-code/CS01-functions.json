@@ -1,0 +1,274 @@
+[
+  {
+    "id": "CS01-M05-O01/base/initial",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O01",
+    "activity": "a13ee0fb-8d70-5a5d-805f-4124845e4de5",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint next(int value) { value++; return value; }\nint main(void) {\nint original=3;\nnext(original);\nprintf(\"%d\\n\",original);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M05-O01/base/repaired",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O01",
+    "activity": "a13ee0fb-8d70-5a5d-805f-4124845e4de5",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint next(int value) { value++; return value; }\nint main(void) {\nint original=3;\noriginal=next(original);\nprintf(\"%d\\n\",original);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M05-O01/negative-value/initial",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O01",
+    "activity": "a13ee0fb-8d70-5a5d-805f-4124845e4de5",
+    "task": "negative-value",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint next(int value) { value++; return value; }\nint main(void) {\nint original=-2;\nnext(original);\nprintf(\"%d\\n\",original);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "-2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M05-O01/negative-value/repaired",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O01",
+    "activity": "a13ee0fb-8d70-5a5d-805f-4124845e4de5",
+    "task": "negative-value",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint next(int value) { value++; return value; }\nint main(void) {\nint original=-2;\noriginal=next(original);\nprintf(\"%d\\n\",original);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "-1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M05-O02/base/initial",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O02",
+    "activity": "9c616909-621e-5681-8b55-c5041b6b617b",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint observe(int seed) { int value=seed; { value=seed+10; printf(\"inner=%d\\n\",value); } printf(\"outer=%d\\n\",value); return value; }\nint main(void) {\nint first=observe(2);\nint second=observe(3);\nprintf(\"returns=%d %d\\n\",first,second);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "inner=12\nouter=12\ninner=13\nouter=13\nreturns=12 13\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M05-O02/base/repaired",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O02",
+    "activity": "9c616909-621e-5681-8b55-c5041b6b617b",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint observe(int seed) { int value=seed; { int value=seed+10; printf(\"inner=%d\\n\",value); } printf(\"outer=%d\\n\",value); return value; }\nint main(void) {\nint first=observe(2);\nint second=observe(3);\nprintf(\"returns=%d %d\\n\",first,second);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "inner=12\nouter=2\ninner=13\nouter=3\nreturns=2 3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M05-O02/zero-seed/initial",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O02",
+    "activity": "9c616909-621e-5681-8b55-c5041b6b617b",
+    "task": "zero-seed",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint observe(int seed) { int value=seed; { value=seed+10; printf(\"inner=%d\\n\",value); } printf(\"outer=%d\\n\",value); return value; }\nint main(void) {\nint first=observe(0);\nint second=observe(1);\nprintf(\"returns=%d %d\\n\",first,second);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "inner=10\nouter=10\ninner=11\nouter=11\nreturns=10 11\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M05-O02/zero-seed/repaired",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O02",
+    "activity": "9c616909-621e-5681-8b55-c5041b6b617b",
+    "task": "zero-seed",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint observe(int seed) { int value=seed; { int value=seed+10; printf(\"inner=%d\\n\",value); } printf(\"outer=%d\\n\",value); return value; }\nint main(void) {\nint first=observe(0);\nint second=observe(1);\nprintf(\"returns=%d %d\\n\",first,second);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "inner=10\nouter=0\ninner=11\nouter=1\nreturns=0 1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M05-O03/base/initial",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O03",
+    "activity": "43a8a4f0-1aa3-572d-9e24-bb8be772b944",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 0;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=3;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "enter=3\nenter=2\nenter=1\nenter=0\nleave=1 result=0\nleave=2 result=0\nleave=3 result=0\nresult=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M05-O03/base/repaired",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O03",
+    "activity": "43a8a4f0-1aa3-572d-9e24-bb8be772b944",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 1;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=3;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "enter=3\nenter=2\nenter=1\nenter=0\nleave=1 result=1\nleave=2 result=2\nleave=3 result=6\nresult=6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M05-O03/zero-base/initial",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O03",
+    "activity": "43a8a4f0-1aa3-572d-9e24-bb8be772b944",
+    "task": "zero-base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 0;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=0;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "enter=0\nresult=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M05-O03/zero-base/repaired",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O03",
+    "activity": "43a8a4f0-1aa3-572d-9e24-bb8be772b944",
+    "task": "zero-base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 1;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=0;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "enter=0\nresult=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M05-O03/reject-negative/initial",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O03",
+    "activity": "43a8a4f0-1aa3-572d-9e24-bb8be772b944",
+    "task": "reject-negative",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 0;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=-1;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "rejected\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M05-O03/reject-negative/repaired",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O03",
+    "activity": "43a8a4f0-1aa3-572d-9e24-bb8be772b944",
+    "task": "reject-negative",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 1;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=-1;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "rejected\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M05-O03/reject-large/initial",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O03",
+    "activity": "43a8a4f0-1aa3-572d-9e24-bb8be772b944",
+    "task": "reject-large",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 0;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=6;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "rejected\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M05-O03/reject-large/repaired",
+    "version": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+    "goal": "CS01-M05-O03",
+    "activity": "43a8a4f0-1aa3-572d-9e24-bb8be772b944",
+    "task": "reject-large",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 1;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=6;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "rejected\n",
+    "decision": "met"
+  }
+]
