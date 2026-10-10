@@ -1,0 +1,3060 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "d6041fd1-b631-4503-8e28-b042088ef0c9",
+  "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+  "course_code": "CS07",
+  "version": "CS07-core-practice-0.1.0",
+  "title": "操作系统",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "受限系统接口与教学模型实践；完整 trace、独立核验和作业观察器项目待建设。",
+  "objectives": [
+    {
+      "id": "b297f0d4-1eb7-54b3-b039-977e691829da",
+      "code": "CS07-M01-O01",
+      "title": "区分用户态内核态",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "eded033e-7e96-5bfb-b19a-67cdef793658",
+      "code": "CS07-M01-O02",
+      "title": "解释系统调用",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "08839f61-dce1-5400-87aa-c4995253e5cc",
+      "code": "CS07-M01-O03",
+      "title": "定位异常中断与返回",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "deb00332-aca7-5347-b919-982601a306f3",
+      "code": "CS07-M02-O01",
+      "title": "建立进程状态模型",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "c19282a4-eefd-54e3-b13c-3ee7bcb5a4bd",
+      "code": "CS07-M02-O02",
+      "title": "创建进程线程及通信",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "49478cd2-d167-575f-860e-211eef9463d9",
+      "code": "CS07-M02-O03",
+      "title": "解释地址空间和共享",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "3ea7ee01-772b-5bd2-86b2-178201b9d3cf",
+      "code": "CS07-M03-O01",
+      "title": "推演主要调度算法",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "1f00039f-ccce-56be-8bbd-d4eb5560512c",
+      "code": "CS07-M03-O02",
+      "title": "计算等待响应周转",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "80c0f1d3-1e7f-5300-8a48-d20c7d6e9f89",
+      "code": "CS07-M03-O03",
+      "title": "解释公平与吞吐取舍",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "62eef1ef-c796-5095-9c7c-db04f6c5b925",
+      "code": "CS07-M04-O01",
+      "title": "发现竞态",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "45a79ee8-42e2-5a56-b8b8-e67fab1c75b9",
+      "code": "CS07-M04-O02",
+      "title": "使用锁信号量或条件变量",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "a87fa1ba-a734-519f-b8d1-38c1f72c87f5",
+      "code": "CS07-M04-O03",
+      "title": "解释安全性与活性",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "5f7e5809-98eb-5ec1-a8d1-65cd7bcab2a6",
+      "code": "CS07-M05-O01",
+      "title": "识别必要条件",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "934e215a-e128-565d-9a36-2eeff063f081",
+      "code": "CS07-M05-O02",
+      "title": "构造等待图",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "cc77b375-faa0-5d92-8bfb-7e53c4bb7950",
+      "code": "CS07-M05-O03",
+      "title": "实施避免或检测恢复",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "80ceaa70-605c-5e7e-b6ee-d9b678d8c57b",
+      "code": "CS07-M06-O01",
+      "title": "推演分区与分页",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "a166ea1a-5a56-58a1-aad8-1a71fefe8e99",
+      "code": "CS07-M06-O02",
+      "title": "计算地址转换",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7e507bc1-dd9c-5b35-999c-44e6640c2bd1",
+      "code": "CS07-M06-O03",
+      "title": "比较分配与碎片",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "4b946b1f-6ace-55bd-88c4-19695b3432d4",
+      "code": "CS07-M07-O01",
+      "title": "模拟缺页与置换",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "2099ceda-39c5-56a8-b277-1f27b6ab5d90",
+      "code": "CS07-M07-O02",
+      "title": "解释局部性和抖动",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "59ee663e-d9bf-50c3-961b-934def01d710",
+      "code": "CS07-M07-O03",
+      "title": "计算工作集影响",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "82afdebc-74f3-5b9f-9274-e1d5977316ba",
+      "code": "CS07-M08-O01",
+      "title": "解释文件索引和目录",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "224c2622-1b27-523b-8c6d-538a01564477",
+      "code": "CS07-M08-O02",
+      "title": "实施权限及文件操作",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7252b920-5b52-5593-8145-433e48bdc653",
+      "code": "CS07-M08-O03",
+      "title": "分析缓存与设备调度",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e3c19f0e-24ad-5b2c-b3c2-6c82213748b7",
+      "code": "CS07-M09-O01",
+      "title": "区分隔离权限和认证",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "5e1ca739-35ba-5648-bb60-81b8ed5fcc83",
+      "code": "CS07-M09-O02",
+      "title": "限制进程资源",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "a319dc4c-c712-5dec-95da-1c00e99cccde",
+      "code": "CS07-M09-O03",
+      "title": "分析运行故障与恢复",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS07-M01",
+      "title": "系统接口",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M01-O01-unit",
+          "title": "区分用户态内核态",
+          "objective_refs": [
+            "CS07-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M01-O02-unit",
+          "title": "解释系统调用",
+          "objective_refs": [
+            "CS07-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M01-O03-unit",
+          "title": "定位异常中断与返回",
+          "objective_refs": [
+            "CS07-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M02",
+      "title": "进程与线程",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M02-O01-unit",
+          "title": "建立进程状态模型",
+          "objective_refs": [
+            "CS07-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M02-O02-unit",
+          "title": "创建进程线程及通信",
+          "objective_refs": [
+            "CS07-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M02-O03-unit",
+          "title": "解释地址空间和共享",
+          "objective_refs": [
+            "CS07-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M03",
+      "title": "调度",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M03-O01-unit",
+          "title": "推演主要调度算法",
+          "objective_refs": [
+            "CS07-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M03-O02-unit",
+          "title": "计算等待响应周转",
+          "objective_refs": [
+            "CS07-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M03-O03-unit",
+          "title": "解释公平与吞吐取舍",
+          "objective_refs": [
+            "CS07-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M04",
+      "title": "同步与互斥",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M04-O01-unit",
+          "title": "发现竞态",
+          "objective_refs": [
+            "CS07-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M04-O02-unit",
+          "title": "使用锁信号量或条件变量",
+          "objective_refs": [
+            "CS07-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M04-O03-unit",
+          "title": "解释安全性与活性",
+          "objective_refs": [
+            "CS07-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M05",
+      "title": "死锁",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M05-O01-unit",
+          "title": "识别必要条件",
+          "objective_refs": [
+            "CS07-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M05-O02-unit",
+          "title": "构造等待图",
+          "objective_refs": [
+            "CS07-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M05-O03-unit",
+          "title": "实施避免或检测恢复",
+          "objective_refs": [
+            "CS07-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M06",
+      "title": "内存管理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M06-O01-unit",
+          "title": "推演分区与分页",
+          "objective_refs": [
+            "CS07-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M06-O02-unit",
+          "title": "计算地址转换",
+          "objective_refs": [
+            "CS07-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M06-O03-unit",
+          "title": "比较分配与碎片",
+          "objective_refs": [
+            "CS07-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M07",
+      "title": "虚拟内存",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M07-O01-unit",
+          "title": "模拟缺页与置换",
+          "objective_refs": [
+            "CS07-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M07-O02-unit",
+          "title": "解释局部性和抖动",
+          "objective_refs": [
+            "CS07-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M07-O03-unit",
+          "title": "计算工作集影响",
+          "objective_refs": [
+            "CS07-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M08",
+      "title": "文件与设备",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M08-O01-unit",
+          "title": "解释文件索引和目录",
+          "objective_refs": [
+            "CS07-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M08-O02-unit",
+          "title": "实施权限及文件操作",
+          "objective_refs": [
+            "CS07-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M08-O03-unit",
+          "title": "分析缓存与设备调度",
+          "objective_refs": [
+            "CS07-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS07-M09",
+      "title": "保护与系统综合",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS07-M09-O01-unit",
+          "title": "区分隔离权限和认证",
+          "objective_refs": [
+            "CS07-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M09-O02-unit",
+          "title": "限制进程资源",
+          "objective_refs": [
+            "CS07-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS07-M09-O03-unit",
+          "title": "分析运行故障与恢复",
+          "objective_refs": [
+            "CS07-M09-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "CS07-M01-O01",
+      "to": "CS07-M01-O02",
+      "kind": "conceptual_association",
+      "reason": "文件系统调用进入内核但用户代码只观察返回结果",
+      "source_locator": "os-api",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：文件系统调用进入内核但用户代码只观察返回结果；机制参见 os-api；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M01-O02",
+      "to": "CS07-M01-O03",
+      "kind": "conceptual_association",
+      "reason": "读调用的返回值和失败原因必须分别记录",
+      "source_locator": "os-api",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：读调用的返回值和失败原因必须分别记录；机制参见 os-api；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M02-O01",
+      "to": "CS07-M02-O02",
+      "kind": "conceptual_association",
+      "reason": "管道接收结束后父进程须回收子进程",
+      "source_locator": "os-process",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：管道接收结束后父进程须回收子进程；机制参见 os-process；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M02-O02",
+      "to": "CS07-M02-O03",
+      "kind": "conceptual_association",
+      "reason": "管道传递值不使父子普通变量自动共享",
+      "source_locator": "os-process",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：管道传递值不使父子普通变量自动共享；机制参见 os-process；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M03-O01",
+      "to": "CS07-M03-O02",
+      "kind": "conceptual_association",
+      "reason": "服务顺序决定首次响应及完成时刻",
+      "source_locator": "os-sched",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：服务顺序决定首次响应及完成时刻；机制参见 os-sched；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M03-O02",
+      "to": "CS07-M03-O03",
+      "kind": "conceptual_association",
+      "reason": "轮转时间片改变响应与周转，指标定义不变",
+      "source_locator": "os-sched",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：轮转时间片改变响应与周转，指标定义不变；机制参见 os-sched；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M04-O01",
+      "to": "CS07-M04-O02",
+      "kind": "conceptual_association",
+      "reason": "共享队列的复合状态操作同样需要原子性",
+      "source_locator": "os-threads",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：共享队列的复合状态操作同样需要原子性；机制参见 os-threads；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M04-O01",
+      "to": "CS07-M04-O03",
+      "kind": "conceptual_association",
+      "reason": "互斥和初始化顺序处理不同并发条件",
+      "source_locator": "os-bugs",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：互斥和初始化顺序处理不同并发条件；机制参见 os-bugs；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M05-O01",
+      "to": "CS07-M05-O02",
+      "kind": "conceptual_association",
+      "reason": "单实例等待图的环表达循环等待条件",
+      "source_locator": "os-bugs",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：单实例等待图的环表达循环等待条件；机制参见 os-bugs；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M05-O02",
+      "to": "CS07-M05-O03",
+      "kind": "conceptual_association",
+      "reason": "当前等待图与最大需求下的安全序列不同",
+      "source_locator": "os-banker",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：当前等待图与最大需求下的安全序列不同；机制参见 os-banker；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M06-O01",
+      "to": "CS07-M06-O02",
+      "kind": "conceptual_association",
+      "reason": "地址页号与页内偏移使用同一页大小",
+      "source_locator": "os-paging",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：地址页号与页内偏移使用同一页大小；机制参见 os-paging；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M06-O01",
+      "to": "CS07-M06-O03",
+      "kind": "conceptual_association",
+      "reason": "整页内部碎片与连续分区外部碎片不同",
+      "source_locator": "os-memory",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：整页内部碎片与连续分区外部碎片不同；机制参见 os-memory；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M07-O01",
+      "to": "CS07-M07-O02",
+      "kind": "conceptual_association",
+      "reason": "命中刷新规则取决于置换策略而局部性只提供访问背景",
+      "source_locator": "os-policy",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：命中刷新规则取决于置换策略而局部性只提供访问背景；机制参见 os-policy；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M07-O02",
+      "to": "CS07-M07-O03",
+      "kind": "conceptual_association",
+      "reason": "工作集必须注明访问窗口而非全部历史",
+      "source_locator": "os-policy",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：工作集必须注明访问窗口而非全部历史；机制参见 os-policy；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M08-O01",
+      "to": "CS07-M08-O02",
+      "kind": "conceptual_association",
+      "reason": "目录路径、打开描述符和访问权限需分别记录",
+      "source_locator": "os-files",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：目录路径、打开描述符和访问权限需分别记录；机制参见 os-files；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M08-O01",
+      "to": "CS07-M08-O03",
+      "kind": "conceptual_association",
+      "reason": "文件 API 行为不能直接推出机械磁盘调度成本",
+      "source_locator": "os-files",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：文件 API 行为不能直接推出机械磁盘调度成本；机制参见 os-files；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M09-O01",
+      "to": "CS07-M09-O02",
+      "kind": "conceptual_association",
+      "reason": "业务授权与进程资源隔离分别约束请求和运行",
+      "source_locator": "os-limit",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：业务授权与进程资源隔离分别约束请求和运行；机制参见 os-limit；专业审校不可用。"
+    },
+    {
+      "from": "CS07-M09-O02",
+      "to": "CS07-M09-O03",
+      "kind": "conceptual_association",
+      "reason": "观察器需分辨资源拒绝、正常退出和信号终止",
+      "source_locator": "os-process",
+      "course_version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：观察器需分辨资源拒绝、正常退出和信号终止；机制参见 os-process；专业审校不可用。"
+    }
+  ],
+  "activities": [
+    {
+      "id": "993280da-cdf6-50d0-acda-0b977271c75f",
+      "version_id": "8c0c62ea-771e-573b-80d9-6cbbf72dd6bd",
+      "code": "CS07-M01-O01-CODE",
+      "version": "CS07-M01-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M01-O01"
+      ],
+      "kind": "code",
+      "title": "教学陷入返回轨迹区分当前模式",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创模型：系统调用 trap 进入 kernel，return 回 user。此 Python 状态表不是内核 trace，不能从日志补写未观察行为。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-trap"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nmode='user'\nevents=['trap','return'] if n == 1 else ['trap']\nfor event in events:\n if event == 'trap': mode='kernel'\n if event == 'return': mode='kernel'\nprint(mode)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nmode='user'\nevents=['trap','return'] if n == 1 else ['trap']\nfor event in events:\n if event == 'trap': mode='kernel'\n if event == 'return': mode='user'\nprint(mode)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "尚未返回的系统调用",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nmode='user'\nevents=['trap','return'] if n == 1 else ['trap']\nfor event in events:\n if event == 'trap': mode='kernel'\n if event == 'return': mode='kernel'\nprint(mode)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nmode='user'\nevents=['trap','return'] if n == 1 else ['trap']\nfor event in events:\n if event == 'trap': mode='kernel'\n if event == 'return': mode='user'\nprint(mode)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e4bd641f-88aa-5b32-a967-5d3beb53005b",
+      "version_id": "cd79e875-6384-5137-b3ee-8f219c33bd38",
+      "code": "CS07-M01-O02-CODE",
+      "version": "CS07-M01-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M01-O02"
+      ],
+      "kind": "code",
+      "title": "文件读到指定长度不等于读到 EOF",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "真实 os.open/read 以两字节块读取隔离文件直到 EOF，保存所有块；短读不是一般文件结束保证。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-api"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\nPath('data.txt').write_bytes(b'alpha' if n == 1 else b'xy')\nfd=os.open('data.txt',os.O_RDONLY)\ntry:\n data=os.read(fd,2)\n print(data.decode())\nfinally: os.close(fd)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\nPath('data.txt').write_bytes(b'alpha' if n == 1 else b'xy')\nfd=os.open('data.txt',os.O_RDONLY)\ntry:\n data=b''\n while True:\n  part=os.read(fd,2)\n  if not part: break\n  data+=part\n print(data.decode())\nfinally: os.close(fd)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "文件只有一块",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\nPath('data.txt').write_bytes(b'alpha' if n == 1 else b'xy')\nfd=os.open('data.txt',os.O_RDONLY)\ntry:\n data=os.read(fd,2)\n print(data.decode())\nfinally: os.close(fd)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\nPath('data.txt').write_bytes(b'alpha' if n == 1 else b'xy')\nfd=os.open('data.txt',os.O_RDONLY)\ntry:\n data=b''\n while True:\n  part=os.read(fd,2)\n  if not part: break\n  data+=part\n print(data.decode())\nfinally: os.close(fd)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "4c61379a-cdfa-52e5-99eb-bd6161d26cf5",
+      "version_id": "71a4bb0c-311d-5fac-8772-84e97344b70a",
+      "code": "CS07-M01-O03-CODE",
+      "version": "CS07-M01-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M01-O03"
+      ],
+      "kind": "code",
+      "title": "真实缺失文件应保留失败原因",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "实际隔离目录中的存在／缺失文件触发 FileNotFoundError，错误不能记录成读取成功；权限拒绝是不同原因。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-api"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom pathlib import Path\npath=Path('input.txt')\nif n == 2: path.write_text('ok')\ntry:\n data=path.read_text(); result=data\nexcept FileNotFoundError:\n result='ok'\nprint(result)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom pathlib import Path\npath=Path('input.txt')\nif n == 2: path.write_text('ok')\ntry:\n data=path.read_text(); result=data\nexcept FileNotFoundError:\n result='missing'\nprint(result)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "真实文件存在",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom pathlib import Path\npath=Path('input.txt')\nif n == 2: path.write_text('ok')\ntry:\n data=path.read_text(); result=data\nexcept FileNotFoundError:\n result='ok'\nprint(result)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom pathlib import Path\npath=Path('input.txt')\nif n == 2: path.write_text('ok')\ntry:\n data=path.read_text(); result=data\nexcept FileNotFoundError:\n result='missing'\nprint(result)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "135bec25-b524-5217-9c46-2838769374ad",
+      "version_id": "cfe88aac-8fe4-5ddf-94a6-6b084337b2e2",
+      "code": "CS07-M02-O01-CODE",
+      "version": "CS07-M02-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M02-O01"
+      ],
+      "kind": "code",
+      "title": "waitpid 状态字需解码退出值",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "实际 fork 子进程正常退出、父进程 waitpid 回收；退出码与系统编码的等待状态字不同。信号退出必须另识别。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-process"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\ncode=7 if n == 1 else 0\npid=os.fork()\nif pid == 0: os._exit(code)\n_,status=os.waitpid(pid,0)\nprint(status)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\ncode=7 if n == 1 else 0\npid=os.fork()\nif pid == 0: os._exit(code)\n_,status=os.waitpid(pid,0)\nprint(os.WEXITSTATUS(status))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "零退出码",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\ncode=7 if n == 1 else 0\npid=os.fork()\nif pid == 0: os._exit(code)\n_,status=os.waitpid(pid,0)\nprint(status)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\ncode=7 if n == 1 else 0\npid=os.fork()\nif pid == 0: os._exit(code)\n_,status=os.waitpid(pid,0)\nprint(os.WEXITSTATUS(status))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "ace7f432-3b58-503a-ab2a-cbb526cd9f73",
+      "version_id": "bfe08157-3df8-5a11-9698-232a1bf3558f",
+      "code": "CS07-M02-O02-CODE",
+      "version": "CS07-M02-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M02-O02"
+      ],
+      "kind": "code",
+      "title": "父子管道消息需读取到关闭端的 EOF",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "实际 fork/pipe，子关闭读端写消息并退出，父关闭写端循环读取并 waitpid。单次两字节 read 不能取完整消息。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-api"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\npayload=b'alpha' if n == 1 else b'xy'\nr,w=os.pipe(); pid=os.fork()\nif pid == 0:\n os.close(r); os.write(w,payload); os.close(w); os._exit(0)\nos.close(w)\ndata=os.read(r,2)\nos.close(r); os.waitpid(pid,0)\nprint(data.decode())\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\npayload=b'alpha' if n == 1 else b'xy'\nr,w=os.pipe(); pid=os.fork()\nif pid == 0:\n os.close(r); os.write(w,payload); os.close(w); os._exit(0)\nos.close(w)\ndata=b''\nwhile True:\n part=os.read(r,2)\n if not part: break\n data+=part\nos.close(r); os.waitpid(pid,0)\nprint(data.decode())\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "只有一个读取块",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\npayload=b'alpha' if n == 1 else b'xy'\nr,w=os.pipe(); pid=os.fork()\nif pid == 0:\n os.close(r); os.write(w,payload); os.close(w); os._exit(0)\nos.close(w)\ndata=os.read(r,2)\nos.close(r); os.waitpid(pid,0)\nprint(data.decode())\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\npayload=b'alpha' if n == 1 else b'xy'\nr,w=os.pipe(); pid=os.fork()\nif pid == 0:\n os.close(r); os.write(w,payload); os.close(w); os._exit(0)\nos.close(w)\ndata=b''\nwhile True:\n part=os.read(r,2)\n if not part: break\n data+=part\nos.close(r); os.waitpid(pid,0)\nprint(data.decode())\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "78d1a329-2590-5395-a0f2-6b3fbf0411d2",
+      "version_id": "79974fc9-c36c-53fb-a635-0cc5d65aa7cf",
+      "code": "CS07-M02-O03-CODE",
+      "version": "CS07-M02-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M02-O03"
+      ],
+      "kind": "code",
+      "title": "fork 后父子普通变量各有地址空间",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "子修改 x 后通过真实管道报告值，父自己的 x 不随子修改。共享内存和线程是另一个契约。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-process"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\nx=1; child_value=2 if n == 1 else 1\nr,w=os.pipe(); pid=os.fork()\nif pid == 0:\n x=child_value; os.close(r); os.write(w,str(x).encode()); os.close(w); os._exit(0)\nos.close(w); reported=int(os.read(r,16)); os.close(r); os.waitpid(pid,0)\nprint(reported)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\nx=1; child_value=2 if n == 1 else 1\nr,w=os.pipe(); pid=os.fork()\nif pid == 0:\n x=child_value; os.close(r); os.write(w,str(x).encode()); os.close(w); os._exit(0)\nos.close(w); reported=int(os.read(r,16)); os.close(r); os.waitpid(pid,0)\nprint(x)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "子写入与父原值相同",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\nx=1; child_value=2 if n == 1 else 1\nr,w=os.pipe(); pid=os.fork()\nif pid == 0:\n x=child_value; os.close(r); os.write(w,str(x).encode()); os.close(w); os._exit(0)\nos.close(w); reported=int(os.read(r,16)); os.close(r); os.waitpid(pid,0)\nprint(reported)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\nx=1; child_value=2 if n == 1 else 1\nr,w=os.pipe(); pid=os.fork()\nif pid == 0:\n x=child_value; os.close(r); os.write(w,str(x).encode()); os.close(w); os._exit(0)\nos.close(w); reported=int(os.read(r,16)); os.close(r); os.waitpid(pid,0)\nprint(x)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1639937d-cf94-52e0-9df6-f0f8554ded99",
+      "version_id": "d4f8dceb-aa42-542f-a188-8b34e0dc6038",
+      "code": "CS07-M03-O01-CODE",
+      "version": "CS07-M03-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M03-O01"
+      ],
+      "kind": "code",
+      "title": "非抢占短作业优先按运行时长选择",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创所有作业时刻零到达，SJF 选最短运行时长、同长按给定顺序；不冒称有后来到达时也是同一调度结果。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-sched"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\njobs=[('A',5),('B',2)] if n == 1 else [('A',2),('B',5)]\nprint(' '.join(name for name,length in jobs))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\njobs=[('A',5),('B',2)] if n == 1 else [('A',2),('B',5)]\nprint(' '.join(name for name,length in sorted(jobs,key=lambda job:job[1])))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "原顺序已是最短优先",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\njobs=[('A',5),('B',2)] if n == 1 else [('A',2),('B',5)]\nprint(' '.join(name for name,length in jobs))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\njobs=[('A',5),('B',2)] if n == 1 else [('A',2),('B',5)]\nprint(' '.join(name for name,length in sorted(jobs,key=lambda job:job[1])))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "0bd90c40-f593-5f95-a29f-bbf6d797fd98",
+      "version_id": "29801e13-2ff5-58bc-b579-6f41075398e8",
+      "code": "CS07-M03-O02-CODE",
+      "version": "CS07-M03-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M03-O02"
+      ],
+      "kind": "code",
+      "title": "周转时间应减去到达时刻",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "非抢占作业完成时刻减到达为周转，首次运行减到达为响应，周转减运行总量为等待；不能混淆绝对完成时刻。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-sched"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\narrival=3 if n == 1 else 0\nstart=5; finish=9\nprint(finish)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\narrival=3 if n == 1 else 0\nstart=5; finish=9\nprint(finish-arrival)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "零到达时刻",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\narrival=3 if n == 1 else 0\nstart=5; finish=9\nprint(finish)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\narrival=3 if n == 1 else 0\nstart=5; finish=9\nprint(finish-arrival)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "b1a63992-68f0-597e-b95b-caf3fc1958c2",
+      "version_id": "cdca8acf-92e8-5849-baf7-3a02845967db",
+      "code": "CS07-M03-O03-CODE",
+      "version": "CS07-M03-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M03-O03"
+      ],
+      "kind": "code",
+      "title": "轮转调度未完成作业须重新排队",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创全部时刻零到达、时间片2、切换零开销，服务片段按队列重新排未完成作业；只服务一轮会丢弃剩余任务。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-sched"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\njobs=[['A',3],['B',1]] if n == 1 else [['A',1],['B',1]]\ntrace=[]\nwhile jobs:\n name,left=jobs.pop(0); used=min(2,left); trace.append(name+str(used)); left-=used\n if False: jobs.append([name,left])\nprint(' '.join(trace))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\njobs=[['A',3],['B',1]] if n == 1 else [['A',1],['B',1]]\ntrace=[]\nwhile jobs:\n name,left=jobs.pop(0); used=min(2,left); trace.append(name+str(used)); left-=used\n if left > 0: jobs.append([name,left])\nprint(' '.join(trace))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "都在一片内完成",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\njobs=[['A',3],['B',1]] if n == 1 else [['A',1],['B',1]]\ntrace=[]\nwhile jobs:\n name,left=jobs.pop(0); used=min(2,left); trace.append(name+str(used)); left-=used\n if False: jobs.append([name,left])\nprint(' '.join(trace))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\njobs=[['A',3],['B',1]] if n == 1 else [['A',1],['B',1]]\ntrace=[]\nwhile jobs:\n name,left=jobs.pop(0); used=min(2,left); trace.append(name+str(used)); left-=used\n if left > 0: jobs.append([name,left])\nprint(' '.join(trace))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "6e6c5fdd-8b47-5f0a-8c51-bcf2c1134a2e",
+      "version_id": "0944dc66-1f3c-54ef-9499-c13141c38543",
+      "code": "CS07-M04-O01-CODE",
+      "version": "CS07-M04-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M04-O01"
+      ],
+      "kind": "code",
+      "title": "真实线程读改写需要原子区间",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "两个线程用 Barrier 固定读旧值的交错以复现丢失更新；锁覆盖读改写才能得到两次增量。该调度只展示一项反例。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-threads"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom threading import Thread,Barrier,Lock\ncount=0; gate=Barrier(2); lock=Lock(); amount=1 if n == 1 else 2\ndef worker():\n global count\n if False:\n  with lock: count+=amount\n else:\n  old=count; gate.wait(); count=old+amount\nthreads=[Thread(target=worker) for _ in range(2)]\nfor t in threads: t.start()\nfor t in threads: t.join()\nprint(count)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom threading import Thread,Barrier,Lock\ncount=0; gate=Barrier(2); lock=Lock(); amount=1 if n == 1 else 2\ndef worker():\n global count\n if True:\n  with lock: count+=amount\n else:\n  old=count; gate.wait(); count=old+amount\nthreads=[Thread(target=worker) for _ in range(2)]\nfor t in threads: t.start()\nfor t in threads: t.join()\nprint(count)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "每次增量改为二",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom threading import Thread,Barrier,Lock\ncount=0; gate=Barrier(2); lock=Lock(); amount=1 if n == 1 else 2\ndef worker():\n global count\n if False:\n  with lock: count+=amount\n else:\n  old=count; gate.wait(); count=old+amount\nthreads=[Thread(target=worker) for _ in range(2)]\nfor t in threads: t.start()\nfor t in threads: t.join()\nprint(count)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom threading import Thread,Barrier,Lock\ncount=0; gate=Barrier(2); lock=Lock(); amount=1 if n == 1 else 2\ndef worker():\n global count\n if True:\n  with lock: count+=amount\n else:\n  old=count; gate.wait(); count=old+amount\nthreads=[Thread(target=worker) for _ in range(2)]\nfor t in threads: t.start()\nfor t in threads: t.join()\nprint(count)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1692b03a-d147-5abe-9cee-56dbc652773e",
+      "version_id": "89c9732d-19d5-51b8-ae0f-ebcdc9e39625",
+      "code": "CS07-M04-O02-CODE",
+      "version": "CS07-M04-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M04-O02"
+      ],
+      "kind": "code",
+      "title": "有界队列满时拒绝不能悄悄挤走旧值",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "queue.Queue(maxsize=2) 真实非阻塞 put，满队列保持状态并报告 Full；删除最旧作品不符合本题生产者消费者契约。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-threads"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom queue import Queue,Full\nq=Queue(maxsize=2); values=[1,2,3] if n == 1 else [1,2]\nfor x in values:\n try: q.put_nowait(x)\n except Full:\n  q.get_nowait(); q.put_nowait(x)\nprint(list(q.queue))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom queue import Queue,Full\nq=Queue(maxsize=2); values=[1,2,3] if n == 1 else [1,2]\nfor x in values:\n try: q.put_nowait(x)\n except Full:\n  pass\nprint(list(q.queue))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "刚好容量",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom queue import Queue,Full\nq=Queue(maxsize=2); values=[1,2,3] if n == 1 else [1,2]\nfor x in values:\n try: q.put_nowait(x)\n except Full:\n  q.get_nowait(); q.put_nowait(x)\nprint(list(q.queue))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom queue import Queue,Full\nq=Queue(maxsize=2); values=[1,2,3] if n == 1 else [1,2]\nfor x in values:\n try: q.put_nowait(x)\n except Full:\n  pass\nprint(list(q.queue))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "7ff8cc5c-9be6-5815-87ba-7b69d7ed6c5e",
+      "version_id": "2d30ace7-8ccc-5558-9b56-383c937504f0",
+      "code": "CS07-M04-O03-CODE",
+      "version": "CS07-M04-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M04-O03"
+      ],
+      "kind": "code",
+      "title": "线程初始化须先于读取",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "真实 Event 和线程，先让读取线程启动、主线程确定初始化后释放；无等待路径被控制为先读旧值。成功的一个调度不代表全部同步已证明。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-bugs"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom threading import Thread,Event\nready=Event(); observed=Event(); done=Event(); value=0; result=[]\ndef worker():\n observed.set()\n if False: ready.wait()\n result.append(value); done.set()\nt=Thread(target=worker); t.start(); observed.wait()\nif not False: done.wait()\nvalue=9 if n == 1 else 3; ready.set(); t.join()\nprint(result[0])\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfrom threading import Thread,Event\nready=Event(); observed=Event(); done=Event(); value=0; result=[]\ndef worker():\n observed.set()\n if True: ready.wait()\n result.append(value); done.set()\nt=Thread(target=worker); t.start(); observed.wait()\nif not True: done.wait()\nvalue=9 if n == 1 else 3; ready.set(); t.join()\nprint(result[0])\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变初始化内容",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom threading import Thread,Event\nready=Event(); observed=Event(); done=Event(); value=0; result=[]\ndef worker():\n observed.set()\n if False: ready.wait()\n result.append(value); done.set()\nt=Thread(target=worker); t.start(); observed.wait()\nif not False: done.wait()\nvalue=9 if n == 1 else 3; ready.set(); t.join()\nprint(result[0])\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfrom threading import Thread,Event\nready=Event(); observed=Event(); done=Event(); value=0; result=[]\ndef worker():\n observed.set()\n if True: ready.wait()\n result.append(value); done.set()\nt=Thread(target=worker); t.start(); observed.wait()\nif not True: done.wait()\nvalue=9 if n == 1 else 3; ready.set(); t.join()\nprint(result[0])\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e5d4faca-64c8-5e40-b280-c956431a22e8",
+      "version_id": "191c9933-a731-5f8b-a8c7-3d52e0368d51",
+      "code": "CS07-M05-O01-CODE",
+      "version": "CS07-M05-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M05-O01"
+      ],
+      "kind": "code",
+      "title": "死锁四项必要条件需同时成立",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "互斥、持有等待、不可抢占、循环等待是本资源模型死锁必要条件；全部成立说明风险，不能仅凭布尔项就宣称实际已死锁。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-bugs"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nconditions=[True,True,False,True] if n == 1 else [True]*4\nprint(any(conditions))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nconditions=[True,True,False,True] if n == 1 else [True]*4\nprint(all(conditions))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "四项条件都成立的风险",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nconditions=[True,True,False,True] if n == 1 else [True]*4\nprint(any(conditions))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nconditions=[True,True,False,True] if n == 1 else [True]*4\nprint(all(conditions))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "ffa653cd-407c-5f3f-9b20-028df8d63141",
+      "version_id": "a61dd406-7dad-564c-85a6-187bbe41b26a",
+      "code": "CS07-M05-O02-CODE",
+      "version": "CS07-M05-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M05-O02"
+      ],
+      "kind": "code",
+      "title": "等待图边由等待者指向持有者",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创单实例资源：进程 A 等资源 R，持有者 B，等待边 A→B。方向错会影响环与恢复分析。这里只构造给定等待边。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-bugs"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nwaiting='A' if n == 1 else 'C'; owner='B'\nprint(owner+'->'+waiting)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nwaiting='A' if n == 1 else 'C'; owner='B'\nprint(waiting+'->'+owner)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "不同等待者",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nwaiting='A' if n == 1 else 'C'; owner='B'\nprint(owner+'->'+waiting)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nwaiting='A' if n == 1 else 'C'; owner='B'\nprint(waiting+'->'+owner)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2ee28386-c0bf-54a6-abf4-4c45870ebc0c",
+      "version_id": "8ecbe586-cb66-5371-90f4-a17858b54024",
+      "code": "CS07-M05-O03-CODE",
+      "version": "CS07-M05-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M05-O03"
+      ],
+      "kind": "code",
+      "title": "安全检查归还已分配量而非最大声明",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创单资源 Banker 安全性模型，need=max-allocation，能完成后 work 加 allocation；不安全不等于当前已经死锁。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-banker"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nallocation=[1,1,1]; maximum=[2,4,4] if n == 1 else [2,3,3]\nwork=1; finished=set()\nfor _ in allocation:\n for i in range(3):\n  if i not in finished and maximum[i]-allocation[i] <= work:\n   work+=maximum[i]; finished.add(i)\nprint(len(finished)==3)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nallocation=[1,1,1]; maximum=[2,4,4] if n == 1 else [2,3,3]\nwork=1; finished=set()\nfor _ in allocation:\n for i in range(3):\n  if i not in finished and maximum[i]-allocation[i] <= work:\n   work+=allocation[i]; finished.add(i)\nprint(len(finished)==3)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "第二进程需求可由归还量满足",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nallocation=[1,1,1]; maximum=[2,4,4] if n == 1 else [2,3,3]\nwork=1; finished=set()\nfor _ in allocation:\n for i in range(3):\n  if i not in finished and maximum[i]-allocation[i] <= work:\n   work+=maximum[i]; finished.add(i)\nprint(len(finished)==3)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nallocation=[1,1,1]; maximum=[2,4,4] if n == 1 else [2,3,3]\nwork=1; finished=set()\nfor _ in allocation:\n for i in range(3):\n  if i not in finished and maximum[i]-allocation[i] <= work:\n   work+=allocation[i]; finished.add(i)\nprint(len(finished)==3)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "90107fa0-77aa-52e9-b220-4f0c03a7ecac",
+      "version_id": "f57fe138-baea-59e9-8ab8-ab1e538921c0",
+      "code": "CS07-M06-O01-CODE",
+      "version": "CS07-M06-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M06-O01"
+      ],
+      "kind": "code",
+      "title": "分配整页数必须向上取整",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创页大小16，分配请求17字节占两页；整页分配留下内部碎片，不等于可用空闲块之间的外部碎片。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-paging"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize=17 if n == 1 else 16\nprint(size//16)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nsize=17 if n == 1 else 16\nprint((size+15)//16)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "整页请求",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize=17 if n == 1 else 16\nprint(size//16)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nsize=17 if n == 1 else 16\nprint((size+15)//16)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e8850562-dea5-512f-a89b-eb72c05daf7a",
+      "version_id": "87cf6e7c-0b49-58d8-ab18-6e8da1d162ab",
+      "code": "CS07-M06-O02-CODE",
+      "version": "CS07-M06-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M06-O02"
+      ],
+      "kind": "code",
+      "title": "页表转换保留偏移并验证页有效",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创16字节页，虚页1映物理帧4，未列页拒绝；本活动尚未验证完整跨页访问。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-paging"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\naddress=19 if n == 1 else 32\nvpn,offset=divmod(address,16); table={1:4}\nresult=table[vpn]+offset if vpn in table else 'invalid'\nprint(result)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\naddress=19 if n == 1 else 32\nvpn,offset=divmod(address,16); table={1:4}\nresult=table[vpn]*16+offset if vpn in table else 'invalid'\nprint(result)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "缺失页表项",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\naddress=19 if n == 1 else 32\nvpn,offset=divmod(address,16); table={1:4}\nresult=table[vpn]+offset if vpn in table else 'invalid'\nprint(result)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\naddress=19 if n == 1 else 32\nvpn,offset=divmod(address,16); table={1:4}\nresult=table[vpn]*16+offset if vpn in table else 'invalid'\nprint(result)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2c873951-4591-5198-89ac-eb63b71e5716",
+      "version_id": "0bfaa3df-825e-5583-a9ee-6056f2d7624e",
+      "code": "CS07-M06-O03-CODE",
+      "version": "CS07-M06-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M06-O03"
+      ],
+      "kind": "code",
+      "title": "外部碎片下总空闲量不足以判断可分配",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "连续分区请求须有单块足够大；空闲块总和够仍可能无法满足。原模型不含元数据或对齐开销。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-memory"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nholes=[4,4] if n == 1 else [8]; request=6\nprint(sum(holes)>=request)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nholes=[4,4] if n == 1 else [8]; request=6\nprint(any(size>=request for size in holes))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "一个足够大的连续块",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nholes=[4,4] if n == 1 else [8]; request=6\nprint(sum(holes)>=request)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nholes=[4,4] if n == 1 else [8]; request=6\nprint(any(size>=request for size in holes))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2ad64097-eae3-59e8-a3e5-9338a85a5d1c",
+      "version_id": "3dcca039-41b1-573d-b511-64241a18dc68",
+      "code": "CS07-M07-O01-CODE",
+      "version": "CS07-M07-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M07-O01"
+      ],
+      "kind": "code",
+      "title": "FIFO 命中不刷新进入次序",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创容量二、初始空页框，FIFO 在命中时不改装入顺序，LRU 才刷新最近使用。记录最终页框不能代替全部缺页轨迹。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-policy"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\naccess=[1,2,1,3] if n == 1 else [1,2,3]; frames=[]\nfor page in access:\n if page in frames: frames.remove(page); frames.append(page)\n else:\n  if len(frames)==2: frames.pop(0)\n  frames.append(page)\nprint(frames)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\naccess=[1,2,1,3] if n == 1 else [1,2,3]; frames=[]\nfor page in access:\n if page in frames: pass\n else:\n  if len(frames)==2: frames.pop(0)\n  frames.append(page)\nprint(frames)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "没有页命中的访问串",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\naccess=[1,2,1,3] if n == 1 else [1,2,3]; frames=[]\nfor page in access:\n if page in frames: frames.remove(page); frames.append(page)\n else:\n  if len(frames)==2: frames.pop(0)\n  frames.append(page)\nprint(frames)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\naccess=[1,2,1,3] if n == 1 else [1,2,3]; frames=[]\nfor page in access:\n if page in frames: pass\n else:\n  if len(frames)==2: frames.pop(0)\n  frames.append(page)\nprint(frames)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "ff27f21b-63bc-5c20-a3d0-f4d74904e4bb",
+      "version_id": "6e608c01-81ea-5b29-90c4-35c7f89789b8",
+      "code": "CS07-M07-O02-CODE",
+      "version": "CS07-M07-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M07-O02"
+      ],
+      "kind": "code",
+      "title": "局部性观察区分访问次数与不同页数",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "时间窗口中重复访问同一页有时间局部性，不同页集合大小影响容量需求；不能将重复访问次数当工作集大小。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-policy"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\naccess=[1,1,1] if n == 1 else [1,2,3]\nprint(len(access))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\naccess=[1,1,1] if n == 1 else [1,2,3]\nprint(len(set(access)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "没有重复的窗口",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\naccess=[1,1,1] if n == 1 else [1,2,3]\nprint(len(access))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\naccess=[1,1,1] if n == 1 else [1,2,3]\nprint(len(set(access)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "021e5991-c779-5cd8-84c7-282ee0a43711",
+      "version_id": "ef5d0c6d-86c7-5e53-8454-51585f2c77c6",
+      "code": "CS07-M07-O03-CODE",
+      "version": "CS07-M07-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M07-O03"
+      ],
+      "kind": "code",
+      "title": "工作集窗口只覆盖最近约定访问",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创最近三次访问窗口，工作集为窗口中不同页集合；累计历史所有页不是当前窗口工作集，也不由此单项判定真实系统抖动。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-policy"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\naccess=[1,2,3,3,3] if n == 1 else [1,2]\nprint(sorted(set(access)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\naccess=[1,2,3,3,3] if n == 1 else [1,2]\nprint(sorted(set(access[-3:])))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "历史短于窗口",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\naccess=[1,2,3,3,3] if n == 1 else [1,2]\nprint(sorted(set(access)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\naccess=[1,2,3,3,3] if n == 1 else [1,2]\nprint(sorted(set(access[-3:])))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "526c5ae8-d3d4-5dd8-9bc8-861eb40723de",
+      "version_id": "11494153-d4e5-5c7d-82f8-daecdede1944",
+      "code": "CS07-M08-O01-CODE",
+      "version": "CS07-M08-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M08-O01"
+      ],
+      "kind": "code",
+      "title": "改名后打开的描述符仍引用原文件",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "真实打开文件后 rename，原路径消失但已打开描述符仍能读取；目录名与文件对象不同。此处同一隔离目录。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-files"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\nPath('old.txt').write_bytes(b'alpha' if n == 1 else b'beta')\nfd=os.open('old.txt',os.O_RDONLY); os.rename('old.txt','new.txt')\ntry:\n result=Path('old.txt').read_text() if Path('old.txt').exists() else 'missing'\n print(result)\nfinally: os.close(fd)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\nPath('old.txt').write_bytes(b'alpha' if n == 1 else b'beta')\nfd=os.open('old.txt',os.O_RDONLY); os.rename('old.txt','new.txt')\ntry:\n result=os.read(fd,1024).decode()\n print(result)\nfinally: os.close(fd)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变文件内容",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\nPath('old.txt').write_bytes(b'alpha' if n == 1 else b'beta')\nfd=os.open('old.txt',os.O_RDONLY); os.rename('old.txt','new.txt')\ntry:\n result=Path('old.txt').read_text() if Path('old.txt').exists() else 'missing'\n print(result)\nfinally: os.close(fd)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\nPath('old.txt').write_bytes(b'alpha' if n == 1 else b'beta')\nfd=os.open('old.txt',os.O_RDONLY); os.rename('old.txt','new.txt')\ntry:\n result=os.read(fd,1024).decode()\n print(result)\nfinally: os.close(fd)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "3c2ce9db-d409-5773-8bfc-dec5d2028264",
+      "version_id": "42dde000-72ea-5273-b3cb-0c9ce0f71b5d",
+      "code": "CS07-M08-O02-CODE",
+      "version": "CS07-M08-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M08-O02"
+      ],
+      "kind": "code",
+      "title": "权限拒绝需记录真实错误而非空数据",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "在非 root isolate 用户下真实 chmod(0) 后 read 触发 PermissionError；操作完恢复权限。不能把拒绝当空文件。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-files"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\np=Path('locked.txt'); p.write_text('ok'); os.chmod(p,0 if n == 1 else 0o600)\ntry:\n try: result=p.read_text()\n except PermissionError: result='empty'\n print(result)\nfinally: os.chmod(p,0o600)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\np=Path('locked.txt'); p.write_text('ok'); os.chmod(p,0 if n == 1 else 0o600)\ntry:\n try: result=p.read_text()\n except PermissionError: result='denied'\n print(result)\nfinally: os.chmod(p,0o600)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "允许所有者读写",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\np=Path('locked.txt'); p.write_text('ok'); os.chmod(p,0 if n == 1 else 0o600)\ntry:\n try: result=p.read_text()\n except PermissionError: result='empty'\n print(result)\nfinally: os.chmod(p,0o600)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os\nfrom pathlib import Path\np=Path('locked.txt'); p.write_text('ok'); os.chmod(p,0 if n == 1 else 0o600)\ntry:\n try: result=p.read_text()\n except PermissionError: result='denied'\n print(result)\nfinally: os.chmod(p,0o600)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "9f278c06-5238-5ad3-bed6-7879a58171ca",
+      "version_id": "52a2fd5b-43e2-5212-bdb5-318ddab27ff9",
+      "code": "CS07-M08-O03-CODE",
+      "version": "CS07-M08-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M08-O03"
+      ],
+      "kind": "code",
+      "title": "磁盘请求模型逐步选择最近距离",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创 SSTF 磁头初始50，只选择下一请求，绝对距离而非最小柱面号；未测真实磁盘耗时或完整缓存。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-files"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nhead=50; requests=[10,55] if n == 1 else [10,20]\nprint(min(requests))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nhead=50; requests=[10,55] if n == 1 else [10,20]\nprint(min(requests,key=lambda track:abs(track-head)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "全部请求位于左侧",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nhead=50; requests=[10,55] if n == 1 else [10,20]\nprint(min(requests))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nhead=50; requests=[10,55] if n == 1 else [10,20]\nprint(min(requests,key=lambda track:abs(track-head)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "418da6f4-d072-5dca-8ac0-3cdd58b29960",
+      "version_id": "e6b8ef3e-b219-5d3f-be36-ac76e7a6a2f0",
+      "code": "CS07-M09-O01-CODE",
+      "version": "CS07-M09-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M09-O01"
+      ],
+      "kind": "code",
+      "title": "认证身份不自动授权读取他人数据",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创 ACL 模型读请求同时检查身份与资源所有者；沙箱隔离与业务授权是独立层。这里不是实际平台安全审计结果。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-files"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nauthenticated=True; actor='A'; owner='B' if n == 1 else 'A'\nprint(authenticated)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nauthenticated=True; actor='A'; owner='B' if n == 1 else 'A'\nprint(authenticated and actor == owner)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "资源属于请求者",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nauthenticated=True; actor='A'; owner='B' if n == 1 else 'A'\nprint(authenticated)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nauthenticated=True; actor='A'; owner='B' if n == 1 else 'A'\nprint(authenticated and actor == owner)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c02605c3-8029-51a9-990e-08fe3e3deb3d",
+      "version_id": "9acfa274-70dd-5ffd-b515-d2c95adc822e",
+      "code": "CS07-M09-O02-CODE",
+      "version": "CS07-M09-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M09-O02"
+      ],
+      "kind": "code",
+      "title": "真实描述符软限制会拒绝额外打开",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "在本隔离进程降低 RLIMIT_NOFILE，实际打开小文件直到 EMFILE，finally 关闭。只改变本进程资源，不修改业务机全局配置。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-limit"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os,resource\nfrom pathlib import Path\nPath('resource.txt').write_text('x')\n_,hard=resource.getrlimit(resource.RLIMIT_NOFILE)\nresource.setrlimit(resource.RLIMIT_NOFILE,(32,hard))\nfds=[]; result='within_limit'\ntry:\n for _ in range(20 if n == 1 else 2):\n  try: fds.append(os.open('resource.txt',os.O_RDONLY))\n  except OSError as error:\n   if error.errno != 24: raise\n   result='limited'; break\n print(result)\nfinally:\n for fd in fds: os.close(fd)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os,resource\nfrom pathlib import Path\nPath('resource.txt').write_text('x')\n_,hard=resource.getrlimit(resource.RLIMIT_NOFILE)\nresource.setrlimit(resource.RLIMIT_NOFILE,(8,hard))\nfds=[]; result='within_limit'\ntry:\n for _ in range(20 if n == 1 else 2):\n  try: fds.append(os.open('resource.txt',os.O_RDONLY))\n  except OSError as error:\n   if error.errno != 24: raise\n   result='limited'; break\n print(result)\nfinally:\n for fd in fds: os.close(fd)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "少量描述符不超限",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os,resource\nfrom pathlib import Path\nPath('resource.txt').write_text('x')\n_,hard=resource.getrlimit(resource.RLIMIT_NOFILE)\nresource.setrlimit(resource.RLIMIT_NOFILE,(32,hard))\nfds=[]; result='within_limit'\ntry:\n for _ in range(20 if n == 1 else 2):\n  try: fds.append(os.open('resource.txt',os.O_RDONLY))\n  except OSError as error:\n   if error.errno != 24: raise\n   result='limited'; break\n print(result)\nfinally:\n for fd in fds: os.close(fd)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os,resource\nfrom pathlib import Path\nPath('resource.txt').write_text('x')\n_,hard=resource.getrlimit(resource.RLIMIT_NOFILE)\nresource.setrlimit(resource.RLIMIT_NOFILE,(8,hard))\nfds=[]; result='within_limit'\ntry:\n for _ in range(20 if n == 1 else 2):\n  try: fds.append(os.open('resource.txt',os.O_RDONLY))\n  except OSError as error:\n   if error.errno != 24: raise\n   result='limited'; break\n print(result)\nfinally:\n for fd in fds: os.close(fd)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "77979143-4967-5083-9d14-2a3df8cfac64",
+      "version_id": "07961b43-d57e-5b29-b2a8-e78c9ccf0526",
+      "code": "CS07-M09-O03-CODE",
+      "version": "CS07-M09-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS07-M09-O03"
+      ],
+      "kind": "code",
+      "title": "进程被信号终止不能记录为正常成功",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "实际 fork 子进程自发 SIGTERM 或正常退出，父 waitpid 回收并依据状态判定，未完成完整观察器重启及跨任务恢复。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "os-process"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os,signal\npid=os.fork()\nif pid == 0:\n if n == 1: os.kill(os.getpid(),signal.SIGTERM)\n os._exit(0)\n_,status=os.waitpid(pid,0)\nprint(True)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nimport os,signal\npid=os.fork()\nif pid == 0:\n if n == 1: os.kill(os.getpid(),signal.SIGTERM)\n os._exit(0)\n_,status=os.waitpid(pid,0)\nprint(os.WIFEXITED(status) and os.WEXITSTATUS(status) == 0)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "正常零退出",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os,signal\npid=os.fork()\nif pid == 0:\n if n == 1: os.kill(os.getpid(),signal.SIGTERM)\n os._exit(0)\n_,status=os.waitpid(pid,0)\nprint(True)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nimport os,signal\npid=os.fork()\nif pid == 0:\n if n == 1: os.kill(os.getpid(),signal.SIGTERM)\n os._exit(0)\n_,status=os.waitpid(pid,0)\nprint(os.WIFEXITED(status) and os.WEXITSTATUS(status) == 0)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "os-trap",
+      "title": "UW CS537 Limited Direct Execution",
+      "url": "https://pages.cs.wisc.edu/~remzi/Classes/537/Fall2021/Notes/Lecture-Sep14-2021.pdf",
+      "locator": "user/kernel mode and trap return",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-banker",
+      "title": "UIC Operating Systems Deadlocks",
+      "url": "https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/7_Deadlocks.html",
+      "locator": "7.5.3.1 work, need and allocation safety algorithm",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-api",
+      "title": "Python3.13 os",
+      "url": "https://docs.python.org/3.13/library/os.html",
+      "locator": "open/read, pipe/fork, waitpid and status decoding",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-process",
+      "title": "OSTEP Process API",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/cpu-api.pdf",
+      "locator": "fork private address spaces, wait and process lifecycle",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-threads",
+      "title": "OSTEP Threads Introduction",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/threads-intro.pdf",
+      "locator": "shared address space and non-atomic increments",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-sched",
+      "title": "OSTEP Scheduling",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/cpu-sched.pdf",
+      "locator": "FIFO/SJF/RR and response/turnaround",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-bugs",
+      "title": "OSTEP Concurrency Bugs",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/threads-bugs.pdf",
+      "locator": "atomicity, ordering, deadlock conditions and avoidance",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-memory",
+      "title": "OSTEP Free Space",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/vm-freespace.pdf",
+      "locator": "external fragmentation and allocation strategies",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-paging",
+      "title": "OSTEP Paging",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/vm-paging.pdf",
+      "locator": "VPN/PFN, offset and page table states",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-policy",
+      "title": "OSTEP Page Replacement",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/vm-beyondphys-policy.pdf",
+      "locator": "FIFO/LRU and memory pressure",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-files",
+      "title": "OSTEP Files and Directories",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/file-intro.pdf",
+      "locator": "descriptors, links, access control and rename",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "os-limit",
+      "title": "Python3.13 resource",
+      "url": "https://docs.python.org/3.13/library/resource.html",
+      "locator": "resource limits and RLIMIT_NOFILE",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ]
+}

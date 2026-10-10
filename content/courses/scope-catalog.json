@@ -58,9 +58,9 @@
       "id": "d6041fd1-b631-4503-8e28-b042088ef0c9",
       "code": "CS07",
       "title": "操作系统",
-      "version_id": "ce1fdf9d-a940-5d77-8dc3-4924d9941507",
-      "version": "CS07-core-scope-0.1.0",
-      "package_path": "CS07/CS07-core-scope-0.1.0/manifest.json",
+      "version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "version": "CS07-core-practice-0.1.0",
+      "package_path": "CS07/CS07-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -252,6 +252,15 @@
       "version_id": "c627b6af-7b9c-5fce-a36b-12edd5249eae",
       "version": "CS06-core-scope-0.1.0",
       "package_path": "CS06/CS06-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "d6041fd1-b631-4503-8e28-b042088ef0c9",
+      "code": "CS07",
+      "title": "操作系统",
+      "version_id": "ce1fdf9d-a940-5d77-8dc3-4924d9941507",
+      "version": "CS07-core-scope-0.1.0",
+      "package_path": "CS07/CS07-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]

@@ -1,0 +1,28 @@
+﻿goal,activity,conditions,full_depth_and_transfer,review
+CS07-M01-O01,教学陷入返回轨迹区分当前模式,2,needs_review,unavailable
+CS07-M01-O02,文件读到指定长度不等于读到 EOF,2,needs_review,unavailable
+CS07-M01-O03,真实缺失文件应保留失败原因,2,needs_review,unavailable
+CS07-M02-O01,waitpid 状态字需解码退出值,2,needs_review,unavailable
+CS07-M02-O02,父子管道消息需读取到关闭端的 EOF,2,needs_review,unavailable
+CS07-M02-O03,fork 后父子普通变量各有地址空间,2,needs_review,unavailable
+CS07-M03-O01,非抢占短作业优先按运行时长选择,2,needs_review,unavailable
+CS07-M03-O02,周转时间应减去到达时刻,2,needs_review,unavailable
+CS07-M03-O03,轮转调度未完成作业须重新排队,2,needs_review,unavailable
+CS07-M04-O01,真实线程读改写需要原子区间,2,needs_review,unavailable
+CS07-M04-O02,有界队列满时拒绝不能悄悄挤走旧值,2,needs_review,unavailable
+CS07-M04-O03,线程初始化须先于读取,2,needs_review,unavailable
+CS07-M05-O01,死锁四项必要条件需同时成立,2,needs_review,unavailable
+CS07-M05-O02,等待图边由等待者指向持有者,2,needs_review,unavailable
+CS07-M05-O03,安全检查归还已分配量而非最大声明,2,needs_review,unavailable
+CS07-M06-O01,分配整页数必须向上取整,2,needs_review,unavailable
+CS07-M06-O02,页表转换保留偏移并验证页有效,2,needs_review,unavailable
+CS07-M06-O03,外部碎片下总空闲量不足以判断可分配,2,needs_review,unavailable
+CS07-M07-O01,FIFO 命中不刷新进入次序,2,needs_review,unavailable
+CS07-M07-O02,局部性观察区分访问次数与不同页数,2,needs_review,unavailable
+CS07-M07-O03,工作集窗口只覆盖最近约定访问,2,needs_review,unavailable
+CS07-M08-O01,改名后打开的描述符仍引用原文件,2,needs_review,unavailable
+CS07-M08-O02,权限拒绝需记录真实错误而非空数据,2,needs_review,unavailable
+CS07-M08-O03,磁盘请求模型逐步选择最近距离,2,needs_review,unavailable
+CS07-M09-O01,认证身份不自动授权读取他人数据,2,needs_review,unavailable
+CS07-M09-O02,真实描述符软限制会拒绝额外打开,2,needs_review,unavailable
+CS07-M09-O03,进程被信号终止不能记录为正常成功,2,needs_review,unavailable
