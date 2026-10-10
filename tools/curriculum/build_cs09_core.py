@@ -1,0 +1,751 @@
+"""Original database exercises using real PostgreSQL and explicit FD/WAL models."""
+
+from pathlib import Path
+
+from code_authoring import CodeBook
+
+ROOT = Path(__file__).resolve().parents[2]
+book = CodeBook(
+    ROOT,
+    "CS09-core-scope-0.1.0",
+    "CS09-core-practice-0.1.0",
+    "真实 PG18 单会话 SQL 与明示 FD/WAL 模型；完整双连接、备份恢复及综合项目待建设。",
+    course="CS09",
+    standard="code-fixed-condition-v1",
+)
+SOURCES = [
+    (
+        "db-constraints",
+        "PG18 Constraints",
+        "https://www.postgresql.org/docs/18/ddl-constraints.html",
+        "5.5 NULL, unique, primary and foreign keys",
+    ),
+    (
+        "db-queries",
+        "PG18 Table Expressions",
+        "https://www.postgresql.org/docs/18/queries-table-expressions.html",
+        "7.2 joins, WHERE and groups",
+    ),
+    (
+        "db-window",
+        "PG18 Window Functions",
+        "https://www.postgresql.org/docs/18/functions-window.html",
+        "9.22 rank and dense_rank",
+    ),
+    (
+        "db-isolation",
+        "PG18 Transaction Isolation",
+        "https://www.postgresql.org/docs/18/transaction-iso.html",
+        "13.2 actual isolation semantics; one session does not reproduce anomalies",
+    ),
+    (
+        "db-index",
+        "PG18 Multicolumn Indexes",
+        "https://www.postgresql.org/docs/18/indexes-multicolumn.html",
+        "11.3 leading keys and PG18 skip scan; no claim of absolute left-prefix prohibition",
+    ),
+    (
+        "db-explain",
+        "PG18 Using EXPLAIN",
+        "https://www.postgresql.org/docs/18/using-explain.html",
+        "14.1 estimated versus actual rows and costs",
+    ),
+    (
+        "db-wal",
+        "PG18 Write Ahead Logging",
+        "https://www.postgresql.org/docs/18/wal-intro.html",
+        "28.3 log before data; original models are not actual PG crash recovery",
+    ),
+    (
+        "db-bind",
+        "PG18 PLpgSQL Statements",
+        "https://www.postgresql.org/docs/18/plpgsql-statements.html",
+        "41.5.4 EXECUTE USING data values",
+    ),
+    (
+        "db-prepare",
+        "PG18 PREPARE",
+        "https://www.postgresql.org/docs/18/sql-prepare.html",
+        "parameterized prepared statements",
+    ),
+    (
+        "db-view",
+        "PG18 CREATE VIEW",
+        "https://www.postgresql.org/docs/18/sql-createview.html",
+        "CHECK OPTION and security_invoker distinctions",
+    ),
+    (
+        "db-alter",
+        "PG18 ALTER TABLE",
+        "https://www.postgresql.org/docs/18/sql-altertable.html",
+        "schema changes within transactions",
+    ),
+    (
+        "db-normal",
+        "Cornell Schema Refinement",
+        "https://www.cs.cornell.edu/courses/cs330/2004sp/slides/CIS330-lecture11-03-02-2004-Normalization.pdf",
+        "FD closure, BCNF and binary lossless join",
+    ),
+]
+book.package["sources"] = [
+    {
+        "id": key,
+        "title": title,
+        "url": url,
+        "locator": locator,
+        "checked_at": "2026-10-10",
+        "status": "authority_checked",
+    }
+    for key, title, url, locator in SOURCES
+]
+book.package["activities"] = []
+
+
+def model(
+    module,
+    objective,
+    title,
+    theory,
+    source,
+    code,
+    wrong,
+    right,
+    before,
+    after,
+    changed_before,
+    changed_after,
+    variant,
+):
+    goal = f"CS09-M{module:02d}-O{objective:02d}"
+    initial = "n = int(input())\n" + code.strip() + "\n"
+    assert wrong in initial, goal
+    repaired = initial.replace(wrong, right)
+    cases = []
+    for task, label, stdin, first, second in [
+        ("base", title, "1\n", before, after),
+        ("changed-condition", variant, "2\n", changed_before, changed_after),
+    ]:
+        request = {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {"main.py": initial},
+            "stdin": stdin,
+        }
+        answer = {**request, "files": {"main.py": repaired}}
+        cases.append(
+            (
+                task,
+                label,
+                "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+                request,
+                answer,
+                first,
+                second,
+            )
+        )
+    book.add(
+        goal,
+        title,
+        "标注契约与证据，再用实际运行定位违反条件的步骤。",
+        [
+            theory,
+            "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。",
+        ],
+        [
+            "先区分输出错误、输入前提变化和论证缺口。",
+            "检查最小反例与边界，并解释修改依据。",
+        ],
+        [source],
+        cases,
+    )
+
+
+def sql(
+    module,
+    objective,
+    title,
+    theory,
+    source,
+    code,
+    wrong,
+    right,
+    before,
+    after,
+    changed_before,
+    changed_after,
+    variant,
+    base="1",
+    changed="2",
+):
+    goal = f"CS09-M{module:02d}-O{objective:02d}"
+    assert wrong in code, goal
+    cases = []
+    for task, label, value, first, second in [
+        ("base", title, base, before, after),
+        ("changed-condition", variant, changed, changed_before, changed_after),
+    ]:
+        initial = code.replace("__VALUE__", value)
+        request = {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {"main.sql": initial},
+            "stdin": "",
+        }
+        answer = {**request, "files": {"main.sql": initial.replace(wrong, right)}}
+        cases.append(
+            (
+                task,
+                label,
+                "先预测数据和约束，运行、修正并解释结果的适用范围。",
+                request,
+                answer,
+                first,
+                second,
+            )
+        )
+    book.add(
+        goal,
+        title,
+        "修改实际 SQL，保留错误与修正工件并重新运行。",
+        [
+            theory,
+            "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。",
+        ],
+        [
+            "核对输入、NULL、重复、约束和事务边界。",
+            "按题目声明集合、多重集或顺序；解释最小反例。",
+        ],
+        [source],
+        cases,
+    )
+
+
+sql(
+    1,
+    1,
+    "重复标识须由实际主键限制",
+    "本例以用户 id 为标识；实际重复写入用 ON CONFLICT 验证约束，而不是从当前样本推定唯一。",
+    "db-constraints",
+    "CREATE TABLE users(id integer); INSERT INTO users VALUES(1),(__VALUE__) ON CONFLICT DO NOTHING; SELECT count(*) FROM users;",
+    "id integer",
+    "id integer PRIMARY KEY",
+    "2\n",
+    "1\n",
+    "2\n",
+    "2\n",
+    "不同标识均保留",
+)
+sql(
+    1,
+    2,
+    "选择条件的相等边界",
+    "原创关系代数选择 price>=2 的 SQL 对应；本例投影保留多重集并明确 ORDER BY。",
+    "db-queries",
+    "CREATE TABLE item(price integer); INSERT INTO item VALUES(__VALUE__),(3); SELECT price FROM item WHERE price>2 ORDER BY price;",
+    "price>2",
+    "price>=2",
+    "3\n",
+    "2\n3\n",
+    "3\n",
+    "3\n",
+    "低于阈值的记录",
+    base="2",
+    changed="1",
+)
+sql(
+    1,
+    3,
+    "SQL 默认多重集不能随意去重",
+    "题目要求保留重复得分；DISTINCT 改变多重集。关系代数的集合语义应与 SQL 默认语义分别说明。",
+    "db-queries",
+    "CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(__VALUE__); SELECT DISTINCT x FROM scores ORDER BY x;",
+    "SELECT DISTINCT x",
+    "SELECT x",
+    "1\n",
+    "1\n1\n",
+    "1\n2\n",
+    "1\n2\n",
+    "不重复的数据",
+)
+sql(
+    2,
+    1,
+    "多对多联系不能只用学生作键",
+    "原创学生选课联系允许同一学生选多课，组合键保存学生和课程的组合唯一；不是完整 ER 设计验收。",
+    "db-constraints",
+    "CREATE TABLE enroll(student integer,course integer,PRIMARY KEY(student)); INSERT INTO enroll VALUES(1,10),(__VALUE__,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM enroll;",
+    "PRIMARY KEY(student)",
+    "PRIMARY KEY(student,course)",
+    "1\n",
+    "2\n",
+    "2\n",
+    "2\n",
+    "不同学生选课",
+)
+sql(
+    2,
+    2,
+    "一对多逻辑模式保留多条关联",
+    "原创一书多次借阅，loan 的 book_id 不是借阅事件唯一标识；事件 id 作键。尚需 ER 基数和完整转换审阅。",
+    "db-constraints",
+    "CREATE TABLE loans(id integer,book_id integer,PRIMARY KEY(book_id)); INSERT INTO loans VALUES(1,10),(2,__VALUE__) ON CONFLICT DO NOTHING; SELECT count(*) FROM loans;",
+    "PRIMARY KEY(book_id)",
+    "PRIMARY KEY(id)",
+    "1\n",
+    "2\n",
+    "2\n",
+    "2\n",
+    "改为不同图书",
+    base="10",
+    changed="20",
+)
+sql(
+    2,
+    3,
+    "外键需用孤立引用实际验证",
+    "原创借阅必须引用存在的图书；EXCEPTION 捕获真实 foreign_key_violation 只为记录拒绝，不吞掉其他异常。",
+    "db-constraints",
+    "CREATE TABLE books(id integer PRIMARY KEY); INSERT INTO books VALUES(1); CREATE TABLE loans(book integer); DO $$ BEGIN INSERT INTO loans VALUES(__VALUE__); EXCEPTION WHEN foreign_key_violation THEN NULL; END $$; SELECT count(*) FROM loans;",
+    "loans(book integer)",
+    "loans(book integer REFERENCES books(id))",
+    "1\n",
+    "0\n",
+    "1\n",
+    "1\n",
+    "存在的引用",
+    base="2",
+    changed="1",
+)
+sql(
+    3,
+    1,
+    "NULL 筛选必须使用 IS NULL",
+    "SQL 的 x=NULL 不是真；WHERE 只保留真行，IS NULL 才检查空值。结果明确有序。",
+    "db-queries",
+    "CREATE TABLE marks(id integer,x integer); INSERT INTO marks VALUES(1,NULL),(2,__VALUE__); SELECT id FROM marks WHERE x=NULL ORDER BY id;",
+    "x=NULL",
+    "x IS NULL",
+    "",
+    "1\n",
+    "",
+    "1\n2\n",
+    "两条均为空值",
+    base="2",
+    changed="NULL",
+)
+sql(
+    3,
+    2,
+    "UPDATE 不能遗漏目标过滤",
+    "原创仅修改 id=1 的库存；WHERE 是写入范围的约束，实际查看全部行以检测误改。",
+    "db-queries",
+    "CREATE TABLE stock(id integer,n integer); INSERT INTO stock VALUES(1,5),(2,__VALUE__); UPDATE stock SET n=9; SELECT id,n FROM stock ORDER BY id;",
+    "SET n=9;",
+    "SET n=9 WHERE id=1;",
+    "1|9\n2|9\n",
+    "1|9\n2|5\n",
+    "1|9\n2|9\n",
+    "1|9\n2|0\n",
+    "另一行零库存",
+    base="5",
+    changed="0",
+)
+sql(
+    3,
+    3,
+    "CHECK 为未知时不能替代 NOT NULL",
+    "PG 的 CHECK(x>0) 遇 NULL 通过该约束；要求必填时另设 NOT NULL。捕获真实拒绝再看表。",
+    "db-constraints",
+    "CREATE TABLE positive(x integer CHECK(x>0)); DO $$ BEGIN INSERT INTO positive VALUES(__VALUE__); EXCEPTION WHEN not_null_violation THEN NULL; END $$; SELECT count(*) FROM positive;",
+    "x integer CHECK",
+    "x integer NOT NULL CHECK",
+    "1\n",
+    "0\n",
+    "1\n",
+    "1\n",
+    "正值满足全部条件",
+    base="NULL",
+    changed="5",
+)
+sql(
+    4,
+    1,
+    "零订单用户仍需保留在连接结果",
+    "题目要求所有用户，包括零订单者，使用 LEFT JOIN；本例统计用户数并明确数据。",
+    "db-queries",
+    "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(__VALUE__); SELECT count(DISTINCT u.id) FROM users u JOIN orders o ON u.id=o.uid;",
+    "u JOIN orders",
+    "u LEFT JOIN orders",
+    "1\n",
+    "2\n",
+    "2\n",
+    "2\n",
+    "每位用户都有订单",
+    base="1",
+    changed="1),(2",
+)
+sql(
+    4,
+    2,
+    "外连接计数不应数补出的空行",
+    "COUNT(*) 统计外连接保留行，COUNT(o.uid) 忽略补出的 NULL；订单 uid 在数据中非空，计数口径明确。",
+    "db-queries",
+    "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(__VALUE__); SELECT u.id,count(*) FROM users u LEFT JOIN orders o ON u.id=o.uid GROUP BY u.id ORDER BY u.id;",
+    "count(*)",
+    "count(o.uid)",
+    "1|1\n2|1\n",
+    "1|1\n2|0\n",
+    "1|1\n2|1\n",
+    "1|1\n2|1\n",
+    "全部存在订单",
+    base="1",
+    changed="1),(2",
+)
+sql(
+    4,
+    3,
+    "并列之后名次是否跳号需按题目选择",
+    "要求连续名次用 dense_rank，rank 在并列后跳号。这里与 row_number 的任意并列顺序分开。",
+    "db-window",
+    "CREATE TABLE scores(id integer,x integer); INSERT INTO scores VALUES(1,10),(2,__VALUE__),(3,9); SELECT id,rank() OVER(ORDER BY x DESC) FROM scores ORDER BY id;",
+    "rank()",
+    "dense_rank()",
+    "1|1\n2|1\n3|3\n",
+    "1|1\n2|1\n3|2\n",
+    "1|1\n2|2\n3|2\n",
+    "1|1\n2|2\n3|2\n",
+    "改变并列组",
+    base="10",
+    changed="9",
+)
+model(
+    5,
+    1,
+    "属性闭包须迭代到不再增加",
+    "原创显式 FD 集合 B→C、A→B，A+ 需再次应用前一条；按给定依赖推导，不从样本数据猜依赖。",
+    "db-normal",
+    "fds=[({'B'},{'C'}),({'A'},{'B'})] if n==1 else [({'A'},{'B'})]\nclosure={'A'}\nfor left,right in fds:\n if left<=closure:closure|=right\nprint(''.join(sorted(closure)))",
+    "for left,right in fds:\n if left<=closure:closure|=right",
+    "while True:\n previous=set(closure)\n for left,right in fds:\n  if left<=closure:closure|=right\n if closure==previous:break",
+    "AB\n",
+    "ABC\n",
+    "AB\n",
+    "AB\n",
+    "单条依赖",
+)
+model(
+    5,
+    2,
+    "非平凡 FD 的决定项需满足 BCNF 条件",
+    "原创 R(A,B,C)，给定 A→BC 及可选 B→C，检查每条非平凡依赖的左部闭包是否覆盖 R；不是仅看左部非空。",
+    "db-normal",
+    "schema=set('ABC');fds=[({'A'},set('BC'))]+([({'B'},{'C'})] if n==1 else [])\ndef closure(seed):\n result=set(seed)\n while True:\n  old=set(result)\n  for left,right in fds:\n   if left<=result:result|=right\n  if old==result:return result\nprint(all(bool(left) for left,right in fds))",
+    "bool(left)",
+    "right<=left or schema<=closure(left)",
+    "True\n",
+    "False\n",
+    "True\n",
+    "True\n",
+    "只保留超键依赖",
+)
+model(
+    5,
+    3,
+    "二元无损分解需检查交集决定能力",
+    "原创 AB 与 BC 分解，共同属性 B 的闭包需覆盖其中一个子模式；本条件仅判断无损，不自动证明依赖保持。",
+    "db-normal",
+    "left=set('AB');right=set('BC');common=left&right\nclosure=set(common)\nif n==2:closure.add('A')\nprint(bool(common))",
+    "bool(common)",
+    "left<=closure or right<=closure",
+    "True\n",
+    "False\n",
+    "True\n",
+    "True\n",
+    "给定 B 决定 A",
+)
+sql(
+    6,
+    1,
+    "索引选择须回到实际计划",
+    "原创 1000 行数据，查询 a 的等值；只建 b 索引与建 a 索引的真实 EXPLAIN JSON 对照。不声称所有数据一定选择索引，也不套用绝对左前缀禁用规则。",
+    "db-index",
+    "CREATE TABLE lookup(a integer,b integer); INSERT INTO lookup SELECT i,i FROM generate_series(1,1000) i; CREATE INDEX lookup_idx ON lookup(b); ANALYZE lookup; CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT a FROM lookup WHERE a=__VALUE__' INTO p; RETURN p; END $$; SELECT COALESCE(plan()#>>'{0,Plan,Index Name}','none');",
+    "ON lookup(b)",
+    "ON lookup(a)",
+    "none\n",
+    "lookup_idx\n",
+    "none\n",
+    "lookup_idx\n",
+    "更换等值查询",
+    base="500",
+    changed="501",
+)
+sql(
+    6,
+    2,
+    "EXPLAIN ANALYZE 才产生本次实际行数",
+    "真实计划 JSON：EXPLAIN 只有估计，ANALYZE 会执行并产生 Actual Rows。只验证字段存在，实际代价和耗时不作为固定常数判据。",
+    "db-explain",
+    "CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT * FROM generate_series(1,__VALUE__)' INTO p; RETURN p; END $$; SELECT (plan()->0->'Plan')::jsonb?'Actual Rows';",
+    "EXPLAIN (FORMAT JSON)",
+    "EXPLAIN (ANALYZE,FORMAT JSON)",
+    "f\n",
+    "t\n",
+    "f\n",
+    "t\n",
+    "不同实际行数",
+    base="3",
+    changed="1",
+)
+model(
+    6,
+    3,
+    "代价模型中的优选不等于毫秒实测",
+    "原创固定估计单位的 Seq/Index 代价集合，优选较低估计；PG 成本是相对单位，真实计划、数据与连接策略仍需独立比较。",
+    "db-explain",
+    "costs=[9,4] if n==1 else [4,4]\nprint(max(costs))",
+    "max(costs)",
+    "min(costs)",
+    "9\n",
+    "4\n",
+    "4\n",
+    "4\n",
+    "相同估计成本",
+)
+sql(
+    7,
+    1,
+    "失败转账不能只保留一半更新",
+    "原创两账户转账后人为取消：BEGIN/ROLLBACK 保留原值；原始自动提交更新会留下部分转账。不是并发证明。",
+    "db-isolation",
+    "CREATE TABLE account(id integer,balance integer); INSERT INTO account VALUES(1,__VALUE__),(2,0); UPDATE account SET balance=balance-1 WHERE id=1; SELECT balance FROM account WHERE id=1;",
+    "UPDATE account SET balance=balance-1 WHERE id=1;",
+    "BEGIN; UPDATE account SET balance=balance-1 WHERE id=1; ROLLBACK;",
+    "4\n",
+    "5\n",
+    "0\n",
+    "1\n",
+    "余额改变",
+    base="5",
+    changed="1",
+)
+model(
+    7,
+    2,
+    "教学读调度区分脏读和已提交快照",
+    "原创明示 T1 暂存值9、已提交值1；T2 在提交前的 read committed 应读1，提交后读9。只是轨迹模型，未重现真实双连接隔离异常。",
+    "db-isolation",
+    "committed=1;pending=9\nif n==2:committed=pending\nprint(pending)",
+    "print(pending)",
+    "print(committed)",
+    "9\n",
+    "1\n",
+    "9\n",
+    "9\n",
+    "写者已经提交",
+)
+sql(
+    7,
+    3,
+    "重复业务请求需要唯一幂等键",
+    "真实唯一约束拒绝同一请求的第二次插入，ON CONFLICT DO NOTHING 只省略重复；这不是锁冲突或完整库存并发项目。",
+    "db-constraints",
+    "CREATE TABLE requests(id integer); INSERT INTO requests VALUES(7),(__VALUE__) ON CONFLICT DO NOTHING; SELECT count(*) FROM requests;",
+    "id integer",
+    "id integer PRIMARY KEY",
+    "2\n",
+    "1\n",
+    "2\n",
+    "2\n",
+    "独立的新请求",
+    base="7",
+    changed="8",
+)
+model(
+    8,
+    1,
+    "日志先行要求先持久化对应日志",
+    "原创事件序列 log_flush 在 page_flush 之前，模型对调次序后不满足 WAL。没有触发真实 PG 崩溃或验证 fsync 持久性。",
+    "db-wal",
+    "events=['page_flush','log_flush'] if n==1 else ['log_flush','page_flush']\nprint(True)",
+    "print(True)",
+    "print(events.index('log_flush')<events.index('page_flush'))",
+    "True\n",
+    "False\n",
+    "True\n",
+    "True\n",
+    "符合日志先行的次序",
+)
+model(
+    8,
+    2,
+    "原创 REDO 模型只重放已提交事务",
+    "教学日志 (id,value,committed)，示例仅处理重做，不等同 PG WAL、完整 UNDO 或 ARIES。",
+    "db-wal",
+    "log=[(1,8,False if n==1 else True)]\nvalue=3\nfor tx,new,committed in log:\n value=new\nprint(value)",
+    " value=new",
+    " if committed:value=new",
+    "8\n",
+    "3\n",
+    "8\n",
+    "8\n",
+    "已提交记录",
+)
+sql(
+    8,
+    3,
+    "真实回滚后核对全部数据",
+    "在已建立的表中删除后回滚应保留原行；实际 PG 事务结果与恢复教学模型分开，未执行备份或崩溃恢复。",
+    "db-isolation",
+    "CREATE TABLE saved(id integer); INSERT INTO saved VALUES(1),(__VALUE__); BEGIN; DELETE FROM saved; COMMIT; SELECT count(*) FROM saved;",
+    "COMMIT;",
+    "ROLLBACK;",
+    "0\n",
+    "2\n",
+    "0\n",
+    "2\n",
+    "不同原始记录",
+    base="2",
+    changed="3",
+)
+sql(
+    9,
+    1,
+    "实际受限角色不能读服务端文件",
+    "真实 learner 尝试 pg_read_file 会因权限拒绝；捕获 insufficient_privilege 并记录拒绝。只验证该能力，不替代跨角色读写授权测试。",
+    "db-constraints",
+    "CREATE TABLE outcome(x text); DO $$ BEGIN PERFORM pg_read_file('/etc/passwd'); INSERT INTO outcome VALUES('allowed'); EXCEPTION WHEN insufficient_privilege THEN INSERT INTO outcome VALUES('empty'); END $$; SELECT x FROM outcome; SELECT __VALUE__>0;",
+    "VALUES('empty')",
+    "VALUES('denied')",
+    "empty\nt\n",
+    "denied\nt\n",
+    "empty\nf\n",
+    "denied\nf\n",
+    "独立查询的条件改变",
+    base="1",
+    changed="0",
+)
+sql(
+    9,
+    2,
+    "动态 SQL 数据值通过 USING 绑定",
+    "原创 PLpgSQL 查询，输入可包含 OR 片段；拼接会改变查询含义，USING 将整个输入作为数据。这里只验服务端绑定，应用驱动参数化另需测试。",
+    "db-bind",
+    "CREATE TABLE users(name text); INSERT INTO users VALUES('alice'),('bob'); CREATE TABLE outcome(n integer); DO $$ DECLARE requested text:='__VALUE__'; total integer; BEGIN EXECUTE 'SELECT count(*) FROM users WHERE name='''||requested||'''' INTO total; INSERT INTO outcome VALUES(total); END $$; SELECT n FROM outcome;",
+    "EXECUTE 'SELECT count(*) FROM users WHERE name='''||requested||'''' INTO total",
+    "EXECUTE 'SELECT count(*) FROM users WHERE name=$1' INTO total USING requested",
+    "2\n",
+    "0\n",
+    "1\n",
+    "1\n",
+    "普通名称输入",
+    base="x'' OR ''1''=''1",
+    changed="alice",
+)
+sql(
+    9,
+    3,
+    "可更新视图需 CHECK OPTION 限定新行",
+    "原创视图仅呈现 x>0，默认可通过视图写入不满足条件的新行；CHECK OPTION 实际拒绝。视图条件不是跨角色权限或 security_invoker 的替代。",
+    "db-view",
+    "CREATE TABLE valueset(x integer); CREATE VIEW positive AS SELECT * FROM valueset WHERE x>0; DO $$ BEGIN INSERT INTO positive VALUES(__VALUE__); EXCEPTION WHEN with_check_option_violation THEN NULL; END $$; SELECT count(*) FROM valueset;",
+    "WHERE x>0;",
+    "WHERE x>0 WITH CHECK OPTION;",
+    "1\n",
+    "0\n",
+    "1\n",
+    "1\n",
+    "满足视图条件",
+    base="-1",
+    changed="2",
+)
+sql(
+    10,
+    1,
+    "模式迁移要保留旧行的必填约束",
+    "真实 ALTER 增加库存预留列，指定默认值和 NOT NULL。读取旧行验证迁移数据；不是完整线上迁移或回滚兼容。",
+    "db-alter",
+    "CREATE TABLE orders(id integer); INSERT INTO orders VALUES(__VALUE__); ALTER TABLE orders ADD COLUMN reserved integer; SELECT id,reserved FROM orders;",
+    "reserved integer;",
+    "reserved integer NOT NULL DEFAULT 0;",
+    "1|<NULL>\n",
+    "1|0\n",
+    "2|<NULL>\n",
+    "2|0\n",
+    "不同旧订单",
+)
+model(
+    10,
+    2,
+    "异步复制的确认边界与分片不同",
+    "原创主副本提交位置模型：主已确认但副本落后时，提升副本不能声称包含最新确认写；不是实际复制集群，不讨论全部故障模型。",
+    "db-wal",
+    "primary=9;replica=8 if n==1 else 9\nprint(True)",
+    "print(True)",
+    "print(replica>=primary)",
+    "True\n",
+    "False\n",
+    "True\n",
+    "True\n",
+    "副本已经追上",
+)
+sql(
+    10,
+    3,
+    "项目脚本重建必须核对实际数据",
+    "原创两阶段订单／库存脚本以事务回滚取消一次预留，然后核对当前库存。尚未构成备份恢复、迁移回滚和完整下单项目。",
+    "db-isolation",
+    "CREATE TABLE inventory(id integer PRIMARY KEY,n integer NOT NULL CHECK(n>=0)); INSERT INTO inventory VALUES(1,__VALUE__); BEGIN; UPDATE inventory SET n=n-1 WHERE id=1 AND n>0; COMMIT; SELECT n FROM inventory WHERE id=1;",
+    "COMMIT;",
+    "ROLLBACK;",
+    "1\n",
+    "2\n",
+    "0\n",
+    "1\n",
+    "库存边界改变",
+    base="2",
+    changed="1",
+)
+
+if __name__ == "__main__":
+    book.package["relations"] = []
+    links = [
+        (1, 1, 2, "db-constraints", "键约束与选择条件分别限制合法实例和查询结果"),
+        (1, 2, 3, "db-queries", "投影需要明确是否保留重复"),
+        (2, 1, 2, "db-constraints", "联系基数改变关系模式的键"),
+        (2, 2, 3, "db-constraints", "引用列仍需实际外键拒绝孤立记录"),
+        (3, 1, 3, "db-constraints", "NULL 比较和约束未知值语义共同影响合法行"),
+        (3, 2, 3, "db-constraints", "修改范围与约束分别检查"),
+        (4, 1, 2, "db-queries", "保留零订单用户后需正确统计补空行"),
+        (4, 2, 3, "db-window", "分组计数与窗口名次使用不同结果粒度"),
+        (5, 1, 2, "db-normal", "闭包用于检验决定项是否为超键"),
+        (5, 1, 3, "db-normal", "交集闭包用于二元无损条件"),
+        (6, 1, 2, "db-explain", "索引创建需要与实际计划字段对应"),
+        (6, 2, 3, "db-explain", "实际行数和估计相对成本不等于运行毫秒"),
+        (7, 1, 2, "db-isolation", "原子回滚与并发可见性是不同事务条件"),
+        (7, 2, 3, "db-constraints", "隔离和唯一请求键分别处理并发与重复"),
+        (8, 1, 2, "db-wal", "重做模型需明确日志持久化与提交条件"),
+        (8, 2, 3, "db-isolation", "模型轨迹不能代替实际回滚结果"),
+        (9, 1, 2, "db-bind", "最小权限和参数绑定分别限制越权与语义注入"),
+        (9, 2, 3, "db-view", "参数值约束和可更新视图约束需要分别取证"),
+        (10, 1, 3, "db-alter", "模式演进必须保留项目数据约束及取消行为"),
+        (10, 2, 3, "db-wal", "复制模型不能代替项目实际重建与恢复"),
+    ]
+    for module, left, right, source, reason in links:
+        book.package["relations"].append(
+            {
+                "from": f"CS09-M{module:02d}-O{left:02d}",
+                "to": f"CS09-M{module:02d}-O{right:02d}",
+                "kind": "conceptual_association",
+                "reason": reason,
+                "source_locator": source,
+                "course_version_id": book.version,
+                "review_state": "authority_checked",
+                "source": "原创工件关系："
+                + reason
+                + "；机制参见 "
+                + source
+                + "；专业审校不可用。",
+            }
+        )
+    book.save("CS09-core")

@@ -1,0 +1,3387 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "2e914e04-c891-4380-a0db-7d99709c4b12",
+  "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+  "course_code": "CS09",
+  "version": "CS09-core-practice-0.1.0",
+  "title": "数据库",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "真实 PG18 单会话 SQL 与明示 FD/WAL 模型；完整双连接、备份恢复及综合项目待建设。",
+  "objectives": [
+    {
+      "id": "8eb81b8a-5dad-5032-9645-9dfc03108627",
+      "code": "CS09-M01-O01",
+      "title": "定义关系键和约束",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "3e830440-85c3-528c-8d46-2d513f8d99b3",
+      "code": "CS09-M01-O02",
+      "title": "推演关系代数",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "d94def12-a931-5a3c-82f2-5f8f5960bbc6",
+      "code": "CS09-M01-O03",
+      "title": "区别集合与多重集",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "ff96166b-9a83-53f4-8b89-a27e245b13a3",
+      "code": "CS09-M02-O01",
+      "title": "绘制实体联系",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "94bd7471-8ee9-5db0-9c59-d382eb7e396c",
+      "code": "CS09-M02-O02",
+      "title": "转换关系模式",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "4cb4336b-8edf-51d0-aa8d-290438a0c7f0",
+      "code": "CS09-M02-O03",
+      "title": "选择主外键和约束",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "65f697ea-6dfb-5267-8587-fe5855311b38",
+      "code": "CS09-M03-O01",
+      "title": "实现筛选投影排序",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e64abe88-b686-52be-bd1b-7371c0867295",
+      "code": "CS09-M03-O02",
+      "title": "修改数据",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "79986043-583a-5014-a6eb-d295ced12672",
+      "code": "CS09-M03-O03",
+      "title": "建立和验证约束",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "90850cac-2019-5450-90b1-b76c2e051ff9",
+      "code": "CS09-M04-O01",
+      "title": "实现多表连接",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "9bde9df6-e2af-531e-9d28-b5527dacc1e3",
+      "code": "CS09-M04-O02",
+      "title": "处理分组聚合",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "c9ba5ee8-84d7-5445-a8ad-d6282da797b9",
+      "code": "CS09-M04-O03",
+      "title": "使用子查询与窗口",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "ba00e42a-5833-571d-b0fc-7e3648f54929",
+      "code": "CS09-M05-O01",
+      "title": "求函数依赖闭包",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "28eb47c3-4132-5230-b349-8cc1357b64cd",
+      "code": "CS09-M05-O02",
+      "title": "判断范式",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "21a36206-6fee-5889-b78f-a631018ced69",
+      "code": "CS09-M05-O03",
+      "title": "验证分解无损及保持依赖",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "4a501fa9-9c99-5958-8d9e-95e831ff7835",
+      "code": "CS09-M06-O01",
+      "title": "选择索引",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "2ab35a29-a584-55e1-a558-641282c67796",
+      "code": "CS09-M06-O02",
+      "title": "解释执行计划",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "24f8861a-9492-5ea0-9363-83046632056c",
+      "code": "CS09-M06-O03",
+      "title": "比较扫描与连接代价",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "bf64f812-9b00-5477-85d4-b31d1d8bf36f",
+      "code": "CS09-M07-O01",
+      "title": "编写原子事务",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "bb3cd18b-d535-5aa9-9ce2-d14961b3f127",
+      "code": "CS09-M07-O02",
+      "title": "重现隔离异常",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "58f1f69e-0ecf-5418-b6c6-9c0b7c7d58da",
+      "code": "CS09-M07-O03",
+      "title": "处理锁与冲突",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f8e74013-7733-53f7-b09e-905b2fc471e9",
+      "code": "CS09-M08-O01",
+      "title": "解释日志先行原则",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "31339a13-e10e-567f-9643-433637c1799c",
+      "code": "CS09-M08-O02",
+      "title": "推演撤销与重做",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "ead02862-57a4-5680-afe3-9e16dd8eab27",
+      "code": "CS09-M08-O03",
+      "title": "验证事务回滚和数据恢复",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "3d1fa489-3858-5e46-bfec-e4d10b2c2ee0",
+      "code": "CS09-M09-O01",
+      "title": "设置最小权限",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "377d2506-87be-56af-8585-e982ebcdc32b",
+      "code": "CS09-M09-O02",
+      "title": "参数化查询",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e05b34b2-a189-5f01-92d3-1c0193bdd452",
+      "code": "CS09-M09-O03",
+      "title": "维护视图和应用边界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "7c68bb5e-7ffa-519a-ad3f-8f079d4ee204",
+      "code": "CS09-M10-O01",
+      "title": "完成模式演进",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "3cab1d0b-df54-539b-ab0f-498d13c2b301",
+      "code": "CS09-M10-O02",
+      "title": "说明复制分片及非关系模型取舍",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f495d5a6-bed7-5091-8fa8-177fce0d5d6f",
+      "code": "CS09-M10-O03",
+      "title": "交付可恢复数据项目",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS09-M01",
+      "title": "关系模型与代数",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M01-O01-unit",
+          "title": "定义关系键和约束",
+          "objective_refs": [
+            "CS09-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M01-O02-unit",
+          "title": "推演关系代数",
+          "objective_refs": [
+            "CS09-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M01-O03-unit",
+          "title": "区别集合与多重集",
+          "objective_refs": [
+            "CS09-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M02",
+      "title": "概念与逻辑设计",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M02-O01-unit",
+          "title": "绘制实体联系",
+          "objective_refs": [
+            "CS09-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M02-O02-unit",
+          "title": "转换关系模式",
+          "objective_refs": [
+            "CS09-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M02-O03-unit",
+          "title": "选择主外键和约束",
+          "objective_refs": [
+            "CS09-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M03",
+      "title": "基本 SQL",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M03-O01-unit",
+          "title": "实现筛选投影排序",
+          "objective_refs": [
+            "CS09-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M03-O02-unit",
+          "title": "修改数据",
+          "objective_refs": [
+            "CS09-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M03-O03-unit",
+          "title": "建立和验证约束",
+          "objective_refs": [
+            "CS09-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M04",
+      "title": "连接与聚合",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M04-O01-unit",
+          "title": "实现多表连接",
+          "objective_refs": [
+            "CS09-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M04-O02-unit",
+          "title": "处理分组聚合",
+          "objective_refs": [
+            "CS09-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M04-O03-unit",
+          "title": "使用子查询与窗口",
+          "objective_refs": [
+            "CS09-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M05",
+      "title": "规范化",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M05-O01-unit",
+          "title": "求函数依赖闭包",
+          "objective_refs": [
+            "CS09-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M05-O02-unit",
+          "title": "判断范式",
+          "objective_refs": [
+            "CS09-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M05-O03-unit",
+          "title": "验证分解无损及保持依赖",
+          "objective_refs": [
+            "CS09-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M06",
+      "title": "索引与执行计划",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M06-O01-unit",
+          "title": "选择索引",
+          "objective_refs": [
+            "CS09-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M06-O02-unit",
+          "title": "解释执行计划",
+          "objective_refs": [
+            "CS09-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M06-O03-unit",
+          "title": "比较扫描与连接代价",
+          "objective_refs": [
+            "CS09-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M07",
+      "title": "事务与并发",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M07-O01-unit",
+          "title": "编写原子事务",
+          "objective_refs": [
+            "CS09-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M07-O02-unit",
+          "title": "重现隔离异常",
+          "objective_refs": [
+            "CS09-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M07-O03-unit",
+          "title": "处理锁与冲突",
+          "objective_refs": [
+            "CS09-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M08",
+      "title": "恢复与日志",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M08-O01-unit",
+          "title": "解释日志先行原则",
+          "objective_refs": [
+            "CS09-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M08-O02-unit",
+          "title": "推演撤销与重做",
+          "objective_refs": [
+            "CS09-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M08-O03-unit",
+          "title": "验证事务回滚和数据恢复",
+          "objective_refs": [
+            "CS09-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M09",
+      "title": "权限与程序接口",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M09-O01-unit",
+          "title": "设置最小权限",
+          "objective_refs": [
+            "CS09-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M09-O02-unit",
+          "title": "参数化查询",
+          "objective_refs": [
+            "CS09-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M09-O03-unit",
+          "title": "维护视图和应用边界",
+          "objective_refs": [
+            "CS09-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS09-M10",
+      "title": "综合与现代数据",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS09-M10-O01-unit",
+          "title": "完成模式演进",
+          "objective_refs": [
+            "CS09-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M10-O02-unit",
+          "title": "说明复制分片及非关系模型取舍",
+          "objective_refs": [
+            "CS09-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS09-M10-O03-unit",
+          "title": "交付可恢复数据项目",
+          "objective_refs": [
+            "CS09-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "CS09-M01-O01",
+      "to": "CS09-M01-O02",
+      "kind": "conceptual_association",
+      "reason": "键约束与选择条件分别限制合法实例和查询结果",
+      "source_locator": "db-constraints",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：键约束与选择条件分别限制合法实例和查询结果；机制参见 db-constraints；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M01-O02",
+      "to": "CS09-M01-O03",
+      "kind": "conceptual_association",
+      "reason": "投影需要明确是否保留重复",
+      "source_locator": "db-queries",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：投影需要明确是否保留重复；机制参见 db-queries；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M02-O01",
+      "to": "CS09-M02-O02",
+      "kind": "conceptual_association",
+      "reason": "联系基数改变关系模式的键",
+      "source_locator": "db-constraints",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：联系基数改变关系模式的键；机制参见 db-constraints；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M02-O02",
+      "to": "CS09-M02-O03",
+      "kind": "conceptual_association",
+      "reason": "引用列仍需实际外键拒绝孤立记录",
+      "source_locator": "db-constraints",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：引用列仍需实际外键拒绝孤立记录；机制参见 db-constraints；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M03-O01",
+      "to": "CS09-M03-O03",
+      "kind": "conceptual_association",
+      "reason": "NULL 比较和约束未知值语义共同影响合法行",
+      "source_locator": "db-constraints",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：NULL 比较和约束未知值语义共同影响合法行；机制参见 db-constraints；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M03-O02",
+      "to": "CS09-M03-O03",
+      "kind": "conceptual_association",
+      "reason": "修改范围与约束分别检查",
+      "source_locator": "db-constraints",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：修改范围与约束分别检查；机制参见 db-constraints；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M04-O01",
+      "to": "CS09-M04-O02",
+      "kind": "conceptual_association",
+      "reason": "保留零订单用户后需正确统计补空行",
+      "source_locator": "db-queries",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：保留零订单用户后需正确统计补空行；机制参见 db-queries；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M04-O02",
+      "to": "CS09-M04-O03",
+      "kind": "conceptual_association",
+      "reason": "分组计数与窗口名次使用不同结果粒度",
+      "source_locator": "db-window",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：分组计数与窗口名次使用不同结果粒度；机制参见 db-window；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M05-O01",
+      "to": "CS09-M05-O02",
+      "kind": "conceptual_association",
+      "reason": "闭包用于检验决定项是否为超键",
+      "source_locator": "db-normal",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：闭包用于检验决定项是否为超键；机制参见 db-normal；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M05-O01",
+      "to": "CS09-M05-O03",
+      "kind": "conceptual_association",
+      "reason": "交集闭包用于二元无损条件",
+      "source_locator": "db-normal",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：交集闭包用于二元无损条件；机制参见 db-normal；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M06-O01",
+      "to": "CS09-M06-O02",
+      "kind": "conceptual_association",
+      "reason": "索引创建需要与实际计划字段对应",
+      "source_locator": "db-explain",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：索引创建需要与实际计划字段对应；机制参见 db-explain；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M06-O02",
+      "to": "CS09-M06-O03",
+      "kind": "conceptual_association",
+      "reason": "实际行数和估计相对成本不等于运行毫秒",
+      "source_locator": "db-explain",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：实际行数和估计相对成本不等于运行毫秒；机制参见 db-explain；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M07-O01",
+      "to": "CS09-M07-O02",
+      "kind": "conceptual_association",
+      "reason": "原子回滚与并发可见性是不同事务条件",
+      "source_locator": "db-isolation",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：原子回滚与并发可见性是不同事务条件；机制参见 db-isolation；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M07-O02",
+      "to": "CS09-M07-O03",
+      "kind": "conceptual_association",
+      "reason": "隔离和唯一请求键分别处理并发与重复",
+      "source_locator": "db-constraints",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：隔离和唯一请求键分别处理并发与重复；机制参见 db-constraints；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M08-O01",
+      "to": "CS09-M08-O02",
+      "kind": "conceptual_association",
+      "reason": "重做模型需明确日志持久化与提交条件",
+      "source_locator": "db-wal",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：重做模型需明确日志持久化与提交条件；机制参见 db-wal；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M08-O02",
+      "to": "CS09-M08-O03",
+      "kind": "conceptual_association",
+      "reason": "模型轨迹不能代替实际回滚结果",
+      "source_locator": "db-isolation",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：模型轨迹不能代替实际回滚结果；机制参见 db-isolation；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M09-O01",
+      "to": "CS09-M09-O02",
+      "kind": "conceptual_association",
+      "reason": "最小权限和参数绑定分别限制越权与语义注入",
+      "source_locator": "db-bind",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：最小权限和参数绑定分别限制越权与语义注入；机制参见 db-bind；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M09-O02",
+      "to": "CS09-M09-O03",
+      "kind": "conceptual_association",
+      "reason": "参数值约束和可更新视图约束需要分别取证",
+      "source_locator": "db-view",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：参数值约束和可更新视图约束需要分别取证；机制参见 db-view；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M10-O01",
+      "to": "CS09-M10-O03",
+      "kind": "conceptual_association",
+      "reason": "模式演进必须保留项目数据约束及取消行为",
+      "source_locator": "db-alter",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：模式演进必须保留项目数据约束及取消行为；机制参见 db-alter；专业审校不可用。"
+    },
+    {
+      "from": "CS09-M10-O02",
+      "to": "CS09-M10-O03",
+      "kind": "conceptual_association",
+      "reason": "复制模型不能代替项目实际重建与恢复",
+      "source_locator": "db-wal",
+      "course_version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "review_state": "authority_checked",
+      "source": "原创工件关系：复制模型不能代替项目实际重建与恢复；机制参见 db-wal；专业审校不可用。"
+    }
+  ],
+  "activities": [
+    {
+      "id": "49101e39-17dd-50bd-a771-ed6e11f04fa6",
+      "version_id": "3d4b6d9b-3d47-524b-b6d9-340062feafc8",
+      "code": "CS09-M01-O01-CODE",
+      "version": "CS09-M01-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M01-O01"
+      ],
+      "kind": "code",
+      "title": "重复标识须由实际主键限制",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "本例以用户 id 为标识；实际重复写入用 ON CONFLICT 验证约束，而不是从当前样本推定唯一。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-constraints"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE users(id integer); INSERT INTO users VALUES(1),(1) ON CONFLICT DO NOTHING; SELECT count(*) FROM users;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE users(id integer PRIMARY KEY); INSERT INTO users VALUES(1),(1) ON CONFLICT DO NOTHING; SELECT count(*) FROM users;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "不同标识均保留",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE users(id integer); INSERT INTO users VALUES(1),(2) ON CONFLICT DO NOTHING; SELECT count(*) FROM users;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE users(id integer PRIMARY KEY); INSERT INTO users VALUES(1),(2) ON CONFLICT DO NOTHING; SELECT count(*) FROM users;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "5a33e892-bcf5-584d-9b8a-fa9dda0d1ec6",
+      "version_id": "093d91bb-7423-5578-b0db-c61699059a02",
+      "code": "CS09-M01-O02-CODE",
+      "version": "CS09-M01-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M01-O02"
+      ],
+      "kind": "code",
+      "title": "选择条件的相等边界",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创关系代数选择 price>=2 的 SQL 对应；本例投影保留多重集并明确 ORDER BY。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-queries"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE item(price integer); INSERT INTO item VALUES(2),(3); SELECT price FROM item WHERE price>2 ORDER BY price;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE item(price integer); INSERT INTO item VALUES(2),(3); SELECT price FROM item WHERE price>=2 ORDER BY price;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "低于阈值的记录",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE item(price integer); INSERT INTO item VALUES(1),(3); SELECT price FROM item WHERE price>2 ORDER BY price;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE item(price integer); INSERT INTO item VALUES(1),(3); SELECT price FROM item WHERE price>=2 ORDER BY price;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "d5409060-c748-5371-b79c-1cdd15fbe82a",
+      "version_id": "6db0979e-6b60-50fb-a055-cc7376c4cdf4",
+      "code": "CS09-M01-O03-CODE",
+      "version": "CS09-M01-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M01-O03"
+      ],
+      "kind": "code",
+      "title": "SQL 默认多重集不能随意去重",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "题目要求保留重复得分；DISTINCT 改变多重集。关系代数的集合语义应与 SQL 默认语义分别说明。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-queries"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(1); SELECT DISTINCT x FROM scores ORDER BY x;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(1); SELECT x FROM scores ORDER BY x;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "不重复的数据",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(2); SELECT DISTINCT x FROM scores ORDER BY x;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(2); SELECT x FROM scores ORDER BY x;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2c8e2442-b2b2-5147-ab95-58ad41582ade",
+      "version_id": "150fff0b-f067-502c-b856-ebd0de3dfd3d",
+      "code": "CS09-M02-O01-CODE",
+      "version": "CS09-M02-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M02-O01"
+      ],
+      "kind": "code",
+      "title": "多对多联系不能只用学生作键",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创学生选课联系允许同一学生选多课，组合键保存学生和课程的组合唯一；不是完整 ER 设计验收。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-constraints"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE enroll(student integer,course integer,PRIMARY KEY(student)); INSERT INTO enroll VALUES(1,10),(1,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM enroll;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE enroll(student integer,course integer,PRIMARY KEY(student,course)); INSERT INTO enroll VALUES(1,10),(1,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM enroll;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "不同学生选课",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE enroll(student integer,course integer,PRIMARY KEY(student)); INSERT INTO enroll VALUES(1,10),(2,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM enroll;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE enroll(student integer,course integer,PRIMARY KEY(student,course)); INSERT INTO enroll VALUES(1,10),(2,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM enroll;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "d4fcf01b-fa9b-5758-b9c8-4fc93d5ab6af",
+      "version_id": "aab1c072-993d-54a7-a7ee-768ca3fdee96",
+      "code": "CS09-M02-O02-CODE",
+      "version": "CS09-M02-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M02-O02"
+      ],
+      "kind": "code",
+      "title": "一对多逻辑模式保留多条关联",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创一书多次借阅，loan 的 book_id 不是借阅事件唯一标识；事件 id 作键。尚需 ER 基数和完整转换审阅。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-constraints"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE loans(id integer,book_id integer,PRIMARY KEY(book_id)); INSERT INTO loans VALUES(1,10),(2,10) ON CONFLICT DO NOTHING; SELECT count(*) FROM loans;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE loans(id integer,book_id integer,PRIMARY KEY(id)); INSERT INTO loans VALUES(1,10),(2,10) ON CONFLICT DO NOTHING; SELECT count(*) FROM loans;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改为不同图书",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE loans(id integer,book_id integer,PRIMARY KEY(book_id)); INSERT INTO loans VALUES(1,10),(2,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM loans;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE loans(id integer,book_id integer,PRIMARY KEY(id)); INSERT INTO loans VALUES(1,10),(2,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM loans;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "be3805bb-e5ce-513b-8d8f-df937c8636e1",
+      "version_id": "4fe5dc69-ced4-511f-86dc-13cbb8eec694",
+      "code": "CS09-M02-O03-CODE",
+      "version": "CS09-M02-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M02-O03"
+      ],
+      "kind": "code",
+      "title": "外键需用孤立引用实际验证",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创借阅必须引用存在的图书；EXCEPTION 捕获真实 foreign_key_violation 只为记录拒绝，不吞掉其他异常。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-constraints"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE books(id integer PRIMARY KEY); INSERT INTO books VALUES(1); CREATE TABLE loans(book integer); DO $$ BEGIN INSERT INTO loans VALUES(2); EXCEPTION WHEN foreign_key_violation THEN NULL; END $$; SELECT count(*) FROM loans;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE books(id integer PRIMARY KEY); INSERT INTO books VALUES(1); CREATE TABLE loans(book integer REFERENCES books(id)); DO $$ BEGIN INSERT INTO loans VALUES(2); EXCEPTION WHEN foreign_key_violation THEN NULL; END $$; SELECT count(*) FROM loans;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "存在的引用",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE books(id integer PRIMARY KEY); INSERT INTO books VALUES(1); CREATE TABLE loans(book integer); DO $$ BEGIN INSERT INTO loans VALUES(1); EXCEPTION WHEN foreign_key_violation THEN NULL; END $$; SELECT count(*) FROM loans;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE books(id integer PRIMARY KEY); INSERT INTO books VALUES(1); CREATE TABLE loans(book integer REFERENCES books(id)); DO $$ BEGIN INSERT INTO loans VALUES(1); EXCEPTION WHEN foreign_key_violation THEN NULL; END $$; SELECT count(*) FROM loans;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "36b80a51-0851-55ef-bc67-1a3a17809fd5",
+      "version_id": "a6f07edb-d237-5158-bce7-ed75c3046c8a",
+      "code": "CS09-M03-O01-CODE",
+      "version": "CS09-M03-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M03-O01"
+      ],
+      "kind": "code",
+      "title": "NULL 筛选必须使用 IS NULL",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "SQL 的 x=NULL 不是真；WHERE 只保留真行，IS NULL 才检查空值。结果明确有序。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-queries"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE marks(id integer,x integer); INSERT INTO marks VALUES(1,NULL),(2,2); SELECT id FROM marks WHERE x=NULL ORDER BY id;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE marks(id integer,x integer); INSERT INTO marks VALUES(1,NULL),(2,2); SELECT id FROM marks WHERE x IS NULL ORDER BY id;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "两条均为空值",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE marks(id integer,x integer); INSERT INTO marks VALUES(1,NULL),(2,NULL); SELECT id FROM marks WHERE x=NULL ORDER BY id;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE marks(id integer,x integer); INSERT INTO marks VALUES(1,NULL),(2,NULL); SELECT id FROM marks WHERE x IS NULL ORDER BY id;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1d9293bd-eb8c-504e-9b70-b16430155332",
+      "version_id": "fe98e986-0533-5769-9d3a-acab7465957a",
+      "code": "CS09-M03-O02-CODE",
+      "version": "CS09-M03-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M03-O02"
+      ],
+      "kind": "code",
+      "title": "UPDATE 不能遗漏目标过滤",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创仅修改 id=1 的库存；WHERE 是写入范围的约束，实际查看全部行以检测误改。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-queries"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE stock(id integer,n integer); INSERT INTO stock VALUES(1,5),(2,5); UPDATE stock SET n=9; SELECT id,n FROM stock ORDER BY id;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE stock(id integer,n integer); INSERT INTO stock VALUES(1,5),(2,5); UPDATE stock SET n=9 WHERE id=1; SELECT id,n FROM stock ORDER BY id;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "另一行零库存",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE stock(id integer,n integer); INSERT INTO stock VALUES(1,5),(2,0); UPDATE stock SET n=9; SELECT id,n FROM stock ORDER BY id;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE stock(id integer,n integer); INSERT INTO stock VALUES(1,5),(2,0); UPDATE stock SET n=9 WHERE id=1; SELECT id,n FROM stock ORDER BY id;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "42a6c406-e014-56a0-94c0-292e35e654da",
+      "version_id": "1918184e-30f4-5772-b5e1-1c120dc702c5",
+      "code": "CS09-M03-O03-CODE",
+      "version": "CS09-M03-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M03-O03"
+      ],
+      "kind": "code",
+      "title": "CHECK 为未知时不能替代 NOT NULL",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "PG 的 CHECK(x>0) 遇 NULL 通过该约束；要求必填时另设 NOT NULL。捕获真实拒绝再看表。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-constraints"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE positive(x integer CHECK(x>0)); DO $$ BEGIN INSERT INTO positive VALUES(NULL); EXCEPTION WHEN not_null_violation THEN NULL; END $$; SELECT count(*) FROM positive;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE positive(x integer NOT NULL CHECK(x>0)); DO $$ BEGIN INSERT INTO positive VALUES(NULL); EXCEPTION WHEN not_null_violation THEN NULL; END $$; SELECT count(*) FROM positive;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "正值满足全部条件",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE positive(x integer CHECK(x>0)); DO $$ BEGIN INSERT INTO positive VALUES(5); EXCEPTION WHEN not_null_violation THEN NULL; END $$; SELECT count(*) FROM positive;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE positive(x integer NOT NULL CHECK(x>0)); DO $$ BEGIN INSERT INTO positive VALUES(5); EXCEPTION WHEN not_null_violation THEN NULL; END $$; SELECT count(*) FROM positive;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "d018c62e-13b5-5cbc-84e0-17cfc99eee69",
+      "version_id": "ba9a51b3-e5d6-5e60-8c3f-0c729b814b1d",
+      "code": "CS09-M04-O01-CODE",
+      "version": "CS09-M04-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M04-O01"
+      ],
+      "kind": "code",
+      "title": "零订单用户仍需保留在连接结果",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "题目要求所有用户，包括零订单者，使用 LEFT JOIN；本例统计用户数并明确数据。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-queries"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1); SELECT count(DISTINCT u.id) FROM users u JOIN orders o ON u.id=o.uid;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1); SELECT count(DISTINCT u.id) FROM users u LEFT JOIN orders o ON u.id=o.uid;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "每位用户都有订单",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1),(2); SELECT count(DISTINCT u.id) FROM users u JOIN orders o ON u.id=o.uid;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1),(2); SELECT count(DISTINCT u.id) FROM users u LEFT JOIN orders o ON u.id=o.uid;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "358add3f-68be-5f3d-a5aa-1de46344cdee",
+      "version_id": "691dbd83-b301-57b6-ae20-c5b7a9bd3b7f",
+      "code": "CS09-M04-O02-CODE",
+      "version": "CS09-M04-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M04-O02"
+      ],
+      "kind": "code",
+      "title": "外连接计数不应数补出的空行",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "COUNT(*) 统计外连接保留行，COUNT(o.uid) 忽略补出的 NULL；订单 uid 在数据中非空，计数口径明确。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-queries"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1); SELECT u.id,count(*) FROM users u LEFT JOIN orders o ON u.id=o.uid GROUP BY u.id ORDER BY u.id;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1); SELECT u.id,count(o.uid) FROM users u LEFT JOIN orders o ON u.id=o.uid GROUP BY u.id ORDER BY u.id;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "全部存在订单",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1),(2); SELECT u.id,count(*) FROM users u LEFT JOIN orders o ON u.id=o.uid GROUP BY u.id ORDER BY u.id;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1),(2); SELECT u.id,count(o.uid) FROM users u LEFT JOIN orders o ON u.id=o.uid GROUP BY u.id ORDER BY u.id;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "52d08fc0-7054-549a-9506-49b5be71051b",
+      "version_id": "4785a3d2-8d63-540a-94b2-2db705e79ae3",
+      "code": "CS09-M04-O03-CODE",
+      "version": "CS09-M04-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M04-O03"
+      ],
+      "kind": "code",
+      "title": "并列之后名次是否跳号需按题目选择",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "要求连续名次用 dense_rank，rank 在并列后跳号。这里与 row_number 的任意并列顺序分开。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-window"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE scores(id integer,x integer); INSERT INTO scores VALUES(1,10),(2,10),(3,9); SELECT id,rank() OVER(ORDER BY x DESC) FROM scores ORDER BY id;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE scores(id integer,x integer); INSERT INTO scores VALUES(1,10),(2,10),(3,9); SELECT id,dense_rank() OVER(ORDER BY x DESC) FROM scores ORDER BY id;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "改变并列组",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE scores(id integer,x integer); INSERT INTO scores VALUES(1,10),(2,9),(3,9); SELECT id,rank() OVER(ORDER BY x DESC) FROM scores ORDER BY id;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE scores(id integer,x integer); INSERT INTO scores VALUES(1,10),(2,9),(3,9); SELECT id,dense_rank() OVER(ORDER BY x DESC) FROM scores ORDER BY id;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "7fb568b8-34e4-5fba-be37-dd643a333581",
+      "version_id": "f90b86df-c0bb-52e1-912f-c9421d718f1a",
+      "code": "CS09-M05-O01-CODE",
+      "version": "CS09-M05-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M05-O01"
+      ],
+      "kind": "code",
+      "title": "属性闭包须迭代到不再增加",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创显式 FD 集合 B→C、A→B，A+ 需再次应用前一条；按给定依赖推导，不从样本数据猜依赖。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-normal"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfds=[({'B'},{'C'}),({'A'},{'B'})] if n==1 else [({'A'},{'B'})]\nclosure={'A'}\nfor left,right in fds:\n if left<=closure:closure|=right\nprint(''.join(sorted(closure)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nfds=[({'B'},{'C'}),({'A'},{'B'})] if n==1 else [({'A'},{'B'})]\nclosure={'A'}\nwhile True:\n previous=set(closure)\n for left,right in fds:\n  if left<=closure:closure|=right\n if closure==previous:break\nprint(''.join(sorted(closure)))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "单条依赖",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfds=[({'B'},{'C'}),({'A'},{'B'})] if n==1 else [({'A'},{'B'})]\nclosure={'A'}\nfor left,right in fds:\n if left<=closure:closure|=right\nprint(''.join(sorted(closure)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nfds=[({'B'},{'C'}),({'A'},{'B'})] if n==1 else [({'A'},{'B'})]\nclosure={'A'}\nwhile True:\n previous=set(closure)\n for left,right in fds:\n  if left<=closure:closure|=right\n if closure==previous:break\nprint(''.join(sorted(closure)))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e792ad6b-e470-5bd5-a03e-2b5ee6f82deb",
+      "version_id": "987e1f95-e05d-50a8-aa14-b77b1685d6a4",
+      "code": "CS09-M05-O02-CODE",
+      "version": "CS09-M05-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M05-O02"
+      ],
+      "kind": "code",
+      "title": "非平凡 FD 的决定项需满足 BCNF 条件",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创 R(A,B,C)，给定 A→BC 及可选 B→C，检查每条非平凡依赖的左部闭包是否覆盖 R；不是仅看左部非空。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-normal"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nschema=set('ABC');fds=[({'A'},set('BC'))]+([({'B'},{'C'})] if n==1 else [])\ndef closure(seed):\n result=set(seed)\n while True:\n  old=set(result)\n  for left,right in fds:\n   if left<=result:result|=right\n  if old==result:return result\nprint(all(bool(left) for left,right in fds))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nschema=set('ABC');fds=[({'A'},set('BC'))]+([({'B'},{'C'})] if n==1 else [])\ndef closure(seed):\n result=set(seed)\n while True:\n  old=set(result)\n  for left,right in fds:\n   if left<=result:result|=right\n  if old==result:return result\nprint(all(right<=left or schema<=closure(left) for left,right in fds))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "只保留超键依赖",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nschema=set('ABC');fds=[({'A'},set('BC'))]+([({'B'},{'C'})] if n==1 else [])\ndef closure(seed):\n result=set(seed)\n while True:\n  old=set(result)\n  for left,right in fds:\n   if left<=result:result|=right\n  if old==result:return result\nprint(all(bool(left) for left,right in fds))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nschema=set('ABC');fds=[({'A'},set('BC'))]+([({'B'},{'C'})] if n==1 else [])\ndef closure(seed):\n result=set(seed)\n while True:\n  old=set(result)\n  for left,right in fds:\n   if left<=result:result|=right\n  if old==result:return result\nprint(all(right<=left or schema<=closure(left) for left,right in fds))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "2286aef6-7ab9-58f7-8b5f-1be40bf06eb4",
+      "version_id": "b24e63e4-8633-5fff-9425-72e3a71134f8",
+      "code": "CS09-M05-O03-CODE",
+      "version": "CS09-M05-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M05-O03"
+      ],
+      "kind": "code",
+      "title": "二元无损分解需检查交集决定能力",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创 AB 与 BC 分解，共同属性 B 的闭包需覆盖其中一个子模式；本条件仅判断无损，不自动证明依赖保持。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-normal"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nleft=set('AB');right=set('BC');common=left&right\nclosure=set(common)\nif n==2:closure.add('A')\nprint(bool(common))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nleft=set('AB');right=set('BC');common=left&right\nclosure=set(common)\nif n==2:closure.add('A')\nprint(left<=closure or right<=closure)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "给定 B 决定 A",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nleft=set('AB');right=set('BC');common=left&right\nclosure=set(common)\nif n==2:closure.add('A')\nprint(bool(common))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nleft=set('AB');right=set('BC');common=left&right\nclosure=set(common)\nif n==2:closure.add('A')\nprint(left<=closure or right<=closure)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "e3d1d6c5-f8e9-5250-9e7a-3634fc285d25",
+      "version_id": "53edffa9-0ca2-59af-8c1a-f30828bb2ecc",
+      "code": "CS09-M06-O01-CODE",
+      "version": "CS09-M06-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M06-O01"
+      ],
+      "kind": "code",
+      "title": "索引选择须回到实际计划",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创 1000 行数据，查询 a 的等值；只建 b 索引与建 a 索引的真实 EXPLAIN JSON 对照。不声称所有数据一定选择索引，也不套用绝对左前缀禁用规则。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-index"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE lookup(a integer,b integer); INSERT INTO lookup SELECT i,i FROM generate_series(1,1000) i; CREATE INDEX lookup_idx ON lookup(b); ANALYZE lookup; CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT a FROM lookup WHERE a=500' INTO p; RETURN p; END $$; SELECT COALESCE(plan()#>>'{0,Plan,Index Name}','none');"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE lookup(a integer,b integer); INSERT INTO lookup SELECT i,i FROM generate_series(1,1000) i; CREATE INDEX lookup_idx ON lookup(a); ANALYZE lookup; CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT a FROM lookup WHERE a=500' INTO p; RETURN p; END $$; SELECT COALESCE(plan()#>>'{0,Plan,Index Name}','none');"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "更换等值查询",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE lookup(a integer,b integer); INSERT INTO lookup SELECT i,i FROM generate_series(1,1000) i; CREATE INDEX lookup_idx ON lookup(b); ANALYZE lookup; CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT a FROM lookup WHERE a=501' INTO p; RETURN p; END $$; SELECT COALESCE(plan()#>>'{0,Plan,Index Name}','none');"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE lookup(a integer,b integer); INSERT INTO lookup SELECT i,i FROM generate_series(1,1000) i; CREATE INDEX lookup_idx ON lookup(a); ANALYZE lookup; CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT a FROM lookup WHERE a=501' INTO p; RETURN p; END $$; SELECT COALESCE(plan()#>>'{0,Plan,Index Name}','none');"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "8dc6d4dd-fd9b-5712-85cb-94f7dd23a988",
+      "version_id": "f28bdff4-b542-54c9-b1c9-913cef1a1044",
+      "code": "CS09-M06-O02-CODE",
+      "version": "CS09-M06-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M06-O02"
+      ],
+      "kind": "code",
+      "title": "EXPLAIN ANALYZE 才产生本次实际行数",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "真实计划 JSON：EXPLAIN 只有估计，ANALYZE 会执行并产生 Actual Rows。只验证字段存在，实际代价和耗时不作为固定常数判据。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-explain"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT * FROM generate_series(1,3)' INTO p; RETURN p; END $$; SELECT (plan()->0->'Plan')::jsonb?'Actual Rows';"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (ANALYZE,FORMAT JSON) SELECT * FROM generate_series(1,3)' INTO p; RETURN p; END $$; SELECT (plan()->0->'Plan')::jsonb?'Actual Rows';"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "不同实际行数",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT * FROM generate_series(1,1)' INTO p; RETURN p; END $$; SELECT (plan()->0->'Plan')::jsonb?'Actual Rows';"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (ANALYZE,FORMAT JSON) SELECT * FROM generate_series(1,1)' INTO p; RETURN p; END $$; SELECT (plan()->0->'Plan')::jsonb?'Actual Rows';"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "acaf64e1-460b-53ed-8275-d10cfbd554f0",
+      "version_id": "ae807b70-997d-52c5-ad2a-f3d661e6b2c1",
+      "code": "CS09-M06-O03-CODE",
+      "version": "CS09-M06-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M06-O03"
+      ],
+      "kind": "code",
+      "title": "代价模型中的优选不等于毫秒实测",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创固定估计单位的 Seq/Index 代价集合，优选较低估计；PG 成本是相对单位，真实计划、数据与连接策略仍需独立比较。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-explain"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncosts=[9,4] if n==1 else [4,4]\nprint(max(costs))\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncosts=[9,4] if n==1 else [4,4]\nprint(min(costs))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "相同估计成本",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncosts=[9,4] if n==1 else [4,4]\nprint(max(costs))\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncosts=[9,4] if n==1 else [4,4]\nprint(min(costs))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "05b848eb-4f3d-5cab-bacc-90b9cf45e27e",
+      "version_id": "621b371c-cef0-5b8e-ad5c-f95ebf42e587",
+      "code": "CS09-M07-O01-CODE",
+      "version": "CS09-M07-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M07-O01"
+      ],
+      "kind": "code",
+      "title": "失败转账不能只保留一半更新",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创两账户转账后人为取消：BEGIN/ROLLBACK 保留原值；原始自动提交更新会留下部分转账。不是并发证明。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-isolation"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE account(id integer,balance integer); INSERT INTO account VALUES(1,5),(2,0); UPDATE account SET balance=balance-1 WHERE id=1; SELECT balance FROM account WHERE id=1;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE account(id integer,balance integer); INSERT INTO account VALUES(1,5),(2,0); BEGIN; UPDATE account SET balance=balance-1 WHERE id=1; ROLLBACK; SELECT balance FROM account WHERE id=1;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "余额改变",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE account(id integer,balance integer); INSERT INTO account VALUES(1,1),(2,0); UPDATE account SET balance=balance-1 WHERE id=1; SELECT balance FROM account WHERE id=1;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE account(id integer,balance integer); INSERT INTO account VALUES(1,1),(2,0); BEGIN; UPDATE account SET balance=balance-1 WHERE id=1; ROLLBACK; SELECT balance FROM account WHERE id=1;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "9ac0e95c-7e5f-5edc-8109-8491d132d1a3",
+      "version_id": "dadd5c5d-41de-5aef-a0d1-a029605cd763",
+      "code": "CS09-M07-O02-CODE",
+      "version": "CS09-M07-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M07-O02"
+      ],
+      "kind": "code",
+      "title": "教学读调度区分脏读和已提交快照",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创明示 T1 暂存值9、已提交值1；T2 在提交前的 read committed 应读1，提交后读9。只是轨迹模型，未重现真实双连接隔离异常。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-isolation"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncommitted=1;pending=9\nif n==2:committed=pending\nprint(pending)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\ncommitted=1;pending=9\nif n==2:committed=pending\nprint(committed)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "写者已经提交",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncommitted=1;pending=9\nif n==2:committed=pending\nprint(pending)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\ncommitted=1;pending=9\nif n==2:committed=pending\nprint(committed)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "9a5233e5-7995-596d-b9fc-d6dd48a19992",
+      "version_id": "e4fbae27-84d2-5d8a-b4ac-ba77c6fc6433",
+      "code": "CS09-M07-O03-CODE",
+      "version": "CS09-M07-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M07-O03"
+      ],
+      "kind": "code",
+      "title": "重复业务请求需要唯一幂等键",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "真实唯一约束拒绝同一请求的第二次插入，ON CONFLICT DO NOTHING 只省略重复；这不是锁冲突或完整库存并发项目。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-constraints"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE requests(id integer); INSERT INTO requests VALUES(7),(7) ON CONFLICT DO NOTHING; SELECT count(*) FROM requests;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE requests(id integer PRIMARY KEY); INSERT INTO requests VALUES(7),(7) ON CONFLICT DO NOTHING; SELECT count(*) FROM requests;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "独立的新请求",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE requests(id integer); INSERT INTO requests VALUES(7),(8) ON CONFLICT DO NOTHING; SELECT count(*) FROM requests;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE requests(id integer PRIMARY KEY); INSERT INTO requests VALUES(7),(8) ON CONFLICT DO NOTHING; SELECT count(*) FROM requests;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "cfccd694-9592-548d-8f60-928a31678ce5",
+      "version_id": "73afaed2-9aa2-532c-a7a1-8bdc24df1e21",
+      "code": "CS09-M08-O01-CODE",
+      "version": "CS09-M08-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M08-O01"
+      ],
+      "kind": "code",
+      "title": "日志先行要求先持久化对应日志",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创事件序列 log_flush 在 page_flush 之前，模型对调次序后不满足 WAL。没有触发真实 PG 崩溃或验证 fsync 持久性。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-wal"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nevents=['page_flush','log_flush'] if n==1 else ['log_flush','page_flush']\nprint(True)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nevents=['page_flush','log_flush'] if n==1 else ['log_flush','page_flush']\nprint(events.index('log_flush')<events.index('page_flush'))\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "符合日志先行的次序",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nevents=['page_flush','log_flush'] if n==1 else ['log_flush','page_flush']\nprint(True)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nevents=['page_flush','log_flush'] if n==1 else ['log_flush','page_flush']\nprint(events.index('log_flush')<events.index('page_flush'))\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1ab57b23-a3f4-5168-9b73-d2bd0bf48324",
+      "version_id": "27bb7b1e-5a9e-5986-8690-d38ed949d19a",
+      "code": "CS09-M08-O02-CODE",
+      "version": "CS09-M08-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M08-O02"
+      ],
+      "kind": "code",
+      "title": "原创 REDO 模型只重放已提交事务",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "教学日志 (id,value,committed)，示例仅处理重做，不等同 PG WAL、完整 UNDO 或 ARIES。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-wal"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nlog=[(1,8,False if n==1 else True)]\nvalue=3\nfor tx,new,committed in log:\n value=new\nprint(value)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nlog=[(1,8,False if n==1 else True)]\nvalue=3\nfor tx,new,committed in log:\n if committed:value=new\nprint(value)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "已提交记录",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nlog=[(1,8,False if n==1 else True)]\nvalue=3\nfor tx,new,committed in log:\n value=new\nprint(value)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nlog=[(1,8,False if n==1 else True)]\nvalue=3\nfor tx,new,committed in log:\n if committed:value=new\nprint(value)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "4c1bfc18-7a65-5eb4-bb64-7b9917991ac8",
+      "version_id": "376e6101-a6ca-558e-9ed6-74bfe629b1b6",
+      "code": "CS09-M08-O03-CODE",
+      "version": "CS09-M08-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M08-O03"
+      ],
+      "kind": "code",
+      "title": "真实回滚后核对全部数据",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "在已建立的表中删除后回滚应保留原行；实际 PG 事务结果与恢复教学模型分开，未执行备份或崩溃恢复。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-isolation"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE saved(id integer); INSERT INTO saved VALUES(1),(2); BEGIN; DELETE FROM saved; COMMIT; SELECT count(*) FROM saved;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE saved(id integer); INSERT INTO saved VALUES(1),(2); BEGIN; DELETE FROM saved; ROLLBACK; SELECT count(*) FROM saved;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "不同原始记录",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE saved(id integer); INSERT INTO saved VALUES(1),(3); BEGIN; DELETE FROM saved; COMMIT; SELECT count(*) FROM saved;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE saved(id integer); INSERT INTO saved VALUES(1),(3); BEGIN; DELETE FROM saved; ROLLBACK; SELECT count(*) FROM saved;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "c334a55e-0cef-5fcc-b856-baed9becb53e",
+      "version_id": "84dd0b93-6888-538e-8ef0-fa423fd5993a",
+      "code": "CS09-M09-O01-CODE",
+      "version": "CS09-M09-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M09-O01"
+      ],
+      "kind": "code",
+      "title": "实际受限角色不能读服务端文件",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "真实 learner 尝试 pg_read_file 会因权限拒绝；捕获 insufficient_privilege 并记录拒绝。只验证该能力，不替代跨角色读写授权测试。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-constraints"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE outcome(x text); DO $$ BEGIN PERFORM pg_read_file('/etc/passwd'); INSERT INTO outcome VALUES('allowed'); EXCEPTION WHEN insufficient_privilege THEN INSERT INTO outcome VALUES('empty'); END $$; SELECT x FROM outcome; SELECT 1>0;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE outcome(x text); DO $$ BEGIN PERFORM pg_read_file('/etc/passwd'); INSERT INTO outcome VALUES('allowed'); EXCEPTION WHEN insufficient_privilege THEN INSERT INTO outcome VALUES('denied'); END $$; SELECT x FROM outcome; SELECT 1>0;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "独立查询的条件改变",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE outcome(x text); DO $$ BEGIN PERFORM pg_read_file('/etc/passwd'); INSERT INTO outcome VALUES('allowed'); EXCEPTION WHEN insufficient_privilege THEN INSERT INTO outcome VALUES('empty'); END $$; SELECT x FROM outcome; SELECT 0>0;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE outcome(x text); DO $$ BEGIN PERFORM pg_read_file('/etc/passwd'); INSERT INTO outcome VALUES('allowed'); EXCEPTION WHEN insufficient_privilege THEN INSERT INTO outcome VALUES('denied'); END $$; SELECT x FROM outcome; SELECT 0>0;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "8e5eefb1-c482-512c-8f86-0a8d607a3d23",
+      "version_id": "a4c1d4a8-65a2-559a-8ae3-2992d318da5a",
+      "code": "CS09-M09-O02-CODE",
+      "version": "CS09-M09-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M09-O02"
+      ],
+      "kind": "code",
+      "title": "动态 SQL 数据值通过 USING 绑定",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创 PLpgSQL 查询，输入可包含 OR 片段；拼接会改变查询含义，USING 将整个输入作为数据。这里只验服务端绑定，应用驱动参数化另需测试。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-bind"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE users(name text); INSERT INTO users VALUES('alice'),('bob'); CREATE TABLE outcome(n integer); DO $$ DECLARE requested text:='x'' OR ''1''=''1'; total integer; BEGIN EXECUTE 'SELECT count(*) FROM users WHERE name='''||requested||'''' INTO total; INSERT INTO outcome VALUES(total); END $$; SELECT n FROM outcome;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE users(name text); INSERT INTO users VALUES('alice'),('bob'); CREATE TABLE outcome(n integer); DO $$ DECLARE requested text:='x'' OR ''1''=''1'; total integer; BEGIN EXECUTE 'SELECT count(*) FROM users WHERE name=$1' INTO total USING requested; INSERT INTO outcome VALUES(total); END $$; SELECT n FROM outcome;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "普通名称输入",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE users(name text); INSERT INTO users VALUES('alice'),('bob'); CREATE TABLE outcome(n integer); DO $$ DECLARE requested text:='alice'; total integer; BEGIN EXECUTE 'SELECT count(*) FROM users WHERE name='''||requested||'''' INTO total; INSERT INTO outcome VALUES(total); END $$; SELECT n FROM outcome;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE users(name text); INSERT INTO users VALUES('alice'),('bob'); CREATE TABLE outcome(n integer); DO $$ DECLARE requested text:='alice'; total integer; BEGIN EXECUTE 'SELECT count(*) FROM users WHERE name=$1' INTO total USING requested; INSERT INTO outcome VALUES(total); END $$; SELECT n FROM outcome;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "cf0865dc-5149-515e-ac6d-3854a6c00c16",
+      "version_id": "982a8e68-8209-50e1-8b10-9004ecacf720",
+      "code": "CS09-M09-O03-CODE",
+      "version": "CS09-M09-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M09-O03"
+      ],
+      "kind": "code",
+      "title": "可更新视图需 CHECK OPTION 限定新行",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创视图仅呈现 x>0，默认可通过视图写入不满足条件的新行；CHECK OPTION 实际拒绝。视图条件不是跨角色权限或 security_invoker 的替代。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-view"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE valueset(x integer); CREATE VIEW positive AS SELECT * FROM valueset WHERE x>0; DO $$ BEGIN INSERT INTO positive VALUES(-1); EXCEPTION WHEN with_check_option_violation THEN NULL; END $$; SELECT count(*) FROM valueset;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE valueset(x integer); CREATE VIEW positive AS SELECT * FROM valueset WHERE x>0 WITH CHECK OPTION; DO $$ BEGIN INSERT INTO positive VALUES(-1); EXCEPTION WHEN with_check_option_violation THEN NULL; END $$; SELECT count(*) FROM valueset;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "满足视图条件",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE valueset(x integer); CREATE VIEW positive AS SELECT * FROM valueset WHERE x>0; DO $$ BEGIN INSERT INTO positive VALUES(2); EXCEPTION WHEN with_check_option_violation THEN NULL; END $$; SELECT count(*) FROM valueset;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE valueset(x integer); CREATE VIEW positive AS SELECT * FROM valueset WHERE x>0 WITH CHECK OPTION; DO $$ BEGIN INSERT INTO positive VALUES(2); EXCEPTION WHEN with_check_option_violation THEN NULL; END $$; SELECT count(*) FROM valueset;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "1abf31e7-e863-56fb-9b8c-0048a9498fcb",
+      "version_id": "8de885d0-7bb8-5071-8b44-01860a105f8e",
+      "code": "CS09-M10-O01-CODE",
+      "version": "CS09-M10-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M10-O01"
+      ],
+      "kind": "code",
+      "title": "模式迁移要保留旧行的必填约束",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "真实 ALTER 增加库存预留列，指定默认值和 NOT NULL。读取旧行验证迁移数据；不是完整线上迁移或回滚兼容。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-alter"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE orders(id integer); INSERT INTO orders VALUES(1); ALTER TABLE orders ADD COLUMN reserved integer; SELECT id,reserved FROM orders;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE orders(id integer); INSERT INTO orders VALUES(1); ALTER TABLE orders ADD COLUMN reserved integer NOT NULL DEFAULT 0; SELECT id,reserved FROM orders;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "不同旧订单",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE orders(id integer); INSERT INTO orders VALUES(2); ALTER TABLE orders ADD COLUMN reserved integer; SELECT id,reserved FROM orders;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE orders(id integer); INSERT INTO orders VALUES(2); ALTER TABLE orders ADD COLUMN reserved integer NOT NULL DEFAULT 0; SELECT id,reserved FROM orders;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "28073271-d310-5152-8f76-e9f2fe240486",
+      "version_id": "cc1fc0e8-a808-5687-8b43-fc90e3dcb494",
+      "code": "CS09-M10-O02-CODE",
+      "version": "CS09-M10-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M10-O02"
+      ],
+      "kind": "code",
+      "title": "异步复制的确认边界与分片不同",
+      "student_action": "标注契约与证据，再用实际运行定位违反条件的步骤。",
+      "theory": [
+        "原创主副本提交位置模型：主已确认但副本落后时，提升副本不能声称包含最新确认写；不是实际复制集群，不讨论全部故障模型。",
+        "本例的固定运行只支持列出的观察；证明、一般界和独立迁移不由输出代替。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-wal"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nprimary=9;replica=8 if n==1 else 9\nprint(True)\n"
+        },
+        "stdin": "1\n"
+      },
+      "reference_answer": {
+        "language": "python313",
+        "entry": "main.py",
+        "files": {
+          "main.py": "n = int(input())\nprimary=9;replica=8 if n==1 else 9\nprint(replica>=primary)\n"
+        },
+        "stdin": "1\n"
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "先区分输出错误、输入前提变化和论证缺口。",
+        "检查最小反例与边界，并解释修改依据。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "副本已经追上",
+          "student_action": "先写输入约束及预测，运行并保存反例，修改后解释哪些结论尚未证明。",
+          "code_request": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nprimary=9;replica=8 if n==1 else 9\nprint(True)\n"
+            },
+            "stdin": "2\n"
+          },
+          "reference_answer": {
+            "language": "python313",
+            "entry": "main.py",
+            "files": {
+              "main.py": "n = int(input())\nprimary=9;replica=8 if n==1 else 9\nprint(replica>=primary)\n"
+            },
+            "stdin": "2\n"
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    },
+    {
+      "id": "fd0cc81c-4968-5400-874a-b158ca483771",
+      "version_id": "f25c7992-494d-594e-b709-6cce470c3843",
+      "code": "CS09-M10-O03-CODE",
+      "version": "CS09-M10-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS09-M10-O03"
+      ],
+      "kind": "code",
+      "title": "项目脚本重建必须核对实际数据",
+      "student_action": "修改实际 SQL，保留错误与修正工件并重新运行。",
+      "theory": [
+        "原创两阶段订单／库存脚本以事务回滚取消一次预留，然后核对当前库存。尚未构成备份恢复、迁移回滚和完整下单项目。",
+        "每次创建全新隔离数据库；固定输出不证明一般性质、独立解释或整个目标。"
+      ],
+      "starter": "先预测并标注约束，再运行、解释和修改。",
+      "source_refs": [
+        "db-isolation"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较本次固定输入的实际状态与输出，不证明一般正确性、独立能力或原理解释。解释和独立迁移待复核。",
+      "code_request": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE inventory(id integer PRIMARY KEY,n integer NOT NULL CHECK(n>=0)); INSERT INTO inventory VALUES(1,2); BEGIN; UPDATE inventory SET n=n-1 WHERE id=1 AND n>0; COMMIT; SELECT n FROM inventory WHERE id=1;"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "postgres18",
+        "entry": "main.sql",
+        "files": {
+          "main.sql": "CREATE TABLE inventory(id integer PRIMARY KEY,n integer NOT NULL CHECK(n>=0)); INSERT INTO inventory VALUES(1,2); BEGIN; UPDATE inventory SET n=n-1 WHERE id=1 AND n>0; ROLLBACK; SELECT n FROM inventory WHERE id=1;"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+      "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。",
+      "hints": [
+        "核对输入、NULL、重复、约束和事务边界。",
+        "按题目声明集合、多重集或顺序；解释最小反例。"
+      ],
+      "variants": [
+        {
+          "code": "changed-condition",
+          "title": "库存边界改变",
+          "student_action": "先预测数据和约束，运行、修正并解释结果的适用范围。",
+          "code_request": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE inventory(id integer PRIMARY KEY,n integer NOT NULL CHECK(n>=0)); INSERT INTO inventory VALUES(1,1); BEGIN; UPDATE inventory SET n=n-1 WHERE id=1 AND n>0; COMMIT; SELECT n FROM inventory WHERE id=1;"
+            },
+            "stdin": ""
+          },
+          "reference_answer": {
+            "language": "postgres18",
+            "entry": "main.sql",
+            "files": {
+              "main.sql": "CREATE TABLE inventory(id integer PRIMARY KEY,n integer NOT NULL CHECK(n>=0)); INSERT INTO inventory VALUES(1,1); BEGIN; UPDATE inventory SET n=n-1 WHERE id=1 AND n>0; ROLLBACK; SELECT n FROM inventory WHERE id=1;"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测状态、输出和错误分支，说明依据。",
+          "reflection_prompt": "保存差异、修正理由和下一项边界；说明本次运行尚未证明什么。"
+        }
+      ],
+      "check_version": "code-fixed-condition-v1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "db-constraints",
+      "title": "PG18 Constraints",
+      "url": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+      "locator": "5.5 NULL, unique, primary and foreign keys",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-queries",
+      "title": "PG18 Table Expressions",
+      "url": "https://www.postgresql.org/docs/18/queries-table-expressions.html",
+      "locator": "7.2 joins, WHERE and groups",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-window",
+      "title": "PG18 Window Functions",
+      "url": "https://www.postgresql.org/docs/18/functions-window.html",
+      "locator": "9.22 rank and dense_rank",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-isolation",
+      "title": "PG18 Transaction Isolation",
+      "url": "https://www.postgresql.org/docs/18/transaction-iso.html",
+      "locator": "13.2 actual isolation semantics; one session does not reproduce anomalies",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-index",
+      "title": "PG18 Multicolumn Indexes",
+      "url": "https://www.postgresql.org/docs/18/indexes-multicolumn.html",
+      "locator": "11.3 leading keys and PG18 skip scan; no claim of absolute left-prefix prohibition",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-explain",
+      "title": "PG18 Using EXPLAIN",
+      "url": "https://www.postgresql.org/docs/18/using-explain.html",
+      "locator": "14.1 estimated versus actual rows and costs",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-wal",
+      "title": "PG18 Write Ahead Logging",
+      "url": "https://www.postgresql.org/docs/18/wal-intro.html",
+      "locator": "28.3 log before data; original models are not actual PG crash recovery",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-bind",
+      "title": "PG18 PLpgSQL Statements",
+      "url": "https://www.postgresql.org/docs/18/plpgsql-statements.html",
+      "locator": "41.5.4 EXECUTE USING data values",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-prepare",
+      "title": "PG18 PREPARE",
+      "url": "https://www.postgresql.org/docs/18/sql-prepare.html",
+      "locator": "parameterized prepared statements",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-view",
+      "title": "PG18 CREATE VIEW",
+      "url": "https://www.postgresql.org/docs/18/sql-createview.html",
+      "locator": "CHECK OPTION and security_invoker distinctions",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-alter",
+      "title": "PG18 ALTER TABLE",
+      "url": "https://www.postgresql.org/docs/18/sql-altertable.html",
+      "locator": "schema changes within transactions",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "db-normal",
+      "title": "Cornell Schema Refinement",
+      "url": "https://www.cs.cornell.edu/courses/cs330/2004sp/slides/CIS330-lecture11-03-02-2004-Normalization.pdf",
+      "locator": "FD closure, BCNF and binary lossless join",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ]
+}

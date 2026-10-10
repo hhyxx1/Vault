@@ -1,0 +1,2042 @@
+[
+  {
+    "id": "CS09-M01-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O01",
+    "activity": "3d4b6d9b-3d47-524b-b6d9-340062feafc8",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); INSERT INTO users VALUES(1),(1) ON CONFLICT DO NOTHING; SELECT count(*) FROM users;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M01-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O01",
+    "activity": "3d4b6d9b-3d47-524b-b6d9-340062feafc8",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer PRIMARY KEY); INSERT INTO users VALUES(1),(1) ON CONFLICT DO NOTHING; SELECT count(*) FROM users;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M01-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O01",
+    "activity": "3d4b6d9b-3d47-524b-b6d9-340062feafc8",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); INSERT INTO users VALUES(1),(2) ON CONFLICT DO NOTHING; SELECT count(*) FROM users;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M01-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O01",
+    "activity": "3d4b6d9b-3d47-524b-b6d9-340062feafc8",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer PRIMARY KEY); INSERT INTO users VALUES(1),(2) ON CONFLICT DO NOTHING; SELECT count(*) FROM users;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M01-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O02",
+    "activity": "093d91bb-7423-5578-b0db-c61699059a02",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE item(price integer); INSERT INTO item VALUES(2),(3); SELECT price FROM item WHERE price>2 ORDER BY price;"
+      },
+      "stdin": ""
+    },
+    "stdout": "3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M01-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O02",
+    "activity": "093d91bb-7423-5578-b0db-c61699059a02",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE item(price integer); INSERT INTO item VALUES(2),(3); SELECT price FROM item WHERE price>=2 ORDER BY price;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M01-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O02",
+    "activity": "093d91bb-7423-5578-b0db-c61699059a02",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE item(price integer); INSERT INTO item VALUES(1),(3); SELECT price FROM item WHERE price>2 ORDER BY price;"
+      },
+      "stdin": ""
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M01-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O02",
+    "activity": "093d91bb-7423-5578-b0db-c61699059a02",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE item(price integer); INSERT INTO item VALUES(1),(3); SELECT price FROM item WHERE price>=2 ORDER BY price;"
+      },
+      "stdin": ""
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M01-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O03",
+    "activity": "6db0979e-6b60-50fb-a055-cc7376c4cdf4",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(1); SELECT DISTINCT x FROM scores ORDER BY x;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M01-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O03",
+    "activity": "6db0979e-6b60-50fb-a055-cc7376c4cdf4",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(1); SELECT x FROM scores ORDER BY x;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M01-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O03",
+    "activity": "6db0979e-6b60-50fb-a055-cc7376c4cdf4",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(2); SELECT DISTINCT x FROM scores ORDER BY x;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M01-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M01-O03",
+    "activity": "6db0979e-6b60-50fb-a055-cc7376c4cdf4",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE scores(x integer); INSERT INTO scores VALUES(1),(2); SELECT x FROM scores ORDER BY x;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M02-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O01",
+    "activity": "150fff0b-f067-502c-b856-ebd0de3dfd3d",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE enroll(student integer,course integer,PRIMARY KEY(student)); INSERT INTO enroll VALUES(1,10),(1,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM enroll;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M02-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O01",
+    "activity": "150fff0b-f067-502c-b856-ebd0de3dfd3d",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE enroll(student integer,course integer,PRIMARY KEY(student,course)); INSERT INTO enroll VALUES(1,10),(1,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM enroll;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M02-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O01",
+    "activity": "150fff0b-f067-502c-b856-ebd0de3dfd3d",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE enroll(student integer,course integer,PRIMARY KEY(student)); INSERT INTO enroll VALUES(1,10),(2,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM enroll;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M02-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O01",
+    "activity": "150fff0b-f067-502c-b856-ebd0de3dfd3d",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE enroll(student integer,course integer,PRIMARY KEY(student,course)); INSERT INTO enroll VALUES(1,10),(2,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM enroll;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M02-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O02",
+    "activity": "aab1c072-993d-54a7-a7ee-768ca3fdee96",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE loans(id integer,book_id integer,PRIMARY KEY(book_id)); INSERT INTO loans VALUES(1,10),(2,10) ON CONFLICT DO NOTHING; SELECT count(*) FROM loans;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M02-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O02",
+    "activity": "aab1c072-993d-54a7-a7ee-768ca3fdee96",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE loans(id integer,book_id integer,PRIMARY KEY(id)); INSERT INTO loans VALUES(1,10),(2,10) ON CONFLICT DO NOTHING; SELECT count(*) FROM loans;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M02-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O02",
+    "activity": "aab1c072-993d-54a7-a7ee-768ca3fdee96",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE loans(id integer,book_id integer,PRIMARY KEY(book_id)); INSERT INTO loans VALUES(1,10),(2,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM loans;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M02-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O02",
+    "activity": "aab1c072-993d-54a7-a7ee-768ca3fdee96",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE loans(id integer,book_id integer,PRIMARY KEY(id)); INSERT INTO loans VALUES(1,10),(2,20) ON CONFLICT DO NOTHING; SELECT count(*) FROM loans;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M02-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O03",
+    "activity": "4fe5dc69-ced4-511f-86dc-13cbb8eec694",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE books(id integer PRIMARY KEY); INSERT INTO books VALUES(1); CREATE TABLE loans(book integer); DO $$ BEGIN INSERT INTO loans VALUES(2); EXCEPTION WHEN foreign_key_violation THEN NULL; END $$; SELECT count(*) FROM loans;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M02-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O03",
+    "activity": "4fe5dc69-ced4-511f-86dc-13cbb8eec694",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE books(id integer PRIMARY KEY); INSERT INTO books VALUES(1); CREATE TABLE loans(book integer REFERENCES books(id)); DO $$ BEGIN INSERT INTO loans VALUES(2); EXCEPTION WHEN foreign_key_violation THEN NULL; END $$; SELECT count(*) FROM loans;"
+      },
+      "stdin": ""
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M02-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O03",
+    "activity": "4fe5dc69-ced4-511f-86dc-13cbb8eec694",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE books(id integer PRIMARY KEY); INSERT INTO books VALUES(1); CREATE TABLE loans(book integer); DO $$ BEGIN INSERT INTO loans VALUES(1); EXCEPTION WHEN foreign_key_violation THEN NULL; END $$; SELECT count(*) FROM loans;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M02-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M02-O03",
+    "activity": "4fe5dc69-ced4-511f-86dc-13cbb8eec694",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE books(id integer PRIMARY KEY); INSERT INTO books VALUES(1); CREATE TABLE loans(book integer REFERENCES books(id)); DO $$ BEGIN INSERT INTO loans VALUES(1); EXCEPTION WHEN foreign_key_violation THEN NULL; END $$; SELECT count(*) FROM loans;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M03-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O01",
+    "activity": "a6f07edb-d237-5158-bce7-ed75c3046c8a",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE marks(id integer,x integer); INSERT INTO marks VALUES(1,NULL),(2,2); SELECT id FROM marks WHERE x=NULL ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M03-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O01",
+    "activity": "a6f07edb-d237-5158-bce7-ed75c3046c8a",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE marks(id integer,x integer); INSERT INTO marks VALUES(1,NULL),(2,2); SELECT id FROM marks WHERE x IS NULL ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M03-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O01",
+    "activity": "a6f07edb-d237-5158-bce7-ed75c3046c8a",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE marks(id integer,x integer); INSERT INTO marks VALUES(1,NULL),(2,NULL); SELECT id FROM marks WHERE x=NULL ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M03-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O01",
+    "activity": "a6f07edb-d237-5158-bce7-ed75c3046c8a",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE marks(id integer,x integer); INSERT INTO marks VALUES(1,NULL),(2,NULL); SELECT id FROM marks WHERE x IS NULL ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M03-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O02",
+    "activity": "fe98e986-0533-5769-9d3a-acab7465957a",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE stock(id integer,n integer); INSERT INTO stock VALUES(1,5),(2,5); UPDATE stock SET n=9; SELECT id,n FROM stock ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|9\n2|9\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M03-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O02",
+    "activity": "fe98e986-0533-5769-9d3a-acab7465957a",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE stock(id integer,n integer); INSERT INTO stock VALUES(1,5),(2,5); UPDATE stock SET n=9 WHERE id=1; SELECT id,n FROM stock ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|9\n2|5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M03-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O02",
+    "activity": "fe98e986-0533-5769-9d3a-acab7465957a",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE stock(id integer,n integer); INSERT INTO stock VALUES(1,5),(2,0); UPDATE stock SET n=9; SELECT id,n FROM stock ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|9\n2|9\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M03-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O02",
+    "activity": "fe98e986-0533-5769-9d3a-acab7465957a",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE stock(id integer,n integer); INSERT INTO stock VALUES(1,5),(2,0); UPDATE stock SET n=9 WHERE id=1; SELECT id,n FROM stock ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|9\n2|0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M03-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O03",
+    "activity": "1918184e-30f4-5772-b5e1-1c120dc702c5",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE positive(x integer CHECK(x>0)); DO $$ BEGIN INSERT INTO positive VALUES(NULL); EXCEPTION WHEN not_null_violation THEN NULL; END $$; SELECT count(*) FROM positive;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M03-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O03",
+    "activity": "1918184e-30f4-5772-b5e1-1c120dc702c5",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE positive(x integer NOT NULL CHECK(x>0)); DO $$ BEGIN INSERT INTO positive VALUES(NULL); EXCEPTION WHEN not_null_violation THEN NULL; END $$; SELECT count(*) FROM positive;"
+      },
+      "stdin": ""
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M03-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O03",
+    "activity": "1918184e-30f4-5772-b5e1-1c120dc702c5",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE positive(x integer CHECK(x>0)); DO $$ BEGIN INSERT INTO positive VALUES(5); EXCEPTION WHEN not_null_violation THEN NULL; END $$; SELECT count(*) FROM positive;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M03-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M03-O03",
+    "activity": "1918184e-30f4-5772-b5e1-1c120dc702c5",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE positive(x integer NOT NULL CHECK(x>0)); DO $$ BEGIN INSERT INTO positive VALUES(5); EXCEPTION WHEN not_null_violation THEN NULL; END $$; SELECT count(*) FROM positive;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M04-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O01",
+    "activity": "ba9a51b3-e5d6-5e60-8c3f-0c729b814b1d",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1); SELECT count(DISTINCT u.id) FROM users u JOIN orders o ON u.id=o.uid;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M04-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O01",
+    "activity": "ba9a51b3-e5d6-5e60-8c3f-0c729b814b1d",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1); SELECT count(DISTINCT u.id) FROM users u LEFT JOIN orders o ON u.id=o.uid;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M04-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O01",
+    "activity": "ba9a51b3-e5d6-5e60-8c3f-0c729b814b1d",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1),(2); SELECT count(DISTINCT u.id) FROM users u JOIN orders o ON u.id=o.uid;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M04-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O01",
+    "activity": "ba9a51b3-e5d6-5e60-8c3f-0c729b814b1d",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1),(2); SELECT count(DISTINCT u.id) FROM users u LEFT JOIN orders o ON u.id=o.uid;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M04-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O02",
+    "activity": "691dbd83-b301-57b6-ae20-c5b7a9bd3b7f",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1); SELECT u.id,count(*) FROM users u LEFT JOIN orders o ON u.id=o.uid GROUP BY u.id ORDER BY u.id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|1\n2|1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M04-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O02",
+    "activity": "691dbd83-b301-57b6-ae20-c5b7a9bd3b7f",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1); SELECT u.id,count(o.uid) FROM users u LEFT JOIN orders o ON u.id=o.uid GROUP BY u.id ORDER BY u.id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|1\n2|0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M04-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O02",
+    "activity": "691dbd83-b301-57b6-ae20-c5b7a9bd3b7f",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1),(2); SELECT u.id,count(*) FROM users u LEFT JOIN orders o ON u.id=o.uid GROUP BY u.id ORDER BY u.id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|1\n2|1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M04-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O02",
+    "activity": "691dbd83-b301-57b6-ae20-c5b7a9bd3b7f",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(id integer); CREATE TABLE orders(uid integer); INSERT INTO users VALUES(1),(2); INSERT INTO orders VALUES(1),(2); SELECT u.id,count(o.uid) FROM users u LEFT JOIN orders o ON u.id=o.uid GROUP BY u.id ORDER BY u.id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|1\n2|1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M04-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O03",
+    "activity": "4785a3d2-8d63-540a-94b2-2db705e79ae3",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE scores(id integer,x integer); INSERT INTO scores VALUES(1,10),(2,10),(3,9); SELECT id,rank() OVER(ORDER BY x DESC) FROM scores ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|1\n2|1\n3|3\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M04-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O03",
+    "activity": "4785a3d2-8d63-540a-94b2-2db705e79ae3",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE scores(id integer,x integer); INSERT INTO scores VALUES(1,10),(2,10),(3,9); SELECT id,dense_rank() OVER(ORDER BY x DESC) FROM scores ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|1\n2|1\n3|2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M04-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O03",
+    "activity": "4785a3d2-8d63-540a-94b2-2db705e79ae3",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE scores(id integer,x integer); INSERT INTO scores VALUES(1,10),(2,9),(3,9); SELECT id,rank() OVER(ORDER BY x DESC) FROM scores ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|1\n2|2\n3|2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M04-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M04-O03",
+    "activity": "4785a3d2-8d63-540a-94b2-2db705e79ae3",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE scores(id integer,x integer); INSERT INTO scores VALUES(1,10),(2,9),(3,9); SELECT id,dense_rank() OVER(ORDER BY x DESC) FROM scores ORDER BY id;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|1\n2|2\n3|2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M05-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O01",
+    "activity": "f90b86df-c0bb-52e1-912f-c9421d718f1a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfds=[({'B'},{'C'}),({'A'},{'B'})] if n==1 else [({'A'},{'B'})]\nclosure={'A'}\nfor left,right in fds:\n if left<=closure:closure|=right\nprint(''.join(sorted(closure)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "AB\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M05-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O01",
+    "activity": "f90b86df-c0bb-52e1-912f-c9421d718f1a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfds=[({'B'},{'C'}),({'A'},{'B'})] if n==1 else [({'A'},{'B'})]\nclosure={'A'}\nwhile True:\n previous=set(closure)\n for left,right in fds:\n  if left<=closure:closure|=right\n if closure==previous:break\nprint(''.join(sorted(closure)))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "ABC\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M05-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O01",
+    "activity": "f90b86df-c0bb-52e1-912f-c9421d718f1a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfds=[({'B'},{'C'}),({'A'},{'B'})] if n==1 else [({'A'},{'B'})]\nclosure={'A'}\nfor left,right in fds:\n if left<=closure:closure|=right\nprint(''.join(sorted(closure)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "AB\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M05-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O01",
+    "activity": "f90b86df-c0bb-52e1-912f-c9421d718f1a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nfds=[({'B'},{'C'}),({'A'},{'B'})] if n==1 else [({'A'},{'B'})]\nclosure={'A'}\nwhile True:\n previous=set(closure)\n for left,right in fds:\n  if left<=closure:closure|=right\n if closure==previous:break\nprint(''.join(sorted(closure)))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "AB\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M05-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O02",
+    "activity": "987e1f95-e05d-50a8-aa14-b77b1685d6a4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nschema=set('ABC');fds=[({'A'},set('BC'))]+([({'B'},{'C'})] if n==1 else [])\ndef closure(seed):\n result=set(seed)\n while True:\n  old=set(result)\n  for left,right in fds:\n   if left<=result:result|=right\n  if old==result:return result\nprint(all(bool(left) for left,right in fds))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M05-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O02",
+    "activity": "987e1f95-e05d-50a8-aa14-b77b1685d6a4",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nschema=set('ABC');fds=[({'A'},set('BC'))]+([({'B'},{'C'})] if n==1 else [])\ndef closure(seed):\n result=set(seed)\n while True:\n  old=set(result)\n  for left,right in fds:\n   if left<=result:result|=right\n  if old==result:return result\nprint(all(right<=left or schema<=closure(left) for left,right in fds))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M05-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O02",
+    "activity": "987e1f95-e05d-50a8-aa14-b77b1685d6a4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nschema=set('ABC');fds=[({'A'},set('BC'))]+([({'B'},{'C'})] if n==1 else [])\ndef closure(seed):\n result=set(seed)\n while True:\n  old=set(result)\n  for left,right in fds:\n   if left<=result:result|=right\n  if old==result:return result\nprint(all(bool(left) for left,right in fds))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M05-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O02",
+    "activity": "987e1f95-e05d-50a8-aa14-b77b1685d6a4",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nschema=set('ABC');fds=[({'A'},set('BC'))]+([({'B'},{'C'})] if n==1 else [])\ndef closure(seed):\n result=set(seed)\n while True:\n  old=set(result)\n  for left,right in fds:\n   if left<=result:result|=right\n  if old==result:return result\nprint(all(right<=left or schema<=closure(left) for left,right in fds))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M05-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O03",
+    "activity": "b24e63e4-8633-5fff-9425-72e3a71134f8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft=set('AB');right=set('BC');common=left&right\nclosure=set(common)\nif n==2:closure.add('A')\nprint(bool(common))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M05-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O03",
+    "activity": "b24e63e4-8633-5fff-9425-72e3a71134f8",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft=set('AB');right=set('BC');common=left&right\nclosure=set(common)\nif n==2:closure.add('A')\nprint(left<=closure or right<=closure)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M05-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O03",
+    "activity": "b24e63e4-8633-5fff-9425-72e3a71134f8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft=set('AB');right=set('BC');common=left&right\nclosure=set(common)\nif n==2:closure.add('A')\nprint(bool(common))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M05-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M05-O03",
+    "activity": "b24e63e4-8633-5fff-9425-72e3a71134f8",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nleft=set('AB');right=set('BC');common=left&right\nclosure=set(common)\nif n==2:closure.add('A')\nprint(left<=closure or right<=closure)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M06-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O01",
+    "activity": "53edffa9-0ca2-59af-8c1a-f30828bb2ecc",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE lookup(a integer,b integer); INSERT INTO lookup SELECT i,i FROM generate_series(1,1000) i; CREATE INDEX lookup_idx ON lookup(b); ANALYZE lookup; CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT a FROM lookup WHERE a=500' INTO p; RETURN p; END $$; SELECT COALESCE(plan()#>>'{0,Plan,Index Name}','none');"
+      },
+      "stdin": ""
+    },
+    "stdout": "none\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M06-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O01",
+    "activity": "53edffa9-0ca2-59af-8c1a-f30828bb2ecc",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE lookup(a integer,b integer); INSERT INTO lookup SELECT i,i FROM generate_series(1,1000) i; CREATE INDEX lookup_idx ON lookup(a); ANALYZE lookup; CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT a FROM lookup WHERE a=500' INTO p; RETURN p; END $$; SELECT COALESCE(plan()#>>'{0,Plan,Index Name}','none');"
+      },
+      "stdin": ""
+    },
+    "stdout": "lookup_idx\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M06-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O01",
+    "activity": "53edffa9-0ca2-59af-8c1a-f30828bb2ecc",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE lookup(a integer,b integer); INSERT INTO lookup SELECT i,i FROM generate_series(1,1000) i; CREATE INDEX lookup_idx ON lookup(b); ANALYZE lookup; CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT a FROM lookup WHERE a=501' INTO p; RETURN p; END $$; SELECT COALESCE(plan()#>>'{0,Plan,Index Name}','none');"
+      },
+      "stdin": ""
+    },
+    "stdout": "none\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M06-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O01",
+    "activity": "53edffa9-0ca2-59af-8c1a-f30828bb2ecc",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE lookup(a integer,b integer); INSERT INTO lookup SELECT i,i FROM generate_series(1,1000) i; CREATE INDEX lookup_idx ON lookup(a); ANALYZE lookup; CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT a FROM lookup WHERE a=501' INTO p; RETURN p; END $$; SELECT COALESCE(plan()#>>'{0,Plan,Index Name}','none');"
+      },
+      "stdin": ""
+    },
+    "stdout": "lookup_idx\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M06-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O02",
+    "activity": "f28bdff4-b542-54c9-b1c9-913cef1a1044",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT * FROM generate_series(1,3)' INTO p; RETURN p; END $$; SELECT (plan()->0->'Plan')::jsonb?'Actual Rows';"
+      },
+      "stdin": ""
+    },
+    "stdout": "f\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M06-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O02",
+    "activity": "f28bdff4-b542-54c9-b1c9-913cef1a1044",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (ANALYZE,FORMAT JSON) SELECT * FROM generate_series(1,3)' INTO p; RETURN p; END $$; SELECT (plan()->0->'Plan')::jsonb?'Actual Rows';"
+      },
+      "stdin": ""
+    },
+    "stdout": "t\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M06-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O02",
+    "activity": "f28bdff4-b542-54c9-b1c9-913cef1a1044",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (FORMAT JSON) SELECT * FROM generate_series(1,1)' INTO p; RETURN p; END $$; SELECT (plan()->0->'Plan')::jsonb?'Actual Rows';"
+      },
+      "stdin": ""
+    },
+    "stdout": "f\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M06-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O02",
+    "activity": "f28bdff4-b542-54c9-b1c9-913cef1a1044",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE FUNCTION plan() RETURNS json LANGUAGE plpgsql AS $$ DECLARE p json; BEGIN EXECUTE 'EXPLAIN (ANALYZE,FORMAT JSON) SELECT * FROM generate_series(1,1)' INTO p; RETURN p; END $$; SELECT (plan()->0->'Plan')::jsonb?'Actual Rows';"
+      },
+      "stdin": ""
+    },
+    "stdout": "t\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M06-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O03",
+    "activity": "ae807b70-997d-52c5-ad2a-f3d661e6b2c1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncosts=[9,4] if n==1 else [4,4]\nprint(max(costs))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "9\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M06-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O03",
+    "activity": "ae807b70-997d-52c5-ad2a-f3d661e6b2c1",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncosts=[9,4] if n==1 else [4,4]\nprint(min(costs))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M06-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O03",
+    "activity": "ae807b70-997d-52c5-ad2a-f3d661e6b2c1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncosts=[9,4] if n==1 else [4,4]\nprint(max(costs))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M06-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M06-O03",
+    "activity": "ae807b70-997d-52c5-ad2a-f3d661e6b2c1",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncosts=[9,4] if n==1 else [4,4]\nprint(min(costs))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M07-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O01",
+    "activity": "621b371c-cef0-5b8e-ad5c-f95ebf42e587",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE account(id integer,balance integer); INSERT INTO account VALUES(1,5),(2,0); UPDATE account SET balance=balance-1 WHERE id=1; SELECT balance FROM account WHERE id=1;"
+      },
+      "stdin": ""
+    },
+    "stdout": "4\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M07-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O01",
+    "activity": "621b371c-cef0-5b8e-ad5c-f95ebf42e587",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE account(id integer,balance integer); INSERT INTO account VALUES(1,5),(2,0); BEGIN; UPDATE account SET balance=balance-1 WHERE id=1; ROLLBACK; SELECT balance FROM account WHERE id=1;"
+      },
+      "stdin": ""
+    },
+    "stdout": "5\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M07-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O01",
+    "activity": "621b371c-cef0-5b8e-ad5c-f95ebf42e587",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE account(id integer,balance integer); INSERT INTO account VALUES(1,1),(2,0); UPDATE account SET balance=balance-1 WHERE id=1; SELECT balance FROM account WHERE id=1;"
+      },
+      "stdin": ""
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M07-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O01",
+    "activity": "621b371c-cef0-5b8e-ad5c-f95ebf42e587",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE account(id integer,balance integer); INSERT INTO account VALUES(1,1),(2,0); BEGIN; UPDATE account SET balance=balance-1 WHERE id=1; ROLLBACK; SELECT balance FROM account WHERE id=1;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M07-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O02",
+    "activity": "dadd5c5d-41de-5aef-a0d1-a029605cd763",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncommitted=1;pending=9\nif n==2:committed=pending\nprint(pending)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "9\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M07-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O02",
+    "activity": "dadd5c5d-41de-5aef-a0d1-a029605cd763",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncommitted=1;pending=9\nif n==2:committed=pending\nprint(committed)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M07-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O02",
+    "activity": "dadd5c5d-41de-5aef-a0d1-a029605cd763",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncommitted=1;pending=9\nif n==2:committed=pending\nprint(pending)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M07-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O02",
+    "activity": "dadd5c5d-41de-5aef-a0d1-a029605cd763",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\ncommitted=1;pending=9\nif n==2:committed=pending\nprint(committed)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M07-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O03",
+    "activity": "e4fbae27-84d2-5d8a-b4ac-ba77c6fc6433",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE requests(id integer); INSERT INTO requests VALUES(7),(7) ON CONFLICT DO NOTHING; SELECT count(*) FROM requests;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M07-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O03",
+    "activity": "e4fbae27-84d2-5d8a-b4ac-ba77c6fc6433",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE requests(id integer PRIMARY KEY); INSERT INTO requests VALUES(7),(7) ON CONFLICT DO NOTHING; SELECT count(*) FROM requests;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M07-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O03",
+    "activity": "e4fbae27-84d2-5d8a-b4ac-ba77c6fc6433",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE requests(id integer); INSERT INTO requests VALUES(7),(8) ON CONFLICT DO NOTHING; SELECT count(*) FROM requests;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M07-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M07-O03",
+    "activity": "e4fbae27-84d2-5d8a-b4ac-ba77c6fc6433",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE requests(id integer PRIMARY KEY); INSERT INTO requests VALUES(7),(8) ON CONFLICT DO NOTHING; SELECT count(*) FROM requests;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M08-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O01",
+    "activity": "73afaed2-9aa2-532c-a7a1-8bdc24df1e21",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nevents=['page_flush','log_flush'] if n==1 else ['log_flush','page_flush']\nprint(True)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M08-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O01",
+    "activity": "73afaed2-9aa2-532c-a7a1-8bdc24df1e21",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nevents=['page_flush','log_flush'] if n==1 else ['log_flush','page_flush']\nprint(events.index('log_flush')<events.index('page_flush'))\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M08-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O01",
+    "activity": "73afaed2-9aa2-532c-a7a1-8bdc24df1e21",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nevents=['page_flush','log_flush'] if n==1 else ['log_flush','page_flush']\nprint(True)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M08-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O01",
+    "activity": "73afaed2-9aa2-532c-a7a1-8bdc24df1e21",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nevents=['page_flush','log_flush'] if n==1 else ['log_flush','page_flush']\nprint(events.index('log_flush')<events.index('page_flush'))\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M08-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O02",
+    "activity": "27bb7b1e-5a9e-5986-8690-d38ed949d19a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlog=[(1,8,False if n==1 else True)]\nvalue=3\nfor tx,new,committed in log:\n value=new\nprint(value)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "8\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M08-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O02",
+    "activity": "27bb7b1e-5a9e-5986-8690-d38ed949d19a",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlog=[(1,8,False if n==1 else True)]\nvalue=3\nfor tx,new,committed in log:\n if committed:value=new\nprint(value)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "3\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M08-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O02",
+    "activity": "27bb7b1e-5a9e-5986-8690-d38ed949d19a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlog=[(1,8,False if n==1 else True)]\nvalue=3\nfor tx,new,committed in log:\n value=new\nprint(value)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M08-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O02",
+    "activity": "27bb7b1e-5a9e-5986-8690-d38ed949d19a",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nlog=[(1,8,False if n==1 else True)]\nvalue=3\nfor tx,new,committed in log:\n if committed:value=new\nprint(value)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M08-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O03",
+    "activity": "376e6101-a6ca-558e-9ed6-74bfe629b1b6",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE saved(id integer); INSERT INTO saved VALUES(1),(2); BEGIN; DELETE FROM saved; COMMIT; SELECT count(*) FROM saved;"
+      },
+      "stdin": ""
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M08-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O03",
+    "activity": "376e6101-a6ca-558e-9ed6-74bfe629b1b6",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE saved(id integer); INSERT INTO saved VALUES(1),(2); BEGIN; DELETE FROM saved; ROLLBACK; SELECT count(*) FROM saved;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M08-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O03",
+    "activity": "376e6101-a6ca-558e-9ed6-74bfe629b1b6",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE saved(id integer); INSERT INTO saved VALUES(1),(3); BEGIN; DELETE FROM saved; COMMIT; SELECT count(*) FROM saved;"
+      },
+      "stdin": ""
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M08-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M08-O03",
+    "activity": "376e6101-a6ca-558e-9ed6-74bfe629b1b6",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE saved(id integer); INSERT INTO saved VALUES(1),(3); BEGIN; DELETE FROM saved; ROLLBACK; SELECT count(*) FROM saved;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M09-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O01",
+    "activity": "84dd0b93-6888-538e-8ef0-fa423fd5993a",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE outcome(x text); DO $$ BEGIN PERFORM pg_read_file('/etc/passwd'); INSERT INTO outcome VALUES('allowed'); EXCEPTION WHEN insufficient_privilege THEN INSERT INTO outcome VALUES('empty'); END $$; SELECT x FROM outcome; SELECT 1>0;"
+      },
+      "stdin": ""
+    },
+    "stdout": "empty\nt\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M09-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O01",
+    "activity": "84dd0b93-6888-538e-8ef0-fa423fd5993a",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE outcome(x text); DO $$ BEGIN PERFORM pg_read_file('/etc/passwd'); INSERT INTO outcome VALUES('allowed'); EXCEPTION WHEN insufficient_privilege THEN INSERT INTO outcome VALUES('denied'); END $$; SELECT x FROM outcome; SELECT 1>0;"
+      },
+      "stdin": ""
+    },
+    "stdout": "denied\nt\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M09-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O01",
+    "activity": "84dd0b93-6888-538e-8ef0-fa423fd5993a",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE outcome(x text); DO $$ BEGIN PERFORM pg_read_file('/etc/passwd'); INSERT INTO outcome VALUES('allowed'); EXCEPTION WHEN insufficient_privilege THEN INSERT INTO outcome VALUES('empty'); END $$; SELECT x FROM outcome; SELECT 0>0;"
+      },
+      "stdin": ""
+    },
+    "stdout": "empty\nf\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M09-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O01",
+    "activity": "84dd0b93-6888-538e-8ef0-fa423fd5993a",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE outcome(x text); DO $$ BEGIN PERFORM pg_read_file('/etc/passwd'); INSERT INTO outcome VALUES('allowed'); EXCEPTION WHEN insufficient_privilege THEN INSERT INTO outcome VALUES('denied'); END $$; SELECT x FROM outcome; SELECT 0>0;"
+      },
+      "stdin": ""
+    },
+    "stdout": "denied\nf\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M09-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O02",
+    "activity": "a4c1d4a8-65a2-559a-8ae3-2992d318da5a",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(name text); INSERT INTO users VALUES('alice'),('bob'); CREATE TABLE outcome(n integer); DO $$ DECLARE requested text:='x'' OR ''1''=''1'; total integer; BEGIN EXECUTE 'SELECT count(*) FROM users WHERE name='''||requested||'''' INTO total; INSERT INTO outcome VALUES(total); END $$; SELECT n FROM outcome;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M09-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O02",
+    "activity": "a4c1d4a8-65a2-559a-8ae3-2992d318da5a",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(name text); INSERT INTO users VALUES('alice'),('bob'); CREATE TABLE outcome(n integer); DO $$ DECLARE requested text:='x'' OR ''1''=''1'; total integer; BEGIN EXECUTE 'SELECT count(*) FROM users WHERE name=$1' INTO total USING requested; INSERT INTO outcome VALUES(total); END $$; SELECT n FROM outcome;"
+      },
+      "stdin": ""
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M09-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O02",
+    "activity": "a4c1d4a8-65a2-559a-8ae3-2992d318da5a",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(name text); INSERT INTO users VALUES('alice'),('bob'); CREATE TABLE outcome(n integer); DO $$ DECLARE requested text:='alice'; total integer; BEGIN EXECUTE 'SELECT count(*) FROM users WHERE name='''||requested||'''' INTO total; INSERT INTO outcome VALUES(total); END $$; SELECT n FROM outcome;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M09-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O02",
+    "activity": "a4c1d4a8-65a2-559a-8ae3-2992d318da5a",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE users(name text); INSERT INTO users VALUES('alice'),('bob'); CREATE TABLE outcome(n integer); DO $$ DECLARE requested text:='alice'; total integer; BEGIN EXECUTE 'SELECT count(*) FROM users WHERE name=$1' INTO total USING requested; INSERT INTO outcome VALUES(total); END $$; SELECT n FROM outcome;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M09-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O03",
+    "activity": "982a8e68-8209-50e1-8b10-9004ecacf720",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE valueset(x integer); CREATE VIEW positive AS SELECT * FROM valueset WHERE x>0; DO $$ BEGIN INSERT INTO positive VALUES(-1); EXCEPTION WHEN with_check_option_violation THEN NULL; END $$; SELECT count(*) FROM valueset;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M09-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O03",
+    "activity": "982a8e68-8209-50e1-8b10-9004ecacf720",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE valueset(x integer); CREATE VIEW positive AS SELECT * FROM valueset WHERE x>0 WITH CHECK OPTION; DO $$ BEGIN INSERT INTO positive VALUES(-1); EXCEPTION WHEN with_check_option_violation THEN NULL; END $$; SELECT count(*) FROM valueset;"
+      },
+      "stdin": ""
+    },
+    "stdout": "0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M09-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O03",
+    "activity": "982a8e68-8209-50e1-8b10-9004ecacf720",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE valueset(x integer); CREATE VIEW positive AS SELECT * FROM valueset WHERE x>0; DO $$ BEGIN INSERT INTO positive VALUES(2); EXCEPTION WHEN with_check_option_violation THEN NULL; END $$; SELECT count(*) FROM valueset;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M09-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M09-O03",
+    "activity": "982a8e68-8209-50e1-8b10-9004ecacf720",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE valueset(x integer); CREATE VIEW positive AS SELECT * FROM valueset WHERE x>0 WITH CHECK OPTION; DO $$ BEGIN INSERT INTO positive VALUES(2); EXCEPTION WHEN with_check_option_violation THEN NULL; END $$; SELECT count(*) FROM valueset;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M10-O01/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O01",
+    "activity": "8de885d0-7bb8-5071-8b44-01860a105f8e",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE orders(id integer); INSERT INTO orders VALUES(1); ALTER TABLE orders ADD COLUMN reserved integer; SELECT id,reserved FROM orders;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|<NULL>\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M10-O01/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O01",
+    "activity": "8de885d0-7bb8-5071-8b44-01860a105f8e",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE orders(id integer); INSERT INTO orders VALUES(1); ALTER TABLE orders ADD COLUMN reserved integer NOT NULL DEFAULT 0; SELECT id,reserved FROM orders;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1|0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M10-O01/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O01",
+    "activity": "8de885d0-7bb8-5071-8b44-01860a105f8e",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE orders(id integer); INSERT INTO orders VALUES(2); ALTER TABLE orders ADD COLUMN reserved integer; SELECT id,reserved FROM orders;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2|<NULL>\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M10-O01/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O01",
+    "activity": "8de885d0-7bb8-5071-8b44-01860a105f8e",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE orders(id integer); INSERT INTO orders VALUES(2); ALTER TABLE orders ADD COLUMN reserved integer NOT NULL DEFAULT 0; SELECT id,reserved FROM orders;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2|0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M10-O02/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O02",
+    "activity": "cc1fc0e8-a808-5687-8b43-fc90e3dcb494",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprimary=9;replica=8 if n==1 else 9\nprint(True)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "True\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M10-O02/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O02",
+    "activity": "cc1fc0e8-a808-5687-8b43-fc90e3dcb494",
+    "task": "base",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprimary=9;replica=8 if n==1 else 9\nprint(replica>=primary)\n"
+      },
+      "stdin": "1\n"
+    },
+    "stdout": "False\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M10-O02/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O02",
+    "activity": "cc1fc0e8-a808-5687-8b43-fc90e3dcb494",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprimary=9;replica=8 if n==1 else 9\nprint(True)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M10-O02/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O02",
+    "activity": "cc1fc0e8-a808-5687-8b43-fc90e3dcb494",
+    "task": "changed-condition",
+    "request": {
+      "language": "python313",
+      "entry": "main.py",
+      "files": {
+        "main.py": "n = int(input())\nprimary=9;replica=8 if n==1 else 9\nprint(replica>=primary)\n"
+      },
+      "stdin": "2\n"
+    },
+    "stdout": "True\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M10-O03/base/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O03",
+    "activity": "f25c7992-494d-594e-b709-6cce470c3843",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE inventory(id integer PRIMARY KEY,n integer NOT NULL CHECK(n>=0)); INSERT INTO inventory VALUES(1,2); BEGIN; UPDATE inventory SET n=n-1 WHERE id=1 AND n>0; COMMIT; SELECT n FROM inventory WHERE id=1;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M10-O03/base/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O03",
+    "activity": "f25c7992-494d-594e-b709-6cce470c3843",
+    "task": "base",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE inventory(id integer PRIMARY KEY,n integer NOT NULL CHECK(n>=0)); INSERT INTO inventory VALUES(1,2); BEGIN; UPDATE inventory SET n=n-1 WHERE id=1 AND n>0; ROLLBACK; SELECT n FROM inventory WHERE id=1;"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS09-M10-O03/changed-condition/initial",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O03",
+    "activity": "f25c7992-494d-594e-b709-6cce470c3843",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE inventory(id integer PRIMARY KEY,n integer NOT NULL CHECK(n>=0)); INSERT INTO inventory VALUES(1,1); BEGIN; UPDATE inventory SET n=n-1 WHERE id=1 AND n>0; COMMIT; SELECT n FROM inventory WHERE id=1;"
+      },
+      "stdin": ""
+    },
+    "stdout": "0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS09-M10-O03/changed-condition/repaired",
+    "version": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+    "goal": "CS09-M10-O03",
+    "activity": "f25c7992-494d-594e-b709-6cce470c3843",
+    "task": "changed-condition",
+    "request": {
+      "language": "postgres18",
+      "entry": "main.sql",
+      "files": {
+        "main.sql": "CREATE TABLE inventory(id integer PRIMARY KEY,n integer NOT NULL CHECK(n>=0)); INSERT INTO inventory VALUES(1,1); BEGIN; UPDATE inventory SET n=n-1 WHERE id=1 AND n>0; ROLLBACK; SELECT n FROM inventory WHERE id=1;"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "met"
+  }
+]

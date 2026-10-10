@@ -1,3 +1,7 @@
+## 2026-10-10 CS09 数据库局部实践推进
+
+30目标的22项真实PG18 SQL／8项明示模型、120份实际作者执行、桌面／手机4项闭环通过。真实双连接、备份恢复、完整模式设计与综合项目尚缺，不计整课完成。见 course-construction/units/CS09-CORE-PRACTICE.md。
+
 ## 2026-10-10 SQL 真实执行底座
 
 公共工作台新增 PostgreSQL18.6 独立沙箱脚本执行，作品／刷新／同步沿用现有链路。桌面／手机2项、Linux 执行14项、私有 HTTP7项通过；完整后端269通过41跳过，前端88通过及构建／契约检查通过。双连接事务调度和完整 CS09 内容尚缺。见 course-construction/E03_SQL_EXECUTION_IMPLEMENTATION.md。

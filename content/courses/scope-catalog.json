@@ -76,9 +76,9 @@
       "id": "2e914e04-c891-4380-a0db-7d99709c4b12",
       "code": "CS09",
       "title": "数据库",
-      "version_id": "4d789b98-4134-52c1-a625-e9e5758554ab",
-      "version": "CS09-core-scope-0.1.0",
-      "package_path": "CS09/CS09-core-scope-0.1.0/manifest.json",
+      "version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "version": "CS09-core-practice-0.1.0",
+      "package_path": "CS09/CS09-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -270,6 +270,15 @@
       "version_id": "e8f376ad-5477-56a5-a112-7efa9a7e5030",
       "version": "CS08-core-scope-0.1.0",
       "package_path": "CS08/CS08-core-scope-0.1.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "2e914e04-c891-4380-a0db-7d99709c4b12",
+      "code": "CS09",
+      "title": "数据库",
+      "version_id": "4d789b98-4134-52c1-a625-e9e5758554ab",
+      "version": "CS09-core-scope-0.1.0",
+      "package_path": "CS09/CS09-core-scope-0.1.0/manifest.json",
       "full_course_available": false
     }
   ]
