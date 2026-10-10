@@ -47,6 +47,36 @@ VERSION_ACTIVITIES["21b3d7a3-609a-508a-923c-ea92cc1a32ef"] = {
     },
 }
 
+VERSION_ACTIVITIES["4b6ef645-043f-505a-83af-2232baa28eee"] = {
+    **VERSION_ACTIVITIES["21b3d7a3-609a-508a-923c-ea92cc1a32ef"],
+    **{
+        f"CS01-M{module:02d}-O{goal:02d}": str(
+            uuid5(NAMESPACE_URL, f"vault:CS01-M{module:02d}-O{goal:02d}-CODE:0.1.0")
+        )
+        for module in (6, 7)
+        for goal in (1, 2, 3)
+    },
+}
+
+VERSION_ACTIVITIES["d4615267-2166-5dff-b4c8-ed2b67e0be14"] = {
+    **VERSION_ACTIVITIES["4b6ef645-043f-505a-83af-2232baa28eee"],
+    **{
+        f"CS01-M08-O{goal:02d}": str(uuid5(NAMESPACE_URL, f"vault:CS01-M08-O{goal:02d}-CODE:0.1.0"))
+        for goal in (1, 2, 3)
+    },
+}
+
+VERSION_ACTIVITIES["87b9961f-90e6-5e5b-8e27-44f9901e843c"] = {
+    **VERSION_ACTIVITIES["d4615267-2166-5dff-b4c8-ed2b67e0be14"],
+    **{
+        f"CS01-M{module:02d}-O{goal:02d}": str(
+            uuid5(NAMESPACE_URL, f"vault:CS01-M{module:02d}-O{goal:02d}-CODE:0.1.0")
+        )
+        for module in (9, 10)
+        for goal in (1, 2, 3)
+    },
+}
+
 
 @dataclass(frozen=True)
 class Task:
@@ -129,6 +159,47 @@ RULES[("CS01-M05-O03", "base")] = (
 RULES[("CS01-M05-O03", "zero-base")] = ("", "success", "enter=0\nresult=1\n", "")
 RULES[("CS01-M05-O03", "reject-negative")] = ("", "success", "rejected\n", "")
 RULES[("CS01-M05-O03", "reject-large")] = ("", "success", "rejected\n", "")
+
+RULES[("CS01-M06-O01", "base")] = ("", "success", "2 4 6\n", "")
+RULES[("CS01-M06-O01", "empty-length")] = ("", "success", "", "")
+RULES[("CS01-M06-O01", "single-item")] = ("", "success", "2\n", "")
+RULES[("CS01-M06-O02", "base")] = ("", "success", "length=3 text=a b\n", "")
+RULES[("CS01-M06-O02", "exact-fit")] = ("", "success", "length=4 text=abcd\n", "")
+RULES[("CS01-M06-O02", "empty-text")] = ("", "success", "length=0 text=\n", "")
+RULES[("CS01-M06-O03", "base")] = ("", "success", "9 2 4 6\n", "")
+RULES[("CS01-M06-O03", "tail-insert")] = ("", "success", "2 4 6 9\n", "")
+RULES[("CS01-M06-O03", "full-capacity")] = ("", "success", "full\n2 4 6 8\n", "")
+RULES[("CS01-M06-O03", "invalid-position")] = ("", "success", "invalid\n2 4 6\n", "")
+RULES[("CS01-M07-O01", "base")] = ("", "success", "original=9 p=9 q=9\n", "")
+RULES[("CS01-M07-O01", "distinct-object")] = ("", "success", "original=9 p=9 q=7\n", "")
+RULES[("CS01-M07-O02", "base")] = ("", "success", "2 4 6 8\n", "")
+RULES[("CS01-M07-O02", "injected-failure")] = ("", "success", "retained\n2 4\n", "")
+RULES[("CS01-M07-O03", "base")] = ("", "success", "released\nsaved=7\n", "")
+RULES[("CS01-M07-O03", "zero-copy")] = ("", "success", "released\nsaved=0\n", "")
+
+RULES[("CS01-M08-O01", "base")] = ("", "success", "first=7 second=8 total=150\n", "")
+RULES[("CS01-M08-O01", "zero-score")] = ("", "success", "first=7 second=8 total=90\n", "")
+RULES[("CS01-M08-O02", "base")] = ("", "success", "student=7 score=80\n", "")
+RULES[("CS01-M08-O02", "replace-display")] = ("", "success", "id=7;score=80\n", "")
+RULES[("CS01-M08-O03", "base")] = ("", "success", "accepted=0 id=7 score=80\n", "")
+RULES[("CS01-M08-O03", "negative-score")] = ("", "success", "accepted=0 id=7 score=80\n", "")
+RULES[("CS01-M08-O03", "lower-equal")] = ("", "success", "accepted=1 id=7 score=0\n", "")
+RULES[("CS01-M08-O03", "upper-equal")] = ("", "success", "accepted=1 id=7 score=100\n", "")
+
+RULES[("CS01-M09-O01", "base")] = ("", "success", "loaded=7 80\n", "")
+RULES[("CS01-M09-O01", "zero-score")] = ("", "success", "loaded=7 0\n", "")
+RULES[("CS01-M09-O02", "base")] = ("", "success", "rejected\ncurrent=7 80\n", "")
+RULES[("CS01-M09-O02", "broken-line")] = ("", "success", "rejected\ncurrent=7 80\n", "")
+RULES[("CS01-M09-O02", "missing-file")] = ("", "success", "open-failed\ncurrent=7 80\n", "")
+RULES[("CS01-M09-O03", "base")] = ("", "success", "rejected\nloaded=7 80\n", "")
+RULES[("CS01-M09-O03", "write-fail")] = ("", "success", "write-failed\nloaded=7 80\n", "")
+RULES[("CS01-M09-O03", "valid-commit")] = ("", "success", "committed\nloaded=7 90\n", "")
+RULES[("CS01-M10-O01", "base")] = ("", "success", "cases=4 failures=2\n", "")
+RULES[("CS01-M10-O01", "different-baseline")] = ("", "success", "cases=4 failures=2\n", "")
+RULES[("CS01-M10-O02", "base")] = ("", "success", "expected=1 actual=2 mismatch=1\n", "")
+RULES[("CS01-M10-O02", "reverse-records")] = ("", "success", "expected=1 actual=0 mismatch=1\n", "")
+RULES[("CS01-M10-O03", "base")] = ("", "success", "cases=4 failures=0\n", "")
+RULES[("CS01-M10-O03", "changed-record")] = ("", "success", "cases=4 failures=0\n", "")
 
 
 def resolve_task(

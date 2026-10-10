@@ -50,6 +50,10 @@ class Relation(PublicRecord):
     to: str
     kind: Literal["mandatory_prerequisite", "conceptual_association", "application"]
     source: str = Field(min_length=1)
+    reason: str = Field(default="", max_length=1000)
+    source_locator: str = Field(default="", max_length=500)
+    course_version_id: str | None = None
+    review_state: Literal["candidate", "authority_checked"] = "candidate"
 
 
 class Source(PublicRecord):
@@ -143,6 +147,44 @@ class PublicCoursePackage(PublicRecord):
         sources = {source.id for source in self.sources}
         if len(sources) != len(self.sources):
             raise ValueError("Duplicate source")
+        seen_relations: set[tuple[str, str, str]] = set()
+        prerequisites = {goal: set() for goal in goals}
+        indegree = dict.fromkeys(goals, 0)
+        for relation in self.relations:
+            if relation.from_ not in goals or relation.to not in goals:
+                raise ValueError("Unknown relation endpoint")
+            if relation.from_ == relation.to:
+                raise ValueError("Self relation")
+            ends = (relation.from_, relation.to)
+            if relation.kind == "conceptual_association":
+                ends = tuple(sorted(ends))
+            key = (relation.kind, *ends)
+            if key in seen_relations:
+                raise ValueError("Duplicate relation")
+            seen_relations.add(key)
+            if relation.course_version_id not in (None, self.course_version_id):
+                raise ValueError("Relation belongs to another course version")
+            if relation.review_state == "authority_checked" and (
+                not relation.reason
+                or not relation.source_locator
+                or relation.source_locator.split(":", 1)[0] not in sources
+                or relation.course_version_id != self.course_version_id
+            ):
+                raise ValueError("Checked relation needs reason, source and version")
+            if relation.kind == "mandatory_prerequisite":
+                prerequisites[relation.from_].add(relation.to)
+                indegree[relation.to] += 1
+        queue = [goal for goal, count in indegree.items() if count == 0]
+        visited = 0
+        while queue:
+            goal = queue.pop()
+            visited += 1
+            for dependent in prerequisites[goal]:
+                indegree[dependent] -= 1
+                if indegree[dependent] == 0:
+                    queue.append(dependent)
+        if visited != len(goals):
+            raise ValueError("Cyclic mandatory prerequisites")
         for field in ("id", "code", "version_id"):
             values = [getattr(activity, field) for activity in self.activities]
             if len(values) != len(set(values)):

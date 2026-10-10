@@ -1,0 +1,114 @@
+[
+  [
+    "CS01-M09-O01",
+    "base",
+    "",
+    "success",
+    "loaded=7 80\n",
+    ""
+  ],
+  [
+    "CS01-M09-O01",
+    "zero-score",
+    "",
+    "success",
+    "loaded=7 0\n",
+    ""
+  ],
+  [
+    "CS01-M09-O02",
+    "base",
+    "",
+    "success",
+    "rejected\ncurrent=7 80\n",
+    ""
+  ],
+  [
+    "CS01-M09-O02",
+    "broken-line",
+    "",
+    "success",
+    "rejected\ncurrent=7 80\n",
+    ""
+  ],
+  [
+    "CS01-M09-O02",
+    "missing-file",
+    "",
+    "success",
+    "open-failed\ncurrent=7 80\n",
+    ""
+  ],
+  [
+    "CS01-M09-O03",
+    "base",
+    "",
+    "success",
+    "rejected\nloaded=7 80\n",
+    ""
+  ],
+  [
+    "CS01-M09-O03",
+    "write-fail",
+    "",
+    "success",
+    "write-failed\nloaded=7 80\n",
+    ""
+  ],
+  [
+    "CS01-M09-O03",
+    "valid-commit",
+    "",
+    "success",
+    "committed\nloaded=7 90\n",
+    ""
+  ],
+  [
+    "CS01-M10-O01",
+    "base",
+    "",
+    "success",
+    "cases=4 failures=2\n",
+    ""
+  ],
+  [
+    "CS01-M10-O01",
+    "different-baseline",
+    "",
+    "success",
+    "cases=4 failures=2\n",
+    ""
+  ],
+  [
+    "CS01-M10-O02",
+    "base",
+    "",
+    "success",
+    "expected=1 actual=2 mismatch=1\n",
+    ""
+  ],
+  [
+    "CS01-M10-O02",
+    "reverse-records",
+    "",
+    "success",
+    "expected=1 actual=0 mismatch=1\n",
+    ""
+  ],
+  [
+    "CS01-M10-O03",
+    "base",
+    "",
+    "success",
+    "cases=4 failures=0\n",
+    ""
+  ],
+  [
+    "CS01-M10-O03",
+    "changed-record",
+    "",
+    "success",
+    "cases=4 failures=0\n",
+    ""
+  ]
+]

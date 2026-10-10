@@ -1,0 +1,286 @@
+[
+  {
+    "id": "CS01-M08-O01/base/initial",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O01",
+    "activity": "4fc99ad7-ecea-5670-976b-73e869cda96f",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record { int id; int score; };\nint main(void) {\nstruct Record records[2]={{7,80},{8,70}};\nint total=records[0].score+records[0].score;\nprintf(\"first=%d second=%d total=%d\\n\",records[0].id,records[1].id,total);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "first=7 second=8 total=160\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M08-O01/base/repaired",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O01",
+    "activity": "4fc99ad7-ecea-5670-976b-73e869cda96f",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record { int id; int score; };\nint main(void) {\nstruct Record records[2]={{7,80},{8,70}};\nint total=records[0].score+records[1].score;\nprintf(\"first=%d second=%d total=%d\\n\",records[0].id,records[1].id,total);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "first=7 second=8 total=150\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M08-O01/zero-score/initial",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O01",
+    "activity": "4fc99ad7-ecea-5670-976b-73e869cda96f",
+    "task": "zero-score",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record { int id; int score; };\nint main(void) {\nstruct Record records[2]={{7,0},{8,90}};\nint total=records[0].score+records[0].score;\nprintf(\"first=%d second=%d total=%d\\n\",records[0].id,records[1].id,total);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "first=7 second=8 total=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M08-O01/zero-score/repaired",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O01",
+    "activity": "4fc99ad7-ecea-5670-976b-73e869cda96f",
+    "task": "zero-score",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record { int id; int score; };\nint main(void) {\nstruct Record records[2]={{7,0},{8,90}};\nint total=records[0].score+records[1].score;\nprintf(\"first=%d second=%d total=%d\\n\",records[0].id,records[1].id,total);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "first=7 second=8 total=90\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M08-O02/base/initial",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O02",
+    "activity": "15def232-b9b7-5538-b233-d634979ddca0",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include \"record.h\"\nint main(void) {struct Record record=make_record(7,80);display_record(&record);return 0;}\n",
+        "record.h": "#ifndef RECORD_H\n#define RECORD_H\nstruct Record {int id; int score;};\nstruct Record make_record(int id, int score);\nvoid display_record(const struct Record *record);\n#endif\n",
+        "record.c": "#include \"record.h\"\nstruct Record make_record(int id,int score) { struct Record result={1,0}; return result; }\n",
+        "display.c": "#include <stdio.h>\n#include \"record.h\"\nvoid display_record(const struct Record *record) { printf(\"student=%d score=%d\\n\",record->id,record->score); }\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "student=1 score=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M08-O02/base/repaired",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O02",
+    "activity": "15def232-b9b7-5538-b233-d634979ddca0",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include \"record.h\"\nint main(void) {struct Record record=make_record(7,80);display_record(&record);return 0;}\n",
+        "record.h": "#ifndef RECORD_H\n#define RECORD_H\nstruct Record {int id; int score;};\nstruct Record make_record(int id, int score);\nvoid display_record(const struct Record *record);\n#endif\n",
+        "record.c": "#include \"record.h\"\nstruct Record make_record(int id,int score) { struct Record result={id,score}; return result; }\n",
+        "display.c": "#include <stdio.h>\n#include \"record.h\"\nvoid display_record(const struct Record *record) { printf(\"student=%d score=%d\\n\",record->id,record->score); }\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "student=7 score=80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M08-O02/replace-display/initial",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O02",
+    "activity": "15def232-b9b7-5538-b233-d634979ddca0",
+    "task": "replace-display",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include \"record.h\"\nint main(void) {struct Record record=make_record(7,80);display_record(&record);return 0;}\n",
+        "record.h": "#ifndef RECORD_H\n#define RECORD_H\nstruct Record {int id; int score;};\nstruct Record make_record(int id, int score);\nvoid display_record(const struct Record *record);\n#endif\n",
+        "record.c": "#include \"record.h\"\nstruct Record make_record(int id,int score) { struct Record result={id,score}; return result; }\n",
+        "display.c": "#include <stdio.h>\n#include \"record.h\"\nvoid display_record(const struct Record *record) { printf(\"student=%d score=%d\\n\",record->id,record->score); }\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "student=7 score=80\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M08-O02/replace-display/repaired",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O02",
+    "activity": "15def232-b9b7-5538-b233-d634979ddca0",
+    "task": "replace-display",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include \"record.h\"\nint main(void) {struct Record record=make_record(7,80);display_record(&record);return 0;}\n",
+        "record.h": "#ifndef RECORD_H\n#define RECORD_H\nstruct Record {int id; int score;};\nstruct Record make_record(int id, int score);\nvoid display_record(const struct Record *record);\n#endif\n",
+        "record.c": "#include \"record.h\"\nstruct Record make_record(int id,int score) { struct Record result={id,score}; return result; }\n",
+        "display.c": "#include <stdio.h>\n#include \"record.h\"\nvoid display_record(const struct Record *record) { printf(\"id=%d;score=%d\\n\",record->id,record->score); }\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "id=7;score=80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M08-O03/base/initial",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O03",
+    "activity": "8952cf47-e049-5550-86e8-1cd900efeede",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id; int score;};\nint set_score(struct Record *record,int value) {record->score=value; if(value<0 || value>100) return 0; return 1;}\nint main(void) {struct Record record={7,80};\nint accepted=set_score(&record,101);\nprintf(\"accepted=%d id=%d score=%d\\n\",accepted,record.id,record.score);return 0;}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "accepted=0 id=7 score=101\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M08-O03/base/repaired",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O03",
+    "activity": "8952cf47-e049-5550-86e8-1cd900efeede",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id; int score;};\nint set_score(struct Record *record,int value) {if(value<0 || value>100) return 0; record->score=value; return 1;}\nint main(void) {struct Record record={7,80};\nint accepted=set_score(&record,101);\nprintf(\"accepted=%d id=%d score=%d\\n\",accepted,record.id,record.score);return 0;}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "accepted=0 id=7 score=80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M08-O03/negative-score/initial",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O03",
+    "activity": "8952cf47-e049-5550-86e8-1cd900efeede",
+    "task": "negative-score",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id; int score;};\nint set_score(struct Record *record,int value) {record->score=value; if(value<0 || value>100) return 0; return 1;}\nint main(void) {struct Record record={7,80};\nint accepted=set_score(&record,-1);\nprintf(\"accepted=%d id=%d score=%d\\n\",accepted,record.id,record.score);return 0;}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "accepted=0 id=7 score=-1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M08-O03/negative-score/repaired",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O03",
+    "activity": "8952cf47-e049-5550-86e8-1cd900efeede",
+    "task": "negative-score",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id; int score;};\nint set_score(struct Record *record,int value) {if(value<0 || value>100) return 0; record->score=value; return 1;}\nint main(void) {struct Record record={7,80};\nint accepted=set_score(&record,-1);\nprintf(\"accepted=%d id=%d score=%d\\n\",accepted,record.id,record.score);return 0;}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "accepted=0 id=7 score=80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M08-O03/lower-equal/initial",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O03",
+    "activity": "8952cf47-e049-5550-86e8-1cd900efeede",
+    "task": "lower-equal",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id; int score;};\nint set_score(struct Record *record,int value) {record->score=value; if(value<0 || value>100) return 0; return 1;}\nint main(void) {struct Record record={7,80};\nint accepted=set_score(&record,0);\nprintf(\"accepted=%d id=%d score=%d\\n\",accepted,record.id,record.score);return 0;}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "accepted=1 id=7 score=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M08-O03/lower-equal/repaired",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O03",
+    "activity": "8952cf47-e049-5550-86e8-1cd900efeede",
+    "task": "lower-equal",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id; int score;};\nint set_score(struct Record *record,int value) {if(value<0 || value>100) return 0; record->score=value; return 1;}\nint main(void) {struct Record record={7,80};\nint accepted=set_score(&record,0);\nprintf(\"accepted=%d id=%d score=%d\\n\",accepted,record.id,record.score);return 0;}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "accepted=1 id=7 score=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M08-O03/upper-equal/initial",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O03",
+    "activity": "8952cf47-e049-5550-86e8-1cd900efeede",
+    "task": "upper-equal",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id; int score;};\nint set_score(struct Record *record,int value) {record->score=value; if(value<0 || value>100) return 0; return 1;}\nint main(void) {struct Record record={7,80};\nint accepted=set_score(&record,100);\nprintf(\"accepted=%d id=%d score=%d\\n\",accepted,record.id,record.score);return 0;}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "accepted=1 id=7 score=100\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M08-O03/upper-equal/repaired",
+    "version": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+    "goal": "CS01-M08-O03",
+    "activity": "8952cf47-e049-5550-86e8-1cd900efeede",
+    "task": "upper-equal",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id; int score;};\nint set_score(struct Record *record,int value) {if(value<0 || value>100) return 0; record->score=value; return 1;}\nint main(void) {struct Record record={7,80};\nint accepted=set_score(&record,100);\nprintf(\"accepted=%d id=%d score=%d\\n\",accepted,record.id,record.score);return 0;}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "accepted=1 id=7 score=100\n",
+    "decision": "met"
+  }
+]

@@ -1,0 +1,66 @@
+[
+  [
+    "CS01-M08-O01",
+    "base",
+    "",
+    "success",
+    "first=7 second=8 total=150\n",
+    ""
+  ],
+  [
+    "CS01-M08-O01",
+    "zero-score",
+    "",
+    "success",
+    "first=7 second=8 total=90\n",
+    ""
+  ],
+  [
+    "CS01-M08-O02",
+    "base",
+    "",
+    "success",
+    "student=7 score=80\n",
+    ""
+  ],
+  [
+    "CS01-M08-O02",
+    "replace-display",
+    "",
+    "success",
+    "id=7;score=80\n",
+    ""
+  ],
+  [
+    "CS01-M08-O03",
+    "base",
+    "",
+    "success",
+    "accepted=0 id=7 score=80\n",
+    ""
+  ],
+  [
+    "CS01-M08-O03",
+    "negative-score",
+    "",
+    "success",
+    "accepted=0 id=7 score=80\n",
+    ""
+  ],
+  [
+    "CS01-M08-O03",
+    "lower-equal",
+    "",
+    "success",
+    "accepted=1 id=7 score=0\n",
+    ""
+  ],
+  [
+    "CS01-M08-O03",
+    "upper-equal",
+    "",
+    "success",
+    "accepted=1 id=7 score=100\n",
+    ""
+  ]
+]

@@ -1,0 +1,478 @@
+[
+  {
+    "id": "CS01-M09-O01/base/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O01",
+    "activity": "d34a768f-7557-5600-aee3-c9734a7d6856",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 0\\n\")) return 1;\nstruct Record loaded={0,0};\nif(!load_record(\"/box/tmp/record.txt\",&loaded)) return 1;\nprintf(\"loaded=%d %d\\n\",loaded.id,loaded.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "loaded=7 0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M09-O01/base/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O01",
+    "activity": "d34a768f-7557-5600-aee3-c9734a7d6856",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 80\\n\")) return 1;\nstruct Record loaded={0,0};\nif(!load_record(\"/box/tmp/record.txt\",&loaded)) return 1;\nprintf(\"loaded=%d %d\\n\",loaded.id,loaded.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "loaded=7 80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O01/zero-score/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O01",
+    "activity": "d34a768f-7557-5600-aee3-c9734a7d6856",
+    "task": "zero-score",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 0\\n\")) return 1;\nstruct Record loaded={0,0};\nif(!load_record(\"/box/tmp/record.txt\",&loaded)) return 1;\nprintf(\"loaded=%d %d\\n\",loaded.id,loaded.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "loaded=7 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O01/zero-score/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O01",
+    "activity": "d34a768f-7557-5600-aee3-c9734a7d6856",
+    "task": "zero-score",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 0\\n\")) return 1;\nstruct Record loaded={0,0};\nif(!load_record(\"/box/tmp/record.txt\",&loaded)) return 1;\nprintf(\"loaded=%d %d\\n\",loaded.id,loaded.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "loaded=7 0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O02/base/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O02",
+    "activity": "bea949f5-43d1-5e0d-b3f4-00b245ff43c1",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/input.txt\",\"7 101\\n\")) return 1;\nstruct Record current={7,80},candidate={0,0};\nFILE *file=fopen(\"/box/tmp/input.txt\",\"r\");if(!file) return 1;\nint parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);if(fclose(file)!=0)return 1;\nif(parsed==2) {current=candidate;puts(\"accepted\");} else puts(\"rejected\");\nprintf(\"current=%d %d\\n\",current.id,current.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "accepted\ncurrent=7 101\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M09-O02/base/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O02",
+    "activity": "bea949f5-43d1-5e0d-b3f4-00b245ff43c1",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/input.txt\",\"7 101\\n\")) return 1;\nstruct Record current={7,80},candidate={0,0};\nFILE *file=fopen(\"/box/tmp/input.txt\",\"r\");if(!file) return 1;\nint parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);if(fclose(file)!=0)return 1;\nif(parsed==2 && candidate.id>0 && candidate.score>=0 && candidate.score<=100) {current=candidate;puts(\"accepted\");} else puts(\"rejected\");\nprintf(\"current=%d %d\\n\",current.id,current.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "rejected\ncurrent=7 80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O02/broken-line/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O02",
+    "activity": "bea949f5-43d1-5e0d-b3f4-00b245ff43c1",
+    "task": "broken-line",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/input.txt\",\"broken\\n\")) return 1;\nstruct Record current={7,80},candidate={0,0};\nFILE *file=fopen(\"/box/tmp/input.txt\",\"r\");if(!file) return 1;\nint parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);if(fclose(file)!=0)return 1;\nif(parsed==2) {current=candidate;puts(\"accepted\");} else puts(\"rejected\");\nprintf(\"current=%d %d\\n\",current.id,current.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "rejected\ncurrent=7 80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O02/broken-line/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O02",
+    "activity": "bea949f5-43d1-5e0d-b3f4-00b245ff43c1",
+    "task": "broken-line",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/input.txt\",\"broken\\n\")) return 1;\nstruct Record current={7,80},candidate={0,0};\nFILE *file=fopen(\"/box/tmp/input.txt\",\"r\");if(!file) return 1;\nint parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);if(fclose(file)!=0)return 1;\nif(parsed==2 && candidate.id>0 && candidate.score>=0 && candidate.score<=100) {current=candidate;puts(\"accepted\");} else puts(\"rejected\");\nprintf(\"current=%d %d\\n\",current.id,current.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "rejected\ncurrent=7 80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O02/missing-file/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O02",
+    "activity": "bea949f5-43d1-5e0d-b3f4-00b245ff43c1",
+    "task": "missing-file",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nstruct Record current={7,80};\nFILE *file=fopen(\"/box/tmp/not-created.txt\",\"r\");\nif(!file) puts(\"open-failed\"); else {if(fclose(file)!=0)return 1;}\nprintf(\"current=%d %d\\n\",current.id,current.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "open-failed\ncurrent=7 80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O02/missing-file/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O02",
+    "activity": "bea949f5-43d1-5e0d-b3f4-00b245ff43c1",
+    "task": "missing-file",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nstruct Record current={7,80};\nFILE *file=fopen(\"/box/tmp/not-created.txt\",\"r\");\nif(!file) puts(\"open-failed\"); else {if(fclose(file)!=0)return 1;}\nprintf(\"current=%d %d\\n\",current.id,current.score);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "open-failed\ncurrent=7 80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O03/base/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O03",
+    "activity": "7346e65b-5ee4-535d-b413-7642a9b60ed0",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 80\\n\")) return 1;\nstruct Record candidate={0,0},loaded={0,0};\nif(!write_text(\"/box/tmp/record.txt\",\"broken\\n\")) puts(\"write-failed\");\nelse if(!load_record(\"/box/tmp/record.txt\",&candidate)) puts(\"rejected\");\nelse { puts(\"committed\");}\nif(load_record(\"/box/tmp/record.txt\",&loaded)) printf(\"loaded=%d %d\\n\",loaded.id,loaded.score); else puts(\"no-valid-record\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "rejected\nno-valid-record\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M09-O03/base/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O03",
+    "activity": "7346e65b-5ee4-535d-b413-7642a9b60ed0",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 80\\n\")) return 1;\nstruct Record candidate={0,0},loaded={0,0};\nif(!write_text(\"/box/tmp/stage.txt\",\"broken\\n\")) puts(\"write-failed\");\nelse if(!load_record(\"/box/tmp/stage.txt\",&candidate)) puts(\"rejected\");\nelse {if(rename(\"/box/tmp/stage.txt\",\"/box/tmp/record.txt\")!=0) return 1; puts(\"committed\");}\nif(load_record(\"/box/tmp/record.txt\",&loaded)) printf(\"loaded=%d %d\\n\",loaded.id,loaded.score); else puts(\"no-valid-record\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "rejected\nloaded=7 80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O03/write-fail/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O03",
+    "activity": "7346e65b-5ee4-535d-b413-7642a9b60ed0",
+    "task": "write-fail",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 80\\n\")) return 1;\nstruct Record candidate={0,0},loaded={0,0};\nif(!write_text(\"/box/tmp/missing/stage.txt\",\"broken\\n\")) puts(\"write-failed\");\nelse if(!load_record(\"/box/tmp/missing/stage.txt\",&candidate)) puts(\"rejected\");\nelse { puts(\"committed\");}\nif(load_record(\"/box/tmp/record.txt\",&loaded)) printf(\"loaded=%d %d\\n\",loaded.id,loaded.score); else puts(\"no-valid-record\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "write-failed\nloaded=7 80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O03/write-fail/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O03",
+    "activity": "7346e65b-5ee4-535d-b413-7642a9b60ed0",
+    "task": "write-fail",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 80\\n\")) return 1;\nstruct Record candidate={0,0},loaded={0,0};\nif(!write_text(\"/box/tmp/missing/stage.txt\",\"broken\\n\")) puts(\"write-failed\");\nelse if(!load_record(\"/box/tmp/missing/stage.txt\",&candidate)) puts(\"rejected\");\nelse {if(rename(\"/box/tmp/stage.txt\",\"/box/tmp/record.txt\")!=0) return 1; puts(\"committed\");}\nif(load_record(\"/box/tmp/record.txt\",&loaded)) printf(\"loaded=%d %d\\n\",loaded.id,loaded.score); else puts(\"no-valid-record\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "write-failed\nloaded=7 80\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O03/valid-commit/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O03",
+    "activity": "7346e65b-5ee4-535d-b413-7642a9b60ed0",
+    "task": "valid-commit",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 80\\n\")) return 1;\nstruct Record candidate={0,0},loaded={0,0};\nif(!write_text(\"/box/tmp/record.txt\",\"7 90\\n\")) puts(\"write-failed\");\nelse if(!load_record(\"/box/tmp/record.txt\",&candidate)) puts(\"rejected\");\nelse { puts(\"committed\");}\nif(load_record(\"/box/tmp/record.txt\",&loaded)) printf(\"loaded=%d %d\\n\",loaded.id,loaded.score); else puts(\"no-valid-record\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "committed\nloaded=7 90\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M09-O03/valid-commit/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M09-O03",
+    "activity": "7346e65b-5ee4-535d-b413-7642a9b60ed0",
+    "task": "valid-commit",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nstruct Record {int id; int score;};\nint write_text(const char *path,const char *text) {\n    FILE *file=fopen(path,\"w\"); if(!file) return 0;\n    int ok=fputs(text,file)>=0; if(fclose(file)!=0) ok=0; return ok;\n}\nint load_record(const char *path,struct Record *out) {\n    FILE *file=fopen(path,\"r\"); if(!file) return 0;\n    struct Record candidate={0,0}; int parsed=fscanf(file,\"%d %d\",&candidate.id,&candidate.score);\n    int closed=fclose(file)==0;\n    if(parsed!=2 || !closed || candidate.id<1 || candidate.score<0 || candidate.score>100) return 0;\n    *out=candidate; return 1;\n}\n\nint main(void) {\nif(!write_text(\"/box/tmp/record.txt\",\"7 80\\n\")) return 1;\nstruct Record candidate={0,0},loaded={0,0};\nif(!write_text(\"/box/tmp/stage.txt\",\"7 90\\n\")) puts(\"write-failed\");\nelse if(!load_record(\"/box/tmp/stage.txt\",&candidate)) puts(\"rejected\");\nelse {if(rename(\"/box/tmp/stage.txt\",\"/box/tmp/record.txt\")!=0) return 1; puts(\"committed\");}\nif(load_record(\"/box/tmp/record.txt\",&loaded)) printf(\"loaded=%d %d\\n\",loaded.id,loaded.score); else puts(\"no-valid-record\");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "committed\nloaded=7 90\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M10-O01/base/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O01",
+    "activity": "8b085f0d-4fa0-59a2-94fd-0fac171d04af",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id;int score;};\nint set_score(struct Record *record,int value){record->score=value;if(value<0||value>100)return 0;return 1;}\n\nint main(void) {\nint inputs[1]={80};int failures=0;\nfor(int i=0;i<1;i++) {struct Record record={7,80};int accepted=set_score(&record,inputs[i]);int expected=inputs[i]>=0&&inputs[i]<=100;int score=expected?inputs[i]:80;if(accepted!=expected||record.id!=7||record.score!=score) failures++;}\nprintf(\"cases=1 failures=%d\\n\",failures);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "cases=1 failures=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M10-O01/base/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O01",
+    "activity": "8b085f0d-4fa0-59a2-94fd-0fac171d04af",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id;int score;};\nint set_score(struct Record *record,int value){record->score=value;if(value<0||value>100)return 0;return 1;}\n\nint main(void) {\nint inputs[4]={-1,0,100,101};int failures=0;\nfor(int i=0;i<4;i++) {struct Record record={7,80};int accepted=set_score(&record,inputs[i]);int expected=inputs[i]>=0&&inputs[i]<=100;int score=expected?inputs[i]:80;if(accepted!=expected||record.id!=7||record.score!=score) failures++;}\nprintf(\"cases=4 failures=%d\\n\",failures);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "cases=4 failures=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M10-O01/different-baseline/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O01",
+    "activity": "8b085f0d-4fa0-59a2-94fd-0fac171d04af",
+    "task": "different-baseline",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id;int score;};\nint set_score(struct Record *record,int value){record->score=value;if(value<0||value>100)return 0;return 1;}\n\nint main(void) {\nint inputs[1]={80};int failures=0;\nfor(int i=0;i<1;i++) {struct Record record={7,60};int accepted=set_score(&record,inputs[i]);int expected=inputs[i]>=0&&inputs[i]<=100;int score=expected?inputs[i]:60;if(accepted!=expected||record.id!=7||record.score!=score) failures++;}\nprintf(\"cases=1 failures=%d\\n\",failures);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "cases=1 failures=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M10-O01/different-baseline/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O01",
+    "activity": "8b085f0d-4fa0-59a2-94fd-0fac171d04af",
+    "task": "different-baseline",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id;int score;};\nint set_score(struct Record *record,int value){record->score=value;if(value<0||value>100)return 0;return 1;}\n\nint main(void) {\nint inputs[4]={-1,0,100,101};int failures=0;\nfor(int i=0;i<4;i++) {struct Record record={7,60};int accepted=set_score(&record,inputs[i]);int expected=inputs[i]>=0&&inputs[i]<=100;int score=expected?inputs[i]:60;if(accepted!=expected||record.id!=7||record.score!=score) failures++;}\nprintf(\"cases=4 failures=%d\\n\",failures);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "cases=4 failures=2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M10-O02/base/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O02",
+    "activity": "e0c32b30-246f-538e-84a9-38f8a56efc8d",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nint main(void) {\nint first=80,second=80;int expected=first+second;int actual=first+first;\nprintf(\"expected=%d actual=%d mismatch=%d\\n\",expected,actual,expected!=actual);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "expected=160 actual=160 mismatch=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M10-O02/base/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O02",
+    "activity": "e0c32b30-246f-538e-84a9-38f8a56efc8d",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nint main(void) {\nint first=1,second=0;int expected=first+second;int actual=first+first;\nprintf(\"expected=%d actual=%d mismatch=%d\\n\",expected,actual,expected!=actual);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "expected=1 actual=2 mismatch=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M10-O02/reverse-records/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O02",
+    "activity": "e0c32b30-246f-538e-84a9-38f8a56efc8d",
+    "task": "reverse-records",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nint main(void) {\nint first=0,second=0;int expected=first+second;int actual=first+first;\nprintf(\"expected=%d actual=%d mismatch=%d\\n\",expected,actual,expected!=actual);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "expected=0 actual=0 mismatch=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M10-O02/reverse-records/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O02",
+    "activity": "e0c32b30-246f-538e-84a9-38f8a56efc8d",
+    "task": "reverse-records",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n\nint main(void) {\nint first=0,second=1;int expected=first+second;int actual=first+first;\nprintf(\"expected=%d actual=%d mismatch=%d\\n\",expected,actual,expected!=actual);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "expected=1 actual=0 mismatch=1\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M10-O03/base/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O03",
+    "activity": "0fd32ed8-2e7f-5f9a-a1ee-a8d6221b4251",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id;int score;};\nint set_score(struct Record *record,int value){record->score=value;if(value<0||value>100)return 0;return 1;}\n\nint main(void) {\nint inputs[4]={-1,0,100,101};int failures=0;\nfor(int i=0;i<4;i++) {struct Record record={7,80};int accepted=set_score(&record,inputs[i]);int expected=inputs[i]>=0&&inputs[i]<=100;int score=expected?inputs[i]:80;if(accepted!=expected||record.id!=7||record.score!=score) failures++;}\nprintf(\"cases=4 failures=%d\\n\",failures);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "cases=4 failures=2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M10-O03/base/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O03",
+    "activity": "0fd32ed8-2e7f-5f9a-a1ee-a8d6221b4251",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id;int score;};\nint set_score(struct Record *record,int value){if(value<0||value>100)return 0;record->score=value;return 1;}\n\nint main(void) {\nint inputs[4]={-1,0,100,101};int failures=0;\nfor(int i=0;i<4;i++) {struct Record record={7,80};int accepted=set_score(&record,inputs[i]);int expected=inputs[i]>=0&&inputs[i]<=100;int score=expected?inputs[i]:80;if(accepted!=expected||record.id!=7||record.score!=score) failures++;}\nprintf(\"cases=4 failures=%d\\n\",failures);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "cases=4 failures=0\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M10-O03/changed-record/initial",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O03",
+    "activity": "0fd32ed8-2e7f-5f9a-a1ee-a8d6221b4251",
+    "task": "changed-record",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id;int score;};\nint set_score(struct Record *record,int value){record->score=value;if(value<0||value>100)return 0;return 1;}\n\nint main(void) {\nint inputs[4]={-1,0,100,101};int failures=0;\nfor(int i=0;i<4;i++) {struct Record record={7,60};int accepted=set_score(&record,inputs[i]);int expected=inputs[i]>=0&&inputs[i]<=100;int score=expected?inputs[i]:60;if(accepted!=expected||record.id!=7||record.score!=score) failures++;}\nprintf(\"cases=4 failures=%d\\n\",failures);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "cases=4 failures=2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M10-O03/changed-record/repaired",
+    "version": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+    "goal": "CS01-M10-O03",
+    "activity": "0fd32ed8-2e7f-5f9a-a1ee-a8d6221b4251",
+    "task": "changed-record",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\nstruct Record {int id;int score;};\nint set_score(struct Record *record,int value){if(value<0||value>100)return 0;record->score=value;return 1;}\n\nint main(void) {\nint inputs[4]={-1,0,100,101};int failures=0;\nfor(int i=0;i<4;i++) {struct Record record={7,60};int accepted=set_score(&record,inputs[i]);int expected=inputs[i]>=0&&inputs[i]<=100;int score=expected?inputs[i]:60;if(accepted!=expected||record.id!=7||record.score!=score) failures++;}\nprintf(\"cases=4 failures=%d\\n\",failures);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "cases=4 failures=0\n",
+    "decision": "met"
+  }
+]

@@ -91,7 +91,7 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
   const view = params.get('view') === 'list' ? 'list' : 'map'
   const filter = stateOrder.includes(params.get('filter') as ObjectiveState) ? params.get('filter') as ObjectiveState : 'all'
   const search = params.get('q') ?? ''
-  const kinds = new Set<RelationKind>(params.has('relations') ? (params.get('relations') ?? '').split(',').map(kind => kind === 'prerequisite' ? 'mandatory_prerequisite' : kind).filter((kind): kind is RelationKind => relationTypes.includes(kind as RelationKind)) : ['mandatory_prerequisite'])
+  const kinds = new Set<RelationKind>(params.has('relations') ? (params.get('relations') ?? '').split(',').map(kind => kind === 'prerequisite' ? 'mandatory_prerequisite' : kind).filter((kind): kind is RelationKind => relationTypes.includes(kind as RelationKind)) : ['mandatory_prerequisite', 'application'])
   const matches = (code: string) => filter === 'all' || stateOf(code) === filter
   const visibleGoals = data.objectives.filter(goal => matches(goal.code))
   const update = (values: Record<string, string | null>, replace = false) => setParams(previous => {

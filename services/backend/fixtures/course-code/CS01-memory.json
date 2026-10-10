@@ -1,0 +1,546 @@
+[
+  {
+    "id": "CS01-M06-O01/base/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O01",
+    "activity": "4584b399-ef77-5525-95bf-6636764c8f48",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=3;\nfor(int i=1;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "1 4 6\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M06-O01/base/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O01",
+    "activity": "4584b399-ef77-5525-95bf-6636764c8f48",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=3;\nfor(int i=0;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "2 4 6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O01/empty-length/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O01",
+    "activity": "4584b399-ef77-5525-95bf-6636764c8f48",
+    "task": "empty-length",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=0;\nfor(int i=1;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O01/empty-length/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O01",
+    "activity": "4584b399-ef77-5525-95bf-6636764c8f48",
+    "task": "empty-length",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=0;\nfor(int i=0;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O01/single-item/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O01",
+    "activity": "4584b399-ef77-5525-95bf-6636764c8f48",
+    "task": "single-item",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=1;\nfor(int i=1;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "1\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M06-O01/single-item/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O01",
+    "activity": "4584b399-ef77-5525-95bf-6636764c8f48",
+    "task": "single-item",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=1;\nfor(int i=0;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "2\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O02/base/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O02",
+    "activity": "e5cd75dd-52bb-5d04-b163-57db91bae0be",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[3]={'a',' ','b'};\nchar buffer[4]; int length=3;\nfor(int i=0;i<4;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nint end=0; while(end<4 && buffer[end]!='\\0') end++;\nif(end==4) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "unterminated\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M06-O02/base/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O02",
+    "activity": "e5cd75dd-52bb-5d04-b163-57db91bae0be",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[3]={'a',' ','b'};\nchar buffer[4]; int length=3;\nfor(int i=0;i<4;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nbuffer[length]='\\0';\nint end=0; while(end<4 && buffer[end]!='\\0') end++;\nif(end==4) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "length=3 text=a b\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O02/exact-fit/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O02",
+    "activity": "e5cd75dd-52bb-5d04-b163-57db91bae0be",
+    "task": "exact-fit",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[4]={'a','b','c','d'};\nchar buffer[5]; int length=4;\nfor(int i=0;i<5;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nint end=0; while(end<5 && buffer[end]!='\\0') end++;\nif(end==5) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "unterminated\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M06-O02/exact-fit/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O02",
+    "activity": "e5cd75dd-52bb-5d04-b163-57db91bae0be",
+    "task": "exact-fit",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[4]={'a','b','c','d'};\nchar buffer[5]; int length=4;\nfor(int i=0;i<5;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nbuffer[length]='\\0';\nint end=0; while(end<5 && buffer[end]!='\\0') end++;\nif(end==5) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "length=4 text=abcd\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O02/empty-text/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O02",
+    "activity": "e5cd75dd-52bb-5d04-b163-57db91bae0be",
+    "task": "empty-text",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[1]={0};\nchar buffer[1]; int length=0;\nfor(int i=0;i<1;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nint end=0; while(end<1 && buffer[end]!='\\0') end++;\nif(end==1) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "unterminated\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M06-O02/empty-text/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O02",
+    "activity": "e5cd75dd-52bb-5d04-b163-57db91bae0be",
+    "task": "empty-text",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[1]={0};\nchar buffer[1]; int length=0;\nfor(int i=0;i<1;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nbuffer[length]='\\0';\nint end=0; while(end<1 && buffer[end]!='\\0') end++;\nif(end==1) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "length=0 text=\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O03/base/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O03",
+    "activity": "35160bb2-9872-5031-8e32-e25083fe859c",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=0;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=position+1;i<=length;i++) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "9 2 2 2\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M06-O03/base/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O03",
+    "activity": "35160bb2-9872-5031-8e32-e25083fe859c",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=0;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=length;i>position;i--) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "9 2 4 6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O03/tail-insert/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O03",
+    "activity": "35160bb2-9872-5031-8e32-e25083fe859c",
+    "task": "tail-insert",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=3;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=position+1;i<=length;i++) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "2 4 6 9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O03/tail-insert/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O03",
+    "activity": "35160bb2-9872-5031-8e32-e25083fe859c",
+    "task": "tail-insert",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=3;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=length;i>position;i--) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "2 4 6 9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O03/full-capacity/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O03",
+    "activity": "35160bb2-9872-5031-8e32-e25083fe859c",
+    "task": "full-capacity",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=4, position=0;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=position+1;i<=length;i++) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "full\n2 4 6 8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O03/full-capacity/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O03",
+    "activity": "35160bb2-9872-5031-8e32-e25083fe859c",
+    "task": "full-capacity",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=4, position=0;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=length;i>position;i--) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "full\n2 4 6 8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O03/invalid-position/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O03",
+    "activity": "35160bb2-9872-5031-8e32-e25083fe859c",
+    "task": "invalid-position",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=-1;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=position+1;i<=length;i++) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "invalid\n2 4 6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M06-O03/invalid-position/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M06-O03",
+    "activity": "35160bb2-9872-5031-8e32-e25083fe859c",
+    "task": "invalid-position",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=-1;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=length;i>position;i--) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "invalid\n2 4 6\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M07-O01/base/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O01",
+    "activity": "4653bf02-7bc6-5334-bfbe-4408a57e857a",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint original=5, other=7, replacement=9;\nint *p=&original; int *q=&original;\np=&replacement;\nprintf(\"original=%d p=%d q=%d\\n\",original,*p,*q);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "original=5 p=9 q=5\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M07-O01/base/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O01",
+    "activity": "4653bf02-7bc6-5334-bfbe-4408a57e857a",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint original=5, other=7, replacement=9;\nint *p=&original; int *q=&original;\n*p=9;\nprintf(\"original=%d p=%d q=%d\\n\",original,*p,*q);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "original=9 p=9 q=9\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M07-O01/distinct-object/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O01",
+    "activity": "4653bf02-7bc6-5334-bfbe-4408a57e857a",
+    "task": "distinct-object",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint original=5, other=7, replacement=9;\nint *p=&original; int *q=&other;\np=&replacement;\nprintf(\"original=%d p=%d q=%d\\n\",original,*p,*q);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "original=5 p=9 q=7\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M07-O01/distinct-object/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O01",
+    "activity": "4653bf02-7bc6-5334-bfbe-4408a57e857a",
+    "task": "distinct-object",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint original=5, other=7, replacement=9;\nint *p=&original; int *q=&other;\n*p=9;\nprintf(\"original=%d p=%d q=%d\\n\",original,*p,*q);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "original=9 p=9 q=7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M07-O02/base/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O02",
+    "activity": "8cd78eeb-9c03-51b1-b15b-79fb81b5a174",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(2*sizeof *owner); if(!owner) return 1;\nowner[0]=2;owner[1]=4;\nint *next=realloc(owner,4*sizeof *owner); if(!next) {free(owner);return 1;}\nowner=next; owner[2]=0; owner[3]=0;\nfor(int i=2;i<3;i++) owner[i]=2*(i+1);\nprintf(\"%d %d %d %d\\n\",owner[0],owner[1],owner[2],owner[3]);\nfree(owner);owner=NULL;\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "2 4 6 0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M07-O02/base/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O02",
+    "activity": "8cd78eeb-9c03-51b1-b15b-79fb81b5a174",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(2*sizeof *owner); if(!owner) return 1;\nowner[0]=2;owner[1]=4;\nint *next=realloc(owner,4*sizeof *owner); if(!next) {free(owner);return 1;}\nowner=next; owner[2]=0; owner[3]=0;\nfor(int i=2;i<4;i++) owner[i]=2*(i+1);\nprintf(\"%d %d %d %d\\n\",owner[0],owner[1],owner[2],owner[3]);\nfree(owner);owner=NULL;\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "2 4 6 8\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M07-O02/injected-failure/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O02",
+    "activity": "8cd78eeb-9c03-51b1-b15b-79fb81b5a174",
+    "task": "injected-failure",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(2*sizeof *owner); if(!owner) return 1;\nowner[0]=2;owner[1]=4;\nint *next=NULL; /* injected failure: do not call realloc */\nif(!next) {\nputs(\"discarded\");\nprintf(\"%d %d\\n\",owner[0],owner[1]);\nfree(owner); owner=NULL;\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "discarded\n2 4\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M07-O02/injected-failure/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O02",
+    "activity": "8cd78eeb-9c03-51b1-b15b-79fb81b5a174",
+    "task": "injected-failure",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(2*sizeof *owner); if(!owner) return 1;\nowner[0]=2;owner[1]=4;\nint *next=NULL; /* injected failure: do not call realloc */\nif(!next) {\nputs(\"retained\");\nprintf(\"%d %d\\n\",owner[0],owner[1]);\nfree(owner); owner=NULL;\n}\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "retained\n2 4\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M07-O03/base/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O03",
+    "activity": "a89094fa-b031-55f7-9442-e9692b6b9815",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(sizeof *owner); if(!owner) return 1; *owner=7;\nint *alias=owner; int saved=*alias; int alive=1;\nalias=NULL; free(owner); owner=NULL;\nputs(alive?\"claim-alive\":\"released\");\nprintf(\"saved=%d\\n\",saved);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "claim-alive\nsaved=7\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M07-O03/base/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O03",
+    "activity": "a89094fa-b031-55f7-9442-e9692b6b9815",
+    "task": "base",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(sizeof *owner); if(!owner) return 1; *owner=7;\nint *alias=owner; int saved=*alias; int alive=1;\nalias=NULL; free(owner); owner=NULL;\nalive=0;\nputs(alive?\"claim-alive\":\"released\");\nprintf(\"saved=%d\\n\",saved);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "released\nsaved=7\n",
+    "decision": "met"
+  },
+  {
+    "id": "CS01-M07-O03/zero-copy/initial",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O03",
+    "activity": "a89094fa-b031-55f7-9442-e9692b6b9815",
+    "task": "zero-copy",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(sizeof *owner); if(!owner) return 1; *owner=0;\nint *alias=owner; int saved=*alias; int alive=1;\nalias=NULL; free(owner); owner=NULL;\nputs(alive?\"claim-alive\":\"released\");\nprintf(\"saved=%d\\n\",saved);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "claim-alive\nsaved=0\n",
+    "decision": "not_met"
+  },
+  {
+    "id": "CS01-M07-O03/zero-copy/repaired",
+    "version": "4b6ef645-043f-505a-83af-2232baa28eee",
+    "goal": "CS01-M07-O03",
+    "activity": "a89094fa-b031-55f7-9442-e9692b6b9815",
+    "task": "zero-copy",
+    "request": {
+      "language": "c17",
+      "entry": "main.c",
+      "files": {
+        "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(sizeof *owner); if(!owner) return 1; *owner=0;\nint *alias=owner; int saved=*alias; int alive=1;\nalias=NULL; free(owner); owner=NULL;\nalive=0;\nputs(alive?\"claim-alive\":\"released\");\nprintf(\"saved=%d\\n\",saved);\nreturn 0;\n}\n"
+      },
+      "stdin": ""
+    },
+    "stdout": "released\nsaved=0\n",
+    "decision": "met"
+  }
+]

@@ -1,0 +1,130 @@
+[
+  [
+    "CS01-M06-O01",
+    "base",
+    "",
+    "success",
+    "2 4 6\n",
+    ""
+  ],
+  [
+    "CS01-M06-O01",
+    "empty-length",
+    "",
+    "success",
+    "",
+    ""
+  ],
+  [
+    "CS01-M06-O01",
+    "single-item",
+    "",
+    "success",
+    "2\n",
+    ""
+  ],
+  [
+    "CS01-M06-O02",
+    "base",
+    "",
+    "success",
+    "length=3 text=a b\n",
+    ""
+  ],
+  [
+    "CS01-M06-O02",
+    "exact-fit",
+    "",
+    "success",
+    "length=4 text=abcd\n",
+    ""
+  ],
+  [
+    "CS01-M06-O02",
+    "empty-text",
+    "",
+    "success",
+    "length=0 text=\n",
+    ""
+  ],
+  [
+    "CS01-M06-O03",
+    "base",
+    "",
+    "success",
+    "9 2 4 6\n",
+    ""
+  ],
+  [
+    "CS01-M06-O03",
+    "tail-insert",
+    "",
+    "success",
+    "2 4 6 9\n",
+    ""
+  ],
+  [
+    "CS01-M06-O03",
+    "full-capacity",
+    "",
+    "success",
+    "full\n2 4 6 8\n",
+    ""
+  ],
+  [
+    "CS01-M06-O03",
+    "invalid-position",
+    "",
+    "success",
+    "invalid\n2 4 6\n",
+    ""
+  ],
+  [
+    "CS01-M07-O01",
+    "base",
+    "",
+    "success",
+    "original=9 p=9 q=9\n",
+    ""
+  ],
+  [
+    "CS01-M07-O01",
+    "distinct-object",
+    "",
+    "success",
+    "original=9 p=9 q=7\n",
+    ""
+  ],
+  [
+    "CS01-M07-O02",
+    "base",
+    "",
+    "success",
+    "2 4 6 8\n",
+    ""
+  ],
+  [
+    "CS01-M07-O02",
+    "injected-failure",
+    "",
+    "success",
+    "retained\n2 4\n",
+    ""
+  ],
+  [
+    "CS01-M07-O03",
+    "base",
+    "",
+    "success",
+    "released\nsaved=7\n",
+    ""
+  ],
+  [
+    "CS01-M07-O03",
+    "zero-copy",
+    "",
+    "success",
+    "released\nsaved=0\n",
+    ""
+  ]
+]

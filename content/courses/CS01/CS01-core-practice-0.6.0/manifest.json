@@ -1,0 +1,2496 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "21efb95b-2524-448d-9255-f8f3d239acc5",
+  "course_version_id": "4b6ef645-043f-505a-83af-2232baa28eee",
+  "course_code": "CS01",
+  "version": "CS01-core-practice-0.6.0",
+  "title": "程序设计基础",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "30 个目标保留完整分母；前七模块二十一项受限实践提供固定条件核验。内存安全、解释和独立迁移不能由输出比较证明；整课验收继续建设。",
+  "objectives": [
+    {
+      "id": "a7c25dda-0167-5655-975c-ee5e89572b79",
+      "code": "CS01-M01-O01",
+      "title": "编译并运行最小程序",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f782f56b-c5a8-5503-991f-528b93bb0ea8",
+      "code": "CS01-M01-O02",
+      "title": "区分编译和运行错误",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "d3eb9f1f-53f1-5cea-aaf7-ca7fe262aaec",
+      "code": "CS01-M01-O03",
+      "title": "定位输入输出与退出状态",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "b4c873d0-09f0-5277-ae2f-e8c338d0d9fa",
+      "code": "CS01-M02-O01",
+      "title": "推演整数和浮点表达式",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "13df88e4-66fd-5e47-8fac-a5ff4833b8f5",
+      "code": "CS01-M02-O02",
+      "title": "选择变量类型",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "44f5897e-70b9-5e70-b850-4b295caf7c4e",
+      "code": "CS01-M02-O03",
+      "title": "解释转换与溢出边界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "64a495f1-bac1-5851-b8e4-c06855b3b286",
+      "code": "CS01-M03-O01",
+      "title": "构造互斥和重叠条件",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "23d8cb34-3a3d-5cb2-b46c-b88d6d98d110",
+      "code": "CS01-M03-O02",
+      "title": "实现多分支判断",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "70942d60-e0b5-59fc-b548-af0694a056ae",
+      "code": "CS01-M03-O03",
+      "title": "用反例定位条件缺口",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "92886618-97d8-5402-94dc-8f96ad675dd9",
+      "code": "CS01-M04-O01",
+      "title": "记录循环变量轨迹",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "91567596-2291-5867-bcb3-e0ed5dc3a354",
+      "code": "CS01-M04-O02",
+      "title": "构造终止条件",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "d919b0c3-5648-5fc0-8cce-c31846fa766d",
+      "code": "CS01-M04-O03",
+      "title": "解释累计值不变量",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "4d27ba62-acbd-5153-a31b-ca364b0766b9",
+      "code": "CS01-M05-O01",
+      "title": "拆分参数和返回值",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "6da72099-4741-56c5-9e70-e8ec0343655f",
+      "code": "CS01-M05-O02",
+      "title": "追踪局部变量生命周期",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "e7b5cddb-f264-5d8c-82b9-cf5330301829",
+      "code": "CS01-M05-O03",
+      "title": "实现递归及终止条件",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "eda8ab53-92eb-5fc8-80ba-ae1f786ee42a",
+      "code": "CS01-M06-O01",
+      "title": "实现数组遍历和更新",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "93f35a3e-a3a5-56a9-8a80-51b7bb7a56c4",
+      "code": "CS01-M06-O02",
+      "title": "处理字符串终止",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "ac089c3a-e882-53e1-85f5-bd2424e9aa25",
+      "code": "CS01-M06-O03",
+      "title": "检查下标边界",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "4a7c4111-c751-53cf-8cdb-d6ed1ce9270c",
+      "code": "CS01-M07-O01",
+      "title": "追踪地址与解引用",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "f399750e-ff78-570e-a1bd-2fc5f11b9e44",
+      "code": "CS01-M07-O02",
+      "title": "实现动态分配和释放",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "fbcfc5c5-fde9-5d72-a692-a482fbb2417a",
+      "code": "CS01-M07-O03",
+      "title": "识别悬空指针与别名",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "本次任务的固定条件",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释原理、差异与适用范围",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在独立新条件下验证",
+          "verification": "independent_review_pending"
+        }
+      ]
+    },
+    {
+      "id": "dee7f064-e9f4-5ae6-81fd-85ba2402cc9e",
+      "code": "CS01-M08-O01",
+      "title": "定义复合数据",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定义复合数据",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8664c61e-7e5b-51b5-9e00-0fa403650e99",
+      "code": "CS01-M08-O02",
+      "title": "组织头文件和多文件接口",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "组织头文件和多文件接口",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e279222f-93a8-50fe-a366-6ff65b6408a4",
+      "code": "CS01-M08-O03",
+      "title": "维护对象约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "维护对象约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9992e48a-811d-5aa3-a2cc-c86545cd94a0",
+      "code": "CS01-M09-O01",
+      "title": "读写结构化记录",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "读写结构化记录",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d0200324-6412-545b-8982-9b9f0f9721f3",
+      "code": "CS01-M09-O02",
+      "title": "处理打开及解析失败",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理打开及解析失败",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "94e2992a-99ff-5d35-8b60-67f8af560be8",
+      "code": "CS01-M09-O03",
+      "title": "保证失败后的数据一致性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "保证失败后的数据一致性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "06759e41-e2b7-54fa-b2e0-b7fd8ef958dd",
+      "code": "CS01-M10-O01",
+      "title": "构造边界测试",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造边界测试",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8b59d2a2-9c38-5664-9f25-71a24bab963c",
+      "code": "CS01-M10-O02",
+      "title": "用最小反例定位故障",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "用最小反例定位故障",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "582ab522-d12a-5cd1-b2ba-03e1e1d88178",
+      "code": "CS01-M10-O03",
+      "title": "解释修复及回归范围",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释修复及回归范围",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS01-M01",
+      "title": "程序与执行",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M01-O01-unit",
+          "title": "编译并运行最小程序",
+          "objective_refs": [
+            "CS01-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M01-O02-unit",
+          "title": "区分编译和运行错误",
+          "objective_refs": [
+            "CS01-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M01-O03-unit",
+          "title": "定位输入输出与退出状态",
+          "objective_refs": [
+            "CS01-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M02",
+      "title": "类型与表达式",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M02-O01-unit",
+          "title": "推演整数和浮点表达式",
+          "objective_refs": [
+            "CS01-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M02-O02-unit",
+          "title": "选择变量类型",
+          "objective_refs": [
+            "CS01-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M02-O03-unit",
+          "title": "解释转换与溢出边界",
+          "objective_refs": [
+            "CS01-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M03",
+      "title": "分支与逻辑",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M03-O01-unit",
+          "title": "构造互斥和重叠条件",
+          "objective_refs": [
+            "CS01-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M03-O02-unit",
+          "title": "实现多分支判断",
+          "objective_refs": [
+            "CS01-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M03-O03-unit",
+          "title": "用反例定位条件缺口",
+          "objective_refs": [
+            "CS01-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M04",
+      "title": "循环与不变量",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M04-O01-unit",
+          "title": "记录循环变量轨迹",
+          "objective_refs": [
+            "CS01-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M04-O02-unit",
+          "title": "构造终止条件",
+          "objective_refs": [
+            "CS01-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M04-O03-unit",
+          "title": "解释累计值不变量",
+          "objective_refs": [
+            "CS01-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M05",
+      "title": "函数与作用域",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M05-O01-unit",
+          "title": "拆分参数和返回值",
+          "objective_refs": [
+            "CS01-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M05-O02-unit",
+          "title": "追踪局部变量生命周期",
+          "objective_refs": [
+            "CS01-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M05-O03-unit",
+          "title": "实现递归及终止条件",
+          "objective_refs": [
+            "CS01-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M06",
+      "title": "数组与字符串",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M06-O01-unit",
+          "title": "实现数组遍历和更新",
+          "objective_refs": [
+            "CS01-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M06-O02-unit",
+          "title": "处理字符串终止",
+          "objective_refs": [
+            "CS01-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M06-O03-unit",
+          "title": "检查下标边界",
+          "objective_refs": [
+            "CS01-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M07",
+      "title": "指针与内存",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M07-O01-unit",
+          "title": "追踪地址与解引用",
+          "objective_refs": [
+            "CS01-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M07-O02-unit",
+          "title": "实现动态分配和释放",
+          "objective_refs": [
+            "CS01-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M07-O03-unit",
+          "title": "识别悬空指针与别名",
+          "objective_refs": [
+            "CS01-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M08",
+      "title": "结构体与模块",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M08-O01-unit",
+          "title": "定义复合数据",
+          "objective_refs": [
+            "CS01-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M08-O02-unit",
+          "title": "组织头文件和多文件接口",
+          "objective_refs": [
+            "CS01-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M08-O03-unit",
+          "title": "维护对象约束",
+          "objective_refs": [
+            "CS01-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M09",
+      "title": "文件与错误处理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M09-O01-unit",
+          "title": "读写结构化记录",
+          "objective_refs": [
+            "CS01-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M09-O02-unit",
+          "title": "处理打开及解析失败",
+          "objective_refs": [
+            "CS01-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M09-O03-unit",
+          "title": "保证失败后的数据一致性",
+          "objective_refs": [
+            "CS01-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M10",
+      "title": "测试与调试",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M10-O01-unit",
+          "title": "构造边界测试",
+          "objective_refs": [
+            "CS01-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M10-O02-unit",
+          "title": "用最小反例定位故障",
+          "objective_refs": [
+            "CS01-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M10-O03-unit",
+          "title": "解释修复及回归范围",
+          "objective_refs": [
+            "CS01-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": [
+    {
+      "id": "29756f45-a9b7-5aad-89b5-f3ce5c40ddb2",
+      "version_id": "777eb816-57a3-5073-bf04-f8c3c8cfe991",
+      "code": "CS01-M01-O01-CODE",
+      "version": "CS01-M01-O01-CODE@0.2.0",
+      "objective_codes": [
+        "CS01-M01-O01"
+      ],
+      "kind": "code",
+      "title": "让第一个程序运行起来",
+      "student_action": "先判断程序会在哪个阶段失败。运行后定位错误，只改一处，再运行；保留预测与修改理由。修复后应输出 Hello, learner! 和换行。",
+      "theory": [
+        "GCC 构建可以经过预处理、编译、汇编、链接；构建失败时，不应把诊断当成程序输出。",
+        "puts 输出字符串并补一个换行。本活动只验证声明环境中的有限程序，不要求记住诊断原文。"
+      ],
+      "starter": "编辑 main.c；先预测，再保存并运行。",
+      "source_refs": [
+        "gcc13-build",
+        "gcc-c17",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "服务端比较本任务固定输入的状态与输出；解释与独立迁移仍待复核，不自动增加达标数。固定输出可被硬编码，不证明一般程序正确。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"Hello, learner!\")\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "预测阶段、输出与结束状态，并说明判断理由。",
+      "reflection_prompt": "比较预测和真实结果：差异来自哪里？你修改了什么？下一次怎样验证？",
+      "hints": [
+        "先看诊断指向的语句末尾。",
+        "与 return 语句的结尾比较，尝试补上缺失的分号。"
+      ],
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"Hello, learner!\");\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "variants": [
+        {
+          "code": "wrong-output",
+          "title": "退出正常就正确吗？",
+          "student_action": "任务要求输出 5 和换行；初始程序输出 23。运行后解释工具成功和任务正确的区别，再修改。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"23\");\n    return 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "预测输出与工具状态；任务是否会满足？",
+          "reflection_prompt": "为什么不能仅凭正常退出判断输出正确？"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "49e82333-3c81-5702-9d69-c57952a08b4c",
+      "version_id": "698b48ee-957a-5503-9784-86d49024d537",
+      "code": "CS01-M01-O02-CODE",
+      "version": "CS01-M01-O02-CODE@0.2.0",
+      "objective_codes": [
+        "CS01-M01-O02"
+      ],
+      "kind": "code",
+      "title": "把构建失败和运行结果分开",
+      "student_action": "任务要求输出 5 和换行。先运行现有程序，判断它是否满足任务；再改正输出。随后进入非零退出变体。",
+      "theory": [
+        "正常退出只说明程序按工具约定结束，不证明满足题面。输出内容要与当前任务条件比较。",
+        "main 返回值表示结束状态；此执行服务将非零结束归为运行出错。这不等于必然发生了内存错误。"
+      ],
+      "starter": "编辑 main.c；先预测，再保存并运行。",
+      "source_refs": [
+        "gcc13-build",
+        "gcc-c17",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "服务端比较本任务固定输入的状态与输出；解释与独立迁移仍待复核，不自动增加达标数。固定输出可被硬编码，不证明一般程序正确。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"23\");\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "预测阶段、输出与结束状态，并说明判断理由。",
+      "reflection_prompt": "比较预测和真实结果：差异来自哪里？你修改了什么？下一次怎样验证？",
+      "hints": [
+        "把标准输出逐字符与任务要求比较。",
+        "修改输出字符串；再观察输出与退出状态两个不同事实。"
+      ],
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"5\");\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "variants": [
+        {
+          "code": "nonzero-exit",
+          "title": "文本正确但非零结束",
+          "student_action": "先预测 Hello 文本是否会出现，以及程序最终状态。运行后只修改结束状态，再比较两个版本。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"Hello, learner!\");\n    return 3;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "输出和结束状态是否可能给出不同信息？",
+          "reflection_prompt": "运行出错是否意味着没有产生输出？说明本次证据。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "dbebbf47-1d44-56fe-bd36-f317e190c662",
+      "version_id": "5b1d69b3-b1ce-581c-8813-066b95cff23d",
+      "code": "CS01-M01-O03-CODE",
+      "version": "CS01-M01-O03-CODE@0.2.0",
+      "objective_codes": [
+        "CS01-M01-O03"
+      ],
+      "kind": "code",
+      "title": "观察输入、输出和结束状态",
+      "student_action": "程序只检查首字符是否为 A，其余字符忽略。先用 A 运行，再分别用 B 与空输入；区分标准输出、错误输出及结束状态。",
+      "theory": [
+        "getchar 返回 int；输入流结束时返回 EOF，不能用一个普通 char 丢失这种区别。",
+        "fputs 写入指定流，不自动补换行。此代码显式向 stderr 写入含换行的错误消息。",
+        "本工具接收提交时固定的有限输入，不是交互式终端。空输入已经结束，不会继续等待键盘输入。"
+      ],
+      "starter": "编辑 main.c；先预测，再保存并运行。",
+      "source_refs": [
+        "gcc13-build",
+        "gcc-c17",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "服务端比较本任务固定输入的状态与输出；解释与独立迁移仍待复核，不自动增加达标数。固定输出可被硬编码，不证明一般程序正确。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+        },
+        "stdin": "A"
+      },
+      "prediction_prompt": "预测阶段、输出与结束状态，并说明判断理由。",
+      "reflection_prompt": "比较预测和真实结果：差异来自哪里？你修改了什么？下一次怎样验证？",
+      "hints": [
+        "先跟踪 ch 的值与 if 条件，再看两条输出语句。",
+        "观察 getchar 遇到输入结束的分支；错误文本不属于标准输出。"
+      ],
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+        },
+        "stdin": "A"
+      },
+      "variants": [
+        {
+          "code": "input-rejected",
+          "title": "输入不符合协议",
+          "student_action": "将输入 B 运行，观察错误流。再设计一条首字符正确但带后续字符的输入，解释为何本协议只检查首字符。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+            },
+            "stdin": "B"
+          },
+          "prediction_prompt": "哪条分支会被执行？",
+          "reflection_prompt": "如果要验证整行输入，现有判断还缺什么？"
+        },
+        {
+          "code": "input-empty",
+          "title": "输入流已经结束",
+          "student_action": "不提供任何输入，运行并解释结果。对比交互终端等待输入与本工具有限输入流结束的区别。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "空输入会等待还是结束？",
+          "reflection_prompt": "为什么空输入触发错误分支？"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "37f91dee-72c6-577d-9bb0-b7a063248235",
+      "version_id": "895e9c5c-1598-5271-b69c-50d45644d5a9",
+      "code": "CS01-M02-O01-CODE",
+      "version": "CS01-M02-O01-CODE@0.2.0",
+      "objective_codes": [
+        "CS01-M02-O01"
+      ],
+      "kind": "code",
+      "title": "温度为什么一直是零",
+      "student_action": "华氏温度 50 应换算为摄氏温度 10.00。先预测每个中间表达式，再运行初始程序；只改除法的操作数，重新运行并比较两版。",
+      "theory": [
+        "本例先发生整数除法，接收变量的类型不能恢复丢失的部分；本活动仅核对固定值与两位显示。"
+      ],
+      "starter": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    int f = 50;\n    double c = (f - 32) * (5 / 9);\n    printf(\"%.2f\\n\", c);\n    return 0;\n}\n",
+      "source_refs": [
+        "wg14-n1570-types",
+        "gcc-c17"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "服务端比较本任务固定输入的状态与输出；解释与独立迁移仍待复核，不自动增加达标数。固定输出可被硬编码，不证明一般程序正确。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    int f = 50;\n    double c = (f - 32) * (5 / 9);\n    printf(\"%.2f\\n\", c);\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "预测输出，并写出中间结果、单位及适用范围。",
+      "reflection_prompt": "对照预测和实际结果，解释差异，说明下一次修改或新条件。",
+      "hints": [
+        "先检查 5 / 9 两个操作数的类型。",
+        "比较 5 / 9 与 5.0 / 9.0；转换在什么时候发生？"
+      ],
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    int f = 50;\n    double c = (f - 32) * (5.0 / 9.0);\n    printf(\"%.2f\\n\", c);\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "variants": [
+        {
+          "code": "negative-division",
+          "title": "负数的商与余数",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    printf(\"%d %d\\n\", -7 / 3, -7 % 3);\n    return 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "student_action": "预测 -7 / 3 和 -7 % 3，运行后用商、除数和余数重建被除数。",
+          "prediction_prompt": "两个结果分别是什么？",
+          "reflection_prompt": "说明向零截断与向负无穷取整的差别。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "a3524cb6-4f18-50d8-9013-403fd02973f5",
+      "version_id": "a7a9c787-090b-5867-8433-96d2df3a9278",
+      "code": "CS01-M02-O02-CODE",
+      "version": "CS01-M02-O02-CODE@0.2.0",
+      "objective_codes": [
+        "CS01-M02-O02"
+      ],
+      "kind": "code",
+      "title": "金额先写清单位",
+      "student_action": "单价 199 分、数量 3，任务要求显示 5.97。先标注每一步的单位，运行初始程序；用分保存金额，在显示时再分出元和分。",
+      "theory": [
+        "本任务明确使用小范围整数分；金额规则与语言规则分别解释，不推广为任意货币算法。"
+      ],
+      "starter": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    int unit_price = 199 / 100;\n    int count = 3;\n    printf(\"%d\\n\", unit_price * count);\n    return 0;\n}\n",
+      "source_refs": [
+        "wg14-n1570-types",
+        "gcc-c17"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "服务端比较本任务固定输入的状态与输出；解释与独立迁移仍待复核，不自动增加达标数。固定输出可被硬编码，不证明一般程序正确。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    int unit_price = 199 / 100;\n    int count = 3;\n    printf(\"%d\\n\", unit_price * count);\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "预测输出，并写出中间结果、单位及适用范围。",
+      "reflection_prompt": "对照预测和实际结果，解释差异，说明下一次修改或新条件。",
+      "hints": [
+        "199 / 100 之后还保留多少分？",
+        "先算总分，再用商和余数显示；格式中两位分要补零。"
+      ],
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    int unit_cents = 199;\n    int count = 3;\n    int total_cents = unit_cents * count;\n    printf(\"%d.%02d\\n\", total_cents / 100, total_cents % 100);\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "variants": [
+        {
+          "code": "money-discount",
+          "title": "舍去不足一分的折扣",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    int total_cents = 597;\n    int paid_cents = total_cents * 90 / 100;\n    printf(\"%d.%02d\\n\", paid_cents / 100, paid_cents % 100);\n    return 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "student_action": "597 分打九折；本任务规则为舍去不足一分。先预测，再运行，并说明改成四舍五入后如何调整。",
+          "prediction_prompt": "应收多少分、显示什么？",
+          "reflection_prompt": "区分当前业务舍入规则与其他可选规则。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "84eb9819-1186-5ce5-8f4a-d4a4ba468de3",
+      "version_id": "1d7b4093-e5a1-58d6-9a08-2d9fadc0d303",
+      "code": "CS01-M02-O03-CODE",
+      "version": "CS01-M02-O03-CODE@0.2.0",
+      "objective_codes": [
+        "CS01-M02-O03"
+      ],
+      "kind": "code",
+      "title": "转换之前先判断边界",
+      "student_action": "预测把 3.9 转为 int 的结果，运行后比较负数变体。随后进入边界防护变体，解释为什么检查必须放在加法之前。不要运行有符号溢出来寻找固定答案。",
+      "theory": [
+        "本例浮点值在 int 可表示范围内；范围外转换和越界表达式不用于制造固定输出。"
+      ],
+      "starter": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    double value = 3.9;\n    int whole = (int)value;\n    printf(\"%d\\n\", whole);\n    return 0;\n}\n",
+      "source_refs": [
+        "wg14-n1570-types",
+        "gcc-c17"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "服务端比较本任务固定输入的状态与输出；解释与独立迁移仍待复核，不自动增加达标数。固定输出可被硬编码，不证明一般程序正确。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    double value = 3.9;\n    int whole = (int)value;\n    printf(\"%d\\n\", whole);\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "预测输出，并写出中间结果、单位及适用范围。",
+      "reflection_prompt": "对照预测和实际结果，解释差异，说明下一次修改或新条件。",
+      "hints": [
+        "这里不是四舍五入。",
+        "负数也需要单独预测；边界检查不能放在已经越界的运算后。"
+      ],
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    double value = 3.9;\n    int whole = (int)value;\n    printf(\"%d\\n\", whole);\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "variants": [
+        {
+          "code": "truncate-negative",
+          "title": "负数转换",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    double value = -3.9;\n    int whole = (int)value;\n    printf(\"%d\\n\", whole);\n    return 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "student_action": "预测 -3.9 转为 int，比较与正数的差异。",
+          "prediction_prompt": "结果是否为 -4？",
+          "reflection_prompt": "解释截断方向，并指出本任务的可表示范围前提。"
+        },
+        {
+          "code": "safe-limit",
+          "title": "拒绝越界的加一",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    int value = INT_MAX;\n    if (value == INT_MAX) puts(\"addition rejected\");\n    else printf(\"%d\\n\", value + 1);\n    return 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "student_action": "先预测 INT_MAX 的防护路径，再将值改为 INT_MAX - 1，记录两版结果。",
+          "prediction_prompt": "程序会执行加一吗？",
+          "reflection_prompt": "解释为何不读取一个有符号溢出的固定结果。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "68d2346d-df2f-5fa6-921c-153153add4c2",
+      "version_id": "311c8a2f-e0e6-5e59-b69d-f88a2cc7dbc2",
+      "code": "CS01-M03-O01-CODE",
+      "version": "CS01-M03-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M03-O01"
+      ],
+      "kind": "code",
+      "title": "一次输入为何进入两条分支",
+      "student_action": "原创规则：0–30 分钟 free，31–60 paid，超过 60 full。输入 29，只允许输出 free 和换行；运行重叠条件后改成互斥分支。",
+      "theory": [
+        "独立的 if 会分别判断；if/else if 链只选择其中一支。先列表检查同一输入能否满足多个条件。"
+      ],
+      "starter": "先写预测，再运行 main.c；保留修正理由和每次结果。",
+      "source_refs": [
+        "wg14-n1570-control",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较指定输入的状态和输出；硬编码可满足固定条件，不能据此证明一般正确性、解释或独立迁移。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 29;\nif (minutes <= 30) puts(\"free\");\nif (minutes <= 60) puts(\"paid\");\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 29;\nif (minutes <= 30) puts(\"free\");\nelse if (minutes <= 60) puts(\"paid\");\nelse puts(\"full\");\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+      "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。",
+      "hints": [
+        "29 同时满足两个 <= 条件。",
+        "用 else if 连接互斥选择，最后检查剩余区间。"
+      ],
+      "variants": [
+        {
+          "code": "above-all",
+          "title": "覆盖所有区间",
+          "student_action": "输入 61，要求 full；不能只处理前两段。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 61;\nif (minutes <= 30) puts(\"free\");\nif (minutes <= 60) puts(\"paid\");\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "6244bedf-8ad1-5fa0-b98f-cf4d0355a6f7",
+      "version_id": "d991ea83-735d-5782-b1ce-072b6592580a",
+      "code": "CS01-M03-O02-CODE",
+      "version": "CS01-M03-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M03-O02"
+      ],
+      "kind": "code",
+      "title": "实现包含端点的三段计费",
+      "student_action": "原创规则：0–30 分钟费用 0，31–60 费用 5，超过 60 费用 10。先预测 30 的输出，修复等值端点。",
+      "theory": [
+        "条件为真时执行对应分支；等号是否包含取决于业务规则，不能凭样例猜测。"
+      ],
+      "starter": "先写预测，再运行 main.c；保留修正理由和每次结果。",
+      "source_refs": [
+        "wg14-n1570-control",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较指定输入的状态和输出；硬编码可满足固定条件，不能据此证明一般正确性、解释或独立迁移。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 30, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 30, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+      "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。",
+      "hints": [
+        "把区间写成闭区间与剩余区间。",
+        "单测 30 之后还需要单测 60。"
+      ],
+      "variants": [
+        {
+          "code": "upper-equal",
+          "title": "第二个端点",
+          "student_action": "输入 60，费用应为 5。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 60, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "bfea16a4-0bae-58b3-9e65-378063a8007b",
+      "version_id": "256601b5-be28-5e49-8a78-d8f39b8f48b4",
+      "code": "CS01-M03-O03-CODE",
+      "version": "CS01-M03-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M03-O03"
+      ],
+      "kind": "code",
+      "title": "选择能揭示条件缺口的反例",
+      "student_action": "输入 60 应输出费用 5。再执行 29/30/31/59/61 的反例候选，比较哪些暴露错误；最后改变业务规则。",
+      "theory": [
+        "通过一个输入只能说明该输入未暴露问题。端点及两侧条件能帮助发现区间缺口，但不是对所有输入的证明。"
+      ],
+      "starter": "先写预测，再运行 main.c；保留修正理由和每次结果。",
+      "source_refs": [
+        "wg14-n1570-control",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较指定输入的状态和输出；硬编码可满足固定条件，不能据此证明一般正确性、解释或独立迁移。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 60, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 60, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+      "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。",
+      "hints": [
+        "记录预期区间，不先看程序输出。",
+        "比较等值点、左右邻点，以及业务规则改变后的旧假设。"
+      ],
+      "variants": [
+        {
+          "code": "minutes-29",
+          "title": "反例候选 29",
+          "student_action": "输入 29，按 30/60 包含端点规则预测、运行并记录本次结果。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 29, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        },
+        {
+          "code": "minutes-30",
+          "title": "反例候选 30",
+          "student_action": "输入 30，按 30/60 包含端点规则预测、运行并记录本次结果。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 30, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        },
+        {
+          "code": "minutes-31",
+          "title": "反例候选 31",
+          "student_action": "输入 31，按 30/60 包含端点规则预测、运行并记录本次结果。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 31, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        },
+        {
+          "code": "minutes-59",
+          "title": "反例候选 59",
+          "student_action": "输入 59，按 30/60 包含端点规则预测、运行并记录本次结果。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 59, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        },
+        {
+          "code": "minutes-61",
+          "title": "反例候选 61",
+          "student_action": "输入 61，按 30/60 包含端点规则预测、运行并记录本次结果。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 61, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        },
+        {
+          "code": "changed-policy",
+          "title": "收费规则改变",
+          "student_action": "新规则：0–20 费用 0，21–50 费用 5，超过 50 费用 10。输入 21，改写区间并解释哪些原测试应重做。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 21, amount;\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "edb8dcd8-0dc4-5265-b924-4f97feff4780",
+      "version_id": "f8169ec9-f6ea-5dc7-936b-525c96d85013",
+      "code": "CS01-M04-O01-CODE",
+      "version": "CS01-M04-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M04-O01"
+      ],
+      "kind": "code",
+      "title": "保留每一轮的变量轨迹",
+      "student_action": "要求循环覆盖 1、2、3，每轮输出 i 与累计值。先手算轨迹，再定位漏掉最后一轮的原因。",
+      "theory": [
+        "for 先检查继续条件，每轮执行循环体后更新变量，再检查条件。逐轮轨迹比只看最终值更容易定位边界错误。"
+      ],
+      "starter": "先写预测，再运行 main.c；保留修正理由和每次结果。",
+      "source_refs": [
+        "wg14-n1570-control",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较指定输入的状态和输出；硬编码可满足固定条件，不能据此证明一般正确性、解释或独立迁移。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint sum = 0;\nfor (int i = 1; i < 3; i++) {\nsum += i;\nprintf(\"%d %d\\n\", i, sum);\n}\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint sum = 0;\nfor (int i = 1; i <= 3; i++) {\nsum += i;\nprintf(\"%d %d\\n\", i, sum);\n}\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+      "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。",
+      "hints": [
+        "写出首次进入前的 i、sum。",
+        "检查 i 为 3 时是否继续。"
+      ],
+      "variants": [
+        {
+          "code": "empty-range",
+          "title": "循环体一次也不执行",
+          "student_action": "上界为 0，要求无输出；解释初始条件为何阻止进入。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint sum = 0;\nfor (int i = 1; i < 0; i++) {\nsum += i;\nprintf(\"%d %d\\n\", i, sum);\n}\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "869920b5-e92c-5c3f-b1b9-33ea19fa6c8f",
+      "version_id": "22b58d37-ff2a-5ba9-b23e-19355affd80d",
+      "code": "CS01-M04-O02-CODE",
+      "version": "CS01-M04-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M04-O02"
+      ],
+      "kind": "code",
+      "title": "把进度变化与终止条件连起来",
+      "student_action": "从 3 倒数，要求输出 3、2、1；0 不输出。预测先减后输出的差异，再修复。另以零初值核对循环是否应该进入。",
+      "theory": [
+        "while 在执行循环体之前检查条件。每轮状态应向终止条件推进；输出和更新顺序也属于任务规则。"
+      ],
+      "starter": "先写预测，再运行 main.c；保留修正理由和每次结果。",
+      "source_refs": [
+        "wg14-n1570-control",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较指定输入的状态和输出；硬编码可满足固定条件，不能据此证明一般正确性、解释或独立迁移。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint n = 3;\nwhile (n > 0) {\nn--;\nprintf(\"%d\\n\", n);\n}\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint n = 3;\nwhile (n > 0) {\nprintf(\"%d\\n\", n);\nn--;\n}\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+      "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。",
+      "hints": [
+        "先写期望第一行，再安排状态更新。",
+        "比较 n>0 在循环体前后分别检查的意义。"
+      ],
+      "variants": [
+        {
+          "code": "zero-start",
+          "title": "初始状态已经终止",
+          "student_action": "n=0，要求无输出，解释为何不进入循环体。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint n = 0;\nwhile (n > 0) {\nn--;\nprintf(\"%d\\n\", n);\n}\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        },
+        {
+          "code": "missing-termination",
+          "title": "修复无法终止的循环",
+          "student_action": "初始循环没有退出条件。只在受限沙箱运行一次观察超时，然后改成从 3 输出 3、2、1 并结束的程序；解释状态为何必然推进。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nwhile (1) {}\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "这个循环何时退出？预测工具会怎样处理。",
+          "reflection_prompt": "超时不是正确结果；写出退出条件与每轮状态推进。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "2e8e3d5e-21c9-5430-a98c-bd5d1723855e",
+      "version_id": "d3003752-c991-5980-bbdc-93c026a9343d",
+      "code": "CS01-M04-O03-CODE",
+      "version": "CS01-M04-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M04-O03"
+      ],
+      "kind": "code",
+      "title": "累计值必须代表已处理的整个前缀",
+      "student_action": "字符协议：+ 表示 1，- 表示 -1，0 表示 0，# 或 EOF 结束，# 后内容不处理。仅测试这些合法字符。输入 -0+#，每轮保存累计值；解释覆盖赋值与累加的区别。",
+      "theory": [
+        "这里的不变量是 sum 等于已处理前缀的值之和，count 等于已处理字符数。这是任务定义，应逐轮验证初始化、保持和退出时的含义。"
+      ],
+      "starter": "先写预测，再运行 main.c；保留修正理由和每次结果。",
+      "source_refs": [
+        "wg14-n1570-control",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较指定输入的状态和输出；硬编码可满足固定条件，不能据此证明一般正确性、解释或独立迁移。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum = delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+        },
+        "stdin": "-0+#"
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum += delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+        },
+        "stdin": "-0+#"
+      },
+      "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+      "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。",
+      "hints": [
+        "比较第一轮和第二轮的 sum。",
+        "累计要使用上一轮值；# 的判断应在处理之前。"
+      ],
+      "variants": [
+        {
+          "code": "end-only",
+          "title": "只有结束标记",
+          "student_action": "输入 #，应为 sum=0 count=0。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum = delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+            },
+            "stdin": "#"
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        },
+        {
+          "code": "empty-input",
+          "title": "EOF 空输入",
+          "student_action": "没有字符，循环体不进入。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum = delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        },
+        {
+          "code": "ignore-after-end",
+          "title": "结束后不再累计",
+          "student_action": "输入 -#+，+ 不应被处理。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\nint ch, sum = 0, count = 0;\nwhile ((ch = getchar()) != EOF && ch != '#') {\nint delta = 0;\nif (ch == '+') delta = 1;\nelse if (ch == '-') delta = -1;\nsum = delta;\ncount++;\nprintf(\"step=%d sum=%d\\n\", count, sum);\n}\nprintf(\"sum=%d count=%d\\n\", sum, count);\nreturn 0;\n}\n"
+            },
+            "stdin": "-#+"
+          },
+          "prediction_prompt": "逐步预测分支或循环变量、输出及退出状态，并说明依据。",
+          "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "d271afbe-e827-54a4-b241-5025f1013c10",
+      "version_id": "a13ee0fb-8d70-5a5d-805f-4124845e4de5",
+      "code": "CS01-M05-O01-CODE",
+      "version": "CS01-M05-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M05-O01"
+      ],
+      "kind": "code",
+      "title": "调用返回值不会自动改写实参",
+      "student_action": "函数 next 返回输入加一。原值 3，任务要求调用后输出 4；观察忽略返回值的结果，修正赋值。范围限定 -5 至 5。",
+      "theory": [
+        "此任务传递整数值，函数内参数的修改不改变 main 的局部对象；调用者必须明确使用返回值。"
+      ],
+      "starter": "记录调用前后状态，先预测，再执行和修正。",
+      "source_refs": [
+        "wg14-n1570-functions"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较受限固定输入的真实状态和输出。未自动复核解释或独立迁移，硬编码输出不证明一般正确性。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint next(int value) { value++; return value; }\nint main(void) {\nint original=3;\nnext(original);\nprintf(\"%d\\n\",original);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint next(int value) { value++; return value; }\nint main(void) {\nint original=3;\noriginal=next(original);\nprintf(\"%d\\n\",original);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "按调用次序预测参数、局部值、返回值和输出。",
+      "reflection_prompt": "解释哪一个调用或局部状态与预测不同，保留修正理由和下一项边界测试。",
+      "hints": [
+        "分别写出函数参数和 main 中 original 的值。",
+        "查看 next 的返回值是否被使用。"
+      ],
+      "variants": [
+        {
+          "code": "negative-value",
+          "title": "负值调用",
+          "student_action": "输入 -2，期望 -1；重新预测调用前后两处值。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint next(int value) { value++; return value; }\nint main(void) {\nint original=-2;\nnext(original);\nprintf(\"%d\\n\",original);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "按调用次序预测参数、局部值、返回值和输出。",
+          "reflection_prompt": "解释哪一个调用或局部状态与预测不同，保留修正理由和下一项边界测试。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "2f1f59b1-b455-59a8-84ce-149d939d6a31",
+      "version_id": "9c616909-621e-5681-8b55-c5041b6b617b",
+      "code": "CS01-M05-O02-CODE",
+      "version": "CS01-M05-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M05-O02"
+      ],
+      "kind": "code",
+      "title": "同名局部变量属于哪一层",
+      "student_action": "需要内层显示 seed+10、外层仍显示 seed；连续调用 seed=2、3，保留每层轨迹。初始作品误改了外层值。不得返回局部地址或读取失效对象。",
+      "theory": [
+        "内层同名声明在其作用域内隐藏外层名字；本任务用逐层输出区分声明新对象与修改既有对象。"
+      ],
+      "starter": "记录调用前后状态，先预测，再执行和修正。",
+      "source_refs": [
+        "wg14-n1570-functions"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较受限固定输入的真实状态和输出。未自动复核解释或独立迁移，硬编码输出不证明一般正确性。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint observe(int seed) { int value=seed; { value=seed+10; printf(\"inner=%d\\n\",value); } printf(\"outer=%d\\n\",value); return value; }\nint main(void) {\nint first=observe(2);\nint second=observe(3);\nprintf(\"returns=%d %d\\n\",first,second);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint observe(int seed) { int value=seed; { int value=seed+10; printf(\"inner=%d\\n\",value); } printf(\"outer=%d\\n\",value); return value; }\nint main(void) {\nint first=observe(2);\nint second=observe(3);\nprintf(\"returns=%d %d\\n\",first,second);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "按调用次序预测参数、局部值、返回值和输出。",
+      "reflection_prompt": "解释哪一个调用或局部状态与预测不同，保留修正理由和下一项边界测试。",
+      "hints": [
+        "确认花括号内是新声明还是赋值。",
+        "连续两次调用分别从各自 seed 初始化。"
+      ],
+      "variants": [
+        {
+          "code": "zero-seed",
+          "title": "零值与下一次调用",
+          "student_action": "seed 为 0 和 1，分别跟踪内外两层。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint observe(int seed) { int value=seed; { value=seed+10; printf(\"inner=%d\\n\",value); } printf(\"outer=%d\\n\",value); return value; }\nint main(void) {\nint first=observe(0);\nint second=observe(1);\nprintf(\"returns=%d %d\\n\",first,second);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "按调用次序预测参数、局部值、返回值和输出。",
+          "reflection_prompt": "解释哪一个调用或局部状态与预测不同，保留修正理由和下一项边界测试。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "5fc45b29-0d2b-58cc-8440-8fd5847a4cc1",
+      "version_id": "43a8a4f0-1aa3-572d-9e24-bb8be772b944",
+      "code": "CS01-M05-O03-CODE",
+      "version": "CS01-M05-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M05-O03"
+      ],
+      "kind": "code",
+      "title": "递归到达基例后怎样返回",
+      "student_action": "限定 n 为 0–5，n=3 的结果应为 6。先画调用与返回轨迹，修复错误基例；非法输入在调用前拒绝，避免无界递归或大数溢出。",
+      "theory": [
+        "递归任务必须给出基例和朝基例推进的参数；本例返回值沿调用链逐层计算，不把一次递归运行视为一般终止证明。"
+      ],
+      "starter": "记录调用前后状态，先预测，再执行和修正。",
+      "source_refs": [
+        "wg14-n1570-functions"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较受限固定输入的真实状态和输出。未自动复核解释或独立迁移，硬编码输出不证明一般正确性。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 0;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=3;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 1;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=3;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "按调用次序预测参数、局部值、返回值和输出。",
+      "reflection_prompt": "解释哪一个调用或局部状态与预测不同，保留修正理由和下一项边界测试。",
+      "hints": [
+        "阶乘 0 的任务定义是 1。",
+        "比较 enter 与 leave 的顺序；计算下一层返回后本层的结果。"
+      ],
+      "variants": [
+        {
+          "code": "zero-base",
+          "title": "直接到达基例",
+          "student_action": "n=0，不进入递归分支，期望 result=1。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 0;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=0;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "按调用次序预测参数、局部值、返回值和输出。",
+          "reflection_prompt": "解释哪一个调用或局部状态与预测不同，保留修正理由和下一项边界测试。"
+        },
+        {
+          "code": "reject-negative",
+          "title": "调用前拒绝负数",
+          "student_action": "n=-1，要求 rejected，不能调用递归函数。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 0;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=-1;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "按调用次序预测参数、局部值、返回值和输出。",
+          "reflection_prompt": "解释哪一个调用或局部状态与预测不同，保留修正理由和下一项边界测试。"
+        },
+        {
+          "code": "reject-large",
+          "title": "限制可表示范围",
+          "student_action": "n=6 超出教学范围，要求 rejected；不对溢出生成固定答案。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint factorial(int n) {\nprintf(\"enter=%d\\n\",n);\nif(n==0) return 0;\nint result=n*factorial(n-1);\nprintf(\"leave=%d result=%d\\n\",n,result);\nreturn result;\n}\nint main(void) {\nint n=6;\nif(n<0 || n>5) { puts(\"rejected\"); return 0; }\nint result=factorial(n);\nprintf(\"result=%d\\n\",result);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "按调用次序预测参数、局部值、返回值和输出。",
+          "reflection_prompt": "解释哪一个调用或局部状态与预测不同，保留修正理由和下一项边界测试。"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "20d55bc5-2635-578a-b964-b7c4d585a622",
+      "version_id": "4584b399-ef77-5525-95bf-6636764c8f48",
+      "code": "CS01-M06-O01-CODE",
+      "version": "CS01-M06-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M06-O01"
+      ],
+      "kind": "code",
+      "title": "遍历要覆盖第一个有效元素",
+      "student_action": "有效数组 [1,2,3] 的每项乘二，要求 2 4 6；先标下标与长度，再定位漏掉首项。空长度不输出，单元素也必须更新。",
+      "theory": [
+        "有效长度与数组容量分开记录；本任务只访问 0 至 length-1，修改下标应覆盖全部有效元素。"
+      ],
+      "starter": "先标注有效长度、容量或所有权，预测后再运行。",
+      "source_refs": [
+        "wg14-n1570-memory"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "比较固定条件下真实输出，不证明一般内存安全、没有泄漏或解释正确。未定义行为不得用本机输出判为正确；解释与独立迁移待复核。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=3;\nfor(int i=1;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=3;\nfor(int i=0;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+      "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？",
+      "hints": [
+        "检查循环初值是否跳过下标 0。",
+        "用 length=0 和 length=1 检查首次判断。"
+      ],
+      "variants": [
+        {
+          "code": "empty-length",
+          "title": "没有有效元素",
+          "student_action": "length=0，无输出，不能读第一项来充数。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=0;\nfor(int i=1;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        },
+        {
+          "code": "single-item",
+          "title": "只有一个有效元素",
+          "student_action": "length=1，应输出 2。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[3]={1,2,3}; int length=1;\nfor(int i=1;i<length;i++) values[i]*=2;\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "1b5e7837-e0af-5eab-b92e-87c928cf0cbe",
+      "version_id": "e5cd75dd-52bb-5d04-b163-57db91bae0be",
+      "code": "CS01-M06-O02-CODE",
+      "version": "CS01-M06-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M06-O02"
+      ],
+      "kind": "code",
+      "title": "内容之外还要留终止符",
+      "student_action": "将含空格的 a b 放入容量 4 的缓冲区。初始工件有界扫描，未终止时只报告 unterminated，不对非字符串调用 %s；修复后输出 length=3 text=a b。",
+      "theory": [
+        "字符内容和结尾空字符占用不同位置；先确认终止符位于容量内，再按字符串输出。"
+      ],
+      "starter": "先标注有效长度、容量或所有权，预测后再运行。",
+      "source_refs": [
+        "wg14-n1570-memory"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "比较固定条件下真实输出，不证明一般内存安全、没有泄漏或解释正确。未定义行为不得用本机输出判为正确；解释与独立迁移待复核。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[3]={'a',' ','b'};\nchar buffer[4]; int length=3;\nfor(int i=0;i<4;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nint end=0; while(end<4 && buffer[end]!='\\0') end++;\nif(end==4) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[3]={'a',' ','b'};\nchar buffer[4]; int length=3;\nfor(int i=0;i<4;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nbuffer[length]='\\0';\nint end=0; while(end<4 && buffer[end]!='\\0') end++;\nif(end==4) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+      "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？",
+      "hints": [
+        "标出三个字符之后的一个位置。",
+        "不要用无界输出观察缺终止符的数组。"
+      ],
+      "variants": [
+        {
+          "code": "exact-fit",
+          "title": "内容加终止符恰好装满",
+          "student_action": "abcd 放入容量 5，最后一格留空字符。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[4]={'a','b','c','d'};\nchar buffer[5]; int length=4;\nfor(int i=0;i<5;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nint end=0; while(end<5 && buffer[end]!='\\0') end++;\nif(end==5) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        },
+        {
+          "code": "empty-text",
+          "title": "空串仍需终止符",
+          "student_action": "容量 1，空串应 length=0。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nchar source[1]={0};\nchar buffer[1]; int length=0;\nfor(int i=0;i<1;i++) buffer[i]='?';\nfor(int i=0;i<length;i++) buffer[i]=source[i];\nint end=0; while(end<1 && buffer[end]!='\\0') end++;\nif(end==1) puts(\"unterminated\"); else printf(\"length=%d text=%s\\n\",end,buffer);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "c1e1c0c2-ae20-5725-8ba8-598680df4633",
+      "version_id": "35160bb2-9872-5031-8e32-e25083fe859c",
+      "code": "CS01-M06-O03-CODE",
+      "version": "CS01-M06-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M06-O03"
+      ],
+      "kind": "code",
+      "title": "移动元素时保护原数据与容量",
+      "student_action": "容量 4，有效 [2,4,6]，在位置 0 插入 9，期望 9 2 4 6。初始向右顺序错误会重复原值，先画移动轨迹再修复；禁止访问容量外。",
+      "theory": [
+        "插入前检查容量和位置；从尾部移动可以避免覆盖尚未复制的元素。固定结果不证明任意容量实现安全。"
+      ],
+      "starter": "先标注有效长度、容量或所有权，预测后再运行。",
+      "source_refs": [
+        "wg14-n1570-memory"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "比较固定条件下真实输出，不证明一般内存安全、没有泄漏或解释正确。未定义行为不得用本机输出判为正确；解释与独立迁移待复核。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=0;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=position+1;i<=length;i++) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=0;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=length;i>position;i--) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+      "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？",
+      "hints": [
+        "画出第一次移动后下一次读到的值。",
+        "先检查空位，再从末尾向插入位置移动。"
+      ],
+      "variants": [
+        {
+          "code": "tail-insert",
+          "title": "尾位无需搬移",
+          "student_action": "position=length，追加 9。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=3;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=position+1;i<=length;i++) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        },
+        {
+          "code": "full-capacity",
+          "title": "满容量保留原值",
+          "student_action": "已有四项，拒绝插入并打印原数组。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=4, position=0;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=position+1;i<=length;i++) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        },
+        {
+          "code": "invalid-position",
+          "title": "非法位置被拒绝",
+          "student_action": "position=-1，不得访问负下标。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint values[4]={2,4,6,8}; int length=3, position=-1;\nif(length==4) puts(\"full\"); else if(position<0 || position>length) puts(\"invalid\"); else {\nfor(int i=position+1;i<=length;i++) values[i]=values[i-1];\nvalues[position]=9; length++;\n}\nfor(int i=0;i<length;i++) printf(\"%d%s\",values[i],i+1==length?\"\\n\":\" \");\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "9f1544aa-374a-5a96-b11e-5763434e4cb8",
+      "version_id": "4653bf02-7bc6-5334-bfbe-4408a57e857a",
+      "code": "CS01-M07-O01-CODE",
+      "version": "CS01-M07-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M07-O01"
+      ],
+      "kind": "code",
+      "title": "改指针还是改指针所指对象",
+      "student_action": "p、q 起初指向 original=5；任务要求原对象更新为 9，两处别名读到同一值。初始工件只改 p 的绑定；不要依赖地址数值。",
+      "theory": [
+        "指针赋值改变所指对象，解引用赋值改变被指向的值；别名是否同步取决于是否指向同一个对象。"
+      ],
+      "starter": "先标注有效长度、容量或所有权，预测后再运行。",
+      "source_refs": [
+        "wg14-n1570-memory"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "比较固定条件下真实输出，不证明一般内存安全、没有泄漏或解释正确。未定义行为不得用本机输出判为正确；解释与独立迁移待复核。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint original=5, other=7, replacement=9;\nint *p=&original; int *q=&original;\np=&replacement;\nprintf(\"original=%d p=%d q=%d\\n\",original,*p,*q);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint original=5, other=7, replacement=9;\nint *p=&original; int *q=&original;\n*p=9;\nprintf(\"original=%d p=%d q=%d\\n\",original,*p,*q);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+      "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？",
+      "hints": [
+        "分别标出 p 与 q 所指对象。",
+        "比较 p=... 和 *p=... 的修改位置。"
+      ],
+      "variants": [
+        {
+          "code": "distinct-object",
+          "title": "名字相似不代表别名",
+          "student_action": "q 指向 other=7；更新 original 后 q 仍读 7。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint original=5, other=7, replacement=9;\nint *p=&original; int *q=&other;\np=&replacement;\nprintf(\"original=%d p=%d q=%d\\n\",original,*p,*q);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "bb7a2d67-cc3c-50db-b3d8-2ec212749e6a",
+      "version_id": "8cd78eeb-9c03-51b1-b15b-79fb81b5a174",
+      "code": "CS01-M07-O02-CODE",
+      "version": "CS01-M07-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M07-O02"
+      ],
+      "kind": "code",
+      "title": "扩容成功与失败走不同所有权路径",
+      "student_action": "实际分配两项 [2,4] 并扩容到四项，要求旧项保留、新项为 6、8；新区域先初始化为 0 后展示漏更新问题。另用显式故障注入保留原块，不能声称实测了系统耗尽。",
+      "theory": [
+        "非零扩容失败时旧块仍保留；成功后使用返回的新指针。新增区域需要明确初始化，每条分支都需核对释放责任。"
+      ],
+      "starter": "先标注有效长度、容量或所有权，预测后再运行。",
+      "source_refs": [
+        "wg14-n1570-memory"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "比较固定条件下真实输出，不证明一般内存安全、没有泄漏或解释正确。未定义行为不得用本机输出判为正确；解释与独立迁移待复核。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(2*sizeof *owner); if(!owner) return 1;\nowner[0]=2;owner[1]=4;\nint *next=realloc(owner,4*sizeof *owner); if(!next) {free(owner);return 1;}\nowner=next; owner[2]=0; owner[3]=0;\nfor(int i=2;i<3;i++) owner[i]=2*(i+1);\nprintf(\"%d %d %d %d\\n\",owner[0],owner[1],owner[2],owner[3]);\nfree(owner);owner=NULL;\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(2*sizeof *owner); if(!owner) return 1;\nowner[0]=2;owner[1]=4;\nint *next=realloc(owner,4*sizeof *owner); if(!next) {free(owner);return 1;}\nowner=next; owner[2]=0; owner[3]=0;\nfor(int i=2;i<4;i++) owner[i]=2*(i+1);\nprintf(\"%d %d %d %d\\n\",owner[0],owner[1],owner[2],owner[3]);\nfree(owner);owner=NULL;\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+      "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？",
+      "hints": [
+        "列出成功和失败分支各自的 owner。",
+        "核对新增两项都被设置，最后由哪条路径释放。"
+      ],
+      "variants": [
+        {
+          "code": "injected-failure",
+          "title": "注入失败保留旧块",
+          "student_action": "next=NULL 为明确故障注入；报告 retained，打印 2 4，释放原块。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(2*sizeof *owner); if(!owner) return 1;\nowner[0]=2;owner[1]=4;\nint *next=NULL; /* injected failure: do not call realloc */\nif(!next) {\nputs(\"discarded\");\nprintf(\"%d %d\\n\",owner[0],owner[1]);\nfree(owner); owner=NULL;\n}\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    },
+    {
+      "id": "13afd331-3b7a-557e-a021-7e0591959e08",
+      "version_id": "a89094fa-b031-55f7-9442-e9692b6b9815",
+      "code": "CS01-M07-O03-CODE",
+      "version": "CS01-M07-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M07-O03"
+      ],
+      "kind": "code",
+      "title": "释放后保留值副本而非悬空访问",
+      "student_action": "保存值副本后清除别名并释放唯一所有者；初始元数据仍声称对象存活。修复状态报告，输出 released 与 saved=7。不得解引用或比较已失效指针，不以无崩溃证明安全。",
+      "theory": [
+        "本任务在释放前复制值并清除别名；释放后的元数据不能授予旧对象访问权限。状态报告是学习模型，不是通用内存诊断器。"
+      ],
+      "starter": "先标注有效长度、容量或所有权，预测后再运行。",
+      "source_refs": [
+        "wg14-n1570-memory"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "比较固定条件下真实输出，不证明一般内存安全、没有泄漏或解释正确。未定义行为不得用本机输出判为正确；解释与独立迁移待复核。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(sizeof *owner); if(!owner) return 1; *owner=7;\nint *alias=owner; int saved=*alias; int alive=1;\nalias=NULL; free(owner); owner=NULL;\nputs(alive?\"claim-alive\":\"released\");\nprintf(\"saved=%d\\n\",saved);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(sizeof *owner); if(!owner) return 1; *owner=7;\nint *alias=owner; int saved=*alias; int alive=1;\nalias=NULL; free(owner); owner=NULL;\nalive=0;\nputs(alive?\"claim-alive\":\"released\");\nprintf(\"saved=%d\\n\",saved);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+      "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？",
+      "hints": [
+        "核对释放时 alive 是否更新。",
+        "saved 是值副本，不是别名；列出所有仍持有引用的位置。"
+      ],
+      "variants": [
+        {
+          "code": "zero-copy",
+          "title": "零值也是合法副本",
+          "student_action": "值为 0，不能把值为零误认为对象不存在。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\nint *owner=malloc(sizeof *owner); if(!owner) return 1; *owner=0;\nint *alias=owner; int saved=*alias; int alive=1;\nalias=NULL; free(owner); owner=NULL;\nputs(alive?\"claim-alive\":\"released\");\nprintf(\"saved=%d\\n\",saved);\nreturn 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "写出每一步有效元素、终止符或指针所指对象；标明允许访问范围。",
+          "reflection_prompt": "比较预测与结果，解释修正和未证明的安全条件；下一次如何测试边界或故障？"
+        }
+      ],
+      "check_version": "cs01-fixed-condition-v1"
+    }
+  ],
+  "sources": [
+    {
+      "id": "gcc13-build",
+      "title": "GCC 13.3 构建阶段",
+      "url": "https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Overall-Options.html",
+      "locator": "3.2 构建阶段与输出",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "gcc-c17",
+      "title": "GCC 标准模式说明（当前手册）",
+      "url": "https://gcc.gnu.org/onlinedocs/gcc/Standards.html",
+      "locator": "2.1 C17；当前手册不是 GCC13 默认配置依据",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "wg14-n1570",
+      "title": "WG14 N1570：C11 委员会草案",
+      "url": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf",
+      "locator": "5.1.2.2.3；7.21.7.4、7.21.7.6、7.21.7.9；非 C17 正式标准",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "wg14-n1570-types",
+      "title": "WG14 N1570：表达式与转换（C11 委员会草案）",
+      "url": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf",
+      "locator": "6.5.5；6.3.1.4；6.3.1.8；6.5 第5段；非 C17 正式标准",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "wg14-n1570-control",
+      "title": "WG14 N1570：控制语句（C11 委员会草案）",
+      "url": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf",
+      "locator": "6.8.4.1；6.8.5.1；6.8.5.3；非 C17 正式标准",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "wg14-n1570-functions",
+      "title": "WG14 N1570：调用与作用域（C11 委员会草案）",
+      "url": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf",
+      "locator": "6.2.1；6.5.2.2；6.8.6.4；非 C17 正式标准",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "wg14-n1570-memory",
+      "title": "WG14 N1570：数组、字符串和分配（C11 委员会草案）",
+      "url": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf",
+      "locator": "6.2.5；6.5.2.1；7.1.1；7.22.3.3–7.22.3.5；非 C17 正式标准",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ]
+}

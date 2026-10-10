@@ -4,9 +4,9 @@
       "id": "21efb95b-2524-448d-9255-f8f3d239acc5",
       "code": "CS01",
       "title": "程序设计基础",
-      "version_id": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
-      "version": "CS01-core-practice-0.5.0",
-      "package_path": "CS01/CS01-core-practice-0.5.0/manifest.json",
+      "version_id": "87b9961f-90e6-5e5b-8e27-44f9901e843c",
+      "version": "CS01-core-practice-0.8.0",
+      "package_path": "CS01/CS01-core-practice-0.8.0/manifest.json",
       "full_course_available": false
     },
     {
@@ -162,6 +162,33 @@
       "version_id": "fc44376d-c32e-58ed-a4cf-9f98b5a80811",
       "version": "CS01-core-practice-0.4.0",
       "package_path": "CS01/CS01-core-practice-0.4.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "21efb95b-2524-448d-9255-f8f3d239acc5",
+      "code": "CS01",
+      "title": "程序设计基础",
+      "version_id": "21b3d7a3-609a-508a-923c-ea92cc1a32ef",
+      "version": "CS01-core-practice-0.5.0",
+      "package_path": "CS01/CS01-core-practice-0.5.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "21efb95b-2524-448d-9255-f8f3d239acc5",
+      "code": "CS01",
+      "title": "程序设计基础",
+      "version_id": "4b6ef645-043f-505a-83af-2232baa28eee",
+      "version": "CS01-core-practice-0.6.0",
+      "package_path": "CS01/CS01-core-practice-0.6.0/manifest.json",
+      "full_course_available": false
+    },
+    {
+      "id": "21efb95b-2524-448d-9255-f8f3d239acc5",
+      "code": "CS01",
+      "title": "程序设计基础",
+      "version_id": "d4615267-2166-5dff-b4c8-ed2b67e0be14",
+      "version": "CS01-core-practice-0.7.0",
+      "package_path": "CS01/CS01-core-practice-0.7.0/manifest.json",
       "full_course_available": false
     }
   ]
