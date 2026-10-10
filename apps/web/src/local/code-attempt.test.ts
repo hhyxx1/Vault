@@ -2,6 +2,7 @@ import 'fake-indexeddb/auto'
 import { afterEach, expect, it } from 'vitest'
 import * as repository from './database'
 import { canonicalHash } from '../domain/integrity'
+import { prepareClaim } from './sync'
 
 const databases: repository.LearningDatabase[] = []
 afterEach(async () => { await Promise.all(databases.splice(0).map(db => db.delete())) })
@@ -17,6 +18,8 @@ it('freezes submitted code, binds output to its exact request and isolates accou
   const result = { status: 'success' as const, phase: 'run' as const, stdout: '5\n', stderr: '', truncated: false, metadata: {}, runtime_profile: 'python313-isolate-dev@0.1.0', request_sha256: attempt.requestHash, mastery_asserted: false as const, client_artifact_id: attempt.artifactId, client_revision_id: attempt.id }
   await expect(repository.saveCodeAttempt({ ...attempt, result: { ...result, client_revision_id: crypto.randomUUID() } }, db)).rejects.toThrow()
   await repository.saveCodeAttempt({ ...attempt, result }, db)
+  const claim = await prepareClaim(spaceId, crypto.randomUUID(), db)
+  expect(claim.manifest.filter(item => item.objectType === 'code_attempt' && item.objectId === attempt.id)).toHaveLength(1)
   expect((await db.codeAttempts.get([spaceId, attempt.id]))?.result?.stdout).toBe('5\n')
   await expect(repository.saveCodeAttempt({ ...attempt, result: { ...result, stdout: 'forged' } }, db)).rejects.toThrow()
   await repository.activateSpace(null, true, db)

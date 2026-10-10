@@ -4,10 +4,10 @@ import { canonicalJson } from '../domain/integrity'
 import type { PersonalAssist, PersonalAttempt, PersonalCourse, PersonalCourseVersion } from '../domain/personal'
 import { completeLogicRows, type CourseAttempt } from '../domain/logic'
 import type { StructuredAttempt } from '../domain/structured'
-import type { CodeAttempt } from '../domain/code'
+import { validateCodeRequest, type CodeAttempt, type CodeDraft } from '../domain/code'
 import { canonicalHash } from '../domain/integrity'
 
-export type ObjectType = 'draft' | 'revision' | 'evidence' | 'help' | 'teacher_draft' | 'personal_course' | 'personal_course_version' | 'personal_attempt' | 'personal_assist' | 'course_attempt' | 'structured_attempt' | 'code_attempt' | 'position'
+export type ObjectType = 'draft' | 'revision' | 'evidence' | 'help' | 'teacher_draft' | 'personal_course' | 'personal_course_version' | 'personal_attempt' | 'personal_assist' | 'course_attempt' | 'structured_attempt' | 'code_attempt' | 'code_draft' | 'position'
 export type LocalSpaceRecord = { id: string; ownerId: string | null; pendingOwnerId: string | null; serverId: string | null; cursor: string | null; createdAt: string }
 export type SyncItem = { key: string; spaceId: string; objectType: ObjectType; objectId: string; version: string; acknowledgedJson: string; status: 'pending' | 'synced' | 'conflict' | 'rejected' | 'dependency_pending'; reason?: string; remoteVersion?: string; modifiedAt?: string; remotePayload?: Record<string, unknown> | null; remoteDeleted?: boolean }
 export type ClaimJournal = { claimId: string; expectedAccountId: string; originLocalSpaceId: string; manifestHash: string; manifest: { objectType: ObjectType; objectId: string }[]; state: 'pending' | 'committed'; serverSpaceId?: string }
@@ -27,6 +27,7 @@ export class LearningDatabase extends Dexie {
   courseAttempts!: Table<CourseAttempt, [string, string]>
   structuredAttempts!: Table<StructuredAttempt, [string, string]>
   codeAttempts!: Table<CodeAttempt, [string, string]>
+  codeDrafts!: Table<CodeDraft, [string, string]>
   syncItems!: Table<SyncItem, string>
   claims!: Table<ClaimJournal, string>
   batches!: Table<BatchJournal, string>
@@ -52,6 +53,8 @@ export class LearningDatabase extends Dexie {
     // Data-driven structured trace / bracket judgement activities (local-first).
     this.version(7).stores({ structuredAttempts: '[spaceId+id], spaceId, objectiveCode, activityVersion' })
     this.version(8).stores({ codeAttempts: '[spaceId+id], spaceId, activityKey' })
+    this.version(9).stores({ codeDrafts: '[spaceId+id], spaceId, activityKey' })
+    this.codeDrafts = this.table('codeDrafts')
     this.codeAttempts = this.table('codeAttempts')
     this.drafts = this.table('workDrafts'); this.revisions = this.table('workRevisions'); this.evidence = this.table('workEvidence'); this.help = this.table('workHelp'); this.teacherDrafts = this.table('workTeacherDrafts'); this.personalCourses = this.table('personalCourses'); this.personalCourseVersions = this.table('personalCourseVersions'); this.personalAttempts = this.table('personalAttempts'); this.personalAssists = this.table('personalAssists'); this.courseAttempts = this.table('courseAttempts'); this.structuredAttempts = this.table('structuredAttempts')
   }
@@ -61,6 +64,7 @@ export const database = new LearningDatabase()
 export const syncKey = (spaceId: string, type: ObjectType, id: string) => `${spaceId}:${type}:${id}`
 export const MAX_SYNC_OPERATION_BYTES = 59000
 export async function saveCodeAttempt(attempt: CodeAttempt, db = database): Promise<CodeAttempt> {
+  validateCodeRequest(attempt.request)
   const request = { ...attempt.request, stdin: attempt.request.stdin ?? '' }
   if (await canonicalHash(request) !== attempt.requestHash) throw new Error('代码内容与提交摘要不一致。')
   if (attempt.result && (attempt.result.client_artifact_id !== attempt.artifactId || attempt.result.client_revision_id !== attempt.id || attempt.result.request_sha256 !== attempt.requestHash || attempt.result.mastery_asserted !== false)) throw new Error('运行结果与代码版本不一致。')
@@ -73,6 +77,24 @@ export async function saveCodeAttempt(attempt: CodeAttempt, db = database): Prom
     const next = { ...structuredClone(attempt), request }
     await db.codeAttempts.put(next)
     await markPending(attempt.spaceId, 'code_attempt', attempt.id, db)
+    return next
+  })
+}
+export async function saveCodeDraft(value: Omit<CodeDraft, 'id' | 'createdAt' | 'updatedAt'>, db = database, expectedJson?: string): Promise<CodeDraft> {
+  validateCodeRequest(value.request)
+  if (Object.keys(value.reflections ?? {}).length > 50 || Object.entries(value.reflections ?? {}).some(([id, note]) => !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id) || typeof note !== 'string' || note.length > 4000)) throw new Error('版本笔记超过保存限制。')
+  if (!value.activityKey || value.activityKey.length > 200 || value.prediction.length > 4000 || value.reflection.length > 4000) throw new Error('学习笔记或活动名称超过保存限制。')
+  const id = await canonicalHash({ activityKey: value.activityKey })
+  const stamp = new Date().toISOString()
+  const candidate = { ...structuredClone(value), id, createdAt: stamp, updatedAt: stamp }
+  if (new TextEncoder().encode(JSON.stringify({ op_id: crypto.randomUUID(), object_type: 'code_draft', object_id: id, base_version: '9223372036854775806', payload_hash: '0'.repeat(64), payload: candidate })).byteLength > MAX_SYNC_OPERATION_BYTES) throw new Error('此草稿超过可同步大小，请缩小源文件或导出。')
+  return db.transaction('rw', [db.codeDrafts, db.meta, db.syncItems], async () => {
+    await assertActive(value.spaceId, db)
+    const old = await db.codeDrafts.get([value.spaceId, id])
+    if (expectedJson !== undefined && old && canonicalJson(old) !== expectedJson) throw new Error('其他设备已更新此代码草稿，当前输入仍保留，请先导出后处理冲突。')
+    const next = { ...candidate, createdAt: old?.createdAt ?? stamp }
+    await db.codeDrafts.put(next)
+    await markPending(value.spaceId, 'code_draft', id, db)
     return next
   })
 }
@@ -93,7 +115,7 @@ export async function markPending(spaceId: string, type: ObjectType, id: string,
 }
 
 export async function openLocalSpace(db = database) {
-  return db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts], async () => {
+  return db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts, db.codeDrafts], async () => {
     const existing = await db.meta.get('spaceId')
     if (existing) return existing.value
     const spaceId = crypto.randomUUID()
@@ -103,12 +125,12 @@ export async function openLocalSpace(db = database) {
   })
 }
 export async function clearGuestSpace(spaceId: string, db = database) {
-  return db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts, db.syncItems, db.claims, db.batches], async () => {
+  return db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts, db.codeDrafts, db.syncItems, db.claims, db.batches], async () => {
     const active = await db.meta.get('spaceId')
     const space = await db.spaces.get(spaceId)
     if (active?.value !== spaceId || !space || space.ownerId || space.pendingOwnerId || space.serverId) throw new Error('仅可清理当前未关联账号的访客空间。')
     if (await db.claims.where('originLocalSpaceId').equals(spaceId).count() || await db.batches.where('spaceId').equals(spaceId).count()) throw new Error('此空间存在待确认的账号关联，不能在本机清理。')
-    for (const table of [db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts, db.syncItems]) await table.where('spaceId').equals(spaceId).delete()
+    for (const table of [db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts, db.codeDrafts, db.syncItems]) await table.where('spaceId').equals(spaceId).delete()
     await db.meta.delete(`position:${spaceId}`)
     await db.meta.delete(`position-time:${spaceId}`)
     await db.spaces.delete(spaceId)
@@ -120,12 +142,12 @@ export async function clearGuestSpace(spaceId: string, db = database) {
 }
 export async function activateSpace(accountId: string | null, freshGuest = false, db = database, isCurrent: () => boolean = () => true) {
   await openLocalSpace(db)
-  return db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts], async () => {
+  return db.transaction('rw', [db.meta, db.spaces, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts, db.codeDrafts], async () => {
     if (!isCurrent()) throw new DOMException('身份变化已过期。', 'AbortError')
     const active = await db.spaces.get((await db.meta.get('spaceId'))!.value)
     const own = accountId ? (await db.spaces.where('ownerId').equals(accountId).toArray())[0] ?? (await db.spaces.where('pendingOwnerId').equals(accountId).toArray())[0] : undefined
     if (accountId && own && active && !active.ownerId && !active.pendingOwnerId) {
-      const counts = await Promise.all([db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts].map(table => table.where('spaceId').equals(active.id).count()))
+      const counts = await Promise.all([db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts, db.codeDrafts].map(table => table.where('spaceId').equals(active.id).count()))
       if (!counts.some(Boolean)) {
         if (!isCurrent()) throw new DOMException('身份变化已过期。', 'AbortError')
         await db.meta.put({ key: 'spaceId', value: own.id }); return own.id

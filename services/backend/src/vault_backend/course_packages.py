@@ -61,6 +61,15 @@ class Source(PublicRecord):
     status: Literal["candidate", "located", "authority_checked", "cross_checked"]
 
 
+class CodeVariant(PublicRecord):
+    code: str = Field(min_length=1, max_length=100)
+    title: str = Field(min_length=1)
+    student_action: str = Field(min_length=1)
+    code_request: CodeRequest
+    prediction_prompt: str = Field(min_length=1)
+    reflection_prompt: str = Field(min_length=1)
+
+
 class Activity(PublicRecord):
     id: str
     version_id: str
@@ -75,6 +84,12 @@ class Activity(PublicRecord):
     availability: Literal["pending", "practice_ready"]
     completion_limit: str = Field(min_length=1)
     code_request: CodeRequest | None = None
+    title: str | None = None
+    prediction_prompt: str | None = None
+    reflection_prompt: str | None = None
+    hints: list[str] = Field(default_factory=list, max_length=10)
+    reference_answer: CodeRequest | None = None
+    variants: list[CodeVariant] = Field(default_factory=list, max_length=10)
 
     @model_validator(mode="after")
     def execution_request(self):
@@ -86,6 +101,10 @@ class Activity(PublicRecord):
             and self.code_request is None
         ):
             raise ValueError("Ready code activities need executable starter files")
+        if len({variant.code for variant in self.variants}) != len(self.variants):
+            raise ValueError("Duplicate code variant")
+        if self.kind != "code" and (self.reference_answer is not None or self.variants):
+            raise ValueError("Only code activities may carry code variants and answers")
         return self
 
     @field_validator("id", "version_id")

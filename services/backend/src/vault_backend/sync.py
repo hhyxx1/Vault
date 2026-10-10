@@ -471,6 +471,7 @@ async def apply_operation(session, space, principal, op):
             "activityKey",
             "request",
             "requestHash",
+            "learning",
         )
         if (
             previous.get("result") is not None

@@ -9,7 +9,12 @@ for (let i = 1; i <= 13; i++) {
     await expect(page.locator('.scope-total strong')).toContainText(`0 / ${modules * 3}`)
     await page.locator('.chapter-region').first().getByRole('button').first().click()
     await expect(page.locator('.objective-inspector h2')).toBeVisible()
-    await expect(page.locator('.next-action')).toContainText('活动待建设')
+    if (code === 'CS01') {
+      await expect(page.locator('.next-action').getByRole('link', { name: '进入学习工作台' })).toBeVisible()
+      await expect(page.locator('.next-action')).toContainText('不自动增加达标数')
+    } else {
+      await expect(page.locator('.next-action')).toContainText('活动待建设')
+    }
     await page.reload()
     await expect(page.locator('.objective-inspector h2')).toBeVisible()
     await expect(page.locator('.scope-total strong')).toContainText(`0 / ${modules * 3}`)

@@ -73,6 +73,32 @@ async function selectRecoveredSpace(page: Page) {
     await page.locator('#record-space').selectOption(values.find(value => value !== current)!)
   }
 }
+
+test('course code draft and prediction follow the claimed student account across devices', async ({ page, browser, isMobile }) => {
+  test.setTimeout(120000)
+  const email = `code-draft-${Date.now()}-${isMobile ? 'mobile' : 'desktop'}@example.test`
+  await page.goto('/learn/CS01-M02-O02')
+  await page.getByLabel('代码源文件').fill('#include <stdio.h>\nint main(void) { puts("draft only"); return 0; }')
+  await page.getByLabel('运行前预测').fill('尚未运行的代码预测，也应在登录后恢复。')
+  await page.getByRole('button', { name: '查看提示 1' }).click()
+  await expect(page.getByText('草稿已保存到本机。', { exact: true })).toBeVisible()
+  await register(page, email, 'student', '代码草稿测试')
+  await login(page, email); await confirmedSync(page)
+  const context = await browser.newContext({ baseURL: appOrigin })
+  try {
+    const second = await context.newPage()
+    await login(second, email); await confirmedSync(second); await selectRecoveredSpace(second)
+    await second.goto('/learn/CS01-M02-O02')
+    await expect(second.getByLabel('代码源文件')).toHaveValue(/draft only/)
+    await expect(second.getByLabel('运行前预测')).toHaveValue('尚未运行的代码预测，也应在登录后恢复。')
+    await expect(second.getByRole('button', { name: '查看提示 1' })).toHaveCount(0)
+    await expect(second.getByLabel('标准输出')).toHaveCount(0)
+    await expect(second.getByText('这是该版本的实际工具结果。', { exact: true })).toHaveCount(0)
+  } finally { await context.close() }
+  await logout(page); await page.goto('/learn/CS01-M02-O02')
+  await expect(page.getByLabel('代码源文件')).not.toHaveValue(/draft only/)
+  await expect(page.getByLabel('运行前预测')).toHaveValue('')
+})
 test('real teacher and student accounts claim work, restore across devices, isolate identities and recover a lost claim', async ({ page, browser, isMobile }) => {
   test.setTimeout(180000)
   const suffix = `${Date.now()}-${isMobile ? 'mobile' : 'desktop'}`

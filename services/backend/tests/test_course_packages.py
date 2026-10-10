@@ -76,6 +76,34 @@ def test_new_course_loads_without_examples_or_thirteen_course_whitelist(tmp_path
     )
 
 
+def test_scope_upgrade_preserves_explicitly_archived_course_version(tmp_path):
+    package, catalog = write_package(tmp_path)
+    (tmp_path / "catalog.json").write_text(
+        json.dumps({"courses": [{**catalog["courses"][0], "package_path": "new.json"}]}),
+        encoding="utf-8",
+    )
+    current = {**package, "course_version_id": str(uuid4()), "version": "CUSTOM-ARCH@2"}
+    (tmp_path / "new.json").write_text(json.dumps(current), encoding="utf-8")
+    entry = {
+        **catalog["courses"][0],
+        "version_id": current["course_version_id"],
+        "package_path": "new.json",
+    }
+    (tmp_path / "catalog.json").write_text(json.dumps({"courses": [entry]}), encoding="utf-8")
+    (tmp_path / "scope-catalog.json").write_text(
+        json.dumps({"courses": [entry], "archived_courses": catalog["courses"]}), encoding="utf-8"
+    )
+    repository = CourseRepository(tmp_path / "catalog.json")
+    assert (
+        repository.get_version(UUID(package["course_id"]), UUID(package["course_version_id"]))
+        == package
+    )
+    assert (
+        repository.get_scope_catalog()["courses"][0]["version_id"] == current["course_version_id"]
+    )
+    assert len(repository.get_scope_catalog()["courses"]) == 1
+
+
 def test_bad_package_does_not_hide_catalog_or_other_course(tmp_path):
     package, catalog = write_package(tmp_path)
     catalog["courses"].append(

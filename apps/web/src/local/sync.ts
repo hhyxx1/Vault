@@ -3,7 +3,7 @@ import { accountRequest, authenticatedRequest, AccountApiError, type Account } f
 import { canonicalHash, canonicalJson } from '../domain/integrity'
 import type { Draft, ArtifactRevision, EvidenceRecord, HelpEvent, TeacherDraft } from '../domain/learning'
 import type { PersonalAssist, PersonalAttempt, PersonalCourse, PersonalCourseVersion } from '../domain/personal'
-import type { CodeAttempt } from '../domain/code'
+import type { CodeAttempt, CodeDraft } from '../domain/code'
 import type { StructuredAttempt } from '../domain/structured'
 import type { CourseAttempt } from '../domain/logic'
 import { database, syncKey, MAX_SYNC_OPERATION_BYTES, type LearningDatabase, type LocalSpaceRecord, type ObjectType, type ClaimJournal, type BatchJournal, type SyncItem } from './database'
@@ -12,11 +12,11 @@ type SyncContext = { account: Account; isCurrent: () => boolean; signal?: AbortS
 type ClaimResponse = { claim_id: string; expected_account_id: string; origin_local_space_id: string; manifest_hash: string; server_space_id: string; state: 'committed' }
 type BatchResponse = { batch_id: string; space_id: string; results: { op_id: string; object_type: ObjectType; object_id: string; status: 'applied' | 'already_applied' | 'conflict' | 'rejected' | 'dependency_pending'; current_version: string; reason: string | null; conflict_id: string | null }[] }
 type Change = { object_type: ObjectType; object_id: string; version: string; deleted: boolean; payload: Record<string, unknown> | null; payload_hash: string; provenance: 'client_reported'; requires_review: boolean }
-const types: ObjectType[] = ['draft', 'revision', 'help', 'evidence', 'teacher_draft', 'personal_course', 'personal_course_version', 'personal_attempt', 'personal_assist', 'course_attempt', 'structured_attempt', 'code_attempt', 'code_attempt', 'position']
-export const syncTables = (db: LearningDatabase) => [db.meta, db.spaces, db.claims, db.batches, db.syncItems, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts]
+const types: ObjectType[] = ['draft', 'revision', 'help', 'evidence', 'teacher_draft', 'personal_course', 'personal_course_version', 'personal_attempt', 'personal_assist', 'course_attempt', 'structured_attempt', 'code_attempt', 'code_draft', 'position']
+export const syncTables = (db: LearningDatabase) => [db.meta, db.spaces, db.claims, db.batches, db.syncItems, db.drafts, db.revisions, db.evidence, db.help, db.teacherDrafts, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.courseAttempts, db.structuredAttempts, db.codeAttempts, db.codeDrafts]
 function guard(context: SyncContext) { if (!context.isCurrent() || context.signal?.aborted) throw new DOMException('账号空间已切换，同步等待已取消。', 'AbortError') }
 function tableFor(type: Exclude<ObjectType, 'position'>, db: LearningDatabase) {
-  return { draft: db.drafts, revision: db.revisions, evidence: db.evidence, help: db.help, teacher_draft: db.teacherDrafts, personal_course: db.personalCourses, personal_course_version: db.personalCourseVersions, personal_attempt: db.personalAttempts, personal_assist: db.personalAssists, course_attempt: db.courseAttempts, structured_attempt: db.structuredAttempts, code_attempt: db.codeAttempts }[type]
+  return { draft: db.drafts, revision: db.revisions, evidence: db.evidence, help: db.help, teacher_draft: db.teacherDrafts, personal_course: db.personalCourses, personal_course_version: db.personalCourseVersions, personal_attempt: db.personalAttempts, personal_assist: db.personalAssists, course_attempt: db.courseAttempts, structured_attempt: db.structuredAttempts, code_attempt: db.codeAttempts, code_draft: db.codeDrafts }[type]
 }
 async function allPayloads(spaceId: string, db: LearningDatabase): Promise<{ type: ObjectType; id: string; payload: Record<string, unknown> }[]> {
   const records: { type: ObjectType; id: string; payload: Record<string, unknown> }[] = []
@@ -129,7 +129,7 @@ async function putChange(spaceId: string, change: Change, db: LearningDatabase) 
   if (change.object_type === 'evidence') (payload as unknown as EvidenceRecord).trust = 'client_reported'
   if (['course_attempt', 'structured_attempt', 'code_attempt'].includes(change.object_type) && (payload as Record<string, unknown>).result) (payload as unknown as CourseAttempt).resultTrust = 'client_reported'
   // Schemas are validated by the API, then written to the matching compound store.
-  await table.put(payload as Draft & ArtifactRevision & EvidenceRecord & HelpEvent & TeacherDraft & PersonalCourse & PersonalCourseVersion & PersonalAttempt & PersonalAssist & CourseAttempt & StructuredAttempt & CodeAttempt)
+  await table.put(payload as Draft & ArtifactRevision & EvidenceRecord & HelpEvent & TeacherDraft & PersonalCourse & PersonalCourseVersion & PersonalAttempt & PersonalAssist & CourseAttempt & StructuredAttempt & CodeAttempt & CodeDraft)
 }
 export async function pullSpace(space: LocalSpaceRecord, context: SyncContext) {
   const db = context.db ?? database; let cursor = space.cursor; let more = true

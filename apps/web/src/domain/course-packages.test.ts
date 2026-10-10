@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { loadCoursePackage, workspaceForObjective } from './course-packages'
+import { loadCoursePackage, workspaceForObjective, codeActivityForObjective } from './course-packages'
 
 describe('versioned course loading', () => {
   it('opens every approved core scope without claiming completed content', async () => {
@@ -25,4 +25,13 @@ it('dispatches only registered activities, never arbitrary course prefixes', () 
   expect(workspaceForObjective('CS05-LOGIC-01')).toBe('truth_table')
   expect(workspaceForObjective('CS05-M01-O01')).toBeNull()
   expect(workspaceForObjective('CS01-UNKNOWN')).toBeNull()
+})
+
+it('selects only a ready code activity from the exact course version and objective', () => {
+  const data = { course_id: 'course', course_version_id: 'version', objectives: [{ code: 'CUSTOM-01' }], activities: [
+    { code: 'CUSTOM-A', kind: 'code', availability: 'practice_ready', objective_codes: ['CUSTOM-01'], code_request: { language: 'c17', entry: 'main.c', files: { 'main.c': 'int main(void){return 0;}' }, stdin: '' } },
+  ] }
+  expect(codeActivityForObjective(data as never, 'CUSTOM-01')?.code).toBe('CUSTOM-A')
+  expect(codeActivityForObjective(data as never, 'CUSTOM-OTHER')).toBeNull()
+  expect(codeActivityForObjective({ ...data, activities: [{ ...data.activities[0], availability: 'pending' }] } as never, 'CUSTOM-01')).toBeNull()
 })

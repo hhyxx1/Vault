@@ -1,0 +1,919 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "21efb95b-2524-448d-9255-f8f3d239acc5",
+  "course_version_id": "6c42363f-8c76-5a92-8377-2c0a9d61719e",
+  "course_code": "CS01",
+  "version": "CS01-core-practice-0.1.0",
+  "title": "程序设计基础",
+  "status": "structured_validated",
+  "curriculum_review_state": "unavailable",
+  "scope_note": "本科核心范围保留 30 个目标；首模块的三个代码活动受限开放。其余模块、逐目标可信评估和整课验收继续建设。工具结果不代表知识掌握。",
+  "objectives": [
+    {
+      "id": "a7c25dda-0167-5655-975c-ee5e89572b79",
+      "code": "CS01-M01-O01",
+      "title": "编译并运行最小程序",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "编译并运行最小程序",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f782f56b-c5a8-5503-991f-528b93bb0ea8",
+      "code": "CS01-M01-O02",
+      "title": "区分编译和运行错误",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "区分编译和运行错误",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d3eb9f1f-53f1-5cea-aaf7-ca7fe262aaec",
+      "code": "CS01-M01-O03",
+      "title": "定位输入输出与退出状态",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定位输入输出与退出状态",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "b4c873d0-09f0-5277-ae2f-e8c338d0d9fa",
+      "code": "CS01-M02-O01",
+      "title": "推演整数和浮点表达式",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "推演整数和浮点表达式",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "13df88e4-66fd-5e47-8fac-a5ff4833b8f5",
+      "code": "CS01-M02-O02",
+      "title": "选择变量类型",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "选择变量类型",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "44f5897e-70b9-5e70-b850-4b295caf7c4e",
+      "code": "CS01-M02-O03",
+      "title": "解释转换与溢出边界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释转换与溢出边界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "64a495f1-bac1-5851-b8e4-c06855b3b286",
+      "code": "CS01-M03-O01",
+      "title": "构造互斥和重叠条件",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造互斥和重叠条件",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "23d8cb34-3a3d-5cb2-b46c-b88d6d98d110",
+      "code": "CS01-M03-O02",
+      "title": "实现多分支判断",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现多分支判断",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "70942d60-e0b5-59fc-b548-af0694a056ae",
+      "code": "CS01-M03-O03",
+      "title": "用反例定位条件缺口",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "用反例定位条件缺口",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "92886618-97d8-5402-94dc-8f96ad675dd9",
+      "code": "CS01-M04-O01",
+      "title": "记录循环变量轨迹",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "记录循环变量轨迹",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "91567596-2291-5867-bcb3-e0ed5dc3a354",
+      "code": "CS01-M04-O02",
+      "title": "构造终止条件",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造终止条件",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d919b0c3-5648-5fc0-8cce-c31846fa766d",
+      "code": "CS01-M04-O03",
+      "title": "解释累计值不变量",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释累计值不变量",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4d27ba62-acbd-5153-a31b-ca364b0766b9",
+      "code": "CS01-M05-O01",
+      "title": "拆分参数和返回值",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "拆分参数和返回值",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "6da72099-4741-56c5-9e70-e8ec0343655f",
+      "code": "CS01-M05-O02",
+      "title": "追踪局部变量生命周期",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "追踪局部变量生命周期",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e7b5cddb-f264-5d8c-82b9-cf5330301829",
+      "code": "CS01-M05-O03",
+      "title": "实现递归及终止条件",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现递归及终止条件",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "eda8ab53-92eb-5fc8-80ba-ae1f786ee42a",
+      "code": "CS01-M06-O01",
+      "title": "实现数组遍历和更新",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现数组遍历和更新",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "93f35a3e-a3a5-56a9-8a80-51b7bb7a56c4",
+      "code": "CS01-M06-O02",
+      "title": "处理字符串终止",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理字符串终止",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "ac089c3a-e882-53e1-85f5-bd2424e9aa25",
+      "code": "CS01-M06-O03",
+      "title": "检查下标边界",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "检查下标边界",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "4a7c4111-c751-53cf-8cdb-d6ed1ce9270c",
+      "code": "CS01-M07-O01",
+      "title": "追踪地址与解引用",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "追踪地址与解引用",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "f399750e-ff78-570e-a1bd-2fc5f11b9e44",
+      "code": "CS01-M07-O02",
+      "title": "实现动态分配和释放",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "实现动态分配和释放",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "fbcfc5c5-fde9-5d72-a692-a482fbb2417a",
+      "code": "CS01-M07-O03",
+      "title": "识别悬空指针与别名",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "识别悬空指针与别名",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "dee7f064-e9f4-5ae6-81fd-85ba2402cc9e",
+      "code": "CS01-M08-O01",
+      "title": "定义复合数据",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "定义复合数据",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8664c61e-7e5b-51b5-9e00-0fa403650e99",
+      "code": "CS01-M08-O02",
+      "title": "组织头文件和多文件接口",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "组织头文件和多文件接口",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "e279222f-93a8-50fe-a366-6ff65b6408a4",
+      "code": "CS01-M08-O03",
+      "title": "维护对象约束",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "维护对象约束",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "9992e48a-811d-5aa3-a2cc-c86545cd94a0",
+      "code": "CS01-M09-O01",
+      "title": "读写结构化记录",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "读写结构化记录",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "d0200324-6412-545b-8982-9b9f0f9721f3",
+      "code": "CS01-M09-O02",
+      "title": "处理打开及解析失败",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "处理打开及解析失败",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "94e2992a-99ff-5d35-8b60-67f8af560be8",
+      "code": "CS01-M09-O03",
+      "title": "保证失败后的数据一致性",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "保证失败后的数据一致性",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "06759e41-e2b7-54fa-b2e0-b7fd8ef958dd",
+      "code": "CS01-M10-O01",
+      "title": "构造边界测试",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "构造边界测试",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "8b59d2a2-9c38-5664-9f25-71a24bab963c",
+      "code": "CS01-M10-O02",
+      "title": "用最小反例定位故障",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "用最小反例定位故障",
+          "verification": "activity_pending"
+        }
+      ]
+    },
+    {
+      "id": "582ab522-d12a-5cd1-b2ba-03e1e1d88178",
+      "code": "CS01-M10-O03",
+      "title": "解释修复及回归范围",
+      "criteria": [
+        {
+          "id": "performance",
+          "title": "解释修复及回归范围",
+          "verification": "activity_pending"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "CS01-M01",
+      "title": "程序与执行",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M01-O01-unit",
+          "title": "编译并运行最小程序",
+          "objective_refs": [
+            "CS01-M01-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M01-O02-unit",
+          "title": "区分编译和运行错误",
+          "objective_refs": [
+            "CS01-M01-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M01-O03-unit",
+          "title": "定位输入输出与退出状态",
+          "objective_refs": [
+            "CS01-M01-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M02",
+      "title": "类型与表达式",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M02-O01-unit",
+          "title": "推演整数和浮点表达式",
+          "objective_refs": [
+            "CS01-M02-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M02-O02-unit",
+          "title": "选择变量类型",
+          "objective_refs": [
+            "CS01-M02-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M02-O03-unit",
+          "title": "解释转换与溢出边界",
+          "objective_refs": [
+            "CS01-M02-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M03",
+      "title": "分支与逻辑",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M03-O01-unit",
+          "title": "构造互斥和重叠条件",
+          "objective_refs": [
+            "CS01-M03-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M03-O02-unit",
+          "title": "实现多分支判断",
+          "objective_refs": [
+            "CS01-M03-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M03-O03-unit",
+          "title": "用反例定位条件缺口",
+          "objective_refs": [
+            "CS01-M03-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M04",
+      "title": "循环与不变量",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M04-O01-unit",
+          "title": "记录循环变量轨迹",
+          "objective_refs": [
+            "CS01-M04-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M04-O02-unit",
+          "title": "构造终止条件",
+          "objective_refs": [
+            "CS01-M04-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M04-O03-unit",
+          "title": "解释累计值不变量",
+          "objective_refs": [
+            "CS01-M04-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M05",
+      "title": "函数与作用域",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M05-O01-unit",
+          "title": "拆分参数和返回值",
+          "objective_refs": [
+            "CS01-M05-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M05-O02-unit",
+          "title": "追踪局部变量生命周期",
+          "objective_refs": [
+            "CS01-M05-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M05-O03-unit",
+          "title": "实现递归及终止条件",
+          "objective_refs": [
+            "CS01-M05-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M06",
+      "title": "数组与字符串",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M06-O01-unit",
+          "title": "实现数组遍历和更新",
+          "objective_refs": [
+            "CS01-M06-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M06-O02-unit",
+          "title": "处理字符串终止",
+          "objective_refs": [
+            "CS01-M06-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M06-O03-unit",
+          "title": "检查下标边界",
+          "objective_refs": [
+            "CS01-M06-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M07",
+      "title": "指针与内存",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M07-O01-unit",
+          "title": "追踪地址与解引用",
+          "objective_refs": [
+            "CS01-M07-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M07-O02-unit",
+          "title": "实现动态分配和释放",
+          "objective_refs": [
+            "CS01-M07-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M07-O03-unit",
+          "title": "识别悬空指针与别名",
+          "objective_refs": [
+            "CS01-M07-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M08",
+      "title": "结构体与模块",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M08-O01-unit",
+          "title": "定义复合数据",
+          "objective_refs": [
+            "CS01-M08-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M08-O02-unit",
+          "title": "组织头文件和多文件接口",
+          "objective_refs": [
+            "CS01-M08-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M08-O03-unit",
+          "title": "维护对象约束",
+          "objective_refs": [
+            "CS01-M08-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M09",
+      "title": "文件与错误处理",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M09-O01-unit",
+          "title": "读写结构化记录",
+          "objective_refs": [
+            "CS01-M09-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M09-O02-unit",
+          "title": "处理打开及解析失败",
+          "objective_refs": [
+            "CS01-M09-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M09-O03-unit",
+          "title": "保证失败后的数据一致性",
+          "objective_refs": [
+            "CS01-M09-O03"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "CS01-M10",
+      "title": "测试与调试",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "CS01-M10-O01-unit",
+          "title": "构造边界测试",
+          "objective_refs": [
+            "CS01-M10-O01"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M10-O02-unit",
+          "title": "用最小反例定位故障",
+          "objective_refs": [
+            "CS01-M10-O02"
+          ]
+        },
+        {
+          "kind": "unit",
+          "id": "CS01-M10-O03-unit",
+          "title": "解释修复及回归范围",
+          "objective_refs": [
+            "CS01-M10-O03"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "activities": [
+    {
+      "id": "29756f45-a9b7-5aad-89b5-f3ce5c40ddb2",
+      "version_id": "8aa993d0-d813-55e7-b40b-b2a246ad5224",
+      "code": "CS01-M01-O01-CODE",
+      "version": "CS01-M01-O01-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M01-O01"
+      ],
+      "kind": "code",
+      "title": "让第一个程序运行起来",
+      "student_action": "先判断程序会在哪个阶段失败。运行后定位错误，只改一处，再运行；保留预测与修改理由。修复后应输出 Hello, learner! 和换行。",
+      "theory": [
+        "GCC 构建可以经过预处理、编译、汇编、链接；构建失败时，不应把诊断当成程序输出。",
+        "puts 输出字符串并补一个换行。本活动只验证声明环境中的有限程序，不要求记住诊断原文。"
+      ],
+      "starter": "编辑 main.c；先预测，再保存并运行。",
+      "source_refs": [
+        "gcc13-build",
+        "gcc-c17",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "受限自学活动；实际运行只记录工具事实。解释、独立迁移和逐目标评估仍待可靠复核，不自动增加达标数。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"Hello, learner!\")\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "预测阶段、输出与结束状态，并说明判断理由。",
+      "reflection_prompt": "比较预测和真实结果：差异来自哪里？你修改了什么？下一次怎样验证？",
+      "hints": [
+        "先看诊断指向的语句末尾。",
+        "与 return 语句的结尾比较，尝试补上缺失的分号。"
+      ],
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"Hello, learner!\");\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "variants": [
+        {
+          "code": "wrong-output",
+          "title": "退出正常就正确吗？",
+          "student_action": "任务要求输出 5 和换行；初始程序输出 23。运行后解释工具成功和任务正确的区别，再修改。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"23\");\n    return 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "预测输出与工具状态；任务是否会满足？",
+          "reflection_prompt": "为什么不能仅凭正常退出判断输出正确？"
+        }
+      ]
+    },
+    {
+      "id": "49e82333-3c81-5702-9d69-c57952a08b4c",
+      "version_id": "07fe337c-cafd-550c-ac1c-4ac964b005f6",
+      "code": "CS01-M01-O02-CODE",
+      "version": "CS01-M01-O02-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M01-O02"
+      ],
+      "kind": "code",
+      "title": "把构建失败和运行结果分开",
+      "student_action": "任务要求输出 5 和换行。先运行现有程序，判断它是否满足任务；再改正输出。随后进入非零退出变体。",
+      "theory": [
+        "正常退出只说明程序按工具约定结束，不证明满足题面。输出内容要与当前任务条件比较。",
+        "main 返回值表示结束状态；此执行服务将非零结束归为运行出错。这不等于必然发生了内存错误。"
+      ],
+      "starter": "编辑 main.c；先预测，再保存并运行。",
+      "source_refs": [
+        "gcc13-build",
+        "gcc-c17",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "受限自学活动；实际运行只记录工具事实。解释、独立迁移和逐目标评估仍待可靠复核，不自动增加达标数。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"23\");\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "预测阶段、输出与结束状态，并说明判断理由。",
+      "reflection_prompt": "比较预测和真实结果：差异来自哪里？你修改了什么？下一次怎样验证？",
+      "hints": [
+        "把标准输出逐字符与任务要求比较。",
+        "修改输出字符串；再观察输出与退出状态两个不同事实。"
+      ],
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"5\");\n    return 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "variants": [
+        {
+          "code": "nonzero-exit",
+          "title": "文本正确但非零结束",
+          "student_action": "先预测 Hello 文本是否会出现，以及程序最终状态。运行后只修改结束状态，再比较两个版本。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\n    puts(\"Hello, learner!\");\n    return 3;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "输出和结束状态是否可能给出不同信息？",
+          "reflection_prompt": "运行出错是否意味着没有产生输出？说明本次证据。"
+        }
+      ]
+    },
+    {
+      "id": "dbebbf47-1d44-56fe-bd36-f317e190c662",
+      "version_id": "0be2be79-7972-57ef-823d-a9c9d7027cc3",
+      "code": "CS01-M01-O03-CODE",
+      "version": "CS01-M01-O03-CODE@0.1.0",
+      "objective_codes": [
+        "CS01-M01-O03"
+      ],
+      "kind": "code",
+      "title": "观察输入、输出和结束状态",
+      "student_action": "程序只检查首字符是否为 A，其余字符忽略。先用 A 运行，再分别用 B 与空输入；区分标准输出、错误输出及结束状态。",
+      "theory": [
+        "getchar 返回 int；输入流结束时返回 EOF，不能用一个普通 char 丢失这种区别。",
+        "fputs 写入指定流，不自动补换行。此代码显式向 stderr 写入含换行的错误消息。",
+        "本工具接收提交时固定的有限输入，不是交互式终端。空输入已经结束，不会继续等待键盘输入。"
+      ],
+      "starter": "编辑 main.c；先预测，再保存并运行。",
+      "source_refs": [
+        "gcc13-build",
+        "gcc-c17",
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "受限自学活动；实际运行只记录工具事实。解释、独立迁移和逐目标评估仍待可靠复核，不自动增加达标数。",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+        },
+        "stdin": "A"
+      },
+      "prediction_prompt": "预测阶段、输出与结束状态，并说明判断理由。",
+      "reflection_prompt": "比较预测和真实结果：差异来自哪里？你修改了什么？下一次怎样验证？",
+      "hints": [
+        "先跟踪 ch 的值与 if 条件，再看两条输出语句。",
+        "观察 getchar 遇到输入结束的分支；错误文本不属于标准输出。"
+      ],
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+        },
+        "stdin": "A"
+      },
+      "variants": [
+        {
+          "code": "input-rejected",
+          "title": "输入不符合协议",
+          "student_action": "将输入 B 运行，观察错误流。再设计一条首字符正确但带后续字符的输入，解释为何本协议只检查首字符。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+            },
+            "stdin": "B"
+          },
+          "prediction_prompt": "哪条分支会被执行？",
+          "reflection_prompt": "如果要验证整行输入，现有判断还缺什么？"
+        },
+        {
+          "code": "input-empty",
+          "title": "输入流已经结束",
+          "student_action": "不提供任何输入，运行并解释结果。对比交互终端等待输入与本工具有限输入流结束的区别。",
+          "code_request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": {
+              "main.c": "#include <stdio.h>\nint main(void) {\n    int ch = getchar();\n    if (ch != 'A') {\n        fputs(\"expected A\\n\", stderr);\n        return 3;\n    }\n    puts(\"accepted\");\n    return 0;\n}\n"
+            },
+            "stdin": ""
+          },
+          "prediction_prompt": "空输入会等待还是结束？",
+          "reflection_prompt": "为什么空输入触发错误分支？"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "gcc13-build",
+      "title": "GCC 13.3 构建阶段",
+      "url": "https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Overall-Options.html",
+      "locator": "3.2 构建阶段与输出",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "gcc-c17",
+      "title": "GCC 标准模式说明（当前手册）",
+      "url": "https://gcc.gnu.org/onlinedocs/gcc/Standards.html",
+      "locator": "2.1 C17；当前手册不是 GCC13 默认配置依据",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "wg14-n1570",
+      "title": "WG14 N1570：C11 委员会草案",
+      "url": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf",
+      "locator": "5.1.2.2.3；7.21.7.4、7.21.7.6、7.21.7.9；非 C17 正式标准",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ]
+}

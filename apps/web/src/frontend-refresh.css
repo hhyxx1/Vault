@@ -3,6 +3,16 @@
  * The canvas is a map of evidence and next actions; the same hierarchy,
  * state colors, and navigation rhythm carry through every product surface.
  */
+.code-course-context { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(260px, .7fr); gap: 24px; margin: 0 0 24px; padding: 24px; background: #fff; border: 1px solid #dfe5ec; border-radius: 12px; }
+.code-course-context h2 { margin-top: 0; font-size: 20px; }
+.code-course-context p, .code-course-context li { max-width: 80ch; line-height: 1.7; }
+.code-course-context summary { cursor: pointer; padding: 12px 0; font-weight: 600; }
+.code-course-context pre { overflow: auto; max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; }
+.code-course-help { display: flex; flex-wrap: wrap; align-items: start; gap: 12px; margin: 16px 0; }
+.code-course-help > div { min-width: 0; max-width: 100%; }
+.code-course-context nav { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.code-course-context nav a { color: #315df4; }
+@media (max-width: 850px) { .code-course-context { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 20px; } }
 :root {
   color-scheme: light;
   --paper: #f5f7fb;

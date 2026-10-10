@@ -1,6 +1,15 @@
 import catalog from '../../../../content/courses/catalog.json'
 import scopeCatalog from '../../../../content/courses/scope-catalog.json'
 import { courseMapFromPackage } from './course-map'
+import type { CodeRequest } from './code'
+export type CodeVariant = { code: string; title: string; student_action: string; code_request: CodeRequest; prediction_prompt: string; reflection_prompt: string }
+export type CourseCodeActivity = {
+  id: string; version_id: string; code: string; version: string; objective_codes: string[]
+  kind: 'code'; availability: 'pending' | 'practice_ready'; title?: string
+  student_action: string; theory: string[]; code_request: CodeRequest
+  prediction_prompt?: string; reflection_prompt?: string; hints?: string[]
+  reference_answer?: CodeRequest; variants?: CodeVariant[]; source_refs: string[]; completion_limit: string
+}
 
 export type AtlasGoal = { id: string; code: string; title: string; criteria: Array<{ id: string; title: string; verification: string }> }
 export type AtlasUnit = { kind?: string; id: string; title: string; objective_refs: string[] }
@@ -10,6 +19,26 @@ export type AtlasPackage = {
   version: string; status: string; scope_note: string; objectives: AtlasGoal[]
   relations: Array<{ from: string; to: string; kind: string; source?: string }>
   outline?: AtlasChapter[]; content_sources?: string[]
+  activities?: Array<CourseCodeActivity | { kind: string; objective_codes: string[]; availability?: string }>
+  sources?: Array<{ id: string; title: string; url: string; locator: string; status: string }>
+}
+export function codeActivityForObjective(data: AtlasPackage, objective: string): CourseCodeActivity | null {
+  if (!data.objectives.some(goal => goal.code === objective)) return null
+  return data.activities?.find((activity): activity is CourseCodeActivity => activity.kind === 'code' && activity.availability === 'practice_ready' && activity.objective_codes.includes(objective) && 'code_request' in activity && !!activity.code_request) ?? null
+}
+
+export async function loadCodeActivity(objective: string, versionId?: string): Promise<{ course: AtlasPackage; activity: CourseCodeActivity } | null> {
+  const archived = (scopeCatalog as typeof scopeCatalog & { archived_courses?: typeof scopeCatalog.courses }).archived_courses ?? []
+  const entries = [...scopeCatalog.courses, ...catalog.courses, ...(versionId ? archived : [])].filter(entry => entry.package_path && (!versionId || entry.version_id === versionId))
+  for (const entry of entries) {
+    const load = bundles[`../../../../content/courses/${entry.package_path}`]
+    if (!load) continue
+    const course = await load()
+    if (course.course_id !== entry.id || course.course_version_id !== entry.version_id) throw new Error('课程版本与目录不一致。')
+    const activity = codeActivityForObjective(course, objective)
+    if (activity) return { course, activity }
+  }
+  return null
 }
 // Public navigation bundles only. Checker fixtures and protected answers must never
 // be placed under this glob; course package schemas reject private payload fields.

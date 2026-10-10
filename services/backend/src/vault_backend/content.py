@@ -71,9 +71,11 @@ def _validate_course_outline(course: dict) -> None:
             kind, node_id, title = entry.get("kind"), entry.get("id"), entry.get("title")
             if not all(isinstance(value, str) and value.strip() for value in (node_id, title)):
                 raise ValueError("Course outline nodes require stable IDs and titles")
-            if (level == 0 and kind != "chapter") or (
-                level == 1 and (parent_kind != "chapter" or kind != "unit")
-            ) or level > 1:
+            if (
+                (level == 0 and kind != "chapter")
+                or (level == 1 and (parent_kind != "chapter" or kind != "unit"))
+                or level > 1
+            ):
                 raise ValueError("Course outline permits chapters with units directly inside them")
             if node_id in structure_ids:
                 raise ValueError(f"Duplicate course outline structure ID: {node_id}")
@@ -138,8 +140,12 @@ class CourseRepository:
         scope_path = catalog_path.with_name("scope-catalog.json")
         if scope_path.is_file():
             try:
-                scopes = json.loads(scope_path.read_text(encoding="utf-8-sig"))["courses"]
+                scope_index = json.loads(scope_path.read_text(encoding="utf-8-sig"))
+                scopes = scope_index["courses"]
                 self._load_public_packages(scope_path, scopes)
+                archived = scope_index.get("archived_courses", [])
+                self._load_public_packages(scope_path, archived)
+                self.archived_versions = {(entry["id"], entry["version_id"]) for entry in archived}
             except (OSError, ValueError, KeyError, TypeError):
                 pass
         try:
@@ -172,7 +178,9 @@ class CourseRepository:
         if self.catalog is not None:
             try:
                 logic = json.loads(
-                    catalog_path.with_name("CS05.logic-example.json").read_text(encoding="utf-8-sig")
+                    catalog_path.with_name("CS05.logic-example.json").read_text(
+                        encoding="utf-8-sig"
+                    )
                 )
                 selected = next(
                     course for course in self.catalog["courses"] if course["code"] == "CS05"
@@ -190,8 +198,11 @@ class CourseRepository:
                     or activity["objective_codes"] != ["CS05-LOGIC-01"]
                     or [criterion["id"] for criterion in logic["objectives"][0]["criteria"]]
                     != [
-                        "implication", "contrapositive", "biconditional",
-                        "explanation", "independent_transfer",
+                        "implication",
+                        "contrapositive",
+                        "biconditional",
+                        "explanation",
+                        "independent_transfer",
                     ]
                 ):
                     raise ValueError("Logic activity requires a new checker version")
@@ -222,7 +233,9 @@ class CourseRepository:
                 raw = json.loads(path.read_text(encoding="utf-8-sig"))
                 package = PublicCoursePackage.model_validate(raw)
                 if (package.course_id, package.course_version_id, package.course_code) != (
-                    entry["id"], entry["version_id"], entry["code"]
+                    entry["id"],
+                    entry["version_id"],
+                    entry["code"],
                 ):
                     raise ValueError("Course identity does not match catalog")
                 _validate_course_outline(raw)
@@ -282,6 +295,8 @@ class CourseRepository:
                     "learning_ready": package["status"] == "learning_ready",
                 }
                 for package in self.packages.values()
+                if (package["course_id"], package["course_version_id"])
+                not in getattr(self, "archived_versions", set())
             ]
         }
 

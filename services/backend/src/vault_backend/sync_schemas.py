@@ -43,6 +43,7 @@ ObjectType = Literal[
     "course_attempt",
     "structured_attempt",
     "code_attempt",
+    "code_draft",
 ]
 
 
@@ -489,6 +490,52 @@ class ImportedCodeResult(CodeOperationResult):
         return self
 
 
+class CodeLearningContext(WriteModel):
+    courseId: UUID
+    courseVersionId: UUID
+    activityVersionId: UUID
+    objectiveCode: str = Field(min_length=1, max_length=80)
+    taskCode: str = Field(min_length=1, max_length=100)
+    helpViewed: list[str] = Field(max_length=20)
+
+    @field_validator("helpViewed")
+    @classmethod
+    def bounded_help(cls, values):
+        if any(not value or len(value) > 100 for value in values) or len(set(values)) != len(
+            values
+        ):
+            raise ValueError("help references must be bounded and unique")
+        return values
+
+
+class CodeLearningSnapshot(WriteModel):
+    context: CodeLearningContext | None
+    prediction: str = Field(max_length=4000)
+
+
+class CodeDraftPayload(LocalPayload):
+    id: Hash
+    activityKey: str = Field(min_length=1, max_length=200)
+    request: CodeRequest
+    prediction: str = Field(max_length=4000)
+    reflection: str = Field(max_length=4000)
+    learningContext: CodeLearningContext | None
+    createdAt: Timestamp
+    updatedAt: Timestamp
+    viewedRevisionId: UUID | None = None
+    reflectionRevisionId: UUID | None = None
+    reflections: dict[str, str] = Field(default_factory=dict, max_length=50)
+
+    @field_validator("reflections")
+    @classmethod
+    def bounded_revision_notes(cls, values):
+        for key, note in values.items():
+            UUID(key)
+            if len(note) > 4000:
+                raise ValueError("revision note is too long")
+        return values
+
+
 class CodeAttemptPayload(LocalPayload):
     id: UUID
     artifactId: UUID
@@ -498,6 +545,7 @@ class CodeAttemptPayload(LocalPayload):
     result: ImportedCodeResult | None = None
     createdAt: Timestamp
     updatedAt: Timestamp
+    learning: CodeLearningSnapshot | None = None
 
     @model_validator(mode="after")
     def bind_work(self):
@@ -527,6 +575,7 @@ PAYLOAD_MODELS = {
     "course_attempt": CourseAttemptPayload,
     "structured_attempt": StructuredAttemptPayload,
     "code_attempt": CodeAttemptPayload,
+    "code_draft": CodeDraftPayload,
 }
 
 

@@ -34,6 +34,31 @@ def test_ready_code_activity_carries_a_valid_reusable_execution_request():
     assert result.code_request.entry == "main.c"
 
 
+def test_code_activity_carries_explicit_help_and_changed_conditions():
+    value = activity()
+    value.update(
+        title="从错误开始",
+        hints=["检查语句末尾"],
+        prediction_prompt="预测失败阶段",
+        reflection_prompt="解释差异",
+        reference_answer=value["code_request"],
+        variants=[
+            {
+                "code": "different-output",
+                "title": "改变输出任务",
+                "student_action": "修改文字再运行",
+                "code_request": value["code_request"],
+                "prediction_prompt": "预测输出",
+                "reflection_prompt": "解释为何退出正常不等于答案正确",
+            }
+        ],
+    )
+    parsed = Activity.model_validate(value)
+    assert parsed.variants[0].code == "different-output"
+    with pytest.raises(ValidationError):
+        Activity.model_validate({**value, "variants": value["variants"] * 2})
+
+
 @pytest.mark.parametrize(
     "changes",
     [

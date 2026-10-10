@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0010_code_attempt"
+            == "0011_code_draft"
         )
     settings = Settings(
         environment="test",
@@ -1260,6 +1260,7 @@ async def test_code_attempt_sync_freezes_source_and_preserves_untrusted_result(c
         "artifactId": str(uuid4()),
         "spaceId": origin,
         "activityKey": "custom:addition",
+        "learning": {"context": None, "prediction": "输出 5"},
         "request": request.model_dump(),
         "requestHash": request_hash(request),
         "result": None,
@@ -1268,6 +1269,14 @@ async def test_code_attempt_sync_freezes_source_and_preserves_untrusted_result(c
     }
     saved, _ = await batch(student, aid, sid, [operation("code_attempt", work["id"], work)])
     assert saved.json()["results"][0]["status"] == "applied", saved.text
+    changed_prediction, _ = await batch(
+        student, aid, sid,
+        [operation(
+            "code_attempt", work["id"],
+            {**work, "learning": {"context": None, "prediction": "changed"}}, "1"
+        )],
+    )
+    assert changed_prediction.json()["results"][0]["reason"] == "COURSE_ATTEMPT_LOCKED"
     changed_request = CodeRequest(
         language="python313", files={"main.py": "print(6)"}, entry="main.py"
     )
@@ -1312,3 +1321,29 @@ async def test_code_attempt_sync_freezes_source_and_preserves_untrusted_result(c
                 (json.dumps({"activityKey": "tampered"}), sid, work["id"]),
             )
         connection.rollback()
+
+
+async def test_code_draft_sync_preserves_notes_and_reports_edit_conflicts(cloud):
+    _, seed, _ = cloud
+    student, aid = seed()
+    mapping, _ = await claim(student, aid)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    stamp = "2026-10-10T01:00:00Z"
+    work = {
+        "id": "a" * 64, "spaceId": origin, "activityKey": "custom:practice",
+        "request": {"language": "python313", "files": {"main.py": "print(1)"},
+                    "entry": "main.py", "stdin": ""},
+        "prediction": "输出 1", "reflection": "", "learningContext": None,
+        "createdAt": stamp, "updatedAt": stamp,
+    }
+    saved, _ = await batch(student, aid, sid, [operation("code_draft", work["id"], work)])
+    assert saved.json()["results"][0]["status"] == "applied", saved.text
+    edited = {**work, "reflection": "下一步改为 2"}
+    saved, _ = await batch(student, aid, sid, [operation("code_draft", work["id"], edited, "1")])
+    assert saved.json()["results"][0]["status"] == "applied", saved.text
+    stale, _ = await batch(student, aid, sid, [operation("code_draft", work["id"], work, "1")])
+    assert stale.json()["results"][0]["status"] == "conflict"
+    changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
+    assert changes[-1]["payload"]["reflection"] == "下一步改为 2"
+    assert changes[-1]["provenance"] == "client_reported"
+    assert changes[-1]["requires_review"] is False

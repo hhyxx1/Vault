@@ -14,6 +14,7 @@ const Workspace = React.lazy(() => import('./ui/Workspace'))
 const LogicWorkspace = React.lazy(() => import('./ui/LogicWorkspace'))
 const StructuredWorkspace = React.lazy(() => import('./ui/StructuredWorkspace'))
 const CodeWorkspace = React.lazy(() => import('./ui/CodeWorkspace'))
+const CourseCodeWorkspace = React.lazy(() => import('./ui/CourseCodeWorkspace'))
 const Evidence = React.lazy(() => import('./ui/Evidence'))
 const LocalSpace = React.lazy(() => import('./ui/LocalSpace'))
 const Teacher = React.lazy(() => import('./ui/Teacher'))
@@ -23,7 +24,7 @@ const pending = (child: React.ReactNode) => <Suspense fallback={<div className="
 function LearningRoute() {
   const { objectiveId } = useParams()
   const workspace = workspaceForObjective(objectiveId ?? '')
-  if (!workspace) return <div className="page"><h1>这个目标的实践尚未开放</h1><p>未找到已注册的活动。已有作品仍然保留，未开展的核验不计入学习证据。</p><Link className="button primary" to="/atlas">返回课程图谱</Link></div>
+  if (!workspace) return pending(<CourseCodeWorkspace />)
   if (workspace === 'truth_table') return pending(<LogicWorkspace />)
   if (workspace === 'structured_trace') return pending(<StructuredWorkspace />)
   return pending(<Workspace />)
