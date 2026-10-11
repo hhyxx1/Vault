@@ -3,6 +3,10 @@ from pathlib import Path
 from uuid import UUID
 
 from vault_backend.checker import LOGIC_ASSIGNMENTS, OPERATIONS
+from vault_backend.course_checks.server_checks import (
+    ServerExpectations,
+    load_server_expectations,
+)
 from vault_backend.errors import ApiError
 
 
@@ -120,6 +124,9 @@ class CourseRepository:
         self.example = None
         self.logic_example = None
         self.packages: dict[tuple[str, str], dict] = {}
+        # Server-private trusted expectations paired with their public manifest.
+        # They are never returned by the public catalog/version endpoints.
+        self.server_expectations: list[tuple[dict, ServerExpectations]] = []
         # A catalog and each course are independent; one damaged package must not
         # remove every other course or make the public directory unavailable.
         try:
@@ -239,7 +246,14 @@ class CourseRepository:
                 ):
                     raise ValueError("Course identity does not match catalog")
                 _validate_course_outline(raw)
+                # The server-only sidecar holds independent inputs and fixed
+                # expectations. A present-but-invalid sidecar fails the whole
+                # package closed; an absent sidecar simply yields no dynamic
+                # checks for it.
+                expectations = load_server_expectations(path.parent, raw)
                 self.packages[(package.course_id, package.course_version_id)] = raw
+                if expectations is not None:
+                    self.server_expectations.append((raw, expectations))
             except (OSError, ValueError, KeyError, TypeError, RecursionError):
                 # Fail closed per package; private fields and drafts are never served.
                 continue

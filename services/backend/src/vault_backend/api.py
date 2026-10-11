@@ -21,6 +21,7 @@ from vault_backend.code_worker_client import CodeWorkerClient, assess_code_execu
 from vault_backend.config import Settings
 from vault_backend.content import CourseRepository
 from vault_backend.course_checks.algebra_submission import AlgebraRegistry, AlgebraSubmission
+from vault_backend.course_checks.server_checks import DynamicCheckRegistry
 from vault_backend.db import create_engine, database_ready
 from vault_backend.errors import ApiError
 from vault_backend.guests import GuestLeaseStore
@@ -99,6 +100,7 @@ def create_app(
         logic_context=content.logic_context,
         code_runner=code_runner,
         algebra_registry=AlgebraRegistry(content.packages.values()),
+        check_registry=DynamicCheckRegistry(content.server_expectations),
     )
     if settings.agent_enabled and assist_runner is None:
         assist_runner = LearningAssistWorkflow(ModelRouter.from_settings(settings))

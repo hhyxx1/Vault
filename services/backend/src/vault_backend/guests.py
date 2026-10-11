@@ -17,6 +17,7 @@ from vault_backend.course_checks.brackets import (
 )
 from vault_backend.course_checks.code_tasks import assess_task, resolve_task
 from vault_backend.course_checks.semantic_suites import get_suite, run_suite
+from vault_backend.course_checks.server_checks import DynamicCheckRegistry
 from vault_backend.course_checks.structured_trace import (
     TRUSTED_TRACE_SPECS,
     get_trace_spec,
@@ -88,12 +89,16 @@ class GuestLeaseStore:
         logic_context: dict[str, Any] | None = None,
         code_runner: Any | None = None,
         algebra_registry: AlgebraRegistry | None = None,
+        check_registry: DynamicCheckRegistry | None = None,
     ):
         self.settings = settings
         self.trace_context = trace_context
         self.logic_context = logic_context
         self.code_runner = code_runner
         self.algebra_registry = algebra_registry or AlgebraRegistry([])
+        # Data-driven, package-sidecar checks are consulted first; the frozen
+        # in-process registries remain the immutable fallback for published 13.
+        self.check_registry = check_registry or DynamicCheckRegistry()
         self.code_cleanup_blocked = False
         self.code_tasks: dict[UUID, asyncio.Task] = {}
         self.now = now or (lambda: datetime.now(UTC))
@@ -101,6 +106,26 @@ class GuestLeaseStore:
         self.nonces: dict[bytes, tuple[str, datetime]] = {}
         self.lock = asyncio.Lock()
         self.active_streams: set[UUID] = set()
+
+    def _resolve_suite(self, course_version_id: str, objective_code: str, activity_version_id: str):
+        found = self.check_registry.get_suite(
+            course_version_id, objective_code, activity_version_id
+        )
+        if found is not None:
+            return found
+        return get_suite(course_version_id, objective_code, activity_version_id)
+
+    def _resolve_task(
+        self, course_version_id: str, objective_code: str, task_code: str, activity_version_id: str
+    ):
+        found = self.check_registry.resolve_task(
+            course_version_id, objective_code, task_code, activity_version_id
+        )
+        if found is not None:
+            return found
+        return resolve_task(
+            course_version_id, objective_code, task_code, activity_version_id
+        )
 
     def _prune(self) -> None:
         now = self.now()
@@ -353,13 +378,13 @@ class GuestLeaseStore:
                 context = {"available": True}
             elif isinstance(submission, CodeSubmission):
                 if isinstance(submission.task, CodeSuiteRef):
-                    get_suite(
+                    self._resolve_suite(
                         str(submission.task.course_version_id),
                         submission.task.objective_code,
                         str(submission.task.activity_version_id),
                     )
                 elif submission.task:
-                    resolve_task(
+                    self._resolve_task(
                         str(submission.task.course_version_id),
                         submission.task.objective_code,
                         submission.task.task_code,
@@ -432,7 +457,7 @@ class GuestLeaseStore:
             try:
                 if suite_ref:
                     # Validated at enqueue time; re-resolve to bind this execution.
-                    suite = get_suite(
+                    suite = self._resolve_suite(
                         str(submission.task.course_version_id),
                         submission.task.objective_code,
                         str(submission.task.activity_version_id),
@@ -466,7 +491,7 @@ class GuestLeaseStore:
                         op.result["suite_assessment"] = suite_assessment
                     elif not suite_ref and submission.task:
                         # CodeSuiteRef with no assessment keeps the base failure result.
-                        task = resolve_task(
+                        task = self._resolve_task(
                             str(submission.task.course_version_id),
                             submission.task.objective_code,
                             submission.task.task_code,
