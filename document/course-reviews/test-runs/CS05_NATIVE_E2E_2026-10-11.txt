@@ -1,0 +1,15 @@
+
+> @qionglong/web@0.1.0 test:e2e
+> playwright test course-algebra.spec.ts --workers=1
+
+
+Running 6 tests using 1 worker
+
+  ok 1 [chromium] › e2e\course-algebra.spec.ts:3:1 › native closure counterexample survives refresh and repair creates a new immutable version (3.6s)
+  ok 2 [chromium] › e2e\course-algebra.spec.ts:32:4 › 区分环、单位元与域 combines prediction, actual witness and revised work (2.6s)
+  ok 3 [chromium] › e2e\course-algebra.spec.ts:32:4 › 双射是否保持运算 combines prediction, actual witness and revised work (2.6s)
+  ok 4 [mobile] › e2e\course-algebra.spec.ts:3:1 › native closure counterexample survives refresh and repair creates a new immutable version (3.5s)
+  ok 5 [mobile] › e2e\course-algebra.spec.ts:32:4 › 区分环、单位元与域 combines prediction, actual witness and revised work (2.5s)
+  ok 6 [mobile] › e2e\course-algebra.spec.ts:32:4 › 双射是否保持运算 combines prediction, actual witness and revised work (2.6s)
+
+  6 passed (22.8s)

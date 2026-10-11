@@ -1,0 +1,40 @@
+
+> @qionglong/web@0.1.0 test
+> vitest run --run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90mC:/Users/Remote/.codex/worktrees/485f/Vault/apps/web[39m
+
+ [32m✓[39m src/domain/processor-trace.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/domain/course-map.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m src/domain/algebra.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/domain/structured.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m src/domain/code-assessment.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m src/domain/code-validation.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/domain/learning.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/domain/structured-evidence.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/api/verification.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 359[2mms[22m[39m
+   [32m✓[39m verification client integrity [2m(5)[22m
+     [33m[2m✓[22m[39m checks content hash and keeps cleanup explicit until the caller saves[33m 334[2mms[22m[39m
+ [32m✓[39m src/domain/course-packages.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 369[2mms[22m[39m
+   [32m✓[39m versioned course loading [2m(3)[22m
+     [33m[2m✓[22m[39m opens every approved core scope without claiming completed content[33m 362[2mms[22m[39m
+ [32m✓[39m src/local/code-attempt.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 39[2mms[22m[39m
+ [32m✓[39m src/local/algebra-database.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 64[2mms[22m[39m
+ [32m✓[39m src/local/code-draft.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+ [32m✓[39m src/local/AuthProvider.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m src/local/database.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 182[2mms[22m[39m
+ [32m✓[39m src/local/sync.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 239[2mms[22m[39m
+ [32m✓[39m src/api/code.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 990[2mms[22m[39m
+   [33m[2m✓[22m[39m polls a submitted code version and refuses mismatched output (tampered=false)[33m 663[2mms[22m[39m
+   [33m[2m✓[22m[39m polls a submitted code version and refuses mismatched output (tampered=true)[33m 316[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+[2m      Tests [22m [1m[32m104 passed[39m[22m[90m (104)[39m
+[2m   Start at [22m 00:42:29
+[2m   Duration [22m 1.59s[2m (transform 36%, import 34%, tests 27%, worker 3%)[22m
+
+[2m  Transform [22m [33mtransforming modules took 3.16s[39m[2m · 36% of tracked time, re-done on every run[22m
+[2m            [22m [2mpersist transforms across runs with [22m[33mfsModuleCache: true[39m
+[2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#caching-between-reruns[22m
+
