@@ -24,6 +24,12 @@ test('native closure counterexample survives refresh and repair creates a new im
   await expect(page.getByRole('link', { name: '查看图谱证据 →' })).toHaveAttribute('href', '/atlas?course=CS05&edition=core&goal=CS05-M07-O01')
   await page.getByRole('link', { name: '查看图谱证据 →' }).click()
   await expect(page.getByText('0 / 30', { exact: true })).toBeVisible()
+  await page.goto('/evidence')
+  await expect(page.getByText('有限群运算表实验 / FINITE CHECK').first()).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'CS05-M07-O01' }).first()).toBeVisible()
+  await expect(page.getByText('完整有限表穷举核验：预测与判定一致 · 目标仍待复核').first()).toBeVisible()
+  await page.getByText('查看性质预测、解释与穷举依据').first().click()
+  await expect(page.getByText('我判定成立').first()).toBeVisible()
 })
 
 for (const experiment of [

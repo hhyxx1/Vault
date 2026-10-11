@@ -6,16 +6,35 @@ import { TRACE_OBJECTIVE, IMPLEMENT_OBJECTIVE, criterionLabels, type ArtifactRev
 import { isTraceResult, structuredActivityByVersion, structuredResultCorrect } from '../domain/structured'
 import { liveQuery } from 'dexie'
 import type { CodeAttempt } from '../domain/code'
+import { ALGEBRA_PREDICTIONS, ALGEBRA_LABELS } from '../domain/algebra'
+
+const ALGEBRA_MODE_TITLES = {
+  group: '有限群运算表实验',
+  ring: '环与域双运算表实验',
+  homomorphism: '群同构映射实验',
+} as const
+
+const ALGEBRA_CRITERION_LABELS: Record<string, string> = {
+  ...ALGEBRA_LABELS,
+  explanation: '自己的解释',
+  independent_transfer: '独立迁移到新结构',
+}
+
+function algebraPredictionText(value: string): string {
+  return value === 'true' ? '我判定成立' : value === 'false' ? '我判定不成立' : '未检查'
+}
 
 export default function Evidence() {
-  const { evidence, structuredAttempts, help, spaceId } = useLocal()
+  const { evidence, structuredAttempts, algebraAttempts, help, spaceId } = useLocal()
   const [revisions, setRevisions] = useState<ArtifactRevision[]>([])
   const [codeAttempts, setCodeAttempts] = useState<CodeAttempt[]>([])
   useEffect(() => { setCodeAttempts([]); if (!spaceId) return; const subscription = liveQuery(() => database.codeAttempts.where('spaceId').equals(spaceId).toArray()).subscribe({ next: rows => setCodeAttempts(rows.sort((a,b) => b.createdAt.localeCompare(a.createdAt))), error: () => setError('无法读取代码运行记录。') }); return () => subscription.unsubscribe() }, [spaceId])
   const [error, setError] = useState('')
   useEffect(() => { setRevisions([]); if (!spaceId) return; const subscription = liveQuery(() => database.revisions.where('spaceId').equals(spaceId).toArray()).subscribe({ next: value => setRevisions(value.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))), error: () => setError('暂时无法读取作品版本，请重新打开页面。') }); return () => subscription.unsubscribe() }, [spaceId])
-  return <div className="page evidence-page"><div className="eyebrow">WORK / EVIDENCE</div><div className="page-heading"><div><h1>学过的，留下依据。</h1><p>作品、逐项核验与帮助记录，在同一条路径中可追溯。</p></div><span className="small-tag">当前本地空间</span></div>{error && <p role="alert">{error}</p>}<div className="evidence-overview"><div><strong>{revisions.length}</strong><span>已保存作品版本</span></div><div><strong>{evidence.filter(record => !record.trust).length}</strong><span>本机真实核验 · {evidence.filter(record => record.trust === 'client_reported').length} 条恢复待复核</span></div><div><strong>{help.length}</strong><span>已披露帮助记录</span></div></div>
-    {!revisions.length && !codeAttempts.length && <section className="empty-state"><span className="large-orbit" aria-hidden="true">◌</span><h2>你的第一个作品，从一次尝试开始。</h2><p>目前没有已保存的版本。打开工作台，亲自推演并保存自己的思路。</p><Link className="button primary" to={`/learn/${TRACE_OBJECTIVE}`}>开始栈状态推演 ↗</Link></section>}
+  const verifiedCount = evidence.filter(record => !record.trust).length + codeAttempts.filter(attempt => attempt.result && !attempt.resultTrust).length + structuredAttempts.filter(attempt => attempt.result && !attempt.resultTrust).length + algebraAttempts.filter(attempt => attempt.result && !attempt.resultTrust).length
+  const restoredCount = evidence.filter(record => record.trust === 'client_reported').length + codeAttempts.filter(attempt => attempt.resultTrust === 'client_reported').length + structuredAttempts.filter(attempt => attempt.resultTrust === 'client_reported').length + algebraAttempts.filter(attempt => attempt.resultTrust === 'client_reported').length
+  return <div className="page evidence-page"><div className="eyebrow">WORK / EVIDENCE</div><div className="page-heading"><div><h1>学过的，留下依据。</h1><p>作品、逐项核验与帮助记录，在同一条路径中可追溯。</p></div><span className="small-tag">当前本地空间</span></div>{error && <p role="alert">{error}</p>}<div className="evidence-overview"><div><strong>{revisions.length}</strong><span>已保存作品版本</span></div><div><strong>{verifiedCount}</strong><span>本机真实核验 · {restoredCount} 条恢复待复核</span></div><div><strong>{help.length}</strong><span>已披露帮助记录</span></div></div>
+    {!revisions.length && !codeAttempts.length && !structuredAttempts.length && !algebraAttempts.length && <section className="empty-state"><span className="large-orbit" aria-hidden="true">◌</span><h2>你的第一个作品，从一次尝试开始。</h2><p>目前没有已保存的版本。打开工作台，亲自推演并保存自己的思路。</p><Link className="button primary" to={`/learn/${TRACE_OBJECTIVE}`}>开始栈状态推演 ↗</Link></section>}
     {codeAttempts.length > 0 && <section className="evidence-records">{codeAttempts.map(attempt => <article className="evidence-record" key={attempt.id}><div className="record-header"><div><span className="eyebrow">{attempt.request.language} / TOOL FACT</span><h2>代码运行作品</h2></div><span>{new Date(attempt.createdAt).toLocaleString('zh-CN')}</span><Link className="text-link" to={`/code?activity=${encodeURIComponent(attempt.activityKey)}&revision=${attempt.id}`}>查看这一版代码 ↗</Link></div><p>{attempt.resultTrust ? '账号恢复的运行报告 · 待重新运行复核' : attempt.result ? '本机实际运行结果 · 不代表课程目标达标' : '代码已保存 · 尚未取得运行结果'}</p><details><summary>查看源文件、输入与实际输出</summary>{Object.entries(attempt.request.files).map(([name, source]) => <div key={name}><h3>{name}</h3><pre className="artifact-source">{source}</pre></div>)}<h3>标准输入</h3><pre>{attempt.request.stdin || '（无输入）'}</pre>{attempt.result && <><h3>标准输出</h3><pre>{attempt.result.stdout || '（无输出）'}</pre><h3>错误输出</h3><pre>{attempt.result.stderr || '（无错误输出）'}</pre><p>运行环境：{attempt.result.runtime_profile}{attempt.result.truncated ? ' · 输出已截断' : ''}</p></>}</details></article>)}</section>}
     <section className="evidence-records">{revisions.map(revision => {
       const related = evidence.filter(record => record.revisionId === revision.revisionId)
@@ -26,6 +45,14 @@ export default function Evidence() {
       const correct = attempt.result ? structuredResultCorrect(attempt.result) : false
       const kindLabel = attempt.result ? (isTraceResult(attempt.result) ? '逐条件状态推演' : '括号判定') : '结构化活动'
       return <article className="evidence-record" key={attempt.id}><div className="record-header"><div><span className="eyebrow">{kindLabel}</span><h2>{activity?.title ?? attempt.activityVersion}</h2></div><span>{new Date(attempt.updatedAt).toLocaleString('zh-CN')}</span><Link className="text-link" to={`/practice/${attempt.activityVersion}`}>继续推演 ↗</Link></div>{attempt.result ? <div className="stored-result"><strong>{attempt.resultTrust ? '本机恢复记录 · 待复核' : correct ? '逐条件核验通过 · 目标仍待复核' : '有核验条件未满足'}</strong><p>{attempt.result.summary}</p><ul>{attempt.result.criteria.map(criterion => <li key={criterion.id}><span>{criterion.title}</span><span className={`criterion-status ${criterion.status}`}>{criterion.status === 'met' ? '满足' : criterion.status === 'not_met' ? '未满足' : '待人工复核'}</span></li>)}</ul></div> : <p className="unverified-note">已保存推演，尚无核验结果。保存本身不增加达标目标数。</p>}</article>
+    })}</section>}
+    {algebraAttempts.length > 0 && <section className="evidence-records algebra-records">{algebraAttempts.slice().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).map(attempt => {
+      const result = attempt.result
+      return <article className="evidence-record" key={attempt.id}>
+        <div className="record-header"><div><span className="eyebrow">{ALGEBRA_MODE_TITLES[attempt.mode]} / FINITE CHECK</span><h2>{attempt.objectiveCode}</h2></div><span>{new Date(attempt.updatedAt).toLocaleString('zh-CN')}</span><Link className="text-link" to={`/learn/${attempt.objectiveCode}?courseVersion=${attempt.courseVersionId}`}>继续这张运算表 ↗</Link></div>
+        {result ? <div className="stored-result"><strong>{attempt.resultTrust ? '本机恢复记录 · 待重新穷举复核' : result.prediction_correct ? '完整有限表穷举核验：预测与判定一致 · 目标仍待复核' : '存在预测与穷举判定不一致，已保留具体反例'}</strong>{attempt.resultTrust && <p className="imported-evidence-note">该有限代数记录由云端历史客户端报告恢复，尚未在本机重新穷举核验，不计入图谱有效评估或达标目标。</p>}<ul>{result.criteria.map(criterion => <li key={criterion.id}><span>{ALGEBRA_CRITERION_LABELS[criterion.id] ?? criterion.id}</span><span className={`criterion-status ${criterion.status}`}>{attempt.resultTrust ? '历史报告 · 待复核' : criterion.status === 'met' ? '满足' : criterion.status === 'not_met' ? '未满足' : '待人工复核'}</span></li>)}</ul></div> : <p className="unverified-note">已保存运算表实验，尚无核验结果。保存本身不增加达标目标数。</p>}
+        <details><summary>查看性质预测、解释与穷举依据</summary><h3>我的性质预测</h3><ul>{ALGEBRA_PREDICTIONS[attempt.mode].map(key => <li key={key}><span>{ALGEBRA_LABELS[key]}</span><span>{algebraPredictionText(attempt.predictions[key] ?? '')}</span></li>)}</ul><h3>自己的解释</h3><p className="preserve-lines">{attempt.explanation || '此版本没有填写解释。'}</p><dl className="provenance"><dt>标准版本</dt><dd>{result?.standard_version ?? 'finite-algebra-exhaustive-v1'}</dd><dt>检查器</dt><dd>{result?.checker_version ?? 'finite-algebra-exhaustive-v1'}</dd><dt>作品 hash</dt><dd>{result?.artifact_hash || '（尚未核验）'}</dd></dl></details>
+      </article>
     })}</section>}
     <div className="evidence-bottom"><p>解释和独立应用没有真实复核时，完整目标保持未达标。</p><Link className="text-link" to={`/learn/${IMPLEMENT_OBJECTIVE}`}>继续括号匹配练习 →</Link></div>
   </div>
