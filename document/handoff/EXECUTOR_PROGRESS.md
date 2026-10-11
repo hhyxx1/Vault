@@ -4,17 +4,20 @@
 
 ## 当前检查点
 
-- 更新时间：2026-10-11（#29 / P1 进行中：C02 语义核验后端核心已闭环并提交）
+- 更新时间：2026-10-11（#29 / P1：C02 语义核验**后端三层全部闭环**——核心、公共发现、同步协议收口；前端全链路为下一工作包）
 - worktree：`C:\Users\Remote\.codex\worktrees\485f\Vault`（detached HEAD）
-- HEAD：`40bac6d`；远端 `mine/hyx_dev = 8db1533`（https://github.com/hhyxx1/Vault.git）
-- **待推送**：`ae5fb1b`、`c6988fe`、`51f165a`、`9117abd`、`40bac6d` 五个提交尚在本地；github.com:443 仍连接超时/Connection reset（国内网络瞬时问题，#26 曾推送成功）。网络恢复后执行 `git push mine HEAD:hyx_dev` 一条命令推送全部，勿换写法绕过。
+- HEAD：`cf25381`；远端 `mine/hyx_dev = 8db1533`（https://github.com/hhyxx1/Vault.git）
+- **待推送（8 个）**：`ae5fb1b`、`c6988fe`、`51f165a`、`9117abd`、`40bac6d`、`4dffc3e`、`ae6ce27`、`cf25381`；github.com:443 本会话多次连接超时/Connection reset（#26 曾推送成功，国内网络瞬时问题）。网络恢复后执行 `git push mine HEAD:hyx_dev` 一条命令推送全部，勿换写法绕过；推送后用 `git rev-parse --short refs/remotes/mine/hyx_dev` 核实。
 - 本次新增提交（新→旧）：
-  - `40bac6d` feat(checks): C02 trusted semantic code suites with independent inputs（#29/C02 后端）
+  - `cf25381` feat(sync): accept and bind imported semantic suite assessments（C02 同步收口）
+  - `ae6ce27` feat(content): announce C02 semantic suite in CS01 package discovery metadata（C02 发现）
+  - `4dffc3e` docs(handoff): record C02 semantic suite backend milestone（进度）
+  - `40bac6d` feat(checks): C02 trusted semantic code suites with independent inputs（C02 核心）
   - `9117abd` docs(handoff): close P0（进度检查点）
   - `51f165a` chore(audit): calibrate 122-module task board from latest packages（#28）
   - `c6988fe` feat(evidence): surface native finite-algebra attempts on the evidence page（#27）
   - `ae5fb1b` docs(handoff): executor progress checkpoint（本文件初版）
-  - `8db1533` feat(health): split isolated execution configured, healthy and production-ready state（#26，已推送）
+  - `8db1533` feat(health)（#26，已推送）
 
 ## 任务板状态（#23–#32）
 
@@ -24,7 +27,7 @@
 - #26 completed — health/ready 的 isolated_execution 不再写死 false，拆分为 configured / healthy / production_ready 三独立字段，并新增 worker 侧认证健康探针。
 - #27 completed — algebra_attempt 全站覆盖复核；唯一缺口（学习证据总页未展示代数实验）已补齐并加 e2e。
 - #28 completed — 逐课只读审计并校准 TASK_BOARD.csv：122 模块全 in_progress、source needs_audit、review blocked_external，无一项 verified。
-- #29 in_progress（**P1**）— 公共工程 C01–C08。**C02 语义核验后端核心已完成并提交 `40bac6d`**（多输入+受信独立 oracle+替代正确解+反硬编码+环境故障不降级，13 测试，全量 440/58）；C02 端到端（服务端发现、前端触发/展示、证据落库与同步、真实 isolate 多 case）与 C01、C03–C08 待续。
+- #29 in_progress（**P1**）— 公共工程 C01–C08。**C02 语义核验后端三层已全部闭环并提交**：核心 `40bac6d`（多输入+受信独立 oracle+替代正确解+反硬编码+环境故障不降级，13 测试）、公共发现 `ae6ce27`（课程包声明元数据+注册表一致性契约，5 测试）、同步协议收口 `cf25381`（导入套件结果绑定冻结上下文、不授掌握、与固定题互斥，1 测试函数）；后端全量 **446 passed/58 skipped/0 failed**。**剩余为前端全链路**（触发/渲染、本地证据、证据页/图谱/导出/恢复、前端同步）与 WSL 真实 isolate 多 case e2e；C01、C03–C08 待续。
 - #30–#32 pending — P2 CS05 其余原生模块+CS03 回填+五类桥接；P3–P5 其余 10 课；P6–P7 教师/自建课/RAG/多模型/Skill 与全面验收、UI 对照、最终报告。
 
 ## 已完成项与真实证据
@@ -35,7 +38,7 @@
 - 共享 pytest 临时目录 `%TEMP%\pytest-of-Remote` 权限损坏（WinError 5，疑似 WSL root 侧运行污染），导致 82 个 setup error。**后续所有后端 pytest 必须带专属 `--basetemp=%TEMP%\vault-pytest-<名>`**。
 
 ### 测试基线（2026-10-11 复现，原始日志已归档到 `document/course-reviews/test-runs/`）
-- 后端含 PG 全套：**440 passed / 58 skipped / 0 failed**（C02 后基线；P0 末为 427/58，C02 新增 13 个语义套件测试）。58 skipped 为 Windows 主机上的 Linux/isolate 专用测试。
+- 后端含 PG 全套：**446 passed / 58 skipped / 0 failed**（C02 后端三层后基线；P0 末为 427/58，C02 新增 13 个语义套件测试 + 5 个发现契约测试 + 1 个同步绑定测试函数）。58 skipped 为 Windows 主机上的 Linux/isolate 专用测试。原始日志 `%TEMP%\t29-sem.txt`(13)、`t29-semc.txt`(5)、`t29-sync.txt`(3)、`t29-b2.txt`(446 全量)。
   - 复现 417 基线需配置可销毁测试库：`VAULT_TEST_DATABASE_URL=...vault_dev...@127.0.0.1:5442/vault_ci`、`VAULT_TEST_API_DATABASE_URL=...vault_api:ci-runtime-ephemeral-only.../vault_ci`、`VAULT_TEST_DATABASE_IS_DISPOSABLE=1`。容器内 vault_ci 已在 0012、vault_api 为 NOBYPASSRLS 非超管且已对 sync_object 等表授权（活动数据复用 sync_object 多态，无独立 algebra/code 表）。
 - 前端：typecheck 0 error；vitest **104 passed / 17 files**。
 - CS05 原生有限代数 e2e：**6 passed**（chromium 桌面 + mobile 各 3）。
@@ -70,12 +73,34 @@
   - 结论克制：explanation、independent_transfer 恒 needs_review（独立用例全过也仅称“有限用例”），mastery_asserted 恒 False；输出含每用例 expected/observed 反例、comparator、oracle_id、scope_note、representative_result（首个可见用例真实 CodeResult）。
 - 接线：`schemas.py` 新增 `CodeSuiteRef`（仅 course/activity/objective，**无 task_code、无 stdin**），`CodeSubmission.task` 改 `CodeTaskRef | CodeSuiteRef | None`；`guests.py` 入队前 `get_suite` 校验（未知/版本不符 404 `SEMANTIC_SUITE_UNAVAILABLE`、语言不符 400 `SEMANTIC_SUITE_LANGUAGE`，均不入队），`_run_code` 增 suite 多 case 分支并在结果放 `suite_assessment`；`responses.py` 新增 `CodeSuiteCase/CodeSuiteAssessment` 与 `CodeOperationResult.suite_assessment`；已重生成 `packages/contracts/openapi.json` 与 `api.generated.ts`。
 - 测试 `tests/test_semantic_suites.py` **13 passed**：比较器/替代格式、可见用例不暴露独立输入、未知套件 404、正确通用程序全过、端点逻辑错误（< 与 <=）反例、样例硬编码被独立输入抓出、编译/运行时/超时三类学生失败、环境故障 5 情形不降级、语言不符 400，以及 3 个 GuestLeaseStore 活路径（8 次真实 worker 调用覆盖 2 可见+6 独立、硬编码标记、未知套件在 worker 运行前 404）。
-- 验证：ruff 5 文件全过；后端全量 **440 passed/58 skipped/0 failed**；前端 typecheck 0（union 变化未破坏既有 CodeTaskRef 调用）。
-- **尚未接（下一增量）**：① 服务端/课程包下发“该目标有受信语义套件”的发现元数据（前端不得硬编码 UUID；manifest 只能声明可用性与可见用例，独立输入/期望绝不进 manifest）；② 前端 runCode 支持 CodeSuiteRef、CodeWorkspace“独立语义核验”入口与多 case/硬编码结果渲染（严格按设计稿）；③ suite_assessment 计入本地 codeAttempt 表+Dexie 迁移、云同步 union、证据页/图谱/导出/恢复（现 sync_schemas.py 仅认 result.task_assessment）；④ WSL 真实 isolate 多 case e2e。
+- 验证：ruff 全过；后端全量 **446 passed/58 skipped/0 failed**；前端 typecheck 0（union 变化未破坏既有 CodeTaskRef 调用）。
+
+### #29 / C02 公共发现机制（已提交 ae6ce27）
+- 事实源确认：前端课程活动来自各课包 `content/courses/CSxx/CSxx-core-practice-<ver>/manifest.json`（vite `import.meta.glob`，见 `course-packages.ts:67`）；`catalog.json` 仅课程级目录（无 activities），`scope-catalog.json` 由 `tools/build_course_scopes.py` 从 catalog 合成（activities 为空）。
+- `course_packages.py` 的 Activity 模型（`extra="forbid" strict`）新增 `semantic_suite: PublicSemanticSuite | None`：`PublicSemanticSuite` 含 standard_version/oracle_id/comparator/language/visible_cases/independent_case_count/scope_note；`PublicSemanticCase` 仅 code+stdin。**靠 extra=forbid 天然拒绝 expected_stdout / independent_cases 等私有字段**；validator 限定仅 code 活动可携带、language 须与 code_request 一致、可见用例 code 唯一。
+- 用 TEMP 脚本（先断言 course/activity version id 与注册表一致）给 CS01 0.9.0 manifest 的 `CS01-M03-O03-CODE` 写入发现块（visible-30 "30\n"、visible-60 "60\n"，independent_case_count=6，无 expected、无独立输入）。
+- 新增 `tests/test_semantic_suite_contract.py` **5 passed**：包校验通过；公告与注册表逐项一致（含独立输入 stdin 不出现在 manifest）；注册表每个套件都必须在某公共包被声明（发现闭环）；manifest 无法夹带 expected/independent（extra forbid）；非 code/语言不符被拒。
+
+### #29 / C02 云同步协议收口（已提交 cf25381）
+- `ImportedCodeResult(CodeOperationResult)`（sync_schemas.py，extra forbid strict）经继承已含 suite_assessment，CodeAttempt 复用 codeAttempts 表存整个 CodeResult JSON → **无需 Dexie schema 迁移**。
+- `responses.CodeSuiteCase` 的 expected_stdout/observed_stdout 加 `max_length=8192`（与 CodeResult.stdout 同界；已重生成 openapi.json，maxLength 不改变 TS 类型，api.generated.ts 无 diff）。
+- `CodeAttemptPayload.bind_work` 增套件分支：禁止 task_assessment 与 suite_assessment 并存；套件要求 learning.context.taskCode=="semantic-suite"、course/activity/objective 与冻结上下文绑定、provenance=server_deterministic_checker、standard=code-semantic-suite-v1、mastery_asserted 恒 False、非 fixed_condition 的 criteria 必须 needs_review。
+- `tests/test_code_attempt_sync.py` 新增 `test_imported_semantic_suite_binds_context_and_never_grants_mastery`（跨 activity/objective、错误 taskCode、context=None、解释判 met、mastery True、provenance/standard 篡改、双 assessment 并存等均拒绝）；该文件 **3 passed**。
+
+### #29 / C02 剩余前端全链路（下一工作包，未开始）
+关键落点（已侦察，先 Read 再改）：
+1. `apps/web/src/domain/course-packages.ts`：`CourseCodeActivity`（line 8-15，已有 check_version）加 `semantic_suite?` 公共类型（形状对齐 PublicSemanticSuite）。
+2. `apps/web/src/api/verification.ts`：`runCode`（line 87-136，第三参 task?: CodeTaskRef）扩展接受 CodeSuiteRef；仿 line 117 的身份/版本/mastery 闸门，对返回的 `suite_assessment` 做 course/activity/objective、standard、provenance、mastery 严格校验，不符即判不可信。
+3. `apps/web/src/ui/CodeWorkspace.tsx`（164 行）：套件活动（activity.semantic_suite 存在）增**独立于固定题**的“独立语义核验”入口（对选中的已保存 revision 触发）；套件 attempt 用独立 activityKey（如 `${activity.version_id}:semantic-suite`）、learningContext.taskCode="semantic-suite"、复用同一 artifactId；结果区渲染汇总（通过/疑似硬编码/未通过/环境待复核）、可见用例通过情况、**独立用例只显示数量与通过/失败、绝不显示 stdin**、criteria 与 scope_note、硬编码警示；严格沿用现有 small-tag/button/details 样式与设计稿。
+4. `apps/web/src/domain/code-assessment.ts`：平行新增 `hasCodeSuiteBinding`（校验 result.suite_assessment 与 context/工件绑定、standard/provenance/mastery、criteria 三项），`codeObjectiveState` 与 `currentCodeAssessment`（或新增套件选择器）把套件 fixed met 计入客观状态（仍只到 partial，解释/迁移待复核）。
+5. `apps/web/src/ui/Evidence.tsx`（code 区）与 `ui/Atlas.tsx`（codeObjectiveState 聚合）认套件结果；套件证据展示多 case 结论与硬编码警示，独立用例不显示输入。
+6. 本地导出/恢复：`local/database.ts`、`local/LocalSpace.tsx`（exportSpace）、`local/LocalProvider`、`sync.ts` 复用 codeAttempts（result 整体 JSON，已含 suite_assessment）；核对恢复信任判定不能只看 task_assessment，套件结果按 hasCodeSuiteBinding 判定，跨账号/迟到结果不误归属、不升级掌握。
+7. 验证：`npm --prefix apps/web run typecheck`、`vitest --run`（为 hasCodeSuiteBinding/verification 校验加单测）、Playwright e2e（CS01-M03-O03：正确通用程序多 case 通过、端点 bug 反例、样例硬编码被独立输入抓出、环境故障不判错）；最后 WSL 真实 isolate worker 多 case e2e（box 701 或串行，勿与开发 worker 共用 box 700）。
+- **无需 Dexie 迁移、无需新本地表**（已查明）；前端 sync.ts 透传整个 CodeResult，主要工作是恢复信任判定兼容套件。
 
 ## 在改文件 / 工作区
 
-- C02 增量已全部提交（40bac6d）。工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。无其它未提交改动。
+- C02 后端三层（核心 40bac6d / 发现 ae6ce27 / 同步收口 cf25381）已全部提交。工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。无其它未提交改动。
 
 ## 运行中的服务与端口（完成后保持运行）
 
@@ -87,16 +112,16 @@
 
 ## 未解决问题 / 外部限制
 
-- **5 个本地提交（ae5fb1b/c6988fe/51f165a/9117abd/40bac6d）待推送**：github.com:443 多次超时/Connection reset；网络恢复后 `git push mine HEAD:hyx_dev` 一条命令推送全部，勿换写法绕过。
+- **8 个本地提交（ae5fb1b/c6988fe/51f165a/9117abd/40bac6d/4dffc3e/ae6ce27/cf25381）待推送**：github.com:443 多次超时/Connection reset；网络恢复后 `git push mine HEAD:hyx_dev` 一条命令推送全部，勿换写法绕过。
 - 58 个 Linux/isolate 测试在 Windows 跳过；需在 WSL 按 RUNBOOK 第 5 节补跑（CS05 120 份工件，作者测试与开发 worker 不可共用 box 700，宜 fixture 指定 701 或串行）。
 - 合并 main 始终未授权（feature 分支不计 GitHub 贡献热力图）；需用户确认邮箱已验证后授权 push hyx_dev:main 或开 PR。
 - 真实专业审校、真实多模型密钥、生产部署为外部不可得条件；Q4/Q5 与真实模型联调须如实保留，不得伪造签署或删目标降标准。
 
 ## 下一条具体任务
 
-**当前在 #29 / P1，C02 后端核心已提交（40bac6d）。下一步把 C02 做端到端，并按依赖推进 C01、C03–C08：**
+**当前在 #29 / P1，C02 后端三层已提交（40bac6d/ae6ce27/cf25381，全量 446/58）。下一步做 C02 前端全链路（见上“剩余前端全链路”7 步），再按依赖推进 C01、C03–C08：**
 
-1. **C02 端到端（紧接）**：① 课程包活动声明受信语义套件的发现元数据（仅可用性/comparator/可见用例，独立输入与期望绝不进 manifest），重生成 catalog 静态 JSON 并加内容契约测试，后端以注册表为权威（manifest 谎报则 404）；② 前端 `runCode` 支持 CodeSuiteRef、CodeWorkspace 增“独立语义核验”入口并渲染多 case 通过/反例/硬编码警示（严格对齐设计稿，独立用例不展示输入）；③ suite_assessment 接入 codeAttempt 本地表 + Dexie 迁移、云同步 union（sync_schemas.py 现仅认 task_assessment）、证据页/图谱/导出/恢复，跨账号/迟到结果不误归属；④ WSL 真实 isolate worker 多 case e2e（box 701 或串行）。
+1. **C02 前端全链路（紧接，一次接通勿留半接 UI）**：course-packages 类型 → verification.runCode 支持 CodeSuiteRef 并严格校验 suite_assessment → CodeWorkspace 独立“独立语义核验”入口与多 case/硬编码渲染（独立用例不显示 stdin，严格按设计稿）→ code-assessment 套件绑定与客观状态聚合 → Evidence/Atlas 认套件结果 → 本地导出/恢复/前端同步兼容（复用 codeAttempts，无 Dexie 迁移）→ typecheck/vitest/Playwright/WSL 真实 isolate 多 case e2e。
 2. 此后按 `EXECUTION_PLAN.md` 推进 C01（数据驱动课程包/发布 + 不叫 CS01–13 的合成课，验证能力不依赖编号/固定 UUID）、C03（证据/帮助/独立变体/恢复矩阵）、C04 审阅流、C05 工具生命周期、C06 多模型/Skill 不提权、C07 教师 RAG 仅检索可见资料、C08 五类先修桥接。
-3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并尝试 `git push mine HEAD:hyx_dev`（先把滞留 5 个提交推上去），同步更新 TASK_BOARD 与本文件。
+3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并尝试 `git push mine HEAD:hyx_dev`（先把滞留 8 个提交推上去），同步更新 TASK_BOARD 与本文件。
 4. 无专业审校、无真实模型密钥时完成工程与测试，但 Q4/Q5/真实联调如实保留 blocked_external，不伪造签署、不删目标、不降标准。
