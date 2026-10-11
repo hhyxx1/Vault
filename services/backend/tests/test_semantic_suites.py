@@ -298,6 +298,10 @@ async def test_lease_runs_every_case_on_worker_and_returns_suite_assessment(sett
     # Two visible plus six independent inputs really executed on the worker.
     assert runner.calls == 8
     assert set(runner.stdins) == {"30\n", "60\n", "0\n", "29\n", "31\n", "59\n", "61\n", "120\n"}
+    # The operation result binds to the submitted artifact request (stdin is a
+    # server-injected placeholder), so the client hash check matches the work.
+    assert snapshot["result"]["request_sha256"] == request_hash(make_code())
+    assert snapshot["result"]["client_revision_id"] == str(body.client_revision_id)
     await store.close()
 
 

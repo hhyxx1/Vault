@@ -293,8 +293,14 @@ async def run_suite(
         "suspected_hardcoding": suspected_hardcoding,
         "cases": case_results,
         # Execution fact for the first visible case (not a verdict); lets the
-        # operation result stay shaped like a normal code run.
-        "representative_result": run_results[0].model_dump(),
+        # operation result stay shaped like a normal code run. Its request hash
+        # must bind to the client-submitted artifact request (stdin is a
+        # server-injected placeholder for suites), not to the per-case request
+        # whose stdin was replaced above; per-case runner integrity is already
+        # enforced in the loop.
+        "representative_result": run_results[0]
+        .model_copy(update={"request_sha256": request_hash(code)})
+        .model_dump(),
         "criteria": [
             {"id": "fixed_condition", "status": fixed_status, "reason": fixed_reason},
             {"id": "explanation", "status": "needs_review", "reason": "解释笔记不是独立复核结论。"},
