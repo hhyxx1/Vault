@@ -1,6 +1,6 @@
 import { hasStructuredResultBinding } from '../domain/structured'
 import type { CodeAttempt, CodeResult } from '../domain/code'
-import { hasCodeAssessmentBinding } from '../domain/code-assessment'
+import { hasCodeAssessmentBinding, hasCodeSuiteBinding } from '../domain/code-assessment'
 import { COURSE_VERSION, STANDARD_VERSION, TRACE_ACTIVITY, TRACE_OBJECTIVE, type ArtifactRevision, type TracePrediction, type VerificationResult } from '../domain/learning'
 import { artifactContent, canonicalHash, traceSubmission } from '../domain/integrity'
 import type { components } from '../../../../packages/contracts/api.generated'
@@ -84,7 +84,7 @@ async function activeLease(signal?: AbortSignal) {
 }
 
 /** Save the returned result before acknowledgement removes temporary server work. */
-export async function runCode(attempt: CodeAttempt, signal?: AbortSignal, task?: components['schemas']['CodeTaskRef'], renewed = false): Promise<{ result: CodeResult; acknowledge: () => Promise<void> }> {
+export async function runCode(attempt: CodeAttempt, signal?: AbortSignal, task?: components['schemas']['CodeTaskRef'] | components['schemas']['CodeSuiteRef'], renewed = false): Promise<{ result: CodeResult; acknowledge: () => Promise<void> }> {
   const current = await activeLease(signal)
   if (!current.allowed_operations.includes('run_code')) throw new Error('代码运行服务尚未连接；这一版已保留本地，可稍后重新运行。')
   if (await canonicalHash({ ...attempt.request, stdin: attempt.request.stdin ?? '' }) !== attempt.requestHash) throw new Error('提交内容与版本摘要不一致。')
@@ -116,7 +116,11 @@ export async function runCode(attempt: CodeAttempt, signal?: AbortSignal, task?:
     const result = operation.result as CodeResult | null
     if (!result || result.client_artifact_id !== attempt.artifactId || result.client_revision_id !== attempt.id || result.request_sha256 !== attempt.requestHash || result.mastery_asserted !== false || !['success', 'compile_error', 'runtime_error', 'timeout', 'resource_limit', 'environment_error'].includes(result.status) || typeof result.stdout !== 'string' || typeof result.stderr !== 'string') throw new Error('运行结果与提交版本不一致，未保存结果。')
     const terminal = operation
-    if ((task || result.task_assessment) && !hasCodeAssessmentBinding({ ...attempt, result })) throw new Error('课程核验与活动、目标或作品不一致，未保存结果。')
+    // A CodeSuiteRef has no task_code; validate its result against the suite binding.
+    // The two assessment kinds are mutually exclusive and each binds the frozen work.
+    const suiteRequested = !!task && !('task_code' in task)
+    if ((suiteRequested || result.suite_assessment) && !hasCodeSuiteBinding({ ...attempt, result })) throw new Error('独立语义核验与活动、目标或作品不一致，未保存结果。')
+    if (!suiteRequested && !result.suite_assessment && (task || result.task_assessment) && !hasCodeAssessmentBinding({ ...attempt, result })) throw new Error('课程核验与活动、目标或作品不一致，未保存结果。')
     return { result, acknowledge: async () => { await readJson(await fetch(`${root}/${terminal.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers, body: JSON.stringify({ expected_revision: terminal.revision }) })) } }
   } catch (error) {
     if (!operation && !renewed && error instanceof ApiRequestError && (

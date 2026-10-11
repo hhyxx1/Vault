@@ -4,11 +4,15 @@ import { liveQuery } from 'dexie'
 import { useLocal } from '../local/LocalProvider'
 import { database, saveCodeAttempt, saveCodeDraft } from '../local/database'
 import { canonicalHash, canonicalJson } from '../domain/integrity'
-import type { CodeAttempt, CodeDraft, CodeRequest, CodeResult } from '../domain/code'
+import { SUITE_CONTEXT_TASK_CODE, type CodeAttempt, type CodeDraft, type CodeRequest, type CodeResult, type CodeSuiteRef } from '../domain/code'
 import type { AtlasPackage, CourseCodeActivity, CodeVariant } from '../domain/course-packages'
 import { registerIdentityFlusher } from '../local/identity'
 import { runCode } from '../api/verification'
+import { hasCodeSuiteBinding } from '../domain/code-assessment'
 import ProcessorTrace from './ProcessorTrace'
+
+const criterionName: Record<string, string> = { fixed_condition: '本次条件', explanation: '原理解释', independent_transfer: '独立迁移' }
+const criterionState: Record<string, string> = { met: '满足', not_met: '未满足', needs_review: '待复核' }
 
 const templates: Record<CodeRequest['language'], { entry: string; source: string; label: string }> = {
   c17: { entry: 'main.c', source: '#include <stdio.h>\nint main(void) { printf("%d\\n", 2+3); return 0; }\n', label: 'C17' },
@@ -31,6 +35,8 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
   const task = lesson?.variant ?? lesson?.activity
   const taskCode = lesson?.variant?.code ?? 'base'
   const activityKey = lesson ? `${lesson.activity.version_id}:${taskCode}` : (params.get('activity') ?? 'independent-code-practice').slice(0, 200)
+  const suiteMeta = lesson?.activity.semantic_suite ?? null
+  const suiteActivityKey = lesson ? `${lesson.activity.version_id}:${SUITE_CONTEXT_TASK_CODE}` : ''
   const fromDraft = params.get('fromDraft'); const revision = params.get('revision')
   const context = `${spaceId}:${activityKey}:${fromDraft ?? ''}:${revision ?? ''}`; const currentContext = useRef(context); currentContext.current = context
   const aborter = useRef<AbortController | null>(null)
@@ -38,6 +44,7 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
   const [file, setFile] = useState('main.py'); const [newFilename, setNewFilename] = useState('')
   const [history, setHistory] = useState<CodeAttempt[]>([]); const [selected, setSelected] = useState<CodeAttempt | null>(null)
   const [ready, setReady] = useState(false); const [busy, setBusy] = useState(false); const [message, setMessage] = useState('')
+  const [suiteRows, setSuiteRows] = useState<CodeAttempt[]>([]); const [suiteBusy, setSuiteBusy] = useState(false)
   const loaded = useRef(false)
   const [prediction, setPrediction] = useState(''); const [reflection, setReflection] = useState('')
   const [reflections, setReflections] = useState<Record<string, string>>({})
@@ -80,6 +87,16 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
     })
     return () => { subscription.unsubscribe(); aborter.current?.abort() }
   }, [spaceId, activityKey, fromDraft, revision, context])
+  useEffect(() => {
+    if (!suiteMeta || !suiteActivityKey) { setSuiteRows([]); return }
+    const subscription = liveQuery(async () => database.codeAttempts.where('spaceId').equals(spaceId).toArray()).subscribe({
+      next: (rows) => {
+        if (currentContext.current !== context) return
+        setSuiteRows(rows.filter(row => row.activityKey === suiteActivityKey).sort((a, b) => b.createdAt.localeCompare(a.createdAt)))
+      }, error: () => { /* Suite history is supplementary; the fixed-task workspace stays usable. */ },
+    })
+    return () => subscription.unsubscribe()
+  }, [spaceId, suiteActivityKey, suiteMeta, context])
   useEffect(() => { if (!ready || !loaded.current) return; if (snapshot === lastSaved.current) { setSaveState('saved'); return } persist(valueRef.current).catch(() => undefined) }, [ready, snapshot, persist])
   useEffect(() => registerIdentityFlusher(async () => { aborter.current?.abort(); if (loaded.current) await persist(valueRef.current) }), [persist])
   useEffect(() => {
@@ -93,6 +110,11 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
     window.addEventListener('beforeunload', prevent); return () => window.removeEventListener('beforeunload', prevent)
   }, [busy, saveState, snapshot])
   const locked = !!selected || busy || !ready
+  const suiteLatest = suiteRows.find(row => row.result?.suite_assessment) ?? null
+  const suiteResult = suiteLatest?.result?.suite_assessment ?? null
+  const suiteIndependent = suiteResult ? { met: suiteResult.cases.filter(c => c.kind === 'independent' && c.status === 'met').length, not: suiteResult.cases.filter(c => c.kind === 'independent' && c.status === 'not_met').length, review: suiteResult.cases.filter(c => c.kind === 'independent' && c.status === 'needs_review').length, total: suiteResult.cases.filter(c => c.kind === 'independent').length } : null
+  const suiteFixed = suiteResult?.criteria.find(row => row.id === 'fixed_condition') ?? null
+  const suiteEnvironmentIncomplete = !!suiteResult && suiteResult.cases.some(c => c.status === 'needs_review')
   async function submit() {
     if (!ready || busy || selected?.result) return
     const captured = context; const controller = new AbortController(); aborter.current = controller
@@ -118,6 +140,32 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
       if (currentContext.current === captured) setMessage(controller.signal.aborted ? '已请求停止运行；代码版本仍保留本地。' : error instanceof Error ? error.message : '运行未完成，代码仍保留本地。')
     } finally { if (currentContext.current === captured) { setBusy(false); aborter.current = null } }
   }
+  async function runSuiteCheck() {
+    if (!lesson?.activity.semantic_suite || !selected || suiteBusy) return
+    const suite = lesson.activity.semantic_suite
+    if (selected.request.language !== suite.language) { setMessage(`独立语义核验只接受 ${templates[suite.language].label} 的作品，请把这一版切换为该语言后再核验。`); return }
+    const captured = context; const controller = new AbortController(); aborter.current = controller
+    setSuiteBusy(true); setMessage('这一版正在隔离环境中接受多组独立输入核验…')
+    try {
+      const normalized = { ...structuredClone(selected.request), stdin: selected.request.stdin ?? '' }
+      const stamp = new Date().toISOString()
+      const suiteContext = { courseId: lesson.course.course_id, courseVersionId: lesson.course.course_version_id, activityVersionId: lesson.activity.version_id, objectiveCode: lesson.objective, taskCode: SUITE_CONTEXT_TASK_CODE, helpViewed: [] as string[] }
+      const attempt: CodeAttempt = { id: crypto.randomUUID(), artifactId: selected.artifactId, spaceId, activityKey: suiteActivityKey, request: normalized, requestHash: await canonicalHash(normalized), result: null, resultTrust: null, createdAt: stamp, updatedAt: stamp, learning: { context: suiteContext, prediction: selected.learning?.prediction ?? '' } }
+      controller.signal.throwIfAborted()
+      const ref: CodeSuiteRef = { course_version_id: lesson.course.course_version_id, activity_version_id: lesson.activity.version_id, objective_code: lesson.objective }
+      const response = await runCode(attempt, controller.signal, ref)
+      controller.signal.throwIfAborted()
+      if (currentContext.current !== captured) return
+      const saved = await saveCodeAttempt({ ...attempt, result: boundedResult(response.result), updatedAt: new Date().toISOString() })
+      if (currentContext.current !== captured) return
+      setSuiteRows(previous => [saved, ...previous.filter(row => row.id !== saved.id)])
+      setMessage('独立语义核验完成，结果已保存为这一版的独立证据。')
+      await refresh()
+      await response.acknowledge().catch(() => { if (currentContext.current === captured) setMessage('核验结果已保存；临时服务清理尚未确认，稍后由租约清理。') })
+    } catch (error) {
+      if (currentContext.current === captured) setMessage(controller.signal.aborted ? '已请求停止核验；原代码版本仍保留本地。' : error instanceof Error ? error.message : '独立语义核验未完成，代码仍保留本地。')
+    } finally { if (currentContext.current === captured) { setSuiteBusy(false); aborter.current = null } }
+  }
   function editNew() { setSelected(null); setReflection(''); setMessage('正在编辑新版本；点击保存并运行后保留这一版。') }
   async function disclose(id: string) {
     if (!learningContext || helpViewed.includes(id)) return
@@ -131,7 +179,7 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
       <div><h2>本次任务</h2><p>{task?.student_action}</p>
         <details><summary>需要时看原理与来源</summary>{lesson.activity.theory.map((text, index) => <p key={index}>{text}</p>)}<ul>{lesson.course.sources?.filter(source => lesson.activity.source_refs.includes(source.id)).map(source => <li key={source.id}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a><span>：{source.locator}</span></li>)}</ul></details>
       </div>
-      <aside><span className="small-tag">{lesson.activity.check_version ? '固定条件可核验 · 解释待复核' : '实践可用 · 目标评估待建设'}</span><details><summary>本活动的核验范围</summary><p className="muted">{lesson.activity.completion_limit}</p></details>
+      <aside><span className="small-tag">{lesson.activity.check_version ? '固定条件可核验 · 解释待复核' : '实践可用 · 目标评估待建设'}</span>{suiteMeta && <span className="small-tag">含保密独立输入的语义核验</span>}<details><summary>本活动的核验范围</summary><p className="muted">{lesson.activity.completion_limit}</p></details>
         <div className="code-course-help">{lesson.activity.hints?.map((hint, index) => <div key={index}>{helpViewed.includes(`hint-${index+1}`) ? <p>{hint}</p> : <button className="button secondary" onClick={() => disclose(`hint-${index+1}`)} disabled={!ready || busy}>查看提示 {index+1}</button>}</div>)}{task?.reference_answer && <div>{helpViewed.includes('answer') ? <><p>参考答案只供本活动自学对照，下一次运行仍使用你的作品。</p><pre>{Object.values(task.reference_answer.files).join('\n')}</pre></> : <button className="button secondary" onClick={() => disclose('answer')} disabled={!ready || busy}>查看参考答案</button>}</div>}</div>
         <nav aria-label="新条件练习">{lesson.activity.variants?.map(variant => <Link key={variant.code} to={`/learn/${lesson.objective}?courseVersion=${lesson.course.course_version_id}&task=${variant.code}`}>新条件：{variant.title}</Link>)}{lesson.variant && <Link to={`/learn/${lesson.objective}?courseVersion=${lesson.course.course_version_id}`}>返回基础任务</Link>}</nav>
       </aside>
@@ -156,6 +204,28 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
           <p className="muted">运行成功表示程序在这组输入下完成；课程目标还需要测试条件、解释和独立验证。</p>
           {task?.code.startsWith('processor-') && selected?.result && <ProcessorTrace key={selected.id} stdout={selected.result.stdout} />}
           {selected?.result?.task_assessment && <section aria-label="任务条件核验"><h3>任务条件核验</h3>{selected.result.task_assessment.criteria.map(row => <p key={row.id}><strong>{row.id === 'fixed_condition' ? '本次固定条件' : row.id === 'explanation' ? '原理解释' : '独立迁移'}：{row.status === 'met' ? '满足' : row.status === 'not_met' ? '未满足' : '待复核'}</strong><br/>{row.reason}</p>)}<p className="muted">{selected.resultTrust ? '账号恢复的客户端记录，需重新核验。' : '服务端按登记标准比较本次工具事实。'} 固定输出可被硬编码；不证明一般程序正确或独立掌握。</p></section>}
+          {suiteMeta && <section className="code-suite-check" aria-label="独立语义核验">
+            <h3>独立语义核验</h3>
+            <p className="muted">把这一版交给服务端在多组输入上真实运行：含 {suiteMeta.visible_cases.length} 个学习可见输入和 {suiteMeta.independent_case_count} 个对你保密的独立输入。独立输入与答案不公开，以防只对样例硬编码。{suiteMeta.scope_note}</p>
+            <div className="code-run-actions"><button className="button secondary" disabled={!ready || suiteBusy || !selected || selected.request.language !== suiteMeta.language} onClick={runSuiteCheck}>{suiteBusy ? '正在独立核验…' : '对这一版做独立语义核验'}</button>{suiteBusy && <button className="button secondary" onClick={() => aborter.current?.abort()}>停止核验</button>}</div>
+            {!selected && <p className="muted">先保存一版代码，再对该版本发起独立语义核验。</p>}
+            {selected && selected.request.language !== suiteMeta.language && <p className="muted">该核验仅支持 {templates[suiteMeta.language].label} 作品。</p>}
+            {suiteResult && suiteLatest && <>
+              {suiteLatest.resultTrust && <p className="muted">此记录来自账号恢复，需重新运行独立核验。</p>}
+              {suiteResult.suspected_hardcoding
+                ? <p className="suite-warning"><strong>疑似只针对样例硬编码：</strong>学习可见输入通过，但保密的独立输入未通过。请按规则实现一般逻辑，而不是只输出样例答案，修改后重新核验。</p>
+                : suiteFixed?.status === 'met'
+                  ? <p><strong>多组输入核验通过。</strong></p>
+                  : suiteFixed?.status === 'not_met'
+                    ? <p><strong>独立核验未通过：</strong>存在输出不符的输入，请对照反例修改后重新核验。</p>
+                    : <p><strong>部分用例未能完成核验（运行环境原因），不计为你的错误，请稍后重试。</strong></p>}
+              {suiteIndependent && <p className="muted">保密独立用例（输入与答案不公开）：共 {suiteIndependent.total}，通过 {suiteIndependent.met}、未通过 {suiteIndependent.not}、待环境复核 {suiteIndependent.review}。</p>}
+              <h4>学习可见输入明细</h4>
+              {suiteResult.cases.filter(c => c.kind === 'visible').map(c => <p key={c.case_code} className="suite-case"><strong>{c.status === 'met' ? '通过' : c.status === 'not_met' ? '不符' : '待复核'}</strong>（输入 {c.stdin.replace(/\n/g, ' ').trim()}）：期望 {c.expected_stdout.replace(/\n/g, ' ').trim() || '（空）'}，实际 {c.observed_stdout.replace(/\n/g, ' ').trim() || '（空）'}。{c.reason}</p>)}
+              {suiteResult.criteria.map(row => <p key={row.id}><strong>{criterionName[row.id] ?? row.id}：{criterionState[row.status] ?? row.status}</strong><br/>{row.reason}</p>)}
+              <p className="muted">由服务端受信检查器（{suiteResult.oracle_id}，{suiteResult.comparator} 比较）在隔离环境运行；{suiteEnvironmentIncomplete ? '环境未完成的用例不计为能力错误。' : ''}有限用例不证明一般正确，原理解释与独立迁移仍待复核，本核验不授予独立掌握。</p>
+            </>}
+          </section>}
           <label>运行后解释与下一步<textarea aria-label="运行后解释与下一步" placeholder={task?.reflection_prompt} maxLength={4000} disabled={!ready || busy} value={reflection} onChange={event => { const text = event.target.value; setReflection(text); if (selected) setReflections(previous => ({ ...previous, [selected.id]: text })) }}/></label>
         </section>
         <section><span className="eyebrow">VERSIONS / YOUR WORK</span><h2>已保存的尝试</h2>{history.length ? <ol className="code-version-list">{history.map((row, index) => <li key={row.id}><button disabled={busy} aria-pressed={selected?.id === row.id} onClick={() => { setSelected(row); setRequest(structuredClone(row.request)); setFile(row.request.entry); setPrediction(row.learning?.prediction ?? ''); setReflection(reflections[row.id] ?? ''); setMessage('正在查看已保存版本。') }}>{templates[row.request.language].label} · 第 {history.length-index} 版<span>{row.result ? statusNames[row.result.status] : '已保存 · 未取得结果'}</span></button></li>)}</ol> : <p>保存后可回来查看代码和运行结果。</p>}</section>

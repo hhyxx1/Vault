@@ -5,7 +5,7 @@ import type { PersonalAssist, PersonalAttempt, PersonalCourse, PersonalCourseVer
 import { completeLogicRows, type CourseAttempt } from '../domain/logic'
 import type { StructuredAttempt } from '../domain/structured'
 import { validateCodeRequest, type CodeAttempt, type CodeDraft } from '../domain/code'
-import { hasCodeAssessmentBinding } from '../domain/code-assessment'
+import { hasCodeAssessmentBinding, hasCodeSuiteBinding } from '../domain/code-assessment'
 import { canonicalHash } from '../domain/integrity'
 import { algebraSubmission, ALGEBRA_PREDICTIONS, type AlgebraAttempt } from '../domain/algebra'
 
@@ -95,6 +95,8 @@ export async function saveAlgebraAttempt(attempt: AlgebraAttempt, db = database)
 export async function saveCodeAttempt(attempt: CodeAttempt, db = database): Promise<CodeAttempt> {
   validateCodeRequest(attempt.request)
   if (attempt.result?.task_assessment && !hasCodeAssessmentBinding(attempt)) throw new Error('课程核验与作品的活动、目标或版本不一致。')
+  if (attempt.result?.suite_assessment && !hasCodeSuiteBinding(attempt)) throw new Error('独立语义核验与作品的活动、目标或版本不一致。')
+  if (attempt.result?.task_assessment && attempt.result.suite_assessment) throw new Error('一次代码结果不能同时携带固定核验与语义套件核验。')
   const request = { ...attempt.request, stdin: attempt.request.stdin ?? '' }
   if (await canonicalHash(request) !== attempt.requestHash) throw new Error('代码内容与提交摘要不一致。')
   if (attempt.result && (attempt.result.client_artifact_id !== attempt.artifactId || attempt.result.client_revision_id !== attempt.id || attempt.result.request_sha256 !== attempt.requestHash || attempt.result.mastery_asserted !== false)) throw new Error('运行结果与代码版本不一致。')

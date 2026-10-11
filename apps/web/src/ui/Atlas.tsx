@@ -6,7 +6,7 @@ import { summarizeObjectiveStates, courseRelationLabels, type ObjectiveState, ty
 import { logicObjectiveState, LOGIC_OBJECTIVE, LOGIC_VERSION, LOGIC_ACTIVITY, LOGIC_STANDARD } from '../domain/logic'
 import { currentStructuredAttempt } from '../domain/structured'
 import { structuredGoalEvidence, structuredObjectiveState } from '../domain/structured-evidence'
-import { currentCodeAssessment, codeObjectiveState } from '../domain/code-assessment'
+import { currentCodeAssessment, codeObjectiveState, currentSuiteAssessment, bestCodeObjectiveState } from '../domain/code-assessment'
 import { currentAlgebraAttempt } from '../domain/algebra'
 import { useLocal } from '../local/LocalProvider'
 import { AtlasMap } from './AtlasMap'
@@ -86,12 +86,13 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
   const states = data.course_code === 'CS03'
     ? new Map(data.objectives.map(goal => [goal.id, structuredStates.get(goal.id) ?? evidenceStates.get(goal.id) ?? 'unknown' as ObjectiveState]))
     : new Map(data.objectives.map(goal => [goal.id, goal.code === LOGIC_OBJECTIVE ? logicObjectiveState(currentLogic) : 'unknown' as ObjectiveState]))
-  for (const goal of data.objectives) { const code = currentCodeAssessment(codeAttempts, goal.code, data.course_version_id); if (code) states.set(goal.id, codeObjectiveState(code)) }
+  for (const goal of data.objectives) { const codeState = bestCodeObjectiveState(codeAttempts, goal.code, data.course_version_id); if (codeState !== 'unknown') states.set(goal.id, codeState) }
   for (const goal of data.objectives) {
     const activity = algebraActivityForObjective(data, goal.code)
     if (!activity) continue
     const algebra = currentAlgebraAttempt(algebraAttempts, goal.code, data.course_version_id, activity.version_id)
-    const code = currentCodeAssessment(codeAttempts, goal.code, data.course_version_id)
+    const suite = currentSuiteAssessment(codeAttempts, goal.code, data.course_version_id)
+    const code = suite ?? currentCodeAssessment(codeAttempts, goal.code, data.course_version_id)
     if (algebra && (!code || algebra.updatedAt >= code.updatedAt)) states.set(goal.id, algebra.result!.prediction_correct ? 'partial' : 'consolidate')
   }
   const stateOf = (code: string) => states.get(goals.get(code)?.id ?? '') ?? 'unknown'
@@ -140,15 +141,18 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
   const result = structuredIsLatest ? selectedStructured.result : selectedEvidence?.result ?? selectedLogic?.result
   const resultTimestamp = structuredIsLatest ? selectedStructured.submittedAt ?? selectedStructured.createdAt : selectedEvidence?.createdAt ?? selectedLogic?.updatedAt
   const selectedCode = selected ? currentCodeAssessment(codeAttempts, selected.code, data.course_version_id) : undefined
+  const selectedSuite = selected ? currentSuiteAssessment(codeAttempts, selected.code, data.course_version_id) : undefined
+  const latestCodeEvidence = selectedSuite ?? selectedCode
   const nativeActivity = algebraActivityForObjective(data, selected?.code ?? '')
   const selectedAlgebra = selected && nativeActivity ? currentAlgebraAttempt(algebraAttempts, selected.code, data.course_version_id, nativeActivity.version_id) : undefined
-  const nativeIsLatest = selectedAlgebra && (!selectedCode || selectedAlgebra.updatedAt >= selectedCode.updatedAt)
+  const nativeIsLatest = selectedAlgebra && (!latestCodeEvidence || selectedAlgebra.updatedAt >= latestCodeEvidence.updatedAt)
   const nativeCriteria = selectedAlgebra ? [
     { id: 'fixed_condition', status: selectedAlgebra.result!.prediction_correct ? 'met' as const : 'not_met' as const, reason: '已检查完整有限表并比较本版预测；一般证明、解释及独立迁移分开核验。' },
     ...selectedAlgebra.result!.criteria.filter(item => item.id === 'explanation' || item.id === 'independent_transfer'),
   ] : undefined
-  const goalCriteria = (nativeIsLatest ? nativeCriteria : undefined) ?? selectedCode?.result?.task_assessment?.criteria ?? (structuredIsLatest && selectedStructured.result && selected
+  const goalCriteria = (nativeIsLatest ? nativeCriteria : undefined) ?? selectedSuite?.result?.suite_assessment?.criteria ?? selectedCode?.result?.task_assessment?.criteria ?? (structuredIsLatest && selectedStructured.result && selected
     ? structuredGoalEvidence(selectedStructured.result, selected.code) : result?.criteria)
+  const suiteIndependentCounts = selectedSuite?.result?.suite_assessment ? (() => { const independent = selectedSuite.result!.suite_assessment!.cases.filter(c => c.kind === 'independent'); return { total: independent.length, met: independent.filter(c => c.status === 'met').length, not: independent.filter(c => c.status === 'not_met').length, review: independent.filter(c => c.status === 'needs_review').length } })() : null
   const otherRecords = selected ? data.course_code === 'CS03' ? evidence.filter(item => item.objectiveId === selected.code && item.id !== selectedEvidence?.id) : courseAttempts.filter(item => item.objectiveId === selected.code && item.result && item.id !== selectedLogic?.id) : []
   const submittedHelp = selectedEvidence ? help.filter(item => selectedEvidence.helpEventIds.includes(item.id)) : []
   const courseCodeActivity = codeActivityForObjective(data, selected?.code ?? '')
@@ -195,6 +199,11 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
           <details className="atlas-relations"><summary>知识关系与来源</summary><div className="focus-relations">{data.relations.filter(r => kinds.has(r.kind as RelationKind) && (r.from === selected.code || r.to === selected.code)).map((r, i) => <div className="focus-relation" key={i}><strong>{relationLabel(r.kind)}：{goals.get(r.from)?.title} {r.kind === 'conceptual_association' ? '↔' : '→'} {goals.get(r.to)?.title}</strong><small>来源：{r.source === 'engineering_example_pending_review' ? '工程关系样例，待教研审校' : r.source ?? '待补充'}</small><button type="button" className="related-goal-link" onClick={() => openGoal(r.from === selected.code ? r.to : r.from)}>查看「{goals.get(r.from === selected.code ? r.to : r.from)?.title}」</button></div>)}</div></details>
           {selectedAlgebra && <details className="inspector-evidence"><summary>本次有限运算表证据</summary><p>完整有限表与预测已核对；解释和独立新结构仍待验证。</p><p>没有将一次预测正确标记成掌握。</p><Link className="text-link" to={`/learn/${selected.code}?courseVersion=${data.course_version_id}`}>查看运算表与具体反例</Link></details>}
           {selectedCode && <details className="inspector-evidence"><summary>本次代码条件证据</summary><p>固定条件核验 · {new Date(selectedCode.updatedAt).toLocaleString('zh-CN')}</p><p>原理解释与独立迁移仍待复核；这里不是整项目标达标。</p><p>规则：{selectedCode.result!.task_assessment!.standard_version}；已用帮助 {selectedCode.learning?.context?.helpViewed.length ?? 0} 项。</p><Link className="text-link" to={`/learn/${selected.code}?courseVersion=${data.course_version_id}&task=${selectedCode.learning!.context!.taskCode}&revision=${selectedCode.id}`}>查看对应作品与实际结果</Link></details>}
+          {selectedSuite && selectedSuite.result?.suite_assessment && <details className="inspector-evidence" {...(selectedSuite.result.suite_assessment.suspected_hardcoding ? { open: true } : {})}><summary>独立语义核验证据</summary><p>多输入语义核验 · {new Date(selectedSuite.updatedAt).toLocaleString('zh-CN')}</p>{selectedSuite.result.suite_assessment.suspected_hardcoding
+            ? <p className="suite-warning"><strong>疑似只针对样例硬编码：</strong>学习可见输入通过，但保密独立输入未通过，请实现一般逻辑后重新核验。</p>
+            : <p>保密独立用例 {suiteIndependentCounts?.met ?? 0}/{suiteIndependentCounts?.total ?? 0} 通过{suiteIndependentCounts && suiteIndependentCounts.review > 0 ? `，${suiteIndependentCounts.review} 个待环境复核（不计为能力错误）` : ''}。</p>}
+            <p>独立输入与答案不公开；有限用例不证明一般正确，原理解释与独立迁移仍待复核，本核验不授予独立掌握。检查器 {selectedSuite.result.suite_assessment.oracle_id}（{selectedSuite.result.suite_assessment.comparator}）。</p>
+            <Link className="text-link" to={`/learn/${selected.code}?courseVersion=${data.course_version_id}`}>查看作品与逐用例核验结果</Link></details>}
           <Link className="text-link" to="/evidence">查看已有作品与核验</Link>
           <button type="button" className="atlas-back-map" onClick={() => {
             const node = canvas.current?.querySelector<HTMLButtonElement>('.map-point[aria-pressed=true], .goal-pick[aria-pressed=true]')

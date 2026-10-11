@@ -5,6 +5,17 @@ import type { CodeRequest } from './code'
 import type { AlgebraPrompt } from './algebra'
 export type CourseAlgebraActivity = { id: string; version_id: string; code: string; version: string; objective_codes: string[]; kind: 'finite_algebra'; title?: string; reference_note?: string; student_action: string; theory: string[]; source_refs: string[]; completion_limit: string; availability: 'practice_ready' | 'pending'; algebra_prompt: AlgebraPrompt }
 export type CodeVariant = { code: string; title: string; student_action: string; code_request: CodeRequest; reference_answer?: CodeRequest; prediction_prompt: string; reflection_prompt: string }
+/** Learning-visible discovery metadata only. Expected outputs and independent inputs never appear here. */
+export type PublicSemanticCase = { code: string; stdin: string }
+export type PublicSemanticSuite = {
+  standard_version: 'code-semantic-suite-v1'
+  oracle_id: string
+  comparator: 'exact' | 'integer' | 'number_tol' | 'token_multiset' | 'line_set' | 'sorted_lines'
+  language: CodeRequest['language']
+  visible_cases: PublicSemanticCase[]
+  independent_case_count: number
+  scope_note: string
+}
 export type CourseCodeActivity = {
   id: string; version_id: string; code: string; version: string; objective_codes: string[]
   kind: 'code'; availability: 'pending' | 'practice_ready'; title?: string
@@ -12,6 +23,7 @@ export type CourseCodeActivity = {
   prediction_prompt?: string; reflection_prompt?: string; hints?: string[]
   reference_answer?: CodeRequest; variants?: CodeVariant[]; source_refs: string[]; completion_limit: string
   check_version?: string | null
+  semantic_suite?: PublicSemanticSuite | null
 }
 
 export type AtlasGoal = { id: string; code: string; title: string; criteria: Array<{ id: string; title: string; verification: string }> }

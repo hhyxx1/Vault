@@ -1,6 +1,12 @@
 import type { components } from '../../../../packages/contracts/api.generated'
 export type CodeRequest = components['schemas']['CodeRequest']
 export type CodeResult = components['schemas']['CodeOperationResult']
+export type CodeTaskRef = components['schemas']['CodeTaskRef']
+export type CodeSuiteRef = components['schemas']['CodeSuiteRef']
+export type CodeSuiteAssessment = components['schemas']['CodeSuiteAssessment']
+export type CodeSuiteCase = components['schemas']['CodeSuiteCase']
+/** Learning-context taskCode marker for a semantic suite attempt (the suite ref itself carries no task_code). */
+export const SUITE_CONTEXT_TASK_CODE = 'semantic-suite'
 export type CodeLearningContext = {
   courseId: string; courseVersionId: string; activityVersionId: string
   objectiveCode: string; taskCode: string; helpViewed: string[]
