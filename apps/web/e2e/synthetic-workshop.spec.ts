@@ -87,6 +87,25 @@ test('synthetic code activity passes sidecar independent inputs without leaking 
   expect(await suite.textContent()).not.toContain('输入 61')
 })
 
+test('code help disclosure is versioned and bound to the saved evidence', async ({ page }) => {
+  test.setTimeout(150000)
+  await openTask(page)
+  // Disclose help BEFORE saving the revision, so it is attributable to this
+  // attempt (help opened after the run is not retroactively attached).
+  await page.getByRole('button', { name: '查看参考答案' }).click()
+  await expect(page.getByText('参考答案只供本活动自学对照')).toBeVisible()
+  await saveRevision(page, GENERAL_SOURCE)
+
+  await page.goto('/evidence')
+  const record = page.locator('.evidence-record', { hasText: '代码运行作品' }).first()
+  await record.getByText('查看源文件、输入与实际输出').click()
+  await expect(record).toContainText('此核验关联帮助')
+  await expect(record).toContainText('1 条帮助在本版本核验前披露')
+  await expect(record).toContainText('参考答案')
+  await expect(record).toContainText('内容版本 WORKSHOP-M01-O1-CODE@0.1.0')
+  await expect(record).toContainText('查看帮助不代表达标')
+})
+
 test('synthetic suite catches a program hardcoded to the visible samples', async ({ page }) => {
   test.setTimeout(150000)
   const suite = await openTask(page)

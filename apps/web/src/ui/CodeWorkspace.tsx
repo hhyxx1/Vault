@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useBlocker, useSearchParams } from 'react-router-dom'
 import { liveQuery } from 'dexie'
 import { useLocal } from '../local/LocalProvider'
-import { database, saveCodeAttempt, saveCodeDraft } from '../local/database'
+import { database, recordHelp, saveCodeAttempt, saveCodeDraft } from '../local/database'
 import { canonicalHash, canonicalJson } from '../domain/integrity'
-import { SUITE_CONTEXT_TASK_CODE, type CodeAttempt, type CodeDraft, type CodeRequest, type CodeResult, type CodeSuiteRef } from '../domain/code'
+import { buildCodeHelpEvent, SUITE_CONTEXT_TASK_CODE, type CodeAttempt, type CodeDraft, type CodeRequest, type CodeResult, type CodeSuiteRef } from '../domain/code'
 import type { AtlasPackage, CourseCodeActivity, CodeVariant } from '../domain/course-packages'
 import { registerIdentityFlusher } from '../local/identity'
 import { runCode } from '../api/verification'
@@ -168,9 +168,26 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
   }
   function editNew() { setSelected(null); setReflection(''); setMessage('正在编辑新版本；点击保存并运行后保留这一版。') }
   async function disclose(id: string) {
-    if (!learningContext || helpViewed.includes(id)) return
+    if (!learningContext || !lesson || helpViewed.includes(id)) return
     const next = [...helpViewed, id]
-    try { await persist({ ...valueRef.current, learningContext: { ...learningContext, helpViewed: next } }); setHelpViewed(next) } catch { /* Saved work remains visible; no disclosure without its local record. */ }
+    try {
+      await persist({ ...valueRef.current, learningContext: { ...learningContext, helpViewed: next } })
+      // Persist a versioned, time-stamped help snapshot (synced and restorable
+      // via the help table), matching the trace/algebra workspaces.
+      await recordHelp(buildCodeHelpEvent({
+        id: crypto.randomUUID(),
+        spaceId,
+        objective: lesson.objective,
+        courseVersion: lesson.course.course_version_id,
+        activityVersionId: lesson.activity.version_id,
+        activityVersion: lesson.activity.version,
+        helpId: id,
+        now: new Date().toISOString(),
+        revisionId: selected?.id,
+        artifactId: selected?.artifactId,
+      }))
+      setHelpViewed(next)
+    } catch { /* Saved work stays visible; no disclosure without its local record. */ }
   }
   return <div className="page code-workspace">
     <div className="eyebrow">PRACTICE / CODE & OBSERVATION</div>

@@ -1,4 +1,5 @@
 import type { components } from '../../../../packages/contracts/api.generated'
+import type { HelpEvent } from './learning'
 export type CodeRequest = components['schemas']['CodeRequest']
 export type CodeResult = components['schemas']['CodeOperationResult']
 export type CodeTaskRef = components['schemas']['CodeTaskRef']
@@ -36,4 +37,55 @@ export type CodeAttempt = {
   request: CodeRequest; requestHash: string; result: CodeResult | null
   resultTrust: string | null; createdAt: string; updatedAt: string
   learning?: { context: CodeLearningContext | null; prediction: string }
+}
+
+/**
+ * Build a versioned help-disclosure snapshot for a data-driven code activity.
+ * Help content (hints / reference answer) is immutable within an activity
+ * version, so the snapshot binds the disclosure to that activity version and
+ * course version. Mirrors the trace/algebra/logic workspaces that already call
+ * recordHelp; the event is synced/exported/restored through the help table and
+ * never grants mastery by itself.
+ */
+export function buildCodeHelpEvent(input: {
+  id: string; spaceId: string; objective: string
+  courseVersion: string; activityVersionId: string; activityVersion: string
+  helpId: string; now: string
+  revisionId?: string; artifactId?: string
+}): HelpEvent {
+  const event: HelpEvent = {
+    id: input.id,
+    spaceId: input.spaceId,
+    objectiveId: input.objective,
+    kind: input.helpId === 'answer' ? 'answer' : 'hint',
+    disclosureVersion: input.activityVersion,
+    createdAt: input.now,
+    courseVersion: input.courseVersion,
+    activityVersion: input.activityVersionId,
+  }
+  if (input.revisionId) event.revisionId = input.revisionId
+  if (input.artifactId) event.artifactId = input.artifactId
+  return event
+}
+
+/**
+ * Help disclosures that belong with a specific code attempt: same objective and
+ * immutable activity version, disclosed no later than when the attempt was last
+ * updated (so help opened after the run is not retroactively attached). Help
+ * from another objective/activity version is excluded even within one space.
+ */
+export function helpEventsForCodeAttempt(
+  events: HelpEvent[],
+  attempt: Pick<CodeAttempt, 'updatedAt' | 'learning'>,
+): HelpEvent[] {
+  const ctx = attempt.learning?.context
+  if (!ctx) return []
+  return events
+    .filter(
+      event =>
+        event.objectiveId === ctx.objectiveCode
+        && event.activityVersion === ctx.activityVersionId
+        && event.createdAt <= attempt.updatedAt,
+    )
+    .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
 }
