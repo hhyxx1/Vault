@@ -1,0 +1,398 @@
+{
+  "snapshot_date": "2026-10-10",
+  "note": "Inventory captured before handoff commits; preceding native algebra work was then committed as a649bf9. Recheck Git and processes. This is not an acceptance report.",
+  "workspace": "C:\\Users\\Remote\\.codex\\worktrees\\485f\\Vault",
+  "base_commit": "776f83806e25c47638b346b5cf49684e951786c4",
+  "intended_push": "mine HEAD:hyx_dev",
+  "git_status_before_handoff_commits": [
+    " M apps/web/e2e/course-all-objectives.spec.ts",
+    " M apps/web/src/api/verification.ts",
+    " M apps/web/src/domain/course-packages.ts",
+    " M apps/web/src/local/AuthProvider.tsx",
+    " M apps/web/src/local/LocalProvider.tsx",
+    " M apps/web/src/local/database.ts",
+    " M apps/web/src/local/sync.test.ts",
+    " M apps/web/src/local/sync.ts",
+    " M apps/web/src/styles.css",
+    " M apps/web/src/ui/Atlas.tsx",
+    " M apps/web/src/ui/CourseCodeWorkspace.tsx",
+    " M apps/web/src/ui/LocalSpace.tsx",
+    " M content/courses/scope-catalog.json",
+    " M document/course-reviews/13-course-core-coverage.csv",
+    " M packages/contracts/api.generated.ts",
+    " M packages/contracts/openapi.json",
+    " M services/backend/pyproject.toml",
+    " M services/backend/src/vault_backend/api.py",
+    " M services/backend/src/vault_backend/course_checks/algebra_submission.py",
+    " M services/backend/src/vault_backend/course_checks/generic_rules.py",
+    " M services/backend/src/vault_backend/course_packages.py",
+    " M services/backend/src/vault_backend/db.py",
+    " M services/backend/src/vault_backend/guests.py",
+    " M services/backend/src/vault_backend/responses.py",
+    " M services/backend/src/vault_backend/sync.py",
+    " M services/backend/src/vault_backend/sync_models.py",
+    " M services/backend/src/vault_backend/sync_schemas.py",
+    " M services/backend/tests/test_coverage_ledger.py",
+    " M services/backend/tests/test_cs05_code.py",
+    " M services/backend/tests/test_finite_algebra_submission.py",
+    " M services/backend/tests/test_postgres.py",
+    " M services/backend/tests/test_sync.py",
+    " M tools/curriculum/build_coverage_ledger.py",
+    "?? apps/web/e2e/course-algebra.spec.ts",
+    "?? apps/web/src/domain/algebra.test.ts",
+    "?? apps/web/src/domain/algebra.ts",
+    "?? apps/web/src/local/algebra-database.test.ts",
+    "?? apps/web/src/ui/AlgebraWorkspace.tsx",
+    "?? content/courses/CS05/CS05-core-practice-0.2.0/",
+    "?? document/course-reviews/CS05-algebra-desktop.png",
+    "?? document/course-reviews/CS05-algebra-mobile.png",
+    "?? document/course-reviews/test-runs/CS05_BACKEND_2026-10-10.txt",
+    "?? document/course-reviews/test-runs/CS05_NATIVE_2026-10-10.txt",
+    "?? document/handoff/",
+    "?? services/backend/backend-run.txt",
+    "?? services/backend/fixtures/course-code/CS05-algebra.json",
+    "?? services/backend/migrations/versions/0012_algebra_attempt.py",
+    "?? services/backend/tests/test_algebra_activity_contract.py",
+    "?? services/backend/tests/test_algebra_course_builder.py",
+    "?? services/backend/tests/test_algebra_guests.py",
+    "?? services/backend/tests/test_algebra_registry.py",
+    "?? services/backend/tests/test_algebra_sync.py",
+    "?? services/backend/tests/test_algebra_sync_postgres.py",
+    "?? tools/curriculum/build_cs05_algebra.py"
+  ],
+  "courses": [
+    {
+      "id": "21efb95b-2524-448d-9255-f8f3d239acc5",
+      "code": "CS01",
+      "title": "程序设计基础",
+      "version_id": "7ca20169-02d2-5719-b3f0-eff208ae89db",
+      "version": "CS01-core-practice-0.9.0",
+      "package_path": "CS01/CS01-core-practice-0.9.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 30,
+      "activity_count": 30,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "2f8ea3487030732c1f368795e34f066ee0c22d60203378e278da944fb342954f"
+    },
+    {
+      "id": "d79e8db8-043c-4849-83f6-b1a2e14f3b3f",
+      "code": "CS02",
+      "title": "面向对象程序设计",
+      "version_id": "a16d1fea-1350-5ca1-95b6-807decfc4ef4",
+      "version": "CS02-core-practice-0.2.0",
+      "package_path": "CS02/CS02-core-practice-0.2.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 24,
+      "activity_count": 24,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "fcc62813fc39c01ca2940117d770e7b5b986c0b0f27f4045ef23d1190e385f06"
+    },
+    {
+      "id": "e7b6a2d4-dee6-4ee6-98b5-13afc2c880ca",
+      "code": "CS03",
+      "title": "数据结构",
+      "version_id": "2ddb5945-157f-5611-bfed-e1e84b96f7cd",
+      "version": "CS03-core-practice-0.2.0",
+      "package_path": "CS03/CS03-core-practice-0.2.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 30,
+      "activity_count": 30,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "5e429d46cbb90c37f7d439e6c01ae94feaa70fee69733fec4f812f3e154a871f"
+    },
+    {
+      "id": "a187788b-a0cd-43cb-8a59-9897b1b1ff83",
+      "code": "CS04",
+      "title": "算法设计与分析",
+      "version_id": "4da3eccc-00df-539f-a517-870ea7d57c51",
+      "version": "CS04-core-practice-0.2.0",
+      "package_path": "CS04/CS04-core-practice-0.2.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 27,
+      "activity_count": 27,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "c62ecc9bfa69eea29dade7819a66789615dba29671ed896f4ea74ada751c2aff"
+    },
+    {
+      "id": "a8b2aaf5-25c5-4da6-893a-3e461b4654d5",
+      "code": "CS05",
+      "title": "离散数学",
+      "version_id": "1e629607-9d30-5859-8cfb-9a44829ad858",
+      "version": "CS05-core-practice-0.2.0",
+      "package_path": "CS05/CS05-core-practice-0.2.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 30,
+      "activity_count": 33,
+      "activity_kinds": [
+        "code",
+        "finite_algebra"
+      ],
+      "manifest_sha256": "53c63a2a95c38c6e4c58aa92712a70e2611dc5191c76ef1e29de73fa4b9b6e38"
+    },
+    {
+      "id": "bb42adbc-30f6-4548-8de7-6819e9e6b6b1",
+      "code": "CS06",
+      "title": "计算机组成原理",
+      "version_id": "f15331e5-ec8c-5dcd-9025-405430cd5b5e",
+      "version": "CS06-core-practice-0.2.0",
+      "package_path": "CS06/CS06-core-practice-0.2.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 27,
+      "activity_count": 27,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "4abbbbe9e6e766342d7315fa35c2d097990da4dba00466d6f917f97b794a827f"
+    },
+    {
+      "id": "d6041fd1-b631-4503-8e28-b042088ef0c9",
+      "code": "CS07",
+      "title": "操作系统",
+      "version_id": "8653760c-bf00-5358-88ec-df56160ecc65",
+      "version": "CS07-core-practice-0.1.0",
+      "package_path": "CS07/CS07-core-practice-0.1.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 27,
+      "activity_count": 27,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "4f0b65167098e2875ec5309c3f18b9c105480c82e499611b155be9f59fa2d28a"
+    },
+    {
+      "id": "3915babb-09a6-442b-ada7-ec0ef6271995",
+      "code": "CS08",
+      "title": "计算机网络",
+      "version_id": "d249cfd4-e3cf-590d-a636-8b35a2a0b281",
+      "version": "CS08-core-practice-0.1.0",
+      "package_path": "CS08/CS08-core-practice-0.1.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 30,
+      "activity_count": 30,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "f184a8fdf6922f2498926ea52afc7f95ccb0e0a3595f28cf3270eefaaf90753a"
+    },
+    {
+      "id": "2e914e04-c891-4380-a0db-7d99709c4b12",
+      "code": "CS09",
+      "title": "数据库",
+      "version_id": "93fe966e-55aa-5b49-9735-1dcd5e139fba",
+      "version": "CS09-core-practice-0.1.0",
+      "package_path": "CS09/CS09-core-practice-0.1.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 30,
+      "activity_count": 30,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "0b5a4d3ac513ba38fedcd1437093918b078b999bc6c2d6d3410dc3ddb6ad3b60"
+    },
+    {
+      "id": "1cf24f1b-317e-4fd5-add9-3362ea55939b",
+      "code": "CS10",
+      "title": "软件工程",
+      "version_id": "7caa7481-0e68-5666-9a24-8984e666d9c2",
+      "version": "CS10-core-practice-0.2.0",
+      "package_path": "CS10/CS10-core-practice-0.2.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 27,
+      "activity_count": 27,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "3eb92a47ca6ca45393d742c248d754354c2274d51a60350d1c3925911d98f8aa"
+    },
+    {
+      "id": "bf129bd2-7f6a-48a6-952b-25adb952d028",
+      "code": "CS11",
+      "title": "编译原理",
+      "version_id": "3d7622ca-492d-5f1e-83d4-bcb992d1d29c",
+      "version": "CS11-core-practice-0.2.0",
+      "package_path": "CS11/CS11-core-practice-0.2.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 27,
+      "activity_count": 27,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "82b1fcdc82a66d6e36ce09b5dcb29e810464cc82787570c0eb5697b736a31707"
+    },
+    {
+      "id": "cb74e6d0-2c7b-4cf9-a42e-de4d6b88a1fc",
+      "code": "CS12",
+      "title": "人工智能基础",
+      "version_id": "01e157b8-021c-53ca-b743-39af3957c3b1",
+      "version": "CS12-core-practice-0.2.0",
+      "package_path": "CS12/CS12-core-practice-0.2.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 27,
+      "activity_count": 27,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "65f379665b8e419b8f98094b2ef959c2e12d210181e03608c00aa22cefc16bbe"
+    },
+    {
+      "id": "0af5d8ff-4ed7-473f-b977-e21d6eb66ed1",
+      "code": "CS13",
+      "title": "机器学习基础",
+      "version_id": "8740a8e4-e93c-50ea-b6f2-7e74947686bb",
+      "version": "CS13-core-practice-0.3.0",
+      "package_path": "CS13/CS13-core-practice-0.3.0/manifest.json",
+      "full_course_available": false,
+      "objective_count": 30,
+      "activity_count": 30,
+      "activity_kinds": [
+        "code"
+      ],
+      "manifest_sha256": "bc79d5dfa1db0dcee7e5176de1d9dc90fe885db3c15f4ca9d438ad78d94344ef"
+    }
+  ],
+  "core_objectives": 366,
+  "complete_courses_Q0_Q5": 0,
+  "skills": [
+    {
+      "name": "find-skills",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\find-skills\\SKILL.md",
+      "sha256": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
+    },
+    {
+      "name": "frontend-design",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\frontend-design\\SKILL.md",
+      "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3"
+    },
+    {
+      "name": "data-visualization",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\data-visualization\\SKILL.md",
+      "sha256": "6e71d7fc7976d4949f77eb57cc6e2557bd8fc07cf513a793bc6a8d4b88f88b66"
+    },
+    {
+      "name": "node-link-and-diagram-layout",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\node-link-and-diagram-layout\\SKILL.md",
+      "sha256": "3da1d3c598ad9298ca49f8728d816490d542ca5eed2fe204e2790cb693fe5ece"
+    },
+    {
+      "name": "visualization-strategy-and-critique",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\visualization-strategy-and-critique\\SKILL.md",
+      "sha256": "71f6e7b4538d90b1d0350045e3f18bf5a4709bf06602925a2daf901f8bd2ac2c"
+    },
+    {
+      "name": "d3-data-visualization",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\d3-data-visualization\\SKILL.md",
+      "sha256": "1c735a00399eef9f63774f692a13c024380a331a44b1076ba72d440510f22b8f"
+    },
+    {
+      "name": "react-and-nextjs-data-visualization",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\react-and-nextjs-data-visualization\\SKILL.md",
+      "sha256": "95326e7c73c15919e60615314805197b52613fff167eecabecdba191230db7f8"
+    },
+    {
+      "name": "typescript-data-visualization-engineering",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\typescript-data-visualization-engineering\\SKILL.md",
+      "sha256": "9f48cf4ec5458e2d023ec4ed7765699a97c9c2f87b647fa4ac0ca01aa09379f5"
+    },
+    {
+      "name": "testing-data-visualizations",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\testing-data-visualizations\\SKILL.md",
+      "sha256": "fba1423c24dac1f401c76d85cbc39d7b354bd2fb18cc9055d62798e6cca6d28e"
+    },
+    {
+      "name": "accessibility-and-inclusive-visualization",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\accessibility-and-inclusive-visualization\\SKILL.md",
+      "sha256": "4b027cdceb71903dc24f9b4323344a77390fdf312fe4aeb0d2d4dd0f9628742a"
+    },
+    {
+      "name": "test-driven-development",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\test-driven-development\\SKILL.md",
+      "sha256": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d"
+    },
+    {
+      "name": "playwright-best-practices",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\playwright-best-practices\\SKILL.md",
+      "sha256": "42684b93abd595551d6f4b6949b951645503baa445aefa76aa2f0d52ddda2bf7"
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\vercel-react-best-practices\\SKILL.md",
+      "sha256": "71ed7794962fa6e803ee83030517b5b93a9f70fbfeb431ec4535c5480a8d8355"
+    },
+    {
+      "name": "web-design-guidelines",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\web-design-guidelines\\SKILL.md",
+      "sha256": "f4647ca866a3accf763777f83e7682954f0187cd6bea7eea0399796652414e8f"
+    },
+    {
+      "name": "postgresql-table-design",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\postgresql-table-design\\SKILL.md",
+      "sha256": "1e27b0fac6d88a710cd925b831608ca202c40ade4f4e285a8e027dcf2f9a44ea"
+    },
+    {
+      "name": "security-audit",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\security-audit\\SKILL.md",
+      "sha256": "5e3e96a1e438d8f35fef0a1e38f02d4f00e2bdf910401b7dfe00e6779c6dac85"
+    },
+    {
+      "name": "langgraph-fundamentals",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\langgraph-fundamentals\\SKILL.md",
+      "sha256": "193bea142c9df04abc44917fb96c0be53ec9b5c77f56670004d3c03c117fb990"
+    },
+    {
+      "name": "langgraph-persistence",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\langgraph-persistence\\SKILL.md",
+      "sha256": "0a9a4f36e6d7895a273ce0882655e57023d2d992d4fde8e033e2936ac1df789e"
+    },
+    {
+      "name": "langgraph-human-in-the-loop",
+      "entry": "C:\\Users\\Remote\\.codex\\skills\\langgraph-human-in-the-loop\\SKILL.md",
+      "sha256": "ce56e8ce58548dd1d7cb0d3e524cf546cef0c712e3c35d63fdd4ae354b40d3c1"
+    }
+  ],
+  "local_runtime": {
+    "web_port": 5176,
+    "api_port": 8000,
+    "worker_port": 8091,
+    "postgres_port": 5442,
+    "migration_head": "0012_algebra_attempt",
+    "dexie_schema_version": 10
+  },
+  "test_evidence": [
+    {
+      "file": "document/course-reviews/test-runs/CS05_BACKEND_2026-10-10.txt",
+      "passed": 417,
+      "skipped": 58
+    },
+    {
+      "file": "document/course-reviews/test-runs/CS05_NATIVE_2026-10-10.txt",
+      "passed": 6,
+      "skipped": 0
+    },
+    {
+      "source": "previous execution tool output, no separate raw log file",
+      "suite": "frontend vitest",
+      "passed": 104
+    },
+    {
+      "source": "previous execution tool output, no separate raw log file",
+      "suite": "CS05 new version author code browser walk",
+      "passed_tests": 1,
+      "objectives": 30
+    },
+    {
+      "source": "previous execution tool output, no separate raw log file",
+      "suite": "CS05-algebra Linux isolate author fixtures",
+      "passed_tests": 1,
+      "fixtures_executed": 120
+    }
+  ],
+  "code_checkpoint_commit": "a649bf9"
+}
