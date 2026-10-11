@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { buildCodeHelpEvent, helpEventsForCodeAttempt, type CodeAttempt } from './code'
-import type { HelpEvent } from './learning'
+import { helpEventsForContext, type HelpEvent } from './learning'
 
 const base = {
   id: 'help-1',
@@ -71,5 +71,23 @@ describe('helpEventsForCodeAttempt', () => {
 
   it('returns an empty list when the attempt carries no learning context', () => {
     expect(helpEventsForCodeAttempt(events, { updatedAt: '2026-10-10T10:00:00.000Z', learning: { context: null, prediction: '' } })).toEqual([])
+  })
+})
+
+describe('helpEventsForContext', () => {
+  const events: HelpEvent[] = [
+    helpEvent({ id: 'a', objectiveId: 'OBJ', activityVersion: 'v1', createdAt: '2026-10-10T08:00:00.000Z' }),
+    helpEvent({ id: 'b', objectiveId: 'OBJ', activityVersion: 'v2', createdAt: '2026-10-10T09:00:00.000Z' }),
+    helpEvent({ id: 'other', objectiveId: 'OTHER', activityVersion: 'v1', createdAt: '2026-10-10T09:30:00.000Z' }),
+  ]
+
+  it('matches every activity version when no version filter is given, but keeps objective and time bounds', () => {
+    const related = helpEventsForContext(events, { objectiveId: 'OBJ', before: '2026-10-10T10:00:00.000Z' })
+    expect(related.map(event => event.id)).toEqual(['a', 'b'])
+  })
+
+  it('includes a disclosure exactly at the cutoff time and excludes later ones', () => {
+    const related = helpEventsForContext(events, { objectiveId: 'OBJ', activityVersion: 'v1', before: '2026-10-10T08:00:00.000Z' })
+    expect(related.map(event => event.id)).toEqual(['a'])
   })
 })

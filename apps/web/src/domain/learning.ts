@@ -61,6 +61,27 @@ export type HelpEvent = {
   question?: string; reply?: string; nextAction?: string
   revisionId?: string; artifactId?: string; courseVersion?: string; activityVersion?: string
 }
+
+/**
+ * Help disclosures attributable to a specific attempt/result: same objective,
+ * optionally the same immutable activity version, and disclosed no later than
+ * `before` (so help opened after the run is not retroactively attached).
+ * Returns events ascending by disclosure time.
+ */
+export function helpEventsForContext(
+  events: HelpEvent[],
+  ref: { objectiveId: string; activityVersion?: string | null; before: string },
+): HelpEvent[] {
+  return events
+    .filter(
+      event =>
+        event.objectiveId === ref.objectiveId
+        && (ref.activityVersion ? event.activityVersion === ref.activityVersion : true)
+        && event.createdAt <= ref.before,
+    )
+    .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+}
+
 export type EvidenceRecord = {
   id: string; spaceId: string; objectiveId: string; revisionId: string
   revisionVersion: string; submittedAt: string

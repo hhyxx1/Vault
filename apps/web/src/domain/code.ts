@@ -1,5 +1,5 @@
 import type { components } from '../../../../packages/contracts/api.generated'
-import type { HelpEvent } from './learning'
+import { helpEventsForContext, type HelpEvent } from './learning'
 export type CodeRequest = components['schemas']['CodeRequest']
 export type CodeResult = components['schemas']['CodeOperationResult']
 export type CodeTaskRef = components['schemas']['CodeTaskRef']
@@ -80,12 +80,9 @@ export function helpEventsForCodeAttempt(
 ): HelpEvent[] {
   const ctx = attempt.learning?.context
   if (!ctx) return []
-  return events
-    .filter(
-      event =>
-        event.objectiveId === ctx.objectiveCode
-        && event.activityVersion === ctx.activityVersionId
-        && event.createdAt <= attempt.updatedAt,
-    )
-    .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+  return helpEventsForContext(events, {
+    objectiveId: ctx.objectiveCode,
+    activityVersion: ctx.activityVersionId,
+    before: attempt.updatedAt,
+  })
 }
