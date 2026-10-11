@@ -57,9 +57,9 @@ it('rejects recovered, misbound, spoofed or mastery-granting suite assessments',
   expect(currentSuiteAssessment([suiteAttempt()], 'goal', 'other')).toBeUndefined()
   const wrongMarker = suiteAttempt(); wrongMarker.learning!.context!.taskCode = 'base'
   expect(hasCodeSuiteBinding(wrongMarker)).toBe(false)
-  const spoofedProvenance = suiteAttempt(); spoofedProvenance.result!.suite_assessment!.provenance = 'client_reported'
+  const spoofedProvenance = suiteAttempt(); spoofedProvenance.result!.suite_assessment!.provenance = 'client_reported' as 'server_deterministic_checker'
   expect(hasCodeSuiteBinding(spoofedProvenance)).toBe(false)
-  const spoofedStandard = suiteAttempt(); spoofedStandard.result!.suite_assessment!.standard_version = 'code-fixed-condition-v1'
+  const spoofedStandard = suiteAttempt(); spoofedStandard.result!.suite_assessment!.standard_version = 'code-fixed-condition-v1' as 'code-semantic-suite-v1'
   expect(hasCodeSuiteBinding(spoofedStandard)).toBe(false)
   const grantsMastery = suiteAttempt(); (grantsMastery.result!.suite_assessment!.mastery_asserted as boolean) = true
   expect(hasCodeSuiteBinding(grantsMastery)).toBe(false)
