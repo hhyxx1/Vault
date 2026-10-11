@@ -4,16 +4,17 @@
 
 ## 当前检查点
 
-- 更新时间：2026-10-11（P0 收尾，#23–#28 全部 completed）
+- 更新时间：2026-10-11（#29 / P1 进行中：C02 语义核验后端核心已闭环并提交）
 - worktree：`C:\Users\Remote\.codex\worktrees\485f\Vault`（detached HEAD）
-- HEAD：`51f165a`；远端 `mine/hyx_dev = 8db1533`（https://github.com/hhyxx1/Vault.git）
-- **待推送**：`ae5fb1b`（本进度文档初版）、`c6988fe`（#27）、`51f165a`（#28）三个提交尚在本地；github.com:443 多次连接超时（国内网络瞬时问题，#26 曾推送成功）。网络恢复后执行 `git push mine HEAD:hyx_dev` 即可，勿换写法绕过。
+- HEAD：`40bac6d`；远端 `mine/hyx_dev = 8db1533`（https://github.com/hhyxx1/Vault.git）
+- **待推送**：`ae5fb1b`、`c6988fe`、`51f165a`、`9117abd`、`40bac6d` 五个提交尚在本地；github.com:443 仍连接超时/Connection reset（国内网络瞬时问题，#26 曾推送成功）。网络恢复后执行 `git push mine HEAD:hyx_dev` 一条命令推送全部，勿换写法绕过。
 - 本次新增提交（新→旧）：
+  - `40bac6d` feat(checks): C02 trusted semantic code suites with independent inputs（#29/C02 后端）
+  - `9117abd` docs(handoff): close P0（进度检查点）
   - `51f165a` chore(audit): calibrate 122-module task board from latest packages（#28）
   - `c6988fe` feat(evidence): surface native finite-algebra attempts on the evidence page（#27）
   - `ae5fb1b` docs(handoff): executor progress checkpoint（本文件初版）
   - `8db1533` feat(health): split isolated execution configured, healthy and production-ready state（#26，已推送）
-  - `14b073a` chore(cs05): archive reproducible 2026-10-11 test run evidence（已推送）
 
 ## 任务板状态（#23–#32）
 
@@ -23,7 +24,7 @@
 - #26 completed — health/ready 的 isolated_execution 不再写死 false，拆分为 configured / healthy / production_ready 三独立字段，并新增 worker 侧认证健康探针。
 - #27 completed — algebra_attempt 全站覆盖复核；唯一缺口（学习证据总页未展示代数实验）已补齐并加 e2e。
 - #28 completed — 逐课只读审计并校准 TASK_BOARD.csv：122 模块全 in_progress、source needs_audit、review blocked_external，无一项 verified。
-- #29 pending（**下一项，P1**）— 公共工程 C01–C08（课程包装配/语义核验升级/证据变体/审阅流/工具生命周期/多模型+Skill/教师 RAG/五类先修桥接）。
+- #29 in_progress（**P1**）— 公共工程 C01–C08。**C02 语义核验后端核心已完成并提交 `40bac6d`**（多输入+受信独立 oracle+替代正确解+反硬编码+环境故障不降级，13 测试，全量 440/58）；C02 端到端（服务端发现、前端触发/展示、证据落库与同步、真实 isolate 多 case）与 C01、C03–C08 待续。
 - #30–#32 pending — P2 CS05 其余原生模块+CS03 回填+五类桥接；P3–P5 其余 10 课；P6–P7 教师/自建课/RAG/多模型/Skill 与全面验收、UI 对照、最终报告。
 
 ## 已完成项与真实证据
@@ -34,7 +35,7 @@
 - 共享 pytest 临时目录 `%TEMP%\pytest-of-Remote` 权限损坏（WinError 5，疑似 WSL root 侧运行污染），导致 82 个 setup error。**后续所有后端 pytest 必须带专属 `--basetemp=%TEMP%\vault-pytest-<名>`**。
 
 ### 测试基线（2026-10-11 复现，原始日志已归档到 `document/course-reviews/test-runs/`）
-- 后端含 PG 全套：**427 passed / 58 skipped / 0 failed**（#26 前为 417/58，新增 10 个 health 测试）。58 skipped 为 Windows 主机上的 Linux/isolate 专用测试。
+- 后端含 PG 全套：**440 passed / 58 skipped / 0 failed**（C02 后基线；P0 末为 427/58，C02 新增 13 个语义套件测试）。58 skipped 为 Windows 主机上的 Linux/isolate 专用测试。
   - 复现 417 基线需配置可销毁测试库：`VAULT_TEST_DATABASE_URL=...vault_dev...@127.0.0.1:5442/vault_ci`、`VAULT_TEST_API_DATABASE_URL=...vault_api:ci-runtime-ephemeral-only.../vault_ci`、`VAULT_TEST_DATABASE_IS_DISPOSABLE=1`。容器内 vault_ci 已在 0012、vault_api 为 NOBYPASSRLS 非超管且已对 sync_object 等表授权（活动数据复用 sync_object 多态，无独立 algebra/code 表）。
 - 前端：typecheck 0 error；vitest **104 passed / 17 files**。
 - CS05 原生有限代数 e2e：**6 passed**（chromium 桌面 + mobile 各 3）。
@@ -59,9 +60,22 @@
 - 另有**独立工程样例**（未回填正式模块大纲）：`content/courses/CS03.structured-evidence.json`（CS03-STACK-01/02、CS03-QUEUE-01/02，共 5 个 trace/judge 活动）、`content/courses/CS05.logic-example.json`（CS05-LOGIC-01/02 真值表，engineering_example/pending）。
 - 校准口径（MODULE_WORKBOOK 枚举 verified/in_progress/blocked_external/needs_audit）：122 模块 module/theory/activity/check/variant/graph/integration 均 `in_progress`（有在位产物但八项未齐、无一闭环）；source `needs_audit`（未逐一联网核验来源）；review `blocked_external`（专业审校 unavailable、真实模型/生产为外部依赖）。**无任何一项或模块标 verified，未臆造来源、审校或学习效果。** evidence 列写客观数字，blocker/next_action 按学科原生缺口与 P 阶段给出，snapshot 引用统一指向最新包。
 
+### #29 / C02 语义核验后端核心（已提交 40bac6d）
+- 新增 `course_checks/semantic_suites.py`（standard `code-semantic-suite-v1`，provenance `server_deterministic_checker`）：
+  - 多输入：每套件分 `visible`（学习用，对学生可见）与 `independent`（服务端保留、不进公共 manifest、不随提交下发）两组用例，逐用例在隔离 worker 真实运行。
+  - 受信独立 oracle：`ORACLES` 为服务端白名单**纯函数**（无 eval/exec、非用户上传）；当前仅注册 `parking_fee_three_tier`（CS01-M03-O03 三级停车费，端点 ≤30→0、≤60→5、>60→10，规则据活动题面与 reference_answer 确证）。oracle 与套件绑定解耦：oracle_id 通用，SUITES 绑定具体不可变活动版本。
+  - 六种比较器接受替代正确解：exact / integer（容忍首尾空白、拒绝 "5.0"）/ number_tol / token_multiset（Counter 计重复）/ line_set / sorted_lines；未知 mode 抛 ValueError。
+  - 反硬编码：visible 全过而 independent 有 not_met → `suspected_hardcoding=True` 且 fixed_condition=not_met，理由含“硬编码”。
+  - 环境安全：environment_error / phase=cleanup / truncated / runner 抛异常 / request_sha256 不符 → 该用例及 fixed_condition 一律 needs_review，**绝不降级为学生错误**；编译/运行时/超时/资源限制判 not_met 并中文区分。
+  - 结论克制：explanation、independent_transfer 恒 needs_review（独立用例全过也仅称“有限用例”），mastery_asserted 恒 False；输出含每用例 expected/observed 反例、comparator、oracle_id、scope_note、representative_result（首个可见用例真实 CodeResult）。
+- 接线：`schemas.py` 新增 `CodeSuiteRef`（仅 course/activity/objective，**无 task_code、无 stdin**），`CodeSubmission.task` 改 `CodeTaskRef | CodeSuiteRef | None`；`guests.py` 入队前 `get_suite` 校验（未知/版本不符 404 `SEMANTIC_SUITE_UNAVAILABLE`、语言不符 400 `SEMANTIC_SUITE_LANGUAGE`，均不入队），`_run_code` 增 suite 多 case 分支并在结果放 `suite_assessment`；`responses.py` 新增 `CodeSuiteCase/CodeSuiteAssessment` 与 `CodeOperationResult.suite_assessment`；已重生成 `packages/contracts/openapi.json` 与 `api.generated.ts`。
+- 测试 `tests/test_semantic_suites.py` **13 passed**：比较器/替代格式、可见用例不暴露独立输入、未知套件 404、正确通用程序全过、端点逻辑错误（< 与 <=）反例、样例硬编码被独立输入抓出、编译/运行时/超时三类学生失败、环境故障 5 情形不降级、语言不符 400，以及 3 个 GuestLeaseStore 活路径（8 次真实 worker 调用覆盖 2 可见+6 独立、硬编码标记、未知套件在 worker 运行前 404）。
+- 验证：ruff 5 文件全过；后端全量 **440 passed/58 skipped/0 failed**；前端 typecheck 0（union 变化未破坏既有 CodeTaskRef 调用）。
+- **尚未接（下一增量）**：① 服务端/课程包下发“该目标有受信语义套件”的发现元数据（前端不得硬编码 UUID；manifest 只能声明可用性与可见用例，独立输入/期望绝不进 manifest）；② 前端 runCode 支持 CodeSuiteRef、CodeWorkspace“独立语义核验”入口与多 case/硬编码结果渲染（严格按设计稿）；③ suite_assessment 计入本地 codeAttempt 表+Dexie 迁移、云同步 union、证据页/图谱/导出/恢复（现 sync_schemas.py 仅认 result.task_assessment）；④ WSL 真实 isolate 多 case e2e。
+
 ## 在改文件 / 工作区
 
-- 工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。无其它未提交改动。
+- C02 增量已全部提交（40bac6d）。工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。无其它未提交改动。
 
 ## 运行中的服务与端口（完成后保持运行）
 
@@ -73,16 +87,16 @@
 
 ## 未解决问题 / 外部限制
 
-- **3 个本地提交（ae5fb1b/c6988fe/51f165a）待推送**：github.com:443 多次超时；网络恢复后 `git push mine HEAD:hyx_dev`，勿换写法绕过。
+- **5 个本地提交（ae5fb1b/c6988fe/51f165a/9117abd/40bac6d）待推送**：github.com:443 多次超时/Connection reset；网络恢复后 `git push mine HEAD:hyx_dev` 一条命令推送全部，勿换写法绕过。
 - 58 个 Linux/isolate 测试在 Windows 跳过；需在 WSL 按 RUNBOOK 第 5 节补跑（CS05 120 份工件，作者测试与开发 worker 不可共用 box 700，宜 fixture 指定 701 或串行）。
 - 合并 main 始终未授权（feature 分支不计 GitHub 贡献热力图）；需用户确认邮箱已验证后授权 push hyx_dev:main 或开 PR。
 - 真实专业审校、真实多模型密钥、生产部署为外部不可得条件；Q4/Q5 与真实模型联调须如实保留，不得伪造签署或删目标降标准。
 
 ## 下一条具体任务
 
-**P0（#23–#28）已全部完成。进入 #29 / P1 公共工程 C01–C08**（依 `EXECUTION_PLAN.md`，这是后续逐课量产的前置能力）：
+**当前在 #29 / P1，C02 后端核心已提交（40bac6d）。下一步把 C02 做端到端，并按依赖推进 C01、C03–C08：**
 
-1. 先读 `EXECUTION_PLAN.md` 的 C01–C08 与 9 步工单，按 TDD 逐项落地，优先 C02（把固定 stdout 核验升级为语义/不变量/轨迹/独立输入核验）与 C03（替代正确解 + 两类有意义错误 + 欺骗检查器的变体矩阵），再做 C01 课程包装配、C04 审阅流、C05 工具生命周期、C06 多模型/Skill 不提权、C07 教师 RAG 仅检索可见资料、C08 五类先修桥接。
-2. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复；新活动类型必须全链路接通（参照 #27 algebra_attempt 的覆盖清单）。
-3. 每闭环一项立即提交并尝试 `git push mine HEAD:hyx_dev`（先把滞留的 ae5fb1b/c6988fe/51f165a 推上去），同步更新 TASK_BOARD 与本文件。
+1. **C02 端到端（紧接）**：① 课程包活动声明受信语义套件的发现元数据（仅可用性/comparator/可见用例，独立输入与期望绝不进 manifest），重生成 catalog 静态 JSON 并加内容契约测试，后端以注册表为权威（manifest 谎报则 404）；② 前端 `runCode` 支持 CodeSuiteRef、CodeWorkspace 增“独立语义核验”入口并渲染多 case 通过/反例/硬编码警示（严格对齐设计稿，独立用例不展示输入）；③ suite_assessment 接入 codeAttempt 本地表 + Dexie 迁移、云同步 union（sync_schemas.py 现仅认 task_assessment）、证据页/图谱/导出/恢复，跨账号/迟到结果不误归属；④ WSL 真实 isolate worker 多 case e2e（box 701 或串行）。
+2. 此后按 `EXECUTION_PLAN.md` 推进 C01（数据驱动课程包/发布 + 不叫 CS01–13 的合成课，验证能力不依赖编号/固定 UUID）、C03（证据/帮助/独立变体/恢复矩阵）、C04 审阅流、C05 工具生命周期、C06 多模型/Skill 不提权、C07 教师 RAG 仅检索可见资料、C08 五类先修桥接。
+3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并尝试 `git push mine HEAD:hyx_dev`（先把滞留 5 个提交推上去），同步更新 TASK_BOARD 与本文件。
 4. 无专业审校、无真实模型密钥时完成工程与测试，但 Q4/Q5/真实联调如实保留 blocked_external，不伪造签署、不删目标、不降标准。
