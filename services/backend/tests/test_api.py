@@ -35,8 +35,76 @@ async def test_health_reports_partial_without_database(client):
     assert (await client.get("/api/v1/health/live")).json()["status"] == "alive"
     ready = await client.get("/api/v1/health/ready")
     assert ready.status_code == 503
-    assert ready.json()["features"]["accounts"] is False
-    assert ready.json()["features"]["isolated_execution"] is False
+    features = ready.json()["features"]
+    assert features["accounts"] is False
+    assert features["isolated_execution"] is False
+    assert features["isolated_execution_configured"] is False
+    assert features["isolated_execution_healthy"] is False
+    assert features["isolated_execution_production_ready"] is False
+
+
+async def test_health_reports_healthy_loopback_worker_without_production_gating():
+    from vault_backend.code_worker_client import CodeWorkerClient
+    from vault_backend.config import Settings
+
+    def handler(request):
+        assert request.url.path == "/v1/health"
+        return httpx.Response(
+            200, json={"status": "ready", "engine": "isolate", "available": True}
+        )
+
+    runner = CodeWorkerClient(
+        "http://127.0.0.1:8091",
+        "test-only-worker-token-" + "x" * 20,
+        transport=httpx.MockTransport(handler),
+    )
+    test_settings = Settings(
+        environment="test",
+        database_url="",
+        code_worker_url="http://127.0.0.1:8091",
+        code_worker_token="test-only-worker-token-" + "x" * 20,
+    )
+    app = create_app(test_settings, code_runner=runner)
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url=ORIGIN
+    ) as http:
+        ready = await http.get("/api/v1/health/ready")
+        features = ready.json()["features"]
+        # Loopback http in a non-production environment is usable for local
+        # development but must never self-certify as production ready.
+        assert features["isolated_execution"] is True
+        assert features["isolated_execution_configured"] is True
+        assert features["isolated_execution_healthy"] is True
+        assert features["isolated_execution_production_ready"] is False
+
+
+async def test_health_marks_configured_but_unreachable_worker_not_healthy():
+    from vault_backend.code_worker_client import CodeWorkerClient
+    from vault_backend.config import Settings
+
+    def handler(request):
+        raise httpx.ConnectError("worker down")
+
+    runner = CodeWorkerClient(
+        "http://127.0.0.1:8091",
+        "test-only-worker-token-" + "x" * 20,
+        transport=httpx.MockTransport(handler),
+    )
+    test_settings = Settings(
+        environment="test",
+        database_url="",
+        code_worker_url="http://127.0.0.1:8091",
+        code_worker_token="test-only-worker-token-" + "x" * 20,
+    )
+    app = create_app(test_settings, code_runner=runner)
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url=ORIGIN
+    ) as http:
+        features = (await http.get("/api/v1/health/ready")).json()["features"]
+        assert features["isolated_execution_configured"] is True
+        assert features["isolated_execution_healthy"] is False
+        assert features["isolated_execution"] is False
+        assert features["isolated_execution_production_ready"] is False
 
 
 async def test_real_trace_and_sse_resume(client, trace_payload):

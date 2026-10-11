@@ -110,3 +110,64 @@ class CodeWorkerClient:
                 else "invalid_result"
             }
             return failure
+
+    async def health(self) -> dict | None:
+        """Return the worker readiness report, or None when unreachable.
+
+        Cheap and read-only: it never submits a run and must not contend with
+        the worker's single in-flight job or with its isolate box.
+        """
+        try:
+            async with httpx.AsyncClient(
+                transport=self.transport,
+                trust_env=False,
+                timeout=httpx.Timeout(5.0, connect=2.0),
+            ) as http:
+                reply = await http.get(
+                    self.url + "/v1/health",
+                    headers={"Authorization": "Bearer " + self.token},
+                )
+        except (httpx.HTTPError, ValueError):
+            return None
+        if reply.status_code != 200:
+            return None
+        try:
+            return reply.json()
+        except ValueError:
+            return None
+
+
+async def assess_code_execution(
+    *,
+    code_worker_url: str | None,
+    environment: str,
+    client: CodeWorkerClient | None,
+) -> dict:
+    """Split isolated execution readiness into independently testable states.
+
+    - configured: a worker URL/token pair is present on the API process;
+    - healthy: the worker answered the authenticated readiness probe and its
+      isolate runtime is actually available;
+    - production_ready: additionally requires an https worker gateway and the
+      production environment (loopback http development is never production).
+    """
+    configured = client is not None and bool(code_worker_url)
+    report = await client.health() if configured else None
+    healthy = bool(
+        report is not None
+        and report.get("status") == "ready"
+        and report.get("available") is True
+    )
+    scheme = urlsplit(code_worker_url).scheme.lower() if code_worker_url else ""
+    production_ready = (
+        configured
+        and healthy
+        and environment == "production"
+        and scheme == "https"
+    )
+    return {
+        "configured": configured,
+        "healthy": healthy,
+        "production_ready": production_ready,
+        "engine": (report or {}).get("engine"),
+    }

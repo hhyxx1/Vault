@@ -17,7 +17,7 @@ from vault_backend.agent_gateway import ModelRouter
 from vault_backend.auth import AuthService
 from vault_backend.auth import router as auth_router
 from vault_backend.checker import canonical_hash
-from vault_backend.code_worker_client import CodeWorkerClient
+from vault_backend.code_worker_client import CodeWorkerClient, assess_code_execution
 from vault_backend.config import Settings
 from vault_backend.content import CourseRepository
 from vault_backend.course_checks.algebra_submission import AlgebraRegistry, AlgebraSubmission
@@ -74,18 +74,25 @@ def mutation_origin(request: Request) -> str:
     return origin
 
 
+_RUNNER_UNSET = object()
+
+
 def create_app(
     settings: Settings | None = None,
     store: GuestLeaseStore | None = None,
     assist_runner: Any | None = None,
+    code_runner: Any = _RUNNER_UNSET,
 ) -> FastAPI:
     settings = settings or Settings()
     content = CourseRepository(settings.course_catalog_path)
-    code_runner = (
-        CodeWorkerClient(settings.code_worker_url, settings.code_worker_token.get_secret_value())
-        if settings.code_worker_url and settings.code_worker_token
-        else None
-    )
+    if code_runner is _RUNNER_UNSET:
+        code_runner = (
+            CodeWorkerClient(
+                settings.code_worker_url, settings.code_worker_token.get_secret_value()
+            )
+            if settings.code_worker_url and settings.code_worker_token
+            else None
+        )
     store = store or GuestLeaseStore(
         settings,
         trace_context=content.trace_context,
@@ -202,6 +209,11 @@ def create_app(
     @app.get("/api/v1/health/ready", tags=["Health"])
     async def ready():
         ready = await database_ready(engine)
+        execution = await assess_code_execution(
+            code_worker_url=settings.code_worker_url,
+            environment=settings.environment,
+            client=code_runner,
+        )
         return JSONResponse(
             status_code=200 if ready else 503,
             content={
@@ -215,7 +227,14 @@ def create_app(
                     "accounts": ready and settings.auth_enabled,
                     "sync": ready and settings.auth_enabled,
                     "agent": settings.agent_enabled and assist_runner is not None,
-                    "isolated_execution": False,
+                    # The boolean reports whether isolated execution is usable now.
+                    # The explicit fields separate configuration, runtime health and
+                    # production gating, so a constant false never reads as
+                    # "worker unconfigured" and loopback http never reads as production.
+                    "isolated_execution": execution["healthy"],
+                    "isolated_execution_configured": execution["configured"],
+                    "isolated_execution_healthy": execution["healthy"],
+                    "isolated_execution_production_ready": execution["production_ready"],
                     "rag": False,
                 },
             },

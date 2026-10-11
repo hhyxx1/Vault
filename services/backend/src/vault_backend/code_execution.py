@@ -286,6 +286,27 @@ class IsolateWorker:
             runtime_profile=profile,
         )
 
+    def _isolate_available(self) -> bool:
+        # Same short-circuit order as execution: platform first so os.geteuid is
+        # never evaluated on Windows (the attribute does not exist there).
+        return sys.platform == "linux" and os.geteuid() == 0 and Path(self.isolate).is_file()
+
+    def execution_support(self) -> dict:
+        """Side-effect-free readiness report; never initialises or locks the box.
+
+        A reachable worker process plus a present isolate binary is reported as
+        available. It does not execute learner code and never contends with a
+        running job for box 700, so /v1/health stays cheap and concurrency-safe.
+        """
+        isolate_present = Path(self.isolate).is_file()
+        return {
+            "engine": "isolate",
+            "available": self._isolate_available(),
+            "box_id": self.box_id,
+            "isolate_present": isolate_present,
+            "privileged": bool(sys.platform == "linux" and os.geteuid() == 0),
+        }
+
     async def run(self, request: CodeRequest) -> CodeResult:
         profile = request.language + "-isolate-dev@0.1.0"
         snapshot_hash = request_hash(request)
@@ -295,7 +316,7 @@ class IsolateWorker:
             runtime_profile=profile,
             request_sha256=snapshot_hash,
         )
-        if sys.platform != "linux" or os.geteuid() != 0 or not Path(self.isolate).is_file():
+        if not self._isolate_available():
             return failure
         import fcntl
 

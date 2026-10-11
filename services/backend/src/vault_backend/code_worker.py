@@ -47,6 +47,18 @@ def create_worker_app(token: str, controller: Controller | None = None) -> FastA
         if not secrets.compare_digest(authorization.encode(), ("Bearer " + token).encode()):
             raise HTTPException(401, "worker authentication required")
 
+    @app.get("/v1/health")
+    async def worker_health(request: Request):
+        # Authenticated like every other worker route: readiness must not expose
+        # engine topology or box identity to unauthenticated callers. It never
+        # runs learner code and never allocates or locks the single isolate box.
+        authenticate(request)
+        reporter = getattr(runner, "execution_support", None)
+        if reporter is None:
+            # Test doubles only implement run(); report a generic ready process.
+            return {"status": "ready", "engine": "test-controller", "available": True}
+        return {"status": "ready", **reporter()}
+
     @app.post("/v1/runs/{job_id}/cancel")
     async def cancel(job_id: UUID, request: Request):
         authenticate(request)

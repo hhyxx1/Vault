@@ -1,4 +1,5 @@
 import asyncio
+import sys
 
 import httpx
 import pytest
@@ -62,6 +63,60 @@ async def test_worker_rejects_busy_and_oversized_requests_without_queue():
 def test_worker_requires_a_nonempty_private_token():
     with pytest.raises(ValueError):
         create_worker_app("")
+
+
+async def test_worker_health_requires_authentication_and_reports_process():
+    controller = Controller()
+    app = create_worker_app(TOKEN, controller)
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app), base_url="http://worker"
+    ) as client:
+        assert (await client.get("/v1/health")).status_code == 401
+        reply = await client.get("/v1/health", headers={"Authorization": "Bearer " + TOKEN})
+        assert reply.status_code == 200
+        body = reply.json()
+        assert body["status"] == "ready"
+        assert body["engine"] == "test-controller"
+        assert body["available"] is True
+        assert controller.calls == 0
+
+
+async def test_worker_health_reports_unavailable_engine_without_running_code():
+    class UnavailableEngine:
+        async def run(self, request):
+            raise AssertionError("health must never execute learner code")
+
+        def execution_support(self):
+            return {
+                "engine": "isolate",
+                "available": False,
+                "box_id": 700,
+                "isolate_present": False,
+                "privileged": False,
+            }
+
+    app = create_worker_app(TOKEN, UnavailableEngine())
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app), base_url="http://worker"
+    ) as client:
+        body = (
+            await client.get("/v1/health", headers={"Authorization": "Bearer " + TOKEN})
+        ).json()
+        assert body["status"] == "ready"
+        assert body["engine"] == "isolate"
+        assert body["available"] is False
+
+
+def test_real_isolate_worker_support_report_is_side_effect_free():
+    from vault_backend.code_execution import IsolateWorker
+
+    support = IsolateWorker(box_id=701).execution_support()
+    assert support["engine"] == "isolate"
+    assert support["box_id"] == 701
+    assert {"available", "isolate_present", "privileged"} <= set(support)
+    if sys.platform != "linux":
+        assert support["available"] is False
+        assert support["privileged"] is False
 
 
 async def test_disconnect_cancels_execution_and_waits_for_cleanup():

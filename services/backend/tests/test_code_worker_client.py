@@ -4,7 +4,15 @@ import httpx
 import pytest
 
 from vault_backend.code_execution import CodeRequest, request_hash
-from vault_backend.code_worker_client import CodeWorkerClient
+from vault_backend.code_worker_client import CodeWorkerClient, assess_code_execution
+
+
+class FakeHealth:
+    def __init__(self, report):
+        self._report = report
+
+    async def health(self):
+        return self._report
 
 
 async def test_worker_client_validates_binding_and_separates_transport_faults():
@@ -98,3 +106,100 @@ async def test_client_cancellation_requests_the_same_job_and_waits_for_receipt()
             task.cancel()
             with pytest.raises(asyncio.CancelledError):
                 await task
+
+
+async def test_worker_client_health_forwards_authenticated_report():
+    def handler(request):
+        assert request.url.path == "/v1/health"
+        assert request.headers["authorization"] == "Bearer test-only-token"
+        return httpx.Response(
+            200, json={"status": "ready", "engine": "isolate", "available": True}
+        )
+
+    client = CodeWorkerClient(
+        "http://127.0.0.1:8091", "test-only-token", transport=httpx.MockTransport(handler)
+    )
+    assert await client.health() == {
+        "status": "ready",
+        "engine": "isolate",
+        "available": True,
+    }
+
+
+async def test_worker_client_health_returns_none_without_retrying_or_leaking():
+    client = CodeWorkerClient(
+        "http://127.0.0.1:8091",
+        "test-only-token",
+        transport=httpx.MockTransport(lambda request: httpx.Response(500, text="worker secret")),
+    )
+    assert await client.health() is None
+
+    def broken(request):
+        raise httpx.ConnectError("worker down")
+
+    client = CodeWorkerClient(
+        "http://127.0.0.1:8091", "test-only-token", transport=httpx.MockTransport(broken)
+    )
+    assert await client.health() is None
+
+
+async def test_assess_unconfigured_worker_is_false_in_every_state():
+    result = await assess_code_execution(
+        code_worker_url=None, environment="test", client=None
+    )
+    assert result == {
+        "configured": False,
+        "healthy": False,
+        "production_ready": False,
+        "engine": None,
+    }
+
+
+async def test_assess_healthy_loopback_dev_is_usable_but_not_production_ready():
+    healthy = FakeHealth({"status": "ready", "engine": "isolate", "available": True})
+    result = await assess_code_execution(
+        code_worker_url="http://127.0.0.1:8091",
+        environment="development",
+        client=healthy,
+    )
+    assert result["configured"] is True
+    assert result["healthy"] is True
+    assert result["production_ready"] is False
+    assert result["engine"] == "isolate"
+
+
+async def test_assess_production_ready_requires_https_and_available_engine():
+    healthy = FakeHealth({"status": "ready", "engine": "isolate", "available": True})
+    loopback_http = await assess_code_execution(
+        code_worker_url="http://127.0.0.1:8091",
+        environment="production",
+        client=healthy,
+    )
+    assert loopback_http["production_ready"] is False
+
+    https_ready = await assess_code_execution(
+        code_worker_url="https://worker.example.test",
+        environment="production",
+        client=FakeHealth({"status": "ready", "engine": "isolate", "available": True}),
+    )
+    assert https_ready["production_ready"] is True
+
+    # A reachable process whose isolate engine is unavailable is not healthy and
+    # therefore cannot be production ready.
+    unavailable = await assess_code_execution(
+        code_worker_url="https://worker.example.test",
+        environment="production",
+        client=FakeHealth({"status": "ready", "engine": "isolate", "available": False}),
+    )
+    assert unavailable["healthy"] is False
+    assert unavailable["production_ready"] is False
+
+    # Configured URL but the probe fails (worker down / auth rejected).
+    unreachable = await assess_code_execution(
+        code_worker_url="http://127.0.0.1:8091",
+        environment="development",
+        client=FakeHealth(None),
+    )
+    assert unreachable["configured"] is True
+    assert unreachable["healthy"] is False
+    assert unreachable["production_ready"] is False
