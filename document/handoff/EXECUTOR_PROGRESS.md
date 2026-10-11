@@ -142,6 +142,7 @@
 - **同步完成的 C03 审计（结论：已满足，无需改动）**：
   - **作品不可覆写 / 迟到结果不覆盖 / 跨账号不回写**：`saveCodeAttempt`（database.ts）守卫与 `saveCourseAttempt` 对等——request hash 一致、result 必须绑定 client_artifact_id/client_revision_id/request_sha256 且 `mastery_asserted===false`、一旦 `old.result` 存在即冻结（成功或失败都不可改，只能新版本）、`assertActive` 隔离空间；既有 `local/code-attempt.test.ts` 已锁定改 request 拒、结果绑定不符拒、已核验后篡改 stdout 拒、跨空间拒。
   - **解释非空≠通过**：全部 7 类评估（trace、truth_table、brackets、structured_trace、algebra、code task `code_tasks.py:271`、semantic suite `semantic_suites.py:306`）的 explanation（及 independent_transfer）criterion 由受信代码恒置 `needs_review`（有解释）/`not_met`（无解释），**绝不 met**；侧车 pydantic 模型 `extra="forbid"` 且只有期望数据/独立输入字段，无任何 criterion/mastery 注入面，教师侧车无法把解释或独立迁移判为达标。
+  - **每目标独立迁移变体覆盖（新增只读审计 `tools/curriculum/audit_independent_coverage.py`）**：扫描 13 课（含归档版本共 44 个 manifest、741 个 code 活动），**366/366 个承载目标都有独立迁移通道，0 个仅靠单一固定 stdout**；每个 code 活动带 1–6 个迁移变体（共 872 个），全部含独立 `code_request`（0 个空摆设）。保密独立输入 semantic suite 目前仅 WORKSHOP 与 CS01 各 1 个，其逐课铺开属 #31 内容深化，不阻断 C03 的“变体覆盖”验收。
 
 ## 在改文件 / 工作区
 
@@ -167,7 +168,7 @@
 
 **C02 已完整闭环；C01 公共工程核心闭环（切片 A=dd4e976、切片 B=0202dd7、分发契约与归档=98e3e10，详见上文"C01"节）。当前在 #29 / P1，下一项做 C03，再按依赖推进 C04–C08：**
 
-1. **C03 证据/帮助/独立变体/恢复矩阵（进行中）**：②帮助版本化快照已闭环（c6c17f8，code 活动对齐 trace/algebra，证据页可追溯、随 sync/导出/恢复、不授权掌握）；④作品不可覆写/迟到结果/跨账号不回写守卫经审计+既有测试确认对等；“解释非空≠通过”经审计在 7 类评估与侧车模型上成立。**剩余子项**：③用脚本逐目标审计独立迁移变体覆盖（363 个 code 活动是否每个承载目标都有 semantic suite 或独立 variants，而非仅固定 stdout；缺口逐课补侧车/变体，属数据工作）；①证据页 truth_table/structured trace/algebra 字段与 code 对等复核（#27 已核 algebra，CS03 栈 U01–U05 可作模板）；“环境 profile 变化后旧运行结果提示需重新运行、不把旧日志当新运行”的展示增强（当前旧结果已冻结并标注 runtime_profile/时间，不会被当新运行，主动过期提示为增强项）。
+1. **C03 证据/帮助/独立变体/恢复矩阵（进行中）**：②帮助版本化快照已闭环（c6c17f8，code 活动对齐 trace/algebra，证据页可追溯、随 sync/导出/恢复、不授权掌握）；④作品不可覆写/迟到结果/跨账号不回写守卫经审计+既有测试确认对等；“解释非空≠通过”经审计在 7 类评估与侧车模型上成立。**剩余子项**：③独立迁移变体覆盖经审计已满足（366/366 目标、872 个带 code_request 的变体、0 缺口，见上文；semantic suite 逐课深化归 #31）。待办：①证据页 truth_table/structured trace 字段与 code/algebra 对等复核（#27 已核 algebra，CS03 栈 U01–U05 可作模板）；“环境 profile 变化后旧运行结果提示需重新运行、不把旧日志当新运行”的展示增强（当前旧结果已冻结并标注 runtime_profile/时间，不会被当新运行，主动过期提示为增强项）。
 2. 此后按 `EXECUTION_PLAN.md` 推进 C04 审阅流（E07 审阅与异议；无真实审阅者不得显示"已安排教师"/自动签名）、C05 工具生命周期（E03 SQL PG18/E04 Linux/E05 containerlab 首任务 A—R—B 回程路由/E06 python313ml）、C06 四职责多模型+教学 Skill（LangGraph，密钥后端保存脱敏导出，无密钥用夹具，如实 blocked_external）、C07 教师/自建课/RAG（含发布新版本自动归档、一目标多活动选择 UI、服务端按主体+可见性过滤）、C08 五类先修桥接（BR-JAVA/CPP/PY/MATH/SHELL，不计入 13 课分母）。
 3. C01 残留均有归属与契约守护：多活动选择 UI + 发布自动归档在 C07（出现真实数据/发布入口时做，契约测试会红灯引导）；13 课冻结规则逐课迁移侧车、下线 generic_rules 在 #31。
 3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并 `git push mine HEAD:hyx_dev`，同步更新 TASK_BOARD 与本文件。
