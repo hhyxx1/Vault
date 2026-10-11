@@ -112,13 +112,25 @@ class CodeTaskRef(WriteModel):
     task_code: str = Field(min_length=1, max_length=100)
 
 
+class CodeSuiteRef(WriteModel):
+    """Server-held semantic suite verification (C02).
+
+    No task_code/stdin: the trusted suite supplies visible and independent
+    inputs, so the client cannot choose or reveal the independent cases.
+    """
+
+    course_version_id: UUID
+    activity_version_id: UUID
+    objective_code: str = Field(min_length=1, max_length=80)
+
+
 class CodeSubmission(WriteModel):
     # Tool execution only: no client-supplied course grading standard.
     kind: Literal["run_code"] = "run_code"
     client_artifact_id: UUID
     client_revision_id: UUID
     code: CodeRequest
-    task: CodeTaskRef | None = None
+    task: CodeTaskRef | CodeSuiteRef | None = None
 
 
 class RevisionCommand(WriteModel):

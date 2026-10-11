@@ -16,6 +16,7 @@ from vault_backend.course_checks.brackets import (
     verify_bracket_judgements,
 )
 from vault_backend.course_checks.code_tasks import assess_task, resolve_task
+from vault_backend.course_checks.semantic_suites import get_suite, run_suite
 from vault_backend.course_checks.structured_trace import (
     TRUSTED_TRACE_SPECS,
     get_trace_spec,
@@ -25,6 +26,7 @@ from vault_backend.errors import ApiError
 from vault_backend.schemas import (
     BracketSubmission,
     CodeSubmission,
+    CodeSuiteRef,
     OperationInput,
     StructuredTraceSubmission,
     TraceSubmission,
@@ -350,7 +352,13 @@ class GuestLeaseStore:
                 self.algebra_registry.resolve(submission)
                 context = {"available": True}
             elif isinstance(submission, CodeSubmission):
-                if submission.task:
+                if isinstance(submission.task, CodeSuiteRef):
+                    get_suite(
+                        str(submission.task.course_version_id),
+                        submission.task.objective_code,
+                        str(submission.task.activity_version_id),
+                    )
+                elif submission.task:
                     resolve_task(
                         str(submission.task.course_version_id),
                         submission.task.objective_code,
@@ -412,6 +420,7 @@ class GuestLeaseStore:
             return self._snapshot(lease, op)
 
     async def _run_code(self, lease: Lease, op: Operation, submission: CodeSubmission):
+        suite_ref = isinstance(submission.task, CodeSuiteRef)
         failure = CodeResult(
             status="environment_error",
             phase="prepare",
@@ -419,12 +428,27 @@ class GuestLeaseStore:
             request_sha256=request_hash(submission.code),
         )
         try:
+            suite_assessment = None
             try:
-                result = await self.code_runner.run(submission.code)
-                if result.phase == "cleanup":
-                    self.code_cleanup_blocked = True
-                if result.request_sha256 != request_hash(submission.code):
-                    result = failure
+                if suite_ref:
+                    # Validated at enqueue time; re-resolve to bind this execution.
+                    suite = get_suite(
+                        str(submission.task.course_version_id),
+                        submission.task.objective_code,
+                        str(submission.task.activity_version_id),
+                    )
+                    suite_assessment = await run_suite(
+                        self.code_runner.run, submission.code, suite
+                    )
+                    result = CodeResult(**suite_assessment["representative_result"])
+                    if result.phase == "cleanup":
+                        self.code_cleanup_blocked = True
+                else:
+                    result = await self.code_runner.run(submission.code)
+                    if result.phase == "cleanup":
+                        self.code_cleanup_blocked = True
+                    if result.request_sha256 != request_hash(submission.code):
+                        result = failure
             except Exception:
                 if asyncio.current_task().cancelling():
                     self.code_cleanup_blocked = True
@@ -438,7 +462,10 @@ class GuestLeaseStore:
                         "client_artifact_id": str(submission.client_artifact_id),
                         "client_revision_id": str(submission.client_revision_id),
                     }
-                    if submission.task:
+                    if suite_assessment is not None:
+                        op.result["suite_assessment"] = suite_assessment
+                    elif not suite_ref and submission.task:
+                        # CodeSuiteRef with no assessment keeps the base failure result.
                         task = resolve_task(
                             str(submission.task.course_version_id),
                             submission.task.objective_code,

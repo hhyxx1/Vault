@@ -220,10 +220,37 @@ class CodeTaskAssessment(BaseModel):
     mastery_asserted: Literal[False]
 
 
+class CodeSuiteCase(BaseModel):
+    case_code: str = Field(max_length=100)
+    kind: Literal["visible", "independent"]
+    stdin: str = Field(max_length=16384)
+    expected_stdout: str
+    observed_status: str = Field(max_length=30)
+    observed_stdout: str
+    status: Literal["met", "not_met", "needs_review"]
+    reason: str = Field(max_length=500)
+
+
+class CodeSuiteAssessment(BaseModel):
+    course_version_id: str = Field(max_length=36)
+    activity_version_id: str = Field(max_length=36)
+    objective_code: str = Field(max_length=80)
+    standard_version: Literal["code-semantic-suite-v1"]
+    provenance: Literal["server_deterministic_checker"]
+    comparator: str = Field(max_length=40)
+    oracle_id: str = Field(max_length=80)
+    scope_note: str = Field(max_length=500)
+    suspected_hardcoding: bool
+    cases: list[CodeSuiteCase] = Field(min_length=1)
+    criteria: list[CodeTaskCriterion] = Field(min_length=3, max_length=3)
+    mastery_asserted: Literal[False]
+
+
 class CodeOperationResult(CodeResult):
     client_artifact_id: UUID
     client_revision_id: UUID
     task_assessment: CodeTaskAssessment | None = None
+    suite_assessment: CodeSuiteAssessment | None = None
 
 
 class OperationResponse(BaseModel):

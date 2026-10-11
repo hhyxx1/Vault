@@ -1061,6 +1061,16 @@
             "title": "Stdout",
             "type": "string"
           },
+          "suite_assessment": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CodeSuiteAssessment"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "task_assessment": {
             "anyOf": [
               {
@@ -1159,9 +1169,13 @@
                 "$ref": "#/components/schemas/CodeTaskRef"
               },
               {
+                "$ref": "#/components/schemas/CodeSuiteRef"
+              },
+              {
                 "type": "null"
               }
-            ]
+            ],
+            "title": "Task"
           }
         },
         "required": [
@@ -1170,6 +1184,182 @@
           "code"
         ],
         "title": "CodeSubmission",
+        "type": "object"
+      },
+      "CodeSuiteAssessment": {
+        "properties": {
+          "activity_version_id": {
+            "maxLength": 36,
+            "title": "Activity Version Id",
+            "type": "string"
+          },
+          "cases": {
+            "items": {
+              "$ref": "#/components/schemas/CodeSuiteCase"
+            },
+            "minItems": 1,
+            "title": "Cases",
+            "type": "array"
+          },
+          "comparator": {
+            "maxLength": 40,
+            "title": "Comparator",
+            "type": "string"
+          },
+          "course_version_id": {
+            "maxLength": 36,
+            "title": "Course Version Id",
+            "type": "string"
+          },
+          "criteria": {
+            "items": {
+              "$ref": "#/components/schemas/CodeTaskCriterion"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "title": "Criteria",
+            "type": "array"
+          },
+          "mastery_asserted": {
+            "const": false,
+            "title": "Mastery Asserted",
+            "type": "boolean"
+          },
+          "objective_code": {
+            "maxLength": 80,
+            "title": "Objective Code",
+            "type": "string"
+          },
+          "oracle_id": {
+            "maxLength": 80,
+            "title": "Oracle Id",
+            "type": "string"
+          },
+          "provenance": {
+            "const": "server_deterministic_checker",
+            "title": "Provenance",
+            "type": "string"
+          },
+          "scope_note": {
+            "maxLength": 500,
+            "title": "Scope Note",
+            "type": "string"
+          },
+          "standard_version": {
+            "const": "code-semantic-suite-v1",
+            "title": "Standard Version",
+            "type": "string"
+          },
+          "suspected_hardcoding": {
+            "title": "Suspected Hardcoding",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "course_version_id",
+          "activity_version_id",
+          "objective_code",
+          "standard_version",
+          "provenance",
+          "comparator",
+          "oracle_id",
+          "scope_note",
+          "suspected_hardcoding",
+          "cases",
+          "criteria",
+          "mastery_asserted"
+        ],
+        "title": "CodeSuiteAssessment",
+        "type": "object"
+      },
+      "CodeSuiteCase": {
+        "properties": {
+          "case_code": {
+            "maxLength": 100,
+            "title": "Case Code",
+            "type": "string"
+          },
+          "expected_stdout": {
+            "title": "Expected Stdout",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "visible",
+              "independent"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "observed_status": {
+            "maxLength": 30,
+            "title": "Observed Status",
+            "type": "string"
+          },
+          "observed_stdout": {
+            "title": "Observed Stdout",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 500,
+            "title": "Reason",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "met",
+              "not_met",
+              "needs_review"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "stdin": {
+            "maxLength": 16384,
+            "title": "Stdin",
+            "type": "string"
+          }
+        },
+        "required": [
+          "case_code",
+          "kind",
+          "stdin",
+          "expected_stdout",
+          "observed_status",
+          "observed_stdout",
+          "status",
+          "reason"
+        ],
+        "title": "CodeSuiteCase",
+        "type": "object"
+      },
+      "CodeSuiteRef": {
+        "additionalProperties": false,
+        "description": "Server-held semantic suite verification (C02).\n\nNo task_code/stdin: the trusted suite supplies visible and independent\ninputs, so the client cannot choose or reveal the independent cases.",
+        "properties": {
+          "activity_version_id": {
+            "format": "uuid",
+            "title": "Activity Version Id",
+            "type": "string"
+          },
+          "course_version_id": {
+            "format": "uuid",
+            "title": "Course Version Id",
+            "type": "string"
+          },
+          "objective_code": {
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Objective Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "course_version_id",
+          "activity_version_id",
+          "objective_code"
+        ],
+        "title": "CodeSuiteRef",
         "type": "object"
       },
       "CodeTaskAssessment": {

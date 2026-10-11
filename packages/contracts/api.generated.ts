@@ -1086,6 +1086,7 @@ export interface components {
              * @default
              */
             stdout: string;
+            suite_assessment?: components["schemas"]["CodeSuiteAssessment"] | null;
             task_assessment?: components["schemas"]["CodeTaskAssessment"] | null;
             /**
              * Truncated
@@ -1130,7 +1131,90 @@ export interface components {
              * @enum {string}
              */
             kind: "run_code";
-            task?: components["schemas"]["CodeTaskRef"] | null;
+            /** Task */
+            task?: components["schemas"]["CodeTaskRef"] | components["schemas"]["CodeSuiteRef"] | null;
+        };
+        /** CodeSuiteAssessment */
+        CodeSuiteAssessment: {
+            /** Activity Version Id */
+            activity_version_id: string;
+            /** Cases */
+            cases: components["schemas"]["CodeSuiteCase"][];
+            /** Comparator */
+            comparator: string;
+            /** Course Version Id */
+            course_version_id: string;
+            /** Criteria */
+            criteria: components["schemas"]["CodeTaskCriterion"][];
+            /**
+             * Mastery Asserted
+             * @constant
+             */
+            mastery_asserted: false;
+            /** Objective Code */
+            objective_code: string;
+            /** Oracle Id */
+            oracle_id: string;
+            /**
+             * Provenance
+             * @constant
+             */
+            provenance: "server_deterministic_checker";
+            /** Scope Note */
+            scope_note: string;
+            /**
+             * Standard Version
+             * @constant
+             */
+            standard_version: "code-semantic-suite-v1";
+            /** Suspected Hardcoding */
+            suspected_hardcoding: boolean;
+        };
+        /** CodeSuiteCase */
+        CodeSuiteCase: {
+            /** Case Code */
+            case_code: string;
+            /** Expected Stdout */
+            expected_stdout: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "visible" | "independent";
+            /** Observed Status */
+            observed_status: string;
+            /** Observed Stdout */
+            observed_stdout: string;
+            /** Reason */
+            reason: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "met" | "not_met" | "needs_review";
+            /** Stdin */
+            stdin: string;
+        };
+        /**
+         * CodeSuiteRef
+         * @description Server-held semantic suite verification (C02).
+         *
+         *     No task_code/stdin: the trusted suite supplies visible and independent
+         *     inputs, so the client cannot choose or reveal the independent cases.
+         */
+        CodeSuiteRef: {
+            /**
+             * Activity Version Id
+             * Format: uuid
+             */
+            activity_version_id: string;
+            /**
+             * Course Version Id
+             * Format: uuid
+             */
+            course_version_id: string;
+            /** Objective Code */
+            objective_code: string;
         };
         /** CodeTaskAssessment */
         CodeTaskAssessment: {
