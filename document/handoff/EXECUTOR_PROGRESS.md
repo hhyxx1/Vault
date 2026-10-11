@@ -4,15 +4,16 @@
 
 ## 当前检查点
 
-- 更新时间：2026-10-11（#29 / P1：**C01 数据驱动课程包切片 A（服务端受信配置侧车）与切片 B（非 CS 编号合成课 + extra_courses 三分区）已闭环并推送**；C02 语义核验此前已完整闭环）
+- 更新时间：2026-10-11（#29 / P1：**C01 公共工程核心闭环**——切片 A 受信配置侧车、切片 B 非 CS 编号合成课 + extra_courses 三分区、分发契约与归档审计；C02 语义核验此前已完整闭环。下一项 C03）
 - worktree：`C:\Users\Remote\.codex\worktrees\485f\Vault`（detached HEAD）
-- HEAD：`0202dd7`；远端 `mine/hyx_dev = 0202dd7`（https://github.com/hhyxx1/Vault.git），**本会话提交已全部推送成功**（`git push mine HEAD:hyx_dev` → `7b6da20..0202dd7`）。
+- HEAD：`98e3e10`；远端 `mine/hyx_dev`（https://github.com/hhyxx1/Vault.git）。
 - 复核报告：`document/handoff/EXECUTOR_FINAL_REPORT.md`（阶段性；13 课端到端未完成，已如实界定，全部完成后重写）。
-- C01 本次新增提交（新→旧，均已推送）：
+- C01 本次新增提交（新→旧）：
+  - `98e3e10` test(c01): 一目标一活动分发契约 + 侧车多对多绑定守卫（+5 测试）
   - `0202dd7` C01 slice B: synthetic workshop course and data-driven extra_courses（合成课 + 三分区 + 前端数据驱动 + e2e）
   - `dd4e976` C01 slice A: server-side trusted check config sidecar（受信配置侧车机制 + 15 测试）
-- 更早提交（均已推送）：`669eb57`（台账 C02）、`a153607`（web 测试+e2e）、`e3aec9c`（hash 修复）、`2d8c317`（C02 前端）、`7b6da20`（接手基线）。
-- 最新验证基线：后端 **461 passed / 58 skipped / 0 failed**；前端 typecheck 0、vitest **107 passed / 17 files**；合成课 Playwright chromium 与 mobile 各 **3/3**（真实 WSL isolate worker 8091/box700）；ruff 全过。
+  - 台账 `5006eb8`；更早 `669eb57/a153607/e3aec9c/2d8c317/7b6da20`。
+- 最新验证基线：后端 **466 passed / 58 skipped / 0 failed**；前端 typecheck 0、vitest **107 passed / 17 files**；合成课 Playwright chromium 与 mobile 各 **3/3**（真实 WSL isolate worker 8091/box700）；ruff 全过。
 
 ## 任务板状态（#23–#32）
 
@@ -114,10 +115,12 @@
 - 过程修复：e2e 套件时序——CodeWorkspace 在固定运行开始前就 setSelected 导致套件按钮过早 enabled、并发同租约卡死；saveRevision 改为等"运行结果已保存到这一版代码。"再触发套件。诊断用的临时脚本/调试 spec 已删除。
 - 验证：后端 461 passed/58 skipped（三分区改造后三个"13 课专属审计"恢复绿：test_api scope 目录 13/366、test_course_packages courses 集合恰 CS01–CS13、build_coverage_ledger 只遍历默认 courses）；前端 typecheck 0、vitest 107；ruff 全过。
 
-### C01 剩余子项（未完成，下一工作包）
-- 一目标多活动 / 一活动覆盖多目标时，前端 `codeActivityForObjective/algebraActivityForObjective` 与后端侧车解析仍用 `.find` 取第一个、且侧车按键假定一套件一目标；需支持多活动/多对多选择。
-- 新版本应归档旧版本而非覆写、旧记录按旧版本打开（archived_courses 分区已存在，需核对端到端"旧记录按旧版本打开"）。
-- 教师/自建课上传管线本身在 C07；切片 A 已用 schema+测试强制"侧车不接受可执行代码"。
+### C01 三个收尾子项的审计与处置（提交 98e3e10）
+- **① 一目标多活动 / 一活动覆盖多目标**：脚本扫描全部 32 个 practice 包（13 课 + WORKSHOP），**一目标多个同类 practice_ready 活动 = 0、一活动覆盖多目标 = 0**，故前端 `.find` 首匹配当前无歧义。后端侧车本就 fail-closed（单包内同键固定条件/套件重复即 ValueError；固定任务按 task_code 已支持一目标多任务；活动按 objective_codes 数组已支持覆盖多目标）。新增两类回归测试把隐式假设锁成 CI 契约：`test_each_objective_has_at_most_one_practice_ready_activity_per_kind`（全包扫描，未来出现一目标多活动即红灯并提示先做端到端活动选择器）、`test_duplicate_or_uncovered_sidecar_binding_is_rejected`（重复固定条件/重复套件/绑定到活动未覆盖目标均拒绝，4 参数）。**多活动选择 UI 不在无数据时预先实现（YAGNI），随 C07 教师课出现真实数据时连同契约一起做。**
+- **② 新版本归档旧版本、旧记录按旧版本打开**：既有测试 `test_scope_upgrade_preserves_explicitly_archived_course_version` 已锁定契约（新版本成为当前目录、旧版本仍可按 (id,version) 精确打开、归档不污染当前目录）；本次用真实数据复核 scope-catalog 的 **31 个 archived_courses 包文件 0 缺失、get_version 31/31 可达、0 泄漏进公开 scope 目录**；前端学习/证据链接均带 `?courseVersion=<id>`，`CourseCodeWorkspace` 据此经 loadCode/AlgebraActivity（versionId 时纳入 archived_courses）打开旧版本。**读取/打开链路闭环；"发布新版本自动归档旧版本"的写入自动化归 C07 发布管线（当前无发布入口，不虚构）。勿重跑 tools/build_course_scopes.py。**
+- **③ 编号 / UUID 白名单审计**：后端残留的 CS01–CS13 硬编码仅三类，均不阻断数据驱动新增：(a) `course_checks/generic_rules.py`（740KB 构建期冻结的旧固定规则/UUID，仅作 DynamicCheckRegistry 未命中的回落，合成课**零改动该文件**即获核验）；(b) 内置工程样例（CS03 stack-example / CS05 logic-example 与其 sync Literal）；(c) `course_blueprints.py` 默认目录"须恰含 CS01–CS13 各一"的平台不变量校验。新增课程主路径已与编号/UUID 无关（切片 B 实证）。**把 13 课冻结规则逐课迁移到侧车、下线 generic_rules 属 #31 各课深化，不在 C01 切片贸然删除（会破坏 366 目标现状与 461 测试）。**
+- 教师/自建课上传管线本身在 C07；切片 A 已用 schema（extra=forbid）+ 测试强制"侧车不接受可执行代码/checker 路径/任意 oracle"。
+- **C01 公共工程核心判定闭环**：受信配置入口（切片 A）+ 编号无关能力实证（切片 B 合成课）+ 分发契约与归档（本节）；后端全量 **466 passed/58 skipped**、ruff 全过。残留项均已显式归到 C07 / #31 并有契约测试守护。
 
 ## C02 语义核验：已完整闭环（前后端 + 真实 worker e2e）
 
@@ -149,10 +152,11 @@
 
 ## 下一条具体任务
 
-**C02 已完整闭环；C01 切片 A（受信配置侧车 dd4e976）与切片 B（合成课 + extra_courses 三分区 0202dd7）已闭环并推送。当前在 #29 / P1，下一项先收尾 C01 剩余子项，再按依赖推进 C03–C08：**
+**C02 已完整闭环；C01 公共工程核心闭环（切片 A=dd4e976、切片 B=0202dd7、分发契约与归档=98e3e10，详见上文"C01"节）。当前在 #29 / P1，下一项做 C03，再按依赖推进 C04–C08：**
 
-1. **C01 收尾（紧接）**：① 一目标多活动 / 一活动覆盖多目标：去掉前端 `codeActivityForObjective/algebraActivityForObjective` 的 `.find` 取第一个与后端侧车"一套件一目标"按键假定，支持显式选择与多对多；② 新版本归档旧版本、旧记录按旧版本打开（archived_courses 已在，补端到端核对与测试）；③ 继续审计是否仍有 CS01–CS13 编号分支/固定 UUID 白名单（前端 grep 已确认课程枚举无前缀过滤，唯一 startsWith 为 CodeWorkspace 的 'processor-'）。教师上传管线主体在 C07，切片 A 已封死"侧车携带可执行代码"。
-2. 此后按 `EXECUTION_PLAN.md` 推进 C03（证据/帮助/独立变体/恢复矩阵；多数绑定/不可覆写/恢复不授权已在 code/trace/algebra + C02 落地，逐活动核对缺口）、C04 审阅流（无真实审阅者不得显示"已安排教师"/自动签名）、C05 工具生命周期（E03 SQL PG18/E04 Linux/E05 containerlab 首任务 A—R—B/E06 python313ml）、C06 多模型/Skill（无真实密钥用夹具，如实 blocked_external）、C07 教师 RAG 服务端按主体+可见性过滤、C08 五类先修桥接。
+1. **C03 证据/帮助/独立变体/恢复矩阵（紧接）**：多数绑定/不可覆写/恢复不授权已在 code/trace/algebra + C02 套件落地；按 MODULE_WORKBOOK 逐活动核对四类缺口——①证据页是否完整呈现固定/独立/解释各维；②帮助快照（helpViewed/disclosureVersion）是否随结果冻结；③每目标是否有独立迁移变体（不止固定 stdout）；④跨账号/迟到结果/导入证据不误归属、不升级掌握。CS03 栈单元 U01–U05 此前已闭环可作模板。
+2. 此后按 `EXECUTION_PLAN.md` 推进 C04 审阅流（E07 审阅与异议；无真实审阅者不得显示"已安排教师"/自动签名）、C05 工具生命周期（E03 SQL PG18/E04 Linux/E05 containerlab 首任务 A—R—B 回程路由/E06 python313ml）、C06 四职责多模型+教学 Skill（LangGraph，密钥后端保存脱敏导出，无密钥用夹具，如实 blocked_external）、C07 教师/自建课/RAG（含发布新版本自动归档、一目标多活动选择 UI、服务端按主体+可见性过滤）、C08 五类先修桥接（BR-JAVA/CPP/PY/MATH/SHELL，不计入 13 课分母）。
+3. C01 残留均有归属与契约守护：多活动选择 UI + 发布自动归档在 C07（出现真实数据/发布入口时做，契约测试会红灯引导）；13 课冻结规则逐课迁移侧车、下线 generic_rules 在 #31。
 3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并 `git push mine HEAD:hyx_dev`，同步更新 TASK_BOARD 与本文件。
 4. 无专业审校、无真实模型密钥时完成工程与测试，但 Q4/Q5/真实联调如实保留 blocked_external，不伪造签署、不删目标、不降标准。
 5. 既有 4 个 e2e 失败（learning.spec.ts:36 图谱 external 点、accounts.spec.ts:77/103/123 账号长链路）已基线证实与 C01/C02 无关，留待图谱/账号专项；58 个 Linux/isolate pytest 在 Windows 跳过，需 WSL 补跑。
