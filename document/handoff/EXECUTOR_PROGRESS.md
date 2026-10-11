@@ -4,22 +4,15 @@
 
 ## 当前检查点
 
-- 更新时间：2026-10-11（#29 / P1：C02 语义核验**后端三层全部闭环**——核心、公共发现、同步协议收口；前端全链路为下一工作包）
+- 更新时间：2026-10-11（#29 / P1：**C01 数据驱动课程包切片 A（服务端受信配置侧车）与切片 B（非 CS 编号合成课 + extra_courses 三分区）已闭环并推送**；C02 语义核验此前已完整闭环）
 - worktree：`C:\Users\Remote\.codex\worktrees\485f\Vault`（detached HEAD）
-- HEAD：`d1c0816`；远端 `mine/hyx_dev = d1c0816`（https://github.com/hhyxx1/Vault.git），**本会话提交已全部推送成功**（此前 github.com:443 多次超时，网络恢复后一次 `git push mine HEAD:hyx_dev` 推送 `8db1533..d1c0816`）。
-- 复核报告：`document/handoff/EXECUTOR_FINAL_REPORT.md`（阶段性，C02 后端里程碑；13 课端到端未完成，已如实界定）。
-- 本次新增提交（新→旧，均已推送）：
-  - `d1c0816` docs(handoff): executor stage review report（复核报告）
-  - `aecf1c7` docs(handoff): record C02 discovery and sync closure, backend 446 baseline（进度）
-  - `cf25381` feat(sync): accept and bind imported semantic suite assessments（C02 同步收口）
-  - `ae6ce27` feat(content): announce C02 semantic suite in CS01 package discovery metadata（C02 发现）
-  - `4dffc3e` docs(handoff): record C02 semantic suite backend milestone（进度）
-  - `40bac6d` feat(checks): C02 trusted semantic code suites with independent inputs（C02 核心）
-  - `9117abd` docs(handoff): close P0（进度检查点）
-  - `51f165a` chore(audit): calibrate 122-module task board from latest packages（#28）
-  - `c6988fe` feat(evidence): surface native finite-algebra attempts on the evidence page（#27）
-  - `ae5fb1b` docs(handoff): executor progress checkpoint（本文件初版）
-  - `8db1533` feat(health)（#26，已推送）
+- HEAD：`0202dd7`；远端 `mine/hyx_dev = 0202dd7`（https://github.com/hhyxx1/Vault.git），**本会话提交已全部推送成功**（`git push mine HEAD:hyx_dev` → `7b6da20..0202dd7`）。
+- 复核报告：`document/handoff/EXECUTOR_FINAL_REPORT.md`（阶段性；13 课端到端未完成，已如实界定，全部完成后重写）。
+- C01 本次新增提交（新→旧，均已推送）：
+  - `0202dd7` C01 slice B: synthetic workshop course and data-driven extra_courses（合成课 + 三分区 + 前端数据驱动 + e2e）
+  - `dd4e976` C01 slice A: server-side trusted check config sidecar（受信配置侧车机制 + 15 测试）
+- 更早提交（均已推送）：`669eb57`（台账 C02）、`a153607`（web 测试+e2e）、`e3aec9c`（hash 修复）、`2d8c317`（C02 前端）、`7b6da20`（接手基线）。
+- 最新验证基线：后端 **461 passed / 58 skipped / 0 failed**；前端 typecheck 0、vitest **107 passed / 17 files**；合成课 Playwright chromium 与 mobile 各 **3/3**（真实 WSL isolate worker 8091/box700）；ruff 全过。
 
 ## 任务板状态（#23–#32）
 
@@ -100,6 +93,32 @@
 7. 验证：`npm --prefix apps/web run typecheck`、`vitest --run`（为 hasCodeSuiteBinding/verification 校验加单测）、Playwright e2e（CS01-M03-O03：正确通用程序多 case 通过、端点 bug 反例、样例硬编码被独立输入抓出、环境故障不判错）；最后 WSL 真实 isolate worker 多 case e2e（box 701 或串行，勿与开发 worker 共用 box 700）。
 - **无需 Dexie 迁移、无需新本地表**（已查明）；前端 sync.ts 透传整个 CodeResult，主要工作是恢复信任判定兼容套件。
 
+## #29 / C01 数据驱动课程包：切片 A、B 已闭环
+
+### 切片 A — 服务端受信核验配置侧车（已提交 dd4e976）
+- 目标：教师/课程侧只能下发**受校验的配置与模板引用**，不能成为上传任意评分 Python 的入口；固定条件与语义套件从代码白名单解耦为"随课程包版本绑定的服务端私有侧车"。
+- 新增 `services/backend/src/vault_backend/course_checks/server_checks.py`：纯数据模型 `ServerExpectations(course_id, course_version_id, course_code, fixed_conditions[], semantic_suites[])`，pydantic `extra="forbid"`（拒绝任何夹带字段/可执行路径/checker 文件路径）；`DynamicCheckRegistry` 从与公共 manifest 同目录的私有侧车 `server-expectations.json` 加载，键为 `(course_version, objective, task)` / `(course_version, objective)`，未命中或版本/活动不符返回 None。
+- 接线：`content.py` 加载包时配对读取侧车到 `server_expectations`（**绝不随公共目录/版本端点下发**）；`guests.py` GuestLeaseStore 增可选 `check_registry`，`_resolve_suite/_resolve_task` 先查动态注册表、未命中回落内置 semantic_suites/code_tasks（向后兼容）；`api.py` create_app 装配 `DynamicCheckRegistry(content.server_expectations)` 与既有 AlgebraRegistry。
+- 测试 `tests/test_server_checks.py` **15 passed**：schema 拒绝额外字段/可执行路径、版本与活动不匹配拒绝、固定条件与套件解析命中/未命中回落、动态优先于内置、侧车不进公共响应。后端全量 461 passed。
+
+### 切片 B — 非 CS 编号合成课 + extra_courses 三分区（已提交 0202dd7）
+- 目标：用一个**不叫 CS01–CS13 的合成课**证明课程能力与编号/固定 UUID 白名单无关，且不污染"默认 13 课"的公开目录与 13 课专属审计。
+- 新增确定性构建器 `tools/curriculum/build_synthetic_workshop.py`（uuid5 幂等、可重复运行、utf-8）：生成课程 `WORKSHOP`「工具复用演练工坊」（course_id `edae7136-15e1-5187-84b3-ff83546eabf7`、version `WORKSHOP-core-0.1.0`、course_version_id `5e2529be-14ed-56a6-9190-71158a22d80e`），2 章 2 目标：
+  - `WORKSHOP-M01-O1` code 活动「把分段计费改写成读取输入的通用程序」：固定条件 base（stdin "60\n"→stdout "5\n"）+ 复用白名单 oracle `parking_fee_three_tier`（integer 比较器，c17）的语义套件；visible=30/60，independent=31/61（服务端私有）。
+  - `WORKSHOP-M02-O1` finite_algebra 活动「逐公理检查有限运算表」（初始表 [[0,1],[1,2]]），复用数据驱动 AlgebraRegistry，零白名单改动。
+  - 公共 manifest 3 条 authority_checked sources（wg14-n1570 取自 CS01 0.9.0；milne-group / auburn-algebra-native 取自 CS05 0.2.0）；私有 `server-expectations.json` 含 1 固定条件 + 1 套件。
+- **scope-catalog.json 三分区**：`courses` 恒为 CS01–CS13（公开默认目录，测试断言 13/366）、`extra_courses`=[WORKSHOP]（额外已发布包，加载用于执行但不进默认目录）、`archived_courses`=31（不动）。
+  - 后端 `content.py`：加载 extra_courses 用于执行；`get_scope_catalog()`（即 `GET /api/v1/course-scopes`）按 catalog.json 默认 code 集合过滤，公开目录实测 **13 课 / 366 目标 / 无 WORKSHOP / 无 package_path**，而 WORKSHOP 包经版本端点仍可访问执行（2 目标 2 活动）。
+  - 前端 `domain/course-packages.ts`：`loadCoursePackage/loadCodeActivity/loadAlgebraActivity` 的查找 entries 合并 `extra_courses`；`ui/Atlas.tsx` 数据驱动构造 `atlasCourses`（默认课程 + extra_courses），课程下拉/查找无硬编码编号，WORKSHOP 自动出现并可加载。
+- 新增 `apps/web/e2e/synthetic-workshop.spec.ts` **3 测试**：①atlas 出现并能选中加载（2 目标）；②通用 scanf 程序经侧车独立输入 2/2 通过、独立用例不泄露；③只匹配 30/60 的硬编码被独立输入抓为 suspected_hardcoding。**chromium 3/3、mobile 3/3**（真实 worker）。
+- 过程修复：e2e 套件时序——CodeWorkspace 在固定运行开始前就 setSelected 导致套件按钮过早 enabled、并发同租约卡死；saveRevision 改为等"运行结果已保存到这一版代码。"再触发套件。诊断用的临时脚本/调试 spec 已删除。
+- 验证：后端 461 passed/58 skipped（三分区改造后三个"13 课专属审计"恢复绿：test_api scope 目录 13/366、test_course_packages courses 集合恰 CS01–CS13、build_coverage_ledger 只遍历默认 courses）；前端 typecheck 0、vitest 107；ruff 全过。
+
+### C01 剩余子项（未完成，下一工作包）
+- 一目标多活动 / 一活动覆盖多目标时，前端 `codeActivityForObjective/algebraActivityForObjective` 与后端侧车解析仍用 `.find` 取第一个、且侧车按键假定一套件一目标；需支持多活动/多对多选择。
+- 新版本应归档旧版本而非覆写、旧记录按旧版本打开（archived_courses 分区已存在，需核对端到端"旧记录按旧版本打开"）。
+- 教师/自建课上传管线本身在 C07；切片 A 已用 schema+测试强制"侧车不接受可执行代码"。
+
 ## C02 语义核验：已完整闭环（前后端 + 真实 worker e2e）
 
 - 后端三层（核心 `40bac6d` / 发现 `ae6ce27` / 同步收口 `cf25381`）+ 前端全链路 `2d8c317` + 代表结果 hash 绑定修复 `e3aec9c` + 前端单测与 Playwright `a153607`。
@@ -110,14 +129,14 @@
 
 ## 在改文件 / 工作区
 
-- C02 全部改动已提交（见上提交号）。工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。
-- **推送受阻（网络，非认证）**：`2d8c317 / e3aec9c / a153607` 三个提交滞留本地，github.com:443 连续超时；网络恢复后 `git push mine HEAD:hyx_dev` 即可，未强推、未换写法绕过。
+- C01 切片 A/B 与 C02 全部改动已提交并推送（HEAD=0202dd7）。工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。
+- **推送已恢复**：`git push mine HEAD:hyx_dev` 成功（`7b6da20..0202dd7`）；未强推、未擅合 main。
 
 ## 运行中的服务与端口（完成后保持运行）
 
 - PG：Docker 容器 `vault-development-postgres-1`，127.0.0.1:5442，dev 库 vault_dev（head 0012），测试库 vault_ci。
 - WSL isolate worker：systemd `vault-code-worker.service`，127.0.0.1:8091（已加载新 /v1/health）；保活靠后台 `wsl -d Ubuntu -u root -- tail -f /dev/null`。
-- 后端：127.0.0.1:8000（已加载新 health 逻辑，AUTH=true，连 PG，配 worker）。日志 `%TEMP%\vault-backend-out.txt` / `-err.txt`，mail capture `%TEMP%\vault-mail-capture`。
+- 后端：127.0.0.1:8000（venv 解释器启动，已加载 extra_courses 三分区与受信侧车，AUTH=true，连 PG，配 worker；health ready、isolated_execution_healthy=true）。日志 `%TEMP%\vault-backend-out6.txt` / `-err6.txt`，mail capture `%TEMP%\vault-mail-capture`。注意须用 `services\backend\.venv\Scripts\python.exe`（系统 python 无 uvicorn），杀进程用 `taskkill /F /T /PID`。
 - 前端：127.0.0.1:5176（vite，日志 `%TEMP%\vault-web.txt`）。设计稿预览可用 5177。
 - 关键 env 与启动方式见交接包 `RUNBOOK.md`；WSL worker token 必须用 `wsl base64 -w0 /etc/vault-code-worker.env` 在 PowerShell 解码，切勿内联 bash `$VAR`。
 
@@ -130,9 +149,10 @@
 
 ## 下一条具体任务
 
-**C02 已完整闭环（后端三层 + 前端全链路 + 真实 worker e2e，提交 40bac6d/ae6ce27/cf25381/2d8c317/e3aec9c/a153607，详见上文“C02 语义核验”节）。当前在 #29 / P1，下一项做 C01，再按依赖推进 C03–C08：**
+**C02 已完整闭环；C01 切片 A（受信配置侧车 dd4e976）与切片 B（合成课 + extra_courses 三分区 0202dd7）已闭环并推送。当前在 #29 / P1，下一项先收尾 C01 剩余子项，再按依赖推进 C03–C08：**
 
-1. **C01 数据驱动课程包/发布/合成课（紧接）**：审计课程加载链路（catalog.json、scope-catalog.json、后端 course_packages.py/content.py、前端 domain/course-packages.ts）是否存在 CS01–CS13 编号分支或固定课程/活动 UUID 白名单；按 activity.kind+工具 profile+受信 check id 统一分发；支持一目标多活动、一活动覆盖多目标特定条件，查找不得只取第一个 activity；新版本归档旧版本、旧记录按旧版本打开。再做一个**不叫 CS01–CS13 的合成课**复用 code/trace(native)/sql 注册工具，证明能力与编号/UUID 无关；教师上传仅为受校验配置+模板引用，不得成为上传任意评分 Python 的入口。
-2. 此后按 `EXECUTION_PLAN.md` 推进 C03（证据/帮助/独立变体/恢复矩阵；多数绑定/不可覆写/恢复不授权已在 code/trace/algebra + C02 落地，逐活动核对缺口）、C04 审阅流（无真实审阅者不得显示“已安排教师”/自动签名）、C05 工具生命周期（E03 SQL PG18/E04 Linux/E05 containerlab 首任务 A—R—B/E06 python313ml）、C06 多模型/Skill（无真实密钥用夹具，如实 blocked_external）、C07 教师 RAG 服务端按主体+可见性过滤、C08 五类先修桥接。
-3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交，网络恢复后 `git push mine HEAD:hyx_dev`（当前 2d8c317/e3aec9c/a153607 待推），同步更新 TASK_BOARD 与本文件。
+1. **C01 收尾（紧接）**：① 一目标多活动 / 一活动覆盖多目标：去掉前端 `codeActivityForObjective/algebraActivityForObjective` 的 `.find` 取第一个与后端侧车"一套件一目标"按键假定，支持显式选择与多对多；② 新版本归档旧版本、旧记录按旧版本打开（archived_courses 已在，补端到端核对与测试）；③ 继续审计是否仍有 CS01–CS13 编号分支/固定 UUID 白名单（前端 grep 已确认课程枚举无前缀过滤，唯一 startsWith 为 CodeWorkspace 的 'processor-'）。教师上传管线主体在 C07，切片 A 已封死"侧车携带可执行代码"。
+2. 此后按 `EXECUTION_PLAN.md` 推进 C03（证据/帮助/独立变体/恢复矩阵；多数绑定/不可覆写/恢复不授权已在 code/trace/algebra + C02 落地，逐活动核对缺口）、C04 审阅流（无真实审阅者不得显示"已安排教师"/自动签名）、C05 工具生命周期（E03 SQL PG18/E04 Linux/E05 containerlab 首任务 A—R—B/E06 python313ml）、C06 多模型/Skill（无真实密钥用夹具，如实 blocked_external）、C07 教师 RAG 服务端按主体+可见性过滤、C08 五类先修桥接。
+3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并 `git push mine HEAD:hyx_dev`，同步更新 TASK_BOARD 与本文件。
 4. 无专业审校、无真实模型密钥时完成工程与测试，但 Q4/Q5/真实联调如实保留 blocked_external，不伪造签署、不删目标、不降标准。
+5. 既有 4 个 e2e 失败（learning.spec.ts:36 图谱 external 点、accounts.spec.ts:77/103/123 账号长链路）已基线证实与 C01/C02 无关，留待图谱/账号专项；58 个 Linux/isolate pytest 在 Windows 跳过，需 WSL 补跑。
