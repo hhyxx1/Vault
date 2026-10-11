@@ -17,22 +17,23 @@
   3. **云同步协议**对套件结果的绑定/不授权收口（含与固定题互斥），commit `cf25381`。
 - **后端测试基线：446 passed / 58 skipped / 0 failed**（P0 末为 427/58；本会话净增 19 个测试函数：13 语义套件 + 5 发现契约 + 1 同步绑定，同步文件原有 2 个并入计数）。ruff 干净，前端 typecheck 0。
 - **未做（明确边界）**：C02 的**前端全链路**（触发入口、多 case/硬编码渲染、证据页/图谱/导出/恢复、前端同步）与 **WSL 真实 isolate 多 case e2e** 尚未开始；C01、C03–C08 公共工程与 #30–#32 的 13 课深化均未开始。当前唯一注册的受信套件仅 **CS01-M03-O03** 一个目标，属“机制打通 + 一个样板”，**不代表 366 目标已具备可靠语义核验**。
-- **推送受阻（外部网络）**：本会话 9 个提交滞留本地，`github.com:443` 多次连接超时/Connection reset；未绕过、未强推、未擅合 main。
+- **推送已完成**：本会话全部提交已推送到 `mine/hyx_dev`（`8db1533..d1c0816`，HEAD=d1c0816）。推送前 github.com:443 曾多次连接超时（国内网络瞬时问题），网络恢复后一次推送成功；全程未绕过、未强推、未擅合 main。
 
 ---
 
 ## 1. Git / 工作树 / 归属（对照清单 §1.1）
 
-- HEAD：`aecf1c7`（docs(handoff) 进度）。远端 `mine/hyx_dev = 8db1533`（https://github.com/hhyxx1/Vault.git，身份 hhyxx1 / houmail7159@foxmail.com）。
-- 本会话新增提交（新→旧，**均未推送**）：
+- HEAD：`d1c0816`（docs(handoff) 复核报告）。远端 `mine/hyx_dev = d1c0816`（https://github.com/hhyxx1/Vault.git，身份 hhyxx1 / houmail7159@foxmail.com），**本会话提交均已推送**。
+- 本会话新增提交（新→旧，均已推送）：
+  - `d1c0816` docs(handoff): executor stage review report（复核报告）
   - `aecf1c7` docs(handoff): record C02 discovery and sync closure, backend 446 baseline
   - `cf25381` feat(sync): accept and bind imported semantic suite assessments
   - `ae6ce27` feat(content): announce C02 semantic suite in the CS01 package discovery metadata
   - `4dffc3e` docs(handoff): record C02 semantic suite backend milestone
   - `40bac6d` feat(checks): C02 trusted semantic code suites with independent inputs
-  - 以及 P0 收尾 `9117abd` / `51f165a` / `c6988fe` / `ae5fb1b`（合计 9 个提交待推送；`8db1533` 已在远端）。
+  - 以及 P0 收尾 `9117abd` / `51f165a` / `c6988fe` / `ae5fb1b`（`8db1533` 此前已在远端）。
 - 工作区：除上述提交外无已跟踪文件改动；唯一未跟踪文件 `services/backend/backend-run.txt`（旧本机运行日志，RUNBOOK 要求不提交、不删除，保持原样）。
-- 网络恢复后**一条命令**推送全部：在 worktree 根 `git push mine HEAD:hyx_dev`，推送后用 `git rev-parse --short refs/remotes/mine/hyx_dev` 核实。禁止换写法绕过、禁止强推、禁止擅合 main。
+- 禁止换写法绕过推送、禁止强推、禁止擅合 main（main 合并始终需用户明确授权）。
 
 ---
 
@@ -194,7 +195,7 @@ services\backend\.venv\Scripts\python.exe -m pytest services\backend\tests -q -p
 ## 12. 交回 Codex 的下一步（按优先级）
 
 1. **C02 前端全链路（紧接，须一次接通，勿留半接 UI）**：`course-packages.ts` 类型 → `verification.runCode` 支持 CodeSuiteRef 并严格校验返回的 suite_assessment → `CodeWorkspace.tsx` 独立“独立语义核验”入口（独立 activityKey、taskCode="semantic-suite"、复用 artifactId）与多 case/硬编码渲染（独立用例不显示 stdin，严格按设计稿）→ `code-assessment.ts` 套件绑定与客观状态聚合 → `Evidence.tsx`/`Atlas.tsx` 认套件结果 → 本地导出/恢复/`sync.ts` 兼容（复用 codeAttempts，无 Dexie 迁移）→ typecheck/vitest/Playwright（正确通用程序、端点 bug、样例硬编码、环境故障四场景）→ WSL 真实 isolate 多 case e2e（box 701/串行）。落点与已查明事实详见 `EXECUTOR_PROGRESS.md` 第“#29 / C02 剩余前端全链路”。
-2. 网络恢复后先 `git push mine HEAD:hyx_dev`（推送滞留 9 个提交）。
+2. 提交已全部推送（HEAD=d1c0816）；后续每闭环一项照常提交并推送，合并 main 需用户授权。
 3. 扩大语义套件注册面：在更多 code 目标按同一注册表/发现/同步机制落地（每个 oracle 都须是服务端白名单纯函数并配替代解/两类错误/硬编码/环境故障测试），推进 C02 出口“固定题与独立题分开”。
 4. 按 `EXECUTION_PLAN.md` 推进 C01、C03–C08，再进入 #30–#32；非编程学科坚持原生实操；Q4/Q5/真实联调始终如实 blocked_external。
 

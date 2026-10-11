@@ -6,9 +6,11 @@
 
 - 更新时间：2026-10-11（#29 / P1：C02 语义核验**后端三层全部闭环**——核心、公共发现、同步协议收口；前端全链路为下一工作包）
 - worktree：`C:\Users\Remote\.codex\worktrees\485f\Vault`（detached HEAD）
-- HEAD：`cf25381`；远端 `mine/hyx_dev = 8db1533`（https://github.com/hhyxx1/Vault.git）
-- **待推送（8 个）**：`ae5fb1b`、`c6988fe`、`51f165a`、`9117abd`、`40bac6d`、`4dffc3e`、`ae6ce27`、`cf25381`；github.com:443 本会话多次连接超时/Connection reset（#26 曾推送成功，国内网络瞬时问题）。网络恢复后执行 `git push mine HEAD:hyx_dev` 一条命令推送全部，勿换写法绕过；推送后用 `git rev-parse --short refs/remotes/mine/hyx_dev` 核实。
-- 本次新增提交（新→旧）：
+- HEAD：`d1c0816`；远端 `mine/hyx_dev = d1c0816`（https://github.com/hhyxx1/Vault.git），**本会话提交已全部推送成功**（此前 github.com:443 多次超时，网络恢复后一次 `git push mine HEAD:hyx_dev` 推送 `8db1533..d1c0816`）。
+- 复核报告：`document/handoff/EXECUTOR_FINAL_REPORT.md`（阶段性，C02 后端里程碑；13 课端到端未完成，已如实界定）。
+- 本次新增提交（新→旧，均已推送）：
+  - `d1c0816` docs(handoff): executor stage review report（复核报告）
+  - `aecf1c7` docs(handoff): record C02 discovery and sync closure, backend 446 baseline（进度）
   - `cf25381` feat(sync): accept and bind imported semantic suite assessments（C02 同步收口）
   - `ae6ce27` feat(content): announce C02 semantic suite in CS01 package discovery metadata（C02 发现）
   - `4dffc3e` docs(handoff): record C02 semantic suite backend milestone（进度）
@@ -112,7 +114,7 @@
 
 ## 未解决问题 / 外部限制
 
-- **8 个本地提交（ae5fb1b/c6988fe/51f165a/9117abd/40bac6d/4dffc3e/ae6ce27/cf25381）待推送**：github.com:443 多次超时/Connection reset；网络恢复后 `git push mine HEAD:hyx_dev` 一条命令推送全部，勿换写法绕过。
+- **推送已恢复**：本会话全部提交已推送到 `mine/hyx_dev`（HEAD=d1c0816）。此前 github.com:443 多次超时为国内网络瞬时问题，未换写法绕过、未强推、未擅合 main。
 - 58 个 Linux/isolate 测试在 Windows 跳过；需在 WSL 按 RUNBOOK 第 5 节补跑（CS05 120 份工件，作者测试与开发 worker 不可共用 box 700，宜 fixture 指定 701 或串行）。
 - 合并 main 始终未授权（feature 分支不计 GitHub 贡献热力图）；需用户确认邮箱已验证后授权 push hyx_dev:main 或开 PR。
 - 真实专业审校、真实多模型密钥、生产部署为外部不可得条件；Q4/Q5 与真实模型联调须如实保留，不得伪造签署或删目标降标准。
@@ -123,5 +125,5 @@
 
 1. **C02 前端全链路（紧接，一次接通勿留半接 UI）**：course-packages 类型 → verification.runCode 支持 CodeSuiteRef 并严格校验 suite_assessment → CodeWorkspace 独立“独立语义核验”入口与多 case/硬编码渲染（独立用例不显示 stdin，严格按设计稿）→ code-assessment 套件绑定与客观状态聚合 → Evidence/Atlas 认套件结果 → 本地导出/恢复/前端同步兼容（复用 codeAttempts，无 Dexie 迁移）→ typecheck/vitest/Playwright/WSL 真实 isolate 多 case e2e。
 2. 此后按 `EXECUTION_PLAN.md` 推进 C01（数据驱动课程包/发布 + 不叫 CS01–13 的合成课，验证能力不依赖编号/固定 UUID）、C03（证据/帮助/独立变体/恢复矩阵）、C04 审阅流、C05 工具生命周期、C06 多模型/Skill 不提权、C07 教师 RAG 仅检索可见资料、C08 五类先修桥接。
-3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并尝试 `git push mine HEAD:hyx_dev`（先把滞留 8 个提交推上去），同步更新 TASK_BOARD 与本文件。
+3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并 `git push mine HEAD:hyx_dev`（当前无滞留提交），同步更新 TASK_BOARD 与本文件。
 4. 无专业审校、无真实模型密钥时完成工程与测试，但 Q4/Q5/真实联调如实保留 blocked_external，不伪造签署、不删目标、不降标准。
