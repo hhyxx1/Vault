@@ -1280,6 +1280,7 @@
             "type": "string"
           },
           "expected_stdout": {
+            "maxLength": 8192,
             "title": "Expected Stdout",
             "type": "string"
           },
@@ -1297,6 +1298,7 @@
             "type": "string"
           },
           "observed_stdout": {
+            "maxLength": 8192,
             "title": "Observed Stdout",
             "type": "string"
           },

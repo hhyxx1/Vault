@@ -693,6 +693,8 @@ class CodeAttemptPayload(LocalPayload):
             or self.result.mastery_asserted is not False
         ):
             raise ValueError("result must match the submitted code version")
+        if self.result and self.result.task_assessment and self.result.suite_assessment:
+            raise ValueError("a code result cannot carry both fixed and suite assessments")
         check = self.result.task_assessment if self.result else None
         if check:
             context = self.learning.context if self.learning else None
@@ -711,6 +713,29 @@ class CodeAttemptPayload(LocalPayload):
                 c.status != "needs_review" for c in check.criteria if c.id != "fixed_condition"
             ):
                 raise ValueError("fixed-condition checks cannot grant independent mastery")
+        suite = self.result.suite_assessment if self.result else None
+        if suite:
+            context = self.learning.context if self.learning else None
+            if not context or context.taskCode != "semantic-suite" or (
+                suite.course_version_id != str(context.courseVersionId)
+                or suite.activity_version_id != str(context.activityVersionId)
+                or suite.objective_code != context.objectiveCode
+            ):
+                raise ValueError("semantic suite assessment must match its frozen context")
+            if (
+                suite.provenance != "server_deterministic_checker"
+                or suite.standard_version != "code-semantic-suite-v1"
+                or suite.mastery_asserted is not False
+            ):
+                raise ValueError("semantic suite assessment cannot grant mastery")
+            if {c.id for c in suite.criteria} != {
+                "fixed_condition",
+                "explanation",
+                "independent_transfer",
+            } or any(
+                c.status != "needs_review" for c in suite.criteria if c.id != "fixed_condition"
+            ):
+                raise ValueError("semantic suite checks cannot grant independent mastery")
         return self
 
 
