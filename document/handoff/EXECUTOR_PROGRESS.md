@@ -100,9 +100,18 @@
 7. 验证：`npm --prefix apps/web run typecheck`、`vitest --run`（为 hasCodeSuiteBinding/verification 校验加单测）、Playwright e2e（CS01-M03-O03：正确通用程序多 case 通过、端点 bug 反例、样例硬编码被独立输入抓出、环境故障不判错）；最后 WSL 真实 isolate worker 多 case e2e（box 701 或串行，勿与开发 worker 共用 box 700）。
 - **无需 Dexie 迁移、无需新本地表**（已查明）；前端 sync.ts 透传整个 CodeResult，主要工作是恢复信任判定兼容套件。
 
+## C02 语义核验：已完整闭环（前后端 + 真实 worker e2e）
+
+- 后端三层（核心 `40bac6d` / 发现 `ae6ce27` / 同步收口 `cf25381`）+ 前端全链路 `2d8c317` + 代表结果 hash 绑定修复 `e3aec9c` + 前端单测与 Playwright `a153607`。
+- 前端：套件发现类型、`runCode(CodeSuiteRef)` 严格闸门、CodeWorkspace 独立“独立语义核验”动作（独立 activityKey/task=`semantic-suite`，复用同一 artifact）、Evidence 专属证据、Atlas 客观状态聚合（套件优先、上限 partial）、本地保存闸门（套件/固定互斥）、导出/恢复经 codeAttempts 整表 JSON（恢复恒 client_reported 不授权，无 Dexie 迁移）。独立用例**只显示聚合计数**，绝不渲染其 stdin/expected/observed/case_code。
+- 验证证据：后端 `pytest test_semantic_suites.py + test_semantic_suite_contract.py = 18 passed`、ruff 通过；前端 `typecheck=0`、`vitest 107 passed`；新增 `apps/web/e2e/semantic-suite.spec.ts` 经**真实 WSL isolate worker（8091/box700）编译运行**，chromium 与 mobile 各 2/2：通用 scanf 程序 2 visible+6 independent 全过且不泄露隐藏输入；只匹配 30/60 的硬编码被判 suspected_hardcoding（独立 2 过/4 败）。
+- 关键修复：套件代表结果原先回传的 `request_sha256` 含服务端注入的 case stdin，与前端作品快照 hash 天然不等而被一致性闸门拒绝；已改为绑定提交作品请求 hash（case 级 runner 完整性仍在 run_suite 内逐 case 校验），并加 lease 路径断言。
+- 既有 e2e 失败（与 C02 无关，已用 C02 前端改动前基线 `7b6da20` 同跑复现）：`learning.spec.ts:36`（atlas `.map-point.is-external`）、`accounts.spec.ts:77/103/123`（账号/邮件/跨设备恢复流）共 4 项，在 C02 改动前后均失败，留待账号/图谱专项排查，不计入 C02。
+
 ## 在改文件 / 工作区
 
-- C02 后端三层（核心 40bac6d / 发现 ae6ce27 / 同步收口 cf25381）已全部提交。工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。无其它未提交改动。
+- C02 全部改动已提交（见上提交号）。工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。
+- **推送受阻（网络，非认证）**：`2d8c317 / e3aec9c / a153607` 三个提交滞留本地，github.com:443 连续超时；网络恢复后 `git push mine HEAD:hyx_dev` 即可，未强推、未换写法绕过。
 
 ## 运行中的服务与端口（完成后保持运行）
 
@@ -121,9 +130,9 @@
 
 ## 下一条具体任务
 
-**当前在 #29 / P1，C02 后端三层已提交（40bac6d/ae6ce27/cf25381，全量 446/58）。下一步做 C02 前端全链路（见上“剩余前端全链路”7 步），再按依赖推进 C01、C03–C08：**
+**C02 已完整闭环（后端三层 + 前端全链路 + 真实 worker e2e，提交 40bac6d/ae6ce27/cf25381/2d8c317/e3aec9c/a153607，详见上文“C02 语义核验”节）。当前在 #29 / P1，下一项做 C01，再按依赖推进 C03–C08：**
 
-1. **C02 前端全链路（紧接，一次接通勿留半接 UI）**：course-packages 类型 → verification.runCode 支持 CodeSuiteRef 并严格校验 suite_assessment → CodeWorkspace 独立“独立语义核验”入口与多 case/硬编码渲染（独立用例不显示 stdin，严格按设计稿）→ code-assessment 套件绑定与客观状态聚合 → Evidence/Atlas 认套件结果 → 本地导出/恢复/前端同步兼容（复用 codeAttempts，无 Dexie 迁移）→ typecheck/vitest/Playwright/WSL 真实 isolate 多 case e2e。
-2. 此后按 `EXECUTION_PLAN.md` 推进 C01（数据驱动课程包/发布 + 不叫 CS01–13 的合成课，验证能力不依赖编号/固定 UUID）、C03（证据/帮助/独立变体/恢复矩阵）、C04 审阅流、C05 工具生命周期、C06 多模型/Skill 不提权、C07 教师 RAG 仅检索可见资料、C08 五类先修桥接。
-3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并 `git push mine HEAD:hyx_dev`（当前无滞留提交），同步更新 TASK_BOARD 与本文件。
+1. **C01 数据驱动课程包/发布/合成课（紧接）**：审计课程加载链路（catalog.json、scope-catalog.json、后端 course_packages.py/content.py、前端 domain/course-packages.ts）是否存在 CS01–CS13 编号分支或固定课程/活动 UUID 白名单；按 activity.kind+工具 profile+受信 check id 统一分发；支持一目标多活动、一活动覆盖多目标特定条件，查找不得只取第一个 activity；新版本归档旧版本、旧记录按旧版本打开。再做一个**不叫 CS01–CS13 的合成课**复用 code/trace(native)/sql 注册工具，证明能力与编号/UUID 无关；教师上传仅为受校验配置+模板引用，不得成为上传任意评分 Python 的入口。
+2. 此后按 `EXECUTION_PLAN.md` 推进 C03（证据/帮助/独立变体/恢复矩阵；多数绑定/不可覆写/恢复不授权已在 code/trace/algebra + C02 落地，逐活动核对缺口）、C04 审阅流（无真实审阅者不得显示“已安排教师”/自动签名）、C05 工具生命周期（E03 SQL PG18/E04 Linux/E05 containerlab 首任务 A—R—B/E06 python313ml）、C06 多模型/Skill（无真实密钥用夹具，如实 blocked_external）、C07 教师 RAG 服务端按主体+可见性过滤、C08 五类先修桥接。
+3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交，网络恢复后 `git push mine HEAD:hyx_dev`（当前 2d8c317/e3aec9c/a153607 待推），同步更新 TASK_BOARD 与本文件。
 4. 无专业审校、无真实模型密钥时完成工程与测试，但 Q4/Q5/真实联调如实保留 blocked_external，不伪造签署、不删目标、不降标准。
