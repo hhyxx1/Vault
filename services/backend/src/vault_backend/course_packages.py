@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from .code_execution import CodeRequest
+from .code_execution import CodeRequest, Language
 from .course_checks.finite_algebra import validate as validate_operation_table
 
 
@@ -109,6 +109,40 @@ class AlgebraPrompt(PublicRecord):
         return self
 
 
+class PublicSemanticCase(PublicRecord):
+    """A learning-visible suite input. It never carries the expected output:
+    the trusted server-side oracle owns verdicts, and independent cases are
+    withheld from the public package entirely."""
+
+    code: str = Field(min_length=1, max_length=100)
+    stdin: str = Field(max_length=16384)
+
+
+class PublicSemanticSuite(PublicRecord):
+    """Public discovery metadata for a server-held semantic verification suite.
+
+    The manifest may announce that an objective has trusted multi-input
+    verification, but it cannot supply the oracle, the expected outputs or the
+    independent inputs; those live only in the backend registry."""
+
+    standard_version: Literal["code-semantic-suite-v1"]
+    oracle_id: str = Field(min_length=1, max_length=80)
+    comparator: Literal[
+        "exact", "integer", "number_tol", "token_multiset", "line_set", "sorted_lines"
+    ]
+    language: Language
+    visible_cases: list[PublicSemanticCase] = Field(min_length=1, max_length=20)
+    independent_case_count: int = Field(ge=1, le=100)
+    scope_note: str = Field(min_length=1, max_length=500)
+
+    @model_validator(mode="after")
+    def unique_visible_cases(self):
+        codes = [case.code for case in self.visible_cases]
+        if len(set(codes)) != len(codes):
+            raise ValueError("Duplicate visible semantic case code")
+        return self
+
+
 class Activity(PublicRecord):
     id: str
     version_id: str
@@ -130,6 +164,7 @@ class Activity(PublicRecord):
     reference_answer: CodeRequest | None = None
     variants: list[CodeVariant] = Field(default_factory=list, max_length=10)
     check_version: str | None = Field(default=None, max_length=100)
+    semantic_suite: PublicSemanticSuite | None = None
     algebra_prompt: AlgebraPrompt | None = None
     reference_note: str | None = Field(default=None, max_length=2000)
 
@@ -137,6 +172,14 @@ class Activity(PublicRecord):
     def execution_request(self):
         if (self.kind == "finite_algebra") != (self.algebra_prompt is not None):
             raise ValueError("Native algebra activities require their own bounded prompt")
+        if self.semantic_suite is not None and self.kind != "code":
+            raise ValueError("Only code activities may announce a semantic suite")
+        if (
+            self.semantic_suite is not None
+            and self.code_request is not None
+            and self.semantic_suite.language != self.code_request.language
+        ):
+            raise ValueError("Semantic suite language must match its code request")
         if self.code_request is not None and self.kind != "code":
             raise ValueError("Only code activities may carry a code request")
         if (

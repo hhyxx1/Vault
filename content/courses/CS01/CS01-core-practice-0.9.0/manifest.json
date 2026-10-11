@@ -1753,7 +1753,25 @@
           "reflection_prompt": "记录预测与真实结果的差异、修正原因、下一项边界条件；解释为何固定输出仍不能证明整体正确。"
         }
       ],
-      "check_version": "cs01-fixed-condition-v1"
+      "check_version": "cs01-fixed-condition-v1",
+      "semantic_suite": {
+        "standard_version": "code-semantic-suite-v1",
+        "oracle_id": "parking_fee_three_tier",
+        "comparator": "integer",
+        "language": "c17",
+        "visible_cases": [
+          {
+            "code": "visible-30",
+            "stdin": "30\n"
+          },
+          {
+            "code": "visible-60",
+            "stdin": "60\n"
+          }
+        ],
+        "independent_case_count": 6,
+        "scope_note": "按 CS01-M03 三段计费（含端点）在多组分钟数上核验；独立输入不公开，仅针对 30/60 硬编码常量的程序会在独立输入上失败。"
+      }
     },
     {
       "id": "edb8dcd8-0dc4-5265-b924-4f97feff4780",
