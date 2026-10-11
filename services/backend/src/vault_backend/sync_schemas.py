@@ -12,6 +12,7 @@ from pydantic import ConfigDict, Field, StrictBool, StrictInt, field_validator, 
 
 from vault_backend.code_execution import CodeRequest, request_hash
 from vault_backend.responses import (
+    AlgebraVerificationResult,
     BracketVerificationResult,
     CodeOperationResult,
     Criterion,
@@ -44,6 +45,7 @@ ObjectType = Literal[
     "structured_attempt",
     "code_attempt",
     "code_draft",
+    "algebra_attempt",
 ]
 
 
@@ -60,7 +62,12 @@ class LocalPayload(WriteModel):
     @field_validator("*", mode="after", check_fields=False)
     @classmethod
     def dated_fields(cls, value, info):
-        if info.field_name in {"updatedAt", "createdAt", "submittedAt", "confirmedAt"}:
+        if value is not None and info.field_name in {
+            "updatedAt",
+            "createdAt",
+            "submittedAt",
+            "confirmedAt",
+        }:
             instant = datetime.fromisoformat(value.replace("Z", "+00:00"))
             if instant.tzinfo is None:
                 raise ValueError("timezone is required")
@@ -473,6 +480,134 @@ class TombstonePayload(WriteModel):
     deleted: Literal[True]
 
 
+class ImportedAlgebraResult(AlgebraVerificationResult):
+    model_config = ConfigDict(extra="forbid")
+    prediction_correct: StrictBool
+
+    @field_validator("mastery_asserted", mode="before")
+    @classmethod
+    def no_mastery(cls, value):
+        if value is not False:
+            raise ValueError("finite tables cannot assert mastery")
+        return value
+
+
+AlgebraCell = Annotated[str, Field(max_length=20)]
+AlgebraLocalRow = Annotated[list[AlgebraCell], Field(min_length=1, max_length=12)]
+AlgebraLocalTable = Annotated[list[AlgebraLocalRow], Field(min_length=1, max_length=12)]
+
+
+class AlgebraAttemptPayload(LocalPayload):
+    id: UUID
+    artifactId: UUID
+    objectiveCode: ObjectiveId
+    courseCode: str = Field(min_length=1, max_length=80)
+    courseVersionId: UUID
+    activityVersionId: UUID
+    activityVersion: str = Field(min_length=1, max_length=100)
+    mode: Literal["group", "ring", "homomorphism"]
+    table: AlgebraLocalTable
+    secondTable: AlgebraLocalTable | None
+    mapping: list[AlgebraCell] | None = Field(max_length=12)
+    predictions: dict[str, Literal["", "true", "false", "unchecked"]] = Field(
+        min_length=3, max_length=4
+    )
+    explanation: str = Field(max_length=4000)
+    result: ImportedAlgebraResult | None
+    createdAt: Timestamp
+    updatedAt: Timestamp
+    submittedAt: Timestamp | None = None
+
+    @model_validator(mode="after")
+    def bind_native_work(self):
+        from vault_backend.checker import canonical_hash
+        from vault_backend.config import Settings
+        from vault_backend.content import CourseRepository
+        from vault_backend.course_checks.algebra_submission import (
+            KEYS,
+            AlgebraRegistry,
+            AlgebraSubmission,
+        )
+
+        registry = AlgebraRegistry(
+            CourseRepository(Settings().course_catalog_path).packages.values()
+        )
+        entry = registry.activities.get((str(self.courseVersionId), str(self.activityVersionId)))
+        if entry is None:
+            raise ValueError("unregistered native activity")
+        package, activity = entry
+        prompt = activity.algebra_prompt
+        if (
+            self.courseCode != package.course_code
+            or self.activityVersion != activity.version
+            or self.mode != prompt.mode
+            or self.objectiveCode not in activity.objective_codes
+        ):
+            raise ValueError("native activity context mismatch")
+        if len(self.table) != len(prompt.table) or any(
+            len(row) != len(self.table) for row in self.table
+        ):
+            raise ValueError("invalid first table domain")
+        if prompt.second_table is None:
+            if self.secondTable is not None or self.mapping is not None:
+                raise ValueError("single operation required")
+        elif (
+            self.secondTable is None
+            or len(self.secondTable) != len(prompt.second_table)
+            or any(len(row) != len(self.secondTable) for row in self.secondTable)
+        ):
+            raise ValueError("invalid second table domain")
+        if self.mode == "homomorphism":
+            if self.mapping is None or len(self.mapping) != len(self.table):
+                raise ValueError("total mapping required")
+        elif self.mapping is not None:
+            raise ValueError("mapping not applicable")
+        if set(self.predictions) != set(KEYS[self.mode]):
+            raise ValueError("invalid prediction fields")
+        if self.result is not None and self.submittedAt is None:
+            raise ValueError("historical result requires frozen submission")
+        if self.submittedAt is not None:
+
+            def cell(value):
+                import re
+
+                if re.fullmatch(r"-?\d+", value.strip()) is None:
+                    raise ValueError("complete integer labels required")
+                return int(value)
+
+            if any(value == "" for value in self.predictions.values()):
+                raise ValueError("all predictions required before submitting")
+            work = AlgebraSubmission.model_validate(
+                {
+                    "kind": "verify_finite_algebra",
+                    "course_version_id": self.courseVersionId,
+                    "activity_version_id": self.activityVersionId,
+                    "objective_code": self.objectiveCode,
+                    "client_artifact_id": self.artifactId,
+                    "client_revision_id": self.id,
+                    "mode": self.mode,
+                    "table": [[cell(v) for v in row] for row in self.table],
+                    "second_table": [[cell(v) for v in row] for row in self.secondTable]
+                    if self.secondTable
+                    else None,
+                    "mapping": [cell(v) for v in self.mapping]
+                    if self.mapping is not None
+                    else None,
+                    "predictions": {
+                        key: None if v == "unchecked" else v == "true"
+                        for key, v in self.predictions.items()
+                    },
+                    "explanation": self.explanation,
+                }
+            )
+            if self.result is not None:
+                actual = self.result.model_dump(mode="json", exclude={"verification_id"})
+                expected = registry.verify(work)
+                if canonical_hash(actual) != canonical_hash(expected):
+                    raise ValueError("historical report does not match frozen work")
+        return self
+
+
 class ImportedCodeResult(CodeOperationResult):
     model_config = ConfigDict(extra="forbid", strict=True)
     client_artifact_id: UUID = Field(strict=False)
@@ -580,6 +715,7 @@ class CodeAttemptPayload(LocalPayload):
 
 
 PAYLOAD_MODELS = {
+    "algebra_attempt": AlgebraAttemptPayload,
     "draft": DraftPayload,
     "revision": RevisionPayload,
     "evidence": EvidencePayload,

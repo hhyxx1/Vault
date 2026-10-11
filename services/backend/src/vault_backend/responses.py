@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Literal
+from typing import Any, Literal
 from uuid import UUID
 
 from pydantic import BaseModel, Field
@@ -22,6 +22,7 @@ class LeaseResponse(BaseModel):
         Literal[
             "verify_trace",
             "verify_truth_table",
+            "verify_finite_algebra",
             "verify_structured_trace",
             "verify_bracket_judgement",
             "learning_assist",
@@ -174,6 +175,34 @@ class LogicVerificationResult(BaseModel):
     summary: str
 
 
+class AlgebraCriterion(BaseModel):
+    id: str
+    status: Literal["met", "not_met", "needs_review"]
+    reason: str
+
+
+class AlgebraVerificationResult(BaseModel):
+    verification_id: UUID
+    course_id: UUID
+    course_version_id: UUID
+    course_code: str
+    course_version: str
+    activity_id: UUID
+    activity_version_id: UUID
+    activity_version: str
+    objective_ids: list[UUID]
+    standard_version: Literal["finite-algebra-exhaustive-v1"]
+    client_artifact_id: UUID
+    client_revision_id: UUID
+    artifact_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
+    checker_version: Literal["finite-algebra-exhaustive-v1"]
+    provenance: Literal["server_deterministic_checker"]
+    report: dict[str, Any]
+    prediction_correct: bool
+    criteria: list[AlgebraCriterion]
+    mastery_asserted: Literal[False]
+
+
 class CodeTaskCriterion(BaseModel):
     id: Literal["fixed_condition", "explanation", "independent_transfer"]
     status: Literal["met", "not_met", "needs_review"]
@@ -203,6 +232,7 @@ class OperationResponse(BaseModel):
     kind: Literal[
         "verify_trace",
         "verify_truth_table",
+        "verify_finite_algebra",
         "verify_structured_trace",
         "verify_bracket_judgement",
         "run_code",
@@ -217,6 +247,7 @@ class OperationResponse(BaseModel):
         | StructuredVerificationResult
         | BracketVerificationResult
         | CodeOperationResult
+        | AlgebraVerificationResult
         | None
     )
     storage: Literal["ephemeral_memory"]

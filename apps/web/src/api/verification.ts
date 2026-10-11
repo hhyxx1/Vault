@@ -4,6 +4,7 @@ import { hasCodeAssessmentBinding } from '../domain/code-assessment'
 import { COURSE_VERSION, STANDARD_VERSION, TRACE_ACTIVITY, TRACE_OBJECTIVE, type ArtifactRevision, type TracePrediction, type VerificationResult } from '../domain/learning'
 import { artifactContent, canonicalHash, traceSubmission } from '../domain/integrity'
 import type { components } from '../../../../packages/contracts/api.generated'
+import { algebraSubmission, ALGEBRA_PREDICTIONS, type AlgebraAttempt, type AlgebraResult } from '../domain/algebra'
 import { completeLogicRows, LOGIC_ACTIVITY, LOGIC_STANDARD, LOGIC_VERSION, type CourseAttempt, type LogicResult } from '../domain/logic'
 import type {
   BracketActivityPrompt,
@@ -16,6 +17,30 @@ import type {
 } from '../domain/structured'
 
 type Lease = components['schemas']['LeaseResponse']
+export async function verifyAlgebra(attempt: AlgebraAttempt, courseId: string, objectiveId: string, signal?: AbortSignal, renewed = false): Promise<{ result: AlgebraResult; acknowledge: () => Promise<void> }> {
+  const submission = algebraSubmission(attempt)
+  const expectedHash = await canonicalHash(submission)
+  const current = await activeLease(signal)
+  if (!current.allowed_operations.includes('verify_finite_algebra')) {
+    if (!renewed) { clearLease(current); return verifyAlgebra(attempt, courseId, objectiveId, signal, true) }
+    throw new Error('有限运算表核验尚未开放；作品保留在本地。')
+  }
+  const root = `/api/v1/guest-leases/${current.lease_id}/operations`
+  const headers = { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` }
+  let operation: components['schemas']['OperationResponse']
+  try {
+    operation = await readJson(await fetch(root, { method: 'POST', credentials: 'same-origin', signal, headers: { ...headers, 'Idempotency-Key': attempt.id }, body: JSON.stringify(submission) }))
+  } catch (error) {
+    if (!renewed && error instanceof ApiRequestError && ((error.status === 401 && error.code === 'GUEST_LEASE_EXPIRED') || (error.status === 429 && error.code === 'GUEST_BUDGET_EXCEEDED'))) {
+      clearLease(current); return verifyAlgebra(attempt, courseId, objectiveId, signal, true)
+    }
+    throw error
+  }
+  const result = operation.result as AlgebraResult | null
+  const keys = [...ALGEBRA_PREDICTIONS[attempt.mode], 'explanation', 'independent_transfer']
+  if (operation.kind !== 'verify_finite_algebra' || operation.status !== 'completed' || operation.lease_id !== current.lease_id || !result || result.artifact_hash !== expectedHash || result.client_artifact_id !== attempt.artifactId || result.client_revision_id !== attempt.id || result.course_id !== courseId || result.course_version_id !== attempt.courseVersionId || result.course_code !== attempt.courseCode || result.activity_version_id !== attempt.activityVersionId || result.activity_version !== attempt.activityVersion || !result.objective_ids.includes(objectiveId) || result.provenance !== 'server_deterministic_checker' || result.standard_version !== 'finite-algebra-exhaustive-v1' || result.checker_version !== 'finite-algebra-exhaustive-v1' || result.mastery_asserted !== false || typeof result.prediction_correct !== 'boolean' || !Array.isArray(result.criteria) || result.criteria.length !== keys.length || new Set(result.criteria.map(c => c.id)).size !== keys.length || result.criteria.some(c => !keys.includes(c.id) || !['met', 'not_met', 'needs_review'].includes(c.status) || (c.id === 'independent_transfer' && c.status !== 'needs_review') || (c.id === 'explanation' && c.status === 'met')) || JSON.stringify(result).length > 20000) throw new Error('运算表核验来源或工件版本不一致，未写入学习证据。')
+  return { result, acknowledge: async () => { await readJson(await fetch(`${root}/${operation.operation_id}/ack`, { method: 'POST', credentials: 'same-origin', headers, body: JSON.stringify({ expected_revision: operation.revision }) })) } }
+}
 type Operation = components['schemas']['OperationResponse'] & { result: VerificationResult }
 let lease: Lease | null = null
 const guestLeaseStorageKey = 'vault:anonymous-execution-lease:v1'

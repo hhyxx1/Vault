@@ -423,6 +423,7 @@ async def apply_operation(session, space, principal, op):
         "course_attempt",
         "structured_attempt",
         "code_attempt",
+        "algebra_attempt",
     } and op.payload == {"deleted": True}:
         return await remember_result(
             session,
@@ -454,7 +455,8 @@ async def apply_operation(session, space, principal, op):
         )
     if (
         obj is not None
-        and op.object_type in {"course_attempt", "structured_attempt", "code_attempt"}
+        and op.object_type
+        in {"course_attempt", "structured_attempt", "code_attempt", "algebra_attempt"}
         and not deleted
     ):
         previous = obj.payload or {}
@@ -472,6 +474,9 @@ async def apply_operation(session, space, principal, op):
             "request",
             "requestHash",
             "learning",
+            "courseVersionId",
+            "activityVersionId",
+            "mode",
         )
         if (
             previous.get("result") is not None
@@ -480,7 +485,17 @@ async def apply_operation(session, space, principal, op):
                 previous.get("submittedAt") is not None
                 and any(
                     previous.get(key) != op.payload.get(key)
-                    for key in ("rows", "traceRows", "bracketRows", "explanation", "submittedAt")
+                    for key in (
+                        "rows",
+                        "traceRows",
+                        "bracketRows",
+                        "table",
+                        "secondTable",
+                        "mapping",
+                        "predictions",
+                        "explanation",
+                        "submittedAt",
+                    )
                 )
             )
         ):
@@ -720,7 +735,13 @@ async def read_changes(
                     payload=row.payload,
                     payload_hash=row.payload_hash.hex(),
                     requires_review=row.object_type
-                    in {"evidence", "course_attempt", "structured_attempt", "code_attempt"},
+                    in {
+                        "evidence",
+                        "course_attempt",
+                        "structured_attempt",
+                        "code_attempt",
+                        "algebra_attempt",
+                    },
                 )
                 for row in selected
             ],

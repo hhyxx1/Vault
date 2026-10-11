@@ -2,6 +2,8 @@ import catalog from '../../../../content/courses/catalog.json'
 import scopeCatalog from '../../../../content/courses/scope-catalog.json'
 import { courseMapFromPackage } from './course-map'
 import type { CodeRequest } from './code'
+import type { AlgebraPrompt } from './algebra'
+export type CourseAlgebraActivity = { id: string; version_id: string; code: string; version: string; objective_codes: string[]; kind: 'finite_algebra'; title?: string; reference_note?: string; student_action: string; theory: string[]; source_refs: string[]; completion_limit: string; availability: 'practice_ready' | 'pending'; algebra_prompt: AlgebraPrompt }
 export type CodeVariant = { code: string; title: string; student_action: string; code_request: CodeRequest; reference_answer?: CodeRequest; prediction_prompt: string; reflection_prompt: string }
 export type CourseCodeActivity = {
   id: string; version_id: string; code: string; version: string; objective_codes: string[]
@@ -20,12 +22,31 @@ export type AtlasPackage = {
   version: string; status: string; scope_note: string; objectives: AtlasGoal[]
   relations: Array<{ from: string; to: string; kind: string; source?: string }>
   outline?: AtlasChapter[]; content_sources?: string[]
-  activities?: Array<CourseCodeActivity | { kind: string; objective_codes: string[]; availability?: string }>
+  activities?: Array<CourseCodeActivity | CourseAlgebraActivity | { kind: string; objective_codes: string[]; availability?: string }>
   sources?: Array<{ id: string; title: string; url: string; locator: string; status: string }>
 }
 export function codeActivityForObjective(data: AtlasPackage, objective: string): CourseCodeActivity | null {
   if (!data.objectives.some(goal => goal.code === objective)) return null
   return data.activities?.find((activity): activity is CourseCodeActivity => activity.kind === 'code' && activity.availability === 'practice_ready' && activity.objective_codes.includes(objective) && 'code_request' in activity && !!activity.code_request) ?? null
+}
+export function algebraActivityForObjective(data: AtlasPackage, objective: string): CourseAlgebraActivity | null {
+  if (!data.objectives.some(goal => goal.code === objective)) return null
+  return data.activities?.find((activity): activity is CourseAlgebraActivity => activity.kind === 'finite_algebra' && activity.availability === 'practice_ready' && activity.objective_codes.includes(objective) && 'algebra_prompt' in activity) ?? null
+}
+
+export async function loadAlgebraActivity(objective: string, versionId?: string): Promise<{ course: AtlasPackage; activity: CourseAlgebraActivity } | null> {
+  const archived = (scopeCatalog as typeof scopeCatalog & { archived_courses?: typeof scopeCatalog.courses }).archived_courses ?? []
+  const entries = [...scopeCatalog.courses, ...(versionId ? archived : [])].filter(entry => entry.package_path && (!versionId || entry.version_id === versionId))
+  for (const entry of entries) {
+    if (!objective.startsWith(entry.code + '-')) continue
+    const load = bundles[`../../../../content/courses/${entry.package_path}`]
+    if (!load) continue
+    const course = await load()
+    if (course.course_id !== entry.id || course.course_version_id !== entry.version_id) throw new Error('课程版本与目录不一致。')
+    const activity = algebraActivityForObjective(course, objective)
+    if (activity) return { course, activity }
+  }
+  return null
 }
 
 export async function loadCodeActivity(objective: string, versionId?: string): Promise<{ course: AtlasPackage; activity: CourseCodeActivity } | null> {

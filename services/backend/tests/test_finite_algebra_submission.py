@@ -125,3 +125,30 @@ def test_native_work_checks_budget_and_requires_shared_ring_domain():
             second_table=[[0]],
             predictions={"ring": False, "unital_ring": False, "field": False},
         )
+
+
+def test_student_can_identify_unchecked_associativity_after_closure_failure():
+    result = check_algebra_work(
+        work(
+            table=[[0, 1], [1, 2]],
+            predictions={"closed": False, "associative": None, "is_group": False},
+        )
+    )
+    assert result["prediction_correct"]
+    assert result["criteria"][1]["status"] == "met"
+
+
+def test_unknown_prediction_cannot_replace_a_computed_boolean():
+    result = check_algebra_work(
+        work(predictions={"closed": None, "associative": False, "is_group": False})
+    )
+    assert not result["prediction_correct"]
+    assert result["criteria"][0]["status"] == "not_met"
+
+
+def test_json_key_order_does_not_change_semantic_feedback_or_hash():
+    first = work()
+    reordered = first.model_copy(
+        update={"predictions": {"is_group": False, "associative": False, "closed": True}}
+    )
+    assert check_algebra_work(first) == check_algebra_work(reordered)

@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0011_code_draft"
+            == "0012_algebra_attempt"
         )
     settings = Settings(
         environment="test",
@@ -908,8 +908,11 @@ async def test_course_attempt_draft_can_finish_once_and_cloud_copy_requires_revi
     sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
     stamp = "2026-10-08T12:00:00Z"
     attempt = {
-        "id": str(uuid4()), "spaceId": origin, "artifactId": str(uuid4()),
-        "objectiveId": "CS05-LOGIC-01", "courseCode": "CS05",
+        "id": str(uuid4()),
+        "spaceId": origin,
+        "artifactId": str(uuid4()),
+        "objectiveId": "CS05-LOGIC-01",
+        "courseCode": "CS05",
         "activityVersion": "CS05-LOGIC-01-TABLE@0.1.0",
         "rows": [
             {"implication": True, "contrapositive": True, "biconditional": True},
@@ -918,7 +921,9 @@ async def test_course_attempt_draft_can_finish_once_and_cloud_copy_requires_revi
             {"implication": True, "contrapositive": True, "biconditional": True},
         ],
         "explanation": "P 真 Q 假时蕴含为假。",
-        "result": None, "createdAt": stamp, "updatedAt": stamp,
+        "result": None,
+        "createdAt": stamp,
+        "updatedAt": stamp,
     }
     saved, _ = await batch(
         student, account_id, sid, [operation("course_attempt", attempt["id"], attempt)]
@@ -928,13 +933,18 @@ async def test_course_attempt_draft_can_finish_once_and_cloud_copy_requires_revi
         Settings(environment="test", database_url="").course_catalog_path
     ).logic_context
     assert context is not None
-    submission = TruthTableSubmission.model_validate({
-        "kind": "verify_truth_table", "course_code": "CS05",
-        "activity_version": attempt["activityVersion"],
-        "standard_version": "propositional-table-v1",
-        "client_artifact_id": attempt["artifactId"], "client_revision_id": attempt["id"],
-        "rows": attempt["rows"], "explanation": attempt["explanation"],
-    })
+    submission = TruthTableSubmission.model_validate(
+        {
+            "kind": "verify_truth_table",
+            "course_code": "CS05",
+            "activity_version": attempt["activityVersion"],
+            "standard_version": "propositional-table-v1",
+            "client_artifact_id": attempt["artifactId"],
+            "client_revision_id": attempt["id"],
+            "rows": attempt["rows"],
+            "explanation": attempt["explanation"],
+        }
+    )
     result = {**verify_truth_table(submission), **context, "verification_id": str(uuid4())}
     completed = {**attempt, "submittedAt": stamp, "result": result}
     finished, _ = await batch(
@@ -943,12 +953,18 @@ async def test_course_attempt_draft_can_finish_once_and_cloud_copy_requires_revi
     assert finished.json()["results"][0]["status"] == "applied", finished.text
     changed = {**completed, "explanation": "事后更改作品"}
     forged = {**completed, "resultTrust": "server_verified"}
-    denied, _ = await batch(student, account_id, sid, [
-        operation("course_attempt", attempt["id"], changed, "2"),
-        operation("course_attempt", attempt["id"], forged, "2"),
-    ])
+    denied, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("course_attempt", attempt["id"], changed, "2"),
+            operation("course_attempt", attempt["id"], forged, "2"),
+        ],
+    )
     assert [item["reason"] for item in denied.json()["results"]] == [
-        "COURSE_ATTEMPT_LOCKED", "INVALID_PAYLOAD"
+        "COURSE_ATTEMPT_LOCKED",
+        "INVALID_PAYLOAD",
     ]
     changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
     assert changes[-1]["object_type"] == "course_attempt"
@@ -1196,14 +1212,26 @@ async def test_structured_attempt_submit_restore_and_history_lock(cloud):
     spec = get_trace_spec("CS03-STACK-U01-TRACE@0.1.0")
     stamp = "2026-10-09T12:00:00Z"
     attempt = {
-        "id": str(uuid4()), "spaceId": origin, "artifactId": str(uuid4()),
-        "objectiveCode": "CS03-STACK-01", "courseCode": "CS03",
-        "activityVersion": spec.activity_version, "kind": "structured_trace",
-        "traceRows": [{"state": {"items": json.dumps(step["state"]["items"])},
-                       "value": "" if step["value"] is None else str(step["value"]),
-                       "status": step["status"]} for step in spec.expected_submission_steps()],
-        "bracketRows": [], "explanation": "Last in, first out.",
-        "result": None, "createdAt": stamp, "updatedAt": stamp,
+        "id": str(uuid4()),
+        "spaceId": origin,
+        "artifactId": str(uuid4()),
+        "objectiveCode": "CS03-STACK-01",
+        "courseCode": "CS03",
+        "activityVersion": spec.activity_version,
+        "kind": "structured_trace",
+        "traceRows": [
+            {
+                "state": {"items": json.dumps(step["state"]["items"])},
+                "value": "" if step["value"] is None else str(step["value"]),
+                "status": step["status"],
+            }
+            for step in spec.expected_submission_steps()
+        ],
+        "bracketRows": [],
+        "explanation": "Last in, first out.",
+        "result": None,
+        "createdAt": stamp,
+        "updatedAt": stamp,
     }
     saved, _ = await batch(
         student, account_id, sid, [operation("structured_attempt", attempt["id"], attempt)]
@@ -1215,14 +1243,21 @@ async def test_structured_attempt_submit_restore_and_history_lock(cloud):
     )
     assert submitted.json()["results"][0]["status"] == "applied", submitted.text
     denied, _ = await batch(
-        student, account_id, sid,
-        [operation("structured_attempt", attempt["id"], {**frozen, "explanation": "changed"}, "2")]
+        student,
+        account_id,
+        sid,
+        [operation("structured_attempt", attempt["id"], {**frozen, "explanation": "changed"}, "2")],
     )
     assert denied.json()["results"][0]["reason"] == "COURSE_ATTEMPT_LOCKED"
-    result = verify_structured_trace({
-        "client_artifact_id": attempt["artifactId"], "client_revision_id": attempt["id"],
-        "explanation": attempt["explanation"], "steps": spec.expected_submission_steps(),
-    }, spec)
+    result = verify_structured_trace(
+        {
+            "client_artifact_id": attempt["artifactId"],
+            "client_revision_id": attempt["id"],
+            "explanation": attempt["explanation"],
+            "steps": spec.expected_submission_steps(),
+        },
+        spec,
+    )
     result.update(spec.context)
     result["verification_id"] = str(uuid4())
     completed = {**frozen, "result": result}
@@ -1270,11 +1305,17 @@ async def test_code_attempt_sync_freezes_source_and_preserves_untrusted_result(c
     saved, _ = await batch(student, aid, sid, [operation("code_attempt", work["id"], work)])
     assert saved.json()["results"][0]["status"] == "applied", saved.text
     changed_prediction, _ = await batch(
-        student, aid, sid,
-        [operation(
-            "code_attempt", work["id"],
-            {**work, "learning": {"context": None, "prediction": "changed"}}, "1"
-        )],
+        student,
+        aid,
+        sid,
+        [
+            operation(
+                "code_attempt",
+                work["id"],
+                {**work, "learning": {"context": None, "prediction": "changed"}},
+                "1",
+            )
+        ],
     )
     assert changed_prediction.json()["results"][0]["reason"] == "COURSE_ATTEMPT_LOCKED"
     changed_request = CodeRequest(
@@ -1330,11 +1371,20 @@ async def test_code_draft_sync_preserves_notes_and_reports_edit_conflicts(cloud)
     sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
     stamp = "2026-10-10T01:00:00Z"
     work = {
-        "id": "a" * 64, "spaceId": origin, "activityKey": "custom:practice",
-        "request": {"language": "python313", "files": {"main.py": "print(1)"},
-                    "entry": "main.py", "stdin": ""},
-        "prediction": "输出 1", "reflection": "", "learningContext": None,
-        "createdAt": stamp, "updatedAt": stamp,
+        "id": "a" * 64,
+        "spaceId": origin,
+        "activityKey": "custom:practice",
+        "request": {
+            "language": "python313",
+            "files": {"main.py": "print(1)"},
+            "entry": "main.py",
+            "stdin": "",
+        },
+        "prediction": "输出 1",
+        "reflection": "",
+        "learningContext": None,
+        "createdAt": stamp,
+        "updatedAt": stamp,
     }
     saved, _ = await batch(student, aid, sid, [operation("code_draft", work["id"], work)])
     assert saved.json()["results"][0]["status"] == "applied", saved.text

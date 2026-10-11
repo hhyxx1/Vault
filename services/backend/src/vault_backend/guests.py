@@ -10,6 +10,7 @@ from uuid import UUID, uuid4
 from vault_backend.checker import canonical_hash, verify_trace, verify_truth_table
 from vault_backend.code_execution import CodeResult, request_hash
 from vault_backend.config import Settings
+from vault_backend.course_checks.algebra_submission import AlgebraRegistry, AlgebraSubmission
 from vault_backend.course_checks.brackets import (
     BRACKET_CONTEXT,
     verify_bracket_judgements,
@@ -46,6 +47,7 @@ class Operation:
         | StructuredTraceSubmission
         | BracketSubmission
         | CodeSubmission
+        | AlgebraSubmission
         | None
     )
     kind: str
@@ -83,11 +85,13 @@ class GuestLeaseStore:
         trace_context: dict[str, Any] | None = None,
         logic_context: dict[str, Any] | None = None,
         code_runner: Any | None = None,
+        algebra_registry: AlgebraRegistry | None = None,
     ):
         self.settings = settings
         self.trace_context = trace_context
         self.logic_context = logic_context
         self.code_runner = code_runner
+        self.algebra_registry = algebra_registry or AlgebraRegistry([])
         self.code_cleanup_blocked = False
         self.code_tasks: dict[UUID, asyncio.Task] = {}
         self.now = now or (lambda: datetime.now(UTC))
@@ -183,6 +187,7 @@ class GuestLeaseStore:
                     *(["verify_truth_table"] if self.logic_context is not None else []),
                     *(["verify_structured_trace"] if TRUSTED_TRACE_SPECS else []),
                     "verify_bracket_judgement",
+                    *(["verify_finite_algebra"] if self.algebra_registry.activities else []),
                     *(["run_code"] if self.code_runner is not None else []),
                     *(["learning_assist"] if self.settings.agent_enabled else []),
                 ],
@@ -291,7 +296,10 @@ class GuestLeaseStore:
 
     def _complete(self, lease: Lease, op: Operation) -> None:
         assert op.submission is not None
-        if isinstance(op.submission, StructuredTraceSubmission):
+        if isinstance(op.submission, AlgebraSubmission):
+            result = self.algebra_registry.verify(op.submission)
+            context = {}
+        elif isinstance(op.submission, StructuredTraceSubmission):
             spec = get_trace_spec(op.submission.activity_version)
             try:
                 result = verify_structured_trace(op.submission.model_dump(mode="json"), spec)
@@ -333,11 +341,15 @@ class GuestLeaseStore:
             | StructuredTraceSubmission
             | BracketSubmission
             | CodeSubmission
+            | AlgebraSubmission
         ),
     ) -> dict[str, Any]:
         async with self.lock:
             lease = self._lease(lease_id, token, origin)
-            if isinstance(submission, CodeSubmission):
+            if isinstance(submission, AlgebraSubmission):
+                self.algebra_registry.resolve(submission)
+                context = {"available": True}
+            elif isinstance(submission, CodeSubmission):
                 if submission.task:
                     resolve_task(
                         str(submission.task.course_version_id),
@@ -385,7 +397,12 @@ class GuestLeaseStore:
             elif (
                 isinstance(
                     submission,
-                    (TruthTableSubmission, StructuredTraceSubmission, BracketSubmission),
+                    (
+                        TruthTableSubmission,
+                        StructuredTraceSubmission,
+                        BracketSubmission,
+                        AlgebraSubmission,
+                    ),
                 )
                 or submission.trace is not None
             ):

@@ -11,9 +11,23 @@ import type { Account } from '../api/accounts'
 import type { CodeAttempt } from '../domain/code'
 import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
 import { logicObjectiveState, newLogicAttempt, type LogicResult } from '../domain/logic'
+import { newAlgebraAttempt, type AlgebraResult } from '../domain/algebra'
 const account: Account = { id: crypto.randomUUID(), email: 'a@example.test', display_name: 'A', account_type: 'student', teacher_verification_state: null }
 const otherAccount = { ...account, id: crypto.randomUUID(), email: 'b@example.test', display_name: 'B' }
 const databases: LearningDatabase[] = []
+it('includes native work in claims and marks restored results as client reports', async () => {
+  const { db, id, serverId, space } = await boundDb()
+  const record = newAlgebraAttempt(id, { objectiveCode: 'CS05-M07-O01', courseCode: 'CS05', courseVersionId: crypto.randomUUID(), activityVersionId: crypto.randomUUID(), activityVersion: 'table@0.1.0' }, { mode: 'group', table: [[0]], second_table: null, mapping: null })
+  record.result = { mastery_asserted: false, prediction_correct: true } as AlgebraResult
+  await db.algebraAttempts.put(record)
+  const claim = await prepareClaim(id, account.id, db)
+  expect(claim.manifest.some(item => item.objectType === 'algebra_attempt' && item.objectId === record.id)).toBe(true)
+  const change = { object_type: 'algebra_attempt', object_id: record.id, version: '1', deleted: false, payload: record, payload_hash: await canonicalHash(record), provenance: 'client_reported', requires_review: true }
+  vi.stubGlobal('fetch', vi.fn(async () => json({ space_id: serverId, changes: [change], next_cursor: 'cursor', has_more: false })))
+  const other = createDb(); await openLocalSpace(other); await other.spaces.put(space)
+  await pullSpace(space, { account, isCurrent: () => true, db: other })
+  expect((await other.algebraAttempts.get([id, record.id]))?.resultTrust).toBe('client_reported')
+})
 it('claims and restores frozen code runs without granting server evidence trust', async () => {
   const { db, id, serverId, space } = await boundDb()
   const request = { language: 'python313' as const, files: { 'main.py': 'print(5)' }, entry: 'main.py', stdin: '' }

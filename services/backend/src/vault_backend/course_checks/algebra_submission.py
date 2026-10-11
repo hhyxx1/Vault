@@ -10,16 +10,15 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, model_validator
 
-from vault_backend.checker import canonical_hash
 from vault_backend.course_checks.finite_algebra import group, homomorphism, ring, validate
 
 Element = Annotated[StrictInt, Field(ge=-1_000_000, le=1_000_000)]
 TableRow = Annotated[list[Element], Field(min_length=1, max_length=12)]
 OperationTable = Annotated[list[TableRow], Field(min_length=1, max_length=12)]
 KEYS = {
-    "group": {"closed", "associative", "is_group"},
-    "ring": {"ring", "unital_ring", "field"},
-    "homomorphism": {"preserves_operation", "injective", "surjective", "is_group_isomorphism"},
+    "group": ("closed", "associative", "is_group"),
+    "ring": ("ring", "unital_ring", "field"),
+    "homomorphism": ("preserves_operation", "injective", "surjective", "is_group_isomorphism"),
 }
 
 
@@ -29,7 +28,9 @@ class AlgebraWork(BaseModel):
     table: OperationTable
     second_table: OperationTable | None = None
     mapping: list[Element] | None = Field(default=None, min_length=1, max_length=12)
-    predictions: dict[str, StrictBool] = Field(min_length=3, max_length=4)
+    # null is an explicit prediction that a prerequisite prevents checking,
+    # never an omitted prediction or a wildcard matching computed booleans.
+    predictions: dict[str, StrictBool | None] = Field(min_length=3, max_length=4)
     explanation: str = Field(default="", max_length=4000)
     client_artifact_id: UUID
     client_revision_id: UUID
@@ -37,7 +38,7 @@ class AlgebraWork(BaseModel):
     @model_validator(mode="after")
     def complete_work(self):
         n = validate(self.table)
-        if set(self.predictions) != KEYS[self.mode]:
+        if set(self.predictions) != set(KEYS[self.mode]):
             raise ValueError("predictions must match the selected experiment")
         if self.mode == "group":
             if self.second_table is not None or self.mapping is not None:
@@ -59,6 +60,8 @@ class AlgebraWork(BaseModel):
 
 
 def check_algebra_work(work: AlgebraWork) -> dict:
+    from vault_backend.checker import canonical_hash
+
     if work.mode == "group":
         report = group(work.table)
     elif work.mode == "ring":
@@ -66,15 +69,16 @@ def check_algebra_work(work: AlgebraWork) -> dict:
     else:
         report = homomorphism(work.table, work.second_table, work.mapping)
     criteria = []
-    for key, prediction in work.predictions.items():
+    for key in KEYS[work.mode]:
+        prediction = work.predictions[key]
         actual = report[key]
         criteria.append(
             {
                 "id": key,
-                "status": "needs_review"
-                if actual is None
-                else "met"
+                "status": "met"
                 if prediction is actual
+                else "needs_review"
+                if actual is None
                 else "not_met",
                 "reason": "前置封闭条件未成立，此项没有执行检查。"
                 if actual is None
@@ -107,3 +111,75 @@ def check_algebra_work(work: AlgebraWork) -> dict:
         "criteria": criteria,
         "mastery_asserted": False,
     }
+
+
+class AlgebraSubmission(AlgebraWork):
+    kind: Literal["verify_finite_algebra"]
+    course_version_id: UUID
+    activity_version_id: UUID
+    objective_code: str = Field(min_length=1, max_length=80)
+
+
+class AlgebraRegistry:
+    """Only application-loaded, validated public packages register activities."""
+
+    def __init__(self, packages):
+        from vault_backend.course_packages import PublicCoursePackage
+
+        self.activities = {}
+        for raw in packages:
+            package = PublicCoursePackage.model_validate(raw)
+            for activity in package.activities:
+                if activity.kind != "finite_algebra" or activity.availability != "practice_ready":
+                    continue
+                if activity.check_version != "finite-algebra-exhaustive-v1":
+                    continue
+                key = (package.course_version_id, activity.version_id)
+                if key in self.activities:
+                    raise ValueError("Duplicate registered algebra version")
+                self.activities[key] = (package, activity)
+
+    def resolve(self, submission: AlgebraSubmission):
+        from vault_backend.errors import ApiError
+
+        entry = self.activities.get(
+            (str(submission.course_version_id), str(submission.activity_version_id))
+        )
+        if entry is None:
+            raise ApiError(422, "ALGEBRA_ACTIVITY_UNKNOWN", "此课程版本的有限运算表活动未注册。")
+        package, activity = entry
+        prompt = activity.algebra_prompt
+        if (
+            submission.objective_code not in activity.objective_codes
+            or submission.mode != prompt.mode
+            or len(submission.table) != len(prompt.table)
+            or (submission.second_table is None) != (prompt.second_table is None)
+            or (
+                submission.second_table is not None
+                and len(submission.second_table) != len(prompt.second_table)
+            )
+        ):
+            raise ApiError(
+                422, "ALGEBRA_CONTEXT_MISMATCH", "学习目标、实验类型或集合大小与活动不一致。"
+            )
+        return package, activity
+
+    def verify(self, submission: AlgebraSubmission):
+        package, activity = self.resolve(submission)
+        result = check_algebra_work(submission)
+        result.update(
+            {
+                "course_id": package.course_id,
+                "course_version_id": package.course_version_id,
+                "course_code": package.course_code,
+                "course_version": package.version,
+                "activity_id": activity.id,
+                "activity_version_id": activity.version_id,
+                "activity_version": activity.version,
+                "objective_ids": [
+                    o.id for o in package.objectives if o.code in activity.objective_codes
+                ],
+                "standard_version": "finite-algebra-exhaustive-v1",
+            }
+        )
+        return result

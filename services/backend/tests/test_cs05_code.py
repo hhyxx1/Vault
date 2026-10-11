@@ -36,13 +36,14 @@ def test_cs05_each_goal_has_scoped_conditions_without_proof_claims():
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize("fixture", ["CS05-core.json", "CS05-algebra.json"])
 @pytest.mark.skipif(
     sys.platform != "linux" or os.environ.get("VAULT_ISOLATE_INTEGRATION") != "1",
     reason="requires Linux isolate authoring",
 )
-async def test_cs05_real_python313_counterexamples_and_repaired_conditions():
+async def test_cs05_real_python313_counterexamples_and_repaired_conditions(fixture):
     rows = json.loads(
-        (ROOT / "services/backend/fixtures/course-code/CS05-core.json").read_text(encoding="utf-8")
+        (ROOT / "services/backend/fixtures/course-code" / fixture).read_text(encoding="utf-8")
     )
     assert len(rows) == 120
     for row in rows:

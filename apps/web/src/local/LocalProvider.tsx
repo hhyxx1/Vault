@@ -3,12 +3,13 @@ import { database, openLocalSpace, type LocalSpaceRecord, type SyncItem } from '
 import { liveQuery } from 'dexie'
 import type { EvidenceRecord, HelpEvent } from '../domain/learning'
 import type { CodeAttempt } from '../domain/code'
+import type { AlgebraAttempt } from '../domain/algebra'
 import type { CourseAttempt } from '../domain/logic'
 import type { StructuredAttempt } from '../domain/structured'
 import { useAuth } from './AuthProvider'
 import { syncAccount } from './sync'
 import { flushBeforeIdentityChange } from './identity'
-type LocalContextValue = { spaceId: string; evidence: EvidenceRecord[]; courseAttempts: CourseAttempt[]; structuredAttempts: StructuredAttempt[]; codeAttempts: CodeAttempt[]; help: HelpEvent[]; lastObjective: string | null; refresh: () => Promise<void>; error: string | null; spaces: LocalSpaceRecord[]; syncItems: SyncItem[]; syncing: boolean; syncError: string | null; syncNow: () => Promise<void>; selectSpace: (id: string) => Promise<void> }
+type LocalContextValue = { spaceId: string; evidence: EvidenceRecord[]; courseAttempts: CourseAttempt[]; structuredAttempts: StructuredAttempt[]; codeAttempts: CodeAttempt[]; algebraAttempts: AlgebraAttempt[]; help: HelpEvent[]; lastObjective: string | null; refresh: () => Promise<void>; error: string | null; spaces: LocalSpaceRecord[]; syncItems: SyncItem[]; syncing: boolean; syncError: string | null; syncNow: () => Promise<void>; selectSpace: (id: string) => Promise<void> }
 const LocalContext = createContext<LocalContextValue | null>(null)
 export function LocalProvider({ children }: { children: ReactNode }) {
   const auth = useAuth(); const currentAuth = useRef(auth); currentAuth.current = auth
@@ -17,6 +18,7 @@ export function LocalProvider({ children }: { children: ReactNode }) {
   const [courseAttempts, setCourseAttempts] = useState<CourseAttempt[]>([])
   const [codeAttempts, setCodeAttempts] = useState<CodeAttempt[]>([])
   const [structuredAttempts, setStructuredAttempts] = useState<StructuredAttempt[]>([])
+  const [algebraAttempts, setAlgebraAttempts] = useState<AlgebraAttempt[]>([])
   const [lastObjective, setLastObjective] = useState<string | null>(null); const [error, setError] = useState<string | null>(null)
   const [spaces, setSpaces] = useState<LocalSpaceRecord[]>([]); const [syncItems, setSyncItems] = useState<SyncItem[]>([])
   const [syncing, setSyncing] = useState(false); const [syncError, setSyncError] = useState<string | null>(null)
@@ -25,19 +27,19 @@ export function LocalProvider({ children }: { children: ReactNode }) {
     const expectedEpoch = currentAuth.current.epoch
     const expectedAccountId = currentAuth.current.account?.id ?? null
     const id = await openLocalSpace()
-    const [records, attempts, structured, code, events, last, allSpaces, items] = await Promise.all([database.evidence.where('spaceId').equals(id).toArray(), database.courseAttempts.where('spaceId').equals(id).toArray(), database.structuredAttempts.where('spaceId').equals(id).toArray(), database.codeAttempts.where('spaceId').equals(id).toArray(), database.help.where('spaceId').equals(id).toArray(), database.meta.get(`position:${id}`), database.spaces.toArray(), database.syncItems.where('spaceId').equals(id).toArray()])
+    const [records, attempts, structured, code, algebra, events, last, allSpaces, items] = await Promise.all([database.evidence.where('spaceId').equals(id).toArray(), database.courseAttempts.where('spaceId').equals(id).toArray(), database.structuredAttempts.where('spaceId').equals(id).toArray(), database.codeAttempts.where('spaceId').equals(id).toArray(), database.algebraAttempts.where('spaceId').equals(id).toArray(), database.help.where('spaceId').equals(id).toArray(), database.meta.get(`position:${id}`), database.spaces.toArray(), database.syncItems.where('spaceId').equals(id).toArray()])
     const accountId = currentAuth.current.account?.id ?? null
     const activeId = (await database.meta.get('spaceId'))?.value
     if (expectedEpoch !== currentAuth.current.epoch || expectedAccountId !== accountId || !currentAuth.current.ready || activeId !== id) return
     const active = allSpaces.find(space => space.id === id)
     if (!active || (accountId ? active.ownerId !== accountId && active.pendingOwnerId !== accountId && !!(active.ownerId || active.pendingOwnerId) : !!(active.ownerId || active.pendingOwnerId))) return
-    setSpaceId(id); setEvidence(records.sort((a, b) => a.createdAt.localeCompare(b.createdAt))); setCourseAttempts(attempts.sort((a, b) => a.createdAt.localeCompare(b.createdAt))); setCodeAttempts(code); setStructuredAttempts(structured.sort((a, b) => a.createdAt.localeCompare(b.createdAt))); setHelp(events.sort((a, b) => a.createdAt.localeCompare(b.createdAt)))
+    setSpaceId(id); setEvidence(records.sort((a, b) => a.createdAt.localeCompare(b.createdAt))); setCourseAttempts(attempts.sort((a, b) => a.createdAt.localeCompare(b.createdAt))); setCodeAttempts(code); setAlgebraAttempts(algebra); setStructuredAttempts(structured.sort((a, b) => a.createdAt.localeCompare(b.createdAt))); setHelp(events.sort((a, b) => a.createdAt.localeCompare(b.createdAt)))
     setLastObjective(last?.value || null); setSpaces(allSpaces.filter(space => accountId ? space.ownerId === accountId || space.pendingOwnerId === accountId || space.id === id : space.id === id)); setSyncItems(items)
   }, [])
   useEffect(() => {
-    flight.current?.abort(); flight.current = null; setSyncing(false); setSyncError(null); setSpaceId(''); setEvidence([]); setCourseAttempts([]); setStructuredAttempts([]); setCodeAttempts([]); setHelp([]); setLastObjective(null); setSpaces([]); setSyncItems([])
+    flight.current?.abort(); flight.current = null; setSyncing(false); setSyncError(null); setSpaceId(''); setEvidence([]); setCourseAttempts([]); setStructuredAttempts([]); setCodeAttempts([]); setAlgebraAttempts([]); setHelp([]); setLastObjective(null); setSpaces([]); setSyncItems([])
     if (!auth.ready) return
-    const subscription = liveQuery(async () => { await database.meta.toArray(); await database.spaces.toArray(); await database.syncItems.toArray(); await database.evidence.count(); await database.courseAttempts.count(); await database.structuredAttempts.count(); await database.codeAttempts.count(); await database.help.count(); return true }).subscribe({ next: () => refresh().catch(() => setError('无法读取本地空间，请检查浏览器存储权限。')), error: () => setError('本地学习空间暂时不可用。') })
+    const subscription = liveQuery(async () => { await database.meta.toArray(); await database.spaces.toArray(); await database.syncItems.toArray(); await database.evidence.count(); await database.courseAttempts.count(); await database.structuredAttempts.count(); await database.codeAttempts.count(); await database.algebraAttempts.count(); await database.help.count(); return true }).subscribe({ next: () => refresh().catch(() => setError('无法读取本地空间，请检查浏览器存储权限。')), error: () => setError('本地学习空间暂时不可用。') })
     return () => { subscription.unsubscribe(); flight.current?.abort(); flight.current = null }
   }, [auth.ready, auth.epoch, refresh])
   const syncNow = useCallback(async () => {
@@ -71,6 +73,6 @@ export function LocalProvider({ children }: { children: ReactNode }) {
     flight.current?.abort(); flight.current = null; setSyncing(false); await refresh()
   }
   if (!auth.ready || !spaceId) return <div className="page page-loading" role="status">{error ?? '正在确认账号并打开独立学习空间…'}</div>
-  return <LocalContext.Provider value={{ spaceId, evidence, courseAttempts, structuredAttempts, codeAttempts, help, lastObjective, refresh, error, spaces, syncItems, syncing, syncError, syncNow, selectSpace }}>{children}</LocalContext.Provider>
+  return <LocalContext.Provider value={{ spaceId, evidence, courseAttempts, structuredAttempts, codeAttempts, algebraAttempts, help, lastObjective, refresh, error, spaces, syncItems, syncing, syncError, syncNow, selectSpace }}>{children}</LocalContext.Provider>
 }
 export function useLocal() { const value = useContext(LocalContext); if (!value) throw new Error('本地空间尚未初始化。'); return value }

@@ -64,6 +64,294 @@
         "title": "AccountSessionOutput",
         "type": "object"
       },
+      "AlgebraCriterion": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "met",
+              "not_met",
+              "needs_review"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "reason"
+        ],
+        "title": "AlgebraCriterion",
+        "type": "object"
+      },
+      "AlgebraSubmission": {
+        "additionalProperties": false,
+        "properties": {
+          "activity_version_id": {
+            "format": "uuid",
+            "title": "Activity Version Id",
+            "type": "string"
+          },
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "course_version_id": {
+            "format": "uuid",
+            "title": "Course Version Id",
+            "type": "string"
+          },
+          "explanation": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Explanation",
+            "type": "string"
+          },
+          "kind": {
+            "const": "verify_finite_algebra",
+            "title": "Kind",
+            "type": "string"
+          },
+          "mapping": {
+            "anyOf": [
+              {
+                "items": {
+                  "maximum": 1000000.0,
+                  "minimum": -1000000.0,
+                  "type": "integer"
+                },
+                "maxItems": 12,
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mapping"
+          },
+          "mode": {
+            "enum": [
+              "group",
+              "ring",
+              "homomorphism"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "objective_code": {
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Objective Code",
+            "type": "string"
+          },
+          "predictions": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "maxProperties": 4,
+            "minProperties": 3,
+            "title": "Predictions",
+            "type": "object"
+          },
+          "second_table": {
+            "anyOf": [
+              {
+                "items": {
+                  "items": {
+                    "maximum": 1000000.0,
+                    "minimum": -1000000.0,
+                    "type": "integer"
+                  },
+                  "maxItems": 12,
+                  "minItems": 1,
+                  "type": "array"
+                },
+                "maxItems": 12,
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Second Table"
+          },
+          "table": {
+            "items": {
+              "items": {
+                "maximum": 1000000.0,
+                "minimum": -1000000.0,
+                "type": "integer"
+              },
+              "maxItems": 12,
+              "minItems": 1,
+              "type": "array"
+            },
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Table",
+            "type": "array"
+          }
+        },
+        "required": [
+          "mode",
+          "table",
+          "predictions",
+          "client_artifact_id",
+          "client_revision_id",
+          "kind",
+          "course_version_id",
+          "activity_version_id",
+          "objective_code"
+        ],
+        "title": "AlgebraSubmission",
+        "type": "object"
+      },
+      "AlgebraVerificationResult": {
+        "properties": {
+          "activity_id": {
+            "format": "uuid",
+            "title": "Activity Id",
+            "type": "string"
+          },
+          "activity_version": {
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "activity_version_id": {
+            "format": "uuid",
+            "title": "Activity Version Id",
+            "type": "string"
+          },
+          "artifact_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Artifact Hash",
+            "type": "string"
+          },
+          "checker_version": {
+            "const": "finite-algebra-exhaustive-v1",
+            "title": "Checker Version",
+            "type": "string"
+          },
+          "client_artifact_id": {
+            "format": "uuid",
+            "title": "Client Artifact Id",
+            "type": "string"
+          },
+          "client_revision_id": {
+            "format": "uuid",
+            "title": "Client Revision Id",
+            "type": "string"
+          },
+          "course_code": {
+            "title": "Course Code",
+            "type": "string"
+          },
+          "course_id": {
+            "format": "uuid",
+            "title": "Course Id",
+            "type": "string"
+          },
+          "course_version": {
+            "title": "Course Version",
+            "type": "string"
+          },
+          "course_version_id": {
+            "format": "uuid",
+            "title": "Course Version Id",
+            "type": "string"
+          },
+          "criteria": {
+            "items": {
+              "$ref": "#/components/schemas/AlgebraCriterion"
+            },
+            "title": "Criteria",
+            "type": "array"
+          },
+          "mastery_asserted": {
+            "const": false,
+            "title": "Mastery Asserted",
+            "type": "boolean"
+          },
+          "objective_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Objective Ids",
+            "type": "array"
+          },
+          "prediction_correct": {
+            "title": "Prediction Correct",
+            "type": "boolean"
+          },
+          "provenance": {
+            "const": "server_deterministic_checker",
+            "title": "Provenance",
+            "type": "string"
+          },
+          "report": {
+            "additionalProperties": true,
+            "title": "Report",
+            "type": "object"
+          },
+          "standard_version": {
+            "const": "finite-algebra-exhaustive-v1",
+            "title": "Standard Version",
+            "type": "string"
+          },
+          "verification_id": {
+            "format": "uuid",
+            "title": "Verification Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "verification_id",
+          "course_id",
+          "course_version_id",
+          "course_code",
+          "course_version",
+          "activity_id",
+          "activity_version_id",
+          "activity_version",
+          "objective_ids",
+          "standard_version",
+          "client_artifact_id",
+          "client_revision_id",
+          "artifact_hash",
+          "checker_version",
+          "provenance",
+          "report",
+          "prediction_correct",
+          "criteria",
+          "mastery_asserted"
+        ],
+        "title": "AlgebraVerificationResult",
+        "type": "object"
+      },
       "BatchRequest": {
         "additionalProperties": false,
         "properties": {
@@ -525,7 +813,8 @@
               "course_attempt",
               "structured_attempt",
               "code_attempt",
-              "code_draft"
+              "code_draft",
+              "algebra_attempt"
             ],
             "title": "Object Type",
             "type": "string"
@@ -1088,7 +1377,8 @@
               "course_attempt",
               "structured_attempt",
               "code_attempt",
-              "code_draft"
+              "code_draft",
+              "algebra_attempt"
             ],
             "title": "Object Type",
             "type": "string"
@@ -1421,6 +1711,7 @@
               "enum": [
                 "verify_trace",
                 "verify_truth_table",
+                "verify_finite_algebra",
                 "verify_structured_trace",
                 "verify_bracket_judgement",
                 "learning_assist",
@@ -1773,6 +2064,7 @@
             "enum": [
               "verify_trace",
               "verify_truth_table",
+              "verify_finite_algebra",
               "verify_structured_trace",
               "verify_bracket_judgement",
               "run_code"
@@ -1806,6 +2098,9 @@
               },
               {
                 "$ref": "#/components/schemas/CodeOperationResult"
+              },
+              {
+                "$ref": "#/components/schemas/AlgebraVerificationResult"
               },
               {
                 "type": "null"
@@ -1890,7 +2185,8 @@
                   "course_attempt",
                   "structured_attempt",
                   "code_attempt",
-                  "code_draft"
+                  "code_draft",
+                  "algebra_attempt"
                 ],
                 "type": "string"
               },
@@ -2604,7 +2900,8 @@
                   "course_attempt",
                   "structured_attempt",
                   "code_attempt",
-                  "code_draft"
+                  "code_draft",
+                  "algebra_attempt"
                 ],
                 "type": "string"
               },
@@ -3673,6 +3970,7 @@
                   "mapping": {
                     "run_code": "#/components/schemas/CodeSubmission",
                     "verify_bracket_judgement": "#/components/schemas/BracketSubmission",
+                    "verify_finite_algebra": "#/components/schemas/AlgebraSubmission",
                     "verify_structured_trace": "#/components/schemas/StructuredTraceSubmission",
                     "verify_trace": "#/components/schemas/TraceSubmission",
                     "verify_truth_table": "#/components/schemas/TruthTableSubmission"
@@ -3691,6 +3989,9 @@
                   },
                   {
                     "$ref": "#/components/schemas/BracketSubmission"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AlgebraSubmission"
                   },
                   {
                     "$ref": "#/components/schemas/CodeSubmission"

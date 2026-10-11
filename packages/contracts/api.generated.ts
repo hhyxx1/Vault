@@ -572,6 +572,144 @@ export interface components {
         AccountSessionOutput: {
             account: components["schemas"]["AccountOutput"];
         };
+        /** AlgebraCriterion */
+        AlgebraCriterion: {
+            /** Id */
+            id: string;
+            /** Reason */
+            reason: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "met" | "not_met" | "needs_review";
+        };
+        /** AlgebraSubmission */
+        AlgebraSubmission: {
+            /**
+             * Activity Version Id
+             * Format: uuid
+             */
+            activity_version_id: string;
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            /**
+             * Course Version Id
+             * Format: uuid
+             */
+            course_version_id: string;
+            /**
+             * Explanation
+             * @default
+             */
+            explanation: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            kind: "verify_finite_algebra";
+            /** Mapping */
+            mapping?: number[] | null;
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "group" | "ring" | "homomorphism";
+            /** Objective Code */
+            objective_code: string;
+            /** Predictions */
+            predictions: {
+                [key: string]: boolean | null;
+            };
+            /** Second Table */
+            second_table?: number[][] | null;
+            /** Table */
+            table: number[][];
+        };
+        /** AlgebraVerificationResult */
+        AlgebraVerificationResult: {
+            /**
+             * Activity Id
+             * Format: uuid
+             */
+            activity_id: string;
+            /** Activity Version */
+            activity_version: string;
+            /**
+             * Activity Version Id
+             * Format: uuid
+             */
+            activity_version_id: string;
+            /** Artifact Hash */
+            artifact_hash: string;
+            /**
+             * Checker Version
+             * @constant
+             */
+            checker_version: "finite-algebra-exhaustive-v1";
+            /**
+             * Client Artifact Id
+             * Format: uuid
+             */
+            client_artifact_id: string;
+            /**
+             * Client Revision Id
+             * Format: uuid
+             */
+            client_revision_id: string;
+            /** Course Code */
+            course_code: string;
+            /**
+             * Course Id
+             * Format: uuid
+             */
+            course_id: string;
+            /** Course Version */
+            course_version: string;
+            /**
+             * Course Version Id
+             * Format: uuid
+             */
+            course_version_id: string;
+            /** Criteria */
+            criteria: components["schemas"]["AlgebraCriterion"][];
+            /**
+             * Mastery Asserted
+             * @constant
+             */
+            mastery_asserted: false;
+            /** Objective Ids */
+            objective_ids: string[];
+            /** Prediction Correct */
+            prediction_correct: boolean;
+            /**
+             * Provenance
+             * @constant
+             */
+            provenance: "server_deterministic_checker";
+            /** Report */
+            report: {
+                [key: string]: unknown;
+            };
+            /**
+             * Standard Version
+             * @constant
+             */
+            standard_version: "finite-algebra-exhaustive-v1";
+            /**
+             * Verification Id
+             * Format: uuid
+             */
+            verification_id: string;
+        };
         /** BatchRequest */
         BatchRequest: {
             /**
@@ -804,7 +942,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt" | "code_attempt" | "code_draft";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt" | "code_attempt" | "code_draft" | "algebra_attempt";
             /** Payload */
             payload: {
                 [key: string]: unknown;
@@ -1098,7 +1236,7 @@ export interface components {
              * Object Type
              * @enum {string}
              */
-            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt" | "code_attempt" | "code_draft";
+            object_type: "draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt" | "code_attempt" | "code_draft" | "algebra_attempt";
             /** Payload Hash */
             payload_hash: string;
             /**
@@ -1255,7 +1393,7 @@ export interface components {
              */
             absolute_expires_at: string;
             /** Allowed Operations */
-            allowed_operations: ("verify_trace" | "verify_truth_table" | "verify_structured_trace" | "verify_bracket_judgement" | "learning_assist" | "run_code")[];
+            allowed_operations: ("verify_trace" | "verify_truth_table" | "verify_finite_algebra" | "verify_structured_trace" | "verify_bracket_judgement" | "learning_assist" | "run_code")[];
             /**
              * Created At
              * Format: date-time
@@ -1429,7 +1567,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "verify_trace" | "verify_truth_table" | "verify_structured_trace" | "verify_bracket_judgement" | "run_code";
+            kind: "verify_trace" | "verify_truth_table" | "verify_finite_algebra" | "verify_structured_trace" | "verify_bracket_judgement" | "run_code";
             /**
              * Lease Id
              * Format: uuid
@@ -1441,7 +1579,7 @@ export interface components {
              */
             operation_id: string;
             /** Result */
-            result: components["schemas"]["VerificationResult"] | components["schemas"]["LogicVerificationResult"] | components["schemas"]["StructuredVerificationResult"] | components["schemas"]["BracketVerificationResult"] | components["schemas"]["CodeOperationResult"] | null;
+            result: components["schemas"]["VerificationResult"] | components["schemas"]["LogicVerificationResult"] | components["schemas"]["StructuredVerificationResult"] | components["schemas"]["BracketVerificationResult"] | components["schemas"]["CodeOperationResult"] | components["schemas"]["AlgebraVerificationResult"] | null;
             /** Revision */
             revision: string;
             /**
@@ -1464,7 +1602,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt" | "code_attempt" | "code_draft") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt" | "code_attempt" | "code_draft" | "algebra_attempt") | "attachment";
             /**
              * Op Id
              * Format: uuid
@@ -1779,7 +1917,7 @@ export interface components {
             /** Object Id */
             object_id: string;
             /** Object Type */
-            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt" | "code_attempt" | "code_draft") | "attachment";
+            object_type: ("draft" | "revision" | "evidence" | "help" | "teacher_draft" | "position" | "personal_course" | "personal_course_version" | "personal_attempt" | "personal_assist" | "course_attempt" | "structured_attempt" | "code_attempt" | "code_draft" | "algebra_attempt") | "attachment";
             /**
              * Op Id
              * Format: uuid
@@ -2445,7 +2583,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TraceSubmission"] | components["schemas"]["TruthTableSubmission"] | components["schemas"]["StructuredTraceSubmission"] | components["schemas"]["BracketSubmission"] | components["schemas"]["CodeSubmission"];
+                "application/json": components["schemas"]["TraceSubmission"] | components["schemas"]["TruthTableSubmission"] | components["schemas"]["StructuredTraceSubmission"] | components["schemas"]["BracketSubmission"] | components["schemas"]["AlgebraSubmission"] | components["schemas"]["CodeSubmission"];
             };
         };
         responses: {

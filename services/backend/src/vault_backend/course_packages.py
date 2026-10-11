@@ -1,11 +1,12 @@
 """Public course payloads. Private solutions/checker fixtures do not belong here."""
 
-from typing import Literal
+from typing import Annotated, Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from .code_execution import CodeRequest
+from .course_checks.finite_algebra import validate as validate_operation_table
 
 
 class PublicRecord(BaseModel):
@@ -75,13 +76,46 @@ class CodeVariant(PublicRecord):
     reflection_prompt: str = Field(min_length=1)
 
 
+AlgebraElement = Annotated[int, Field(ge=-1_000_000, le=1_000_000)]
+AlgebraRow = Annotated[list[AlgebraElement], Field(min_length=1, max_length=12)]
+AlgebraTable = Annotated[list[AlgebraRow], Field(min_length=1, max_length=12)]
+
+
+class AlgebraPrompt(PublicRecord):
+    mode: Literal["group", "ring", "homomorphism"]
+    table: AlgebraTable
+    second_table: AlgebraTable | None = None
+    mapping: list[AlgebraElement] | None = Field(default=None, min_length=1, max_length=12)
+
+    @model_validator(mode="after")
+    def complete_prompt(self):
+        n = validate_operation_table(self.table)
+        if self.mode == "group":
+            if self.second_table is not None or self.mapping is not None:
+                raise ValueError("Single operation required")
+        else:
+            if self.second_table is None:
+                raise ValueError("Second operation required")
+            m = validate_operation_table(self.second_table)
+            if self.mode == "ring":
+                if n != m or self.mapping is not None:
+                    raise ValueError("Ring tables must share a domain")
+            elif (
+                self.mapping is None
+                or len(self.mapping) != n
+                or any(not 0 <= a < m for a in self.mapping)
+            ):
+                raise ValueError("Total mapping into target domain required")
+        return self
+
+
 class Activity(PublicRecord):
     id: str
     version_id: str
     code: str
     version: str
     objective_codes: list[str] = Field(min_length=1)
-    kind: Literal["structured_trace", "code", "sql", "network", "open_response"]
+    kind: Literal["structured_trace", "code", "sql", "network", "open_response", "finite_algebra"]
     student_action: str = Field(min_length=1)
     theory: list[str] = Field(min_length=1)
     starter: str
@@ -96,9 +130,13 @@ class Activity(PublicRecord):
     reference_answer: CodeRequest | None = None
     variants: list[CodeVariant] = Field(default_factory=list, max_length=10)
     check_version: str | None = Field(default=None, max_length=100)
+    algebra_prompt: AlgebraPrompt | None = None
+    reference_note: str | None = Field(default=None, max_length=2000)
 
     @model_validator(mode="after")
     def execution_request(self):
+        if (self.kind == "finite_algebra") != (self.algebra_prompt is not None):
+            raise ValueError("Native algebra activities require their own bounded prompt")
         if self.code_request is not None and self.kind != "code":
             raise ValueError("Only code activities may carry a code request")
         if (

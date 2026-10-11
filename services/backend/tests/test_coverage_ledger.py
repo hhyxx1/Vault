@@ -22,3 +22,7 @@ def test_generated_ledger_tracks_exact_published_goals_without_completion_claim(
     assert ml["course_version"] == "CS13-core-practice-0.3.0"
     assert "python313ml-isolate-dev@0.1.0" in ml["environment_profiles"]
     assert "library-kmeans" in ml["normal_case_ids"]
+    algebra = next(r for r in rows if r["objective_id"] == "CS05-M07-O01")
+    assert algebra["course_version"] == "CS05-core-practice-0.2.0"
+    assert "finite-algebra-native@0.1.0" in algebra["environment_profiles"]
+    assert "editable_finite_table_or_mapping" in algebra["variant_ids"]

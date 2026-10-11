@@ -1,0 +1,49 @@
+import { expect, test } from '@playwright/test'
+
+test('native closure counterexample survives refresh and repair creates a new immutable version', async ({ page }) => {
+  await page.goto('/learn/CS05-M07-O01')
+  await expect(page.getByRole('heading', { name: '逐公理检查有限运算表' })).toBeVisible()
+  await page.getByLabel('运算封闭的预测').selectOption('false')
+  await page.getByLabel('满足结合律的预测').selectOption('unchecked')
+  await page.getByLabel('构成群的预测').selectOption('false')
+  await page.getByLabel('反例与修改理由').fill('1·1=2 不在标签集合内，所以不能继续断言结合律。')
+  await page.getByRole('button', { name: '保存并核验运算表' }).click()
+  await expect(page.getByText('本版预测与完整有限表一致', { exact: true })).toBeVisible()
+  await expect(page.getByText('1 · 1 = 2，结果不在集合内。', { exact: true })).toBeVisible()
+  await page.reload()
+  await expect(page.getByText('本版预测与完整有限表一致', { exact: true })).toBeVisible()
+  await expect(page.getByLabel('运算表，第 2 行，第 2 列')).toBeDisabled()
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  await page.getByLabel('运算表，第 2 行，第 2 列').fill('0')
+  for (const label of ['运算封闭', '满足结合律', '构成群']) await page.getByLabel(label + '的预测').selectOption('true')
+  await page.getByLabel('反例与修改理由').fill('把越界的结果改成0；这是模2加法，需要再次核验全部公理。')
+  await page.getByRole('button', { name: '保存并核验运算表' }).click()
+  await expect(page.getByText('本版预测与完整有限表一致', { exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: /历史版本/ })).toHaveCount(1)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  await expect(page.getByRole('link', { name: '查看图谱证据 →' })).toHaveAttribute('href', '/atlas?course=CS05&edition=core&goal=CS05-M07-O01')
+  await page.getByRole('link', { name: '查看图谱证据 →' }).click()
+  await expect(page.getByText('0 / 30', { exact: true })).toBeVisible()
+})
+
+for (const experiment of [
+  { goal: 'CS05-M07-O02', title: '区分环、单位元与域', labels: ['构成环', '是有单位元的环', '构成域'], values: ['false', 'false', 'false'], cell: '乘法表，第 2 行，第 2 列', repaired: '1' },
+  { goal: 'CS05-M07-O03', title: '双射是否保持运算', labels: ['保持指定运算', '是单射', '是满射', '是群同构'], values: ['false', 'true', 'true', 'false'], cell: null, repaired: null },
+]) test(experiment.title + ' combines prediction, actual witness and revised work', async ({ page }) => {
+  await page.goto('/learn/' + experiment.goal)
+  await expect(page.getByRole('heading', { name: experiment.title })).toBeVisible()
+  for (let index = 0; index < experiment.labels.length; index++) await page.getByLabel(experiment.labels[index] + '的预测').selectOption(experiment.values[index])
+  await page.getByLabel('反例与修改理由').fill('先检查完整表和映射，按核验返回的具体反例修正。')
+  await page.getByRole('button', { name: '保存并核验运算表' }).click()
+  await expect(page.getByText('本版预测与完整有限表一致', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: '修改并开始新版本' }).click()
+  if (experiment.cell) await page.getByLabel(experiment.cell).fill(experiment.repaired!)
+  else { await page.getByLabel('源元素 0 的像').fill('0'); await page.getByLabel('源元素 1 的像').fill('1') }
+  for (const label of experiment.labels) await page.getByLabel(label + '的预测').selectOption('true')
+  await page.getByLabel('反例与修改理由').fill('修正后重新逐公理核验，解释与独立迁移仍需单独验证。')
+  await page.getByRole('button', { name: '保存并核验运算表' }).click()
+  await expect(page.getByText('本版预测与完整有限表一致', { exact: true })).toBeVisible()
+  await page.reload()
+  await expect(page.getByText('本版预测与完整有限表一致', { exact: true })).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+})

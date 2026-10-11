@@ -29,7 +29,7 @@ def db():
         )
         assert (
             connection.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0011_code_draft"
+            == "0012_algebra_attempt"
         )
         # All synthetic mutations remain in one transaction and are rolled back.
         yield connection
@@ -44,6 +44,60 @@ def account(connection, account_type="student"):
         (key, account_type, f"{key}@invalid.test", f"{key}@invalid.test"),
     )
     return key
+
+
+def test_native_algebra_draft_can_change_but_submitted_table_is_immutable(db):
+    from psycopg.types.json import Jsonb
+
+    owner = account(db)
+    sid = space(db, owner)
+    object_id = str(uuid4())
+    payload = {
+        "id": object_id,
+        "spaceId": str(sid),
+        "artifactId": str(uuid4()),
+        "mode": "group",
+        "table": [["0"]],
+        "result": None,
+        "explanation": "",
+        "createdAt": "2026-10-10T00:00:00Z",
+        "updatedAt": "2026-10-10T00:00:00Z",
+    }
+    db.execute(
+        "INSERT INTO sync_object (space_id,object_type,object_id,server_object_id,"
+        "version,payload_hash,payload) "
+        "VALUES (%s,'algebra_attempt',%s,%s,1,%s,%s)",
+        (sid, object_id, uuid4(), bytes(32), Jsonb(payload)),
+    )
+    edited = {**payload, "table": [["1"]]}
+    db.execute(
+        "UPDATE sync_object SET payload=%s,version=version+1 "
+        "WHERE space_id=%s AND object_type='algebra_attempt' AND object_id=%s",
+        (Jsonb(edited), sid, object_id),
+    )
+    frozen = {**edited, "submittedAt": "2026-10-10T00:01:00Z"}
+    db.execute(
+        "UPDATE sync_object SET payload=%s,version=version+1 "
+        "WHERE space_id=%s AND object_type='algebra_attempt' AND object_id=%s",
+        (Jsonb(frozen), sid, object_id),
+    )
+    for changed in [
+        {**frozen, "table": [["0"]]},
+        {**frozen, "explanation": "改写"},
+        {**frozen, "artifactId": str(uuid4())},
+    ]:
+        with pytest.raises(psycopg.errors.CheckViolation), db.transaction():
+            db.execute(
+                "UPDATE sync_object SET payload=%s,version=version+1 "
+                "WHERE space_id=%s AND object_type='algebra_attempt' AND object_id=%s",
+                (Jsonb(changed), sid, object_id),
+            )
+    with pytest.raises(psycopg.errors.CheckViolation), db.transaction():
+        db.execute(
+            "UPDATE sync_object SET deleted_at=now(),payload=NULL,version=version+1 "
+            "WHERE space_id=%s AND object_type='algebra_attempt' AND object_id=%s",
+            (sid, object_id),
+        )
 
 
 def space(connection, owner):

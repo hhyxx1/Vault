@@ -67,6 +67,11 @@ def build_rows(root):
             ]
             normal, wrong, profiles, variants, sources = [], [], set(), [], set()
             for a in activities:
+                sources.update(a["source_refs"])
+                if a["kind"] == "finite_algebra":
+                    profiles.add("finite-algebra-native@0.1.0")
+                    variants.append("editable_finite_table_or_mapping")
+                    continue
                 tasks = [
                     {
                         "code": "base",
@@ -75,7 +80,6 @@ def build_rows(root):
                     },
                     *a["variants"],
                 ]
-                sources.update(a["source_refs"])
                 for task in tasks:
                     profiles.add(PROFILES[task["code_request"]["language"]])
                     if task["code"] != "base":

@@ -5,7 +5,7 @@ import { expect, test } from '@playwright/test'
 // Explicit author walkthrough, not independent learning or a Q0–Q5 completion claim.
 // Run with VAULT_ALL_OBJECTIVES_E2E=1; standard smoke checks stay bounded.
 type Request = { entry: string; language: string; files: Record<string, string>; stdin: string }
-type Activity = { objective_codes: string[]; reference_answer: Request; code_request: Request }
+type Activity = { kind: string; objective_codes: string[]; reference_answer: Request; code_request: Request }
 const content = resolve(import.meta.dirname, '../../../content/courses')
 const catalog = JSON.parse(readFileSync(resolve(content, 'scope-catalog.json'), 'utf8')) as {
   courses: { code: string; package_path: string }[]
@@ -17,14 +17,14 @@ for (const course of catalog.courses) {
     test.skip(testInfo.project.name !== 'chromium', 'Full desktop walkthrough; mobile repair paths have dedicated tests')
     test.setTimeout(15 * 60 * 1000)
     const manifest = JSON.parse(readFileSync(resolve(content, course.package_path), 'utf8')) as {
-      activities: Activity[]
+      activities: Activity[]; objectives: unknown[]
     }
     let grants = 0
     page.on('request', request => { if (request.method() === 'POST' && request.url().endsWith('/api/v1/guest-leases')) grants++ })
-    for (const activity of manifest.activities) {
+    for (const activity of manifest.activities.filter(activity => activity.kind === 'code')) {
       const goal = activity.objective_codes[0]
       await test.step(`${goal}: viewed answer, actual execution, restore`, async () => {
-        await page.goto(`/learn/${goal}`)
+        await page.goto(`/learn/${goal}?task=code`)
         await expect(page.getByLabel('运行语言')).toHaveValue(activity.code_request.language)
         await page.getByRole('button', { name: '查看参考答案', exact: true }).click()
         const answer = activity.reference_answer
@@ -42,7 +42,7 @@ for (const course of catalog.courses) {
       })
     }
     await page.getByRole('link', { name: '回到知识图谱' }).click()
-    await expect(page.locator('.scope-total strong')).toContainText(`0 / ${manifest.activities.length}`)
+    await expect(page.locator('.scope-total strong')).toContainText(`0 / ${manifest.objectives.length}`)
     expect(grants).toBeLessThanOrEqual(2) // 20-operation lease budget; reloads reuse the anonymous capability.
   })
 }
