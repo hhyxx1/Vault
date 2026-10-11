@@ -4,7 +4,7 @@
 
 ## 当前检查点
 
-- 更新时间：2026-10-11（#29 / P1：**C01 公共工程核心闭环**——切片 A 受信配置侧车、切片 B 非 CS 编号合成课 + extra_courses 三分区、分发契约与归档审计；C02 语义核验此前已完整闭环。下一项 C03）
+- 更新时间：2026-10-11（#29 / P1：**C01 公共工程核心闭环**（切片 A/B + 分发契约归档审计）、**C02 语义核验完整闭环**、**C03 首个真实缺口——code 活动版本化帮助快照已闭环（c6c17f8）**，并审计确认 code 作品不可覆写/迟到结果/跨账号守卫对等、7 类评估“解释非空≠通过”成立。C03 剩余为每目标独立迁移变体覆盖等数据审计；之后 C04–C08）
 - worktree：`C:\Users\Remote\.codex\worktrees\485f\Vault`（detached HEAD）
 - HEAD：`98e3e10`；远端 `mine/hyx_dev`（https://github.com/hhyxx1/Vault.git）。
 - 复核报告：`document/handoff/EXECUTOR_FINAL_REPORT.md`（阶段性；13 课端到端未完成，已如实界定，全部完成后重写）。
@@ -130,10 +130,23 @@
 - 关键修复：套件代表结果原先回传的 `request_sha256` 含服务端注入的 case stdin，与前端作品快照 hash 天然不等而被一致性闸门拒绝；已改为绑定提交作品请求 hash（case 级 runner 完整性仍在 run_suite 内逐 case 校验），并加 lease 路径断言。
 - 既有 e2e 失败（与 C02 无关，已用 C02 前端改动前基线 `7b6da20` 同跑复现）：`learning.spec.ts:36`（atlas `.map-point.is-external`）、`accounts.spec.ts:77/103/123`（账号/邮件/跨设备恢复流）共 4 项，在 C02 改动前后均失败，留待账号/图谱专项排查，不计入 C02。
 
+## C03 证据/帮助/恢复矩阵：帮助快照切片已闭环（提交 c6c17f8）
+
+- **真实缺口**：trace/algebra/logic 工作台披露帮助都走 `recordHelp`（写带 `disclosureVersion`+`createdAt` 的独立 HelpEvent，已纳入 sync/导出/恢复），唯独主体 363 个数据驱动 code 活动的 `CodeWorkspace.disclose` 只把 `hint-N`/`answer` 的 id 存进草稿 `learningContext.helpViewed`（string[]），无内容版本、无独立事件、证据页 code 区不展示帮助来源。
+- **修复（纯前端、零后端/契约改动，复用既有 help 表设施）**：
+  - `domain/code.ts` 新增纯函数 `buildCodeHelpEvent(...)`（kind：answer→'answer'，其余→'hint'；`disclosureVersion=activity.version`、`activityVersion=version_id`、绑定 courseVersion/objective，草稿期无 revision 则不带 revisionId/artifactId）与 `helpEventsForCodeAttempt(events, attempt)`（只返回同 objective + 同 activityVersionId 且 `createdAt<=attempt.updatedAt` 的帮助，升序；核验后才看的帮助、其它目标/版本的帮助一律不关联）。
+  - `ui/CodeWorkspace.tsx`：`disclose()` 在持久化 helpViewed 后调用 `recordHelp(buildCodeHelpEvent(...))`，两者都成功才展开帮助；帮助事件经 help 表自动 sync/导出/恢复，**查看帮助从不授予掌握**。
+  - `ui/Evidence.tsx`：code 工具事实记录与独立语义套件记录的详情里新增“此核验关联帮助”，按上述规则列出版本化帮助（提示/参考答案/助教 · 时间 · 内容版本），无则明示“本版本核验前未查看提示或参考答案”。
+  - 新增 `domain/code-help.test.ts`（5 单测：kind 映射、版本冻结、草稿期无 revision、关联只含同目标同版本且核验前、无 context 返回空）；`e2e/synthetic-workshop.spec.ts` 新增 1 个真实 worker 端到端（披露参考答案→保存运行→证据页显示“1 条帮助…内容版本 WORKSHOP-M01-O1-CODE@0.1.0”“查看帮助不代表达标”）。
+- **验证证据**：前端 `typecheck=0`；`vitest 112 passed / 18 files`（原 107 + 新 5）；合成课 spec chromium **4/4**（真实 WSL worker，含新增帮助证据用例）。
+- **同步完成的 C03 审计（结论：已满足，无需改动）**：
+  - **作品不可覆写 / 迟到结果不覆盖 / 跨账号不回写**：`saveCodeAttempt`（database.ts）守卫与 `saveCourseAttempt` 对等——request hash 一致、result 必须绑定 client_artifact_id/client_revision_id/request_sha256 且 `mastery_asserted===false`、一旦 `old.result` 存在即冻结（成功或失败都不可改，只能新版本）、`assertActive` 隔离空间；既有 `local/code-attempt.test.ts` 已锁定改 request 拒、结果绑定不符拒、已核验后篡改 stdout 拒、跨空间拒。
+  - **解释非空≠通过**：全部 7 类评估（trace、truth_table、brackets、structured_trace、algebra、code task `code_tasks.py:271`、semantic suite `semantic_suites.py:306`）的 explanation（及 independent_transfer）criterion 由受信代码恒置 `needs_review`（有解释）/`not_met`（无解释），**绝不 met**；侧车 pydantic 模型 `extra="forbid"` 且只有期望数据/独立输入字段，无任何 criterion/mastery 注入面，教师侧车无法把解释或独立迁移判为达标。
+
 ## 在改文件 / 工作区
 
-- C01 切片 A/B 与 C02 全部改动已提交并推送（HEAD=0202dd7）。工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。
-- **推送已恢复**：`git push mine HEAD:hyx_dev` 成功（`7b6da20..0202dd7`）；未强推、未擅合 main。
+- C01、C02 与 C03 帮助快照切片改动均已提交；HEAD=`c6c17f8`。工作区仅剩未跟踪 `services/backend/backend-run.txt`（旧本机日志，RUNBOOK 要求不提交、不删除）。
+- **推送受阻（网络，非认证）**：`0202dd7` 已成功推送；其后 `5006eb8`、`98e3e10`、`8623a6a`、`c6c17f8` 四个提交因 `github.com` DNS/443 失败未推（最新报错 `Could not resolve host: github.com`）。网络恢复后执行 `git push mine HEAD:hyx_dev` 即可；未强推、未擅合 main。
 
 ## 运行中的服务与端口（完成后保持运行）
 
@@ -145,7 +158,7 @@
 
 ## 未解决问题 / 外部限制
 
-- **推送已恢复**：本会话全部提交已推送到 `mine/hyx_dev`（HEAD=d1c0816）。此前 github.com:443 多次超时为国内网络瞬时问题，未换写法绕过、未强推、未擅合 main。
+- **推送当前受阻（网络，非认证）**：`0202dd7` 及之前已在 `mine/hyx_dev`；`5006eb8`、`98e3e10`、`8623a6a`、`c6c17f8` 四个提交因 `github.com` DNS 解析失败/443 超时未推，网络恢复后 `git push mine HEAD:hyx_dev` 一次补齐。未换写法绕过、未强推、未擅合 main。
 - 58 个 Linux/isolate 测试在 Windows 跳过；需在 WSL 按 RUNBOOK 第 5 节补跑（CS05 120 份工件，作者测试与开发 worker 不可共用 box 700，宜 fixture 指定 701 或串行）。
 - 合并 main 始终未授权（feature 分支不计 GitHub 贡献热力图）；需用户确认邮箱已验证后授权 push hyx_dev:main 或开 PR。
 - 真实专业审校、真实多模型密钥、生产部署为外部不可得条件；Q4/Q5 与真实模型联调须如实保留，不得伪造签署或删目标降标准。
@@ -154,7 +167,7 @@
 
 **C02 已完整闭环；C01 公共工程核心闭环（切片 A=dd4e976、切片 B=0202dd7、分发契约与归档=98e3e10，详见上文"C01"节）。当前在 #29 / P1，下一项做 C03，再按依赖推进 C04–C08：**
 
-1. **C03 证据/帮助/独立变体/恢复矩阵（紧接）**：多数绑定/不可覆写/恢复不授权已在 code/trace/algebra + C02 套件落地；按 MODULE_WORKBOOK 逐活动核对四类缺口——①证据页是否完整呈现固定/独立/解释各维；②帮助快照（helpViewed/disclosureVersion）是否随结果冻结；③每目标是否有独立迁移变体（不止固定 stdout）；④跨账号/迟到结果/导入证据不误归属、不升级掌握。CS03 栈单元 U01–U05 此前已闭环可作模板。
+1. **C03 证据/帮助/独立变体/恢复矩阵（进行中）**：②帮助版本化快照已闭环（c6c17f8，code 活动对齐 trace/algebra，证据页可追溯、随 sync/导出/恢复、不授权掌握）；④作品不可覆写/迟到结果/跨账号不回写守卫经审计+既有测试确认对等；“解释非空≠通过”经审计在 7 类评估与侧车模型上成立。**剩余子项**：③用脚本逐目标审计独立迁移变体覆盖（363 个 code 活动是否每个承载目标都有 semantic suite 或独立 variants，而非仅固定 stdout；缺口逐课补侧车/变体，属数据工作）；①证据页 truth_table/structured trace/algebra 字段与 code 对等复核（#27 已核 algebra，CS03 栈 U01–U05 可作模板）；“环境 profile 变化后旧运行结果提示需重新运行、不把旧日志当新运行”的展示增强（当前旧结果已冻结并标注 runtime_profile/时间，不会被当新运行，主动过期提示为增强项）。
 2. 此后按 `EXECUTION_PLAN.md` 推进 C04 审阅流（E07 审阅与异议；无真实审阅者不得显示"已安排教师"/自动签名）、C05 工具生命周期（E03 SQL PG18/E04 Linux/E05 containerlab 首任务 A—R—B 回程路由/E06 python313ml）、C06 四职责多模型+教学 Skill（LangGraph，密钥后端保存脱敏导出，无密钥用夹具，如实 blocked_external）、C07 教师/自建课/RAG（含发布新版本自动归档、一目标多活动选择 UI、服务端按主体+可见性过滤）、C08 五类先修桥接（BR-JAVA/CPP/PY/MATH/SHELL，不计入 13 课分母）。
 3. C01 残留均有归属与契约守护：多活动选择 UI + 发布自动归档在 C07（出现真实数据/发布入口时做，契约测试会红灯引导）；13 课冻结规则逐课迁移侧车、下线 generic_rules 在 #31。
 3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并 `git push mine HEAD:hyx_dev`，同步更新 TASK_BOARD 与本文件。
