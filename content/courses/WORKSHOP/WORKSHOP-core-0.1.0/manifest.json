@@ -1,0 +1,217 @@
+{
+  "schema_version": "2.0.0",
+  "course_id": "edae7136-15e1-5187-84b3-ff83546eabf7",
+  "course_version_id": "5e2529be-14ed-56a6-9190-71158a22d80e",
+  "course_code": "WORKSHOP",
+  "version": "WORKSHOP-core-0.1.0",
+  "title": "工具复用演练工坊",
+  "status": "structured_validated",
+  "scope_note": "合成示例课，不属于十三门默认本科课。用于验证一门全新课程可直接复用平台已注册的代码固定核验、代码语义套件与原生有限运算核验，而无需改动后端编号或 UUID 白名单；不声明完整专业培养方案，内容待审校。",
+  "curriculum_review_state": "unavailable",
+  "objectives": [
+    {
+      "id": "bcf049c7-d696-5842-9a13-0f1afb2173a5",
+      "code": "WORKSHOP-M01-O1",
+      "title": "从输入计算三段计费并通过独立多输入核验",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "在指定条件下得到正确状态与输出",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释条件与边界依据",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在未公开的独立输入上保持正确",
+          "verification": "deterministic_checker"
+        }
+      ]
+    },
+    {
+      "id": "71342a4a-3883-58fc-a4d5-9c5bb64bf7e4",
+      "code": "WORKSHOP-M02-O1",
+      "title": "在原生有限运算表上逐公理判定一个二元结构",
+      "criteria": [
+        {
+          "id": "fixed_condition",
+          "title": "在指定条件下得到正确状态与输出",
+          "verification": "deterministic_checker"
+        },
+        {
+          "id": "explanation",
+          "title": "解释条件与边界依据",
+          "verification": "independent_review_pending"
+        },
+        {
+          "id": "independent_transfer",
+          "title": "在未公开的独立输入上保持正确",
+          "verification": "deterministic_checker"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "kind": "chapter",
+      "id": "WORKSHOP-C1",
+      "title": "复用代码核验工具",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "WORKSHOP-U1",
+          "title": "多输入分段计费",
+          "objective_refs": [
+            "WORKSHOP-M01-O1"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "chapter",
+      "id": "WORKSHOP-C2",
+      "title": "复用原生数学工具",
+      "children": [
+        {
+          "kind": "unit",
+          "id": "WORKSHOP-U2",
+          "title": "有限二元运算表",
+          "objective_refs": [
+            "WORKSHOP-M02-O1"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "sources": [
+    {
+      "id": "wg14-n1570",
+      "title": "WG14 N1570：C11 委员会草案",
+      "url": "https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf",
+      "locator": "5.1.2.2.3；7.21.7.4、7.21.7.6、7.21.7.9；非 C17 正式标准",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "milne-group",
+      "title": "J. S. Milne Group Theory v4.01",
+      "url": "https://www.jmilne.org/math/CourseNotes/GT.pdf",
+      "locator": "1.1 groups and operations; homomorphisms",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    },
+    {
+      "id": "auburn-algebra-native",
+      "title": "Auburn Abstract Algebra II",
+      "url": "https://webhome.auburn.edu/~holmerr/absalg2.pdf",
+      "locator": "1.1 ring axioms; 2.6 field; 4.2–4.3 finite modular rings; 6.1 preservation of operations",
+      "checked_at": "2026-10-10",
+      "status": "authority_checked"
+    }
+  ],
+  "activities": [
+    {
+      "id": "1be379b7-71b8-551d-a38f-4f3fefae4577",
+      "version_id": "f7e879ea-72a1-5795-b12d-7b4f63b58c54",
+      "code": "WORKSHOP-M01-O1-CODE",
+      "version": "WORKSHOP-M01-O1-CODE@0.1.0",
+      "objective_codes": [
+        "WORKSHOP-M01-O1"
+      ],
+      "kind": "code",
+      "title": "把分段计费改写成读取输入的通用程序",
+      "student_action": "先预测 30/60 端点输出，再把程序改为从标准输入读取分钟数；提交独立语义核验，用未公开的多组输入检验是否只是硬编码 30/60。",
+      "theory": [
+        "单个输入通过只说明该输入未暴露问题；端点及其两侧用于暴露区间缺口。",
+        "把常量改为读取输入后，仍需在多组独立输入上验证分支条件是否包含端点。"
+      ],
+      "starter": "先写预测，再把 main.c 改为 scanf 读取分钟数后运行。",
+      "source_refs": [
+        "wg14-n1570"
+      ],
+      "availability": "practice_ready",
+      "completion_limit": "只比较指定输入的状态和输出；硬编码可满足可见固定条件，不能据此证明一般正确性、解释或独立迁移。",
+      "check_version": "code-fixed-condition-v1",
+      "code_request": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint minutes = 60, amount;\nif (minutes < 30) amount = 0;\nelse if (minutes < 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "reference_answer": {
+        "language": "c17",
+        "entry": "main.c",
+        "files": {
+          "main.c": "#include <stdio.h>\nint main(void) {\nint minutes, amount;\nscanf(\"%d\", &minutes);\nif (minutes <= 30) amount = 0;\nelse if (minutes <= 60) amount = 5;\nelse amount = 10;\nprintf(\"%d\\n\", amount);\nreturn 0;\n}\n"
+        },
+        "stdin": ""
+      },
+      "prediction_prompt": "逐步预测分支变量、输出与退出状态，并说明依据。",
+      "reflection_prompt": "记录预测与真实结果的差异、把 < 改为 <= 的原因，以及为何固定输出仍不能证明整体正确。",
+      "semantic_suite": {
+        "standard_version": "code-semantic-suite-v1",
+        "oracle_id": "parking_fee_three_tier",
+        "comparator": "integer",
+        "language": "c17",
+        "visible_cases": [
+          {
+            "code": "visible-30",
+            "stdin": "30\n"
+          },
+          {
+            "code": "visible-60",
+            "stdin": "60\n"
+          }
+        ],
+        "independent_case_count": 2,
+        "scope_note": "合成课复用平台三段计费 oracle 在多组分钟数上核验；独立输入仅存服务端，只针对 30/60 硬编码常量的程序会在独立输入上失败。"
+      }
+    },
+    {
+      "id": "83b9ebcf-97ec-5d6a-9e10-ad51817232f8",
+      "version_id": "5fc5e5fd-4450-5df1-ab8a-4d7b7aaec07b",
+      "code": "WORKSHOP-M02-O1-ALGEBRA",
+      "version": "WORKSHOP-M02-O1-ALGEBRA@0.1.0",
+      "objective_codes": [
+        "WORKSHOP-M02-O1"
+      ],
+      "kind": "finite_algebra",
+      "title": "逐公理检查有限运算表",
+      "availability": "practice_ready",
+      "student_action": "先填写性质预测，再核验完整表；展开具体反例，修改表并写出原因后以新版本重试。无需编写代码。",
+      "theory": [
+        "封闭要求每个有序对结果都在标签集合内。",
+        "群须满足结合律、双侧单位元和每个元素的双侧逆元，交换律不是必要条件。"
+      ],
+      "starter": "直接在表格中编辑整数标签；记录修改前后的判断和反例。",
+      "source_refs": [
+        "milne-group",
+        "auburn-algebra-native"
+      ],
+      "completion_limit": "仅核对给定完整有限表与预测；解释、独立新结构及一般证明需另行验证。",
+      "check_version": "finite-algebra-exhaustive-v1",
+      "algebra_prompt": {
+        "mode": "group",
+        "table": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "second_table": null,
+        "mapping": null
+      },
+      "reference_note": "将初始表的 1·1 改成 0，得到模 2 加法表；仍需重新检查全部公理。"
+    }
+  ]
+}

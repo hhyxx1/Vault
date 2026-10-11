@@ -398,5 +398,16 @@
       "package_path": "CS05/CS05-core-practice-0.1.0/manifest.json",
       "full_course_available": false
     }
+  ],
+  "extra_courses": [
+    {
+      "id": "edae7136-15e1-5187-84b3-ff83546eabf7",
+      "code": "WORKSHOP",
+      "title": "工具复用演练工坊",
+      "version_id": "5e2529be-14ed-56a6-9190-71158a22d80e",
+      "version": "WORKSHOP-core-0.1.0",
+      "package_path": "WORKSHOP/WORKSHOP-core-0.1.0/manifest.json",
+      "full_course_available": false
+    }
   ]
 }

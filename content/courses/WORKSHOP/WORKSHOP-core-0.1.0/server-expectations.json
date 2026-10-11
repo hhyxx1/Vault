@@ -1,0 +1,32 @@
+{
+  "course_id": "edae7136-15e1-5187-84b3-ff83546eabf7",
+  "course_version_id": "5e2529be-14ed-56a6-9190-71158a22d80e",
+  "course_code": "WORKSHOP",
+  "fixed_conditions": [
+    {
+      "activity_version_id": "f7e879ea-72a1-5795-b12d-7b4f63b58c54",
+      "objective_code": "WORKSHOP-M01-O1",
+      "task_code": "base",
+      "stdin": "60\n",
+      "status": "success",
+      "stdout": "5\n",
+      "stderr": ""
+    }
+  ],
+  "semantic_suites": [
+    {
+      "activity_version_id": "f7e879ea-72a1-5795-b12d-7b4f63b58c54",
+      "objective_code": "WORKSHOP-M01-O1",
+      "independent_cases": [
+        {
+          "code": "indep-31",
+          "stdin": "31\n"
+        },
+        {
+          "code": "indep-61",
+          "stdin": "61\n"
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,8 @@ import scopeCatalog from '../../../../content/courses/scope-catalog.json'
 import { courseMapFromPackage } from './course-map'
 import type { CodeRequest } from './code'
 import type { AlgebraPrompt } from './algebra'
+/** Extra published packages outside the platform-default course list (e.g. the C01 synthetic workshop). */
+const extraCourses = (scopeCatalog as typeof scopeCatalog & { extra_courses?: typeof scopeCatalog.courses }).extra_courses ?? []
 export type CourseAlgebraActivity = { id: string; version_id: string; code: string; version: string; objective_codes: string[]; kind: 'finite_algebra'; title?: string; reference_note?: string; student_action: string; theory: string[]; source_refs: string[]; completion_limit: string; availability: 'practice_ready' | 'pending'; algebra_prompt: AlgebraPrompt }
 export type CodeVariant = { code: string; title: string; student_action: string; code_request: CodeRequest; reference_answer?: CodeRequest; prediction_prompt: string; reflection_prompt: string }
 /** Learning-visible discovery metadata only. Expected outputs and independent inputs never appear here. */
@@ -48,7 +50,7 @@ export function algebraActivityForObjective(data: AtlasPackage, objective: strin
 
 export async function loadAlgebraActivity(objective: string, versionId?: string): Promise<{ course: AtlasPackage; activity: CourseAlgebraActivity } | null> {
   const archived = (scopeCatalog as typeof scopeCatalog & { archived_courses?: typeof scopeCatalog.courses }).archived_courses ?? []
-  const entries = [...scopeCatalog.courses, ...(versionId ? archived : [])].filter(entry => entry.package_path && (!versionId || entry.version_id === versionId))
+  const entries = [...scopeCatalog.courses, ...extraCourses, ...(versionId ? archived : [])].filter(entry => entry.package_path && (!versionId || entry.version_id === versionId))
   for (const entry of entries) {
     if (!objective.startsWith(entry.code + '-')) continue
     const load = bundles[`../../../../content/courses/${entry.package_path}`]
@@ -63,7 +65,7 @@ export async function loadAlgebraActivity(objective: string, versionId?: string)
 
 export async function loadCodeActivity(objective: string, versionId?: string): Promise<{ course: AtlasPackage; activity: CourseCodeActivity } | null> {
   const archived = (scopeCatalog as typeof scopeCatalog & { archived_courses?: typeof scopeCatalog.courses }).archived_courses ?? []
-  const entries = [...scopeCatalog.courses, ...catalog.courses, ...(versionId ? archived : [])].filter(entry => entry.package_path && (!versionId || entry.version_id === versionId))
+  const entries = [...scopeCatalog.courses, ...extraCourses, ...catalog.courses, ...(versionId ? archived : [])].filter(entry => entry.package_path && (!versionId || entry.version_id === versionId))
   for (const entry of entries) {
     const load = bundles[`../../../../content/courses/${entry.package_path}`]
     if (!load) continue
@@ -80,7 +82,7 @@ const bundles = import.meta.glob<AtlasPackage>(['../../../../content/courses/*-e
 
 export async function loadCoursePackage(code: string, edition: 'current' | 'core' = 'current'): Promise<AtlasPackage | null> {
   const current = catalog.courses.find(course => course.code === code)
-  const core = scopeCatalog.courses.find(course => course.code === code)
+  const core = [...scopeCatalog.courses, ...extraCourses].find(course => course.code === code)
   const entry = edition === 'core' ? core : current?.package_path ? current : core
   if (!entry?.package_path) return null
   const load = bundles[`../../../../content/courses/${entry.package_path}`]

@@ -150,6 +150,11 @@ class CourseRepository:
                 scope_index = json.loads(scope_path.read_text(encoding="utf-8-sig"))
                 scopes = scope_index["courses"]
                 self._load_public_packages(scope_path, scopes)
+                # Extra published packages (e.g. the synthetic workshop) load for
+                # execution but stay outside the default scope directory.
+                self._load_public_packages(
+                    scope_path, scope_index.get("extra_courses", [])
+                )
                 archived = scope_index.get("archived_courses", [])
                 self._load_public_packages(scope_path, archived)
                 self.archived_versions = {(entry["id"], entry["version_id"]) for entry in archived}
@@ -296,6 +301,15 @@ class CourseRepository:
         return self.catalog
 
     def get_scope_catalog(self):
+        # The public default scope directory lists only platform-default courses
+        # declared in catalog.json. Extra packages (e.g. the C01 synthetic
+        # workshop, and later teacher-created courses with their own visibility
+        # rules) are loaded for execution but are not part of this default list.
+        default_codes = (
+            {entry["code"] for entry in self.catalog["courses"]}
+            if self.catalog is not None
+            else set()
+        )
         return {
             "courses": [
                 {
@@ -309,7 +323,8 @@ class CourseRepository:
                     "learning_ready": package["status"] == "learning_ready",
                 }
                 for package in self.packages.values()
-                if (package["course_id"], package["course_version_id"])
+                if package["course_code"] in default_codes
+                and (package["course_id"], package["course_version_id"])
                 not in getattr(self, "archived_versions", set())
             ]
         }

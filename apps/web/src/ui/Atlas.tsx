@@ -2,6 +2,22 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 're
 import { Link, useSearchParams } from 'react-router-dom'
 import { loadCoursePackage, algebraActivityForObjective, codeActivityForObjective, workspaceForObjective, hasCurrentActivityPackage, type AtlasPackage, type AtlasUnit as Unit, type AtlasChapter as Chapter } from '../domain/course-packages'
 import { courses, currentObjectiveEvidence, objectiveStates, stateLabels, TRACE_OBJECTIVE } from '../domain/learning'
+import scopeCatalog from '../../../../content/courses/scope-catalog.json'
+
+// Data-driven course list (C01): the platform-default courses plus any extra
+// published package (e.g. the synthetic workshop), so a brand-new course shows
+// up in the atlas without a hard-coded id whitelist.
+const extraCourses = (
+  scopeCatalog as typeof scopeCatalog & { extra_courses?: typeof scopeCatalog.courses }
+).extra_courses ?? []
+const atlasCourses = [
+  ...courses,
+  ...extraCourses.map(item => ({
+    code: item.code,
+    title: item.title,
+    description: '额外课程包，用于复用平台核验工具；内容待审校，不属于默认十三门本科课。',
+  })),
+]
 import { summarizeObjectiveStates, courseRelationLabels, type ObjectiveState, type ObjectiveSummary } from '../domain/course-map'
 import { logicObjectiveState, LOGIC_OBJECTIVE, LOGIC_VERSION, LOGIC_ACTIVITY, LOGIC_STANDARD } from '../domain/logic'
 import { currentStructuredAttempt } from '../domain/structured'
@@ -25,7 +41,7 @@ function Distribution({ summary }: { summary: ObjectiveSummary }) {
 
 export default function Atlas() {
   const [params, setParams] = useSearchParams()
-  const course = courses.find(item => item.code === params.get('course')) ?? courses[2]
+  const course = atlasCourses.find(item => item.code === params.get('course')) ?? courses[2]
   const edition = params.get('edition') === 'core' ? 'core' : 'current'
   const [loaded, setLoaded] = useState<{ key: string; data: AtlasPackage | null; error?: string } | null>(null)
   const key = `${course.code}:${edition}`
@@ -36,7 +52,7 @@ export default function Atlas() {
     return () => { active = false }
   }, [course.code, edition, key])
   const data = loaded?.key === key ? loaded.data : null
-  const picker = <label className="course-picker">课程 <select value={course.code} onChange={event => setParams({ course: event.target.value })}>{courses.map(item => <option key={item.code} value={item.code}>{item.title}</option>)}</select></label>
+  const picker = <label className="course-picker">课程 <select value={course.code} onChange={event => setParams({ course: event.target.value })}>{atlasCourses.map(item => <option key={item.code} value={item.code}>{item.title}</option>)}</select></label>
   if (loaded?.key !== key) return <div className="page atlas-page" role="status">正在打开课程图谱…</div>
   if (loaded.error) return <div className="page atlas-page" role="alert">{loaded.error}</div>
   return <div className="page atlas-page">
