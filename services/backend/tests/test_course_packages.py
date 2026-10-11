@@ -171,3 +171,32 @@ def test_all_thirteen_full_scopes_match_approved_target_inventory(settings):
         assert course["curriculum_review_state"] == "unavailable"
         actual.update(goal["code"] for goal in course["objectives"])
     assert actual == approved
+
+
+def test_each_objective_has_at_most_one_practice_ready_activity_per_kind(settings):
+    # C01 dispatch contract: the front-end resolves an objective's activity by
+    # (objective, kind) and takes the first match. Every shipped package
+    # (default courses, extra_courses and archived versions) therefore keeps at
+    # most one practice_ready activity of a given kind per objective, making
+    # that match unambiguous. If a future package (e.g. a teacher-created course
+    # in C07) declares several, an explicit activity selector must be built
+    # across package/API/local storage/sync/evidence before first-match is
+    # relied upon; this assertion fails loudly to force that work instead of
+    # silently dropping the extra activities.
+    root = settings.course_catalog_path.parent
+    seen: dict[tuple[str, str, str], str] = {}
+    for manifest_path in sorted(root.glob("*/*/manifest.json")):
+        data = json.loads(manifest_path.read_text(encoding="utf-8"))
+        version_id = data["course_version_id"]
+        for activity in data.get("activities", []):
+            if activity.get("availability") != "practice_ready":
+                continue
+            for objective in activity.get("objective_codes", []):
+                key = (version_id, objective, activity["kind"])
+                assert key not in seen, (
+                    f"{objective} has multiple practice_ready {activity['kind']} "
+                    f"activities ({seen[key]} and {activity.get('code')}); "
+                    "implement an explicit activity selector before relying on "
+                    "first-match dispatch."
+                )
+                seen[key] = activity.get("code", "?")

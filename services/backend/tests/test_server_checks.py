@@ -311,6 +311,32 @@ def test_invalid_sidecar_is_rejected(tmp_path, mutate):
         load_server_expectations(version_dir, package)
 
 
+@pytest.mark.parametrize(
+    "mutate",
+    [
+        # Two fixed conditions with the same (activity, objective, task) key.
+        lambda p, s: s["fixed_conditions"].append(dict(s["fixed_conditions"][0])),
+        # Two semantic suites bound to the same (activity, objective) key: the
+        # product contract is at most one independent suite per objective, so a
+        # duplicate must fail loudly rather than silently overwrite the first.
+        lambda p, s: s["semantic_suites"].append(dict(s["semantic_suites"][0])),
+        # A fixed condition / suite may only bind an objective its activity
+        # actually covers (no many-to-many binding to an unrelated objective).
+        lambda p, s: s["fixed_conditions"][0].update(objective_code="NOT-COVERED-O1"),
+        lambda p, s: s["semantic_suites"][0].update(objective_code="NOT-COVERED-O1"),
+    ],
+)
+def test_duplicate_or_uncovered_sidecar_binding_is_rejected(tmp_path, mutate):
+    package, _ = write_synthetic_course(tmp_path)
+    sidecar = valid_sidecar(package)
+    mutate(package, sidecar)
+    (tmp_path / "synth-1.0.0" / "server-expectations.json").write_text(
+        json.dumps(sidecar), encoding="utf-8"
+    )
+    with pytest.raises(ValueError):
+        load_server_expectations(tmp_path / "synth-1.0.0", package)
+
+
 def test_untrusted_oracle_in_manifest_rejected(tmp_path):
     package, _ = write_synthetic_course(tmp_path)
     package["activities"][0]["semantic_suite"]["oracle_id"] = "os.system"
