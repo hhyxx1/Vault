@@ -116,10 +116,11 @@ npm --prefix apps/web run test:e2e -- reviews.spec.ts --workers=1   # 4 passed
 
 ## 7. 当前 HEAD / 远端 / 服务
 
-- 环境：Docker PG18 127.0.0.1:5442（vault_dev/vault_ci 均 head `0014_review_work_snapshot`）、后端 127.0.0.1:8000（ready、isolated_execution_healthy=true）、前端 127.0.0.1:5176、WSL isolate worker 127.0.0.1:8091 box700（active）。
-- 注：本机 `%TEMP%` 对子进程不可写（Python `tempfile.gettempdir()` 回退到工作树，疑似 WSL root 曾污染 ACL），本轮以工作树 `.pytest-tmp-svc` 作为 TEMP/MAIL_CAPTURE，避免污染仓库（已 gitignore）。服务完成后保持运行。
-
-（HEAD / 提交 / 推送状态：见 §8，提交后补齐。）
+- **HEAD `6ccb0cb`，已推送 `mine/hyx_dev`（`2a220c7..6ccb0cb`），未强推、未合 main。**
+- 提交：`6ccb0cb fix(credibility): close review findings A-E on trust boundaries`（30 文件，+1469/−205）。
+- 环境：Docker PG18 127.0.0.1:5442（vault_dev/vault_ci 均 head `0014_review_work_snapshot`）、后端 127.0.0.1:8000（ready、database ready、accounts/sync true）、前端 127.0.0.1:5176、WSL isolate worker 127.0.0.1:8091 box700（active）。
+- **环境限制（如实记录，非代码回归）**：本会话中 Python 子进程无法经 WSL localhost 中继连接 8091（PowerShell 可连、Python httpx `ConnectError`），导致**依赖真实 worker 执行的 e2e（semantic-suite/synthetic-workshop/course-*）无法在本环境跑绿**；这一失败同样出现在**未被本轮改动的固定条件运行路径**上，证明与 A–E 修改无关。受影响逻辑已由后端 PG/单元测试覆盖（`test_semantic_suites.py` 14、`test_sql_result_compare.py` 22 等）；`reviews.spec.ts` e2e **4 passed**（不依赖 worker）。worker 直连 `/v1/runs` 实测返回 success，隔离箱本身健康。
+- 注：本机 `%TEMP%` 对子进程不可写（Python `tempfile.gettempdir()` 回退到工作树，疑似 WSL root 曾污染 ACL），本轮后端以工作树 `.pytest-tmp-svc` 作为 TEMP/MAIL_CAPTURE（已 gitignore）。服务完成后保持运行。
 
 ---
 
