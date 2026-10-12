@@ -681,6 +681,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/tool-capabilities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Tool Capabilities */
+        get: operations["tool_capabilities_api_v1_tool_capabilities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1676,6 +1693,11 @@ export interface components {
             /** Token */
             token: string;
         };
+        /**
+         * LifecycleStep
+         * @enum {string}
+         */
+        LifecycleStep: "prepare" | "run_or_step" | "inspect" | "check" | "snapshot" | "restore" | "cancel" | "cleanup";
         /** LogicCriterion */
         LogicCriterion: {
             /**
@@ -1785,6 +1807,13 @@ export interface components {
             account: components["schemas"]["AccountOutput"];
             /** Csrf Token */
             csrf_token: string;
+        };
+        /** MethodCapability */
+        MethodCapability: {
+            /** Detail */
+            detail: string;
+            step: components["schemas"]["LifecycleStep"];
+            support: components["schemas"]["Support"];
         };
         /** NonceOutput */
         NonceOutput: {
@@ -2350,6 +2379,11 @@ export interface components {
              */
             verification_id: string;
         };
+        /**
+         * Support
+         * @enum {string}
+         */
+        Support: "supported" | "unsupported" | "not_applicable" | "blocked_external";
         /** SyncOperation */
         SyncOperation: {
             /** Base Version */
@@ -2377,6 +2411,40 @@ export interface components {
             /** Token */
             token: string;
         };
+        /** ToolCapabilitiesOut */
+        ToolCapabilitiesOut: {
+            /** Lifecycle Steps */
+            lifecycle_steps: components["schemas"]["LifecycleStep"][];
+            /** Note */
+            note: string;
+            /** Tool Order */
+            tool_order: components["schemas"]["ToolId"][];
+            /** Tools */
+            tools: components["schemas"]["ToolCapability"][];
+        };
+        /** ToolCapability */
+        ToolCapability: {
+            /** External Blockers */
+            external_blockers?: string[];
+            /** Label */
+            label: string;
+            /** Methods */
+            methods: components["schemas"]["MethodCapability"][];
+            /** Runtime Profile */
+            runtime_profile?: string | null;
+            state: components["schemas"]["ToolState"];
+            tool: components["schemas"]["ToolId"];
+        };
+        /**
+         * ToolId
+         * @enum {string}
+         */
+        ToolId: "code" | "sql" | "linux" | "network" | "data";
+        /**
+         * ToolState
+         * @enum {string}
+         */
+        ToolState: "available" | "partial" | "unavailable" | "blocked_external";
         /** TraceFeedback */
         TraceFeedback: {
             /** Correct */
@@ -3795,6 +3863,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    tool_capabilities_api_v1_tool_capabilities_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ToolCapabilitiesOut"];
                 };
             };
         };

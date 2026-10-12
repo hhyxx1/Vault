@@ -36,8 +36,9 @@ describe('buildEvidenceSnapshot', () => {
       modelSummary: 'b',
       studentSummary: 'c',
     })
-    expect(items.some(item => item.kind === 'teacher_review')).toBe(false)
-    expect(items.some(item => item.kind === 'professional_review')).toBe(false)
+    const kinds = items.map(item => item.kind) as string[]
+    expect(kinds).not.toContain('teacher_review')
+    expect(kinds).not.toContain('professional_review')
   })
 
   it('returns an empty snapshot when there is no evidence', () => {

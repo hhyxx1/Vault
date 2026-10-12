@@ -45,6 +45,7 @@ from vault_backend.schemas import (
     TruthTableSubmission,
 )
 from vault_backend.sync import router as sync_router
+from vault_backend.tool_capabilities import router as tool_capabilities_router
 
 
 def error_response(request: Request, error: ApiError) -> JSONResponse:
@@ -142,6 +143,7 @@ def create_app(
     app.include_router(auth_router)
     app.include_router(sync_router)
     app.include_router(review_router)
+    app.include_router(tool_capabilities_router)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.allowed_origins,

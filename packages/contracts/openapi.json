@@ -2056,6 +2056,20 @@
         "title": "LeaseResponse",
         "type": "object"
       },
+      "LifecycleStep": {
+        "enum": [
+          "prepare",
+          "run_or_step",
+          "inspect",
+          "check",
+          "snapshot",
+          "restore",
+          "cancel",
+          "cleanup"
+        ],
+        "title": "LifecycleStep",
+        "type": "string"
+      },
       "LogicCriterion": {
         "properties": {
           "id": {
@@ -2279,6 +2293,30 @@
           "csrf_token"
         ],
         "title": "LoginOutput",
+        "type": "object"
+      },
+      "MethodCapability": {
+        "additionalProperties": false,
+        "properties": {
+          "detail": {
+            "maxLength": 400,
+            "minLength": 1,
+            "title": "Detail",
+            "type": "string"
+          },
+          "step": {
+            "$ref": "#/components/schemas/LifecycleStep"
+          },
+          "support": {
+            "$ref": "#/components/schemas/Support"
+          }
+        },
+        "required": [
+          "step",
+          "support",
+          "detail"
+        ],
+        "title": "MethodCapability",
         "type": "object"
       },
       "NonceOutput": {
@@ -3644,6 +3682,16 @@
         "title": "StructuredVerificationResult",
         "type": "object"
       },
+      "Support": {
+        "enum": [
+          "supported",
+          "unsupported",
+          "not_applicable",
+          "blocked_external"
+        ],
+        "title": "Support",
+        "type": "string"
+      },
       "SyncOperation": {
         "additionalProperties": false,
         "properties": {
@@ -3738,6 +3786,115 @@
         ],
         "title": "TokenInput",
         "type": "object"
+      },
+      "ToolCapabilitiesOut": {
+        "properties": {
+          "lifecycle_steps": {
+            "items": {
+              "$ref": "#/components/schemas/LifecycleStep"
+            },
+            "title": "Lifecycle Steps",
+            "type": "array"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "tool_order": {
+            "items": {
+              "$ref": "#/components/schemas/ToolId"
+            },
+            "title": "Tool Order",
+            "type": "array"
+          },
+          "tools": {
+            "items": {
+              "$ref": "#/components/schemas/ToolCapability"
+            },
+            "title": "Tools",
+            "type": "array"
+          }
+        },
+        "required": [
+          "lifecycle_steps",
+          "tool_order",
+          "tools",
+          "note"
+        ],
+        "title": "ToolCapabilitiesOut",
+        "type": "object"
+      },
+      "ToolCapability": {
+        "additionalProperties": false,
+        "properties": {
+          "external_blockers": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "title": "External Blockers",
+            "type": "array"
+          },
+          "label": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Label",
+            "type": "string"
+          },
+          "methods": {
+            "items": {
+              "$ref": "#/components/schemas/MethodCapability"
+            },
+            "title": "Methods",
+            "type": "array"
+          },
+          "runtime_profile": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Runtime Profile"
+          },
+          "state": {
+            "$ref": "#/components/schemas/ToolState"
+          },
+          "tool": {
+            "$ref": "#/components/schemas/ToolId"
+          }
+        },
+        "required": [
+          "tool",
+          "label",
+          "state",
+          "methods"
+        ],
+        "title": "ToolCapability",
+        "type": "object"
+      },
+      "ToolId": {
+        "enum": [
+          "code",
+          "sql",
+          "linux",
+          "network",
+          "data"
+        ],
+        "title": "ToolId",
+        "type": "string"
+      },
+      "ToolState": {
+        "enum": [
+          "available",
+          "partial",
+          "unavailable",
+          "blocked_external"
+        ],
+        "title": "ToolState",
+        "type": "string"
       },
       "TraceFeedback": {
         "properties": {
@@ -6022,6 +6179,27 @@
         "summary": "Read Conflicts",
         "tags": [
           "Account sync"
+        ]
+      }
+    },
+    "/api/v1/tool-capabilities": {
+      "get": {
+        "operationId": "tool_capabilities_api_v1_tool_capabilities_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToolCapabilitiesOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Tool Capabilities",
+        "tags": [
+          "tool-capabilities"
         ]
       }
     }
