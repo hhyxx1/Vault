@@ -1,15 +1,30 @@
 # 执行复核报告（EXECUTOR_FINAL_REPORT）
 
-> 交回 Codex 复核。本报告是**阶段性**报告：本次执行覆盖 P0 收尾（#23–#28，前序会话）与 **#29 / P1 的 C02 语义核验后端三层**（本会话）。**13 门课 / 122 模块 / 366 目标的端到端深化（#30–#32）尚未完成**，不输出“全部完成”的虚假结论。所有数字来自仓库现状或可复现脚本/测试原始日志，未臆造来源、审校、签署或学习效果。
+> 交回 Codex 复核。本报告是**阶段性**报告（非最终完成）。最新进展见下方 **§0（2026-10-12）**：#29/P1 的 **C01、C02、C03、C04 已闭环，C05 已完成切片 A（统一工具生命周期能力矩阵+只读端点）与切片 B1（E03 SQL 关系结果比较器）**。**13 门课 / 122 模块 / 366 目标的逐模块端到端深化（#30–#32）、C05 有状态租约运行时（B2/C/D）与 E05 网络实验、C06–C08 尚未完成**，不输出“全部完成”的虚假结论。所有数字来自仓库现状或可复现脚本/测试原始日志，未臆造来源、审校、签署或学习效果。**§1 起为 2026-10-11 C02 阶段历史快照，最新事实以 §0 与 `EXECUTOR_PROGRESS.md` 为准。**
 >
-- 执行时间：2026-10-11
-- 执行工作树：`C:\Users\Remote\.codex\worktrees\485f\Vault`（Codex detached HEAD worktree；主仓 `C:\Project\Vault` 在 hyx_dev，未切换/未重置/未强推）
+- 最近更新：2026-10-12
+- 执行工作树：`C:\Users\Remote\.codex\worktrees\485f\Vault`（Codex detached HEAD worktree；主仓 `C:\Project\Vault` 在 hyx_dev，未切换/未重置/未强推、未擅合 main）
 - 配套进度台账：`document/handoff/EXECUTOR_PROGRESS.md`（持续维护，细节以其为准）
 - 交接方案只读目录：`document/handoff/13-course-delivery-2026-10-10/`
 
 ---
 
-## 0. 本次范围与结论（先读）
+## 0. 最新复核结论（2026-10-12，先读）
+
+- **当前 HEAD `9f98032`，本会话全部提交已推送到 `mine/hyx_dev`**（最新推送区间 `716a20a..9f98032`；C04 三提交此前以 `0202dd7..7cf50cf` 推送）。全程未强推、未擅合 main。
+- **本会话新增闭环（均真实测试 + 提交 + 推送）**：
+  - **C04 E07 人工审阅与异议流（完整闭环）**：后端 `61ee58b`（ReviewAssignment/ReviewEvent 两表 + 迁移 0013 + scoped RLS + 不可变事件/guard 触发器 + verified 教师签名 SECURITY DEFINER 函数 + `/api/v1/reviews` 八端点状态机 + 10 个真实 PG pytest）；契约/前端 `afd716d`（openapi/api.generated.ts 重生成、`api/reviews.ts`、学生 `ui/Reviews.tsx`、教师 `ui/ReviewQueue.tsx` 挂入 Teacher、路由/导航/CSS、6 vitest、`reviews.spec.ts` 2 个真实账号 e2e）；台账 `7cf50cf`。**无真实审阅者不显示“已安排教师”、不自动签名；专业审校诚实标注未开通；AI 建议不单独充当金标准；多合理方案不按字数/关键词计分。**
+  - **C05 切片 A 统一工具生命周期能力矩阵（`60d70fa` + 台账 `716a20a`）**：`tool_lifecycle.py` 为 code/sql/linux/network/data 五工具显式声明 prepare/run_or_step/inspect/check/snapshot/restore/cancel/cleanup 八方法的 supported/unsupported/not_applicable/blocked_external（pydantic 强制每工具恰好覆盖八步、blocked 必列阻断）；只读 `GET /api/v1/tool-capabilities`（`tool_capabilities.py`，已注册并**真实起后端 curl 验证**）；9 个 pytest。**WSL 实测**：isolate/PG18/python3.13(+ml)/node24 在位、worker active；**containerlab 与 FRR(vtysh) 缺失 → E05 八方法全 blocked_external**；E04 适配器未建（八步 unsupported，不冒充）；E03/E06 一次性运行可用、有状态租约 unsupported。
+  - **C05 切片 B1 E03 SQL 关系结果比较器（`a534a41` + 台账 `9f98032`）**：`course_checks/sql_result_compare.py` 纯函数，set（无序去重）/multiset（无序保重复）/ordered（行序敏感）三语义；结果集 NULL=NULL；列默认按位置、可选按列名重排；数值确定性量化容差；varchar 数字不强转；缺行/多行/形状给诚实原因；15 个 pytest。供 B2 有状态租约 check 阶段调用。
+- **最新验证基线（本会话末实跑）**：后端 **500 passed / 58 skipped / 0 failed**（C04 新增 10、C05-A 新增 9、C05-B1 新增 15；58 个 Linux/isolate 用例在 Windows 跳过，需 WSL box701/串行）；新增/改动文件 ruff 全过（全目录另有 3 处历史遗留非本轮引入）；前端 `typecheck=0`、vitest **120 passed / 19 files**；契约重新生成且 `contracts:check` 一致；reviews e2e **2 passed**；能力矩阵端点真实 HTTP 200 且五工具状态符合实测。
+- **外部硬阻断（如实 blocked_external，不伪造、也不停其他工程）**：**Q4 真实专业审校者**、**Q5 真实多模型密钥/生产部署**、**E05 containerlab/FRR/每租约独立 VM（WSL 当前未安装，需联网装 containerlab+FRR 并建外联隔离）**；另 E06 的 `python-3.13-ml` 存在 `.incomplete-20261010` 目录，发布前须按 ml-requirements.lock 复核。
+- **下一步精确起点（接续顺序）**：① **C05-B2 E03 SQL 有状态租约运行时**（独立实验 PG18、每租约独立角色/数据、双连接屏障调度事务、事务正确性核验接入 B1 比较器；**须在 WSL 真实 PG18 工具链 box701 串行测试**，Windows 跳过）；② C05-C E04 受控 Linux 子进程/管道/信号/同步/文件权限/重建（禁预置字符串冒充）；③ C05-D E06 数据版本/划分/seed/拟合范围/模型/指标记录（先复核 ML profile）；④ C05-E E05 containerlab A—R—B 待外部环境恢复；⑤ 所有工具统一取消/超时/重复请求/资源限制/进程文件回收/断连/租约恢复测试；⑥ 之后 C06（多模型/Skill，密钥用标记夹具）、C07（教师/自建课/RAG）、C08（五类桥接）；⑦ #30–#32 逐课深化与最终验收/UI 对照/重写本报告为最终版。
+- **服务运行位置（完成后保持运行）**：PG Docker 127.0.0.1:5442（vault_dev/vault_ci 均已 head `0013_human_review`）；后端 127.0.0.1:8000（AUTH=true、MAIL_CAPTURE、**VAULT_ALLOWED_ORIGINS 必须含 5176**，否则注册 nonce 403；本会话已重启加载新路由）；前端 127.0.0.1:5176；WSL isolate worker 127.0.0.1:8091 box700（systemd active）。
+- **未决（需用户决定）**：合并 main 始终未授权——feature 分支提交不计 GitHub 贡献热力图；需用户确认邮箱已验证后授权 `git push hyx_dev:main` 或开 PR。
+
+---
+
+## 0-A. 历史阶段快照：2026-10-11 C02 语义核验后端三层（本节起为旧报告原文）
 
 - **已闭环并测试**：C02「语义核验」的**服务端三层**——
   1. 受信语义套件运行时（多输入 + 服务端独立 oracle + 替代正确解比较器 + 反硬编码 + 环境故障不降级），commit `40bac6d`；
