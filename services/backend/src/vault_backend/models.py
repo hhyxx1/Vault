@@ -304,6 +304,121 @@ class VerificationEvent(Base):
     )
 
 
+class ReviewAssignment(Base):
+    """A student's explicit, scoped request for human review of one work version.
+
+    The row grants a teacher access only to the single frozen artifact revision
+    named here, never to the whole learning space. No row is ever auto-claimed
+    and no teacher signature is produced without a verified teacher session.
+    """
+
+    __tablename__ = "review_assignment"
+    __table_args__ = (
+        UniqueConstraint("space_id", "id", name="uq_review_assignment_space"),
+        ForeignKeyConstraint(
+            ["space_id", "owner_account_id"],
+            ["learning_space.id", "learning_space.owner_account_id"],
+            name="fk_review_assignment_space_owner",
+        ),
+        ForeignKeyConstraint(
+            ["teacher_account_id"], ["account.id"], name="fk_review_assignment_teacher"
+        ),
+        ForeignKeyConstraint(
+            ["claimed_by_account_id"], ["account.id"], name="fk_review_assignment_claimant"
+        ),
+        CheckConstraint(
+            "audience IN ('platform_teachers','specific_teacher')",
+            name="ck_review_assignment_audience",
+        ),
+        CheckConstraint(
+            "status IN ('awaiting_review','claimed','changes_requested','resubmitted',"
+            "'in_appeal','approved')",
+            name="ck_review_assignment_status",
+        ),
+        CheckConstraint("appeal_count >= 0", name="ck_review_assignment_appeals"),
+        CheckConstraint(
+            "audience = 'platform_teachers' OR teacher_account_id IS NOT NULL",
+            name="ck_review_assignment_specific_teacher",
+        ),
+        CheckConstraint(
+            "octet_length(artifact_hash) = 32", name="ck_review_assignment_hash"
+        ),
+    )
+    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    space_id: Mapped[UUID] = mapped_column(index=True)
+    owner_account_id: Mapped[UUID] = mapped_column(ForeignKey("account.id"), index=True)
+    audience: Mapped[str] = mapped_column(String(24))
+    teacher_account_id: Mapped[UUID | None] = mapped_column()
+    course_code: Mapped[str] = mapped_column(String(32))
+    course_version_id: Mapped[UUID | None] = mapped_column()
+    objective_code: Mapped[str] = mapped_column(String(80))
+    activity_version: Mapped[str] = mapped_column(String(120))
+    artifact_id: Mapped[UUID] = mapped_column()
+    artifact_revision_id: Mapped[UUID] = mapped_column()
+    artifact_hash: Mapped[bytes] = mapped_column(LargeBinary)
+    # rubric: [{id,title,kind}] with kind in objective|explanation|independent_transfer.
+    rubric: Mapped[list] = mapped_column(JSONB)
+    # evidence_snapshot: [{kind,summary}] where the student may only cite
+    # server_tool / model_suggestion / student_self sources.
+    evidence_snapshot: Mapped[list] = mapped_column(JSONB, server_default="[]")
+    status: Mapped[str] = mapped_column(String(24), server_default="awaiting_review")
+    claimed_by_account_id: Mapped[UUID | None] = mapped_column()
+    review_service_available: Mapped[bool] = mapped_column(server_default="false")
+    appeal_count: Mapped[int] = mapped_column(server_default="0")
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=text("now()")
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=text("now()")
+    )
+
+
+class ReviewEvent(Base):
+    """Immutable history entry for one review assignment.
+
+    Teacher decisions carry a signature captured from the live verified-teacher
+    session; students can never write teacher_review or professional_review rows.
+    """
+
+    __tablename__ = "review_event"
+    __table_args__ = (
+        UniqueConstraint("assignment_id", "sequence", name="uq_review_event_sequence"),
+        ForeignKeyConstraint(
+            ["assignment_id"],
+            ["review_assignment.id"],
+            name="fk_review_event_assignment",
+        ),
+        CheckConstraint(
+            "type IN ('submitted','resubmitted','claimed','decision','appeal','withdrawn')",
+            name="ck_review_event_type",
+        ),
+        CheckConstraint("actor_role IN ('student','teacher')", name="ck_review_event_role"),
+        CheckConstraint(
+            "decision IS NULL OR decision IN ('approved','changes_requested')",
+            name="ck_review_event_decision",
+        ),
+    )
+    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    assignment_id: Mapped[UUID] = mapped_column(index=True)
+    space_id: Mapped[UUID] = mapped_column(index=True)
+    owner_account_id: Mapped[UUID] = mapped_column(index=True)
+    sequence: Mapped[int] = mapped_column()
+    type: Mapped[str] = mapped_column(String(24))
+    actor_account_id: Mapped[UUID] = mapped_column()
+    actor_role: Mapped[str] = mapped_column(String(16))
+    decision: Mapped[str | None] = mapped_column(String(24))
+    # rubric_results: [{id,status,note}] status in met|not_met|needs_review.
+    rubric_results: Mapped[list | None] = mapped_column(JSONB)
+    comment: Mapped[str | None] = mapped_column(Text)
+    # evidence_refs: [{artifact_revision_id,artifact_hash,note}] on resubmission.
+    evidence_refs: Mapped[list | None] = mapped_column(JSONB)
+    # teacher_signature: {teacher_account_id,display_name,verification_state,signed_at}.
+    teacher_signature: Mapped[dict | None] = mapped_column(JSONB)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=text("now()")
+    )
+
+
 class SyncClaim(Base):
     __tablename__ = "sync_claim"
     __table_args__ = (

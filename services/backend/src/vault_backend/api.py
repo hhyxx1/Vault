@@ -33,6 +33,7 @@ from vault_backend.learning_assist_schemas import (
 )
 from vault_backend.model_profiles import PublicModelCatalog
 from vault_backend.responses import CourseCatalog, LeaseResponse, NonceResponse, OperationResponse
+from vault_backend.review import router as review_router
 from vault_backend.schemas import (
     BracketSubmission,
     CodeSubmission,
@@ -140,6 +141,7 @@ def create_app(
     app.state.auth = AuthService(engine, settings)
     app.include_router(auth_router)
     app.include_router(sync_router)
+    app.include_router(review_router)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.allowed_origins,
