@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { currentCodeAssessment, codeObjectiveState, hasCodeSuiteBinding, currentSuiteAssessment, suiteObjectiveState, bestCodeObjectiveState, suiteAssessmentForRevision } from './code-assessment'
+import { currentCodeAssessment, codeObjectiveState, hasCodeSuiteBinding, currentSuiteAssessment, suiteObjectiveState, bestCodeObjectiveState, suiteAssessmentForRevision, suiteVerdictForRevision } from './code-assessment'
 import { SUITE_CONTEXT_TASK_CODE, type CodeAttempt } from './code'
 
 function attempt(status: 'met' | 'not_met' | 'needs_review' = 'met'): CodeAttempt {
@@ -120,4 +120,23 @@ it('does not inherit an older revision pass into a newer environment-failed revi
 it('excludes recovered suite records from revision binding', () => {
   const recovered = suiteAttempt('met', false, { resultTrust: 'client_reported' })
   expect(suiteAssessmentForRevision([recovered], { id: 'source-rev', requestHash: 'hash' })).toBeUndefined()
+})
+
+it('splits the latest run from the last valid conclusion for one revision', () => {
+  const pass = boundSuite('suite-pass', 'met', '2026-10-11T01:00:00Z')
+  const envFail = boundSuite('suite-env', 'needs_review', '2026-10-11T02:00:00Z')
+  const verdict = suiteVerdictForRevision([pass, envFail], { id: 'source-rev', requestHash: 'hash' })
+  expect(verdict.latest?.id).toBe('suite-env')   // the failure is still reported
+  expect(verdict.valid?.id).toBe('suite-pass')   // the conclusion is preserved
+  // Without a valid prior run the revision stays unassessed.
+  expect(suiteVerdictForRevision([envFail], { id: 'source-rev', requestHash: 'hash' }).valid).toBeNull()
+})
+
+it('binds a suite verdict only when both the revision id and its content match', () => {
+  const row = boundSuite('suite-rev', 'met', '2026-10-11T01:00:00Z', 'rev-a')
+  // Same source revision id but different content must NOT bind.
+  expect(suiteAssessmentForRevision([row], { id: 'rev-a', requestHash: 'other-hash' })).toBeUndefined()
+  expect(suiteVerdictForRevision([row], { id: 'rev-a', requestHash: 'other-hash' }).latest).toBeNull()
+  // Matching id and content binds.
+  expect(suiteAssessmentForRevision([row], { id: 'rev-a', requestHash: 'hash' })?.id).toBe('suite-rev')
 })

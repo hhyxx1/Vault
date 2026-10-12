@@ -424,6 +424,65 @@ class ReviewEvent(Base):
     )
 
 
+class ServerVerification(Base):
+    """Server-owned execution ledger: the only source of ``server_tool`` evidence.
+
+    A row exists only because the platform itself ran the student's synced work
+    in the isolated worker through a registered checker. A client-uploaded or
+    imported result never creates or upgrades one of these rows.
+    """
+
+    __tablename__ = "server_verification"
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["space_id", "owner_account_id"],
+            ["learning_space.id", "learning_space.owner_account_id"],
+            name="fk_server_verification_space_owner",
+        ),
+        UniqueConstraint(
+            "owner_account_id",
+            "artifact_revision_id",
+            "artifact_hash",
+            "checker_kind",
+            "standard_version",
+            name="uq_server_verification_work",
+        ),
+        CheckConstraint(
+            "checker_kind IN ('fixed_task','semantic_suite')",
+            name="ck_server_verification_kind",
+        ),
+        CheckConstraint(
+            "provenance = 'server_execution'", name="ck_server_verification_provenance"
+        ),
+        CheckConstraint(
+            "outcome IN ('met','not_met','needs_review')",
+            name="ck_server_verification_outcome",
+        ),
+        CheckConstraint(
+            "octet_length(artifact_hash) = 32", name="ck_server_verification_hash"
+        ),
+    )
+    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    owner_account_id: Mapped[UUID] = mapped_column(ForeignKey("account.id"), index=True)
+    space_id: Mapped[UUID] = mapped_column(index=True)
+    artifact_id: Mapped[UUID] = mapped_column()
+    artifact_revision_id: Mapped[UUID] = mapped_column(index=True)
+    artifact_hash: Mapped[bytes] = mapped_column(LargeBinary)
+    course_code: Mapped[str] = mapped_column(String(32))
+    course_version_id: Mapped[UUID | None] = mapped_column()
+    activity_version_id: Mapped[UUID] = mapped_column()
+    objective_code: Mapped[str] = mapped_column(String(80))
+    task_code: Mapped[str] = mapped_column(String(100))
+    checker_kind: Mapped[str] = mapped_column(String(24))
+    standard_version: Mapped[str] = mapped_column(String(120))
+    provenance: Mapped[str] = mapped_column(String(24), server_default="server_execution")
+    outcome: Mapped[str] = mapped_column(String(24))
+    detail: Mapped[dict] = mapped_column(JSONB)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=text("now()")
+    )
+
+
 class SyncClaim(Base):
     __tablename__ = "sync_claim"
     __table_args__ = (

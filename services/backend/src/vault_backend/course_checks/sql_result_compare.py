@@ -33,10 +33,18 @@ whether two relations the trusted layer already holds are equivalent.
 """
 
 import math
-from decimal import Decimal, InvalidOperation
+from collections import deque
+from decimal import Decimal, InvalidOperation, localcontext
 from enum import StrEnum
 
 from pydantic import BaseModel, ConfigDict, Field
+
+# Explicit result-size and compute bounds. An oversized relation is an invalid
+# argument (never a silent "not equal"), and the tolerance matcher is a
+# polynomial bipartite maximum matching, so it terminates promptly.
+MAX_RELATION_ROWS = 2000
+MAX_RELATION_CELLS = 40000
+MAX_TOLERANCE_MATCH_ROWS = 1000
 
 
 class ResultSemantics(StrEnum):
@@ -99,7 +107,8 @@ def normalize_cell(value: object) -> object:
         if value.is_nan():
             return (_NAN, object())  # distinct token: NaN never equals NaN
         if value.is_infinite():
-            return (_INF, value.is_signed())
+            # Consistent sign encoding across Decimal and float: +1 / -1.
+            return (_INF, -1 if value.is_signed() else 1)
         return (_NUMBER, value)
     if isinstance(value, int):
         return (_NUMBER, Decimal(value))
@@ -107,7 +116,9 @@ def normalize_cell(value: object) -> object:
         if math.isnan(value):
             return (_NAN, object())  # distinct token: NaN never equals NaN
         if math.isinf(value):
-            return (_INF, value > 0)
+            # Same +1 / -1 sign encoding as Decimal infinity so Decimal('Infinity')
+            # and float('inf') compare equal (and both differ from -infinity).
+            return (_INF, 1 if value > 0 else -1)
         # str() round-trips the shortest decimal representation so 1.004 stays
         # 1.004 instead of the binary float's 1.00400000000000000355….
         try:
@@ -119,6 +130,29 @@ def normalize_cell(value: object) -> object:
         # integer 1 unless the runner typed them the same way.
         return (_STR, value)
     return (_OTHER, str(value))
+
+
+def _numbers_close(left: Decimal, right: Decimal, tolerance: Decimal) -> bool:
+    """Absolute-tolerance comparison without Decimal context round-off.
+
+    ``Decimal`` arithmetic uses a fixed-precision context (28 digits by default),
+    so a difference between two very high-precision, differently-scaled numbers
+    can be rounded to zero (or to the wrong side of the tolerance). A local
+    context wide enough for both operands keeps the comparison exact.
+    """
+    precision = (
+        max(
+            28,
+            len(left.as_tuple().digits),
+            len(right.as_tuple().digits),
+            len(tolerance.as_tuple().digits),
+        )
+        + abs(left.adjusted() - right.adjusted())
+        + 5
+    )
+    with localcontext() as context:
+        context.prec = precision
+        return abs(left - right) <= tolerance
 
 
 def _cell_compatible(left: object, right: object, tolerance: Decimal) -> bool:
@@ -133,7 +167,7 @@ def _cell_compatible(left: object, right: object, tolerance: Decimal) -> bool:
     if kind == _INF:
         return left[1] == right[1]
     if kind == _NUMBER:
-        return abs(left[1] - right[1]) <= tolerance
+        return _numbers_close(left[1], right[1], tolerance)
     return left[1] == right[1]
 
 
@@ -147,33 +181,67 @@ def _rows_compatible(left: list[object], right: list[object], tolerance: Decimal
     return all(_cell_compatible(a, b, tolerance) for a, b in zip(left, right, strict=True))
 
 
-def _perfect_match(
+def _has_perfect_matching(
     expected: list[list[object]], observed: list[list[object]], tolerance: Decimal
 ) -> bool:
     """True when every expected row can be matched to a distinct observed row.
 
-    A one-to-one maximum matching with backtracking. With a numeric tolerance
-    the relation is not transitive (1.00≈1.004≈1.008 but 1.00≉1.008), so a
-    greedy scan can under-count; this finds a perfect matching if one exists.
-    Result sets are small by construction, which keeps the search bounded.
+    Hopcroft-Karp maximum bipartite matching (polynomial, O(E·√V)) on the
+    compatibility graph. A numeric tolerance is not transitive
+    (1.00≈1.004≈1.008 but 1.00≉1.008), so a greedy scan can under-count; a
+    maximum matching finds a perfect assignment if one exists and terminates
+    promptly even for highly-duplicated, near-identical inputs.
     """
-    if len(expected) != len(observed):
+    n, m = len(expected), len(observed)
+    if n != m:
         return False
-    used = [False] * len(observed)
+    if n == 0:
+        return True
+    adjacency = [
+        [j for j in range(m) if _rows_compatible(expected[i], observed[j], tolerance)]
+        for i in range(n)
+    ]
+    pair_left = [-1] * n
+    pair_right = [-1] * m
+    distance = [0] * n
+    infinity = n + 1
 
-    def visit(index: int) -> bool:
-        for candidate in range(len(observed)):
-            if used[candidate]:
-                continue
-            if not _rows_compatible(expected[index], observed[candidate], tolerance):
-                continue
-            used[candidate] = True
-            if index == len(expected) - 1 or visit(index + 1):
+    def bfs() -> bool:
+        queue: deque[int] = deque()
+        for u in range(n):
+            if pair_left[u] == -1:
+                distance[u] = 0
+                queue.append(u)
+            else:
+                distance[u] = infinity
+        reachable = False
+        while queue:
+            u = queue.popleft()
+            for v in adjacency[u]:
+                matched = pair_right[v]
+                if matched == -1:
+                    reachable = True
+                elif distance[matched] == infinity:
+                    distance[matched] = distance[u] + 1
+                    queue.append(matched)
+        return reachable
+
+    def dfs(u: int) -> bool:
+        for v in adjacency[u]:
+            matched = pair_right[v]
+            if matched == -1 or (distance[matched] == distance[u] + 1 and dfs(matched)):
+                pair_left[u] = v
+                pair_right[v] = u
                 return True
-            used[candidate] = False
+        distance[u] = infinity
         return False
 
-    return visit(0) if expected else True
+    matching = 0
+    while bfs():
+        for u in range(n):
+            if pair_left[u] == -1 and dfs(u):
+                matching += 1
+    return matching == n
 
 
 def _check_shape(expected: Relation, observed: Relation, column_order: ColumnOrder):
@@ -223,6 +291,19 @@ def _validate_tolerance(numeric_tolerance: float) -> Decimal:
     return tolerance
 
 
+def _validate_size(*relations: Relation) -> None:
+    for relation in relations:
+        if len(relation.rows) > MAX_RELATION_ROWS:
+            raise ValueError(
+                f"结果行数超过比较上限（{MAX_RELATION_ROWS} 行）"
+            )
+        cells = sum(len(row) for row in relation.rows)
+        if cells > MAX_RELATION_CELLS:
+            raise ValueError(
+                f"结果单元格数超过比较上限（{MAX_RELATION_CELLS}）"
+            )
+
+
 def compare_relations(
     expected: Relation,
     observed: Relation,
@@ -231,6 +312,7 @@ def compare_relations(
     numeric_tolerance: float = 0.0,
 ) -> RelationComparison:
     tolerance = _validate_tolerance(numeric_tolerance)
+    _validate_size(expected, observed)
     exp = expected.normalized()
     obs_raw = observed.normalized()
     # _check_shape returns an already-normalized relation in both branches
@@ -278,7 +360,11 @@ def compare_relations(
             return _matched(semantics, column_order, dedup)
         return _mismatch(exp_bag, obs_bag, semantics, column_order)
 
-    if _perfect_match(exp_rows, obs_rows, tolerance):
+    if max(len(exp_rows), len(obs_rows)) > MAX_TOLERANCE_MATCH_ROWS:
+        raise ValueError(
+            f"容差一一匹配的行数超过上限（{MAX_TOLERANCE_MATCH_ROWS} 行）"
+        )
+    if _has_perfect_matching(exp_rows, obs_rows, tolerance):
         return _matched(semantics, column_order, dedup)
     word = _semantics_word(semantics)
     return RelationComparison(

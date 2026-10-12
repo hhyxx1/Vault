@@ -34,6 +34,7 @@ from vault_backend.learning_assist_schemas import (
 from vault_backend.model_profiles import PublicModelCatalog
 from vault_backend.responses import CourseCatalog, LeaseResponse, NonceResponse, OperationResponse
 from vault_backend.review import router as review_router
+from vault_backend.review_verification import AuthoritativeVerifier
 from vault_backend.schemas import (
     BracketSubmission,
     CodeSubmission,
@@ -140,6 +141,11 @@ def create_app(
     app.state.settings, app.state.guest_store, app.state.engine = settings, store, engine
     app.state.agent = assist_runner
     app.state.auth = AuthService(engine, settings)
+    # Authoritative re-execution used by the human-review trust boundary: only a
+    # run the server performs itself can back a server_tool evidence item.
+    app.state.authoritative_verifier = AuthoritativeVerifier(
+        code_runner, DynamicCheckRegistry(content.server_expectations)
+    )
     app.include_router(auth_router)
     app.include_router(sync_router)
     app.include_router(review_router)

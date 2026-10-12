@@ -1,28 +1,32 @@
-"""Four-dimension coverage audit over the *current published* course versions.
+"""Four-dimension acceptance audit over the *current published* course versions.
 
-The reviewer's E gate separates claims that are frequently conflated:
+The round-2 E gate separates four claims that are easy to conflate:
 
-- ``has_variants`` : the objective's practice activity declares at least one
-  migration variant carrying a real ``code_request``. This only proves a
-  "new condition" *field exists* — it is NOT independent-transfer acceptance.
-- ``executable``   : the objective's practice activity is runnable by an
-  implemented tool (code -> isolate worker, finite_algebra -> native registry).
-- ``reliable_check``: the objective has a trusted multi-input semantic suite
-  (server-private independent inputs) rather than only a fixed-condition stdout
-  that can be hard-coded.
-- ``closed_loop``  : the objective has the full verified loop (objective result
-  met *and* explanation *and* independent transfer *and* an approved human
-  review). This is 0 for every objective today by design.
+- ``a.structure``   : static structural coverage — the objective exists in the
+  current published definition. This says nothing about teaching quality.
+- ``b.mechanism``   : a verification *mechanism* is declared (a fixed-condition
+  check version or a trusted multi-input semantic suite). A declared mechanism
+  is not proof that any real execution happened.
+- ``c.executed``    : a *real* execution is recorded for the objective, with a
+  traceable reference (a test/acceptance artefact). Never inferred from the
+  activity ``kind``; shown as 未验证 when there is no evidence.
+- ``d.accepted``    : full product closed-loop acceptance (objective result met
+  *and* explanation *and* independent transfer *and* the applicable human-review
+  requirement satisfied), again evidence-driven, never a hardcoded zero.
+
+Evidence for (c)/(d) is read from a committed JSON file so the numbers are
+traceable; without it both dimensions report 未验证 rather than 0.
 
 Archived versions are counted separately and never folded into the default
 denominator. Read-only; standard library only.
 
 Usage:
-    python tools/curriculum/audit_coverage_dimensions.py
+    python tools/curriculum/audit_coverage_dimensions.py [--evidence PATH]
 """
 
 from __future__ import annotations
 
+import argparse
 import glob
 import json
 import os
@@ -31,6 +35,11 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CONTENT = os.path.join(ROOT, "content", "courses")
 CATALOG = os.path.join(CONTENT, "scope-catalog.json")
+DEFAULT_EVIDENCE = os.path.join(
+    ROOT, "document", "handoff", "course-acceptance-evidence.json"
+)
+
+UNVERIFIED = "未验证"
 
 
 def load_catalog() -> dict:
@@ -38,9 +47,11 @@ def load_catalog() -> dict:
         return json.load(handle)
 
 
-def current_version_ids(catalog: dict) -> dict[str, str]:
-    """course_code -> current published course_version_id."""
-    return {item["code"]: item["version_id"] for item in catalog["courses"]}
+def load_evidence(path: str) -> dict:
+    if not path or not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8-sig") as handle:
+        return json.load(handle)
 
 
 def manifest_by_version(version_id: str) -> dict | None:
@@ -52,65 +63,75 @@ def manifest_by_version(version_id: str) -> dict | None:
     return None
 
 
-def dimensions(manifest: dict) -> dict[str, int]:
-    objectives = manifest.get("objectives") or []
-    by_code = {obj.get("code"): obj for obj in objectives}
-    has_variants: set[str] = set()
-    executable: set[str] = set()
-    reliable: set[str] = set()
+def dimensions(manifest: dict, evidence: dict) -> dict:
+    """Per-objective counts for the four dimensions (evidence-driven c/d)."""
+    objectives = [obj.get("code") for obj in (manifest.get("objectives") or [])]
+    declared: set[str] = set()
+    mechanism: set[str] = set()
     for activity in manifest.get("activities", []):
-        kind = activity.get("kind")
-        codes = [c for c in activity.get("objective_codes", []) if c in by_code]
+        codes = [c for c in activity.get("objective_codes", []) if c in objectives]
         if not codes:
             continue
-        variants = activity.get("variants") or []
-        if any(v.get("code_request") for v in variants):
-            has_variants.update(codes)
-        if kind in ("code", "finite_algebra"):
-            executable.update(codes)
-        if activity.get("semantic_suite"):
-            reliable.update(codes)
+        declared.update(codes)
+        if activity.get("semantic_suite") or activity.get("check_version"):
+            mechanism.update(codes)
+    executed = {code for code in objectives if (evidence.get(code) or {}).get("executed_ref")}
+    accepted = {
+        code
+        for code in objectives
+        if (evidence.get(code) or {}).get("accepted_ref")
+        and (evidence.get(code) or {}).get("accepted") is True
+    }
     return {
-        "objectives": len(objectives),
-        "has_variants": len(has_variants),
-        "executable": len(executable),
-        "reliable_check": len(reliable),
-        "closed_loop": 0,  # never asserted: explanation/transfer/review stay needs_review
+        "structure": len(objectives),
+        "mechanism": len(mechanism),
+        "executed": len(executed),
+        "accepted": len(accepted),
+        "evidence_present": bool(evidence),
     }
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--evidence", default=DEFAULT_EVIDENCE)
+    args = parser.parse_args()
     catalog = load_catalog()
-    current = current_version_ids(catalog)
-    totals: dict[str, int] = {
-        "objectives": 0, "has_variants": 0, "executable": 0, "reliable_check": 0, "closed_loop": 0,
-    }
-    print("course : objectives / has_variants / executable / reliable_check / closed_loop")
+    evidence = load_evidence(args.evidence)
+    current = {item["code"]: item["version_id"] for item in catalog["courses"]}
+    totals = {"structure": 0, "mechanism": 0, "executed": 0, "accepted": 0}
+    print("course : a.structure / b.mechanism / c.executed / d.accepted")
     for code in sorted(current):
         manifest = manifest_by_version(current[code])
         if manifest is None:
             print(f"  {code:6s}: MISSING manifest for {current[code]}")
             continue
-        dims = dimensions(manifest)
+        dims = dimensions(manifest, evidence)
         for key in totals:
             totals[key] += dims[key]
+        executed = dims["executed"] if evidence else UNVERIFIED
+        accepted = dims["accepted"] if evidence else UNVERIFIED
         print(
-            f"  {code:6s}: {dims['objectives']:3d} / {dims['has_variants']:3d} / "
-            f"{dims['executable']:3d} / {dims['reliable_check']:3d} / {dims['closed_loop']:3d}"
+            f"  {code:6s}: {dims['structure']:3d} / {dims['mechanism']:3d} / "
+            f"{executed!s:>6} / {accepted!s:>6}"
         )
     print("-" * 72)
+    executed_label = totals["executed"] if evidence else UNVERIFIED
+    accepted_label = totals["accepted"] if evidence else UNVERIFIED
     print(
-        f"  {'TOTAL':6s}: {totals['objectives']:3d} / {totals['has_variants']:3d} / "
-        f"{totals['executable']:3d} / {totals['reliable_check']:3d} / {totals['closed_loop']:3d}"
+        f"  {'TOTAL':6s}: {totals['structure']:3d} / {totals['mechanism']:3d} / "
+        f"{executed_label!s:>6} / {accepted_label!s:>6}"
     )
     print()
-    print("口径：has_variants 仅证明“新条件变体字段存在”，不等于完成独立迁移验收；")
-    print("reliable_check 仅统计带服务端保密独立输入的语义套件；固定 stdout 可被硬编码，不计入。")
-    print("closed_loop 要求固定条件 met + 解释 met + 独立迁移 met + 教师审阅 approved，当前恒为 0。")
+    print("口径：a 仅声明范围；b 仅声明“存在核验机制”，不等于执行过；")
+    print("c 只统计有可追溯执行证据的目标，绝不按 kind 推断；")
+    print("d 只统计有产品闭环验收证据且 accepted=true 的目标；")
+    print("无证据文件或目标未登记时显示“未验证”，不以写死的 0 冒充验收。")
+    if not evidence:
+        print(f"（证据文件不存在：{args.evidence}）")
     archived = catalog.get("archived_courses") or []
     print()
     print(f"归档版本单列：{len(archived)} 个（不并入默认分母；旧记录按旧版本打开）。")
-    print(f"额外课程包：{len(catalog.get('extra_courses', []))} 个（用于复用工具，不进默认 13 课目录）。")
+    print(f"额外课程包：{len(catalog.get('extra_courses', []))} 个（复用工具，不进默认 13 课目录）。")
     return 0
 
 

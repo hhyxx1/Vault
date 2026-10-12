@@ -1,0 +1,15 @@
+{
+  "_note": "Evidence ledger for the four-dimension acceptance audit (tools/curriculum/audit_coverage_dimensions.py). 'executed_ref' cites a traceable real-execution artefact; 'accepted' is true only when the full product closed loop (objective + explanation + independent transfer + applicable human review) is evidenced. Objectives absent here are reported as 未验证, never as 0.",
+  "CS01-M03-O03": {
+    "executed_ref": "apps/web/e2e/semantic-suite.spec.ts (chromium 2 passed, 2026-10-12; WSL isolate worker box700)",
+    "accepted": false,
+    "accepted_ref": null,
+    "note": "服务端受信多输入语义核验实测通过（含硬编码反例）；解释/独立迁移与人工审阅闭环仍为 needs_review，故未计入完整闭环验收。"
+  },
+  "WORKSHOP-M01-O1": {
+    "executed_ref": "apps/web/e2e/synthetic-workshop.spec.ts (真实 worker 侧车独立输入；scaffolding course, not in the default 13-course denominator)",
+    "accepted": false,
+    "accepted_ref": null,
+    "note": "合成课仅用于证明工具复用与编号无关，不计入 13 课验收分母。"
+  }
+}

@@ -46,7 +46,9 @@ export function hasCodeSuiteBinding(attempt: CodeAttempt): boolean {
  * existed. Two suite attempts with the same key were run on the same work.
  */
 export function suiteRevisionKey(attempt: CodeAttempt): string {
-  return attempt.sourceRevisionId ?? attempt.requestHash
+  // Group by BOTH the source revision and its content fingerprint: an id alone
+  // is not enough (a tampered or reused id with different content must not merge).
+  return `${attempt.sourceRevisionId ?? 'legacy'}:${attempt.requestHash}`
 }
 
 function suiteFixedStatus(attempt: CodeAttempt): 'met' | 'not_met' | 'needs_review' {
@@ -81,15 +83,43 @@ export function currentSuiteAssessment(attempts: CodeAttempt[], goal: string, ve
 }
 
 /**
- * The suite verdict bound to one concrete fixed-task revision (by revision id,
- * or by content fingerprint for legacy records). Never shows another version's
- * pass/fail beside the version being viewed.
+ * A suite attempt is bound to the viewed revision only when BOTH the source
+ * revision id and the content fingerprint line up. Legacy records without a
+ * source revision id fall back to the content fingerprint alone, never to an
+ * id-only match.
  */
+export function suiteBoundToRevision(attempt: CodeAttempt, revision: { id: string; requestHash: string }): boolean {
+  if (attempt.requestHash !== revision.requestHash) return false
+  return attempt.sourceRevisionId ? attempt.sourceRevisionId === revision.id : true
+}
+
+export type RevisionSuiteVerdict = {
+  /** The most recent suite run for this revision (may be an environment failure). */
+  latest: CodeAttempt | null
+  /** The most recent definitive (met/not_met) run for this revision, if any. */
+  valid: CodeAttempt | null
+}
+
+/**
+ * Suite verdicts bound to one concrete fixed-task revision, split into the
+ * latest run and the last valid conclusion. Editing, switching versions or
+ * restoring must never surface another version's pass/fail, and a later
+ * environment failure on the same work must not erase an earlier valid result
+ * (the failure is still reported separately by the caller).
+ */
+export function suiteVerdictForRevision(attempts: CodeAttempt[], revision: { id: string; requestHash: string }): RevisionSuiteVerdict {
+  const bound = attempts
+    .filter(attempt => !attempt.resultTrust && hasCodeSuiteBinding(attempt) && attempt.result?.suite_assessment && suiteBoundToRevision(attempt, revision))
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+  return {
+    latest: bound[0] ?? null,
+    valid: bound.find(attempt => suiteFixedStatus(attempt) !== 'needs_review') ?? null,
+  }
+}
+
+/** Compatibility wrapper: the latest suite attempt bound to the revision. */
 export function suiteAssessmentForRevision(attempts: CodeAttempt[], revision: { id: string; requestHash: string }): CodeAttempt | undefined {
-  return attempts
-    .filter(attempt => !attempt.resultTrust && hasCodeSuiteBinding(attempt) && attempt.result?.suite_assessment)
-    .filter(attempt => attempt.sourceRevisionId ? attempt.sourceRevisionId === revision.id : attempt.requestHash === revision.requestHash)
-    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).at(0)
+  return suiteVerdictForRevision(attempts, revision).latest ?? undefined
 }
 
 export function suiteObjectiveState(attempt: CodeAttempt): ObjectiveState {

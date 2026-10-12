@@ -11,6 +11,7 @@ from pydantic import ValidationError
 from vault_backend.course_checks.semantic_suites import SUITES, get_suite
 from vault_backend.course_packages import PublicCoursePackage
 
+
 def _load(settings):
     path = (
         settings.course_catalog_path.parent

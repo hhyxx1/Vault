@@ -9,14 +9,21 @@ staffed the assignment stays unassigned and reports the service as unavailable.
 
 from datetime import UTC, datetime
 from typing import Annotated
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Header, Request
 from sqlalchemy import func, select, text
 
 from vault_backend.auth import authorized_transaction
+from vault_backend.code_execution import CodeRequest
 from vault_backend.errors import ApiError
-from vault_backend.models import ReviewAssignment, ReviewEvent, TeacherProfile
+from vault_backend.models import (
+    ReviewAssignment,
+    ReviewEvent,
+    ServerVerification,
+    TeacherProfile,
+)
+from vault_backend.redaction import redact_hidden_suite_fields
 from vault_backend.review_schemas import (
     MAX_APPEALS,
     AppealRequest,
@@ -91,7 +98,9 @@ async def _load_synced_code_attempt(session, space_id: UUID, revision_id: UUID) 
     obj = await session.get(SyncObject, (space_id, "code_attempt", str(revision_id)))
     if obj is None or obj.payload is None:
         return None
-    return obj.payload
+    # Legacy rows may predate trust-boundary redaction; never carry historical
+    # hidden independent inputs into a frozen review snapshot.
+    return redact_hidden_suite_fields(obj.payload)
 
 
 def _verified_code_work(
@@ -107,8 +116,11 @@ def _verified_code_work(
     """Verify a synced code attempt matches the claimed revision/fingerprint.
 
     Returns ``(payload, artifact_id)``; the artifact id is read from the trusted
-    projection so a resubmission cannot invent one. ``expected_artifact_id`` is
-    checked when the client also claims an artifact id (original submission).
+    projection so a resubmission cannot invent one. Ownership, revision and the
+    content fingerprint are checked here; the *result* is never trusted from the
+    upload — a runnable work may be submitted even without a client result,
+    because the server re-executes it to obtain authoritative evidence. An
+    imported result stays advisory ("client reported") in the snapshot.
     """
     if payload is None:
         raise ApiError(
@@ -127,9 +139,6 @@ def _verified_code_work(
         raise ApiError(422, "WORK_MISMATCH", "作品归属与审阅请求不一致。")
     if payload.get("requestHash") != artifact_hash:
         raise ApiError(422, "WORK_HASH_MISMATCH", "作品内容指纹与审阅请求不一致。")
-    result = payload.get("result")
-    if not result or (not result.get("task_assessment") and not result.get("suite_assessment")):
-        raise ApiError(422, "WORK_NOT_VERIFIED", "该作品没有服务端核验结果，不能提交人工审阅。")
     context = (payload.get("learning") or {}).get("context") or {}
     if context.get("objectiveCode") != objective_code:
         raise ApiError(422, "WORK_MISMATCH", "作品所属目标与审阅请求不一致。")
@@ -142,28 +151,21 @@ def _verified_code_work(
     return payload, artifact_id
 
 
-def _server_tool_summary(result: dict) -> str:
-    """Derive the authoritative server_tool evidence from the frozen result.
+def _server_tool_summary(verification: dict, artifact_hash: str) -> str:
+    """Summary built ONLY from the server's own execution record.
 
-    The summary is built server-side from the imported result (whose provenance
-    and binding were re-validated on sync), never from a client-authored string.
+    Never derived from the client-uploaded sync projection: a forged but
+    byte-consistent upload has no server execution behind it and so cannot
+    produce this evidence item.
     """
-    suite = result.get("suite_assessment")
-    task = result.get("task_assessment")
-    assessment = suite or task or {}
-    standard = assessment.get("standard_version", "unknown")
-    fixed = next(
-        (
-            criterion.get("status")
-            for criterion in assessment.get("criteria", [])
-            if criterion.get("id") == "fixed_condition"
-        ),
-        "unknown",
-    )
     label = {"met": "通过", "not_met": "未通过", "needs_review": "待复核"}.get(
-        fixed, "未知"
+        verification.get("outcome"), "未知"
     )
-    return f"服务端受信核验（{standard}）：固定条件 {label}；仅代表该次运行，不等于教师已认可。"
+    return (
+        f"服务端在隔离环境重新执行该作品（{verification.get('standard_version')}，"
+        f"{verification.get('checker_kind')}）：固定条件 {label}；"
+        f"作品内容指纹 {artifact_hash[:16]}…。仅代表该次运行，不等于教师已认可。"
+    )
 
 
 def _freeze_work(
@@ -173,6 +175,9 @@ def _freeze_work(
     revision_id: UUID,
     artifact_hash: str,
     note: str | None,
+    context: dict | None = None,
+    help_records: list | None = None,
+    verification: dict | None = None,
 ) -> dict:
     request = payload.get("request") or {}
     return {
@@ -182,8 +187,171 @@ def _freeze_work(
         "artifact_hash": artifact_hash,
         "note": note or "",
         "request": request,
-        "result": payload.get("result"),
+        # Necessary learning context and help disclosures travel with the frozen
+        # snapshot so a teacher reviews the real study situation; visibility is
+        # still bounded by the RLS-scoped assignment.
+        "learning_context": context or {},
+        "help_records": help_records or [],
+        "server_verification": verification,
+        # The student's own imported report is kept as advisory, clearly
+        # labelled — and redacted so historical hidden suite secrets never enter
+        # the frozen snapshot a teacher can read.
+        "client_reported_result": redact_hidden_suite_fields(
+            {"result": payload.get("result")}
+        ).get("result"),
     }
+
+
+# The platform's necessary review dimensions for a course objective. A student
+# cannot reduce or reorder them; the server rejects missing/duplicate/extra rows.
+STANDARD_RUBRIC_IDS = ("objective", "explanation", "independent")
+STANDARD_RUBRIC_KINDS = {
+    "objective": "objective",
+    "explanation": "explanation",
+    "independent": "independent_transfer",
+}
+
+
+def validate_rubric(items: list) -> list[dict]:
+    ids = [item.id for item in items]
+    if len(set(ids)) != len(ids):
+        raise ApiError(422, "RUBRIC_DUPLICATE", "审阅标准不能包含重复条目。")
+    if set(ids) != set(STANDARD_RUBRIC_IDS):
+        raise ApiError(
+            422,
+            "RUBRIC_MISMATCH",
+            "审阅标准必须与课程目标的必要表现完全一致，不能增删必要条目。",
+        )
+    for item in items:
+        if item.kind != STANDARD_RUBRIC_KINDS[item.id]:
+            raise ApiError(
+                422, "RUBRIC_MISMATCH", "审阅标准条目的评价维度与课程定义不一致。"
+            )
+    return [item.model_dump(mode="json") for item in items]
+
+
+async def _load_help_records(session, space_id: UUID, objective_code: str) -> list[dict]:
+    """Versioned help disclosures the student made for this objective.
+
+    Read from the student's own sync projection (RLS-scoped to their space); a
+    teacher only ever sees these through the frozen assignment snapshot.
+    """
+    rows = (
+        await session.scalars(
+            select(SyncObject).where(
+                SyncObject.space_id == space_id,
+                SyncObject.object_type == "help",
+            )
+        )
+    ).all()
+    records: list[dict] = []
+    for row in rows:
+        payload = row.payload or {}
+        if payload.get("objectiveId") != objective_code:
+            continue
+        records.append(
+            {
+                "kind": payload.get("kind"),
+                "disclosureVersion": payload.get("disclosureVersion"),
+                "createdAt": payload.get("createdAt"),
+                "courseVersion": payload.get("courseVersion"),
+                "activityVersion": payload.get("activityVersion"),
+            }
+        )
+    return records
+
+
+async def authoritative_verification(
+    request,
+    session,
+    *,
+    principal,
+    space_id: UUID,
+    artifact_id: UUID,
+    revision_id: UUID,
+    artifact_hash: str,
+    course_code: str,
+    course_version_id: UUID | None,
+    payload: dict,
+    note: str | None,
+) -> tuple[dict, "ServerVerification"]:
+    """Re-run the synced work server-side and persist the authoritative record.
+
+    Raises a clear ``CODE_WORKER_UNAVAILABLE`` / ``CHECK_UNAVAILABLE`` when the
+    platform cannot itself verify the work, so the caller must ask the student
+    to re-verify rather than trusting the imported result.
+    """
+    verifier = getattr(request.app.state, "authoritative_verifier", None)
+    if verifier is None:
+        raise ApiError(
+            503, "CODE_WORKER_UNAVAILABLE", "服务端核验未配置，无法提交人工审阅。"
+        )
+    context = (payload.get("learning") or {}).get("context") or {}
+    try:
+        code = CodeRequest.model_validate(payload.get("request") or {})
+    except Exception:
+        raise ApiError(422, "WORK_MISMATCH", "作品源文件无法解析。") from None
+    record = await verifier.run(
+        code,
+        course_version_id=str(context.get("courseVersionId")),
+        objective_code=str(context.get("objectiveCode")),
+        activity_version_id=str(context.get("activityVersionId")),
+        task_code=str(context.get("taskCode")),
+    )
+    verification = await session.scalar(
+        select(ServerVerification).where(
+            ServerVerification.owner_account_id == principal.account_id,
+            ServerVerification.artifact_revision_id == revision_id,
+            ServerVerification.artifact_hash == bytes.fromhex(artifact_hash),
+            ServerVerification.checker_kind == record["checker_kind"],
+            ServerVerification.standard_version == record["standard_version"],
+        )
+    )
+    if verification is None:
+        verification = ServerVerification(
+            id=uuid4(),
+            owner_account_id=principal.account_id,
+            space_id=space_id,
+            artifact_id=artifact_id,
+            artifact_revision_id=revision_id,
+            artifact_hash=bytes.fromhex(artifact_hash),
+            course_code=course_code,
+            course_version_id=course_version_id,
+            activity_version_id=UUID(str(context.get("activityVersionId"))),
+            objective_code=str(context.get("objectiveCode")),
+            task_code=str(context.get("taskCode")),
+            checker_kind=record["checker_kind"],
+            standard_version=record["standard_version"],
+            provenance="server_execution",
+            outcome=record["outcome"],
+            detail=record["detail"],
+        )
+        session.add(verification)
+        await session.flush()
+    authoritative = {
+        "verification_id": str(verification.id),
+        "checker_kind": verification.checker_kind,
+        "standard_version": verification.standard_version,
+        "provenance": verification.provenance,
+        "outcome": verification.outcome,
+        "detail": verification.detail,
+        "created_at": verification.created_at.isoformat()
+        if verification.created_at
+        else None,
+    }
+    freeze = _freeze_work(
+        payload,
+        artifact_id=artifact_id,
+        revision_id=revision_id,
+        artifact_hash=artifact_hash,
+        note=note,
+        context=context,
+        help_records=await _load_help_records(
+            session, space_id, str(context.get("objectiveCode"))
+        ),
+        verification=authoritative,
+    )
+    return freeze, verification
 
 
 async def next_sequence(session, assignment_id: UUID) -> int:
@@ -313,34 +481,9 @@ async def create_assignment(
                     "EVIDENCE_PROVENANCE_FORBIDDEN",
                     "提交审阅时不得附带教师意见或专业审校来源。",
                 )
-        # The claimed work must be a real, owned, synced code attempt with a
-        # content fingerprint and a server verification result; the server_tool
-        # evidence is derived from that frozen result, never from client text.
-        payload, artifact_id = _verified_code_work(
-            await _load_synced_code_attempt(session, body.space_id, body.artifact_revision_id),
-            revision_id=body.artifact_revision_id,
-            artifact_hash=body.artifact_hash,
-            objective_code=body.objective_code,
-            activity_version=body.activity_version,
-            course_version_id=body.course_version_id,
-            expected_artifact_id=body.artifact_id,
-        )
-        evidence_snapshot = [
-            {"kind": "server_tool", "summary": _server_tool_summary(payload["result"])}
-        ] + [
-            item.model_dump(mode="json")
-            for item in body.evidence_snapshot
-            if item.kind != "server_tool"
-        ]
-        work_snapshot = [
-            _freeze_work(
-                payload,
-                artifact_id=artifact_id,
-                revision_id=body.artifact_revision_id,
-                artifact_hash=body.artifact_hash,
-                note=body.student_note,
-            )
-        ]
+        # The review rubric is a platform/course standard; the student cannot
+        # reduce the necessary dimensions or add conflicting ones.
+        rubric = validate_rubric(body.rubric)
         existing = await session.get(ReviewAssignment, body.assignment_id)
         if existing is not None:
             if (
@@ -352,6 +495,44 @@ async def create_assignment(
                     409, "IDEMPOTENCY_CONFLICT", "该审阅请求已固定为另一份作品或目标。"
                 )
             return await serialize(session, existing)
+        # The claimed work must be a real, owned, synced code attempt bound to
+        # this course context; ownership/revision/fingerprint are verified first.
+        payload, artifact_id = _verified_code_work(
+            await _load_synced_code_attempt(session, body.space_id, body.artifact_revision_id),
+            revision_id=body.artifact_revision_id,
+            artifact_hash=body.artifact_hash,
+            objective_code=body.objective_code,
+            activity_version=body.activity_version,
+            course_version_id=body.course_version_id,
+            expected_artifact_id=body.artifact_id,
+        )
+        # server_tool evidence may only come from a run the platform performs
+        # itself; a forged but field-consistent sync upload has no such record.
+        freeze, _verification = await authoritative_verification(
+            request,
+            session,
+            principal=principal,
+            space_id=body.space_id,
+            artifact_id=artifact_id,
+            revision_id=body.artifact_revision_id,
+            artifact_hash=body.artifact_hash,
+            course_code=body.course_code,
+            course_version_id=body.course_version_id,
+            payload=payload,
+            note=body.student_note,
+        )
+        authoritative = freeze["server_verification"]
+        evidence_snapshot = [
+            {
+                "kind": "server_tool",
+                "summary": _server_tool_summary(authoritative, body.artifact_hash),
+            }
+        ] + [
+            item.model_dump(mode="json")
+            for item in body.evidence_snapshot
+            if item.kind != "server_tool"
+        ]
+        work_snapshot = [freeze]
         available = await service_available(session, body.audience, body.teacher_account_id)
         now = _now()
         assignment = ReviewAssignment(
@@ -367,7 +548,7 @@ async def create_assignment(
             artifact_id=body.artifact_id,
             artifact_revision_id=body.artifact_revision_id,
             artifact_hash=bytes.fromhex(body.artifact_hash),
-            rubric=[item.model_dump(mode="json") for item in body.rubric],
+            rubric=rubric,
             evidence_snapshot=evidence_snapshot,
             work_snapshot=work_snapshot,
             status="awaiting_review",
@@ -563,8 +744,8 @@ async def resubmit(request: Request, assignment_id: UUID, body: ResubmitRequest)
         if assignment.status != "changes_requested":
             raise ApiError(409, "REVIEW_STATUS_CONFLICT", "只有被退回补证的工单可以补充材料。")
         # Each supplement must reference a real, owned, synced code revision with
-        # a matching content fingerprint; a random UUID plus a hand-typed hash is
-        # rejected here instead of being frozen into evidence.
+        # a matching content fingerprint, re-verified server-side; a random UUID
+        # plus a hand-typed hash is rejected instead of being frozen as evidence.
         supplements: list[dict] = []
         evidence_refs: list[dict] = []
         for ref in body.evidence_refs:
@@ -578,15 +759,20 @@ async def resubmit(request: Request, assignment_id: UUID, body: ResubmitRequest)
                 activity_version=assignment.activity_version,
                 course_version_id=assignment.course_version_id,
             )
-            supplements.append(
-                _freeze_work(
-                    payload,
-                    artifact_id=artifact_id,
-                    revision_id=ref.artifact_revision_id,
-                    artifact_hash=ref.artifact_hash,
-                    note=ref.note,
-                )
+            freeze, _verification = await authoritative_verification(
+                request,
+                session,
+                principal=principal,
+                space_id=assignment.space_id,
+                artifact_id=artifact_id,
+                revision_id=ref.artifact_revision_id,
+                artifact_hash=ref.artifact_hash,
+                course_code=assignment.course_code,
+                course_version_id=assignment.course_version_id,
+                payload=payload,
+                note=ref.note,
             )
+            supplements.append(freeze)
             evidence_refs.append(ref.model_dump(mode="json"))
         assignment.work_snapshot = [*assignment.work_snapshot, *supplements]
         assignment.status = "resubmitted"

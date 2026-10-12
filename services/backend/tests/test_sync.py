@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0014_review_work_snapshot"
+            == "0015_server_verification"
         )
     settings = Settings(
         environment="test",

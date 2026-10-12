@@ -257,3 +257,76 @@ def test_type_distinction_across_number_string_and_bool():
     assert compare_relations(
         rel(["a"], [[1]]), rel(["a"], [[1.0]]), ResultSemantics.MULTISET
     ).matches is True
+
+
+# --- Round-2 regressions (item 5) --------------------------------------------
+
+
+@pytest.mark.parametrize("semantics", list(ResultSemantics))
+def test_decimal_and_float_infinity_share_a_sign_encoding(semantics):
+    from decimal import Decimal
+
+    # +inf (Decimal) == +inf (float)
+    assert compare_relations(
+        rel(["a"], [[Decimal("Infinity")]]), rel(["a"], [[float("inf")]]), semantics
+    ).matches is True
+    # -inf (Decimal) == -inf (float)
+    assert compare_relations(
+        rel(["a"], [[Decimal("-Infinity")]]), rel(["a"], [[float("-inf")]]), semantics
+    ).matches is True
+    # Opposite signs are never equal, in either direction.
+    assert compare_relations(
+        rel(["a"], [[Decimal("Infinity")]]), rel(["a"], [[float("-inf")]]), semantics
+    ).matches is False
+    assert compare_relations(
+        rel(["a"], [[Decimal("-Infinity")]]), rel(["a"], [[float("inf")]]), semantics
+    ).matches is False
+    # Same-sign float/float still equal.
+    assert compare_relations(
+        rel(["a"], [[float("inf")]]), rel(["a"], [[float("inf")]]), semantics
+    ).matches is True
+
+
+def test_high_precision_tolerance_boundary_is_not_rounded_away():
+    from decimal import Decimal
+
+    a = Decimal("1.000000000000000000000000000000000000000001")
+    b = Decimal("1.000000000000000000000000000000000000000002")
+    # |a - b| is exactly 1e-42; tolerance at the boundary must accept.
+    assert compare_relations(
+        rel(["v"], [[a]]), rel(["v"], [[b]]),
+        ResultSemantics.MULTISET, numeric_tolerance=Decimal("1e-42"),
+    ).matches is True
+    # Just below the boundary must reject (no round-to-zero).
+    assert compare_relations(
+        rel(["v"], [[a]]), rel(["v"], [[b]]),
+        ResultSemantics.MULTISET, numeric_tolerance=Decimal("0.9e-42"),
+    ).matches is False
+
+
+def test_tolerance_matching_is_polynomial_and_terminates_on_dense_duplicates():
+    # Highly duplicated, near-identical rows that DO admit a perfect matching.
+    n = 400
+    expected = rel(["v"], [[1.0] for _ in range(n)])
+    observed = rel(["v"], [[1.0 + 1e-9] for _ in range(n)])
+    assert compare_relations(
+        expected, observed, ResultSemantics.MULTISET, numeric_tolerance=1e-6
+    ).matches is True
+
+    # Same scale but one row cannot be matched: no perfect matching, and the
+    # polynomial matcher must return promptly instead of exhausting permutations.
+    observed_bad = rel(["v"], [[1.0 + 1e-9] for _ in range(n - 1)] + [[99.0]])
+    assert compare_relations(
+        expected, observed_bad, ResultSemantics.MULTISET, numeric_tolerance=1e-6
+    ).matches is False
+
+
+def test_oversized_relations_are_rejected_as_invalid_arguments():
+    from vault_backend.course_checks.sql_result_compare import MAX_RELATION_ROWS
+
+    big = rel(["v"], [[1] for _ in range(MAX_RELATION_ROWS + 1)])
+    with pytest.raises(ValueError):
+        compare_relations(big, rel(["v"], []), ResultSemantics.MULTISET)
+    big_obs = rel(["v"], [[1] for _ in range(MAX_RELATION_ROWS + 1)])
+    with pytest.raises(ValueError):
+        compare_relations(rel(["v"], []), big_obs, ResultSemantics.MULTISET)

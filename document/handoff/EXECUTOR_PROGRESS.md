@@ -58,7 +58,7 @@
 
 ### 测试基线（2026-10-11 复现，原始日志已归档到 `document/course-reviews/test-runs/`）
 - 后端含 PG 全套：**446 passed / 58 skipped / 0 failed**（C02 后端三层后基线；P0 末为 427/58，C02 新增 13 个语义套件测试 + 5 个发现契约测试 + 1 个同步绑定测试函数）。58 skipped 为 Windows 主机上的 Linux/isolate 专用测试。原始日志 `%TEMP%\t29-sem.txt`(13)、`t29-semc.txt`(5)、`t29-sync.txt`(3)、`t29-b2.txt`(446 全量)。
-  - 复现 417 基线需配置可销毁测试库：`VAULT_TEST_DATABASE_URL=...vault_dev...@127.0.0.1:5442/vault_ci`、`VAULT_TEST_API_DATABASE_URL=...vault_api:ci-runtime-ephemeral-only.../vault_ci`、`VAULT_TEST_DATABASE_IS_DISPOSABLE=1`。容器内 vault_ci 已在 0012、vault_api 为 NOBYPASSRLS 非超管且已对 sync_object 等表授权（活动数据复用 sync_object 多态，无独立 algebra/code 表）。
+  - 复现 417 基线需配置可销毁测试库：`VAULT_TEST_DATABASE_URL=postgresql+psycopg://<迁移角色>:<私有密码>@127.0.0.1:5442/vault_ci`、`VAULT_TEST_API_DATABASE_URL=postgresql+psycopg://<运行角色>:<私有密码>@127.0.0.1:5442/vault_ci`、`VAULT_TEST_DATABASE_IS_DISPOSABLE=1`。容器内 vault_ci 已在 0012、vault_api 为 NOBYPASSRLS 非超管且已对 sync_object 等表授权（活动数据复用 sync_object 多态，无独立 algebra/code 表）。
 - 前端：typecheck 0 error；vitest **104 passed / 17 files**。
 - CS05 原生有限代数 e2e：**6 passed**（chromium 桌面 + mobile 各 3）。
 - 日志：`CS05_BACKEND_2026-10-11.txt`、`CS05_WEB_VITEST_2026-10-11.txt`、`CS05_WEB_TYPECHECK_2026-10-11.txt`、`CS05_NATIVE_E2E_2026-10-11.txt`。

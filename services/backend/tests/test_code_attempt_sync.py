@@ -182,10 +182,17 @@ def test_imported_semantic_suite_binds_context_and_never_grants_mastery():
     expect_reject(lambda p: p["learning"]["context"].update(taskCode="base"))
     expect_reject(lambda p: p["learning"].__setitem__("context", None))
     # No independent mastery, no trusted-provenance/standard tampering.
-    expect_reject(lambda p: p["result"]["suite_assessment"]["criteria"].__setitem__(1, {**p["result"]["suite_assessment"]["criteria"][1], "status": "met"}))
-    expect_reject(lambda p: p["result"]["suite_assessment"].update(mastery_asserted=True))
-    expect_reject(lambda p: p["result"]["suite_assessment"].update(provenance="client_reported"))
-    expect_reject(lambda p: p["result"]["suite_assessment"].update(standard_version="code-fixed-condition-v1"))
+    def suite(payload):
+        return payload["result"]["suite_assessment"]
+
+    expect_reject(
+        lambda p: suite(p)["criteria"].__setitem__(
+            1, {**suite(p)["criteria"][1], "status": "met"}
+        )
+    )
+    expect_reject(lambda p: suite(p).update(mastery_asserted=True))
+    expect_reject(lambda p: suite(p).update(provenance="client_reported"))
+    expect_reject(lambda p: suite(p).update(standard_version="code-fixed-condition-v1"))
     # A result cannot carry both the fixed and the suite assessment.
     expect_reject(
         lambda p: p["result"].update(
@@ -193,3 +200,52 @@ def test_imported_semantic_suite_binds_context_and_never_grants_mastery():
             | {"task_code": "base", "standard_version": "code-fixed-condition-v1"}
         )
     )
+
+
+def _historical_suite_payload():
+    """A pre-redaction record: independent cases still carry their secrets."""
+    _, payload = _suite_payload()
+    payload["result"]["suite_assessment"]["cases"].append(
+        {
+            "case_code": "indep-31",
+            "kind": "independent",
+            "stdin": "31\n",
+            "expected_stdout": "5\n",
+            "observed_status": "success",
+            "observed_stdout": "0\n",
+            "status": "not_met",
+            "reason": "语义不一致：期望 '5'，实际 '0'。",
+        }
+    )
+    return payload
+
+
+def test_historical_independent_secrets_are_redacted_at_the_boundary():
+    from vault_backend.redaction import redact_hidden_suite_fields
+
+    payload = _historical_suite_payload()
+    cleaned = redact_hidden_suite_fields(payload)
+    cases = cleaned["result"]["suite_assessment"]["cases"]
+    independent = [case for case in cases if case["kind"] == "independent"]
+    assert len(independent) == 1
+    assert independent[0]["stdin"] is None
+    assert independent[0]["expected_stdout"] is None
+    assert independent[0]["observed_stdout"] is None
+    assert independent[0]["case_code"] == "independent-1"
+    assert "5" not in independent[0]["reason"] and "0" not in independent[0]["reason"]
+    assert "31" not in independent[0]["reason"]
+    # The learning-visible case and the aggregate statuses are preserved.
+    visible = [case for case in cases if case["kind"] == "visible"][0]
+    assert visible["stdin"] == "30\n" and visible["expected_stdout"] == "0\n"
+    assert cleaned["result"]["suite_assessment"]["criteria"][0]["status"] == "met"
+    # The original input is untouched (pure function).
+    assert payload["result"]["suite_assessment"]["cases"][1]["stdin"] == "31\n"
+
+
+def test_redaction_is_a_noop_for_already_clean_records():
+    from vault_backend.redaction import redact_hidden_suite_fields
+
+    _, payload = _suite_payload()
+    assert redact_hidden_suite_fields(payload) is payload
+    assert redact_hidden_suite_fields(None) is None
+    assert redact_hidden_suite_fields({"unrelated": True}) == {"unrelated": True}

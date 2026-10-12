@@ -2,6 +2,14 @@
 
 > 基线 `2a220c7`（已推送 `mine/hyx_dev`）。本轮只修复复核发现 A–E 的可信度问题，**不宣布 13 门课交付**。每一项原问题 → 修复方式 → 对应提交 → 测试证据。
 
+> **【第二轮修订 2026-10-12】** 项目管理者复核 `79a5ec7` 后认定 **A–E 尚未全部验收**。本文件 §0 的“已修复/完整闭环”为第一轮当时的结论，**不应视为最终验收**：
+> - 审阅证据来源（C）当时仍从客户端上传的 `sync_object` 派生 server_tool，**不足以证明执行真实性**；已在第二轮改为服务端执行台账 + 服务端重跑（`0015_server_verification`）。
+> - 隐藏数据（A）当时只做了新结果去敏，**历史记录/同步往返/冻结快照未清理**；已在第二轮于可信边界统一去敏。
+> - 版本绑定（B）`suiteAssessmentForRevision` 当时仍取最新，环境失败会覆盖旧结论；已改为 latest/valid 分离。
+> - SQL 比较器（D）另有 Decimal/float 无穷符号、回溯穷举、规模上限与容差边界问题；已修复。
+> - 非代码作品与真实师生浏览器 E2E（C 的延伸）**当时未做，第二轮仍未完成**。
+> 逐项结论以 `document/handoff/EXECUTOR_FIX_ROUND2_REPORT.md` 为准。
+
 ## 0. 结论速览
 
 | 项 | 结论 | 关键证据 |
@@ -86,9 +94,9 @@
 
 ```
 $env:PYTHONPATH='services\backend\src'
-$env:VAULT_DATABASE_URL='postgresql+psycopg://vault_dev:vault-dev-local-2026@127.0.0.1:5442/vault_dev'
-$env:VAULT_TEST_DATABASE_URL='postgresql+psycopg://vault_dev:vault-dev-local-2026@127.0.0.1:5442/vault_ci'
-$env:VAULT_TEST_API_DATABASE_URL='postgresql+psycopg://vault_api:ci-runtime-ephemeral-only@127.0.0.1:5442/vault_ci'
+$env:VAULT_DATABASE_URL='postgresql+psycopg://<迁移角色>:<私有密码>@127.0.0.1:5442/vault_dev'
+$env:VAULT_TEST_DATABASE_URL='postgresql+psycopg://<迁移角色>:<私有密码>@127.0.0.1:5442/vault_ci'
+$env:VAULT_TEST_API_DATABASE_URL='postgresql+psycopg://<运行角色>:<私有密码>@127.0.0.1:5442/vault_ci'
 $env:VAULT_TEST_DATABASE_IS_DISPOSABLE='1'
 services\backend\.venv\Scripts\python.exe -m pytest services/backend/tests -q -p no:cacheprovider --tb=short
 # → 514 passed, 58 skipped, 0 failed

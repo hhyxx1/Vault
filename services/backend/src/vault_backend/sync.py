@@ -21,6 +21,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from vault_backend.auth import authorized_transaction
 from vault_backend.errors import ApiError
 from vault_backend.models import LearningSpace, SyncClaim
+from vault_backend.redaction import redact_hidden_suite_fields
 from vault_backend.schemas import TraceStep
 from vault_backend.sync_models import (
     SyncBatchReceipt,
@@ -588,6 +589,16 @@ async def apply_operation(session, space, principal, op):
             return await remember_result(session, space.id, op, result)
     now = datetime.now(UTC)
     next_version = current_version + 1
+    # Trust boundary: historical records may still carry server-held independent
+    # suite secrets. Strip them before persisting so the server can never
+    # re-serve, export or freeze them again; the client hash was already checked
+    # above, and the stored hash is recomputed for the redacted payload.
+    stored_payload = None if deleted else redact_hidden_suite_fields(op.payload)
+    stored_hash = (
+        bytes.fromhex(payload_hash(stored_payload))
+        if stored_payload is not None
+        else bytes.fromhex(op.payload_hash)
+    )
     if obj is None:
         obj = SyncObject(
             space_id=space.id,
@@ -595,16 +606,16 @@ async def apply_operation(session, space, principal, op):
             object_id=op.object_id,
             server_object_id=uuid5(space.id, f"{op.object_type}:{op.object_id}"),
             version=next_version,
-            payload_hash=bytes.fromhex(op.payload_hash),
-            payload=None if deleted else op.payload,
+            payload_hash=stored_hash,
+            payload=stored_payload,
             deleted_at=now if deleted else None,
             updated_at=now,
         )
         session.add(obj)
     else:
         obj.version = next_version
-        obj.payload_hash = bytes.fromhex(op.payload_hash)
-        obj.payload = None if deleted else op.payload
+        obj.payload_hash = stored_hash
+        obj.payload = stored_payload
         obj.deleted_at = now if deleted else None
         obj.updated_at = now
     await session.flush()
@@ -623,8 +634,8 @@ async def apply_operation(session, space, principal, op):
             object_id=op.object_id,
             server_object_id=obj.server_object_id,
             version=next_version,
-            payload_hash=bytes.fromhex(op.payload_hash),
-            payload=None if deleted else op.payload,
+            payload_hash=stored_hash,
+            payload=stored_payload,
             deleted=deleted,
         )
     )
@@ -722,9 +733,19 @@ async def read_changes(
                     )
                 )
                 await session.flush()
-        return ChangesResponse(
-            space_id=space.id,
-            changes=[
+        changes = []
+        for row in selected:
+            # Old rows predating trust-boundary redaction may still carry hidden
+            # independent suite secrets; strip them again on the way out.
+            payload = (
+                redact_hidden_suite_fields(row.payload) if row.payload is not None else None
+            )
+            digest = (
+                payload_hash(payload)
+                if payload is not None and payload is not row.payload
+                else row.payload_hash.hex()
+            )
+            changes.append(
                 ChangeResponse(
                     sequence=str(row.sequence),
                     object_type=row.object_type,
@@ -732,8 +753,8 @@ async def read_changes(
                     server_object_id=row.server_object_id,
                     version=str(row.version),
                     deleted=row.deleted,
-                    payload=row.payload,
-                    payload_hash=row.payload_hash.hex(),
+                    payload=payload,
+                    payload_hash=digest,
                     requires_review=row.object_type
                     in {
                         "evidence",
@@ -743,8 +764,10 @@ async def read_changes(
                         "algebra_attempt",
                     },
                 )
-                for row in selected
-            ],
+            )
+        return ChangesResponse(
+            space_id=space.id,
+            changes=changes,
             next_cursor=next_cursor,
             has_more=len(rows) > limit,
         )

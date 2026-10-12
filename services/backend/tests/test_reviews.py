@@ -26,11 +26,53 @@ from vault_backend.config import Settings
 pytestmark = pytest.mark.postgres
 
 ORIGIN = "http://localhost:5173"
+# The platform/course standard rubric the server enforces for every objective.
 RUBRIC = [
-    {"id": "obj1", "title": "客观结果", "kind": "objective"},
-    {"id": "exp1", "title": "解释与设计", "kind": "explanation"},
+    {"id": "objective", "title": "客观结果与不变量", "kind": "objective"},
+    {"id": "explanation", "title": "解释与设计", "kind": "explanation"},
+    {"id": "independent", "title": "独立迁移表现", "kind": "independent_transfer"},
 ]
 HASH = "a" * 64
+
+
+class FakeVerifier:
+    """Deterministic stand-in for the isolated worker's authoritative run.
+
+    The outcome is derived from the code itself, so a client that forges a
+    "met" report in its sync upload cannot influence the server-side verdict.
+    """
+
+    def __init__(self, default_outcome: str = "met"):
+        self.calls = 0
+        self.last_code = None
+        self.forced_outcome = None
+        self.default_outcome = default_outcome
+
+    async def run(self, code, *, course_version_id, objective_code, activity_version_id, task_code):
+        self.calls += 1
+        self.last_code = code
+        source = "".join(code.files.values())
+        outcome = self.forced_outcome
+        if outcome is None:
+            outcome = "not_met" if "HARDCODED" in source else self.default_outcome
+        return {
+            "checker_kind": "fixed_task",
+            "standard_version": "code-fixed-condition-v1",
+            "outcome": outcome,
+            "detail": {
+                "criteria": [
+                    {"id": "fixed_condition", "status": outcome, "reason": "server run"},
+                    {"id": "explanation", "status": "needs_review", "reason": "server run"},
+                    {
+                        "id": "independent_transfer",
+                        "status": "needs_review",
+                        "reason": "server run",
+                    },
+                ],
+                "task_code": task_code,
+                "checker_version": "code-fixed-condition-v1",
+            },
+        }
 
 
 class PrivateDatabaseURL(str):
@@ -68,11 +110,14 @@ def insert_synced_code(
     course_version_id: UUID | None = None,
     fixed_status: str = "met",
     files: dict | None = None,
+    with_result: bool = True,
 ):
     """Seed a real, already-synced code attempt into the sync projection.
 
     The review service reads this projection to verify ownership, revision and
-    content fingerprint; it never trusts a client-invented UUID/hash.
+    content fingerprint; it never trusts a client-invented UUID/hash. The
+    embedded ``result`` is advisory only — ``with_result=False`` models a saved
+    revision the student never ran, which is still reviewable.
     """
     owner_url, _ = urls()
     artifact_id = artifact_id or uuid4()
@@ -80,6 +125,33 @@ def insert_synced_code(
     artifact_hash = artifact_hash or ("c" * 64)
     activity_version = activity_version or str(uuid4())
     course_version_id = course_version_id or uuid4()
+    client_result = {
+        "status": "success",
+        "phase": "run",
+        "stdout": "0\n",
+        "stderr": "",
+        "truncated": False,
+        "metadata": {},
+        "runtime_profile": "c17-isolate-dev@0.1.0",
+        "request_sha256": artifact_hash,
+        "client_revision_id": str(revision_id),
+        "client_artifact_id": str(artifact_id),
+        "mastery_asserted": False,
+        "task_assessment": {
+            "course_version_id": str(course_version_id),
+            "activity_version_id": activity_version,
+            "objective_code": objective,
+            "task_code": "base",
+            "standard_version": "code-fixed-condition-v1",
+            "provenance": "server_deterministic_checker",
+            "mastery_asserted": False,
+            "criteria": [
+                {"id": "fixed_condition", "status": fixed_status, "reason": "r"},
+                {"id": "explanation", "status": "needs_review", "reason": "r"},
+                {"id": "independent_transfer", "status": "needs_review", "reason": "r"},
+            ],
+        },
+    }
     payload = {
         "spaceId": str(space_id),
         "id": str(revision_id),
@@ -92,33 +164,7 @@ def insert_synced_code(
             "stdin": "",
         },
         "requestHash": artifact_hash,
-        "result": {
-            "status": "success",
-            "phase": "run",
-            "stdout": "0\n",
-            "stderr": "",
-            "truncated": False,
-            "metadata": {},
-            "runtime_profile": "c17-isolate-dev@0.1.0",
-            "request_sha256": artifact_hash,
-            "client_revision_id": str(revision_id),
-            "client_artifact_id": str(artifact_id),
-            "mastery_asserted": False,
-            "task_assessment": {
-                "course_version_id": str(course_version_id),
-                "activity_version_id": activity_version,
-                "objective_code": objective,
-                "task_code": "base",
-                "standard_version": "code-fixed-condition-v1",
-                "provenance": "server_deterministic_checker",
-                "mastery_asserted": False,
-                "criteria": [
-                    {"id": "fixed_condition", "status": fixed_status, "reason": "r"},
-                    {"id": "explanation", "status": "needs_review", "reason": "r"},
-                    {"id": "independent_transfer", "status": "needs_review", "reason": "r"},
-                ],
-            },
-        },
+        "result": client_result if with_result else None,
         "learning": {
             "context": {
                 "courseId": "00000000-0000-0000-0000-000000000000",
@@ -169,6 +215,7 @@ async def env(tmp_path):
             "GRANT SELECT,INSERT,UPDATE ON review_assignment TO vault_api"
         )
         admin.execute("GRANT SELECT,INSERT ON review_event TO vault_api")
+        admin.execute("GRANT SELECT,INSERT ON server_verification TO vault_api")
         admin.execute("GRANT SELECT ON sync_object TO vault_api")
         admin.execute(
             "GRANT EXECUTE ON FUNCTION vault_verified_teacher_exists(uuid) TO vault_api"
@@ -181,6 +228,11 @@ async def env(tmp_path):
         mail_capture_dir=tmp_path / "private-mail",
     )
     app = create_app(settings)
+    # The review re-executes synced work server-side. This fixture replaces the
+    # real isolated worker with a deterministic double; the trust boundary under
+    # test is that ONLY this server-side execution backs server_tool evidence.
+    verifier = FakeVerifier()
+    app.state.authoritative_verifier = verifier
     clients: dict[str, AsyncClient] = {}
 
     def seed(key, account_type, verified=False):
@@ -245,7 +297,7 @@ async def env(tmp_path):
         assert response.status_code == 200, response.text
         return UUID(response.json()["server_space_id"])
 
-    yield SimpleNamespace(seed=seed, claim_space=claim_space)
+    yield SimpleNamespace(seed=seed, claim_space=claim_space, verifier=verifier)
     for client in clients.values():
         await client.aclose()
     await app.state.engine.dispose()
@@ -277,7 +329,12 @@ def create_payload(owner, space_id, work, **overrides):
 
 
 def results(*statuses, note="理由"):
-    ids = ["obj1", "exp1"]
+    ids = ["objective", "explanation", "independent"]
+    if not statuses:
+        statuses = ("met",)
+    # Pad the remaining dimensions with the last supplied status so every
+    # necessary rubric row is answered (the platform rubric has three).
+    statuses = statuses + (statuses[-1],) * (len(ids) - len(statuses))
     return [
         {"id": ids[i], "status": status, "note": f"{note}{i}"}
         for i, status in enumerate(statuses)
@@ -552,19 +609,67 @@ async def test_hash_mismatch_is_rejected(env):
     assert response.json()["code"] == "WORK_HASH_MISMATCH"
 
 
-async def test_server_tool_evidence_is_derived_not_client_authored(env):
+async def test_server_tool_evidence_is_derived_from_a_server_run(env):
     student, owner, assignment, work = await open_assignment(env)
-    # The client summary is discarded; the server derives the real one.
+    # The client summary is discarded; the server derives the real one from its
+    # OWN re-execution.
     assert assignment["evidence_snapshot"][0]["kind"] == "server_tool"
-    assert "服务端受信核验" in assignment["evidence_snapshot"][0]["summary"]
+    assert "服务端在隔离环境重新执行" in assignment["evidence_snapshot"][0]["summary"]
     assert "伪造" not in assignment["evidence_snapshot"][0]["summary"]
     assert assignment["evidence_snapshot"][1]["kind"] == "student_self"
-    # The frozen work snapshot contains the real source, not just a summary.
-    assert assignment["work_snapshot"][0]["kind"] == "code_attempt"
-    assert assignment["work_snapshot"][0]["artifact_hash"] == work.hash
-    assert assignment["work_snapshot"][0]["request"]["files"] == {
-        "main.c": "int main(void){return 0;}"
-    }
+    assert env.verifier.calls >= 1  # the server really re-ran the work
+    # The frozen work snapshot contains the real source plus the server record,
+    # while the imported client report is kept only as advisory.
+    snapshot = assignment["work_snapshot"][0]
+    assert snapshot["kind"] == "code_attempt"
+    assert snapshot["artifact_hash"] == work.hash
+    assert snapshot["request"]["files"] == {"main.c": "int main(void){return 0;}"}
+    assert snapshot["server_verification"]["provenance"] == "server_execution"
+    assert snapshot["server_verification"]["outcome"] == "met"
+    assert snapshot["client_reported_result"]["task_assessment"]["provenance"] == (
+        "server_deterministic_checker"
+    )
+
+
+async def test_forged_field_consistent_sync_result_never_gets_server_tool_identity(env):
+    """A byte-consistent but fabricated sync result must not become server_tool.
+
+    The upload claims ``met`` with a perfect-looking assessment, but the server
+    re-executes the code; the server's verdict (not_met) is what the teacher and
+    the student see, and the fabricated import stays advisory.
+    """
+    student, owner = env.seed("s-forge-consistent", "student")
+    space_id = await env.claim_space(student, owner)
+    work = insert_synced_code(space_id, files={"main.c": "// HARDCODED forged sample"})
+    payload = create_payload(owner, space_id, work)
+    response = await student.post(
+        "/api/v1/reviews/assignments",
+        json=payload,
+        headers={"Idempotency-Key": payload["assignment_id"]},
+    )
+    assert response.status_code == 201, response.text
+    body = response.json()
+    assert body["evidence_snapshot"][0]["kind"] == "server_tool"
+    # The authoritative server verdict is not_met despite the "met" upload.
+    assert body["work_snapshot"][0]["server_verification"]["outcome"] == "not_met"
+    assert "未通过" in body["evidence_snapshot"][0]["summary"]
+    assert env.verifier.calls >= 1
+
+
+async def test_client_report_without_result_can_still_be_reviewed(env):
+    # A saved revision the student never ran can be submitted: the server runs it
+    # authoritatively, so "must already have an auto-check result" is not a gate.
+    student, owner = env.seed("s-noresult", "student")
+    space_id = await env.claim_space(student, owner)
+    work = insert_synced_code(space_id, with_result=False)
+    payload = create_payload(owner, space_id, work)
+    response = await student.post(
+        "/api/v1/reviews/assignments",
+        json=payload,
+        headers={"Idempotency-Key": payload["assignment_id"]},
+    )
+    assert response.status_code == 201, response.text
+    assert response.json()["work_snapshot"][0]["server_verification"]["outcome"] == "met"
 
 
 async def test_teacher_sees_the_frozen_real_work(env):
@@ -574,10 +679,35 @@ async def test_teacher_sees_the_frozen_real_work(env):
     fetched = await teacher.get(f"/api/v1/reviews/assignments/{assignment['id']}")
     assert fetched.status_code == 200
     body = fetched.json()
-    assert body["work_snapshot"][0]["request"]["files"]["main.c"].startswith("int main")
-    assert body["work_snapshot"][0]["result"]["task_assessment"]["provenance"] == (
-        "server_deterministic_checker"
+    snapshot = body["work_snapshot"][0]
+    assert snapshot["request"]["files"]["main.c"].startswith("int main")
+    assert snapshot["server_verification"]["provenance"] == "server_execution"
+    assert snapshot["learning_context"]["objectiveCode"] == "CS01-M01-O1"
+    assert "help_records" in snapshot
+
+
+async def test_rubric_must_match_the_platform_standard(env):
+    student, owner = env.seed("s-rubric-src", "student")
+    space_id = await env.claim_space(student, owner)
+    work = insert_synced_code(space_id)
+    # Dropping a necessary dimension is rejected (cannot, so must be complete).
+    reduced = create_payload(owner, space_id, work, rubric=RUBRIC[:1])
+    response = await student.post(
+        "/api/v1/reviews/assignments",
+        json=reduced,
+        headers={"Idempotency-Key": reduced["assignment_id"]},
     )
+    assert response.status_code == 422
+    assert response.json()["code"] == "RUBRIC_MISMATCH"
+    # A duplicate dimension is rejected.
+    dupe = create_payload(owner, space_id, work, rubric=[RUBRIC[0], RUBRIC[0], RUBRIC[1]])
+    response = await student.post(
+        "/api/v1/reviews/assignments",
+        json=dupe,
+        headers={"Idempotency-Key": dupe["assignment_id"]},
+    )
+    assert response.status_code == 422
+    assert response.json()["code"] == "RUBRIC_DUPLICATE"
 
 
 async def test_approve_with_unmet_criteria_is_rejected(env):

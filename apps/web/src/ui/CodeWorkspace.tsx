@@ -8,7 +8,7 @@ import { buildCodeHelpEvent, SUITE_CONTEXT_TASK_CODE, type CodeAttempt, type Cod
 import type { AtlasPackage, CourseCodeActivity, CodeVariant } from '../domain/course-packages'
 import { registerIdentityFlusher } from '../local/identity'
 import { runCode } from '../api/verification'
-import { suiteAssessmentForRevision } from '../domain/code-assessment'
+import { suiteVerdictForRevision } from '../domain/code-assessment'
 import ProcessorTrace from './ProcessorTrace'
 
 const criterionName: Record<string, string> = { fixed_condition: '本次条件', explanation: '原理解释', independent_transfer: '独立迁移' }
@@ -110,11 +110,16 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
     window.addEventListener('beforeunload', prevent); return () => window.removeEventListener('beforeunload', prevent)
   }, [busy, saveState, snapshot])
   const locked = !!selected || busy || !ready
-  // Bind the suite verdict to the revision currently being viewed (by revision
-  // id, or by content fingerprint for legacy records); never show version A's
-  // pass/fail beside version B.
-  const suiteLatest = selected ? suiteAssessmentForRevision(suiteRows, selected) ?? null : null
-  const suiteResult = suiteLatest?.result?.suite_assessment ?? null
+  // Bind suite verdicts to the revision currently being viewed (source revision
+  // id AND content fingerprint); never show version A's pass/fail beside B, and
+  // keep the last valid conclusion when a later re-run only hits an environment
+  // failure (the failure is reported separately below).
+  const suiteVerdict = selected ? suiteVerdictForRevision(suiteRows, selected) : { latest: null, valid: null }
+  const suiteConclusive = suiteVerdict.valid ?? suiteVerdict.latest
+  const suiteResult = suiteConclusive?.result?.suite_assessment ?? null
+  const suiteLatestFailure = suiteVerdict.latest && suiteVerdict.valid && suiteVerdict.latest.id !== suiteVerdict.valid.id
+    && suiteVerdict.latest.result!.suite_assessment!.criteria.find(row => row.id === 'fixed_condition')!.status === 'needs_review'
+    ? suiteVerdict.latest : null
   const suiteIndependent = suiteResult ? { met: suiteResult.cases.filter(c => c.kind === 'independent' && c.status === 'met').length, not: suiteResult.cases.filter(c => c.kind === 'independent' && c.status === 'not_met').length, review: suiteResult.cases.filter(c => c.kind === 'independent' && c.status === 'needs_review').length, total: suiteResult.cases.filter(c => c.kind === 'independent').length } : null
   const suiteFixed = suiteResult?.criteria.find(row => row.id === 'fixed_condition') ?? null
   const suiteEnvironmentIncomplete = !!suiteResult && suiteResult.cases.some(c => c.status === 'needs_review')
@@ -230,9 +235,10 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
             <div className="code-run-actions"><button className="button secondary" disabled={!ready || suiteBusy || !selected || selected.request.language !== suiteMeta.language} onClick={runSuiteCheck}>{suiteBusy ? '正在独立核验…' : '对这一版做独立语义核验'}</button>{suiteBusy && <button className="button secondary" onClick={() => aborter.current?.abort()}>停止核验</button>}</div>
             {!selected && <p className="muted">先保存一版代码，再对该版本发起独立语义核验。</p>}
             {selected && selected.request.language !== suiteMeta.language && <p className="muted">该核验仅支持 {templates[suiteMeta.language].label} 作品。</p>}
-            {suiteResult && suiteLatest && <>
-              {suiteLatest.resultTrust && <p className="muted">此记录来自账号恢复，需重新运行独立核验。</p>}
-              <p className="muted">核验绑定到当前查看的作品版本（内容指纹 {suiteLatest.requestHash.slice(0, 8)}…）；切换到其他版本不会沿用这里的结论。</p>
+            {suiteResult && suiteConclusive && <>
+              {suiteConclusive.resultTrust && <p className="muted">此记录来自账号恢复，需重新运行独立核验。</p>}
+              <p className="muted">核验绑定到当前查看的作品版本（内容指纹 {suiteConclusive.requestHash.slice(0, 8)}…）；切换到其他版本不会沿用这里的结论。</p>
+              {suiteLatestFailure && <p className="suite-warning">本次针对同一版本的重跑未能完成核验（运行环境原因），不计为你的错误；上方结论保留上一次在相同内容上的有效核验结果。</p>}
               {suiteResult.suspected_hardcoding
                 ? <p className="suite-warning"><strong>疑似只针对样例硬编码：</strong>学习可见输入通过，但保密的独立输入未通过。请按规则实现一般逻辑，而不是只输出样例答案，修改后重新核验。</p>
                 : suiteFixed?.status === 'met'

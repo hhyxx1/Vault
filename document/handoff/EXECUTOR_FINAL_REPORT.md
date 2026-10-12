@@ -144,8 +144,8 @@
 
 ```
 $env:PYTHONPATH='services\backend\src'
-$env:VAULT_TEST_DATABASE_URL='postgresql+psycopg://vault_dev:vault-dev-local-2026@127.0.0.1:5442/vault_ci'
-$env:VAULT_TEST_API_DATABASE_URL='postgresql+psycopg://vault_api:ci-runtime-ephemeral-only@127.0.0.1:5442/vault_ci'
+$env:VAULT_TEST_DATABASE_URL='postgresql+psycopg://<迁移角色>:<私有密码>@127.0.0.1:5442/vault_ci'
+$env:VAULT_TEST_API_DATABASE_URL='postgresql+psycopg://<运行角色>:<私有密码>@127.0.0.1:5442/vault_ci'
 $env:VAULT_TEST_DATABASE_IS_DISPOSABLE='1'
 services\backend\.venv\Scripts\python.exe -m pytest services\backend\tests -q -p no:cacheprovider --tb=short -rf --basetemp=%TEMP%\vault-pytest-<唯一名>
 ```
