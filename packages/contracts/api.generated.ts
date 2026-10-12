@@ -1333,7 +1333,7 @@ export interface components {
             /** Case Code */
             case_code: string;
             /** Expected Stdout */
-            expected_stdout: string;
+            expected_stdout?: string | null;
             /**
              * Kind
              * @enum {string}
@@ -1342,7 +1342,7 @@ export interface components {
             /** Observed Status */
             observed_status: string;
             /** Observed Stdout */
-            observed_stdout: string;
+            observed_stdout?: string | null;
             /** Reason */
             reason: string;
             /**
@@ -1351,7 +1351,7 @@ export interface components {
              */
             status: "met" | "not_met" | "needs_review";
             /** Stdin */
-            stdin: string;
+            stdin?: string | null;
         };
         /**
          * CodeSuiteRef
@@ -2085,6 +2085,8 @@ export interface components {
             teacher_account_id?: string | null;
             /** Updated At */
             updated_at: string;
+            /** Work Snapshot */
+            work_snapshot?: unknown[];
         };
         /** ReviewCreateRequest */
         ReviewCreateRequest: {

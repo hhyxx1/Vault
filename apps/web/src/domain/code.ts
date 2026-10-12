@@ -36,6 +36,12 @@ export type CodeAttempt = {
   id: string; artifactId: string; spaceId: string; activityKey: string
   request: CodeRequest; requestHash: string; result: CodeResult | null
   resultTrust: string | null; createdAt: string; updatedAt: string
+  /**
+   * For a semantic-suite attempt this is the id of the fixed-task revision it
+   * ran against, so a suite verdict can never be shown beside a different code
+   * version. Absent on plain fixed-task attempts and on pre-binding records.
+   */
+  sourceRevisionId?: string
   learning?: { context: CodeLearningContext | null; prediction: string }
 }
 

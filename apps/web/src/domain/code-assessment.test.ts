@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { currentCodeAssessment, codeObjectiveState, hasCodeSuiteBinding, currentSuiteAssessment, suiteObjectiveState, bestCodeObjectiveState } from './code-assessment'
+import { currentCodeAssessment, codeObjectiveState, hasCodeSuiteBinding, currentSuiteAssessment, suiteObjectiveState, bestCodeObjectiveState, suiteAssessmentForRevision } from './code-assessment'
 import { SUITE_CONTEXT_TASK_CODE, type CodeAttempt } from './code'
 
 function attempt(status: 'met' | 'not_met' | 'needs_review' = 'met'): CodeAttempt {
@@ -29,9 +29,10 @@ it('does not reuse recovered, wrong-version, wrong-goal or malformed feedback as
   expect(currentCodeAssessment([row], 'goal', 'version')).toBeUndefined()
 })
 
-function suiteAttempt(fixed: 'met' | 'not_met' | 'needs_review' = 'met', hardcoding = false): CodeAttempt {
+function suiteAttempt(fixed: 'met' | 'not_met' | 'needs_review' = 'met', hardcoding = false, overrides: Partial<CodeAttempt> = {}): CodeAttempt {
   const context = { courseId: 'course', courseVersionId: 'version', activityVersionId: 'activity', objectiveCode: 'goal', taskCode: SUITE_CONTEXT_TASK_CODE, helpViewed: [] }
-  return { id: 'suite-revision', artifactId: 'artifact', spaceId: 'space', activityKey: 'activity:semantic-suite', request: { language: 'c17', entry: 'main.c', files: { 'main.c': '' }, stdin: '' }, requestHash: 'hash', createdAt: '2026-10-11T00:00:00Z', updatedAt: '2026-10-11T00:00:00Z', resultTrust: null, learning: { context, prediction: '' }, result: { status: 'success', phase: 'run', stdout: '0\n', stderr: '', truncated: false, metadata: {}, runtime_profile: 'test', request_sha256: 'hash', client_revision_id: 'suite-revision', client_artifact_id: 'artifact', mastery_asserted: false, suite_assessment: { course_version_id: 'version', activity_version_id: 'activity', objective_code: 'goal', standard_version: 'code-semantic-suite-v1', provenance: 'server_deterministic_checker', comparator: 'integer', oracle_id: 'parking_fee_three_tier', scope_note: '有限用例', suspected_hardcoding: hardcoding, cases: [{ case_code: 'visible-30', kind: 'visible', stdin: '30\n', expected_stdout: '0\n', observed_status: 'success', observed_stdout: '0\n', status: fixed, reason: '' }, { case_code: 'independent-0', kind: 'independent', stdin: '0\n', expected_stdout: '0\n', observed_status: 'success', observed_stdout: '0\n', status: fixed, reason: '' }], criteria: [{ id: 'fixed_condition', status: fixed, reason: '' }, { id: 'explanation', status: 'needs_review', reason: '' }, { id: 'independent_transfer', status: 'needs_review', reason: '' }], mastery_asserted: false } } }
+  const base: CodeAttempt = { id: 'suite-revision', artifactId: 'artifact', spaceId: 'space', activityKey: 'activity:semantic-suite', request: { language: 'c17', entry: 'main.c', files: { 'main.c': '' }, stdin: '' }, requestHash: 'hash', sourceRevisionId: 'source-rev', createdAt: '2026-10-11T00:00:00Z', updatedAt: '2026-10-11T00:00:00Z', resultTrust: null, learning: { context, prediction: '' }, result: { status: 'success', phase: 'run', stdout: '0\n', stderr: '', truncated: false, metadata: {}, runtime_profile: 'test', request_sha256: 'hash', client_revision_id: 'suite-revision', client_artifact_id: 'artifact', mastery_asserted: false, suite_assessment: { course_version_id: 'version', activity_version_id: 'activity', objective_code: 'goal', standard_version: 'code-semantic-suite-v1', provenance: 'server_deterministic_checker', comparator: 'integer', oracle_id: 'parking_fee_three_tier', scope_note: '有限用例', suspected_hardcoding: hardcoding, cases: [{ case_code: 'visible-30', kind: 'visible', stdin: '30\n', expected_stdout: '0\n', observed_status: 'success', observed_stdout: '0\n', status: fixed, reason: '' }, { case_code: 'independent-1', kind: 'independent', stdin: null, expected_stdout: null, observed_status: 'success', observed_stdout: null, status: fixed, reason: '' }], criteria: [{ id: 'fixed_condition', status: fixed, reason: '' }, { id: 'explanation', status: 'needs_review', reason: '' }, { id: 'independent_transfer', status: 'needs_review', reason: '' }], mastery_asserted: false } } }
+  return { ...base, ...overrides }
 }
 
 it('trusts a bound semantic suite but never above partial mastery', () => {
@@ -67,4 +68,56 @@ it('rejects recovered, misbound, spoofed or mastery-granting suite assessments',
   expect(hasCodeSuiteBinding(explainsMastery)).toBe(false)
   const noCases = suiteAttempt(); noCases.result!.suite_assessment!.cases = []
   expect(hasCodeSuiteBinding(noCases)).toBe(false)
+})
+
+// A fully-consistent suite attempt whose result binds its own id and hash.
+function boundSuite(
+  id: string,
+  fixed: 'met' | 'not_met' | 'needs_review',
+  updatedAt: string,
+  sourceRevisionId = 'source-rev',
+): CodeAttempt {
+  const row = suiteAttempt(fixed)
+  const result = { ...row.result!, client_revision_id: id, request_sha256: row.requestHash }
+  return { ...row, id, updatedAt, sourceRevisionId, result }
+}
+
+it('binds a suite verdict to the exact revision it ran against', () => {
+  const bound = suiteAttempt('met')
+  expect(suiteAssessmentForRevision([bound], { id: 'source-rev', requestHash: 'hash' })?.id).toBe('suite-revision')
+  // A different revision must not reuse another version's pass.
+  expect(suiteAssessmentForRevision([bound], { id: 'other-rev', requestHash: 'other-hash' })).toBeUndefined()
+  // Legacy records without sourceRevisionId fall back to the content fingerprint.
+  const legacy = suiteAttempt('met', false, { sourceRevisionId: undefined })
+  expect(suiteAssessmentForRevision([legacy], { id: 'any-rev', requestHash: 'hash' })?.id).toBe('suite-revision')
+})
+
+it('switches the displayed verdict when the revision changes', () => {
+  const revA = boundSuite('suite-a', 'met', '2026-10-11T01:00:00Z', 'rev-a')
+  const revB = boundSuite('suite-b', 'not_met', '2026-10-11T02:00:00Z', 'rev-b')
+  const rows = [
+    { ...revA, requestHash: 'hash-a', result: { ...revA.result!, request_sha256: 'hash-a' } },
+    { ...revB, requestHash: 'hash-b', result: { ...revB.result!, request_sha256: 'hash-b' } },
+  ]
+  expect(suiteAssessmentForRevision(rows, { id: 'rev-a', requestHash: 'hash-a' })?.id).toBe('suite-a')
+  expect(suiteAssessmentForRevision(rows, { id: 'rev-b', requestHash: 'hash-b' })?.id).toBe('suite-b')
+})
+
+it('keeps a valid verdict when a later same-work run hits an environment failure', () => {
+  const pass = boundSuite('suite-pass', 'met', '2026-10-11T01:00:00Z')
+  const envFail = boundSuite('suite-env', 'needs_review', '2026-10-11T02:00:00Z')
+  expect(currentSuiteAssessment([pass, envFail], 'goal', 'version')?.id).toBe('suite-pass')
+  expect(bestCodeObjectiveState([pass, envFail], 'goal', 'version')).toBe('partial')
+})
+
+it('does not inherit an older revision pass into a newer environment-failed revision', () => {
+  const oldPass = boundSuite('suite-old-pass', 'met', '2026-10-11T01:00:00Z', 'old-rev')
+  const newEnv = boundSuite('suite-new-env', 'needs_review', '2026-10-11T02:00:00Z', 'new-rev')
+  expect(currentSuiteAssessment([oldPass, newEnv], 'goal', 'version')?.id).toBe('suite-new-env')
+  expect(bestCodeObjectiveState([oldPass, newEnv], 'goal', 'version')).toBe('unknown')
+})
+
+it('excludes recovered suite records from revision binding', () => {
+  const recovered = suiteAttempt('met', false, { resultTrust: 'client_reported' })
+  expect(suiteAssessmentForRevision([recovered], { id: 'source-rev', requestHash: 'hash' })).toBeUndefined()
 })

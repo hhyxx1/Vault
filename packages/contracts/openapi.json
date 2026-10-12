@@ -1296,9 +1296,16 @@
             "type": "string"
           },
           "expected_stdout": {
-            "maxLength": 8192,
-            "title": "Expected Stdout",
-            "type": "string"
+            "anyOf": [
+              {
+                "maxLength": 8192,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Stdout"
           },
           "kind": {
             "enum": [
@@ -1314,9 +1321,16 @@
             "type": "string"
           },
           "observed_stdout": {
-            "maxLength": 8192,
-            "title": "Observed Stdout",
-            "type": "string"
+            "anyOf": [
+              {
+                "maxLength": 8192,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed Stdout"
           },
           "reason": {
             "maxLength": 500,
@@ -1333,18 +1347,22 @@
             "type": "string"
           },
           "stdin": {
-            "maxLength": 16384,
-            "title": "Stdin",
-            "type": "string"
+            "anyOf": [
+              {
+                "maxLength": 16384,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stdin"
           }
         },
         "required": [
           "case_code",
           "kind",
-          "stdin",
-          "expected_stdout",
           "observed_status",
-          "observed_stdout",
           "status",
           "reason"
         ],
@@ -2979,6 +2997,11 @@
           "updated_at": {
             "title": "Updated At",
             "type": "string"
+          },
+          "work_snapshot": {
+            "items": {},
+            "title": "Work Snapshot",
+            "type": "array"
           }
         },
         "required": [

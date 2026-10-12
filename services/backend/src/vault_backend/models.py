@@ -359,8 +359,13 @@ class ReviewAssignment(Base):
     # rubric: [{id,title,kind}] with kind in objective|explanation|independent_transfer.
     rubric: Mapped[list] = mapped_column(JSONB)
     # evidence_snapshot: [{kind,summary}] where the student may only cite
-    # server_tool / model_suggestion / student_self sources.
+    # server_tool / model_suggestion / student_self sources. The server_tool
+    # entry is derived server-side from the frozen result, never client-authored.
     evidence_snapshot: Mapped[list] = mapped_column(JSONB, server_default="[]")
+    # work_snapshot: append-only list of frozen work versions (the original
+    # submission plus every resubmitted revision), so a teacher can inspect the
+    # real work and its content fingerprint, not just a client summary.
+    work_snapshot: Mapped[list] = mapped_column(JSONB, server_default="[]")
     status: Mapped[str] = mapped_column(String(24), server_default="awaiting_review")
     claimed_by_account_id: Mapped[UUID | None] = mapped_column()
     review_service_available: Mapped[bool] = mapped_column(server_default="false")

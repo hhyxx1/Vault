@@ -31,7 +31,20 @@ type ReviewTarget = {
   status: string
 }
 
-const HEX64 = /^[0-9a-f]{64}$/
+function changedFiles(before: Record<string, string>, after: Record<string, string>): string[] {
+  const names = new Set([...Object.keys(before), ...Object.keys(after)])
+  return [...names].filter(name => before[name] !== after[name])
+}
+
+function supplementsFor(assignment: ReviewAssignment, attempts: CodeAttempt[]): CodeAttempt[] {
+  return attempts.filter(attempt => {
+    const context = attempt.learning?.context
+    return attempt.result && context
+      && context.objectiveCode === assignment.objective_code
+      && context.activityVersionId === assignment.activity_version
+      && attempt.id !== assignment.artifact_revision_id
+  })
+}
 
 function targetsFromAttempts(attempts: CodeAttempt[]): ReviewTarget[] {
   const seen = new Set<string>()
@@ -121,16 +134,19 @@ function EventTimeline({ assignment }: { assignment: ReviewAssignment }) {
   )
 }
 
-function AssignmentCard({ assignment, onChanged }: {
+function AssignmentCard({ assignment, onChanged, supplements }: {
   assignment: ReviewAssignment
   onChanged: () => Promise<void>
+  supplements: CodeAttempt[]
 }) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [appealText, setAppealText] = useState('')
-  const [supplementHash, setSupplementHash] = useState('')
+  const [supplementId, setSupplementId] = useState('')
   const [supplementNote, setSupplementNote] = useState('')
   const appealsLeft = Math.max(0, 2 - assignment.appeal_count)
+  const selectedSupplement = supplements.find(item => item.id === supplementId) ?? null
+  const originalFiles = assignment.work_snapshot[0]?.request?.files ?? {}
 
   async function run(action: () => Promise<unknown>) {
     setBusy(true); setError('')
@@ -179,22 +195,46 @@ function AssignmentCard({ assignment, onChanged }: {
       {assignment.status === 'changes_requested' && (
         <div className="review-action">
           <h4>补充新材料后重新提交</h4>
-          <label htmlFor={`hash-${assignment.id}`}>新作品版本内容 hash（64 位十六进制，来自一次新的核验）</label>
-          <input id={`hash-${assignment.id}`} value={supplementHash} maxLength={64}
-            onChange={event => setSupplementHash(event.target.value.trim())} placeholder="重新运行/修改后新核验记录的 request hash" />
-          <label htmlFor={`note-${assignment.id}`}>补充说明</label>
-          <textarea id={`note-${assignment.id}`} rows={3} value={supplementNote}
-            onChange={event => setSupplementNote(event.target.value)} placeholder="说明你针对退回意见做了哪些修改、新证据是什么。" />
-          <button className="button primary" disabled={busy || !HEX64.test(supplementHash) || !supplementNote.trim()}
-            onClick={() => run(async () => {
-              const refs: EvidenceRef[] = [{
-                artifact_revision_id: crypto.randomUUID(),
-                artifact_hash: supplementHash,
-                note: supplementNote.trim(),
-              }]
-              await resubmitReview(assignment.id, supplementNote.trim(), refs)
-              setSupplementHash(''); setSupplementNote('')
-            })}>提交补充材料</button>
+          <p className="field-note">选择你<strong>修改后并重新运行/核验</strong>的新作品版本；系统会取该版本的真实修订号与内容指纹，不接受手填。</p>
+          {supplements.length === 0
+            ? <p className="field-note">还没有新的已核验作品版本。请先到知识图谱修改作品并重新运行或核验，再回来补证。</p>
+            : <>
+              <label htmlFor={`supplement-${assignment.id}`}>新作品版本</label>
+              <select id={`supplement-${assignment.id}`} value={supplementId} onChange={event => setSupplementId(event.target.value)}>
+                <option value="">请选择…</option>
+                {supplements.map(item => (
+                  <option key={item.id} value={item.id}>
+                    {item.learning?.context?.taskCode === 'semantic-suite' ? '独立语义核验' : '固定条件核验'} · 指纹 {item.requestHash.slice(0, 10)}… · {item.result?.status ?? '已核验'}
+                  </option>
+                ))}
+              </select>
+              {selectedSupplement && (
+                <details>
+                  <summary>修改对照（{changedFiles(originalFiles, selectedSupplement.request.files).length} 个文件有变化）</summary>
+                  {changedFiles(originalFiles, selectedSupplement.request.files).length === 0 && <p className="field-note">内容未变化；请先修改作品再重新核验。</p>}
+                  {changedFiles(originalFiles, selectedSupplement.request.files).map(name => (
+                    <div key={name}>
+                      <h5>{name}</h5>
+                      <pre className="artifact-source">{selectedSupplement.request.files[name] ?? '（已删除）'}</pre>
+                    </div>
+                  ))}
+                </details>
+              )}
+              <label htmlFor={`note-${assignment.id}`}>补充说明</label>
+              <textarea id={`note-${assignment.id}`} rows={3} value={supplementNote}
+                onChange={event => setSupplementNote(event.target.value)} placeholder="说明你针对退回意见做了哪些修改、新证据是什么。" />
+              <button className="button primary" disabled={busy || !selectedSupplement || !supplementNote.trim()}
+                onClick={() => run(async () => {
+                  if (!selectedSupplement) return
+                  const refs: EvidenceRef[] = [{
+                    artifact_revision_id: selectedSupplement.id,
+                    artifact_hash: selectedSupplement.requestHash,
+                    note: supplementNote.trim(),
+                  }]
+                  await resubmitReview(assignment.id, supplementNote.trim(), refs)
+                  setSupplementId(''); setSupplementNote('')
+                })}>提交补充材料</button>
+            </>}
         </div>
       )}
 
@@ -338,7 +378,7 @@ export default function Reviews() {
           : loadError ? <div className="inline-message">{loadError}</div>
           : assignments.length === 0 ? <p className="field-note">还没有提交过人工审阅。</p>
           : assignments.slice().sort((a, b) => b.updated_at.localeCompare(a.updated_at))
-            .map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} onChanged={refresh} />)}
+            .map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} onChanged={refresh} supplements={supplementsFor(assignment, codeAttempts)} />)}
       </section>
     </div>
   )

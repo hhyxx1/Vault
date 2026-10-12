@@ -681,6 +681,9 @@ class CodeAttemptPayload(LocalPayload):
     createdAt: Timestamp
     updatedAt: Timestamp
     learning: CodeLearningSnapshot | None = None
+    # A semantic-suite attempt binds to the fixed-task revision it verified, so
+    # a suite verdict can never be displayed beside a different code version.
+    sourceRevisionId: UUID | None = None
 
     @model_validator(mode="after")
     def bind_work(self):

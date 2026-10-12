@@ -143,3 +143,117 @@ def test_empty_relations_are_equal_and_reason_never_blank(semantics):
     result = compare_relations(rel(["a"], []), rel(["a"], []), semantics)
     assert result.matches is True
     assert result.reason.strip()
+
+
+# --- Regression counterexamples from review (D) -------------------------------
+
+
+def test_bool_true_is_distinct_from_number_one():
+    # Python treats bool as a subclass of int; SQL/result comparison must not.
+    for semantics in ResultSemantics:
+        result = compare_relations(
+            rel(["a"], [[True]]), rel(["a"], [[1]]), semantics
+        )
+        assert result.matches is False, semantics
+        result = compare_relations(
+            rel(["a"], [[False]]), rel(["a"], [[0]]), semantics
+        )
+        assert result.matches is False, semantics
+
+
+def test_absolute_tolerance_does_not_depend_on_quantization_grid():
+    # 1.004 and 1.006 are 0.002 apart: within 0.01 regardless of rounding grid.
+    result = compare_relations(
+        rel(["v"], [[1.004]]), rel(["v"], [[1.006]]),
+        ResultSemantics.MULTISET, numeric_tolerance=0.01,
+    )
+    assert result.matches is True
+    # 1.01 and 1.04 are 0.03 apart: within 0.05.
+    result = compare_relations(
+        rel(["v"], [[1.01]]), rel(["v"], [[1.04]]),
+        ResultSemantics.MULTISET, numeric_tolerance=0.05,
+    )
+    assert result.matches is True
+    # Just over tolerance must still differ.
+    over = compare_relations(
+        rel(["v"], [[1.00]]), rel(["v"], [[1.04]]),
+        ResultSemantics.MULTISET, numeric_tolerance=0.03,
+    )
+    assert over.matches is False
+
+
+def test_high_precision_decimal_tolerance_never_raises():
+    from decimal import Decimal
+
+    value = Decimal("1.00000000000000000000000001")
+    same = compare_relations(
+        rel(["v"], [[value]]), rel(["v"], [[value]]),
+        ResultSemantics.MULTISET, numeric_tolerance=0.01,
+    )
+    assert same.matches is True
+    apart = compare_relations(
+        rel(["v"], [[Decimal("1.00000000000000000000000001")]]),
+        rel(["v"], [[Decimal("1.00000000000000000000000009")]]),
+        ResultSemantics.MULTISET, numeric_tolerance=Decimal("1e-20"),
+    )
+    # 8e-26 apart is within 1e-20.
+    assert apart.matches is True
+
+
+def test_tolerance_multiset_uses_one_to_one_matching():
+    # Greedy in-order matching fails here, but a perfect matching exists:
+    # 1.00 -> 0.99 and 1.05 -> 1.03.
+    expected = rel(["v"], [[1.00], [1.05]])
+    observed = rel(["v"], [[1.03], [0.99]])
+    result = compare_relations(
+        expected, observed, ResultSemantics.MULTISET, numeric_tolerance=0.05
+    )
+    assert result.matches is True
+    # Same values under the exact multiset comparison must be distinct.
+    exact = compare_relations(expected, observed, ResultSemantics.MULTISET)
+    assert exact.matches is False
+
+
+def test_non_finite_values_have_explicit_semantics():
+    # NaN never matches anything, including another NaN.
+    for semantics in ResultSemantics:
+        result = compare_relations(
+            rel(["a"], [[float("nan")]]), rel(["a"], [[float("nan")]]), semantics
+        )
+        assert result.matches is False, semantics
+    # Same-signed infinity matches; opposite sign and finite do not.
+    assert compare_relations(
+        rel(["a"], [[float("inf")]]), rel(["a"], [[float("inf")]]),
+        ResultSemantics.MULTISET,
+    ).matches is True
+    assert compare_relations(
+        rel(["a"], [[float("inf")]]), rel(["a"], [[float("-inf")]]),
+        ResultSemantics.MULTISET,
+    ).matches is False
+    assert compare_relations(
+        rel(["a"], [[float("inf")]]), rel(["a"], [[1e308]]),
+        ResultSemantics.MULTISET,
+    ).matches is False
+
+
+def test_invalid_tolerance_is_rejected():
+    for bad in (-0.01, float("nan"), float("inf")):
+        with pytest.raises(ValueError):
+            compare_relations(
+                rel(["a"], [[1]]), rel(["a"], [[1]]),
+                ResultSemantics.MULTISET, numeric_tolerance=bad,
+            )
+
+
+def test_type_distinction_across_number_string_and_bool():
+    # varchar '1' != number 1 (already covered), and bool true != number 1.
+    assert compare_relations(
+        rel(["a"], [[1]]), rel(["a"], [["1"]]), ResultSemantics.MULTISET
+    ).matches is False
+    assert compare_relations(
+        rel(["a"], [[True]]), rel(["a"], [["true"]]), ResultSemantics.MULTISET
+    ).matches is False
+    # int 1 and float 1.0 are both numeric and equal.
+    assert compare_relations(
+        rel(["a"], [[1]]), rel(["a"], [[1.0]]), ResultSemantics.MULTISET
+    ).matches is True

@@ -8,7 +8,7 @@ import { buildCodeHelpEvent, SUITE_CONTEXT_TASK_CODE, type CodeAttempt, type Cod
 import type { AtlasPackage, CourseCodeActivity, CodeVariant } from '../domain/course-packages'
 import { registerIdentityFlusher } from '../local/identity'
 import { runCode } from '../api/verification'
-import { hasCodeSuiteBinding } from '../domain/code-assessment'
+import { suiteAssessmentForRevision } from '../domain/code-assessment'
 import ProcessorTrace from './ProcessorTrace'
 
 const criterionName: Record<string, string> = { fixed_condition: '本次条件', explanation: '原理解释', independent_transfer: '独立迁移' }
@@ -110,7 +110,10 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
     window.addEventListener('beforeunload', prevent); return () => window.removeEventListener('beforeunload', prevent)
   }, [busy, saveState, snapshot])
   const locked = !!selected || busy || !ready
-  const suiteLatest = suiteRows.find(row => row.result?.suite_assessment) ?? null
+  // Bind the suite verdict to the revision currently being viewed (by revision
+  // id, or by content fingerprint for legacy records); never show version A's
+  // pass/fail beside version B.
+  const suiteLatest = selected ? suiteAssessmentForRevision(suiteRows, selected) ?? null : null
   const suiteResult = suiteLatest?.result?.suite_assessment ?? null
   const suiteIndependent = suiteResult ? { met: suiteResult.cases.filter(c => c.kind === 'independent' && c.status === 'met').length, not: suiteResult.cases.filter(c => c.kind === 'independent' && c.status === 'not_met').length, review: suiteResult.cases.filter(c => c.kind === 'independent' && c.status === 'needs_review').length, total: suiteResult.cases.filter(c => c.kind === 'independent').length } : null
   const suiteFixed = suiteResult?.criteria.find(row => row.id === 'fixed_condition') ?? null
@@ -150,7 +153,7 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
       const normalized = { ...structuredClone(selected.request), stdin: selected.request.stdin ?? '' }
       const stamp = new Date().toISOString()
       const suiteContext = { courseId: lesson.course.course_id, courseVersionId: lesson.course.course_version_id, activityVersionId: lesson.activity.version_id, objectiveCode: lesson.objective, taskCode: SUITE_CONTEXT_TASK_CODE, helpViewed: [] as string[] }
-      const attempt: CodeAttempt = { id: crypto.randomUUID(), artifactId: selected.artifactId, spaceId, activityKey: suiteActivityKey, request: normalized, requestHash: await canonicalHash(normalized), result: null, resultTrust: null, createdAt: stamp, updatedAt: stamp, learning: { context: suiteContext, prediction: selected.learning?.prediction ?? '' } }
+      const attempt: CodeAttempt = { id: crypto.randomUUID(), artifactId: selected.artifactId, spaceId, activityKey: suiteActivityKey, request: normalized, requestHash: await canonicalHash(normalized), result: null, resultTrust: null, sourceRevisionId: selected.id, createdAt: stamp, updatedAt: stamp, learning: { context: suiteContext, prediction: selected.learning?.prediction ?? '' } }
       controller.signal.throwIfAborted()
       const ref: CodeSuiteRef = { course_version_id: lesson.course.course_version_id, activity_version_id: lesson.activity.version_id, objective_code: lesson.objective }
       const response = await runCode(attempt, controller.signal, ref)
@@ -229,6 +232,7 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
             {selected && selected.request.language !== suiteMeta.language && <p className="muted">该核验仅支持 {templates[suiteMeta.language].label} 作品。</p>}
             {suiteResult && suiteLatest && <>
               {suiteLatest.resultTrust && <p className="muted">此记录来自账号恢复，需重新运行独立核验。</p>}
+              <p className="muted">核验绑定到当前查看的作品版本（内容指纹 {suiteLatest.requestHash.slice(0, 8)}…）；切换到其他版本不会沿用这里的结论。</p>
               {suiteResult.suspected_hardcoding
                 ? <p className="suite-warning"><strong>疑似只针对样例硬编码：</strong>学习可见输入通过，但保密的独立输入未通过。请按规则实现一般逻辑，而不是只输出样例答案，修改后重新核验。</p>
                 : suiteFixed?.status === 'met'
@@ -238,7 +242,7 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
                     : <p><strong>部分用例未能完成核验（运行环境原因），不计为你的错误，请稍后重试。</strong></p>}
               {suiteIndependent && <p className="muted">保密独立用例（输入与答案不公开）：共 {suiteIndependent.total}，通过 {suiteIndependent.met}、未通过 {suiteIndependent.not}、待环境复核 {suiteIndependent.review}。</p>}
               <h4>学习可见输入明细</h4>
-              {suiteResult.cases.filter(c => c.kind === 'visible').map(c => <p key={c.case_code} className="suite-case"><strong>{c.status === 'met' ? '通过' : c.status === 'not_met' ? '不符' : '待复核'}</strong>（输入 {c.stdin.replace(/\n/g, ' ').trim()}）：期望 {c.expected_stdout.replace(/\n/g, ' ').trim() || '（空）'}，实际 {c.observed_stdout.replace(/\n/g, ' ').trim() || '（空）'}。{c.reason}</p>)}
+              {suiteResult.cases.filter(c => c.kind === 'visible').map(c => <p key={c.case_code} className="suite-case"><strong>{c.status === 'met' ? '通过' : c.status === 'not_met' ? '不符' : '待复核'}</strong>（输入 {(c.stdin ?? '').replace(/\n/g, ' ').trim()}）：期望 {(c.expected_stdout ?? '').replace(/\n/g, ' ').trim() || '（空）'}，实际 {(c.observed_stdout ?? '').replace(/\n/g, ' ').trim() || '（空）'}。{c.reason}</p>)}
               {suiteResult.criteria.map(row => <p key={row.id}><strong>{criterionName[row.id] ?? row.id}：{criterionState[row.status] ?? row.status}</strong><br/>{row.reason}</p>)}
               <p className="muted">由服务端受信检查器（{suiteResult.oracle_id}，{suiteResult.comparator} 比较）在隔离环境运行；{suiteEnvironmentIncomplete ? '环境未完成的用例不计为能力错误。' : ''}有限用例不证明一般正确，原理解释与独立迁移仍待复核，本核验不授予独立掌握。</p>
             </>}

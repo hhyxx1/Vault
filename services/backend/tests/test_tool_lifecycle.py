@@ -63,12 +63,16 @@ def test_code_advertises_only_what_the_isolate_worker_really_provides():
         assert code[step].support is Support.NOT_APPLICABLE
 
 
-def test_network_is_fully_blocked_external_and_lists_blockers():
+def test_network_adapter_is_unavailable_and_lists_engineering_todos():
+    # Installing containerlab/FRR and building per-lease isolation is internal
+    # engineering work, not an external block: no resource/permission gap was
+    # observed, so the adapter is simply not built yet.
     network = TOOL_CAPABILITIES[ToolId.NETWORK]
-    assert network.state is ToolState.BLOCKED_EXTERNAL
-    assert network.external_blockers  # containerlab / FRR / per-lease VM
+    assert network.state is ToolState.UNAVAILABLE
+    assert not network.external_blockers
     for method in network.methods:
-        assert method.support is Support.BLOCKED_EXTERNAL
+        assert method.support is Support.UNSUPPORTED
+    assert any("工程待办" in method.detail for method in network.methods)
 
 
 def test_linux_adapter_is_unavailable_and_never_claims_support():
@@ -147,9 +151,9 @@ async def test_http_endpoint_publishes_the_honest_matrix():
     assert len(payload["tools"]) == 5
     assert payload["tool_order"] == [tool.value for tool in TOOL_ORDER]
     by_tool = {tool["tool"]: tool for tool in payload["tools"]}
-    assert by_tool["network"]["state"] == "blocked_external"
+    assert by_tool["network"]["state"] == "unavailable"
     assert all(
-        method["support"] == "blocked_external" for method in by_tool["network"]["methods"]
+        method["support"] == "unsupported" for method in by_tool["network"]["methods"]
     )
     assert by_tool["linux"]["state"] == "unavailable"
     assert by_tool["code"]["state"] == "available"

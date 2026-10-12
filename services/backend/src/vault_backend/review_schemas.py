@@ -122,6 +122,7 @@ class ReviewAssignmentOut(BaseModel):
     artifact_hash: str
     rubric: list
     evidence_snapshot: list
+    work_snapshot: list = Field(default=list)
     status: str
     claimed_by_account_id: UUID | None = None
     review_service_available: bool

@@ -171,15 +171,26 @@ def visible_case_stdins(suite: SemanticSuite) -> list[str]:
 # --- Per-case and aggregate assessment. --------------------------------------
 
 
-def _assess_case(suite: SemanticSuite, case: SuiteCase, result: CodeResult) -> dict:
+def _assess_case(
+    suite: SemanticSuite, case: SuiteCase, result: CodeResult, independent_ordinal: int = 0
+) -> dict:
+    """Assess one executed case.
+
+    Independent (server-held) cases are redacted before they leave this module:
+    their stdin, expected output, observed output and any revealing case code
+    are dropped, so hidden inputs and answers never reach a client response,
+    error reason, local record, sync or export. Only the aggregate status and a
+    non-revealing reason remain.
+    """
     expected = ORACLES[suite.oracle_id](case.stdin)
+    hidden = case.kind == "independent"
     base = {
-        "case_code": case.code,
+        "case_code": f"independent-{independent_ordinal}" if hidden else case.code,
         "kind": case.kind,
-        "stdin": case.stdin,
-        "expected_stdout": expected,
+        "stdin": None if hidden else case.stdin,
+        "expected_stdout": None if hidden else expected,
         "observed_status": result.status,
-        "observed_stdout": result.stdout,
+        "observed_stdout": None if hidden else result.stdout,
     }
     if result.status in _INFRA_FAILURE or result.phase == "cleanup" or result.truncated:
         return {
@@ -200,15 +211,13 @@ def _assess_case(suite: SemanticSuite, case: SuiteCase, result: CodeResult) -> d
             "reason": f"{labels[result.status]}；该输入未得到预期结果。",
         }
     matched = compare_output(suite.comparator, expected, result.stdout, suite.tolerance)
-    return {
-        **base,
-        "status": "met" if matched else "not_met",
-        "reason": (
-            "该输入的状态与结果满足语义条件（接受等价的正确呈现）。"
-            if matched
-            else f"语义不一致：期望 {expected.strip()!r}，实际 {result.stdout.strip()!r}。"
-        ),
-    }
+    if matched:
+        reason = "该输入的状态与结果满足语义条件（接受等价的正确呈现）。"
+    elif hidden:
+        reason = "保密独立输入未通过，具体输入与期望结果不公开。"
+    else:
+        reason = f"语义不一致：期望 {expected.strip()!r}，实际 {result.stdout.strip()!r}。"
+    return {**base, "status": "met" if matched else "not_met", "reason": reason}
 
 
 async def run_suite(
@@ -222,6 +231,7 @@ async def run_suite(
 
     case_results: list[dict] = []
     run_results: list[CodeResult] = []
+    independent_ordinal = 0
     for case in (*suite.visible_cases, *suite.independent_cases):
         request = code.model_copy(update={"stdin": case.stdin})
         try:
@@ -241,8 +251,10 @@ async def run_suite(
                     "request_sha256": request_hash(request),
                 }
             )
+        if case.kind == "independent":
+            independent_ordinal += 1
         run_results.append(result)
-        case_results.append(_assess_case(suite, case, result))
+        case_results.append(_assess_case(suite, case, result, independent_ordinal))
 
     def of_kind(kind: CaseKind) -> list[dict]:
         return [case for case in case_results if case["kind"] == kind]
@@ -266,9 +278,10 @@ async def run_suite(
         fixed_reason = "可见与独立输入在受信语义检查下均通过；仍只是有限用例，不证明一般正确。"
     elif suspected_hardcoding:
         fixed_status = "not_met"
-        failed = ", ".join(case["stdin"].strip() for case in independent_failed)
+        # Never enumerate the hidden inputs that failed: they are server-held.
         fixed_reason = (
-            f"可见样例通过但独立输入（{failed}）失败，疑似只针对已展示样例硬编码结果。"
+            f"可见样例通过但 {len(independent_failed)} 个保密独立输入失败，"
+            "疑似只针对已展示样例硬编码结果。"
         )
     else:
         fixed_status = "not_met"

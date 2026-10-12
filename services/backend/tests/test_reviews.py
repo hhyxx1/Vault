@@ -2,9 +2,13 @@
 
 Covers the state machine, scoped teacher authorization, cross-account hiding,
 no auto-signature without a verified teacher, rubric coverage, multiple valid
-solutions (no keyword/word-count scoring), appeals and append-only history.
+solutions (no keyword/word-count scoring), appeals, append-only history, and
+now the trust boundary: a review only accepts real synced work with a verified
+content fingerprint, derives its server_tool evidence server-side, freezes the
+actual work for the teacher, and cannot approve unmet criteria.
 """
 
+import json
 import os
 import secrets
 from datetime import UTC, datetime, timedelta
@@ -53,17 +57,119 @@ def claim_body(owner, origin=None, claim_id=None):
     }
 
 
+def insert_synced_code(
+    space_id: UUID,
+    *,
+    artifact_id: UUID | None = None,
+    revision_id: UUID | None = None,
+    artifact_hash: str | None = None,
+    objective: str = "CS01-M01-O1",
+    activity_version: str | None = None,
+    course_version_id: UUID | None = None,
+    fixed_status: str = "met",
+    files: dict | None = None,
+):
+    """Seed a real, already-synced code attempt into the sync projection.
+
+    The review service reads this projection to verify ownership, revision and
+    content fingerprint; it never trusts a client-invented UUID/hash.
+    """
+    owner_url, _ = urls()
+    artifact_id = artifact_id or uuid4()
+    revision_id = revision_id or uuid4()
+    artifact_hash = artifact_hash or ("c" * 64)
+    activity_version = activity_version or str(uuid4())
+    course_version_id = course_version_id or uuid4()
+    payload = {
+        "spaceId": str(space_id),
+        "id": str(revision_id),
+        "artifactId": str(artifact_id),
+        "activityKey": f"{activity_version}:base",
+        "request": {
+            "language": "c17",
+            "entry": "main.c",
+            "files": files or {"main.c": "int main(void){return 0;}"},
+            "stdin": "",
+        },
+        "requestHash": artifact_hash,
+        "result": {
+            "status": "success",
+            "phase": "run",
+            "stdout": "0\n",
+            "stderr": "",
+            "truncated": False,
+            "metadata": {},
+            "runtime_profile": "c17-isolate-dev@0.1.0",
+            "request_sha256": artifact_hash,
+            "client_revision_id": str(revision_id),
+            "client_artifact_id": str(artifact_id),
+            "mastery_asserted": False,
+            "task_assessment": {
+                "course_version_id": str(course_version_id),
+                "activity_version_id": activity_version,
+                "objective_code": objective,
+                "task_code": "base",
+                "standard_version": "code-fixed-condition-v1",
+                "provenance": "server_deterministic_checker",
+                "mastery_asserted": False,
+                "criteria": [
+                    {"id": "fixed_condition", "status": fixed_status, "reason": "r"},
+                    {"id": "explanation", "status": "needs_review", "reason": "r"},
+                    {"id": "independent_transfer", "status": "needs_review", "reason": "r"},
+                ],
+            },
+        },
+        "learning": {
+            "context": {
+                "courseId": "00000000-0000-0000-0000-000000000000",
+                "courseVersionId": str(course_version_id),
+                "activityVersionId": activity_version,
+                "objectiveCode": objective,
+                "taskCode": "base",
+                "helpViewed": [],
+            },
+            "prediction": "",
+        },
+        "createdAt": datetime.now(UTC).isoformat(),
+        "updatedAt": datetime.now(UTC).isoformat(),
+    }
+    with psycopg.connect(owner_url) as conn:
+        conn.execute(
+            "INSERT INTO sync_object "
+            "(space_id, object_type, object_id, server_object_id, version, "
+            "payload_hash, payload, provenance) "
+            "VALUES (%s, 'code_attempt', %s, %s, 1, %s, %s::jsonb, 'client_reported')",
+            (
+                space_id,
+                str(revision_id),
+                uuid4(),
+                bytes.fromhex(artifact_hash),
+                json.dumps(payload),
+            ),
+        )
+        conn.commit()
+    return SimpleNamespace(
+        artifact_id=artifact_id,
+        revision_id=revision_id,
+        hash=artifact_hash,
+        objective=objective,
+        activity_version=activity_version,
+        course_version_id=course_version_id,
+    )
+
+
 @pytest.fixture
 async def env(tmp_path):
     owner_url, api_url = urls()
     # The runtime role is granted table rights by environment bootstrap (never by
-    # the migration owner). Scope it minimally: review history is insert-only and
-    # assignments are never deleted.
+    # the migration owner). Scope it minimally: review history is insert-only,
+    # assignments are never deleted, and the review must read the sync projection.
     with psycopg.connect(owner_url) as admin:
         admin.execute(
             "GRANT SELECT,INSERT,UPDATE ON review_assignment TO vault_api"
         )
         admin.execute("GRANT SELECT,INSERT ON review_event TO vault_api")
+        admin.execute("GRANT SELECT ON sync_object TO vault_api")
         admin.execute(
             "GRANT EXECUTE ON FUNCTION vault_verified_teacher_exists(uuid) TO vault_api"
         )
@@ -145,7 +251,7 @@ async def env(tmp_path):
     await app.state.engine.dispose()
 
 
-def create_payload(owner, space_id, **overrides):
+def create_payload(owner, space_id, work, **overrides):
     assignment_id = overrides.pop("assignment_id", uuid4())
     payload = {
         "assignment_id": str(assignment_id),
@@ -153,15 +259,15 @@ def create_payload(owner, space_id, **overrides):
         "space_id": str(space_id),
         "audience": "platform_teachers",
         "course_code": "CS01",
-        "course_version_id": None,
-        "objective_code": "CS01-M01-O1",
-        "activity_version": "CS01-M01-O1-CODE@0.1.0",
-        "artifact_id": str(uuid4()),
-        "artifact_revision_id": str(uuid4()),
-        "artifact_hash": HASH,
+        "course_version_id": str(work.course_version_id),
+        "objective_code": work.objective,
+        "activity_version": work.activity_version,
+        "artifact_id": str(work.artifact_id),
+        "artifact_revision_id": str(work.revision_id),
+        "artifact_hash": work.hash,
         "rubric": RUBRIC,
         "evidence_snapshot": [
-            {"kind": "server_tool", "summary": "三组独立输入全部满足不变量"},
+            {"kind": "server_tool", "summary": "客户端伪造的核验摘要（应被服务端替换）"},
             {"kind": "student_self", "summary": "我用哨兵节点统一了边界处理。"},
         ],
         "student_note": "请老师审阅设计与解释。",
@@ -178,26 +284,26 @@ def results(*statuses, note="理由"):
     ]
 
 
-async def open_assignment(env, audience="platform_teachers", teacher=None):
+async def open_assignment(env, audience="platform_teachers", teacher=None, work=None):
     student, owner = env.seed(f"s-{uuid4()}", "student")
     space_id = await env.claim_space(student, owner)
+    work = work or insert_synced_code(space_id)
     overrides = {"audience": audience}
     if audience == "specific_teacher" and teacher is not None:
         overrides["teacher_account_id"] = str(teacher)
-    payload = create_payload(owner, space_id, **overrides)
+    payload = create_payload(owner, space_id, work, **overrides)
     response = await student.post(
         "/api/v1/reviews/assignments",
         json=payload,
         headers={"Idempotency-Key": payload["assignment_id"]},
     )
     assert response.status_code == 201, response.text
-    return student, owner, response.json()
+    return student, owner, response.json(), work
 
 
 async def test_create_without_verified_teacher_is_honestly_unassigned(env):
-    # Unverified named teacher: the request is recorded, but never claimed/signed.
     _, unverified = env.seed("t-unverified", "teacher", verified=False)
-    student, owner, assignment = await open_assignment(
+    student, owner, assignment, _ = await open_assignment(
         env, audience="specific_teacher", teacher=unverified
     )
     assert assignment["status"] == "awaiting_review"
@@ -209,7 +315,7 @@ async def test_create_without_verified_teacher_is_honestly_unassigned(env):
 
 async def test_unverified_teacher_cannot_claim_and_others_cannot_see(env):
     unverified_client, unverified_id = env.seed("t-pending", "teacher", verified=False)
-    student, _, assignment = await open_assignment(
+    student, _, assignment, _ = await open_assignment(
         env, audience="specific_teacher", teacher=unverified_id
     )
     denied = await unverified_client.post(
@@ -224,8 +330,7 @@ async def test_unverified_teacher_cannot_claim_and_others_cannot_see(env):
 
 async def test_full_approve_flow_with_teacher_signature_and_no_keyword_scoring(env):
     teacher, teacher_id = env.seed("t-verified", "teacher", verified=True)
-    student, _, assignment = await open_assignment(env)
-    # A terse, distinct rationale is accepted: scoring never counts words/keywords.
+    student, _, assignment, _ = await open_assignment(env)
     claim = await teacher.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
     assert claim.status_code == 200, claim.text
     assert claim.json()["status"] == "claimed"
@@ -249,7 +354,7 @@ async def test_full_approve_flow_with_teacher_signature_and_no_keyword_scoring(e
 async def test_second_teacher_cannot_take_claimed_assignment(env):
     first, _ = env.seed("t-a", "teacher", verified=True)
     second, _ = env.seed("t-b", "teacher", verified=True)
-    _, _, assignment = await open_assignment(env)
+    _, _, assignment, _ = await open_assignment(env)
     first_claim = await first.post(
         f"/api/v1/reviews/assignments/{assignment['id']}/claim"
     )
@@ -257,7 +362,6 @@ async def test_second_teacher_cannot_take_claimed_assignment(env):
     conflict = await second.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
     assert conflict.status_code == 409
     assert conflict.json()["code"] == "REVIEW_ALREADY_CLAIMED"
-    # The second teacher must not decide work they did not claim.
     decide = await second.post(
         f"/api/v1/reviews/assignments/{assignment['id']}/decisions",
         json={"decision": "approved", "rubric_results": results("met", "met"),
@@ -268,7 +372,7 @@ async def test_second_teacher_cannot_take_claimed_assignment(env):
 
 async def test_decision_requires_every_rubric_criterion(env):
     teacher, _ = env.seed("t-rubric", "teacher", verified=True)
-    _, _, assignment = await open_assignment(env)
+    _, _, assignment, _ = await open_assignment(env)
     await teacher.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
     missing = await teacher.post(
         f"/api/v1/reviews/assignments/{assignment['id']}/decisions",
@@ -282,7 +386,7 @@ async def test_decision_requires_every_rubric_criterion(env):
 
 async def test_changes_requested_resubmit_reapprove_and_appeal_cycle(env):
     teacher, _ = env.seed("t-cycle", "teacher", verified=True)
-    student, _, assignment = await open_assignment(env)
+    student, _, assignment, work = await open_assignment(env)
     aid = assignment["id"]
     await teacher.post(f"/api/v1/reviews/assignments/{aid}/claim")
     returned = await teacher.post(
@@ -291,26 +395,32 @@ async def test_changes_requested_resubmit_reapprove_and_appeal_cycle(env):
               "comment": "解释未说明不变量，请补证"},
     )
     assert returned.json()["status"] == "changes_requested"
-    # Only the owner can resubmit, and only after a changes-requested decision.
     wrong_state = await teacher.post(f"/api/v1/reviews/assignments/{aid}/resubmit", json={
         "comment": "教师不能补证", "evidence_refs": [
             {"artifact_revision_id": str(uuid4()), "artifact_hash": "b" * 64, "note": "r"}]})
     assert wrong_state.status_code == 403
+    # A real new synced revision (not a random UUID + hand-typed hash).
+    new_work = insert_synced_code(
+        UUID(assignment["space_id"]),
+        artifact_id=work.artifact_id,
+        objective=work.objective,
+        activity_version=work.activity_version,
+        course_version_id=work.course_version_id,
+    )
     resubmit = await student.post(f"/api/v1/reviews/assignments/{aid}/resubmit", json={
         "comment": "已重写解释并附新运行",
         "evidence_refs": [
-            {"artifact_revision_id": str(uuid4()), "artifact_hash": "c" * 64,
-             "note": "新版本独立输入结果"}]})
+            {"artifact_revision_id": str(new_work.revision_id),
+             "artifact_hash": new_work.hash, "note": "新版本独立输入结果"}]})
     assert resubmit.status_code == 200, resubmit.text
     assert resubmit.json()["status"] == "resubmitted"
-    # Original teacher reviews the supplement and approves.
+    assert len(resubmit.json()["work_snapshot"]) == 2
     redecide = await teacher.post(
         f"/api/v1/reviews/assignments/{aid}/decisions",
         json={"decision": "approved", "rubric_results": results("met", "met"),
               "comment": "补证充分"},
     )
     assert redecide.json()["status"] == "approved"
-    # Appeal reopens the assignment for the same teacher.
     appeal = await student.post(f"/api/v1/reviews/assignments/{aid}/appeal",
                                 json={"comment": "我对一条判定有异议"})
     assert appeal.status_code == 200
@@ -320,7 +430,7 @@ async def test_changes_requested_resubmit_reapprove_and_appeal_cycle(env):
 
 async def test_appeal_is_capped_at_two(env):
     teacher, _ = env.seed("t-cap", "teacher", verified=True)
-    student, _, assignment = await open_assignment(env)
+    student, _, assignment, _ = await open_assignment(env)
     aid = assignment["id"]
     await teacher.post(f"/api/v1/reviews/assignments/{aid}/claim")
 
@@ -333,8 +443,6 @@ async def test_appeal_is_capped_at_two(env):
         assert response.status_code == 200, response.text
         assert response.json()["status"] == "changes_requested"
 
-    # Initial conclusion, then two appeal/re-review cycles, then the third appeal
-    # must be refused.
     await return_work()
     for expected in (1, 2):
         appealed = await student.post(f"/api/v1/reviews/assignments/{aid}/appeal",
@@ -351,9 +459,11 @@ async def test_appeal_is_capped_at_two(env):
 async def test_student_cannot_forge_teacher_or_professional_evidence(env):
     student, owner = env.seed("s-forge", "student")
     space_id = await env.claim_space(student, owner)
+    work = insert_synced_code(space_id)
     payload = create_payload(
         owner,
         space_id,
+        work,
         evidence_snapshot=[{"kind": "teacher_review", "summary": "假装老师已通过"}],
     )
     response = await student.post(
@@ -366,35 +476,35 @@ async def test_student_cannot_forge_teacher_or_professional_evidence(env):
 
 async def test_role_gates_and_cross_account_appeal_hidden(env):
     teacher, _ = env.seed("t-gate", "teacher", verified=True)
-    # A teacher cannot open a review assignment as a student.
-    space_probe = create_payload(uuid4(), uuid4())
+    # A teacher cannot open a review assignment as a student (403 before work checks).
+    work = SimpleNamespace(
+        artifact_id=uuid4(), revision_id=uuid4(), hash="d" * 64,
+        objective="CS01-M01-O1", activity_version=str(uuid4()),
+        course_version_id=uuid4(),
+    )
+    space_probe = create_payload(uuid4(), uuid4(), work)
     as_teacher = await teacher.post(
         "/api/v1/reviews/assignments",
         json=space_probe,
         headers={"Idempotency-Key": space_probe["assignment_id"]},
     )
     assert as_teacher.status_code == 403
-    # A different student appealing someone else's assignment gets a 404, never a
-    # state leak, because RLS hides the row.
-    _, _, assignment = await open_assignment(env)
+    _, _, assignment, _ = await open_assignment(env)
     outsider, _ = env.seed("s-outsider", "student")
     appeal = await outsider.post(f"/api/v1/reviews/assignments/{assignment['id']}/appeal",
-                                json={"comment": "不是我的工单"})
+                                 json={"comment": "不是我的工单"})
     assert appeal.status_code == 404
 
 
 async def test_teacher_queue_is_scoped_and_history_is_append_only(env):
     teacher, teacher_id = env.seed("t-queue", "teacher", verified=True)
     other_teacher, other_id = env.seed("t-queue-other", "teacher", verified=True)
-    # Platform pool assignment appears for the verified teacher.
-    _, _, platform_item = await open_assignment(env, audience="platform_teachers")
-    # Assignment scoped to a different teacher stays out of this teacher's queue.
+    _, _, platform_item, _ = await open_assignment(env, audience="platform_teachers")
     await open_assignment(env, audience="specific_teacher", teacher=other_id)
     queue = await teacher.get("/api/v1/reviews/teacher/queue")
     assert queue.status_code == 200
     ids = {item["id"] for item in queue.json()["assignments"]}
     assert platform_item["id"] in ids
-    # After claiming, the item moves from the open pool to this teacher's active list.
     await teacher.post(f"/api/v1/reviews/assignments/{platform_item['id']}/claim")
     active = await teacher.get("/api/v1/reviews/teacher/queue")
     active_item = next(
@@ -403,3 +513,100 @@ async def test_teacher_queue_is_scoped_and_history_is_append_only(env):
     assert active_item["claimed_by_account_id"] == str(teacher_id)
     sequences = [event["sequence"] for event in active_item["events"]]
     assert sequences == sorted(sequences) and len(sequences) == 2
+
+
+# --- Trust boundary: real work, derived evidence, frozen snapshot -------------
+
+
+async def test_unsynced_work_is_rejected_with_a_clear_sync_hint(env):
+    student, owner = env.seed("s-unsynced", "student")
+    space_id = await env.claim_space(student, owner)
+    # A client-invented UUID/hash with no sync projection must be refused.
+    work = SimpleNamespace(
+        artifact_id=uuid4(), revision_id=uuid4(), hash="d" * 64,
+        objective="CS01-M01-O1", activity_version=str(uuid4()),
+        course_version_id=uuid4(),
+    )
+    payload = create_payload(owner, space_id, work)
+    response = await student.post(
+        "/api/v1/reviews/assignments",
+        json=payload,
+        headers={"Idempotency-Key": payload["assignment_id"]},
+    )
+    assert response.status_code == 409
+    assert response.json()["code"] == "WORK_NOT_SYNCED"
+    assert "同步" in response.json()["message"]
+
+
+async def test_hash_mismatch_is_rejected(env):
+    student, owner = env.seed("s-hash", "student")
+    space_id = await env.claim_space(student, owner)
+    work = insert_synced_code(space_id)
+    payload = create_payload(owner, space_id, work, artifact_hash="e" * 64)
+    response = await student.post(
+        "/api/v1/reviews/assignments",
+        json=payload,
+        headers={"Idempotency-Key": payload["assignment_id"]},
+    )
+    assert response.status_code == 422
+    assert response.json()["code"] == "WORK_HASH_MISMATCH"
+
+
+async def test_server_tool_evidence_is_derived_not_client_authored(env):
+    student, owner, assignment, work = await open_assignment(env)
+    # The client summary is discarded; the server derives the real one.
+    assert assignment["evidence_snapshot"][0]["kind"] == "server_tool"
+    assert "服务端受信核验" in assignment["evidence_snapshot"][0]["summary"]
+    assert "伪造" not in assignment["evidence_snapshot"][0]["summary"]
+    assert assignment["evidence_snapshot"][1]["kind"] == "student_self"
+    # The frozen work snapshot contains the real source, not just a summary.
+    assert assignment["work_snapshot"][0]["kind"] == "code_attempt"
+    assert assignment["work_snapshot"][0]["artifact_hash"] == work.hash
+    assert assignment["work_snapshot"][0]["request"]["files"] == {
+        "main.c": "int main(void){return 0;}"
+    }
+
+
+async def test_teacher_sees_the_frozen_real_work(env):
+    teacher, _ = env.seed("t-view", "teacher", verified=True)
+    student, _, assignment, _ = await open_assignment(env)
+    await teacher.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
+    fetched = await teacher.get(f"/api/v1/reviews/assignments/{assignment['id']}")
+    assert fetched.status_code == 200
+    body = fetched.json()
+    assert body["work_snapshot"][0]["request"]["files"]["main.c"].startswith("int main")
+    assert body["work_snapshot"][0]["result"]["task_assessment"]["provenance"] == (
+        "server_deterministic_checker"
+    )
+
+
+async def test_approve_with_unmet_criteria_is_rejected(env):
+    teacher, _ = env.seed("t-unmet", "teacher", verified=True)
+    _, _, assignment, _ = await open_assignment(env)
+    await teacher.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
+    decision = await teacher.post(
+        f"/api/v1/reviews/assignments/{assignment['id']}/decisions",
+        json={"decision": "approved", "rubric_results": results("met", "not_met"),
+              "comment": "想直接通过"},
+    )
+    assert decision.status_code == 422
+    assert decision.json()["code"] == "CANNOT_APPROVE_UNMET_CRITERIA"
+
+
+async def test_resubmit_rejects_random_revision_or_hand_typed_hash(env):
+    teacher, _ = env.seed("t-ref", "teacher", verified=True)
+    student, _, assignment, _ = await open_assignment(env)
+    aid = assignment["id"]
+    await teacher.post(f"/api/v1/reviews/assignments/{aid}/claim")
+    await teacher.post(
+        f"/api/v1/reviews/assignments/{aid}/decisions",
+        json={"decision": "changes_requested", "rubric_results": results("met", "not_met"),
+              "comment": "退回"},
+    )
+    # A random revision UUID + hand-typed hash is not a real synced work.
+    resubmit = await student.post(f"/api/v1/reviews/assignments/{aid}/resubmit", json={
+        "comment": "补证",
+        "evidence_refs": [
+            {"artifact_revision_id": str(uuid4()), "artifact_hash": "f" * 64, "note": "手填"}]})
+    assert resubmit.status_code == 409
+    assert resubmit.json()["code"] == "WORK_NOT_SYNCED"

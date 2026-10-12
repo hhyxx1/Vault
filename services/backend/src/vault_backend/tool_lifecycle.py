@@ -5,8 +5,14 @@ describe the same eight lifecycle methods from ACTIVITY_ENGINE_PLAN.md:
 ``prepare / run_or_step / inspect / check / snapshot / restore / cancel /
 cleanup``. A method that does not exist yet is declared explicitly as
 ``unsupported``; one that is meaningless for that tool shape is
-``not_applicable``; one blocked by an environment the platform cannot provision
-itself (VM images, containerlab/FRR) is ``blocked_external``.
+``not_applicable``.
+
+``blocked_external`` is reserved for a genuine external constraint the platform
+cannot remove on its own (a missing resource or a permission we do not hold).
+"Not installed / not built yet" is *engineering work we can do*, so it is
+declared ``unsupported``/``unavailable``, never ``blocked_external``: installing
+containerlab/FRR and building per-lease network isolation are internal todos
+until an actual install failure or missing privilege is observed.
 
 Nothing here grants execution power: it is a read-only, testable contract of
 what the platform actually provides today, so the UI and health endpoints never
@@ -57,15 +63,17 @@ class Support(StrEnum):
     UNSUPPORTED = "unsupported"
     # This method has no meaning for a one-shot / stateless tool shape.
     NOT_APPLICABLE = "not_applicable"
-    # Requires external provisioning this environment does not have (VM, images).
+    # Only a genuine external constraint (missing resource or missing permission)
+    # that the platform cannot remove itself. "Not installed / not built yet" is
+    # unsupported/unavailable, not blocked_external.
     BLOCKED_EXTERNAL = "blocked_external"
 
 
 class ToolState(StrEnum):
     AVAILABLE = "available"        # adapter exists and runs
     PARTIAL = "partial"            # one-shot path works; stateful lease missing
-    UNAVAILABLE = "unavailable"    # adapter not built
-    BLOCKED_EXTERNAL = "blocked_external"
+    UNAVAILABLE = "unavailable"    # adapter not built (engineering todo)
+    BLOCKED_EXTERNAL = "blocked_external"  # genuine resource/permission block
 
 
 class MethodCapability(BaseModel):
@@ -188,30 +196,26 @@ TOOL_CAPABILITIES: dict[ToolId, ToolCapability] = {
     ToolId.NETWORK: ToolCapability(
         tool=ToolId.NETWORK,
         label="E05 containerlab/Linux/FRR 网络实验（A—R—B 回程路由）",
-        state=ToolState.BLOCKED_EXTERNAL,
-        external_blockers=[
-            "WSL 实测未安装 containerlab",
-            "WSL 实测未安装 FRR（无 vtysh）",
-            "每租约独立 VM 边界与外联关闭尚未建设",
-        ],
+        state=ToolState.UNAVAILABLE,
         methods=[
-            _m(step=LifecycleStep.PREPARE, support=Support.BLOCKED_EXTERNAL,
-               detail="按 ADR 的每租约独立 VM 内起 containerlab 拓扑依赖外部环境，当前不可得。"),
-            _m(step=LifecycleStep.RUN_OR_STEP, support=Support.BLOCKED_EXTERNAL,
-               detail=("浏览器终端配置 A—R—B 与 FRR 回程路由需 containerlab/FRR，未安装；"
+            _m(step=LifecycleStep.PREPARE, support=Support.UNSUPPORTED,
+               detail=("工程待办：安装 containerlab 与 FRR(vtysh) 并建设每租约独立 VM 边界；"
+                       "这些是平台可自行完成的安装/建设，未观察到资源或权限缺失，故列为工程待办而非外部阻断。")),
+            _m(step=LifecycleStep.RUN_OR_STEP, support=Support.UNSUPPORTED,
+               detail=("工程待办：在每租约独立 VM 内配置 A—R—B 与 FRR 回程路由；"
                        "不依赖 eNSP/Cisco，不宣称厂商 CLI 等价。")),
-            _m(step=LifecycleStep.INSPECT, support=Support.BLOCKED_EXTERNAL,
-               detail="拓扑/接口/路由状态检视随网络租约建设。"),
-            _m(step=LifecycleStep.CHECK, support=Support.BLOCKED_EXTERNAL,
-               detail="限定链路抓包与正反向探针、报文证据随网络租约建设；不按命令字符串判定。"),
-            _m(step=LifecycleStep.SNAPSHOT, support=Support.BLOCKED_EXTERNAL,
-               detail="配置快照随网络租约建设。"),
-            _m(step=LifecycleStep.RESTORE, support=Support.BLOCKED_EXTERNAL,
-               detail="拓扑重建后重新验证的恢复能力随网络租约建设。"),
-            _m(step=LifecycleStep.CANCEL, support=Support.BLOCKED_EXTERNAL,
-               detail="租约取消随网络租约建设。"),
-            _m(step=LifecycleStep.CLEANUP, support=Support.BLOCKED_EXTERNAL,
-               detail="VM/容器与链路回收随网络租约建设；网络外联默认关闭。"),
+            _m(step=LifecycleStep.INSPECT, support=Support.UNSUPPORTED,
+               detail="拓扑/接口/路由状态检视随网络租约建设（工程待办）。"),
+            _m(step=LifecycleStep.CHECK, support=Support.UNSUPPORTED,
+               detail="限定链路抓包与正反向探针、报文证据随网络租约建设；不按命令字符串判定（工程待办）。"),
+            _m(step=LifecycleStep.SNAPSHOT, support=Support.UNSUPPORTED,
+               detail="配置快照随网络租约建设（工程待办）。"),
+            _m(step=LifecycleStep.RESTORE, support=Support.UNSUPPORTED,
+               detail="拓扑重建后重新验证的恢复能力随网络租约建设（工程待办）。"),
+            _m(step=LifecycleStep.CANCEL, support=Support.UNSUPPORTED,
+               detail="租约取消随网络租约建设（工程待办）。"),
+            _m(step=LifecycleStep.CLEANUP, support=Support.UNSUPPORTED,
+               detail="VM/容器与链路回收随网络租约建设；网络外联默认关闭（工程待办）。"),
         ],
     ),
     ToolId.DATA: ToolCapability(
@@ -219,10 +223,6 @@ TOOL_CAPABILITIES: dict[ToolId, ToolCapability] = {
         label="E06 数据/机器学习实验（python313ml 固定依赖）",
         state=ToolState.PARTIAL,
         runtime_profile="python313ml-isolate-dev@0.1.0",
-        external_blockers=[
-            ("WSL 存在 python-3.13-ml.incomplete-20261010 目录，"
-             "ML profile 完整性需按 lock 复核后再发布"),
-        ],
         methods=[
             _m(step=LifecycleStep.PREPARE, support=Support.SUPPORTED,
                detail=("经 isolate 的 python-3.13-ml 固定依赖 profile 运行；"

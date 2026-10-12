@@ -57,6 +57,10 @@ def case(result, code):
     return next(c for c in result["cases"] if c["case_code"] == code)
 
 
+def independents(result):
+    return [c for c in result["cases"] if c["kind"] == "independent"]
+
+
 # --- comparators -------------------------------------------------------------
 
 
@@ -111,8 +115,17 @@ async def test_correct_general_program_passes_visible_and_independent_inputs():
     assert result["mastery_asserted"] is False
     assert fixed_status(result, "explanation") == "needs_review"
     assert fixed_status(result, "independent_transfer") == "needs_review"
-    # expected values come from the server oracle, not the submitted program
-    assert case(result, "indep-61")["expected_stdout"] == "10\n"
+    # Independent inputs are redacted server-side: no stdin, expected answer,
+    # observed output or revealing case code may leak into the public result.
+    assert len(independents(result)) == 6
+    assert all(
+        c["stdin"] is None and c["expected_stdout"] is None and c["observed_stdout"] is None
+        for c in independents(result)
+    )
+    assert all(c["status"] == "met" for c in independents(result))
+    assert all(c["case_code"].startswith("independent-") for c in independents(result))
+    # Visible learning cases keep their full detail.
+    assert case(result, "visible-30")["expected_stdout"] == "0\n"
 
 
 async def test_alternative_correct_format_is_accepted_by_integer_comparator():
@@ -149,12 +162,15 @@ async def test_sample_hardcoding_fails_on_independent_inputs():
     )
     assert case(result, "visible-30")["status"] == "met"
     assert case(result, "visible-60")["status"] == "met"
-    assert case(result, "indep-31")["status"] == "not_met"
-    assert case(result, "indep-61")["status"] == "not_met"
+    independent = independents(result)
+    assert [c["status"] for c in independent].count("not_met") == 4
+    assert all(c["stdin"] is None and c["expected_stdout"] is None for c in independent)
     assert result["suspected_hardcoding"] is True
     assert fixed_status(result) == "not_met"
     fixed_reason = next(c for c in result["criteria"] if c["id"] == "fixed_condition")["reason"]
     assert "硬编码" in fixed_reason
+    # The hard-coding reason must never enumerate the hidden failing inputs.
+    assert "31" not in fixed_reason and "61" not in fixed_reason
 
 
 async def test_compile_runtime_and_timeout_are_student_failures_not_infra():
@@ -176,7 +192,8 @@ async def test_compile_runtime_and_timeout_are_student_failures_not_infra():
 
     result = await ss.run_suite(runner_from(runtime_on_61), make_code(), suite)
     assert fixed_status(result) == "not_met"
-    assert "运行时" in case(result, "indep-61")["reason"]
+    assert any("运行时" in c["reason"] for c in independents(result))
+    assert all(c["stdin"] is None for c in independents(result))
 
     def timeout_on_31(stdin):
         if stdin.strip() == "31":
@@ -185,7 +202,7 @@ async def test_compile_runtime_and_timeout_are_student_failures_not_infra():
 
     result = await ss.run_suite(runner_from(timeout_on_31), make_code(), suite)
     assert fixed_status(result) == "not_met"
-    assert "超时" in case(result, "indep-31")["reason"]
+    assert any("超时" in c["reason"] for c in independents(result))
 
 
 async def test_infrastructure_failures_never_lower_ability_state():
@@ -227,6 +244,36 @@ async def test_infrastructure_failures_never_lower_ability_state():
         )
 
     assert fixed_status(await ss.run_suite(wrong_hash, make_code(), suite)) == "needs_review"
+
+
+async def test_hidden_inputs_never_leak_across_success_failure_and_env_error():
+    suite = ss.get_suite(COURSE, OBJECTIVE, ACTIVITY)
+    hidden_stdins = {case.stdin for case in suite.independent_cases}
+    hidden_tokens = {value.strip() for value in hidden_stdins}
+
+    def correct(stdin):
+        return "success", f"{fee(int(stdin.strip()))}\n", "run", False
+
+    def memorised(stdin):
+        amount = {30: 0, 60: 5}.get(int(stdin.strip()), 0)
+        return "success", f"{amount}\n", "run", False
+
+    def env_error(stdin):
+        return "environment_error", "", "prepare", False
+
+    for run in (correct, memorised, env_error):
+        result = await ss.run_suite(runner_from(run), make_code(), suite)
+        for item in independents(result):
+            assert item["stdin"] is None, run
+            assert item["expected_stdout"] is None, run
+            assert item["observed_stdout"] is None, run
+            assert item["case_code"].startswith("independent-"), run
+            # Reasons must never reveal the hidden input or answer.
+            assert not any(token in item["reason"] for token in hidden_tokens), run
+        fixed_reason = next(
+            c for c in result["criteria"] if c["id"] == "fixed_condition"
+        )["reason"]
+        assert not any(token in fixed_reason for token in hidden_tokens), run
 
 
 async def test_language_mismatch_is_rejected():

@@ -40,8 +40,56 @@ export function hasCodeSuiteBinding(attempt: CodeAttempt): boolean {
   return true
 }
 
+/**
+ * Revision key for a suite attempt: the fixed-task revision it verified, falling
+ * back to its content fingerprint for records produced before the binding field
+ * existed. Two suite attempts with the same key were run on the same work.
+ */
+export function suiteRevisionKey(attempt: CodeAttempt): string {
+  return attempt.sourceRevisionId ?? attempt.requestHash
+}
+
+function suiteFixedStatus(attempt: CodeAttempt): 'met' | 'not_met' | 'needs_review' {
+  return attempt.result!.suite_assessment!.criteria.find(row => row.id === 'fixed_condition')!.status
+}
+
+/**
+ * The current suite verdict for one objective/version. Verdicts are grouped by
+ * the work revision they ran against; the latest revision decides, and inside
+ * that revision a definitive met/not_met result is never erased by a later
+ * environment failure (needs_review). A brand-new revision never inherits an
+ * older revision's pass: if it only has an environment-failed run, the state
+ * stays unassessed.
+ */
 export function currentSuiteAssessment(attempts: CodeAttempt[], goal: string, version: string): CodeAttempt | undefined {
-  return attempts.filter(attempt => !attempt.resultTrust && hasCodeSuiteBinding(attempt) && attempt.learning?.context?.objectiveCode === goal && attempt.learning.context.courseVersionId === version).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).at(0)
+  const valid = attempts.filter(attempt => !attempt.resultTrust && hasCodeSuiteBinding(attempt) && attempt.learning?.context?.objectiveCode === goal && attempt.learning.context.courseVersionId === version)
+  if (!valid.length) return undefined
+  const groups = new Map<string, CodeAttempt[]>()
+  for (const attempt of valid) {
+    const key = suiteRevisionKey(attempt)
+    const list = groups.get(key)
+    if (list) list.push(attempt); else groups.set(key, [attempt])
+  }
+  let latest: CodeAttempt[] | undefined
+  let latestTime = ''
+  for (const list of groups.values()) {
+    const time = list.reduce((max, attempt) => attempt.updatedAt > max ? attempt.updatedAt : max, '')
+    if (!latest || time > latestTime) { latest = list; latestTime = time }
+  }
+  const sorted = [...(latest ?? [])].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+  return sorted.find(attempt => suiteFixedStatus(attempt) !== 'needs_review') ?? sorted[0]
+}
+
+/**
+ * The suite verdict bound to one concrete fixed-task revision (by revision id,
+ * or by content fingerprint for legacy records). Never shows another version's
+ * pass/fail beside the version being viewed.
+ */
+export function suiteAssessmentForRevision(attempts: CodeAttempt[], revision: { id: string; requestHash: string }): CodeAttempt | undefined {
+  return attempts
+    .filter(attempt => !attempt.resultTrust && hasCodeSuiteBinding(attempt) && attempt.result?.suite_assessment)
+    .filter(attempt => attempt.sourceRevisionId ? attempt.sourceRevisionId === revision.id : attempt.requestHash === revision.requestHash)
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).at(0)
 }
 
 export function suiteObjectiveState(attempt: CodeAttempt): ObjectiveState {

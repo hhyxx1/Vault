@@ -223,10 +223,13 @@ class CodeTaskAssessment(BaseModel):
 class CodeSuiteCase(BaseModel):
     case_code: str = Field(max_length=100)
     kind: Literal["visible", "independent"]
-    stdin: str = Field(max_length=16384)
-    expected_stdout: str = Field(max_length=8192)
+    # Server-held (independent) cases are redacted server-side: their input,
+    # expected answer and observed output are never disclosed, so these fields
+    # are None for kind=independent. Visible learning cases always carry them.
+    stdin: str | None = Field(default=None, max_length=16384)
+    expected_stdout: str | None = Field(default=None, max_length=8192)
     observed_status: str = Field(max_length=30)
-    observed_stdout: str = Field(max_length=8192)
+    observed_stdout: str | None = Field(default=None, max_length=8192)
     status: Literal["met", "not_met", "needs_review"]
     reason: str = Field(max_length=500)
 

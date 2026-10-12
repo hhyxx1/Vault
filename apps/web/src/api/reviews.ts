@@ -39,6 +39,16 @@ export type ReviewEvent = {
   teacher_signature?: TeacherSignature | null
   created_at: string
 }
+/** Frozen real work a review references (source + result), never a client summary. */
+export type WorkSnapshot = {
+  kind: string
+  artifact_id: string
+  artifact_revision_id: string
+  artifact_hash: string
+  note?: string
+  request: { language: string; entry: string; files: Record<string, string>; stdin: string }
+  result: Record<string, unknown> | null
+}
 export type ReviewAssignment = {
   id: string
   space_id: string
@@ -54,6 +64,7 @@ export type ReviewAssignment = {
   artifact_hash: string
   rubric: RubricCriterion[]
   evidence_snapshot: EvidenceItem[]
+  work_snapshot: WorkSnapshot[]
   status: ReviewStatus
   claimed_by_account_id?: string | null
   review_service_available: boolean
