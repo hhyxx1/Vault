@@ -18,6 +18,7 @@ const CourseCodeWorkspace = React.lazy(() => import('./ui/CourseCodeWorkspace'))
 const Evidence = React.lazy(() => import('./ui/Evidence'))
 const LocalSpace = React.lazy(() => import('./ui/LocalSpace'))
 const Teacher = React.lazy(() => import('./ui/Teacher'))
+const Reviews = React.lazy(() => import('./ui/Reviews'))
 const Account = React.lazy(() => import('./ui/Account'))
 const PersonalCourses = React.lazy(() => import('./ui/PersonalCourses'))
 const pending = (child: React.ReactNode) => <Suspense fallback={<div className="page-loading" role="status">正在打开学习空间…</div>}>{child}</Suspense>
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
     { path: '/learn/:objectiveId', element: <LearningRoute /> },
     { path: '/practice/:activityVersion', element: <PracticeRoute /> },
     { path: '/evidence', element: pending(<Evidence />) },
+    { path: '/reviews', element: pending(<Reviews />) },
     { path: '/local', element: pending(<LocalSpace />) },
     { path: '/teacher', element: pending(<Teacher />) },
     { path: '/account', element: pending(<Account />) },

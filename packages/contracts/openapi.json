@@ -352,6 +352,22 @@
         "title": "AlgebraVerificationResult",
         "type": "object"
       },
+      "AppealRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "comment": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Comment",
+            "type": "string"
+          }
+        },
+        "required": [
+          "comment"
+        ],
+        "title": "AppealRequest",
+        "type": "object"
+      },
       "BatchRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1683,6 +1699,41 @@
         "title": "Criterion",
         "type": "object"
       },
+      "DecisionRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "comment": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Comment",
+            "type": "string"
+          },
+          "decision": {
+            "enum": [
+              "approved",
+              "changes_requested"
+            ],
+            "title": "Decision",
+            "type": "string"
+          },
+          "rubric_results": {
+            "items": {
+              "$ref": "#/components/schemas/RubricResultIn"
+            },
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Rubric Results",
+            "type": "array"
+          }
+        },
+        "required": [
+          "decision",
+          "rubric_results",
+          "comment"
+        ],
+        "title": "DecisionRequest",
+        "type": "object"
+      },
       "EmailInput": {
         "additionalProperties": false,
         "properties": {
@@ -1704,6 +1755,60 @@
           "email"
         ],
         "title": "EmailInput",
+        "type": "object"
+      },
+      "EvidenceItemIn": {
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "server_tool",
+              "model_suggestion",
+              "student_self"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "summary": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "summary"
+        ],
+        "title": "EvidenceItemIn",
+        "type": "object"
+      },
+      "EvidenceRefIn": {
+        "additionalProperties": false,
+        "properties": {
+          "artifact_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Artifact Hash",
+            "type": "string"
+          },
+          "artifact_revision_id": {
+            "format": "uuid",
+            "title": "Artifact Revision Id",
+            "type": "string"
+          },
+          "note": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Note",
+            "type": "string"
+          }
+        },
+        "required": [
+          "artifact_revision_id",
+          "artifact_hash",
+          "note"
+        ],
+        "title": "EvidenceRefIn",
         "type": "object"
       },
       "HTTPValidationError": {
@@ -2691,6 +2796,418 @@
         "title": "ResetRequestedOutput",
         "type": "object"
       },
+      "ResubmitRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "comment": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Comment",
+            "type": "string"
+          },
+          "evidence_refs": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceRefIn"
+            },
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Evidence Refs",
+            "type": "array"
+          }
+        },
+        "required": [
+          "comment",
+          "evidence_refs"
+        ],
+        "title": "ResubmitRequest",
+        "type": "object"
+      },
+      "ReviewAssignmentOut": {
+        "properties": {
+          "activity_version": {
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "appeal_count": {
+            "title": "Appeal Count",
+            "type": "integer"
+          },
+          "artifact_hash": {
+            "title": "Artifact Hash",
+            "type": "string"
+          },
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "artifact_revision_id": {
+            "format": "uuid",
+            "title": "Artifact Revision Id",
+            "type": "string"
+          },
+          "audience": {
+            "title": "Audience",
+            "type": "string"
+          },
+          "claimed_by_account_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Claimed By Account Id"
+          },
+          "course_code": {
+            "title": "Course Code",
+            "type": "string"
+          },
+          "course_version_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course Version Id"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewEventOut"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "evidence_snapshot": {
+            "items": {},
+            "title": "Evidence Snapshot",
+            "type": "array"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "objective_code": {
+            "title": "Objective Code",
+            "type": "string"
+          },
+          "owner_account_id": {
+            "format": "uuid",
+            "title": "Owner Account Id",
+            "type": "string"
+          },
+          "review_service_available": {
+            "title": "Review Service Available",
+            "type": "boolean"
+          },
+          "rubric": {
+            "items": {},
+            "title": "Rubric",
+            "type": "array"
+          },
+          "space_id": {
+            "format": "uuid",
+            "title": "Space Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "teacher_account_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Teacher Account Id"
+          },
+          "updated_at": {
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "space_id",
+          "owner_account_id",
+          "audience",
+          "course_code",
+          "objective_code",
+          "activity_version",
+          "artifact_id",
+          "artifact_revision_id",
+          "artifact_hash",
+          "rubric",
+          "evidence_snapshot",
+          "status",
+          "review_service_available",
+          "appeal_count",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ReviewAssignmentOut",
+        "type": "object"
+      },
+      "ReviewCreateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "activity_version": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Activity Version",
+            "type": "string"
+          },
+          "artifact_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Artifact Hash",
+            "type": "string"
+          },
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "artifact_revision_id": {
+            "format": "uuid",
+            "title": "Artifact Revision Id",
+            "type": "string"
+          },
+          "assignment_id": {
+            "format": "uuid",
+            "title": "Assignment Id",
+            "type": "string"
+          },
+          "audience": {
+            "default": "platform_teachers",
+            "enum": [
+              "platform_teachers",
+              "specific_teacher"
+            ],
+            "title": "Audience",
+            "type": "string"
+          },
+          "course_code": {
+            "maxLength": 32,
+            "minLength": 1,
+            "title": "Course Code",
+            "type": "string"
+          },
+          "course_version_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course Version Id"
+          },
+          "evidence_snapshot": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceItemIn"
+            },
+            "maxItems": 20,
+            "title": "Evidence Snapshot",
+            "type": "array"
+          },
+          "expected_account_id": {
+            "format": "uuid",
+            "title": "Expected Account Id",
+            "type": "string"
+          },
+          "objective_code": {
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Objective Code",
+            "type": "string"
+          },
+          "rubric": {
+            "items": {
+              "$ref": "#/components/schemas/RubricCriterionIn"
+            },
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Rubric",
+            "type": "array"
+          },
+          "space_id": {
+            "format": "uuid",
+            "title": "Space Id",
+            "type": "string"
+          },
+          "student_note": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Student Note"
+          },
+          "teacher_account_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Teacher Account Id"
+          }
+        },
+        "required": [
+          "assignment_id",
+          "expected_account_id",
+          "space_id",
+          "course_code",
+          "objective_code",
+          "activity_version",
+          "artifact_id",
+          "artifact_revision_id",
+          "artifact_hash",
+          "rubric"
+        ],
+        "title": "ReviewCreateRequest",
+        "type": "object"
+      },
+      "ReviewEventOut": {
+        "properties": {
+          "actor_account_id": {
+            "format": "uuid",
+            "title": "Actor Account Id",
+            "type": "string"
+          },
+          "actor_role": {
+            "title": "Actor Role",
+            "type": "string"
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "decision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision"
+          },
+          "evidence_refs": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Refs"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "rubric_results": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rubric Results"
+          },
+          "sequence": {
+            "title": "Sequence",
+            "type": "integer"
+          },
+          "teacher_signature": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Teacher Signature"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "sequence",
+          "type",
+          "actor_account_id",
+          "actor_role",
+          "created_at"
+        ],
+        "title": "ReviewEventOut",
+        "type": "object"
+      },
+      "ReviewListOut": {
+        "properties": {
+          "assignments": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewAssignmentOut"
+            },
+            "title": "Assignments",
+            "type": "array"
+          }
+        },
+        "required": [
+          "assignments"
+        ],
+        "title": "ReviewListOut",
+        "type": "object"
+      },
       "RevisionCommand": {
         "additionalProperties": false,
         "properties": {
@@ -2705,6 +3222,74 @@
           "expected_revision"
         ],
         "title": "RevisionCommand",
+        "type": "object"
+      },
+      "RubricCriterionIn": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "maxLength": 60,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "objective",
+              "explanation",
+              "independent_transfer"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "kind"
+        ],
+        "title": "RubricCriterionIn",
+        "type": "object"
+      },
+      "RubricResultIn": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "maxLength": 60,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "title": "Id",
+            "type": "string"
+          },
+          "note": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Note",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "met",
+              "not_met",
+              "needs_review"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "note"
+        ],
+        "title": "RubricResultIn",
         "type": "object"
       },
       "SpaceResponse": {
@@ -4771,6 +5356,352 @@
         "summary": "Model Profiles",
         "tags": [
           "Learning"
+        ]
+      }
+    },
+    "/api/v1/reviews/assignments": {
+      "post": {
+        "operationId": "createReviewAssignment",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Assignment",
+        "tags": [
+          "Human review"
+        ]
+      }
+    },
+    "/api/v1/reviews/assignments/mine": {
+      "get": {
+        "operationId": "listMyReviewAssignments",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewListOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Mine",
+        "tags": [
+          "Human review"
+        ]
+      }
+    },
+    "/api/v1/reviews/assignments/{assignment_id}": {
+      "get": {
+        "operationId": "getReviewAssignment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Assignment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Assignment",
+        "tags": [
+          "Human review"
+        ]
+      }
+    },
+    "/api/v1/reviews/assignments/{assignment_id}/appeal": {
+      "post": {
+        "operationId": "appealReviewAssignment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Assignment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppealRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Appeal",
+        "tags": [
+          "Human review"
+        ]
+      }
+    },
+    "/api/v1/reviews/assignments/{assignment_id}/claim": {
+      "post": {
+        "operationId": "claimReviewAssignment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Assignment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Claim",
+        "tags": [
+          "Human review"
+        ]
+      }
+    },
+    "/api/v1/reviews/assignments/{assignment_id}/decisions": {
+      "post": {
+        "operationId": "decideReviewAssignment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Assignment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Decide",
+        "tags": [
+          "Human review"
+        ]
+      }
+    },
+    "/api/v1/reviews/assignments/{assignment_id}/resubmit": {
+      "post": {
+        "operationId": "resubmitReviewAssignment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Assignment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResubmitRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAssignmentOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Resubmit",
+        "tags": [
+          "Human review"
+        ]
+      }
+    },
+    "/api/v1/reviews/teacher/queue": {
+      "get": {
+        "operationId": "listReviewQueue",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewListOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Teacher Queue",
+        "tags": [
+          "Human review"
         ]
       }
     },

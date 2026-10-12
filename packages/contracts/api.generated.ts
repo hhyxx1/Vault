@@ -443,6 +443,142 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/reviews/assignments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create Assignment */
+        post: operations["createReviewAssignment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reviews/assignments/mine": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Mine */
+        get: operations["listMyReviewAssignments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reviews/assignments/{assignment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Assignment */
+        get: operations["getReviewAssignment"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reviews/assignments/{assignment_id}/appeal": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Appeal */
+        post: operations["appealReviewAssignment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reviews/assignments/{assignment_id}/claim": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Claim */
+        post: operations["claimReviewAssignment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reviews/assignments/{assignment_id}/decisions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Decide */
+        post: operations["decideReviewAssignment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reviews/assignments/{assignment_id}/resubmit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Resubmit */
+        post: operations["resubmitReviewAssignment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reviews/teacher/queue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Teacher Queue */
+        get: operations["listReviewQueue"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/sync/claims": {
         parameters: {
             query?: never;
@@ -709,6 +845,11 @@ export interface components {
              * Format: uuid
              */
             verification_id: string;
+        };
+        /** AppealRequest */
+        AppealRequest: {
+            /** Comment */
+            comment: string;
         };
         /** BatchRequest */
         BatchRequest: {
@@ -1364,12 +1505,46 @@ export interface components {
              */
             status: "met" | "not_met" | "needs_review";
         };
+        /** DecisionRequest */
+        DecisionRequest: {
+            /** Comment */
+            comment: string;
+            /**
+             * Decision
+             * @enum {string}
+             */
+            decision: "approved" | "changes_requested";
+            /** Rubric Results */
+            rubric_results: components["schemas"]["RubricResultIn"][];
+        };
         /** EmailInput */
         EmailInput: {
             /** Email */
             email: string;
             /** Nonce */
             nonce: string;
+        };
+        /** EvidenceItemIn */
+        EvidenceItemIn: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "server_tool" | "model_suggestion" | "student_self";
+            /** Summary */
+            summary: string;
+        };
+        /** EvidenceRefIn */
+        EvidenceRefIn: {
+            /** Artifact Hash */
+            artifact_hash: string;
+            /**
+             * Artifact Revision Id
+             * Format: uuid
+             */
+            artifact_revision_id: string;
+            /** Note */
+            note: string;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -1815,10 +1990,191 @@ export interface components {
              */
             status: "reset_requested";
         };
+        /** ResubmitRequest */
+        ResubmitRequest: {
+            /** Comment */
+            comment: string;
+            /** Evidence Refs */
+            evidence_refs: components["schemas"]["EvidenceRefIn"][];
+        };
+        /** ReviewAssignmentOut */
+        ReviewAssignmentOut: {
+            /** Activity Version */
+            activity_version: string;
+            /** Appeal Count */
+            appeal_count: number;
+            /** Artifact Hash */
+            artifact_hash: string;
+            /**
+             * Artifact Id
+             * Format: uuid
+             */
+            artifact_id: string;
+            /**
+             * Artifact Revision Id
+             * Format: uuid
+             */
+            artifact_revision_id: string;
+            /** Audience */
+            audience: string;
+            /** Claimed By Account Id */
+            claimed_by_account_id?: string | null;
+            /** Course Code */
+            course_code: string;
+            /** Course Version Id */
+            course_version_id?: string | null;
+            /** Created At */
+            created_at: string;
+            /** Events */
+            events?: components["schemas"]["ReviewEventOut"][];
+            /** Evidence Snapshot */
+            evidence_snapshot: unknown[];
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Objective Code */
+            objective_code: string;
+            /**
+             * Owner Account Id
+             * Format: uuid
+             */
+            owner_account_id: string;
+            /** Review Service Available */
+            review_service_available: boolean;
+            /** Rubric */
+            rubric: unknown[];
+            /**
+             * Space Id
+             * Format: uuid
+             */
+            space_id: string;
+            /** Status */
+            status: string;
+            /** Teacher Account Id */
+            teacher_account_id?: string | null;
+            /** Updated At */
+            updated_at: string;
+        };
+        /** ReviewCreateRequest */
+        ReviewCreateRequest: {
+            /** Activity Version */
+            activity_version: string;
+            /** Artifact Hash */
+            artifact_hash: string;
+            /**
+             * Artifact Id
+             * Format: uuid
+             */
+            artifact_id: string;
+            /**
+             * Artifact Revision Id
+             * Format: uuid
+             */
+            artifact_revision_id: string;
+            /**
+             * Assignment Id
+             * Format: uuid
+             */
+            assignment_id: string;
+            /**
+             * Audience
+             * @default platform_teachers
+             * @enum {string}
+             */
+            audience: "platform_teachers" | "specific_teacher";
+            /** Course Code */
+            course_code: string;
+            /** Course Version Id */
+            course_version_id?: string | null;
+            /** Evidence Snapshot */
+            evidence_snapshot?: components["schemas"]["EvidenceItemIn"][];
+            /**
+             * Expected Account Id
+             * Format: uuid
+             */
+            expected_account_id: string;
+            /** Objective Code */
+            objective_code: string;
+            /** Rubric */
+            rubric: components["schemas"]["RubricCriterionIn"][];
+            /**
+             * Space Id
+             * Format: uuid
+             */
+            space_id: string;
+            /** Student Note */
+            student_note?: string | null;
+            /** Teacher Account Id */
+            teacher_account_id?: string | null;
+        };
+        /** ReviewEventOut */
+        ReviewEventOut: {
+            /**
+             * Actor Account Id
+             * Format: uuid
+             */
+            actor_account_id: string;
+            /** Actor Role */
+            actor_role: string;
+            /** Comment */
+            comment?: string | null;
+            /** Created At */
+            created_at: string;
+            /** Decision */
+            decision?: string | null;
+            /** Evidence Refs */
+            evidence_refs?: unknown[] | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Rubric Results */
+            rubric_results?: unknown[] | null;
+            /** Sequence */
+            sequence: number;
+            /** Teacher Signature */
+            teacher_signature?: {
+                [key: string]: unknown;
+            } | null;
+            /** Type */
+            type: string;
+        };
+        /** ReviewListOut */
+        ReviewListOut: {
+            /** Assignments */
+            assignments: components["schemas"]["ReviewAssignmentOut"][];
+        };
         /** RevisionCommand */
         RevisionCommand: {
             /** Expected Revision */
             expected_revision: string;
+        };
+        /** RubricCriterionIn */
+        RubricCriterionIn: {
+            /** Id */
+            id: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "objective" | "explanation" | "independent_transfer";
+            /** Title */
+            title: string;
+        };
+        /** RubricResultIn */
+        RubricResultIn: {
+            /** Id */
+            id: string;
+            /** Note */
+            note: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "met" | "not_met" | "needs_review";
         };
         /** SpaceResponse */
         SpaceResponse: {
@@ -3007,6 +3363,248 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PublicModelCatalog"];
+                };
+            };
+        };
+    };
+    createReviewAssignment: {
+        parameters: {
+            query?: never;
+            header?: {
+                "idempotency-key"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReviewCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewAssignmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    listMyReviewAssignments: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewListOut"];
+                };
+            };
+        };
+    };
+    getReviewAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewAssignmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    appealReviewAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AppealRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewAssignmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    claimReviewAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewAssignmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    decideReviewAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DecisionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewAssignmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    resubmitReviewAssignment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                assignment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ResubmitRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewAssignmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    listReviewQueue: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewListOut"];
                 };
             };
         };
