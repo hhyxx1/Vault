@@ -4,9 +4,18 @@
 
 ## 当前检查点
 
-- 更新时间：2026-10-11（#29 / P1：**C01 公共工程核心闭环**、**C02 语义核验完整闭环**、**C03 证据/帮助/独立变体/恢复矩阵核心闭环**——code 活动版本化帮助快照（c6c17f8）、证据页 structured/algebra 对等（ef44647）、独立迁移变体 366/366 覆盖审计（dc850b9），并确认不可覆写/迟到结果/跨账号守卫对等、7 类评估“解释非空≠通过”；仅余“环境 profile 变化主动提示重跑”非阻断 UX 增强。**下一项 C04 审阅与异议流**，之后 C05–C08）
+- 更新时间：2026-10-12（#29 / P1：**C01 公共工程核心闭环**、**C02 语义核验完整闭环**、**C03 证据/帮助/独立变体/恢复矩阵核心闭环**、**C04 人工审阅与异议流完整闭环（后端 61ee58b + 契约/前端/e2e afd716d）**——真实 PG 审阅工单状态机/跨账号 RLS/不可变事件/verified 教师签名/异议≤2，学生 `/reviews` 提交+时间线+补证+异议、教师 `/teacher` verified 队列接单+逐条判定，无真实教师/专业审校时诚实标注且不自动签名；后端 **476 passed/58 skipped/0 failed**、前端 typecheck 0、vitest **120 passed**、reviews e2e **2 passed**（真实账号+邮件捕获）。Q4 真实专业审校/Q5 真实多模型密钥为外部硬阻断，如实 blocked_external。**下一项 C05 工具生命周期**，之后 C06–C08）
 - worktree：`C:\Users\Remote\.codex\worktrees\485f\Vault`（detached HEAD）
-- HEAD：`98e3e10`；远端 `mine/hyx_dev`（https://github.com/hhyxx1/Vault.git）。
+- HEAD：`afd716d`；远端 `mine/hyx_dev`（https://github.com/hhyxx1/Vault.git）。**5006eb8 起共 11 个提交待网络恢复后 `git push mine HEAD:hyx_dev` 一次补齐**（含 C04 的 61ee58b、afd716d）。
+
+## C04 人工审阅与异议流：已完整闭环（后端 61ee58b / 前端 afd716d）
+
+- **数据模型与迁移（0013_human_review）**：新增 `review_assignment`（工单：受众 platform_teachers/specific_teacher、课程/目标/活动版本、作品 id/revision/hash、rubric JSONB、evidence_snapshot JSONB、六态 status、review_service_available、appeal_count）与 `review_event`（不可变历史：submitted/resubmitted/claimed/decision/appeal/withdrawn、actor、decision、rubric_results、comment、evidence_refs、teacher_signature）。两表 ENABLE+FORCE ROW LEVEL SECURITY，policy `scoped_access`：学生只见本人工单；教师只见授权给自己或平台 verified 教师可接的工单；事件可见性 EXISTS 关联工单。两个 guard 触发器：工单身份/作品快照/rubric/证据/created_at/available 永不可改、claimed_by 一旦设定不可改、appeal_count 不可减少；事件 append-only（UPDATE/DELETE 抛 23514）。另建 SECURITY DEFINER `vault_verified_teacher_exists(uuid)`（teacher_profile 为 owner_only RLS，学生事务跨账号经此仅得 bool，不泄露身份）。
+- **API（`/api/v1/reviews`，8 端点）**：学生 POST 工单（幂等键=assignment_id；证据 kind 类型层仅允许 server_tool/model_suggestion/student_self，**teacher_review/professional_review 学生无法伪造**；rubric 1–12 条、证据 0–20）、GET 我的工单、GET 单工单（RLS 隐藏返 404 不泄露存在）；verified 教师 GET 队列、POST 接单（他人已接 409）、POST 判定（仅接单教师、状态 claimed/resubmitted/in_appeal、rubric id 集合必须与工单完全相等否则 422、**每条必须有人工理由 note、服务端绝不按字数/关键词评分**、用实时会话生成 verified 教师签名）；学生 POST 补证（changes_requested→resubmitted，带新 revision hash）、POST 异议（approved/changes_requested 且 appeal_count<2，否则 409，→in_appeal）。未认证教师任何写操作 403 TEACHER_VERIFICATION_REQUIRED，文案明示“当前不会代签任何审阅”。
+- **诚实性**：无 verified 教师时工单 `review_service_available=false`，前端显著标注“尚未安排任何教师接单、不会自动通过或代签”；专业审校（professional_review）标注“当前尚未开通，不会自动生成”；模型建议不单独充当达标金标准。
+- **前端**：`api/reviews.ts`（类型+7 个 API 函数+五类来源标签+STANDARD_RUBRIC+buildEvidenceSnapshot 纯函数）；学生页 `ui/Reviews.tsx`（路由 `/reviews`、主导航入口、从已核验 codeAttempt 提取作品版本、提交/时间线/补证/异议/服务可用性标注）；教师 `ui/ReviewQueue.tsx` 挂入 `Teacher.tsx`（verified 才可见队列与接单/逐条判定，未认证显示门禁且无任何操作按钮）；契约 openapi.json/api.generated.ts 重新生成；CSS 复用设计稿变量与组件类。
+- **验证证据**：后端新增 `tests/test_reviews.py` **10 个真实 PG pytest**（无 verified 教师诚实未分配且无签名、未认证教师 403/他人工单 404、完整 approved 流程带签名且简短不同 comment 也通过=证明不按字数关键词、第二教师不能抢单/判单 409/403、rubric 必须逐条覆盖 422、退回→补证→复审→异议全循环、异议上限 2 第三次 409、学生伪造 teacher_review 证据 422、教师建工单 403/跨账号申诉 404、队列授权过滤且事件 sequence 递增）；后端全量 **476 passed/58 skipped/0 failed**（基线 466+新增 10）。前端 `typecheck=0`、vitest **120 passed/19 files**（新增 reviews.test.ts 6 个纯函数/常量测试）、e2e `reviews.spec.ts` **2 passed**（真实注册+邮件捕获：学生页诚实标注+空态、pending 教师不能接单/签署）。契约 `contracts:check` 一致。同视口全屏截图已核对学生页/教师队列与设计稿视觉语言一致、无破版。
+- **环境**：dev 库 `vault_dev` 已升级到 head `0013_human_review`；测试库 `vault_ci` 同。后端运行角色表 GRANT 属环境 bootstrap 职责（既有迁移均不 GRANT），test_reviews fixture 幂等授予 vault_api 最小权限；新环境/CI migrate 后 GRANT ALL ON ALL TABLES 即覆盖。
 - 复核报告：`document/handoff/EXECUTOR_FINAL_REPORT.md`（阶段性；13 课端到端未完成，已如实界定，全部完成后重写）。
 - C01 本次新增提交（新→旧）：
   - `98e3e10` test(c01): 一目标一活动分发契约 + 侧车多对多绑定守卫（+5 测试）
