@@ -4,9 +4,9 @@
 
 ## 当前检查点
 
-- 更新时间：2026-10-12（#29 / P1：**C01 公共工程核心闭环**、**C02 语义核验完整闭环**、**C03 证据/帮助/独立变体/恢复矩阵核心闭环**、**C04 人工审阅与异议流完整闭环（后端 61ee58b + 契约/前端/e2e afd716d）**——真实 PG 审阅工单状态机/跨账号 RLS/不可变事件/verified 教师签名/异议≤2，学生 `/reviews` 提交+时间线+补证+异议、教师 `/teacher` verified 队列接单+逐条判定，无真实教师/专业审校时诚实标注且不自动签名；后端 **476 passed/58 skipped/0 failed**、前端 typecheck 0、vitest **120 passed**、reviews e2e **2 passed**（真实账号+邮件捕获）。Q4 真实专业审校/Q5 真实多模型密钥为外部硬阻断，如实 blocked_external。**下一项 C05 工具生命周期**，之后 C06–C08）
+- 更新时间：2026-10-12（#29 / P1：**C01 公共工程核心闭环**、**C02 语义核验完整闭环**、**C03 证据/帮助/独立变体/恢复矩阵核心闭环**、**C04 人工审阅与异议流完整闭环（61ee58b/afd716d/7cf50cf，已推送）**、**C05 切片 A 统一工具生命周期能力矩阵+只读端点闭环（60d70fa）**——按 ACTIVITY_ENGINE_PLAN line25 为 code/sql/linux/network/data 五工具显式声明 prepare/run_or_step/inspect/check/snapshot/restore/cancel/cleanup 八方法的 supported/unsupported/not_applicable/blocked_external，新增只读 `GET /api/v1/tool-capabilities` 并真实起后端验证；WSL 实测 isolate/PG18/python3.13(+ml)/node24 在位、**containerlab 与 FRR(vtysh) 缺失 → E05 blocked_external**，E03/E04/E06 有状态租约尚未建设（如实 unsupported，不冒充）。后端 **485 passed/58 skipped/0 failed**（新增 9）、前端 typecheck 0、vitest **120 passed**、契约 contracts:check 一致。Q4 真实专业审校/Q5 真实多模型密钥/**E05 containerlab/FRR/独立 VM** 为外部硬阻断。**下一切片 C05-B 起 E03 SQL 有状态租约（独立 PG18/每租约角色数据/双连接屏障）**，E04/E06 随后、E05 待外部环境，之后 C06–C08）
 - worktree：`C:\Users\Remote\.codex\worktrees\485f\Vault`（detached HEAD）
-- HEAD：`afd716d`；远端 `mine/hyx_dev`（https://github.com/hhyxx1/Vault.git）。**5006eb8 起共 11 个提交待网络恢复后 `git push mine HEAD:hyx_dev` 一次补齐**（含 C04 的 61ee58b、afd716d）。
+- HEAD：`60d70fa`（C05-A 代码/契约/测试）；远端 `mine/hyx_dev`（https://github.com/hhyxx1/Vault.git）。C04 三提交已推送（`0202dd7..7cf50cf`）；**60d70fa 与本次台账提交待 `git push mine HEAD:hyx_dev`**。
 
 ## C04 人工审阅与异议流：已完整闭环（后端 61ee58b / 前端 afd716d）
 
@@ -23,6 +23,19 @@
   - `dd4e976` C01 slice A: server-side trusted check config sidecar（受信配置侧车机制 + 15 测试）
   - 台账 `5006eb8`；更早 `669eb57/a153607/e3aec9c/2d8c317/7b6da20`。
 - 最新验证基线：后端 **466 passed / 58 skipped / 0 failed**；前端 typecheck 0、vitest **107 passed / 17 files**；合成课 Playwright chromium 与 mobile 各 **3/3**（真实 WSL isolate worker 8091/box700）；ruff 全过。
+
+## C05 工具生命周期：切片 A 已闭环（60d70fa），有状态租约/E05 待续
+
+- **契约（`tool_lifecycle.py`）**：按 `ACTIVITY_ENGINE_PLAN.md` line25 建立统一工具能力矩阵。`ToolId`=code/sql/linux/network/data；`LifecycleStep` 固定八步 prepare/run_or_step/inspect/check/snapshot/restore/cancel/cleanup；`Support`=supported/unsupported/not_applicable/blocked_external；`ToolState`=available/partial/unavailable/blocked_external。`ToolCapability` 用 pydantic(extra=forbid,frozen) 且 model_validator 强制**每个工具恰好覆盖八步各一次**、blocked_external 必须列出外部阻断。该模块只读、不授予任何执行权，仅声明平台真实能力，供 UI/health/测试共用同一契约。
+- **诚实映射（2026-10-12 WSL 实测）**：
+  - **code=available**：prepare/run_or_step/check/cancel/cleanup supported（独立 isolate box、整程序编译运行、worker 取消与隔离清理）；inspect/snapshot/restore=not_applicable（一次性批处理、无持久租约）。
+  - **sql=partial**：一次性 PG18 run_sql 的 prepare/run_or_step/check/cancel/cleanup supported（结果可集合/多重集/有序比较，禁 sleep 作正确性）；**每租约独立角色/数据、双连接屏障调度事务、inspect/snapshot/restore 均 unsupported（未建设，非外部阻断）**。
+  - **linux=unavailable**：E04 受控 shell/系统调用实验适配器不存在，八步全 unsupported；明确不得用现有整程序批处理冒充 Linux 实验、不得用预置字符串替代真实系统调用。
+  - **network=blocked_external**：八步全 blocked_external，阻断项=WSL 未装 containerlab、未装 FRR(vtysh)、每租约独立 VM 边界与外联关闭未建；不依赖 eNSP/Cisco、不宣称厂商 CLI 等价；首任务为 ACTIVITY_CONTRACT_EXAMPLES 的 A—R—B 回程路由。
+  - **data=partial**：python313ml 一次性 CPU 小数据 prepare/run_or_step/cancel/cleanup supported（训练先限 60s、无需 GPU）；数据版本/划分/seed/预处理拟合范围/模型/指标记录的 check/snapshot/restore unsupported；阻断提示 WSL 存在 `python-3.13-ml.incomplete-20261010`，发布前须按 ml-requirements.lock 复核 profile 完整性。
+- **端点（`tool_capabilities.py`）**：只读 `GET /api/v1/tool-capabilities`（无需鉴权/DB/worker），返回 lifecycle_steps、tool_order、五工具矩阵与诚实声明 note（“未列出为 supported 的能力一律不可用，前端不得显示为已开通”）。已在 api.py 注册。**真实起后端（8000，含 AUTH/MAIL_CAPTURE/ALLOWED_ORIGINS）curl 验证**：steps=8/tools=5；code 5 supported+3 n/a、sql 5 supported+3 unsupported、linux 8 unsupported、network 8 blocked+3 blockers、data 4 supported+3 unsupported+1 n/a。
+- **验证证据**：新增 `tests/test_tool_lifecycle.py` **9 测试**（矩阵覆盖五工具×八步无遗漏/无重复且 detail 非空、code 仅声明 isolate 真实能力、network 全 blocked_external 且列阻断、linux 零 supported 不冒充、sql/data partial 且有状态方法 unsupported、描述符拒绝缺步/重步/blocked 无阻断、HTTP 端点 200 且内容诚实）。后端全量 **485 passed/58 skipped/0 failed**（476+9）；新增四文件 ruff All checks passed；契约 openapi.json/api.generated.ts 重新生成且 `contracts:check` 一致；前端 typecheck 0、vitest **120 passed/19 files**（顺带修复重新生成契约后 reviews.test.ts 学生证据 kind 收窄导致的 TS2367：学生 kind 仅三类，teacher/professional 断言改为 string 比较）。
+- **未完成（如实界定，不在本切片冒充）**：**C05-B E03 SQL 有状态租约**（独立实验 PG18、每租约独立角色/数据、双连接屏障调度事务、事务正确性核验）；**C05-C E04 Linux 受控子进程/管道/信号/同步/文件权限/重建**；**C05-D E06 ML 数据版本/划分/seed/拟合范围/模型/指标记录**（先复核 python-3.13-ml profile 完整性）；**C05-E E05 containerlab A—R—B 为 blocked_external**，需联网安装 containerlab+FRR、每租约独立 VM 与外联隔离，环境恢复后再做。所有工具还需统一的取消/超时/重复请求/资源限制/进程文件回收/断连/租约恢复测试（EXECUTION_PLAN line105）。现有一次性 code/sql/ml 运行的取消/清理已由 isolate worker 覆盖。
 
 ## 任务板状态（#23–#32）
 
