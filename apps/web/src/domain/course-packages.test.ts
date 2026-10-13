@@ -5,7 +5,7 @@ describe('versioned course loading', () => {
   it('opens every approved core scope without claiming completed content', async () => {
     const packages = await Promise.all(Array.from({ length: 13 }, (_, i) => loadCoursePackage(`CS${String(i + 1).padStart(2, '0')}`, 'core')))
     expect(packages.every(Boolean)).toBe(true)
-    expect(packages.reduce((n, course) => n + course!.objectives.length, 0)).toBe(366)
+    expect(packages.reduce((n, course) => n + course!.objectives.length, 0)).toBe(377)
     expect(packages.every(course => course!.status === 'structured_validated')).toBe(true)
   })
   it('keeps legacy goal IDs separate from new core scopes', async () => {
@@ -45,6 +45,7 @@ it('loads an archived graph by exact course version and rejects wrong-course IDs
 
 it('opens the maintained data-structures learning package by default', async () => {
   const course = await loadCoursePackage('CS03')
-  expect(course?.version).toBe('CS03-core-practice-0.3.0')
-  expect(course?.objectives).toHaveLength(30)
+  expect(course?.version).toBe('CS03-core-practice-0.6.0')
+  expect(course?.objectives).toHaveLength(41)
+  expect(course?.objectives.some(objective => objective.code === 'CS03-M03-O04')).toBe(true)
 })

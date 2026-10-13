@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test'
 import { readdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { readFileSync } from 'node:fs'
-const cs03 = JSON.parse(readFileSync(new URL('../../../content/courses/CS03/CS03-core-practice-0.3.0/manifest.json', import.meta.url), 'utf8'))
+const cs03 = JSON.parse(readFileSync(new URL('../../../content/courses/CS03/CS03-core-practice-0.6.0/manifest.json', import.meta.url), 'utf8'))
 const cs03Queue = cs03.activities.find((row: { objective_codes: string[] }) => row.objective_codes.includes('CS03-M03-O02'))
 
 test.use({ trace: 'off' })

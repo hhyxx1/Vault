@@ -102,13 +102,13 @@ ORACLES: dict[str, Callable[[str], str]] = {
 
 def compare_output(mode: Comparator, expected: str, observed: str, tolerance: float = 0.0) -> bool:
     if mode in {"graph_search_order", "minimum_forest"}:
-        from vault_backend.course_checks.cs03_graphs import compare_search, compare_forest
+        from vault_backend.course_checks.cs03_graphs import compare_forest, compare_search
 
         return (compare_search if mode == "graph_search_order" else compare_forest)(
             expected, observed
         )
     if mode in {"sorted_records", "external_project"}:
-        from vault_backend.course_checks.cs03_hash_sort import compare_sorted, compare_project
+        from vault_backend.course_checks.cs03_hash_sort import compare_project, compare_sorted
 
         return (compare_sorted if mode == "sorted_records" else compare_project)(expected, observed)
     if mode == "topological_order":
@@ -210,6 +210,79 @@ for _goal, (_oracle, _representation) in _linear.GOALS.items():
             SuiteCase(f"internal-{i + 1}", "independent", value) for i, value in enumerate(_hidden)
         ),
         scope_note="核验有限输入的产物、行为与边界；不证明一般正确、存储实现、复杂度或独立迁移，解释须审阅。",
+    )
+
+# CS03 0.4.0 is a new immutable course release. Rebind all activities to its
+# own version IDs and add the priority-queue operation oracle without changing
+# the historic 0.3.0 registry.
+from vault_backend.course_checks import cs03_priority_queue as _cs03_v040  # noqa: E402
+
+ORACLES.update(_cs03_v040.ORACLES)
+for _goal, (_oracle, _representation) in _cs03_v040.GOALS.items():
+    _visible, _hidden = _cs03_v040.INPUTS[_oracle]
+    SUITES[(_cs03_v040.COURSE_VERSION, _goal)] = SemanticSuite(
+        course_version_id=_cs03_v040.COURSE_VERSION,
+        objective_code=_goal,
+        activity_version_id=_cs03_v040.activity_id(_goal),
+        language="cpp17",
+        oracle_id=_oracle,
+        comparator=_cs03_v040.COMPARATORS.get(_oracle, "exact"),
+        visible_cases=tuple(
+            SuiteCase(f"visible-{i + 1}", "visible", value) for i, value in enumerate(_visible)
+        ),
+        independent_cases=tuple(
+            SuiteCase(f"internal-{i + 1}", "independent", value) for i, value in enumerate(_hidden)
+        ),
+        scope_note="核验有限输入的产物、行为与边界；不证明一般正确、存储实现、复杂度或独立迁移，解释须审阅。",
+    )
+
+# CS03 0.5.0 adds standalone parent-pointer union-find and stable radix-sort
+# practice while rebinding every prior activity to the new immutable release.
+from vault_backend.course_checks import cs03_union_find_radix as _cs03_v050  # noqa: E402
+
+ORACLES.update(_cs03_v050.ORACLES)
+for _goal, (_oracle, _representation) in _cs03_v050.GOALS.items():
+    _visible, _hidden = _cs03_v050.INPUTS[_oracle]
+    SUITES[(_cs03_v050.COURSE_VERSION, _goal)] = SemanticSuite(
+        course_version_id=_cs03_v050.COURSE_VERSION,
+        objective_code=_goal,
+        activity_version_id=_cs03_v050.activity_id(_goal),
+        language="cpp17",
+        oracle_id=_oracle,
+        comparator=_cs03_v050.COMPARATORS.get(_oracle, "exact"),
+        visible_cases=tuple(
+            SuiteCase(f"visible-{i + 1}", "visible", value) for i, value in enumerate(_visible)
+        ),
+        independent_cases=tuple(
+            SuiteCase(f"internal-{i + 1}", "independent", value) for i, value in enumerate(_hidden)
+        ),
+        scope_note="核验有限输入上的数据结构或排序语义；不证明一般正确性、复杂度论证或独立迁移，解释须复核。",
+    )
+
+# CS03 0.6.0 closes the identified CS2023 AL-A core gaps. Prim uses a
+# minimum-forest comparator so any valid optimum is accepted across ties.
+from vault_backend.course_checks import cs03_core_coverage as _cs03_v060  # noqa: E402
+
+ORACLES.update(_cs03_v060.ORACLES)
+for _goal, (_oracle, _representation) in _cs03_v060.GOALS.items():
+    _visible, _hidden = _cs03_v060.INPUTS[_oracle]
+    SUITES[(_cs03_v060.COURSE_VERSION, _goal)] = SemanticSuite(
+        course_version_id=_cs03_v060.COURSE_VERSION,
+        objective_code=_goal,
+        activity_version_id=_cs03_v060.activity_id(_goal),
+        language="cpp17",
+        oracle_id=_oracle,
+        comparator=_cs03_v060.COMPARATORS.get(_oracle, "exact"),
+        visible_cases=tuple(
+            SuiteCase(f"visible-{i + 1}", "visible", value) for i, value in enumerate(_visible)
+        ),
+        independent_cases=tuple(
+            SuiteCase(f"internal-{i + 1}", "independent", value) for i, value in enumerate(_hidden)
+        ),
+        scope_note=(
+            "核验有限输入上的课程核心算法语义；图算法接受任意同成本最小生成森林。"
+            "不证明一般正确性、复杂度论证或独立迁移，解释仍须复核。"
+        ),
     )
 
 

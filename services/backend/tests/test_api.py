@@ -436,7 +436,7 @@ async def test_full_scope_directory_and_every_version_are_discoverable(client):
     assert response.status_code == 200
     courses = response.json()["courses"]
     assert len(courses) == 13
-    assert sum(course["objective_count"] for course in courses) == 366
+    assert sum(course["objective_count"] for course in courses) == 377
     for course in courses:
         assert "package_path" not in course
         assert course["learning_ready"] is False

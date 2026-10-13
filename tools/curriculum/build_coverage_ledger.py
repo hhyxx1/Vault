@@ -152,7 +152,7 @@ def main():
         writer = csv.DictWriter(file, fieldnames=FIELDS)
         writer.writeheader()
         writer.writerows(rows)
-    print("Generated 366-goal partial-delivery ledger; no acceptance inferred")
+    print(f"Generated {len(rows)}-goal partial-delivery ledger; no acceptance inferred")
 
 
 if __name__ == "__main__":

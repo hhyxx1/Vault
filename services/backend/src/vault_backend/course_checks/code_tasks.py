@@ -4,7 +4,10 @@ from dataclasses import dataclass
 from uuid import NAMESPACE_URL, uuid5
 
 from vault_backend.code_execution import CodeRequest, CodeResult, request_hash
+from vault_backend.course_checks import cs03_core_coverage as _cs03_v060
 from vault_backend.course_checks import cs03_linear as _cs03
+from vault_backend.course_checks import cs03_priority_queue as _cs03_v040
+from vault_backend.course_checks import cs03_union_find_radix as _cs03_v050
 from vault_backend.course_checks.generic_rules import GENERIC_RULES
 from vault_backend.course_checks.published_rules import PUBLISHED_RULES
 from vault_backend.errors import ApiError
@@ -24,6 +27,60 @@ for _goal, (_oracle, _kind) in _cs03.GOALS.items():
 for _goal in _cs03.GOALS:
     GENERIC_RULES[_cs03.COURSE_VERSION][(_goal, "from-scratch")] = GENERIC_RULES[
         _cs03.COURSE_VERSION
+    ][(_goal, "base")]
+
+GENERIC_RULES[_cs03_v040.COURSE_VERSION] = dict(GENERIC_RULES[_cs03.COURSE_VERSION])
+for _goal, (_oracle, _kind) in _cs03_v040.GOALS.items():
+    for _task, _stdin in zip(
+        ("base", "changed-condition"), _cs03_v040.INPUTS[_oracle][0], strict=True
+    ):
+        GENERIC_RULES[_cs03_v040.COURSE_VERSION][(_goal, _task)] = (
+            _cs03_v040.activity_id(_goal),
+            _stdin,
+            "success",
+            _cs03_v040.ORACLES[_oracle](_stdin),
+            "",
+        )
+
+for _goal in _cs03_v040.GOALS:
+    GENERIC_RULES[_cs03_v040.COURSE_VERSION][(_goal, "from-scratch")] = GENERIC_RULES[
+        _cs03_v040.COURSE_VERSION
+    ][(_goal, "base")]
+
+GENERIC_RULES[_cs03_v050.COURSE_VERSION] = dict(GENERIC_RULES[_cs03_v040.COURSE_VERSION])
+for _goal, (_oracle, _kind) in _cs03_v050.GOALS.items():
+    for _task, _stdin in zip(
+        ("base", "changed-condition"), _cs03_v050.INPUTS[_oracle][0], strict=True
+    ):
+        GENERIC_RULES[_cs03_v050.COURSE_VERSION][(_goal, _task)] = (
+            _cs03_v050.activity_id(_goal),
+            _stdin,
+            "success",
+            _cs03_v050.ORACLES[_oracle](_stdin),
+            "",
+        )
+
+for _goal in _cs03_v050.GOALS:
+    GENERIC_RULES[_cs03_v050.COURSE_VERSION][(_goal, "from-scratch")] = GENERIC_RULES[
+        _cs03_v050.COURSE_VERSION
+    ][(_goal, "base")]
+
+GENERIC_RULES[_cs03_v060.COURSE_VERSION] = dict(GENERIC_RULES[_cs03_v050.COURSE_VERSION])
+for _goal, (_oracle, _kind) in _cs03_v060.GOALS.items():
+    for _task, _stdin in zip(
+        ("base", "changed-condition"), _cs03_v060.INPUTS[_oracle][0], strict=True
+    ):
+        GENERIC_RULES[_cs03_v060.COURSE_VERSION][(_goal, _task)] = (
+            _cs03_v060.activity_id(_goal),
+            _stdin,
+            "success",
+            _cs03_v060.ORACLES[_oracle](_stdin),
+            "",
+        )
+
+for _goal in _cs03_v060.GOALS:
+    GENERIC_RULES[_cs03_v060.COURSE_VERSION][(_goal, "from-scratch")] = GENERIC_RULES[
+        _cs03_v060.COURSE_VERSION
     ][(_goal, "base")]
 
 STANDARD = "cs01-fixed-condition-v1"
@@ -278,16 +335,31 @@ def assess_task(task: Task, request: CodeRequest, result: CodeResult) -> dict:
         task.stdout,
         task.stderr,
     )
-    if task.course_version_id == _cs03.COURSE_VERSION and task.objective_code in _cs03.GOALS:
+    if task.course_version_id in {
+        _cs03.COURSE_VERSION,
+        _cs03_v040.COURSE_VERSION,
+        _cs03_v050.COURSE_VERSION,
+        _cs03_v060.COURSE_VERSION,
+    }:
         from vault_backend.course_checks.semantic_suites import compare_output
 
-        oracle = _cs03.GOALS[task.objective_code][0]
-        mode = _cs03.COMPARATORS.get(oracle, "exact")
-        matched = (
-            result.status == task.status
-            and result.stderr == task.stderr
-            and compare_output(mode, task.stdout, result.stdout)
+        model = (
+            _cs03_v060
+            if task.course_version_id == _cs03_v060.COURSE_VERSION
+            else _cs03_v050
+            if task.course_version_id == _cs03_v050.COURSE_VERSION
+            else _cs03_v040
+            if task.course_version_id == _cs03_v040.COURSE_VERSION
+            else _cs03
         )
+        if task.objective_code in model.GOALS:
+            oracle = model.GOALS[task.objective_code][0]
+            mode = model.COMPARATORS.get(oracle, "exact")
+            matched = (
+                result.status == task.status
+                and result.stderr == task.stderr
+                and compare_output(mode, task.stdout, result.stdout)
+            )
     outcome = "needs_review" if not complete else "met" if matched else "not_met"
     reason = (
         "环境故障、输出不完整、作品或输入条件不一致，未作能力判断。"

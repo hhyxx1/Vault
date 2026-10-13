@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 
-const course = JSON.parse(readFileSync(new URL('../../../content/courses/CS03/CS03-core-practice-0.3.0/manifest.json', import.meta.url), 'utf8'))
+const course = JSON.parse(readFileSync(new URL('../../../content/courses/CS03/CS03-core-practice-0.6.0/manifest.json', import.meta.url), 'utf8'))
 const activities = course.activities.filter((activity: { semantic_suite?: unknown }) => activity.semantic_suite)
 
 for (const activity of activities) {
@@ -49,13 +49,19 @@ test('the next objective retains the course version and opens a distinct saved w
   await expect(page.getByRole('heading', { name: '让数组与单链表示执行同一操作序列', exact: true })).toBeVisible()
 })
 
-for (const goal of ['CS03-M03-O02', 'CS03-M10-O03']) {
-  test(`${goal} builds from an empty work and retains its independent verdict`, async ({ page }) => {
+for (const activity of activities) {
+  const goal = activity.objective_codes[0]
+  test(`${goal} opens the blank implementation task and records reference use`, async ({ page }) => {
     test.setTimeout(150000)
     const activity = activities.find((row: { objective_codes: string[] }) => row.objective_codes[0] === goal)
     await page.goto(`/learn/${goal}?courseVersion=${course.course_version_id}&task=from-scratch`)
-    await expect(page.getByLabel('代码源文件')).toBeEnabled()
-    await page.getByLabel('代码源文件').fill(activity.reference_answer.files['main.cpp'])
+    const editor = page.getByLabel('代码源文件')
+    await expect(editor).toBeEnabled()
+    const fromScratch = activity.variants.find((variant: { code: string }) => variant.code === 'from-scratch')
+    await expect(editor).toHaveValue(fromScratch.code_request.files['main.cpp'])
+    await page.getByRole('button', { name: '查看参考答案' }).click()
+    await expect(page.getByText('参考答案只供本活动自学对照，下一次运行仍使用你的作品。')).toBeVisible()
+    await editor.fill(activity.reference_answer.files['main.cpp'])
     await page.getByRole('button', { name: '保存并运行这一版' }).click()
     await expect(page.getByRole('region', { name: '任务条件核验' })).toContainText('本次固定条件：满足', { timeout: 60000 })
     await page.getByRole('button', { name: '对这一版做独立语义核验' }).click()
@@ -66,9 +72,9 @@ for (const goal of ['CS03-M03-O02', 'CS03-M10-O03']) {
   })
 }
 
-test('default CS03 atlas opens the current thirty-objective learning release', async ({ page }) => {
+test('default CS03 atlas opens all forty-one objectives in the current learning release', async ({ page }) => {
   await page.goto('/atlas?course=CS03')
-  await expect(page.getByRole('main')).toContainText('30')
+  await expect(page.getByRole('main')).toContainText('41')
   await expect(page.getByRole('main')).toContainText('数据结构')
   await page.getByRole('button', { name: /描述抽象操作契约/ }).first().click()
   await expect(page.locator('a[href*="/learn/CS03-M01-O01"]').first()).toBeVisible()

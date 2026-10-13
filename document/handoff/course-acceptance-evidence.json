@@ -14,213 +14,290 @@
     "note": "合成课仅用于证明工具复用与编号无关，不计入 13 课验收分母。"
   },
   "CS03-M01-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M01-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M01-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M02-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M02-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M02-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M03-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M03-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M03-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M04-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M04-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M04-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M05-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M05-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M05-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M06-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M06-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M06-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M07-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M07-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M07-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M08-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M08-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M08-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M09-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M09-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M09-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M10-O01": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M10-O02": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   },
   "CS03-M10-O03": {
-    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
     "accepted": false,
     "accepted_ref": null,
-    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
-    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M03-O04": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M03-O05": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M09-O04": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M07-O04": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M10-O04": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M02-O04": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M04-O04": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M07-O05": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M08-O04": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M09-O05": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
+  },
+  "CS03-M10-O05": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.6.0/DELIVERY_REPORT.md (逐目标浏览器用例记录); apps/web/e2e/cs03-linear-depth.spec.ts (desktop/mobile; fixed condition and independent suite)",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "f50b5979-1083-5ee7-b700-d5cd1360684d",
+    "note": "当前发布版本的真实隔离执行和浏览器恢复均通过；测试装载参考作品，不是学习者独立迁移证据；原理解释、真实学生整课体验和专业审校未验收。"
   }
 }

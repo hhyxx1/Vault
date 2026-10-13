@@ -11,8 +11,8 @@ def test_generated_ledger_tracks_exact_published_goals_without_completion_claim(
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     rows = module.build_rows(ROOT)
-    assert len(rows) == 366
-    assert len({(r["course_version"], r["objective_id"]) for r in rows}) == 366
+    assert len(rows) == 377
+    assert len({(r["course_version"], r["objective_id"]) for r in rows}) == 377
     assert all(len(r) == 20 and all(v for v in r.values()) for r in rows)
     assert all(
         r["assessment_state"] == "fixed_condition_only;explanation_and_independence_pending"
@@ -26,3 +26,5 @@ def test_generated_ledger_tracks_exact_published_goals_without_completion_claim(
     assert algebra["course_version"] == "CS05-core-practice-0.2.0"
     assert "finite-algebra-native@0.1.0" in algebra["environment_profiles"]
     assert "editable_finite_table_or_mapping" in algebra["variant_ids"]
+    data_structures = next(r for r in rows if r["objective_id"] == "CS03-M02-O04")
+    assert data_structures["course_version"] == "CS03-core-practice-0.6.0"

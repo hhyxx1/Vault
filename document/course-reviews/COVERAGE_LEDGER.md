@@ -1,6 +1,6 @@
 # 逐目标建设台账
 
-`13-course-core-coverage.csv`按QA_RELEASE_PLAN规定的20字段记录当前默认13课程、366核心目标。由 `tools/curriculum/build_coverage_ledger.py` 从实际目录、课程包和作者工件生成，防止课程换版后人工表仍指旧版本。
+`13-course-core-coverage.csv`按QA_RELEASE_PLAN规定的20字段记录当前默认13课程、377核心目标（CS03 0.6.0 共41目标，新增二分查找、Boyer–Moore、Prim、Floyd–Warshall、二次探查和有界桶排序）。由 `tools/curriculum/build_coverage_ledger.py` 从实际目录、课程包和作者工件生成，防止课程换版后人工表仍指旧版本。
 
 正确/错误工件只有在目标、任务和完整源文件/输入与当前参考/初始工件逐字相同时才映射；较旧作者工件可在这个条件下引用，但这不是新版执行通过记录。没有参考答案的变体不猜测答案，有缺口明确保留缺失映射。主张核对、替代正确解、两种教学错误、开放解释、独立迁移与审校未完成时保留阻断项。
 
