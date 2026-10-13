@@ -32,7 +32,7 @@ $env:VAULT_API_PROXY_TARGET="http://127.0.0.1:$ApiPort"
 $webPortText=$WebPort.ToString()
 $web=Start-Process (Get-Command node).Source -ArgumentList 'node_modules/vite/bin/vite.js','--host','127.0.0.1','--port',$webPortText,'--strictPort' -WorkingDirectory "$workspace/apps/web" -WindowStyle Hidden -PassThru -RedirectStandardOutput "$workspace/.pytest-tmp-svc/dev-$WebPort.log" -RedirectStandardError "$workspace/.pytest-tmp-svc/dev-$WebPort.err"
 for($attempt=0;$attempt -lt 30;$attempt++){
-  try{$ready=Invoke-RestMethod "http://127.0.0.1:$ApiPort/api/v1/health/ready" -TimeoutSec 2;if($ready.status -eq 'ready' -and (Invoke-WebRequest "http://127.0.0.1:$WebPort/" -TimeoutSec 2).StatusCode -eq 200){@{api_port=$ApiPort;web_port=$WebPort} | ConvertTo-Json | Set-Content -Encoding utf8 '.pytest-tmp-svc/active-preview.json';Write-Output "Preview ready: http://127.0.0.1:$WebPort/ (API $ApiPort, vault_dev; no teacher fixtures)";exit 0}}catch{}
+  try{$ready=Invoke-RestMethod "http://127.0.0.1:$ApiPort/api/v1/health/ready" -TimeoutSec 2;if($ready.status -eq 'ready' -and (Invoke-WebRequest -UseBasicParsing "http://127.0.0.1:$WebPort/" -TimeoutSec 2).StatusCode -eq 200){@{api_port=$ApiPort;web_port=$WebPort} | ConvertTo-Json | Set-Content -Encoding utf8 '.pytest-tmp-svc/active-preview.json';Write-Output "Preview ready: http://127.0.0.1:$WebPort/ (API $ApiPort, vault_dev; no teacher fixtures)";exit 0}}catch{}
   Start-Sleep -Milliseconds 500
 }
 throw 'Preview did not become ready; inspect private .pytest-tmp-svc development logs.'
