@@ -75,12 +75,14 @@ def dimensions(manifest: dict, evidence: dict) -> dict:
         declared.update(codes)
         if activity.get("semantic_suite") or activity.get("check_version"):
             mechanism.update(codes)
-    executed = {code for code in objectives if (evidence.get(code) or {}).get("executed_ref")}
+    matching = {code: row for code, row in evidence.items() if isinstance(row, dict)
+                and row.get("course_version_id") == manifest.get("course_version_id")}
+    executed = {code for code in objectives if (matching.get(code) or {}).get("executed_ref")}
     accepted = {
         code
         for code in objectives
-        if (evidence.get(code) or {}).get("accepted_ref")
-        and (evidence.get(code) or {}).get("accepted") is True
+        if code in executed and (matching.get(code) or {}).get("accepted_ref")
+        and (matching.get(code) or {}).get("accepted") is True
     }
     return {
         "structure": len(objectives),

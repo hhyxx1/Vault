@@ -1,9 +1,24 @@
+import ReviewWork from './ReviewWork'
+import { saveCourseAttempt, saveStructuredAttempt, saveAlgebraAttempt } from '../local/database'
+import { retryAlgebraAttempt } from '../domain/algebra'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLocal } from '../local/LocalProvider'
 import { useAuth } from '../local/AuthProvider'
 import { AccountApiError } from '../api/accounts'
+import { manualReviewContent, type ManualWork, type ManualWorkKind } from '../domain/review-work'
+import type { WorkKind } from '../api/reviews'
 import type { CodeAttempt } from '../domain/code'
+import scopeCatalog from '../../../../content/courses/scope-catalog.json'
+
+// The learning context carries the course *id* (UUID); the review API expects the
+// short course code, so map it through the public scope catalog.
+const courseCodeById = new Map<string, string>(
+  [
+    ...scopeCatalog.courses,
+    ...((scopeCatalog as typeof scopeCatalog & { extra_courses?: typeof scopeCatalog.courses }).extra_courses ?? []),
+  ].map(item => [item.id, item.code]),
+)
 import {
   PROVENANCE_DESCRIPTION,
   PROVENANCE_LABEL,
@@ -21,8 +36,11 @@ import {
 
 type ReviewTarget = {
   key: string
+  workKind: WorkKind
+  files: Record<string, string>
+  synced?: boolean
   courseCode: string
-  courseVersionId: string
+  courseVersionId: string | null
   objectiveCode: string
   activityVersion: string
   artifactId: string
@@ -36,14 +54,12 @@ function changedFiles(before: Record<string, string>, after: Record<string, stri
   return [...names].filter(name => before[name] !== after[name])
 }
 
-function supplementsFor(assignment: ReviewAssignment, attempts: CodeAttempt[]): CodeAttempt[] {
-  return attempts.filter(attempt => {
-    const context = attempt.learning?.context
-    return attempt.result && context
-      && context.objectiveCode === assignment.objective_code
-      && context.activityVersionId === assignment.activity_version
-      && attempt.id !== assignment.artifact_revision_id
-  })
+function supplementsFor(assignment: ReviewAssignment, targets: ReviewTarget[]): ReviewTarget[] {
+  const submitted = new Set(assignment.work_snapshot.map(item => item.artifact_revision_id))
+  return targets.filter(target => target.objectiveCode === assignment.objective_code
+    && target.activityVersion === assignment.activity_version
+    && target.courseVersionId === (assignment.course_version_id ?? null)
+    && target.artifactId === assignment.artifact_id && !submitted.has(target.revisionId))
 }
 
 function targetsFromAttempts(attempts: CodeAttempt[]): ReviewTarget[] {
@@ -51,20 +67,20 @@ function targetsFromAttempts(attempts: CodeAttempt[]): ReviewTarget[] {
   const targets: ReviewTarget[] = []
   for (const attempt of attempts) {
     const context = attempt.learning?.context
-    if (!attempt.result || !context) continue
+    if (!context) continue
     const key = `${context.objectiveCode}:${attempt.id}`
     if (seen.has(key)) continue
     seen.add(key)
     targets.push({
-      key,
-      courseCode: context.courseId,
+      key, workKind: 'code_attempt', files: attempt.request.files,
+      courseCode: courseCodeById.get(context.courseId) ?? context.courseId,
       courseVersionId: context.courseVersionId,
       objectiveCode: context.objectiveCode,
       activityVersion: context.activityVersionId,
       artifactId: attempt.artifactId,
       revisionId: attempt.id,
       hash: attempt.requestHash,
-      status: attempt.result.status ?? '已完成核验',
+      status: attempt.result?.status ?? '已保存，提交时服务端核验',
     })
   }
   return targets
@@ -137,7 +153,7 @@ function EventTimeline({ assignment }: { assignment: ReviewAssignment }) {
 function AssignmentCard({ assignment, onChanged, supplements }: {
   assignment: ReviewAssignment
   onChanged: () => Promise<void>
-  supplements: CodeAttempt[]
+  supplements: ReviewTarget[]
 }) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -145,7 +161,7 @@ function AssignmentCard({ assignment, onChanged, supplements }: {
   const [supplementId, setSupplementId] = useState('')
   const [supplementNote, setSupplementNote] = useState('')
   const appealsLeft = Math.max(0, 2 - assignment.appeal_count)
-  const selectedSupplement = supplements.find(item => item.id === supplementId) ?? null
+  const selectedSupplement = supplements.find(item => item.revisionId === supplementId) ?? null
   const originalFiles = assignment.work_snapshot[0]?.request?.files ?? {}
 
   async function run(action: () => Promise<unknown>) {
@@ -156,7 +172,7 @@ function AssignmentCard({ assignment, onChanged, supplements }: {
   }
 
   return (
-    <article className="review-card">
+    <article className="review-card" data-assignment-id={assignment.id}>
       <header className="review-card-head">
         <div>
           <h3>{assignment.objective_code}</h3>
@@ -190,32 +206,33 @@ function AssignmentCard({ assignment, onChanged, supplements }: {
         </ul>
       </details>
 
+      <ReviewWork snapshots={assignment.work_snapshot} />
       <EventTimeline assignment={assignment} />
 
       {assignment.status === 'changes_requested' && (
         <div className="review-action">
           <h4>补充新材料后重新提交</h4>
-          <p className="field-note">选择你<strong>修改后并重新运行/核验</strong>的新作品版本；系统会取该版本的真实修订号与内容指纹，不接受手填。</p>
+          <p className="field-note">选择你<strong>修改后保存</strong>的新作品版本；系统会取该版本的真实修订号与内容指纹，不接受手填。</p>
           {supplements.length === 0
-            ? <p className="field-note">还没有新的已核验作品版本。请先到知识图谱修改作品并重新运行或核验，再回来补证。</p>
+            ? <p className="field-note">还没有新的作品版本。请先修改并保存作品，再回来补证。</p>
             : <>
               <label htmlFor={`supplement-${assignment.id}`}>新作品版本</label>
               <select id={`supplement-${assignment.id}`} value={supplementId} onChange={event => setSupplementId(event.target.value)}>
                 <option value="">请选择…</option>
                 {supplements.map(item => (
-                  <option key={item.id} value={item.id}>
-                    {item.learning?.context?.taskCode === 'semantic-suite' ? '独立语义核验' : '固定条件核验'} · 指纹 {item.requestHash.slice(0, 10)}… · {item.result?.status ?? '已核验'}
+                  <option key={item.key} value={item.revisionId}>
+                    {item.workKind === 'code_attempt' ? '代码作品' : '推演与解释'} · 指纹 {item.hash.slice(0, 10)}… · {item.status}
                   </option>
                 ))}
               </select>
               {selectedSupplement && (
                 <details>
-                  <summary>修改对照（{changedFiles(originalFiles, selectedSupplement.request.files).length} 个文件有变化）</summary>
-                  {changedFiles(originalFiles, selectedSupplement.request.files).length === 0 && <p className="field-note">内容未变化；请先修改作品再重新核验。</p>}
-                  {changedFiles(originalFiles, selectedSupplement.request.files).map(name => (
+                  <summary>修改对照（{changedFiles(originalFiles, selectedSupplement.files).length} 个文件有变化）</summary>
+                  {changedFiles(originalFiles, selectedSupplement.files).length === 0 && <p className="field-note">内容未变化；请先修改作品再重新核验。</p>}
+                  {changedFiles(originalFiles, selectedSupplement.files).map(name => (
                     <div key={name}>
                       <h5>{name}</h5>
-                      <pre className="artifact-source">{selectedSupplement.request.files[name] ?? '（已删除）'}</pre>
+                      <pre className="artifact-source">{selectedSupplement.files[name] ?? '（已删除）'}</pre>
                     </div>
                   ))}
                 </details>
@@ -223,12 +240,14 @@ function AssignmentCard({ assignment, onChanged, supplements }: {
               <label htmlFor={`note-${assignment.id}`}>补充说明</label>
               <textarea id={`note-${assignment.id}`} rows={3} value={supplementNote}
                 onChange={event => setSupplementNote(event.target.value)} placeholder="说明你针对退回意见做了哪些修改、新证据是什么。" />
-              <button className="button primary" disabled={busy || !selectedSupplement || !supplementNote.trim()}
+              {selectedSupplement && !selectedSupplement.synced && <p role="status">正在同步此版本，云端确认后即可补证。</p>}
+              <button className="button primary" disabled={busy || !selectedSupplement?.synced || !supplementNote.trim()}
                 onClick={() => run(async () => {
                   if (!selectedSupplement) return
                   const refs: EvidenceRef[] = [{
-                    artifact_revision_id: selectedSupplement.id,
-                    artifact_hash: selectedSupplement.requestHash,
+                    work_kind: selectedSupplement.workKind,
+                    artifact_revision_id: selectedSupplement.revisionId,
+                    artifact_hash: selectedSupplement.hash,
                     note: supplementNote.trim(),
                   }]
                   await resubmitReview(assignment.id, supplementNote.trim(), refs)
@@ -255,7 +274,10 @@ function AssignmentCard({ assignment, onChanged, supplements }: {
 }
 
 export default function Reviews() {
-  const { spaceId, codeAttempts } = useLocal()
+  const { spaceId, codeAttempts, courseAttempts, structuredAttempts, algebraAttempts, spaces, syncNow, syncItems } = useLocal()
+  // The review API is server-side: it needs the claimed *server* space id, not
+  // the local space id. The synced work lives in that server space.
+  const serverSpaceId = spaces.find(item => item.id === spaceId)?.serverId ?? null
   const { account, ready } = useAuth()
   const [assignments, setAssignments] = useState<ReviewAssignment[]>([])
   const [loading, setLoading] = useState(true)
@@ -265,7 +287,27 @@ export default function Reviews() {
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
 
-  const targets = useMemo(() => targetsFromAttempts(codeAttempts), [codeAttempts])
+  const [manualTargets, setManualTargets] = useState<ReviewTarget[]>([])
+  useEffect(() => {
+    let active = true
+    const groups: [ManualWorkKind, ManualWork[]][] = [['course_attempt', courseAttempts], ['structured_attempt', structuredAttempts], ['algebra_attempt', algebraAttempts]]
+    Promise.all(groups.flatMap(([workKind, works]) => works.map(async work => {
+      const { content, hash } = await manualReviewContent(workKind, work)
+      const target: ReviewTarget = {
+        key: `${workKind}:${work.id}`, workKind, courseCode: work.courseCode,
+        courseVersionId: 'courseVersionId' in work ? work.courseVersionId : null,
+        objectiveCode: 'objectiveCode' in work ? work.objectiveCode : work.objectiveId,
+        activityVersion: 'activityVersionId' in work ? work.activityVersionId : work.activityVersion,
+        artifactId: work.artifactId, revisionId: work.id, hash,
+        files: { '推演与解释.json': JSON.stringify(content, null, 2) }, status: '学生作品，待人工审阅',
+      }
+      return target
+    }))).then(values => { if (active) setManualTargets(values) })
+    return () => { active = false }
+  }, [courseAttempts, structuredAttempts, algebraAttempts])
+  const targets = useMemo(() => [...targetsFromAttempts(codeAttempts), ...manualTargets].map(target => ({
+    ...target, synced: syncItems.some(item => item.objectId === target.revisionId && item.objectType === target.workKind && item.status === 'synced'),
+  })), [codeAttempts, manualTargets, syncItems])
   const openKeys = useMemo(
     () => new Set(assignments
       .filter(item => ['awaiting_review', 'claimed', 'resubmitted', 'in_appeal', 'changes_requested'].includes(item.status))
@@ -288,16 +330,22 @@ export default function Reviews() {
   async function submit() {
     const target = availableTargets.find(item => item.key === selected)
     if (!account || !target) return
+    if (!serverSpaceId) {
+      setSubmitError('本机空间尚未关联到云端账号，无法提交人工审阅。请先在“我的记录”完成同步。')
+      return
+    }
     setSubmitting(true); setSubmitError('')
     try {
       const evidence = buildEvidenceSnapshot({
         serverSummary: `服务端执行/核验状态：${target.status}；作品版本 hash ${target.hash.slice(0, 16)}…。规则结果仅说明本次运行，不代表教师已认可。`,
         studentSummary: studentNote,
       })
+      await syncNow()
       const assignment = await createReviewAssignment({
+        work_kind: target.workKind,
         assignment_id: crypto.randomUUID(),
         expected_account_id: account.id,
-        space_id: spaceId,
+        space_id: serverSpaceId,
         audience: 'platform_teachers',
         teacher_account_id: null,
         course_code: target.courseCode,
@@ -312,6 +360,17 @@ export default function Reviews() {
         student_note: studentNote.trim() || null,
       })
       setAssignments(current => [...current, assignment])
+      const stamp = new Date().toISOString()
+      if (target.workKind === 'course_attempt') {
+        const work = courseAttempts.find(item => item.id === target.revisionId)
+        if (work && !work.submittedAt) await saveCourseAttempt({ ...work, submittedAt: stamp })
+      } else if (target.workKind === 'structured_attempt') {
+        const work = structuredAttempts.find(item => item.id === target.revisionId)
+        if (work && !work.submittedAt) await saveStructuredAttempt({ ...work, submittedAt: stamp })
+      } else if (target.workKind === 'algebra_attempt') {
+        const work = algebraAttempts.find(item => item.id === target.revisionId)
+        if (work && !work.submittedAt) await saveAlgebraAttempt(retryAlgebraAttempt(work))
+      }
       setSelected(''); setStudentNote('')
     } catch (failure) {
       setSubmitError(failure instanceof AccountApiError ? failure.message : '提交未完成，请稍后重试。')
@@ -340,7 +399,7 @@ export default function Reviews() {
       <div className="page-heading">
         <div>
           <h1>人工审阅与异议</h1>
-          <p>把一个已完成真实核验的作品版本提交给教师，按客观结果、解释设计、独立迁移逐条审阅；你可以补充材料或对结论提出异议。</p>
+          <p>把一个已保存的代码、推演或解释作品提交给教师，按客观结果、解释设计、独立迁移逐条审阅；你可以补充材料或对结论提出异议。</p>
         </div>
         <span className="small-tag">规则结果 / 模型建议 / 本人自述 / 教师意见 / 专业审校 五类来源分开</span>
       </div>
@@ -351,9 +410,9 @@ export default function Reviews() {
       <section className="review-submit">
         <div className="section-heading"><h2>提交新的审阅申请</h2><span>{availableTargets.length} 个可提交版本</span></div>
         {availableTargets.length === 0
-          ? <p className="field-note">还没有可提交的已核验作品版本。先到知识图谱完成一次真实运行或核验，再回来提交。</p>
+          ? <p className="field-note">还没有可提交的作品版本。先到学习工作台保存代码、推演或解释，再回来提交。</p>
           : <>
-            <label htmlFor="review-target">选择已核验的作品版本</label>
+            <label htmlFor="review-target">选择已保存的作品版本</label>
             <select id="review-target" value={selected} onChange={event => setSelected(event.target.value)}>
               <option value="">请选择…</option>
               {availableTargets.map(target => (
@@ -365,7 +424,8 @@ export default function Reviews() {
             <label htmlFor="review-note">给教师的设计与思路说明</label>
             <textarea id="review-note" rows={4} value={studentNote} onChange={event => setStudentNote(event.target.value)}
               placeholder="说明你的设计、如何保证独立输入也成立、哪些地方希望教师重点看。" />
-            <button className="button primary" disabled={submitting || !selected} onClick={submit}>
+            {selected && !availableTargets.find(item => item.key === selected)?.synced && <p role="status">正在同步此版本，云端确认后即可提交。</p>}
+            <button className="button primary" disabled={submitting || !availableTargets.find(item => item.key === selected)?.synced} onClick={submit}>
               {submitting ? '正在提交…' : '提交人工审阅'}
             </button>
           </>}
@@ -378,7 +438,7 @@ export default function Reviews() {
           : loadError ? <div className="inline-message">{loadError}</div>
           : assignments.length === 0 ? <p className="field-note">还没有提交过人工审阅。</p>
           : assignments.slice().sort((a, b) => b.updated_at.localeCompare(a.updated_at))
-            .map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} onChanged={refresh} supplements={supplementsFor(assignment, codeAttempts)} />)}
+            .map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} onChanged={refresh} supplements={supplementsFor(assignment, targets)} />)}
       </section>
     </div>
   )

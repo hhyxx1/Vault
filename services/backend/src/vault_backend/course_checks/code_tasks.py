@@ -99,6 +99,11 @@ class Task:
 
 
 # Authored independently from submitted source; no uploaded grading programs.
+VERSION_ACTIVITIES["0a210de3-0057-5957-986a-902ab7580e18"] = {
+    **VERSION_ACTIVITIES["7ca20169-02d2-5719-b3f0-eff208ae89db"],
+    "CS01-M03-O03": "ae1295a6-3157-5859-82c8-b12c151f90af",
+}
+
 RULES = {
     ("CS01-M01-O01", "base"): ("", "success", "Hello, learner!\n", ""),
     ("CS01-M01-O01", "wrong-output"): ("", "success", "5\n", ""),

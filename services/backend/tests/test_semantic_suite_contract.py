@@ -16,10 +16,23 @@ def _load(settings):
     path = (
         settings.course_catalog_path.parent
         / "CS01"
-        / "CS01-core-practice-0.9.0"
+        / "CS01-core-practice-0.10.0"
         / "manifest.json"
     )
     return json.loads(path.read_text(encoding="utf-8")), path
+
+
+def test_old_course_definition_stays_available_without_new_suite(settings):
+    root = settings.course_catalog_path.parent
+    old = json.loads((root / "CS01/CS01-core-practice-0.9.0/manifest.json").read_text(
+        encoding="utf-8"))
+    assert old["course_version_id"] == "7ca20169-02d2-5719-b3f0-eff208ae89db"
+    assert not any(activity.get("semantic_suite") for activity in old["activities"])
+    catalog = json.loads((root / "scope-catalog.json").read_text(encoding="utf-8"))
+    latest = next(course for course in catalog["courses"] if course["code"] == "CS01")
+    assert latest["version_id"] != old["course_version_id"]
+    assert any(course["version_id"] == old["course_version_id"]
+               for course in catalog["archived_courses"])
 
 
 def _all_packages(settings):

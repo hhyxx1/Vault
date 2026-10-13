@@ -802,8 +802,8 @@ async def read_conflicts(
                     object_id=row.object_id,
                     base_version=str(row.base_version),
                     current_version=str(row.current_version),
-                    incoming_payload=row.incoming_payload,
-                    payload_hash=row.payload_hash.hex(),
+                    incoming_payload=redact_hidden_suite_fields(row.incoming_payload),
+                    payload_hash=payload_hash(redact_hidden_suite_fields(row.incoming_payload)),
                     created_at=row.created_at,
                 )
                 for row in rows

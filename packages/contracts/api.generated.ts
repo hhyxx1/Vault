@@ -1562,6 +1562,12 @@ export interface components {
             artifact_revision_id: string;
             /** Note */
             note: string;
+            /**
+             * Work Kind
+             * @default code_attempt
+             * @enum {string}
+             */
+            work_kind: "code_attempt" | "course_attempt" | "structured_attempt" | "algebra_attempt";
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -2139,6 +2145,12 @@ export interface components {
             student_note?: string | null;
             /** Teacher Account Id */
             teacher_account_id?: string | null;
+            /**
+             * Work Kind
+             * @default code_attempt
+             * @enum {string}
+             */
+            work_kind: "code_attempt" | "course_attempt" | "structured_attempt" | "algebra_attempt";
         };
         /** ReviewEventOut */
         ReviewEventOut: {

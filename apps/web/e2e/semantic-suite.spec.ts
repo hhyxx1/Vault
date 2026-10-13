@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const CS01_VERSION = '7ca20169-02d2-5719-b3f0-eff208ae89db'
+const CS01_VERSION = '0a210de3-0057-5957-986a-902ab7580e18'
 const OBJECTIVE = 'CS01-M03-O03'
 
 const GENERAL_SOURCE = `#include <stdio.h>

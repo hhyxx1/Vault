@@ -103,15 +103,15 @@ class AuthoritativeVerifier:
                 "服务端执行环境暂不可用，无法完成权威核验；请稍后重新提交。",
             )
         assessment = assess_task(task, code, result)
-        criteria = assessment.criteria
+        criteria = assessment["criteria"]
         return {
             "checker_kind": "fixed_task",
-            "standard_version": assessment.standard_version,
-            "outcome": _outcome([criterion.model_dump() for criterion in criteria]),
+            "standard_version": assessment["standard_version"],
+            "outcome": _outcome(criteria),
             "detail": {
-                "criteria": [criterion.model_dump() for criterion in criteria],
+                "criteria": criteria,
                 "task_code": task.task_code,
-                "checker_version": assessment.standard_version,
+                "checker_version": assessment["standard_version"],
             },
         }
 

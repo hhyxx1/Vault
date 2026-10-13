@@ -1,56 +1,29 @@
-"""Trust-boundary redaction of historical hidden semantic-suite data.
+"""Remove historical hidden-suite details at storage and response boundaries."""
 
-Early suite results stored the independent (server-held) cases in full —
-stdin, expected answer and observed output — inside ordinary learning records.
-The server now redacts at the trust boundary so those secrets can never be
-re-served, re-imported, exported or frozen into a review snapshot, regardless
-of the client. This is a server-side guarantee, not a frontend display choice.
-"""
-
-from __future__ import annotations
-
-import copy
-
-_HIDDEN_REASON = "保密独立输入不公开；历史记录已在服务端去敏。"
+_HIDDEN_REASON = "保密独立输入不公开；仅保留公开判定与汇总。"
 
 
 def redact_hidden_suite_fields(payload: object) -> object:
-    """Return a copy of ``payload`` with independent-case secrets removed.
-
-    Only the server-held independent cases are touched; the public aggregate
-    counts and the learning-visible cases are preserved verbatim.
-    """
+    """Copy only changed branches; cover exports and nested review snapshots too."""
+    if isinstance(payload, list):
+        cleaned = [redact_hidden_suite_fields(item) for item in payload]
+        return payload if all(a is b for a, b in zip(payload, cleaned, strict=True)) else cleaned
     if not isinstance(payload, dict):
         return payload
-    result = payload.get("result")
-    if not isinstance(result, dict):
-        return payload
-    suite = result.get("suite_assessment")
-    if not isinstance(suite, dict):
-        return payload
-    cases = suite.get("cases")
-    if not isinstance(cases, list):
-        return payload
-    cleaned = copy.deepcopy(payload)
-    redacted = False
-    ordinal = 0
-    for case in cleaned["result"]["suite_assessment"]["cases"]:
-        if not isinstance(case, dict) or case.get("kind") != "independent":
-            continue
-        ordinal += 1
-        if (
-            case.get("stdin") is not None
-            or case.get("expected_stdout") is not None
-            or case.get("observed_stdout") is not None
-            or not str(case.get("case_code", "")).startswith("independent-")
-        ):
-            redacted = True
-        case["stdin"] = None
-        case["expected_stdout"] = None
-        case["observed_stdout"] = None
-        case["case_code"] = f"independent-{ordinal}"
-        if case.get("reason"):
-            case["reason"] = _HIDDEN_REASON
-    if not redacted:
-        return payload
-    return cleaned
+    cleaned = {key: redact_hidden_suite_fields(value) for key, value in payload.items()}
+    suite = cleaned.get("suite_assessment")
+    if isinstance(suite, dict) and isinstance(suite.get("cases"), list):
+        cases = []
+        ordinal = 0
+        for case in suite["cases"]:
+            if isinstance(case, dict) and case.get("kind") == "independent":
+                ordinal += 1
+                case = dict(case, stdin=None, expected_stdout=None, observed_stdout=None,
+                            case_code=f"independent-{ordinal}", reason=_HIDDEN_REASON)
+            cases.append(case)
+        if ordinal:
+            # Old aggregate reasons also embedded private input/answer values.
+            criteria = [dict(row, reason=_HIDDEN_REASON) if isinstance(row, dict) else row
+                        for row in suite.get("criteria", [])]
+            cleaned["suite_assessment"] = dict(suite, cases=cases, criteria=criteria)
+    return payload if cleaned == payload else cleaned

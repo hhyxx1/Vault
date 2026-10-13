@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { redactHiddenSuites } from '../domain/redaction'
 import { Link } from 'react-router-dom'
 import { useLocal } from '../local/LocalProvider'
 import { useAuth } from '../local/AuthProvider'
@@ -56,7 +57,7 @@ export default function LocalSpace() {
         schemaVersion: '10', kind: 'qionglong-local-export', exportedAt: new Date().toISOString(), spaceId,
         drafts: await database.drafts.where('spaceId').equals(spaceId).toArray(), revisions: await database.revisions.where('spaceId').equals(spaceId).toArray(), evidence: await database.evidence.where('spaceId').equals(spaceId).toArray(), help: await database.help.where('spaceId').equals(spaceId).toArray(), teacherDrafts: await database.teacherDrafts.where('spaceId').equals(spaceId).toArray(), personalCourses: await database.personalCourses.where('spaceId').equals(spaceId).toArray(), personalCourseVersions: await database.personalCourseVersions.where('spaceId').equals(spaceId).toArray(), personalAttempts: await database.personalAttempts.where('spaceId').equals(spaceId).toArray(), personalAssists: await database.personalAssists.where('spaceId').equals(spaceId).toArray(), courseAttempts: await database.courseAttempts.where('spaceId').equals(spaceId).toArray(), structuredAttempts: await database.structuredAttempts.where('spaceId').equals(spaceId).toArray(), codeAttempts: await database.codeAttempts.where('spaceId').equals(spaceId).toArray(), codeDrafts: await database.codeDrafts.where('spaceId').equals(spaceId).toArray(), algebraAttempts: await database.algebraAttempts.where('spaceId').equals(spaceId).toArray(),
       }))
-      const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = `qionglong-local-${new Date().toISOString().slice(0, 10)}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000)
+      const url = URL.createObjectURL(new Blob([JSON.stringify(redactHiddenSuites(data), null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = `qionglong-local-${new Date().toISOString().slice(0, 10)}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000)
       setMessage('已生成本地导出文件，请妥善保存。其中包含你的作品与学习记录。')
     } catch { setMessage('导出未完成，请检查本地存储后重试。') } finally { setBusy(false) }
   }

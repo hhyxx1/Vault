@@ -63,7 +63,7 @@ test('student review page is honest about the absence of a real reviewer', async
   await expect(page.locator('.reviews-page')).toContainText('不会自动签名或通过')
   await expect(page.locator('.reviews-page')).toContainText('专业审校当前')
   // With no verified local artifact there is nothing to submit yet.
-  await expect(page.locator('.review-submit')).toContainText('还没有可提交的已核验作品版本')
+  await expect(page.locator('.review-submit')).toContainText('还没有可提交的作品版本')
   await expect(page.locator('.review-list')).toContainText('还没有提交过人工审阅')
   await capture(page, 'reviews-student', isMobile)
 })

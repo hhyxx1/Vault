@@ -24,7 +24,7 @@ from __future__ import annotations
 import math
 from collections import Counter
 from collections.abc import Awaitable, Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Literal
 
 from vault_backend.code_execution import CodeRequest, CodeResult, request_hash
@@ -150,12 +150,21 @@ SUITES: dict[tuple[str, str], SemanticSuite] = {
 }
 
 
+# Preserve compatibility for records made before the discovery-version correction.
+LEGACY_SUITES = dict(SUITES)
+_legacy = LEGACY_SUITES[(_CS01_090, "CS01-M03-O03")]
+SUITES = {("0a210de3-0057-5957-986a-902ab7580e18", "CS01-M03-O03"): replace(
+    _legacy, course_version_id="0a210de3-0057-5957-986a-902ab7580e18",
+    activity_version_id="ae1295a6-3157-5859-82c8-b12c151f90af")}
+
+
 def get_suite(
     course_version_id: str,
     objective_code: str,
     activity_version_id: str | None = None,
 ) -> SemanticSuite:
-    suite = SUITES.get((course_version_id, objective_code))
+    suite = SUITES.get((course_version_id, objective_code)) or LEGACY_SUITES.get(
+        (course_version_id, objective_code))
     if suite is None:
         raise ApiError(404, "SEMANTIC_SUITE_UNAVAILABLE", "该目标没有登记受信语义核验套件。")
     if activity_version_id is not None and activity_version_id != suite.activity_version_id:

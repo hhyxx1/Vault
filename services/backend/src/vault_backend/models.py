@@ -349,7 +349,7 @@ class ReviewAssignment(Base):
     owner_account_id: Mapped[UUID] = mapped_column(ForeignKey("account.id"), index=True)
     audience: Mapped[str] = mapped_column(String(24))
     teacher_account_id: Mapped[UUID | None] = mapped_column()
-    course_code: Mapped[str] = mapped_column(String(32))
+    course_code: Mapped[str] = mapped_column(String(64))
     course_version_id: Mapped[UUID | None] = mapped_column()
     objective_code: Mapped[str] = mapped_column(String(80))
     activity_version: Mapped[str] = mapped_column(String(120))

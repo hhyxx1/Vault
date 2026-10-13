@@ -1819,6 +1819,17 @@
             "minLength": 1,
             "title": "Note",
             "type": "string"
+          },
+          "work_kind": {
+            "default": "code_attempt",
+            "enum": [
+              "code_attempt",
+              "course_attempt",
+              "structured_attempt",
+              "algebra_attempt"
+            ],
+            "title": "Work Kind",
+            "type": "string"
           }
         },
         "required": [
@@ -3065,7 +3076,7 @@
             "type": "string"
           },
           "course_code": {
-            "maxLength": 32,
+            "maxLength": 64,
             "minLength": 1,
             "title": "Course Code",
             "type": "string"
@@ -3138,6 +3149,17 @@
               }
             ],
             "title": "Teacher Account Id"
+          },
+          "work_kind": {
+            "default": "code_attempt",
+            "enum": [
+              "code_attempt",
+              "course_attempt",
+              "structured_attempt",
+              "algebra_attempt"
+            ],
+            "title": "Work Kind",
+            "type": "string"
           }
         },
         "required": [

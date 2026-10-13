@@ -8,6 +8,7 @@ content fingerprint, derives its server_tool evidence server-side, freezes the
 actual work for the teacher, and cannot approve unmet criteria.
 """
 
+import hashlib
 import json
 import os
 import secrets
@@ -33,6 +34,91 @@ RUBRIC = [
     {"id": "independent", "title": "独立迁移表现", "kind": "independent_transfer"},
 ]
 HASH = "a" * 64
+
+
+async def test_teacher_cannot_submit_duplicate_criterion_results(env):
+    _, _, assignment, _ = await open_assignment(env)
+    teacher, _ = env.seed(f"duplicate-{uuid4()}", "teacher", verified=True)
+    path = f"/api/v1/reviews/assignments/{assignment['id']}"
+    assert (await teacher.post(path + "/claim", json={})).status_code == 200
+    rows = results("met")
+    response = await teacher.post(path + "/decisions", json={
+        "decision": "approved", "rubric_results": rows + [rows[0]], "comment": "重复条目"})
+    assert response.status_code == 422
+
+
+async def test_resubmission_cannot_reuse_an_already_frozen_revision(env):
+    student, _, assignment, work = await open_assignment(env)
+    teacher, _ = env.seed(f"same-revision-{uuid4()}", "teacher", verified=True)
+    path = f"/api/v1/reviews/assignments/{assignment['id']}"
+    await teacher.post(path + "/claim", json={})
+    await teacher.post(path + "/decisions", json={"decision": "changes_requested",
+                      "rubric_results": results("needs_review"), "comment": "请修改"})
+    response = await student.post(path + "/resubmit", json={"comment": "没有改作品",
+                                 "evidence_refs": [{"artifact_revision_id": str(work.revision_id),
+                                                    "artifact_hash": work.hash, "note": "原版"}]})
+    assert response.status_code == 422
+
+
+@pytest.mark.parametrize("work_kind", ["course_attempt", "structured_attempt", "algebra_attempt"])
+async def test_non_code_work_can_be_reviewed_without_claiming_automatic_verification(
+    env, work_kind,
+):
+    student, owner = env.seed(f"manual-{uuid4()}", "student")
+    space_id = await env.claim_space(student, owner)
+    revision, artifact = uuid4(), uuid4()
+    content = {"courseCode": "CS05", "objectiveId": "CS05-LOGIC-01",
+               "activityVersion": "CS05-LOGIC-01-TABLE@0.1.0",
+               "rows": [{"implication": None, "contrapositive": None,
+                         "biconditional": None} for _ in range(4)],
+               "explanation": "我用反例区分逆命题，尚未完成所有推演，申请教师反馈。"}
+    if work_kind == "structured_attempt":
+        content = {"courseCode": "CS03", "objectiveCode": "CS03-QUEUE-01",
+                   "activityVersion": "CS03-QUEUE-01-TRACE@0.1.0",
+                   "kind": "structured_trace", "traceRows": [], "bracketRows": [],
+                   "explanation": "队列推演尚未完成，请教师指出设计问题。"}
+    elif work_kind == "algebra_attempt":
+        content = {"courseCode": "CS05", "objectiveCode": "CS05-M04-O01",
+                   "courseVersionId": str(uuid4()), "activityVersionId": str(uuid4()),
+                   "activityVersion": "algebra@0.1.0", "mode": "group",
+                   "table": [["0"]], "secondTable": None, "mapping": None,
+                   "predictions": {"closed": "", "associative": "", "is_group": ""},
+                   "explanation": "先尝试单元素运算表，等待教师审阅解释。"}
+    content_hash = hashlib.sha256(json.dumps(content, ensure_ascii=False, sort_keys=True,
+                                             separators=(",", ":")).encode()).hexdigest()
+    payload = dict(content, id=str(revision), artifactId=str(artifact), spaceId=str(space_id),
+                   result=None, createdAt=datetime.now(UTC).isoformat(),
+                   updatedAt=datetime.now(UTC).isoformat())
+    owner_url, _ = urls()
+    with psycopg.connect(owner_url) as conn:
+        conn.execute("INSERT INTO sync_object (space_id,object_type,object_id,server_object_id,"
+                     "version,payload_hash,payload,provenance) "
+                     "VALUES (%s,%s,%s,%s,1,%s,%s::jsonb,'client_reported')",
+                     (space_id, work_kind, str(revision), uuid4(), bytes.fromhex(content_hash),
+                      json.dumps(payload)))
+    work = SimpleNamespace(course_version_id=content.get("courseVersionId"),
+                           objective=content.get("objectiveCode", content.get("objectiveId")),
+                           activity_version=content.get("activityVersionId",
+                                                        content["activityVersion"]),
+                           artifact_id=artifact,
+                           revision_id=revision, hash=content_hash)
+    body = create_payload(owner, space_id, work, work_kind=work_kind,
+                          course_code=content["courseCode"],
+                          course_version_id=work.course_version_id)
+    response = await student.post("/api/v1/reviews/assignments", json=body,
+                                 headers={"Idempotency-Key": body["assignment_id"]})
+    assert response.status_code == 201, response.text
+    assignment = response.json()
+    snapshot = assignment["work_snapshot"][0]
+    assert snapshot["kind"] == work_kind
+    assert snapshot["content"] == content
+    assert snapshot["server_verification"] is None
+    assert not any(item["kind"] == "server_tool" for item in assignment["evidence_snapshot"])
+    assert env.verifier.calls == 0
+    teacher, _ = env.seed(f"manual-teacher-{uuid4()}", "teacher", verified=True)
+    claimed = await teacher.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim", json={})
+    assert claimed.status_code == 200
+    assert claimed.json()["work_snapshot"][0]["content"]["explanation"] == content["explanation"]
 
 
 class FakeVerifier:

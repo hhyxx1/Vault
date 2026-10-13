@@ -1,4 +1,5 @@
 import Dexie, { type Table } from 'dexie'
+import { redactHiddenSuites } from '../domain/redaction'
 import { newDraft, type Draft, type ArtifactRevision, type EvidenceRecord, type HelpEvent, type TeacherDraft } from '../domain/learning'
 import { canonicalJson } from '../domain/integrity'
 import type { PersonalAssist, PersonalAttempt, PersonalCourse, PersonalCourseVersion } from '../domain/personal'
@@ -58,6 +59,11 @@ export class LearningDatabase extends Dexie {
     this.version(8).stores({ codeAttempts: '[spaceId+id], spaceId, activityKey' })
     this.version(9).stores({ codeDrafts: '[spaceId+id], spaceId, activityKey' })
     this.version(10).stores({ algebraAttempts: '[spaceId+id], spaceId, objectiveCode, activityVersionId' })
+    this.version(11).stores({}).upgrade(async tx => {
+      await tx.table('codeAttempts').toCollection().modify(record => {
+        Object.assign(record, redactHiddenSuites(record))
+      })
+    })
     this.algebraAttempts = this.table('algebraAttempts')
     this.codeDrafts = this.table('codeDrafts')
     this.codeAttempts = this.table('codeAttempts')

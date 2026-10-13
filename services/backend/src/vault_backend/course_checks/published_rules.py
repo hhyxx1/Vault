@@ -623,3 +623,7 @@ PUBLISHED_RULES = {
         ),
     },
 }
+
+# New discovery version keeps every existing fixed-condition comparison.
+PUBLISHED_RULES["0a210de3-0057-5957-986a-902ab7580e18"] = dict(
+    PUBLISHED_RULES["7ca20169-02d2-5719-b3f0-eff208ae89db"])

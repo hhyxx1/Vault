@@ -19,7 +19,8 @@ export type EvidenceProvenance =
 export type RubricCriterion = { id: string; title: string; kind: RubricKind }
 export type EvidenceItem = { kind: StudentEvidenceKind; summary: string }
 export type RubricResult = { id: string; status: RubricCriterionStatus; note: string }
-export type EvidenceRef = { artifact_revision_id: string; artifact_hash: string; note: string }
+export type WorkKind = 'code_attempt' | 'course_attempt' | 'structured_attempt' | 'algebra_attempt'
+export type EvidenceRef = { work_kind?: WorkKind; artifact_revision_id: string; artifact_hash: string; note: string }
 export type TeacherSignature = {
   teacher_account_id: string
   display_name: string
@@ -46,8 +47,13 @@ export type WorkSnapshot = {
   artifact_revision_id: string
   artifact_hash: string
   note?: string
-  request: { language: string; entry: string; files: Record<string, string>; stdin: string }
-  result: Record<string, unknown> | null
+  request?: { language: string; entry: string; files: Record<string, string>; stdin: string }
+  content?: Record<string, unknown>
+  learning_context?: Record<string, unknown>
+  help_records?: Record<string, unknown>[]
+  server_verification?: { provenance: string; outcome: string; standard_version: string; verification_id: string; detail: Record<string, unknown> } | null
+  client_reported_result?: Record<string, unknown> | null
+  result?: Record<string, unknown> | null
 }
 export type ReviewAssignment = {
   id: string
@@ -92,7 +98,7 @@ export const PROVENANCE_LABEL: Record<EvidenceProvenance, string> = {
 }
 
 export const PROVENANCE_DESCRIPTION: Record<EvidenceProvenance, string> = {
-  server_tool: '由服务端检查器对当前作品版本与独立输入计算得出。',
+  server_tool: '由服务端重新执行当前作品并核验，适用范围以冻结记录中的检查器和条件为准。',
   model_suggestion: '学习助手生成的建议，不能单独作为达标依据。',
   student_self: '学生对设计与思路的自述，需教师判断。',
   teacher_review: '由已认证教师在审阅工单中签署的意见。',
@@ -108,6 +114,7 @@ export const STANDARD_RUBRIC: RubricCriterion[] = [
 ]
 
 export type ReviewCreateBody = {
+  work_kind?: WorkKind
   assignment_id: string
   expected_account_id: string
   space_id: string

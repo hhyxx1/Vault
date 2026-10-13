@@ -21,6 +21,7 @@ RubricStatus = Literal["met", "not_met", "needs_review"]
 StudentEvidenceKind = Literal["server_tool", "model_suggestion", "student_self"]
 Audience = Literal["platform_teachers", "specific_teacher"]
 Decision = Literal["approved", "changes_requested"]
+WorkKind = Literal["code_attempt", "course_attempt", "structured_attempt", "algebra_attempt"]
 
 
 class RubricCriterionIn(WriteModel):
@@ -35,12 +36,13 @@ class EvidenceItemIn(WriteModel):
 
 
 class ReviewCreateRequest(WriteModel):
+    work_kind: WorkKind = "code_attempt"
     assignment_id: UUID
     expected_account_id: UUID
     space_id: UUID
     audience: Audience = "platform_teachers"
     teacher_account_id: UUID | None = None
-    course_code: str = Field(min_length=1, max_length=32)
+    course_code: str = Field(min_length=1, max_length=64)
     course_version_id: UUID | None = None
     objective_code: str = Field(min_length=1, max_length=80)
     activity_version: str = Field(min_length=1, max_length=120)
@@ -75,6 +77,7 @@ class DecisionRequest(WriteModel):
 
 
 class EvidenceRefIn(WriteModel):
+    work_kind: WorkKind = "code_attempt"
     artifact_revision_id: UUID
     artifact_hash: str = Hash
     note: str = Field(min_length=1, max_length=1000)
@@ -122,14 +125,14 @@ class ReviewAssignmentOut(BaseModel):
     artifact_hash: str
     rubric: list
     evidence_snapshot: list
-    work_snapshot: list = Field(default=list)
+    work_snapshot: list = Field(default_factory=list)
     status: str
     claimed_by_account_id: UUID | None = None
     review_service_available: bool
     appeal_count: int
     created_at: str
     updated_at: str
-    events: list[ReviewEventOut] = Field(default=list)
+    events: list[ReviewEventOut] = Field(default_factory=list)
 
 
 class ReviewListOut(BaseModel):

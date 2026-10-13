@@ -1,3 +1,4 @@
+import ReviewWork from './ReviewWork'
 import { useEffect, useState } from 'react'
 import { AccountApiError } from '../api/accounts'
 import {
@@ -13,15 +14,6 @@ import {
 import { useAuth } from '../local/AuthProvider'
 
 type RubricForm = Record<string, { status: RubricCriterionStatus | ''; note: string }>
-
-function snapshotResultSummary(result: Record<string, unknown> | null): string {
-  const assessment = (result?.suite_assessment ?? result?.task_assessment) as
-    | { standard_version?: string; criteria?: { id: string; status: string }[] }
-    | undefined
-  const fixed = assessment?.criteria?.find(item => item.id === 'fixed_condition')
-  const label = fixed?.status === 'met' ? '通过' : fixed?.status === 'not_met' ? '未通过' : fixed?.status === 'needs_review' ? '待复核' : '未知'
-  return `${assessment?.standard_version ?? '未知标准'} · 固定条件 ${label}`
-}
 
 function initialRubricForm(assignment: ReviewAssignment): RubricForm {
   const form: RubricForm = {}
@@ -53,7 +45,7 @@ function QueueItem({ assignment, onChanged }: {
   })
 
   return (
-    <article className="review-card teacher-review-card">
+    <article className="review-card teacher-review-card" data-assignment-id={assignment.id}>
       <header className="review-card-head">
         <div>
           <h3>{assignment.objective_code}</h3>
@@ -85,18 +77,7 @@ function QueueItem({ assignment, onChanged }: {
         </p>
       </details>
 
-      <details className="review-evidence-details" open={!mine}>
-        <summary>冻结的作品与核验（{assignment.work_snapshot.length} 个版本）</summary>
-        {assignment.work_snapshot.map((snapshot, index) => (
-          <div key={index} className="review-work-snapshot">
-            <p className="field-note">版本 {index + 1} · 内容指纹 {snapshot.artifact_hash.slice(0, 12)}…{snapshot.note ? ` · ${snapshot.note}` : ''}</p>
-            {Object.entries(snapshot.request?.files ?? {}).map(([name, source]) => (
-              <div key={name}><h6>{name}</h6><pre className="artifact-source">{source}</pre></div>
-            ))}
-            <p className="field-note">核验：{snapshotResultSummary(snapshot.result)}</p>
-          </div>
-        ))}
-      </details>
+      <ReviewWork snapshots={assignment.work_snapshot} />
 
       {!mine && assignment.status === 'awaiting_review' && (
         <button className="button primary" disabled={busy}

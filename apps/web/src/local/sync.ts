@@ -1,4 +1,5 @@
 import Dexie from 'dexie'
+import { redactHiddenSuites } from '../domain/redaction'
 import { accountRequest, authenticatedRequest, AccountApiError, type Account } from '../api/accounts'
 import { canonicalHash, canonicalJson } from '../domain/integrity'
 import type { Draft, ArtifactRevision, EvidenceRecord, HelpEvent, TeacherDraft } from '../domain/learning'
@@ -23,7 +24,7 @@ async function allPayloads(spaceId: string, db: LearningDatabase): Promise<{ typ
   const records: { type: ObjectType; id: string; payload: Record<string, unknown> }[] = []
   for (const type of types.filter(type => type !== 'position')) {
     for (const value of await tableFor(type as Exclude<ObjectType, 'position'>, db).where('spaceId').equals(spaceId).toArray()) {
-      const payload = { ...value } as Record<string, unknown>; delete payload.trust
+      const payload = redactHiddenSuites({ ...value }) as Record<string, unknown>; delete payload.trust
       delete payload.resultTrust
       records.push({ type, id: String(type === 'revision' ? payload.revisionId : payload.id), payload })
     }
@@ -126,7 +127,7 @@ async function putChange(spaceId: string, change: Change, db: LearningDatabase) 
   }
   const table = tableFor(change.object_type, db)
   if (change.deleted) { await table.delete([spaceId, change.object_id]); return }
-  const payload = { ...change.payload, spaceId }
+  const payload = redactHiddenSuites({ ...change.payload, spaceId })
   if (change.object_type === 'evidence') (payload as unknown as EvidenceRecord).trust = 'client_reported'
   if (['course_attempt', 'structured_attempt', 'code_attempt', 'algebra_attempt'].includes(change.object_type) && (payload as Record<string, unknown>).result) (payload as unknown as CourseAttempt).resultTrust = 'client_reported'
   // Schemas are validated by the API, then written to the matching compound store.

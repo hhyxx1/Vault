@@ -198,3 +198,6 @@
 3. 每项贯穿公共包/API/结果 union/本地表+Dexie/同步/权限/证据页/图谱/导出/恢复（参照 #27 algebra_attempt 覆盖清单）；每闭环一项立即提交并 `git push mine HEAD:hyx_dev`，同步更新 TASK_BOARD 与本文件。
 4. 无专业审校、无真实模型密钥时完成工程与测试，但 Q4/Q5/真实联调如实保留 blocked_external，不伪造签署、不删目标、不降标准。
 5. 既有 4 个 e2e 失败（learning.spec.ts:36 图谱 external 点、accounts.spec.ts:77/103/123 账号长链路）已基线证实与 C01/C02 无关，留待图谱/账号专项；58 个 Linux/isolate pytest 在 Windows 跳过，需 WSL 补跑。
+
+## 2026-10-12 Codex 接管更新
+中断修改已接管；人工审阅、历史去敏、版本隔离修复及 534 后端 / 129 前端 / 12 浏览器测试完成。详见 [CODEX_TAKEOVER_2026-10-12.md](CODEX_TAKEOVER_2026-10-12.md)。13 课完整验收尚未完成，后续依该记录的顺序推进。
