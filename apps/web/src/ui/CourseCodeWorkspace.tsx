@@ -1,7 +1,9 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { loadAlgebraActivity, loadCodeActivity } from '../domain/course-packages'
+import { courseLearningStage } from '../domain/learning-journey'
 import CodeWorkspace from './CodeWorkspace'
+import CourseLearningGuide from './CourseLearningGuide'
 const AlgebraWorkspace = lazy(() => import('./AlgebraWorkspace'))
 
 export default function CourseCodeWorkspace() {
@@ -19,5 +21,6 @@ export default function CourseCodeWorkspace() {
   if (native && rawTask === 'base') return <Suspense fallback={<div className="page-loading" role="status">正在打开运算表…</div>}><AlgebraWorkspace key={`${native.course.course_version_id}:${native.activity.version_id}`} lesson={{ ...native, objective: objectiveId }}/></Suspense>
   const variant = loaded?.activity.variants?.find(item => item.code === task)
   if (!loaded || (task !== 'base' && !variant)) return <div className="page"><h1>这个目标的实践尚未开放</h1><p>{error || '没有找到该目标或新条件的已登记活动。已有作品仍保留，未开展的核验不计入学习证据。'}</p><Link className="button primary" to="/atlas">返回课程图谱</Link></div>
+  if (courseLearningStage(params) === 'orientation') return <CourseLearningGuide key={`${loaded.activity.version_id}:${task}:guide`} lesson={{ ...loaded, objective: objectiveId, variant }}/>
   return <CodeWorkspace key={`${loaded.activity.version_id}:${task}`} lesson={{ ...loaded, objective: objectiveId, variant }}/>
 }

@@ -5,7 +5,7 @@ const baseURL = `http://127.0.0.1:${port}`
 
 export default defineConfig({
   testDir: './e2e',
-  use: { baseURL, trace: 'retain-on-failure', launchOptions: { channel: process.env.PLAYWRIGHT_CHANNEL === 'chrome' ? 'chrome' : undefined } },
+  use: { baseURL, trace: 'retain-on-failure', launchOptions: { channel: ['chrome', 'msedge'].includes(process.env.PLAYWRIGHT_CHANNEL ?? '') ? process.env.PLAYWRIGHT_CHANNEL : undefined } },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     { name: 'mobile', use: { ...devices['Pixel 7'] } },
