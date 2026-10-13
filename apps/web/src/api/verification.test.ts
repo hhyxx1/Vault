@@ -64,4 +64,39 @@ describe('verification client integrity', () => {
       attempt_excerpt: '已尝试两种时间片。', question: '接下来怎么改？', intent: 'practice', disclosure_accepted: true,
     })).rejects.toThrow('掌握状态不符合契约')
   })
+
+  it('requests a structured editable course draft without treating it as verified content', async () => {
+    const calls: { url: string; body: Record<string, unknown> }[] = []
+    vi.stubGlobal('fetch', vi.fn(async (url: string, options?: RequestInit) => {
+      calls.push({ url, body: options?.body ? JSON.parse(String(options.body)) : {} })
+      if (url.endsWith('/guest-nonce')) return new Response(JSON.stringify({ nonce: 'course-nonce' }), { status: 200 })
+      if (url.endsWith('/guest-leases')) return new Response(JSON.stringify({ lease_id: 'course-lease', token: 'course-token', absolute_expires_at: new Date(Date.now() + 3600000).toISOString() }), { status: 201 })
+      return new Response(JSON.stringify({ status: 'draft', message: '先给你一份可修改路线。', clarifying_question: null,
+        proposal: { title: '计算机网络', goal: '能解释并验证路由转发。', topics: [
+          { title: '网络分层', expected_performance: '说明数据经过的层次。' },
+          { title: 'IP 子网', expected_performance: '计算可用地址范围。' },
+          { title: '路由转发', expected_performance: '推演并验证转发路径。' },
+        ], first_task: '手工推演两个节点间的通信。', assumptions: ['从基础开始'] }, mastery_asserted: false,
+        content_review_status: 'unreviewed_ai_draft' }), { status: 200 })
+    }))
+    const { requestCourseDiscovery } = await import('./verification')
+    const reply = await requestCourseDiscovery({ request_id: crypto.randomUUID(), course_name: '计算机网络',
+      learning_goal: '了解数据包如何传递', current_knowledge: '学过 IP 但不熟悉子网', turns: [], disclosure_accepted: true })
+    expect(reply.content_review_status).toBe('unreviewed_ai_draft')
+    expect(reply.mastery_asserted).toBe(false)
+    expect(calls[2].url).toContain('/course-discovery')
+    expect(calls[2].body).toMatchObject({ course_name: '计算机网络', disclosure_accepted: true })
+    expect((reply.proposal?.topics ?? []).length).toBe(3)
+  })
+
+  it('rejects malformed course-discovery output before a client can save it', async () => {
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+      if (url.endsWith('/guest-nonce')) return new Response(JSON.stringify({ nonce: 'course-nonce' }), { status: 200 })
+      if (url.endsWith('/guest-leases')) return new Response(JSON.stringify({ lease_id: 'course-lease', token: 'course-token', absolute_expires_at: new Date(Date.now() + 3600000).toISOString() }), { status: 201 })
+      return new Response(JSON.stringify({ status: 'draft', message: '已掌握。', proposal: null, mastery_asserted: true }), { status: 200 })
+    }))
+    const { requestCourseDiscovery } = await import('./verification')
+    await expect(requestCourseDiscovery({ request_id: crypto.randomUUID(), course_name: '数据结构', learning_goal: '', current_knowledge: '', turns: [], disclosure_accepted: true }))
+      .rejects.toThrow('规划草案结构不符合契约')
+  })
 })

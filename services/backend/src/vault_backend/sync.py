@@ -368,6 +368,23 @@ async def dependencies(session: AsyncSession, space: LearningSpace, model) -> st
     return None
 
 
+async def personal_children_exist(
+    session: AsyncSession,
+    space_id: UUID,
+    object_types: set[str],
+    field: str,
+    parent_id: str,
+) -> bool:
+    rows = await session.scalars(
+        select(SyncObject).where(
+            SyncObject.space_id == space_id,
+            SyncObject.object_type.in_(object_types),
+            SyncObject.deleted_at.is_(None),
+        )
+    )
+    return any(row.payload is not None and row.payload.get(field) == str(parent_id) for row in rows)
+
+
 async def remember_result(session: AsyncSession, space_id: UUID, op: SyncOperation, result):
     session.add(
         SyncOperationReceipt(
@@ -417,10 +434,6 @@ async def apply_operation(session, space, principal, op):
             operation_result(op, "rejected", reason="PAYLOAD_HASH_MISMATCH"),
         )
     if op.object_type in {
-        "personal_course",
-        "personal_course_version",
-        "personal_attempt",
-        "personal_assist",
         "course_attempt",
         "structured_attempt",
         "code_attempt",
@@ -454,6 +467,47 @@ async def apply_operation(session, space, principal, op):
             op,
             operation_result(op, "rejected", current_version, reason="OBJECT_DELETED"),
         )
+    if deleted and obj is not None:
+        dependency = None
+        if op.object_type == "personal_attempt":
+            dependency = (
+                "PERSONAL_ATTEMPT_HAS_ASSISTS"
+                if await personal_children_exist(
+                    session, space.id, {"personal_assist"}, "attemptId", op.object_id
+                )
+                else None
+            )
+        elif op.object_type == "personal_course_version":
+            dependency = (
+                "PERSONAL_SCOPE_HAS_ATTEMPTS"
+                if await personal_children_exist(
+                    session,
+                    space.id,
+                    {"personal_attempt"},
+                    "scopeVersionId",
+                    op.object_id,
+                )
+                else None
+            )
+        elif op.object_type == "personal_course":
+            dependency = (
+                "PERSONAL_COURSE_HAS_RECORDS"
+                if await personal_children_exist(
+                    session,
+                    space.id,
+                    {"personal_course_version", "personal_attempt", "personal_assist"},
+                    "courseId",
+                    op.object_id,
+                )
+                else None
+            )
+        if dependency:
+            return await remember_result(
+                session,
+                space.id,
+                op,
+                operation_result(op, "rejected", current_version, reason=dependency),
+            )
     if (
         obj is not None
         and op.object_type
@@ -618,7 +672,17 @@ async def apply_operation(session, space, principal, op):
         obj.payload = stored_payload
         obj.deleted_at = now if deleted else None
         obj.updated_at = now
+    personal_delete = deleted and op.object_type in {
+        "personal_course",
+        "personal_course_version",
+        "personal_attempt",
+        "personal_assist",
+    }
+    if personal_delete:
+        await session.execute(text("SELECT set_config('vault.allow_personal_delete', '1', true)"))
     await session.flush()
+    if personal_delete:
+        await session.execute(text("SELECT set_config('vault.allow_personal_delete', '0', true)"))
     sequence = (
         await session.scalar(
             select(func.coalesce(func.max(SyncChange.sequence), 0)).where(
@@ -737,9 +801,7 @@ async def read_changes(
         for row in selected:
             # Old rows predating trust-boundary redaction may still carry hidden
             # independent suite secrets; strip them again on the way out.
-            payload = (
-                redact_hidden_suite_fields(row.payload) if row.payload is not None else None
-            )
+            payload = redact_hidden_suite_fields(row.payload) if row.payload is not None else None
             digest = (
                 payload_hash(payload)
                 if payload is not None and payload is not row.payload

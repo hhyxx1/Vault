@@ -12,6 +12,18 @@ export type PersonalCourse = {
   topics: PersonalTopic[]
   createdAt: string
   updatedAt: string
+  creationMethod?: 'manual' | 'ai_assisted'
+  contentReviewStatus?: 'unreviewed_ai_draft'
+}
+
+export type PersonalEvidenceKind = 'explanation' | 'hand_trace' | 'diagram' | 'code' | 'external_tool' | 'other'
+export const PERSONAL_EVIDENCE_LABELS: Record<PersonalEvidenceKind, string> = {
+  explanation: '概念解释',
+  hand_trace: '手工推演 / 纸笔记录',
+  diagram: '图示 / 图谱',
+  code: '代码 / 程序运行',
+  external_tool: '外部仿真器或实验工具',
+  other: '观察 / 其他作品',
 }
 
 // A confirmed scope is an immutable snapshot. It defines only the range the
@@ -43,6 +55,7 @@ export type PersonalAttempt = {
   observation: string
   reflection: string
   nextStep: string
+  evidenceKinds?: PersonalEvidenceKind[]
   createdAt: string
 }
 

@@ -3,7 +3,11 @@ import { readFile } from 'node:fs/promises'
 
 test('personal course graph exposes keyboard-readable target selection without narrow-screen overflow', async ({ page }, testInfo) => {
   if (testInfo.project.name === 'mobile') await page.setViewportSize({ width: 320, height: 800 })
-  await page.goto('/my-courses')
+  await page.goto('/')
+  await expect(page.getByRole('link', { name: '从课程或问题开始' })).toHaveAttribute('href', '/my-courses')
+  await page.getByRole('link', { name: '从课程或问题开始' }).click()
+  await expect(page).toHaveURL('/my-courses')
+  await expect(page.getByText(/当前服务没有配置可用模型/)).toBeVisible()
   await page.getByLabel('课程名称', { exact: true }).fill(`图谱键盘导航 ${Date.now()}`)
   await page.getByRole('button', { name: '创建个人课程', exact: false }).click()
   await page.getByLabel('学习目标', { exact: true }).fill('解释网络协议并用小实验验证连接行为。')
@@ -31,8 +35,8 @@ test('personal course graph exposes keyboard-readable target selection without n
 
 test('starts outside the default catalog with only a name, then records an unverified practice and retry', async ({ page }, testInfo) => {
   await page.goto('/')
-  await expect(page.getByText('完整建成 0 / 13 门。', { exact: false })).toBeVisible()
-  await page.getByRole('link', { name: '开始个人课程', exact: false }).click()
+  await expect(page.getByText('整课验收：0 / 13。', { exact: false })).toBeVisible()
+  await page.getByRole('link', { name: '从课程或问题开始' }).click()
   await expect(page).toHaveURL('/my-courses')
   await expect(page.getByRole('heading', { name: '从你要学的课程开始。' })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true)
@@ -70,14 +74,17 @@ test('starts outside the default catalog with only a name, then records an unver
   await page.getByRole('link', { name: '返回个人课程' }).click()
   await expect(page).toHaveURL(/\/my-courses\/[0-9a-f-]+$/)
   await expect(page.getByLabel('这次想解决什么问题')).toHaveValue(fields[0][1])
+  await page.getByLabel('代码 / 程序运行').check()
   await page.getByRole('button', { name: '保存这次尝试，继续学习', exact: false }).click()
   await expect(page.getByText('这次尝试已保存。', { exact: false })).toBeVisible()
   await expect(page.getByText('1 次自述尝试 · 未核验')).toBeVisible()
+  await expect(page.locator('.personal-attempt').first()).toContainText('代码 / 程序运行')
   await page.reload()
   await expect(page.getByText('1 次自述尝试 · 未核验')).toBeVisible()
   await expect(page.getByText('0 项完成独立核验', { exact: false })).toBeVisible()
   await page.getByLabel('这次想解决什么问题').fill('abc3 会如何被分类？')
   for (const [label, value] of fields.slice(1)) await page.getByLabel(label).fill(value + '再次验证。')
+  await page.getByLabel('代码 / 程序运行').check()
   await page.getByRole('button', { name: '保存这次尝试，继续学习', exact: false }).click()
   await expect(page.getByText('2 次自述尝试 · 未核验')).toBeVisible()
   await page.getByText('调整课程名称与目标', { exact: true }).click()
@@ -89,6 +96,7 @@ test('starts outside the default catalog with only a name, then records an unver
   await expect(page.getByText('范围历史 · 2 个版本', { exact: true })).toBeVisible()
   await page.getByLabel('这次想解决什么问题').fill('非法字符会产生什么结果？')
   for (const [label, value] of fields.slice(1)) await page.getByLabel(label).fill(value + '第三次验证。')
+  await page.getByLabel('代码 / 程序运行').check()
   await page.getByRole('button', { name: '保存这次尝试，继续学习', exact: false }).click()
   await expect(page.getByText('3 次自述尝试 · 未核验')).toBeVisible()
   await expect(page.locator('.personal-attempts').getByText('范围 v2', { exact: false }).first()).toBeVisible()
@@ -103,6 +111,62 @@ test('starts outside the default catalog with only a name, then records an unver
   expect(exported.personalAttempts).toHaveLength(3)
   expect(exported.personalCourseVersions).toHaveLength(2)
   expect(exported.personalCourses[0].title).toBe('编译原理')
+})
+
+test('AI course planning asks a learner-led question, then produces an editable private outline', async ({ page }) => {
+  let discoveryCalls = 0
+  await page.route('**/api/v1/model-profiles', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ profiles: [{ id: 'course-planner', label: '课程规划模型', provider: '测试服务', capabilities: ['text', 'json'] }], task_defaults: { course_discovery: 'course-planner' } }) }))
+  await page.route('**/api/v1/guest-nonce', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ nonce: 'course-nonce' }) }))
+  await page.route('**/api/v1/guest-leases', route => route.fulfill({ status: 201, contentType: 'application/json', body: JSON.stringify({ lease_id: 'course-lease', token: 'course-token', absolute_expires_at: new Date(Date.now() + 3600000).toISOString() }) }))
+  await page.route('**/api/v1/guest-leases/*/course-discovery', route => {
+    discoveryCalls += 1
+    const body = discoveryCalls === 1
+      ? { status: 'clarifying', message: '我先确认你希望这门课偏重哪种实践。', clarifying_question: '你更想通过什么方式理解网络？', proposal: null, mastery_asserted: false, content_review_status: 'unreviewed_ai_draft' }
+      : { status: 'draft', message: '我按你的选择整理了一份初稿，可以继续编辑。', clarifying_question: null, proposal: { title: '计算机网络', goal: '能够解释网络分层和转发，并用小型实验观察通信过程。', topics: [
+        { title: '网络分层', expected_performance: '画出一次请求经过的层次并解释职责。' },
+        { title: 'IP 子网', expected_performance: '计算地址范围并解释边界主机。' },
+        { title: '路由转发', expected_performance: '推演路由决策并验证数据路径。' },
+      ], first_task: '先手工推演两个主机间的一次通信。', assumptions: ['从基础开始', '暂不要求厂商设备命令'] }, mastery_asserted: false, content_review_status: 'unreviewed_ai_draft' }
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(body) })
+  })
+  await page.goto('/my-courses')
+  await page.getByLabel('课程名称', { exact: true }).fill('计算机网络')
+  await page.getByLabel('你想做到什么（可稍后确定）').fill('想理解数据包如何在网络中到达另一台电脑。')
+  await page.getByLabel(/我同意将上面填写的课程描述/).check()
+  await page.getByLabel('你现在了解多少？（不知道也可以直说）').fill('只学过一点 IP 地址，不知道知识点。')
+  await page.getByRole('button', { name: '请 AI 帮我整理学习路线' }).click()
+  await expect(page.getByLabel(/AI 想确认/)).toBeVisible()
+  await page.getByLabel(/AI 想确认/).fill('我希望先画图、做小实验，不希望一上来写很多代码。')
+  await page.getByRole('button', { name: '回答并继续规划' }).click()
+  await expect(page.getByText('AI 建议的学习路线 · 待确认')).toBeVisible()
+  await page.getByLabel('AI 建议学习点 3 名称').fill('路由表与转发')
+  await page.getByRole('button', { name: '删除学习点 2' }).click()
+  await expect(page.locator('.course-first-task')).toContainText('先手工推演两个主机间的一次通信')
+  await page.getByRole('button', { name: '创建个人课程' }).click()
+  await expect(page).toHaveURL(/\/my-courses\/[0-9a-f-]+$/)
+  await expect(page.getByText('AI 协助生成 · 学生已确认初稿 · 未经教研审校')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '网络分层' })).toBeVisible()
+  await expect(page.getByRole('button', { name: /路由表与转发/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: /IP 子网/ })).toHaveCount(0)
+  expect(discoveryCalls).toBe(2)
+  await page.getByRole('link', { name: '返回个人课程' }).click()
+  page.once('dialog', dialog => dialog.accept())
+  await page.getByRole('button', { name: '删除课程 计算机网络' }).click()
+  await expect(page.getByRole('link', { name: /计算机网络/ })).toHaveCount(0)
+  await expect(page.getByText('“计算机网络”及其本地学习记录已删除。')).toBeVisible()
+})
+
+test('keeps the manual course path clear when the active API has no model configured', async ({ page }) => {
+  await page.goto('/my-courses')
+  await expect(page.getByText(/当前服务没有配置可用模型/)).toBeVisible()
+  await expect(page.getByRole('button', { name: /请 AI 帮我整理学习路线/ })).toHaveCount(0)
+  await page.getByLabel('课程名称', { exact: true }).fill('编译原理')
+  await page.getByLabel('你想做到什么（可稍后确定）').fill('能解释程序如何从源代码变成可执行结果。')
+  await page.getByLabel('第一个学习点（可稍后确定）').fill('先观察一个表达式的词法单元')
+  await page.getByLabel('怎样展示这个学习点（与学习点一起填写）').fill('把表达式拆成 token 并说明每个 token 的作用。')
+  await page.getByRole('button', { name: '创建个人课程' }).click()
+  await expect(page).toHaveURL(/\/my-courses\/[0-9a-f-]+$/)
+  await expect(page.getByRole('heading', { name: '编译原理' })).toBeVisible()
 })
 
 test('personal course entry remains usable at 320px', async ({ page }, testInfo) => {
@@ -147,6 +211,7 @@ test('personal assistant keeps provider consent, saved attempt binding and retry
     ['结果说明了什么', '目标网段影响选择。'],
     ['下一次怎么改或继续验证', '改变目标网段后再试。'],
   ] as const) await page.getByLabel(label).fill(value)
+  await page.getByLabel('手工推演 / 纸笔记录').check()
   await page.getByRole('button', { name: '保存这次尝试，继续学习', exact: false }).click()
   const panel = page.getByRole('region', { name: '个人课程学习助手' })
   await expect(panel.getByText('自托管 · 本地模型', { exact: true })).toBeVisible()
@@ -249,6 +314,7 @@ test('personal course graph follows declared learning points without treating se
     ['下一次怎么改或继续验证', '增加进程数量后重新比较平均等待时间。'],
   ] as const
   for (const [label, value] of attempt) await page.getByLabel(label).fill(value)
+  await page.getByLabel('手工推演 / 纸笔记录').check()
   await page.getByRole('button', { name: '保存这次尝试，继续学习', exact: false }).click()
   await expect(page.getByRole('img', { name: /2 个唯一目标，其中 0 项有达标证据/ })).toBeVisible()
   await expect(page.getByText('1 次自述尝试 · 未核验')).toBeVisible()

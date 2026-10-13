@@ -12,7 +12,7 @@ import { algebraSubmission, ALGEBRA_PREDICTIONS, type AlgebraAttempt } from '../
 
 export type ObjectType = 'draft' | 'revision' | 'evidence' | 'help' | 'teacher_draft' | 'personal_course' | 'personal_course_version' | 'personal_attempt' | 'personal_assist' | 'course_attempt' | 'structured_attempt' | 'code_attempt' | 'code_draft' | 'algebra_attempt' | 'position'
 export type LocalSpaceRecord = { id: string; ownerId: string | null; pendingOwnerId: string | null; serverId: string | null; cursor: string | null; createdAt: string }
-export type SyncItem = { key: string; spaceId: string; objectType: ObjectType; objectId: string; version: string; acknowledgedJson: string; status: 'pending' | 'synced' | 'conflict' | 'rejected' | 'dependency_pending'; reason?: string; remoteVersion?: string; modifiedAt?: string; remotePayload?: Record<string, unknown> | null; remoteDeleted?: boolean }
+export type SyncItem = { key: string; spaceId: string; objectType: ObjectType; objectId: string; version: string; acknowledgedJson: string; status: 'pending' | 'synced' | 'conflict' | 'rejected' | 'dependency_pending'; deleted?: boolean; reason?: string; remoteVersion?: string; modifiedAt?: string; remotePayload?: Record<string, unknown> | null; remoteDeleted?: boolean }
 export type ClaimJournal = { claimId: string; expectedAccountId: string; originLocalSpaceId: string; manifestHash: string; manifest: { objectType: ObjectType; objectId: string }[]; state: 'pending' | 'committed'; serverSpaceId?: string }
 export type BatchJournal = { id: string; accountId: string; spaceId: string; serverId: string; operations: { op_id: string; object_type: ObjectType; object_id: string; base_version: string; payload_hash: string; payload: unknown }[]; state: 'pending' | 'complete' }
 export class LearningDatabase extends Dexie {
@@ -299,6 +299,45 @@ export async function savePersonalCourse(course: PersonalCourse, expectedJson: s
   })
 }
 
+export async function deletePersonalCourse(spaceId: string, courseId: string, expectedJson: string, db = database) {
+  return db.transaction('rw', [db.meta, db.spaces, db.personalCourses, db.personalCourseVersions, db.personalAttempts, db.personalAssists, db.syncItems, db.batches], async () => {
+    await assertActive(spaceId, db)
+    const course = await db.personalCourses.get([spaceId, courseId])
+    if (!course) throw new Error('个人课程不存在，可能已被删除。')
+    if (canonicalJson(course) !== expectedJson) throw new Error('课程内容刚刚发生变化，请重新打开后再删除。')
+    const scopes = await db.personalCourseVersions.where('[spaceId+courseId]').equals([spaceId, courseId]).toArray()
+    const attempts = await db.personalAttempts.where('spaceId').equals(spaceId).filter(record => record.courseId === courseId).toArray()
+    const assists = await db.personalAssists.where('spaceId').equals(spaceId).filter(record => record.courseId === courseId).toArray()
+    const records: { type: ObjectType; id: string; table: Table }[] = [
+      ...assists.map(record => ({ type: 'personal_assist' as const, id: record.id, table: db.personalAssists })),
+      ...attempts.map(record => ({ type: 'personal_attempt' as const, id: record.id, table: db.personalAttempts })),
+      ...scopes.map(record => ({ type: 'personal_course_version' as const, id: record.id, table: db.personalCourseVersions })),
+      { type: 'personal_course', id: course.id, table: db.personalCourses },
+    ]
+    const objectIds = new Set(records.map(record => `${record.type}:${record.id}`))
+    const pending = await db.batches.where('spaceId').equals(spaceId).filter(batch => batch.state === 'pending' && batch.operations.some(operation => objectIds.has(`${operation.object_type}:${operation.object_id}`))).first()
+    if (pending) throw new Error('这门课程正在同步，请等待本批同步结束后再删除。')
+    const space = await db.spaces.get(spaceId)
+    if (!space) throw new Error('当前本地空间不存在。')
+    let cloudTombstones = 0
+    for (const record of records) {
+      const key = syncKey(spaceId, record.type, record.id)
+      const previous = await db.syncItems.get(key)
+      if (previous?.status === 'conflict') throw new Error('课程有尚未处理的云端冲突，请先在本地空间处理冲突后再删除。')
+      if (space.serverId && !previous) throw new Error('课程同步状态不完整，请先同步并重新打开课程后再删除。')
+      const alreadyOnServer = !!space.serverId && !!previous && (previous.version !== '0' || !!previous.acknowledgedJson)
+      if (alreadyOnServer) {
+        cloudTombstones += 1
+        await db.syncItems.put({ ...previous!, deleted: true, status: 'pending', modifiedAt: crypto.randomUUID(), reason: undefined, remoteVersion: undefined, remotePayload: undefined, remoteDeleted: undefined })
+      } else {
+        await db.syncItems.delete(key)
+      }
+      await record.table.delete([spaceId, record.id])
+    }
+    return { deletedRecords: records.length, cloudTombstones }
+  })
+}
+
 async function stableScopeVersionId(spaceId: string, courseId: string, version: number) {
   const hash = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${spaceId}:${courseId}:scope:${version}`)))
   const bytes = [...hash.slice(0, 16)]
@@ -342,6 +381,8 @@ export async function recordPersonalAttempt(attempt: PersonalAttempt, db = datab
     if (!scope) throw new Error('请先确认当前学习范围，再保存这次尝试。')
     if (scope.courseId !== attempt.courseId || !scope.topics.some(topic => topic.id === attempt.topicId)) throw new Error('学习点不属于这次确认的范围版本，未保存尝试。')
     if (![attempt.learningQuestion, attempt.theoryNote, attempt.action, attempt.observation, attempt.reflection, attempt.nextStep].every(value => value.trim())) throw new Error('请补齐问题、原理、操作、结果、理解和下一步。')
+    const evidenceKinds = attempt.evidenceKinds ?? ['explanation']
+    if (!evidenceKinds.length || evidenceKinds.length > 6 || new Set(evidenceKinds).size !== evidenceKinds.length || evidenceKinds.some(kind => !['explanation', 'hand_trace', 'diagram', 'code', 'external_tool', 'other'].includes(kind))) throw new Error('请至少选择一种有效的证据形式。')
     assertSyncablePersonalRecord('personal_attempt', attempt.id, attempt)
     await db.personalAttempts.add(structuredClone(attempt))
     await markPending(attempt.spaceId, 'personal_attempt', attempt.id, db)

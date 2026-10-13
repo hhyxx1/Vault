@@ -1,7 +1,7 @@
 import 'fake-indexeddb/auto'
 import Dexie from 'dexie'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { activateSpace, confirmPersonalCourseScope, LearningDatabase, loadDraft, openLocalSpace, saveDraft, saveRevision, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveCourseAttempt, savePersonalCourse, syncKey } from './database'
+import { activateSpace, confirmPersonalCourseScope, deletePersonalCourse, LearningDatabase, loadDraft, openLocalSpace, saveDraft, saveRevision, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveCourseAttempt, savePersonalCourse, syncKey } from './database'
 import { claimSpace, prepareClaim, pullSpace, syncAccount, chooseRemoteConflict } from './sync'
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 import { canonicalHash, canonicalJson } from '../domain/integrity'
@@ -216,6 +216,24 @@ describe('account isolation and durable sync', () => {
     expect((await restored.personalCourseVersions.get([id, scope.id]))?.version).toBe(1)
     expect((await restored.personalAttempts.get([id, attempt.id]))?.observation).toBe('第二次读到新值')
     expect((await restored.personalAssists.get([id, assist.id]))?.nextAction).toBe('记录两次读值。')
+
+    const removals: { object_type: string; object_id: string; payload: Record<string, unknown> }[][] = []
+    vi.stubGlobal('fetch', vi.fn(async (url: string, options?: RequestInit) => {
+      if (url.endsWith('/auth/csrf')) return json({ csrf_token: 'csrf' })
+      if (url.endsWith('/sync/spaces')) return json({ spaces: [{ space_id: serverId, origin_local_space_id: id, kind: 'personal', bound_at: now }] })
+      if (url.endsWith('/batches')) {
+        const input = JSON.parse(String(options?.body)); removals.push(input.operations)
+        return json({ batch_id: input.batch_id, space_id: serverId, results: input.operations.map((op: { op_id: string; object_type: string; object_id: string }) => ({ ...op, status: 'applied', current_version: '2', reason: null, conflict_id: null })) })
+      }
+      return json({ space_id: serverId, changes: [], next_cursor: 'c2', has_more: false })
+    }))
+    await deletePersonalCourse(id, course.id, canonicalJson(course), db)
+    await syncAccount(id, { account, isCurrent: () => true, db })
+    expect(removals.flat().map(operation => operation.object_type)).toEqual(['personal_assist', 'personal_attempt', 'personal_course_version', 'personal_course'])
+    expect(removals.flat().every(operation => operation.payload.deleted === true)).toBe(true)
+    for (const [type, recordId] of [['personal_assist', assist.id], ['personal_attempt', attempt.id], ['personal_course_version', scope.id], ['personal_course', course.id]] as const) {
+      expect(await db.syncItems.get(syncKey(id, type, recordId))).toMatchObject({ status: 'synced', deleted: true, version: '2' })
+    }
   })
 })
 

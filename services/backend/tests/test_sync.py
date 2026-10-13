@@ -50,7 +50,7 @@ async def cloud(tmp_path):
     with psycopg.connect(owner_url) as conn:
         assert (
             conn.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-            == "0016_review_course_code_width"
+            == "0017_personal_course_delete"
         )
     settings = Settings(
         environment="test",
@@ -540,10 +540,8 @@ async def test_personal_assist_requires_matching_attempt_and_is_append_only(clou
             operation("personal_assist", assist["id"], {"deleted": True}, "1"),
         ],
     )
-    assert [row["reason"] for row in changed.json()["results"]] == [
-        "IMMUTABLE_HISTORY",
-        "PERSONAL_RECORD_DELETE_UNSUPPORTED",
-    ]
+    assert changed.json()["results"][0]["reason"] == "IMMUTABLE_HISTORY"
+    assert changed.json()["results"][1]["status"] == "applied"
     stranger, _ = seed("student")
     assert (await stranger.get(f"/api/v1/sync/spaces/{sid}/changes")).status_code == 404
     with psycopg.connect(owner_url) as conn:
@@ -557,6 +555,66 @@ async def test_personal_assist_requires_matching_attempt_and_is_append_only(clou
                     (sid, assist["id"]),
                 )
         conn.rollback()
+
+
+async def test_personal_course_tombstones_require_children_to_be_deleted_first(cloud):
+    _, seed, _ = cloud
+    student, account_id = seed("student")
+    mapping, _ = await claim(student, account_id)
+    sid, origin = mapping["server_space_id"], mapping["origin_local_space_id"]
+    course = personal_course(origin)
+    scope = personal_course_scope_version(origin, course)
+    attempt = personal_attempt(origin, course, scope["id"])
+    assist = personal_assist(origin, course, scope, attempt)
+    created, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_course", course["id"], course),
+            operation("personal_course_version", scope["id"], scope),
+            operation("personal_attempt", attempt["id"], attempt),
+            operation("personal_assist", assist["id"], assist),
+        ],
+    )
+    assert [item["status"] for item in created.json()["results"]] == ["applied"] * 4
+
+    blocked, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_course", course["id"], {"deleted": True}, "1")],
+    )
+    assert blocked.json()["results"][0]["reason"] == "PERSONAL_COURSE_HAS_RECORDS"
+    blocked, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_course_version", scope["id"], {"deleted": True}, "1")],
+    )
+    assert blocked.json()["results"][0]["reason"] == "PERSONAL_SCOPE_HAS_ATTEMPTS"
+    blocked, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [operation("personal_attempt", attempt["id"], {"deleted": True}, "1")],
+    )
+    assert blocked.json()["results"][0]["reason"] == "PERSONAL_ATTEMPT_HAS_ASSISTS"
+
+    removed, _ = await batch(
+        student,
+        account_id,
+        sid,
+        [
+            operation("personal_assist", assist["id"], {"deleted": True}, "1"),
+            operation("personal_attempt", attempt["id"], {"deleted": True}, "1"),
+            operation("personal_course_version", scope["id"], {"deleted": True}, "1"),
+            operation("personal_course", course["id"], {"deleted": True}, "1"),
+        ],
+    )
+    assert [item["status"] for item in removed.json()["results"]] == ["applied"] * 4
+    changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
+    assert all(item["deleted"] for item in changes[-4:])
 
 
 async def test_confirmed_personal_scope_is_immutable_and_attempts_reference_its_version(cloud):
@@ -829,13 +887,16 @@ async def test_personal_attempt_history_and_course_topic_identity_are_preserved(
             operation("personal_attempt", attempt["id"], {"deleted": True}, "1"),
         ],
     )
-    assert [row["reason"] for row in results.json()["results"]] == [
+    result_rows = results.json()["results"]
+    assert [row["reason"] for row in result_rows[:3]] == [
         "IMMUTABLE_HISTORY",
         "PERSONAL_COURSE_IDENTITY_MISMATCH",
         "PERSONAL_COURSE_IDENTITY_MISMATCH",
-        "PERSONAL_RECORD_DELETE_UNSUPPORTED",
     ]
-    assert len((await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]) == 3
+    assert result_rows[3]["status"] == "applied"
+    changes = (await student.get(f"/api/v1/sync/spaces/{sid}/changes")).json()["changes"]
+    assert len(changes) == 4
+    assert changes[-1]["deleted"] is True
     with psycopg.connect(owner_url) as conn:
         conn.execute("SET LOCAL ROLE vault_api")
         conn.execute("SELECT set_config('vault.account_id',%s,true)", (str(account_id),))

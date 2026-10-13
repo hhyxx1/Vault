@@ -141,8 +141,9 @@ export async function runCode(attempt: CodeAttempt, signal?: AbortSignal, task?:
 
 
 export type LearningAssistIntent = 'diagnose' | 'explain' | 'hint' | 'practice' | 'result_feedback'
+export type ModelTask = LearningAssistIntent | 'course_discovery'
 export type ModelProfile = { id: string; label: string; provider: string; capabilities: string[] }
-export type ModelCatalog = { profiles: ModelProfile[]; task_defaults: Partial<Record<LearningAssistIntent, string>> }
+export type ModelCatalog = { profiles: ModelProfile[]; task_defaults: Partial<Record<ModelTask, string>> }
 export async function listModelProfiles(signal?: AbortSignal): Promise<ModelCatalog> {
   return readJson<ModelCatalog>(await fetch('/api/v1/model-profiles', { credentials: 'same-origin', cache: 'no-store', signal }))
 }
@@ -180,6 +181,54 @@ export type PersonalLearningAssistInput = {
   question: string
   intent: Exclude<LearningAssistIntent, 'result_feedback'>
   disclosure_accepted: true
+}
+
+export type CourseDiscoveryInput = {
+  request_id: string
+  model_profile_id?: string
+  course_name: string
+  learning_goal: string
+  current_knowledge: string
+  turns: { role: 'learner' | 'assistant'; content: string }[]
+  disclosure_accepted: true
+}
+export type CourseDiscoveryTopic = { title: string; expected_performance: string }
+export type CourseDiscoveryProposal = {
+  title: string
+  goal: string
+  topics: CourseDiscoveryTopic[]
+  first_task: string
+  assumptions: string[]
+}
+export type CourseDiscoveryReply = {
+  status: 'clarifying' | 'draft'
+  message: string
+  clarifying_question: string | null
+  proposal: CourseDiscoveryProposal | null
+  mastery_asserted: false
+  content_review_status: 'unreviewed_ai_draft'
+}
+
+export async function requestCourseDiscovery(input: CourseDiscoveryInput, signal?: AbortSignal): Promise<CourseDiscoveryReply> {
+  const current = await activeLease(signal)
+  signal?.throwIfAborted()
+  const response = await fetch(`/api/v1/guest-leases/${current.lease_id}/course-discovery`, {
+    method: 'POST', credentials: 'same-origin', signal,
+    headers: { 'Content-Type': 'application/json', Authorization: `GuestLease ${current.token}` },
+    body: JSON.stringify(input),
+  })
+  if (response.status === 401 || response.status === 410) clearLease(current)
+  const reply = await readJson<CourseDiscoveryReply>(response)
+  const validDraft = reply.status === 'draft' && reply.proposal !== null && reply.clarifying_question === null
+    && !!reply.proposal?.title.trim() && !!reply.proposal?.goal.trim()
+    && Array.isArray(reply.proposal?.topics) && reply.proposal.topics.length >= 3 && reply.proposal.topics.length <= 8
+    && reply.proposal.topics.every(topic => !!topic.title?.trim() && !!topic.expected_performance?.trim())
+  const validClarification = reply.status === 'clarifying' && reply.proposal === null && !!reply.clarifying_question?.trim()
+  if (reply.mastery_asserted !== false || reply.content_review_status !== 'unreviewed_ai_draft'
+    || !reply.message?.trim() || (!validDraft && !validClarification)) {
+    throw new Error('规划草案结构不符合契约，未保存课程。')
+  }
+  return reply
 }
 
 export async function requestPersonalLearningAssist(input: PersonalLearningAssistInput, signal?: AbortSignal): Promise<LearningAssistReply> {

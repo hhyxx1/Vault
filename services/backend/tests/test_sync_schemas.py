@@ -37,6 +37,34 @@ def test_personal_course_scope_version_is_a_bounded_explicit_sync_contract():
     assert model.topics[0].title == "路由选择"
 
 
+def test_personal_ai_course_source_and_review_boundary_survive_account_sync():
+    payload = {
+        "id": str(uuid4()),
+        "spaceId": str(uuid4()),
+        "title": "操作系统",
+        "goal": "解释调度并推演策略差异",
+        "topics": [],
+        "createdAt": "2026-10-13T12:00:00Z",
+        "updatedAt": "2026-10-13T12:00:00Z",
+        "creationMethod": "ai_assisted",
+        "contentReviewStatus": "unreviewed_ai_draft",
+    }
+    model = PAYLOAD_MODELS["personal_course"].model_validate(payload)
+    assert model.creationMethod == "ai_assisted"
+    assert model.contentReviewStatus == "unreviewed_ai_draft"
+    manual = {key: value for key, value in payload.items() if key != "contentReviewStatus"}
+    assert (
+        PAYLOAD_MODELS["personal_course"]
+        .model_validate({**manual, "creationMethod": "manual"})
+        .contentReviewStatus
+        is None
+    )
+    with pytest.raises(ValidationError):
+        PAYLOAD_MODELS["personal_course"].model_validate(
+            {**payload, "contentReviewStatus": "reviewed"}
+        )
+
+
 def test_personal_course_scope_version_cannot_claim_defined_without_goal_and_topics():
     payload = scope_version_payload()
     payload.update(goal="", topics=[], scopeStatus="defined", gaps=["goal", "learning_points"])
@@ -67,3 +95,32 @@ def test_personal_assist_sync_requires_attempt_reference_and_rejects_mastery_cla
         PAYLOAD_MODELS["personal_assist"].model_validate({**payload, "masteryAsserted": True})
     with pytest.raises(ValidationError):
         PAYLOAD_MODELS["personal_assist"].model_validate({**payload, "intent": "result_feedback"})
+
+
+def test_personal_attempt_sync_accepts_multiple_evidence_forms_but_rejects_duplicates():
+    payload = {
+        "id": str(uuid4()),
+        "spaceId": str(uuid4()),
+        "courseId": str(uuid4()),
+        "topicId": str(uuid4()),
+        "scopeVersionId": str(uuid4()),
+        "learningQuestion": "为什么会重传？",
+        "theoryNote": "序列号标记数据范围。",
+        "action": "手工画出时序图并运行程序。",
+        "observation": "超时后再次发送。",
+        "reflection": "超时设置影响重复发送。",
+        "nextStep": "改变往返时延再试。",
+        "evidenceKinds": ["diagram", "code", "external_tool"],
+        "createdAt": "2026-10-13T12:00:00Z",
+    }
+    model = PAYLOAD_MODELS["personal_attempt"].model_validate(payload)
+    assert model.evidenceKinds == ["diagram", "code", "external_tool"]
+    assert PAYLOAD_MODELS["personal_attempt"].model_validate(
+        {key: value for key, value in payload.items() if key != "evidenceKinds"}
+    ).evidenceKinds == ["explanation"]
+    with pytest.raises(ValidationError):
+        PAYLOAD_MODELS["personal_attempt"].model_validate(
+            {**payload, "evidenceKinds": ["code", "code"]}
+        )
+    with pytest.raises(ValidationError):
+        PAYLOAD_MODELS["personal_attempt"].model_validate({**payload, "evidenceKinds": []})

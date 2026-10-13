@@ -1,7 +1,7 @@
 import { emptyAttempt, STRUCTURED_ACTIVITIES } from '../domain/structured'
 import 'fake-indexeddb/auto'
 import { afterEach, describe, expect, it } from 'vitest'
-import { LearningDatabase, activateSpace, clearGuestSpace, confirmPersonalCourseScope, openLocalSpace, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveCourseAttempt, saveStructuredAttempt, saveDraft, savePersonalCourse, saveRevision } from './database'
+import { LearningDatabase, activateSpace, clearGuestSpace, confirmPersonalCourseScope, deletePersonalCourse, openLocalSpace, recordEvidence, recordPersonalAssist, recordPersonalAttempt, saveCourseAttempt, saveStructuredAttempt, saveDraft, savePersonalCourse, saveRevision, syncKey } from './database'
 import { completeDraft, sampleEvidence } from '../test/fixtures'
 import { canonicalJson } from '../domain/integrity'
 import type { PersonalAttempt, PersonalCourse } from '../domain/personal'
@@ -139,6 +139,54 @@ describe('local durable repository', () => {
       learningQuestion: '如何复现？', theoryNote: '事务可见性', action: '执行两组事务', observation: '读到旧值', reflection: '隔离级别影响可见性', nextStep: '提高隔离级别复测', createdAt: now }
     await expect(recordPersonalAttempt(attempt, db)).rejects.toThrow('先确认当前学习范围')
     expect(await db.personalAttempts.where('spaceId').equals(spaceId).count()).toBe(0)
+  })
+  it('keeps multiple declared evidence forms with a self-reported attempt and its sync record', async () => {
+    const db = createDatabase(); const spaceId = await openLocalSpace(db); const now = new Date().toISOString()
+    const topic = { id: crypto.randomUUID(), title: 'TCP 重传', expectedPerformance: '用序列号推演重传并解释结果' }
+    const course: PersonalCourse = { id: crypto.randomUUID(), spaceId, title: '计算机网络', goal: '解释可靠传输', topics: [topic], createdAt: now, updatedAt: now }
+    await savePersonalCourse(course, null, db)
+    const scope = await confirmPersonalCourseScope(spaceId, course.id, canonicalJson(course), db)
+    const attempt: PersonalAttempt = { id: crypto.randomUUID(), spaceId, courseId: course.id, topicId: topic.id, scopeVersionId: scope.id,
+      learningQuestion: '丢包后发送端怎样恢复？', theoryNote: '序列号与确认号标识数据范围。', action: '画出发送端与接收端的时序图，并运行一个小脚本改变超时条件。',
+      observation: '较短超时导致重复发送，时序图显示确认到达前再次发送。', reflection: '要结合超时与确认到达顺序解释重传。', nextStep: '再改变往返时延并比较。',
+      evidenceKinds: ['diagram', 'code', 'external_tool'], createdAt: now }
+    await recordPersonalAttempt(attempt, db)
+    expect((await db.personalAttempts.get([spaceId, attempt.id]))?.evidenceKinds).toEqual(['diagram', 'code', 'external_tool'])
+    expect((await db.syncItems.get(`${spaceId}:personal_attempt:${attempt.id}`))?.status).toBe('pending')
+    await expect(recordPersonalAttempt({ ...attempt, id: crypto.randomUUID(), evidenceKinds: [] }, db)).rejects.toThrow('至少选择一种')
+    await db.delete()
+  })
+  it('deletes a personal course locally and queues dependent cloud tombstones from children to course', async () => {
+    const db = createDatabase(); const spaceId = await openLocalSpace(db); const now = new Date().toISOString()
+    const topic = { id: crypto.randomUUID(), title: 'TCP 重传', expectedPerformance: '画出时序图解释重传' }
+    const course: PersonalCourse = { id: crypto.randomUUID(), spaceId, title: '计算机网络', goal: '解释可靠传输', topics: [topic], createdAt: now, updatedAt: now }
+    await savePersonalCourse(course, null, db)
+    const scope = await confirmPersonalCourseScope(spaceId, course.id, canonicalJson(course), db)
+    const attempt: PersonalAttempt = { id: crypto.randomUUID(), spaceId, courseId: course.id, topicId: topic.id, scopeVersionId: scope.id,
+      learningQuestion: '为什么会重传？', theoryNote: '超时触发重传。', action: '画出两个端点的时序图。', observation: '超时后报文被重发。',
+      reflection: '往返时延会影响超时判断。', nextStep: '改变往返时延再推演。', evidenceKinds: ['diagram'], createdAt: now }
+    await recordPersonalAttempt(attempt, db)
+    const assist = { id: crypto.randomUUID(), spaceId, courseId: course.id, scopeVersionId: scope.id, topicId: topic.id, attemptId: attempt.id,
+      intent: 'practice' as const, question: '下一步怎么验证？', reply: '改变往返时延。', nextAction: '重画时序图。', modelProfileId: 'local', provider: '本人模型', disclosureVersion: 'personal-learning-assist-v1' as const, createdAt: now }
+    await recordPersonalAssist(assist, db)
+    const records = [
+      ['personal_assist', assist.id, assist], ['personal_attempt', attempt.id, attempt],
+      ['personal_course_version', scope.id, scope], ['personal_course', course.id, course],
+    ] as const
+    const accountId = crypto.randomUUID(); const space = (await db.spaces.get(spaceId))!
+    await db.spaces.put({ ...space, ownerId: accountId, serverId: crypto.randomUUID() })
+    for (const [type, id, payload] of records) await db.syncItems.put({ key: syncKey(spaceId, type, id), spaceId, objectType: type, objectId: id,
+      version: '1', acknowledgedJson: canonicalJson(payload), status: 'synced' })
+
+    await deletePersonalCourse(spaceId, course.id, canonicalJson(course), db)
+    expect(await db.personalCourses.get([spaceId, course.id])).toBeUndefined()
+    expect(await db.personalCourseVersions.where('[spaceId+courseId]').equals([spaceId, course.id]).count()).toBe(0)
+    expect(await db.personalAttempts.where('spaceId').equals(spaceId).filter(record => record.courseId === course.id).count()).toBe(0)
+    expect(await db.personalAssists.where('spaceId').equals(spaceId).filter(record => record.courseId === course.id).count()).toBe(0)
+    for (const [type, id] of records) {
+      const item = await db.syncItems.get(syncKey(spaceId, type, id))
+      expect(item).toMatchObject({ status: 'pending', deleted: true, version: '1' })
+    }
   })
   it('binds an immutable personal assistant reply to one saved attempt and active space', async () => {
     const db = createDatabase(); const spaceId = await openLocalSpace(db); const now = new Date().toISOString()

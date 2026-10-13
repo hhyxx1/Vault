@@ -27,6 +27,8 @@ from vault_backend.errors import ApiError
 from vault_backend.guests import GuestLeaseStore
 from vault_backend.learning_assist import LearningAssistWorkflow
 from vault_backend.learning_assist_schemas import (
+    CourseDiscoveryReply,
+    CourseDiscoveryRequest,
     LearningAssistReply,
     LearningAssistRequest,
     PersonalLearningAssistRequest,
@@ -268,7 +270,14 @@ def create_app(
             profiles=gateway.profiles,
             task_defaults={
                 intent: gateway.defaults.get(intent, gateway.first)
-                for intent in ("diagnose", "explain", "hint", "practice", "result_feedback")
+                for intent in (
+                    "diagnose",
+                    "explain",
+                    "hint",
+                    "practice",
+                    "result_feedback",
+                    "course_discovery",
+                )
             },
         )
 
@@ -516,6 +525,38 @@ def create_app(
         completed = False
         try:
             reply = await agent.run(body, None)
+            value = reply.model_dump(mode="json")
+            await store.complete_assist(lease_id, token, body.request_id, payload_hash, value)
+            completed = True
+            return value
+        finally:
+            if not completed:
+                await store.fail_assist(lease_id, token, body.request_id, payload_hash)
+
+    @app.post(
+        "/api/v1/guest-leases/{lease_id}/course-discovery",
+        tags=["Learning"],
+        response_model=CourseDiscoveryReply,
+    )
+    async def course_discovery(
+        request: Request,
+        lease_id: UUID,
+        body: CourseDiscoveryRequest,
+        authorization: Annotated[str | None, Header()] = None,
+    ):
+        agent = app.state.agent
+        if not settings.agent_enabled or agent is None:
+            raise ApiError(
+                503, "AGENT_UNAVAILABLE", "课程规划助手尚未配置；你仍可手动建立课程草案。"
+            )
+        token, origin = credential(authorization), mutation_origin(request)
+        payload_hash = canonical_hash({"kind": "course_discovery", **body.model_dump(mode="json")})
+        cached = await store.begin_assist(lease_id, token, origin, body.request_id, payload_hash)
+        if cached is not None:
+            return cached
+        completed = False
+        try:
+            reply = await agent.discover_course(body)
             value = reply.model_dump(mode="json")
             await store.complete_assist(lease_id, token, body.request_id, payload_hash, value)
             completed = True

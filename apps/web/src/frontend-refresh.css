@@ -743,3 +743,44 @@ input, textarea, select { border-color:var(--line); border-radius:7px; box-shado
 }
 
 .code-course-help pre { max-height: 32rem; overflow: auto; }
+
+/* Learner-led AI course planning */
+.course-discovery { margin:18px 0 22px; padding:18px 0 20px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); display:grid; gap:10px; }
+.course-discovery-heading { max-width:650px; }
+.course-discovery-heading h3 { margin:4px 0 6px; color:var(--ink); font-size:18px; }
+.course-discovery-heading p, .course-discovery-reply p { margin:0; color:var(--muted); line-height:1.65; }
+.course-discovery > label:not(.course-discovery-consent), .course-proposal-topic label { color:var(--ink); font-size:13px; font-weight:600; }
+.course-discovery textarea, .course-discovery select, .course-proposal-topic input, .course-proposal-topic textarea {
+  width:100%; box-sizing:border-box; border:1px solid var(--line); border-radius:8px; padding:9px 11px; background:var(--surface); color:var(--ink); font:inherit; resize:vertical;
+}
+.course-discovery-consent { display:flex; gap:9px; align-items:flex-start; padding:10px 12px; background:#f0f5fc; border:1px solid var(--line); border-radius:8px; color:var(--muted); font-size:12px; line-height:1.55; }
+.course-discovery-consent input { flex:none; margin:3px 0 0; accent-color:var(--forest); }
+.course-discovery-unavailable { margin:0; padding:10px 12px; border-left:3px solid var(--orange); background:#fbf3e6; color:#765323; font-size:13px; line-height:1.6; }
+.course-discovery-reply { padding:11px 13px; border-left:3px solid var(--forest); background:#f4f7fb; }
+.course-discovery-reply .eyebrow { display:block; margin-bottom:5px; }
+.course-proposal-editor { margin:8px 0 12px; padding:16px; border:1px solid #cdd9fb; border-radius:10px; background:#f8faff; }
+.course-proposal-editor > p { color:var(--muted); line-height:1.6; font-size:13px; }
+.course-proposal-editor .section-heading { align-items:flex-start; }
+.course-proposal-editor .section-heading h3 { margin:4px 0; color:var(--ink); font-size:16px; }
+.course-proposal-list { display:grid; gap:10px; margin:12px 0; }
+.course-proposal-topic { min-width:0; margin:0; padding:12px; border:1px solid var(--line); border-radius:8px; background:white; display:grid; gap:7px; }
+.course-proposal-topic legend { padding:0 5px; color:var(--blue-ink); font-size:12px; font-weight:700; }
+.course-proposal-topic .text-link, .course-proposal-editor > .text-link { justify-self:start; }
+.course-first-task { margin-top:13px; padding:12px; background:#eaf4f0; border-left:3px solid var(--teal); }
+.course-first-task strong { color:var(--ink); font-size:13px; }
+.course-first-task p { margin:4px 0; color:var(--ink); line-height:1.6; }
+.course-first-task small { color:var(--muted); line-height:1.6; }
+.personal-evidence-kinds { min-width:0; margin:2px 0 10px; padding:12px; border:1px solid var(--line); border-radius:8px; background:#f7f9fc; }
+.personal-evidence-kinds legend { padding:0 5px; color:var(--ink); font-size:13px; font-weight:650; }
+.personal-evidence-kinds p { margin:0 0 9px; color:var(--muted); font-size:12px; line-height:1.5; }
+.personal-evidence-kinds > div { display:flex; flex-wrap:wrap; gap:8px; }
+.personal-evidence-kinds label { display:flex; gap:7px; align-items:center; padding:6px 9px; border:1px solid var(--line); border-radius:999px; background:white; color:var(--ink); font-size:12px; font-weight:500; cursor:pointer; }
+.personal-evidence-kinds input { accent-color:var(--forest); }
+.personal-evidence-kinds:disabled { opacity:.65; }
+.personal-course-item { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:10px; border-bottom:1px solid var(--line); }
+.personal-course-item .personal-course-row { border-bottom:0; min-width:0; }
+.personal-course-delete { border:0; padding:7px 9px; background:transparent; color:var(--muted); font:inherit; font-size:12px; cursor:pointer; }
+.personal-course-delete:hover { color:#9e3e32; text-decoration:underline; }
+.personal-course-delete:focus-visible { outline:2px solid #315fe7; outline-offset:2px; border-radius:4px; }
+.personal-course-delete:disabled { opacity:.55; cursor:wait; }
+@media(max-width:600px) { .course-proposal-editor { padding:12px; } .course-proposal-editor .section-heading { display:grid; gap:6px; } }

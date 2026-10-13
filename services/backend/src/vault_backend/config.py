@@ -65,7 +65,7 @@ class Settings(BaseSettings):
         available = set(ids)
         if self.deepseek_api_key and self.deepseek_api_key.get_secret_value().strip():
             available.add("legacy_deepseek")
-        intents = {"diagnose", "explain", "hint", "practice", "result_feedback"}
+        intents = {"diagnose", "explain", "hint", "practice", "result_feedback", "course_discovery"}
         if set(self.model_task_defaults) - intents:
             raise ValueError("Unknown model task default")
         if set(self.model_task_defaults.values()) - available:

@@ -2,15 +2,18 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { Link, useBlocker, useNavigate, useParams } from 'react-router-dom'
 import { liveQuery } from 'dexie'
 import { useLocal } from '../local/LocalProvider'
-import { confirmPersonalCourseScope, database, recordPersonalAttempt, savePersonalCourse } from '../local/database'
+import { confirmPersonalCourseScope, database, deletePersonalCourse, recordPersonalAttempt, savePersonalCourse } from '../local/database'
 import { canonicalJson } from '../domain/integrity'
 import { personalCourseMap, type ObjectiveState } from '../domain/course-map'
-import type { PersonalAssist, PersonalAttempt, PersonalCourse, PersonalCourseVersion, PersonalTopic } from '../domain/personal'
+import { PERSONAL_EVIDENCE_LABELS, type PersonalAssist, type PersonalAttempt, type PersonalCourse, type PersonalCourseVersion, type PersonalEvidenceKind, type PersonalTopic } from '../domain/personal'
+import type { CourseDiscoveryProposal } from '../api/verification'
 import KnowledgeGraph from './KnowledgeGraph'
 import PersonalAssistant from './PersonalAssistant'
+import PersonalCoursePlanner from './PersonalCoursePlanner'
 
-const emptyAttempt = { learningQuestion: '', theoryNote: '', action: '', observation: '', reflection: '', nextStep: '' }
+const emptyAttempt = { learningQuestion: '', theoryNote: '', action: '', observation: '', reflection: '', nextStep: '', evidenceKinds: [] as PersonalEvidenceKind[] }
 type AttemptInput = typeof emptyAttempt
+type AttemptTextField = 'learningQuestion' | 'theoryNote' | 'action' | 'observation' | 'reflection' | 'nextStep'
 const noVerifiedPersonalEvidence = new Map<string, ObjectiveState>()
 
 function errorText(error: unknown, fallback: string) { return error instanceof Error ? error.message : fallback }
@@ -21,10 +24,13 @@ function PersonalCourseList({ courses, spaceId }: { courses: PersonalCourse[]; s
   const [goal, setGoal] = useState('')
   const [topicTitle, setTopicTitle] = useState('')
   const [performance, setPerformance] = useState('')
+  const [suggestedTopics, setSuggestedTopics] = useState<PersonalTopic[]>([])
+  const [proposalDetails, setProposalDetails] = useState<CourseDiscoveryProposal | null>(null)
   const [busy, setBusy] = useState(false)
+  const [deletingId, setDeletingId] = useState('')
   const [message, setMessage] = useState('')
   const navigatingToSavedCourse = useRef(false)
-  const unfinishedForm = [title, goal, topicTitle, performance].some(value => value.trim())
+  const unfinishedForm = [title, goal, topicTitle, performance].some(value => value.trim()) || suggestedTopics.length > 0
   const blocker = useBlocker(({ currentLocation, nextLocation }) => unfinishedForm && !navigatingToSavedCourse.current && currentLocation.pathname !== nextLocation.pathname)
   useEffect(() => {
     if (blocker.state !== 'blocked') return
@@ -43,12 +49,14 @@ function PersonalCourseList({ courses, spaceId }: { courses: PersonalCourse[]; s
     if (busy) return
     setBusy(true); setMessage('')
     try {
-      if (!!topicTitle.trim() !== !!performance.trim()) throw new Error('第一个学习点的名称与可观察表现需要一起填写，也可以暂时都留空。')
+      if (!suggestedTopics.length && !!topicTitle.trim() !== !!performance.trim()) throw new Error('第一个学习点的名称与可观察表现需要一起填写，也可以暂时都留空。')
+      if (suggestedTopics.some(topic => !topic.title.trim() || !topic.expectedPerformance.trim())) throw new Error('请补齐 AI 学习路线中每个学习点的名称和可观察表现。')
       const now = new Date().toISOString()
       const course: PersonalCourse = {
         id: crypto.randomUUID(), spaceId, title: title.trim(), goal: goal.trim(),
-        topics: topicTitle.trim() ? [{ id: crypto.randomUUID(), title: topicTitle.trim(), expectedPerformance: performance.trim() }] : [],
+        topics: suggestedTopics.length ? suggestedTopics : topicTitle.trim() ? [{ id: crypto.randomUUID(), title: topicTitle.trim(), expectedPerformance: performance.trim() }] : [],
         createdAt: now, updatedAt: now,
+        ...(proposalDetails ? { creationMethod: 'ai_assisted' as const, contentReviewStatus: 'unreviewed_ai_draft' as const } : {}),
       }
       await savePersonalCourse(course, null)
       navigatingToSavedCourse.current = true
@@ -57,18 +65,45 @@ function PersonalCourseList({ courses, spaceId }: { courses: PersonalCourse[]; s
     finally { setBusy(false) }
   }
 
+  async function remove(course: PersonalCourse) {
+    if (!window.confirm(`删除“${course.title}”以及该课程的范围、尝试和 AI 建议？删除会同步到你的账号，无法撤销。`)) return
+    setDeletingId(course.id); setMessage('')
+    try {
+      const result = await deletePersonalCourse(spaceId, course.id, canonicalJson(course))
+      setMessage(result.cloudTombstones ? `“${course.title}”已从本地移除，删除记录将在同步后从账号移除。` : `“${course.title}”及其本地学习记录已删除。`)
+    } catch (error) { setMessage(errorText(error, '课程未删除，请先检查同步状态后重试。')) }
+    finally { setDeletingId('') }
+  }
+
   return <div className="page personal-page"><div className="eyebrow">PERSONAL / LEARNING PATH</div>
     <div className="page-heading"><div><h1>从你要学的课程开始。</h1><p>不限于 13 门默认课程。先定一个真实目标，再把原理、实践和结果逐次连起来。</p></div><span className="small-tag">个人课程 · 自建范围</span></div>
-    <div className="personal-boundary"><span className="status-dot"/><p>这是个人学习草稿入口：课程结构由你提出，尚未经教学审校。记录的尝试是本人自述，不能当作自动核验或掌握证明。已保存尝试可按次请求有限 AI 建议；资料检索和自动实践核验仍在建设。</p></div>
+    <div className="personal-boundary"><span className="status-dot"/><p>这是你的私人学习空间。你可以先说出课程名称和困惑，让 AI 提议目标与学习路线，也可以手动建立；所有草案都要由你确认，且未经教研审校。学习记录可以包含推演、解释、图示、代码或外部实操；自述仍会明确标为未核验。</p></div>
     <div className="personal-layout"><section className="personal-create" aria-labelledby="personal-create-title"><span className="eyebrow">01 / START</span><h2 id="personal-create-title">建立自己的课程</h2><p>只写课程名称即可开始；目标和学习点会保持“待确认”，不会自动假定你已经选好范围。也可以现在填上一个具体实践。</p>
       <form onSubmit={create} className="personal-form">
         <label htmlFor="personal-title">课程名称</label><input id="personal-title" required maxLength={120} value={title} onChange={event => setTitle(event.target.value)} placeholder="例如：操作系统、编译原理、分布式系统"/>
         <label htmlFor="personal-goal">你想做到什么（可稍后确定）</label><textarea id="personal-goal" maxLength={2000} rows={3} value={goal} onChange={event => setGoal(event.target.value)} placeholder="例如：能解释进程调度，并用一段模拟程序比较不同策略。"/>
-        <label htmlFor="personal-first-topic">第一个学习点（可稍后确定）</label><input id="personal-first-topic" maxLength={120} value={topicTitle} onChange={event => setTopicTitle(event.target.value)} placeholder="例如：先来先服务调度"/>
-        <label htmlFor="personal-performance">怎样展示这个学习点（与学习点一起填写）</label><textarea id="personal-performance" maxLength={500} rows={3} value={performance} onChange={event => setPerformance(event.target.value)} placeholder="写下可做的表现和实践，例如：实现排队模拟并解释等待时间。"/>
+        <PersonalCoursePlanner courseName={title} goal={goal} onDraft={proposal => {
+          setTitle(proposal.title); setGoal(proposal.goal); setProposalDetails(proposal)
+          setSuggestedTopics(proposal.topics.map(topic => ({ id: crypto.randomUUID(), title: topic.title, expectedPerformance: topic.expected_performance })))
+          setTopicTitle(''); setPerformance('')
+        }}/>
+        {proposalDetails && <section className="course-proposal-editor" aria-label="AI 建议学习路线编辑器">
+          <div className="section-heading"><div><span className="eyebrow">AI SUGGESTION / YOUR DECISION</span><h3>AI 建议的学习路线 · 待确认</h3></div><button type="button" className="text-link" onClick={() => { setProposalDetails(null); setSuggestedTopics([]) }}>改为手动建立</button></div>
+          <p>请编辑或删除任何不合适的学习点。确认保存后仍会标为个人草案，不能当作完整、审校过的课程。</p>
+          <div className="course-proposal-list">{suggestedTopics.map((topic, index) => <fieldset className="course-proposal-topic" key={topic.id}>
+            <legend>学习点 {index + 1}</legend>
+            <label htmlFor={`proposal-title-${topic.id}`}>学习点名称</label><input id={`proposal-title-${topic.id}`} aria-label={`AI 建议学习点 ${index + 1} 名称`} maxLength={120} value={topic.title} onChange={event => setSuggestedTopics(current => current.map(item => item.id === topic.id ? { ...item, title: event.target.value } : item))}/>
+            <label htmlFor={`proposal-performance-${topic.id}`}>可观察的表现</label><textarea id={`proposal-performance-${topic.id}`} aria-label={`AI 建议学习点 ${index + 1} 表现`} rows={2} maxLength={500} value={topic.expectedPerformance} onChange={event => setSuggestedTopics(current => current.map(item => item.id === topic.id ? { ...item, expectedPerformance: event.target.value } : item))}/>
+            <button type="button" className="text-link" onClick={() => setSuggestedTopics(current => current.filter(item => item.id !== topic.id))}>删除学习点 {index + 1}</button>
+          </fieldset>)}</div>
+          <button type="button" className="text-link" onClick={() => setSuggestedTopics(current => [...current, { id: crypto.randomUUID(), title: '', expectedPerformance: '' }])}>＋ 添加学习点</button>
+          <div className="course-first-task"><strong>AI 首项实践</strong><p>{proposalDetails.first_task}</p><small>路线依据的假设：{proposalDetails.assumptions.length ? proposalDetails.assumptions.join('；') : '尚未提供'}。</small></div>
+        </section>}
+        {!proposalDetails && <><label htmlFor="personal-first-topic">第一个学习点（可稍后确定）</label><input id="personal-first-topic" maxLength={120} value={topicTitle} onChange={event => setTopicTitle(event.target.value)} placeholder="例如：先来先服务调度"/>
+        <label htmlFor="personal-performance">怎样展示这个学习点（与学习点一起填写）</label><textarea id="personal-performance" maxLength={500} rows={3} value={performance} onChange={event => setPerformance(event.target.value)} placeholder="推演、画图、解释、编程、模拟器实操等都可以。"/></>}
         <button className="button primary" disabled={busy || !spaceId}>{busy ? '正在保存…' : '创建个人课程'} <span aria-hidden="true">↗</span></button>
       </form>{message && <p className="inline-message" role="status">{message}</p>}
-    </section><section className="personal-saved" aria-labelledby="personal-saved-title"><span className="eyebrow">02 / CONTINUE</span><h2 id="personal-saved-title">继续你的课程</h2>{courses.length ? <div className="personal-course-list">{courses.map(course => <Link className="personal-course-row" key={course.id} to={`/my-courses/${course.id}`}><span className="course-number">{String(course.topics.length).padStart(2, '0')}</span><span><strong>{course.title}</strong><small>{course.goal || '探索目标待确认'}</small><em>{course.topics.length} 个自定学习点 · 尚未审校</em></span><span aria-hidden="true">↗</span></Link>)}</div> : <div className="personal-empty"><span aria-hidden="true">◌</span><p>还没有个人课程。写下课程名称就能开始建立范围。</p></div>}<p className="field-note">当前浏览器会先保存记录；登录账号后，只有逐项显示“已同步”的记录才算进入云端。可以在“本地空间”导出备份。</p></section></div>
+    </section><section className="personal-saved" aria-labelledby="personal-saved-title"><span className="eyebrow">02 / CONTINUE</span><h2 id="personal-saved-title">继续你的课程</h2>{courses.length ? <div className="personal-course-list">{courses.map(course => <div className="personal-course-item" key={course.id}><Link className="personal-course-row" to={`/my-courses/${course.id}`}><span className="course-number">{String(course.topics.length).padStart(2, '0')}</span><span><strong>{course.title}</strong><small>{course.goal || '探索目标待确认'}</small><em>{course.topics.length} 个自定学习点 · {course.creationMethod === 'ai_assisted' ? 'AI 草案待核对' : '尚未审校'}</em></span><span aria-hidden="true">↗</span></Link><button type="button" className="personal-course-delete" aria-label={`删除课程 ${course.title}`} disabled={busy || deletingId === course.id} onClick={() => remove(course)}>{deletingId === course.id ? '正在删除…' : '删除'}</button></div>)}</div> : <div className="personal-empty"><span aria-hidden="true">◌</span><p>还没有个人课程。可以让 AI 帮你梳理，也可以只写课程名开始。</p></div>}<p className="field-note">课程与记录先保存在此浏览器；登录后才会同步到本人账号。AI 规划使用前会先征得同意；模型不可用时仍可手动建立。</p></section></div>
     <div className="personal-catalog-link"><Link className="text-link" to="/atlas">查看 13 门默认课程的建设状态 →</Link></div>
   </div>
 }
@@ -115,7 +150,7 @@ function CourseDetail({ course, attempts, assists, scopeVersions, spaceId }: { c
   const courseFormBaseline = JSON.parse(formBaseline) as PersonalCourse
   const unfinishedCourse = editTitle !== courseFormBaseline.title || editGoal !== courseFormBaseline.goal
   const unfinishedTopic = !!topicTitle.trim() || !!performance.trim()
-  const unfinishedAttempt = Object.values(attemptInput).some(value => value.trim())
+  const unfinishedAttempt = Object.values(attemptInput).some(value => Array.isArray(value) ? value.length > 0 : value.trim().length > 0)
   const hasUnstoredInput = unfinishedCourse || unfinishedTopic || unfinishedAttempt
   function selectTopic(nextTopicId: string) {
     if (selectedTopic?.id === nextTopicId) return
@@ -194,23 +229,24 @@ function CourseDetail({ course, attempts, assists, scopeVersions, spaceId }: { c
   async function saveAttempt(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (busy || !selectedTopic) return
+    if (!attemptInput.evidenceKinds.length) { setMessage('请先选择一种实际留下的证据形式，例如推演、解释、图示、代码或外部工具记录。'); return }
     setBusy(true); setMessage('')
     try {
       if (!latestScope || !currentScopeMatches) throw new Error('课程范围尚未确认或已有修改，请先确认当前学习范围。')
       const attempt: PersonalAttempt = { id: crypto.randomUUID(), spaceId, courseId: course.id, topicId: selectedTopic.id, scopeVersionId: latestScope.id,
         learningQuestion: attemptInput.learningQuestion.trim(), theoryNote: attemptInput.theoryNote.trim(), action: attemptInput.action.trim(),
-        observation: attemptInput.observation.trim(), reflection: attemptInput.reflection.trim(), nextStep: attemptInput.nextStep.trim(), createdAt: new Date().toISOString() }
+        observation: attemptInput.observation.trim(), reflection: attemptInput.reflection.trim(), nextStep: attemptInput.nextStep.trim(), evidenceKinds: attemptInput.evidenceKinds, createdAt: new Date().toISOString() }
       await recordPersonalAttempt(attempt)
       setAttemptInput(emptyAttempt)
       setMessage('这次尝试已保存。它是自述记录，尚未核验；可以根据结果再尝试一次。')
     } catch (error) { setMessage(errorText(error, '这次尝试未保存，输入已保留，请重试。')) }
     finally { setBusy(false) }
   }
-  function attemptField(key: keyof AttemptInput, label: string, placeholder: string, rows = 3) {
+  function attemptField(key: AttemptTextField, label: string, placeholder: string, rows = 3) {
     return <><label htmlFor={`personal-${key}`}>{label}</label><textarea id={`personal-${key}`} required disabled={busy || !canPractice} maxLength={key === 'learningQuestion' ? 1200 : 4000} rows={rows} value={attemptInput[key]} onChange={event => setAttemptInput(current => ({ ...current, [key]: event.target.value }))} placeholder={placeholder}/></>
   }
 
-  return <div className="page personal-page"><div className="eyebrow">PERSONAL / {course.title}</div><div className="personal-return"><Link className="text-link" to="/my-courses">← 返回个人课程</Link><span className="small-tag">个人自建 · 未经审校</span></div><div className="page-heading"><div><h1>{course.title}</h1><p>{course.goal || '探索目标待确认。先想一想：学完之后，你希望能解释或做出什么？'}</p></div><div className="personal-count"><strong>{attemptedTopics}<span> / {scopeDenominator}</span></strong><small>{scopeCountCaption}<br/>0 项完成独立核验</small></div></div>
+  return <div className="page personal-page"><div className="eyebrow">PERSONAL / {course.title}</div><div className="personal-return"><Link className="text-link" to="/my-courses">← 返回个人课程</Link><span className="small-tag">{course.creationMethod === 'ai_assisted' ? 'AI 协助生成 · 学生已确认初稿 · 未经教研审校' : '个人自建 · 未经审校'}</span></div><div className="page-heading"><div><h1>{course.title}</h1><p>{course.goal || '探索目标待确认。先想一想：学完之后，你希望能解释或做出什么？'}</p></div><div className="personal-count"><strong>{attemptedTopics}<span> / {scopeDenominator}</span></strong><small>{scopeCountCaption}<br/>0 项完成独立核验</small></div></div>
     <div className="personal-boundary"><span className="status-dot"/><p>下面是你自己提出的课程范围，尚非完整课程知识图谱。未做过的学习点标为“待尝试”；做过的只标为“有自述尝试”，不会自动判定掌握。已保存尝试可按次请求有限的 AI 建议；理论资料、实践标准、先修关系和完整辅导仍需建设与审校。</p></div>
     <section className={`personal-scope-ledger ${latestScope && !currentScopeMatches ? 'changed' : ''}`} aria-label="个人课程学习范围确认">
       <div className="personal-scope-copy"><span className="eyebrow">学习范围版本</span>
@@ -228,6 +264,7 @@ function CourseDetail({ course, attempts, assists, scopeVersions, spaceId }: { c
       <p><Link className="text-link" to={`/code?activity=${encodeURIComponent(`personal:${course.id}:${selectedTopic.id}`)}`}>打开这个学习点的代码实验 ↗</Link></p>
       <form className="personal-form personal-attempt-form" onSubmit={saveAttempt}>
         {!canPractice && <p className="field-note">确认当前学习范围后，才能保存与该版本绑定的尝试记录。</p>}
+        <fieldset className="personal-evidence-kinds" disabled={busy || !canPractice}><legend>这次学习留下了哪些证据？（可多选）</legend><p>选择你实际做过的形式；这里只记录你的自述，不代表平台已自动验证。</p><div>{(Object.entries(PERSONAL_EVIDENCE_LABELS) as [PersonalEvidenceKind, string][]).map(([kind, label]) => <label key={kind}><input type="checkbox" checked={attemptInput.evidenceKinds.includes(kind)} onChange={event => setAttemptInput(current => ({ ...current, evidenceKinds: event.target.checked ? [...current.evidenceKinds, kind] : current.evidenceKinds.filter(item => item !== kind) }))}/>{label}</label>)}</div></fieldset>
         {attemptField('learningQuestion', '这次想解决什么问题', '先写一个具体的问题，避免只记录“看完一章”。', 2)}
         {attemptField('theoryNote', '依据的概念或原理', '写下你认为相关的定义、关系或推理；可以注明来源。')}
         {attemptField('action', '亲手做了什么', '描述实验、代码、配置、推演或设计；如使用外部工具，请记录操作与条件。')}
@@ -236,7 +273,7 @@ function CourseDetail({ course, attempts, assists, scopeVersions, spaceId }: { c
         {attemptField('nextStep', '下一次怎么改或继续验证', '给出一个改变条件、修正方法或补充证据的下一步。')}
         <button className="button primary" disabled={busy || !canPractice}>{busy ? '正在保存…' : '保存这次尝试，继续学习'} <span aria-hidden="true">↗</span></button>
       </form>
-      <div className="personal-attempts"><div className="section-heading"><h3>已保存的尝试</h3><span>{selectedAttempts.length} 次 · 自述未核验</span></div>{selectedAttempts.length ? selectedAttempts.map((attempt, index) => <details key={attempt.id} className="personal-attempt"><summary><strong>尝试 {selectedAttempts.length - index} · {attempt.learningQuestion}</strong><span>{attempt.scopeVersionId ? `范围 v${scopeVersions.find(scope => scope.id === attempt.scopeVersionId)?.version ?? '未知'} · ` : ''}{new Date(attempt.createdAt).toLocaleString('zh-CN')}</span></summary><dl><dt>依据的原理</dt><dd>{attempt.theoryNote}</dd><dt>实际操作</dt><dd>{attempt.action}</dd><dt>观察到的结果</dt><dd>{attempt.observation}</dd><dt>目前的理解</dt><dd>{attempt.reflection}</dd><dt>下一次行动</dt><dd>{attempt.nextStep}</dd></dl></details>) : <p className="field-note">这个学习点还没有尝试记录。先动手一次，再记录真实结果。</p>}</div></> : <><h2 id="personal-work-title">先建立一个可做的学习点。</h2><p>当前课程还没有确认的实践目标。你可以先写下探索目标与第一个学习点；系统不会把空白课程算作已学习。</p></>}
+      <div className="personal-attempts"><div className="section-heading"><h3>已保存的尝试</h3><span>{selectedAttempts.length} 次 · 自述未核验</span></div>{selectedAttempts.length ? selectedAttempts.map((attempt, index) => <details key={attempt.id} className="personal-attempt"><summary><strong>尝试 {selectedAttempts.length - index} · {attempt.learningQuestion}</strong><span>{attempt.scopeVersionId ? `范围 v${scopeVersions.find(scope => scope.id === attempt.scopeVersionId)?.version ?? '未知'} · ` : ''}{new Date(attempt.createdAt).toLocaleString('zh-CN')}</span></summary><dl><dt>证据形式</dt><dd>{(attempt.evidenceKinds ?? ['explanation']).map(kind => PERSONAL_EVIDENCE_LABELS[kind]).join('、')}</dd><dt>依据的原理</dt><dd>{attempt.theoryNote}</dd><dt>实际操作</dt><dd>{attempt.action}</dd><dt>观察到的结果</dt><dd>{attempt.observation}</dd><dt>目前的理解</dt><dd>{attempt.reflection}</dd><dt>下一次行动</dt><dd>{attempt.nextStep}</dd></dl></details>) : <p className="field-note">这个学习点还没有尝试记录。先动手一次，再记录真实结果。</p>}</div></> : <><h2 id="personal-work-title">先建立一个可做的学习点。</h2><p>当前课程还没有确认的实践目标。你可以先写下探索目标与第一个学习点；系统不会把空白课程算作已学习。</p></>}
       {selectedTopic && <PersonalAssistant key={`${spaceId}:${selectedTopic.id}`} spaceId={spaceId} scope={latestScope} topic={selectedTopic} attempt={selectedAttempts.find(item => item.scopeVersionId === latestScope?.id)} history={assists.filter(item => item.topicId === selectedTopic.id)} enabled={canPractice} onRetry={retryFromAdvice}/>}
       {message && <p className="inline-message" role="status">{message}</p>}
     </section></div>

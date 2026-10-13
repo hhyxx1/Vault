@@ -375,6 +375,8 @@ class PersonalCoursePayload(LocalPayload):
     topics: list[PersonalTopic] = Field(max_length=64)
     createdAt: Timestamp
     updatedAt: Timestamp
+    creationMethod: Literal["manual", "ai_assisted"] = "manual"
+    contentReviewStatus: Literal["unreviewed_ai_draft"] | None = None
 
     @field_validator("title")
     @classmethod
@@ -441,6 +443,9 @@ class PersonalAttemptPayload(LocalPayload):
     observation: str = Field(min_length=1, max_length=4000)
     reflection: str = Field(min_length=1, max_length=4000)
     nextStep: str = Field(min_length=1, max_length=4000)
+    evidenceKinds: list[
+        Literal["explanation", "hand_trace", "diagram", "code", "external_tool", "other"]
+    ] = Field(default_factory=lambda: ["explanation"], min_length=1, max_length=6)
     createdAt: Timestamp
 
     @field_validator(
@@ -451,6 +456,12 @@ class PersonalAttemptPayload(LocalPayload):
         if not value.strip():
             raise ValueError("attempt text cannot be blank")
         return value
+
+    @model_validator(mode="after")
+    def unique_evidence_kinds(self):
+        if len(set(self.evidenceKinds)) != len(self.evidenceKinds):
+            raise ValueError("attempt evidence kinds must be unique")
+        return self
 
 
 class PersonalAssistPayload(LocalPayload):
@@ -719,10 +730,14 @@ class CodeAttemptPayload(LocalPayload):
         suite = self.result.suite_assessment if self.result else None
         if suite:
             context = self.learning.context if self.learning else None
-            if not context or context.taskCode != "semantic-suite" or (
-                suite.course_version_id != str(context.courseVersionId)
-                or suite.activity_version_id != str(context.activityVersionId)
-                or suite.objective_code != context.objectiveCode
+            if (
+                not context
+                or context.taskCode != "semantic-suite"
+                or (
+                    suite.course_version_id != str(context.courseVersionId)
+                    or suite.activity_version_id != str(context.activityVersionId)
+                    or suite.objective_code != context.objectiveCode
+                )
             ):
                 raise ValueError("semantic suite assessment must match its frozen context")
             if (

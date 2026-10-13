@@ -12,6 +12,8 @@ from vault_backend.config import Settings
 from vault_backend.errors import ApiError
 from vault_backend.learning_assist import LearningAssistWorkflow
 from vault_backend.learning_assist_schemas import (
+    CourseDiscoveryReply,
+    CourseDiscoveryRequest,
     LearningAssistReply,
     LearningAssistRequest,
     PersonalLearningAssistRequest,
@@ -36,6 +38,29 @@ class FakeAssist:
         self.calls.append((request, verification))
         return LearningAssistReply(
             message="回看空栈时的输出约定。", next_action="自己写出边界条件后再核验。"
+        )
+
+    async def discover_course(self, request):
+        self.calls.append((request, None))
+        return CourseDiscoveryReply.model_validate(
+            {
+                "status": "draft",
+                "message": "我先把这门课整理成一份待你确认的学习路线。",
+                "clarifying_question": None,
+                "proposal": {
+                    "title": request.course_name,
+                    "goal": "能说明路由选择并用小型拓扑验证转发行为。",
+                    "topics": [
+                        {"title": "网络分层", "expected_performance": "解释一次通信经过的层次。"},
+                        {"title": "IP 与子网", "expected_performance": "计算地址范围并识别边界。"},
+                        {"title": "路由转发", "expected_performance": "推演路由选择并验证路径。"},
+                    ],
+                    "first_task": "先用两个节点推演一次通信，并标出仍不确定的步骤。",
+                    "assumptions": ["默认从基础概念开始", "厂商设备命令需要后续选择环境"],
+                },
+                "mastery_asserted": False,
+                "content_review_status": "unreviewed_ai_draft",
+            }
         )
 
 
@@ -76,6 +101,28 @@ def personal_assist_payload(**changes):
         "disclosure_accepted": True,
     }
     return {**payload, **changes}
+
+
+def course_discovery_reply_payload(**changes):
+    return {
+        "status": "draft",
+        "message": "我先给出一份可修改的初稿。",
+        "clarifying_question": None,
+        "proposal": {
+            "title": "计算机网络",
+            "goal": "解释路由选择并通过小型实践观察转发。",
+            "topics": [
+                {"title": "分层", "expected_performance": "解释通信各层职责。"},
+                {"title": "寻址", "expected_performance": "计算子网边界。"},
+                {"title": "转发", "expected_performance": "推演路径并验证结果。"},
+            ],
+            "first_task": "手工推演两个主机间的一次通信。",
+            "assumptions": ["从基础开始"],
+        },
+        "mastery_asserted": False,
+        "content_review_status": "unreviewed_ai_draft",
+        **changes,
+    }
 
 
 async def make_client(settings, store, cap=6):
@@ -148,6 +195,165 @@ async def test_personal_course_assist_uses_same_bounded_lease_without_claiming_v
         await client.aclose()
 
 
+def course_discovery_payload(**changes):
+    return {
+        "request_id": str(uuid4()),
+        "model_profile_id": None,
+        "course_name": "计算机网络",
+        "learning_goal": "想弄清数据包为什么能从一台电脑到达另一台电脑。",
+        "current_knowledge": "学过一点 IP 地址，不知道怎么规划内容。",
+        "turns": [],
+        "disclosure_accepted": True,
+        **changes,
+    }
+
+
+async def test_student_can_request_an_editable_ai_course_outline_before_creating_a_course(
+    settings, store
+):
+    client, fake, lease, headers = await make_client(settings, store, cap=1)
+    try:
+        path = f"/api/v1/guest-leases/{lease['lease_id']}/course-discovery"
+        payload = course_discovery_payload()
+        first = await client.post(path, headers=headers, json=payload)
+        replay = await client.post(path, headers=headers, json=payload)
+
+        assert first.status_code == replay.status_code == 200
+        assert replay.json() == first.json()
+        assert first.json()["mastery_asserted"] is False
+        assert first.json()["content_review_status"] == "unreviewed_ai_draft"
+        assert len(first.json()["proposal"]["topics"]) == 3
+        assert fake.calls[0][0].learning_goal == payload["learning_goal"]
+        assert len(fake.calls) == 1
+        assert (
+            await client.post(
+                path, headers=headers, json=course_discovery_payload(disclosure_accepted=False)
+            )
+        ).status_code == 422
+        assert (
+            await client.post(path, headers=headers, json=course_discovery_payload())
+        ).status_code == 429
+    finally:
+        await client.aclose()
+
+
+async def test_course_discovery_requires_model_and_keeps_clarifying_reply_out_of_course_draft(
+    settings, store
+):
+    settings.agent_enabled = False
+    app = create_app(settings, store)
+    client = httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url=ORIGIN)
+    nonce = (await client.get("/api/v1/guest-nonce")).json()["nonce"]
+    lease = (
+        await client.post("/api/v1/guest-leases", headers={"Origin": ORIGIN}, json={"nonce": nonce})
+    ).json()
+    headers = {"Origin": ORIGIN, "Authorization": f"GuestLease {lease['token']}"}
+    try:
+        response = await client.post(
+            f"/api/v1/guest-leases/{lease['lease_id']}/course-discovery",
+            headers=headers,
+            json=course_discovery_payload(),
+        )
+        assert response.status_code == 503
+        with pytest.raises(ValidationError):
+            CourseDiscoveryReply.model_validate(
+                {
+                    "status": "clarifying",
+                    "message": "先补充一下",
+                    "clarifying_question": "你更想练哪类问题？",
+                    "proposal": {
+                        "title": "错误地提前生成",
+                        "goal": "",
+                        "topics": [],
+                        "first_task": "",
+                        "assumptions": [],
+                    },
+                    "mastery_asserted": False,
+                    "content_review_status": "unreviewed_ai_draft",
+                }
+            )
+        with pytest.raises(ValidationError):
+            CourseDiscoveryRequest.model_validate(
+                course_discovery_payload(disclosure_accepted=False)
+            )
+    finally:
+        await client.aclose()
+
+
+async def test_custom_model_router_sends_course_discovery_to_selected_profile():
+    seen = []
+
+    def respond(request):
+        seen.append((str(request.url), json.loads(request.content)))
+        return httpx.Response(
+            200,
+            json={
+                "choices": [
+                    {
+                        "message": {
+                            "content": json.dumps(
+                                course_discovery_reply_payload(), ensure_ascii=False
+                            )
+                        }
+                    }
+                ]
+            },
+        )
+
+    profile = ModelProfile(
+        id="course_planner",
+        label="课程规划模型",
+        provider="兼容服务",
+        protocol="openai_chat",
+        base_url="http://127.0.0.1:11434/v1/",
+        model="planner-v2",
+        capabilities={"text", "json"},
+    )
+    gateway = OpenAIChatGateway(profile, None, 5, 1, httpx.MockTransport(respond))
+    router = ModelRouter(
+        {"course_planner": gateway}, [profile], {"course_discovery": "course_planner"}
+    )
+    try:
+        request = CourseDiscoveryRequest.model_validate(course_discovery_payload())
+        reply = await router.discover_course(
+            "return the bounded course schema",
+            {"course_name": request.course_name},
+            request.model_profile_id,
+        )
+        assert reply.content_review_status == "unreviewed_ai_draft"
+        assert reply.mastery_asserted is False
+        assert seen[0][0] == "http://127.0.0.1:11434/v1/chat/completions"
+        assert seen[0][1]["model"] == "planner-v2"
+        assert "JSON" in seen[0][1]["messages"][0]["content"]
+        assert "tools" not in seen[0][1]
+    finally:
+        await router.close()
+
+
+async def test_discovery_workflow_marks_student_input_untrusted_and_preserves_turns():
+    pytest.importorskip("langgraph.graph")
+
+    class FakeGateway:
+        async def discover_course(self, instructions, context):
+            self.instructions, self.context = instructions, context
+            return CourseDiscoveryReply.model_validate(course_discovery_reply_payload())
+
+        async def close(self):
+            return None
+
+    gateway = FakeGateway()
+    workflow = LearningAssistWorkflow(gateway)
+    body = CourseDiscoveryRequest.model_validate(
+        course_discovery_payload(turns=[{"role": "learner", "content": "我想先画图和做小实验。"}])
+    )
+    reply = await workflow.discover_course(body)
+    assert reply.content_review_status == "unreviewed_ai_draft"
+    assert gateway.context["turns"][0]["content"] == "我想先画图和做小实验。"
+    assert "不可信数据" in gateway.instructions
+    assert "不要编造引用" in gateway.instructions
+    await workflow.close()
+
+
 async def test_result_feedback_uses_server_result_and_exact_revision(
     settings, store, trace_payload
 ):
@@ -189,6 +395,24 @@ def test_agent_is_disabled_by_default_and_requires_a_secret():
         Settings(environment="test", agent_enabled=True)
     with pytest.raises(ValidationError, match="at least one configured model"):
         Settings(environment="test", agent_enabled=True, deepseek_api_key="   ")
+
+
+def test_deployment_can_assign_a_different_model_to_course_discovery():
+    profile = ModelProfile(
+        id="planner",
+        label="规划模型",
+        provider="本地",
+        protocol="openai_chat",
+        base_url="http://127.0.0.1:11434/v1/",
+        model="course-planner",
+        capabilities={"text"},
+    )
+    settings = Settings(
+        environment="test",
+        model_profiles=[profile],
+        model_task_defaults={"course_discovery": "planner"},
+    )
+    assert settings.model_task_defaults["course_discovery"] == "planner"
 
 
 def test_agent_request_requires_explicit_disclosure():

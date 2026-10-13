@@ -7,7 +7,7 @@ import httpx
 from pydantic import ValidationError
 
 from vault_backend.errors import ApiError
-from vault_backend.learning_assist_schemas import LearningAssistReply
+from vault_backend.learning_assist_schemas import CourseDiscoveryReply, LearningAssistReply
 from vault_backend.model_profiles import ModelProfile, PublicModelProfile
 
 
@@ -102,6 +102,68 @@ class DeepSeekResponsesGateway:
                 502, "AGENT_RESPONSE_INVALID", "学习助手返回格式暂不可用。", retryable=True
             ) from None
 
+    async def discover_course(
+        self, instructions: str, context: dict[str, Any]
+    ) -> CourseDiscoveryReply:
+        body = {
+            "model": self.model,
+            "instructions": instructions,
+            "input": [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "input_text", "text": json.dumps(context, ensure_ascii=False)}
+                    ],
+                }
+            ],
+            "max_output_tokens": 4000,
+            "text": {
+                "format": {
+                    "type": "json_schema",
+                    "name": "course_discovery_reply",
+                    "schema": CourseDiscoveryReply.model_json_schema(),
+                }
+            },
+        }
+        try:
+            async with self.capacity:
+                response = await self.client.post("/responses", json=body)
+                response.raise_for_status()
+                payload = response.json()
+        except (httpx.HTTPError, ValueError):
+            raise ApiError(
+                502,
+                "AGENT_PROVIDER_UNAVAILABLE",
+                "课程规划助手暂时不可用；尚未创建课程。",
+                retryable=True,
+            ) from None
+        text_parts = []
+        output = payload.get("output") if isinstance(payload, dict) else None
+        if isinstance(output, list):
+            for item in output:
+                if (
+                    isinstance(item, dict)
+                    and item.get("type") == "message"
+                    and isinstance(item.get("content"), list)
+                ):
+                    text_parts.extend(
+                        part["text"]
+                        for part in item["content"]
+                        if isinstance(part, dict)
+                        and part.get("type") == "output_text"
+                        and isinstance(part.get("text"), str)
+                    )
+        if not text_parts or payload.get("status") != "completed":
+            raise ApiError(
+                502, "AGENT_RESPONSE_INVALID", "课程规划助手没有返回可用草案。", retryable=True
+            )
+        try:
+            return CourseDiscoveryReply.model_validate_json("".join(text_parts))
+        except (ValidationError, ValueError):
+            raise ApiError(
+                502, "AGENT_RESPONSE_INVALID", "课程规划助手返回格式暂不可用。", retryable=True
+            ) from None
+
 
 class OpenAIChatGateway:
     """Bounded Chat Completions adapter; no tools, redirects, or trusted model output."""
@@ -164,6 +226,43 @@ class OpenAIChatGateway:
                 502, "AGENT_RESPONSE_INVALID", "学习助手返回格式暂不可用。", retryable=True
             ) from None
 
+    async def discover_course(
+        self, instructions: str, context: dict[str, Any]
+    ) -> CourseDiscoveryReply:
+        body = {
+            "model": self.profile.model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": instructions + "\n只输出符合课程规划 JSON 结构的对象。",
+                },
+                {"role": "user", "content": json.dumps(context, ensure_ascii=False)},
+            ],
+            "max_tokens": 4000,
+            "stream": False,
+        }
+        try:
+            async with self.capacity:
+                response = await self.client.post("chat/completions", json=body)
+                response.raise_for_status()
+                payload = response.json()
+        except (httpx.HTTPError, ValueError):
+            raise ApiError(
+                502,
+                "AGENT_PROVIDER_UNAVAILABLE",
+                "课程规划助手暂时不可用；尚未创建课程。",
+                retryable=True,
+            ) from None
+        try:
+            content = payload["choices"][0]["message"]["content"]
+            if not isinstance(content, str):
+                raise ValueError("non-text model output")
+            return CourseDiscoveryReply.model_validate_json(content)
+        except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError, ValidationError):
+            raise ApiError(
+                502, "AGENT_RESPONSE_INVALID", "课程规划助手返回格式暂不可用。", retryable=True
+            ) from None
+
 
 class ModelRouter:
     def __init__(
@@ -217,6 +316,12 @@ class ModelRouter:
     ) -> LearningAssistReply:
         gateway = self.select(context["intent"], profile_id)
         return await gateway.complete(instructions, context)
+
+    async def discover_course(
+        self, instructions: str, context: dict[str, Any], profile_id: str | None = None
+    ) -> CourseDiscoveryReply:
+        gateway = self.select("course_discovery", profile_id)
+        return await gateway.discover_course(instructions, context)
 
     async def close(self) -> None:
         for gateway in self.gateways.values():
