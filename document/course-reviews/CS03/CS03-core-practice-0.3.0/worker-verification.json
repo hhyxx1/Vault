@@ -1,7 +1,7 @@
 {
   "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
   "verified_at": "2026-10-13T08:03:42.902302+00:00",
-  "manifest_sha256": "bbe9608978ade673234faaa2dbc048043caaee73797cbc6f6a4040d8993085e4",
+  "manifest_sha256": "bcc65eef70a3c318073c5b3221ac52fc3a16d7638cfcefdf22a3ad04f59fc75c",
   "runtime": "WSL Ubuntu isolated worker, cpp17",
   "records": [
     {
@@ -1486,5 +1486,7 @@
       "passed": true,
       "independent_redacted": true
     }
-  ]
+  ],
+  "manifest_runtime_file_sha256": "bbe9608978ade673234faaa2dbc048043caaee73797cbc6f6a4040d8993085e4",
+  "manifest_hash_encoding": "UTF-8, LF-normalized; identical to committed Git blob. Raw execution-file hash retained separately."
 }

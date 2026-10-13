@@ -167,10 +167,11 @@ report.write_text(
             "course_version_id": model.COURSE_VERSION,
             "verified_at": datetime.now(UTC).isoformat(),
             "manifest_sha256": hashlib.sha256(
-                (
-                    ROOT / "content/courses/CS03/CS03-core-practice-0.3.0/manifest.json"
-                ).read_bytes()
+                (ROOT / "content/courses/CS03/CS03-core-practice-0.3.0/manifest.json")
+                .read_bytes()
+                .replace(b"\r\n", b"\n")
             ).hexdigest(),
+            "manifest_hash_encoding": "UTF-8, LF-normalized",
             "runtime": "WSL Ubuntu isolated worker, cpp17",
             "records": records,
         },
