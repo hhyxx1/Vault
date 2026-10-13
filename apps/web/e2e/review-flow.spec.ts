@@ -1,6 +1,9 @@
 import { test, expect, type Page } from '@playwright/test'
 import { readdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
+import { readFileSync } from 'node:fs'
+const cs03 = JSON.parse(readFileSync(new URL('../../../content/courses/CS03/CS03-core-practice-0.3.0/manifest.json', import.meta.url), 'utf8'))
+const cs03Queue = cs03.activities.find((row: { objective_codes: string[] }) => row.objective_codes.includes('CS03-M03-O02'))
 
 test.use({ trace: 'off' })
 
@@ -11,12 +14,11 @@ const TEACHER_EMAIL = 'review-verified-teacher@invalid.test'
 const TEACHER_PASSWORD = process.env.VAULT_E2E_TEACHER_PASSWORD ?? ''
 const STUDENT_PASSWORD = 'Temporary-Review-Password-20261012'
 const CS01_VERSION = '0a210de3-0057-5957-986a-902ab7580e18'
-const OBJECTIVE = 'CS01-M03-O03'
 
 const GENERAL_SOURCE = `#include <stdio.h>
 int main(void) {
-  int minutes = 0;
-  if (scanf("%d", &minutes) != 1) return 0;
+  int minutes = 45;
+  scanf("%d", &minutes);
   int amount;
   if (minutes <= 30) amount = 0;
   else if (minutes <= 60) amount = 5;
@@ -28,8 +30,8 @@ int main(void) {
 
 const REVISED_SOURCE = `#include <stdio.h>
 int main(void) {
-  int minutes = 0;
-  if (scanf("%d", &minutes) != 1) return 0;
+  int minutes = 45;
+  scanf("%d", &minutes);
   int amount;
   /* inclusive three-tier fee, endpoints documented for the reviewer */
   if (minutes <= 30) { amount = 0; }
@@ -103,7 +105,12 @@ async function waitForSync(page: Page) {
   }, { timeout: 60000 }).toBe(true)
 }
 
-for (const kind of ['code', 'logic'] as const) {
+for (const kind of ['code', 'logic', 'cs03'] as const) {
+const isCode = kind !== 'logic'
+const OBJECTIVE = kind === 'cs03' ? 'CS03-M03-O02' : 'CS01-M03-O03'
+const COURSE_VERSION = kind === 'cs03' ? cs03.course_version_id : CS01_VERSION
+const workSource = kind === 'cs03' ? cs03Queue.reference_answer.files['main.cpp'] : GENERAL_SOURCE
+const revisedSource = kind === 'cs03' ? workSource + '\n// Revision: FIFO, empty/full transitions and circular/linked agreement.\n' : REVISED_SOURCE
 test(`${kind}: student submits, teacher returns, student revises, teacher signs and student appeals`, async ({ browser }, testInfo) => {
   test.setTimeout(180000)
   test.skip(!TEACHER_PASSWORD, 'Run against the isolated review fixture database.')
@@ -119,10 +126,10 @@ test(`${kind}: student submits, teacher returns, student revises, teacher signs 
     // --- Student creates and syncs real work -------------------------------
     await registerStudent(student, studentEmail)
     await login(student, studentEmail, STUDENT_PASSWORD)
-    if (kind === 'code') {
-      await student.goto(`/learn/${OBJECTIVE}?courseVersion=${CS01_VERSION}`)
-      await expect(student.getByRole('heading', { name: '选择能揭示条件缺口的反例' })).toBeVisible()
-      await saveAndRun(student, GENERAL_SOURCE)
+    if (isCode) {
+      await student.goto(`/learn/${OBJECTIVE}?courseVersion=${COURSE_VERSION}`)
+      await expect(student.getByRole('heading', { name: kind === 'cs03' ? cs03Queue.title : '选择能揭示条件缺口的反例' })).toBeVisible()
+      await saveAndRun(student, workSource)
     } else {
       await student.goto('/learn/CS05-LOGIC-01')
       await student.locator('#logic-explanation').fill('用 P 真 Q 假作为反例，我还需要教师反馈推理。')
@@ -141,7 +148,7 @@ test(`${kind}: student submits, teacher returns, student revises, teacher signs 
     const studentCard = student.locator('.review-card').first()
     await expect(studentCard).toBeVisible({ timeout: 60000 })
     // The server re-ran the work and derived server_tool evidence itself.
-    await expect(studentCard).toContainText(kind === 'code' ? '服务端在隔离环境重新执行' : '已冻结学生作品')
+    await expect(studentCard).toContainText(isCode ? '服务端在隔离环境重新执行' : '已冻结学生作品')
     const assignmentId = await studentCard.getAttribute('data-assignment-id')
     expect(assignmentId).toBeTruthy()
 
@@ -156,7 +163,7 @@ test(`${kind}: student submits, teacher returns, student revises, teacher signs 
     // The frozen snapshot shows the real source and the server verification.
     await expect(teacherCard).toContainText('冻结的作品与核验')
     await teacherCard.getByText('冻结的作品与核验').click()
-    await expect(teacherCard).toContainText(kind === 'code' ? 'int main' : '用 P 真 Q 假作为反例')
+    await expect(teacherCard).toContainText(isCode ? 'int main' : '用 P 真 Q 假作为反例')
     if (kind === 'logic') await expect(teacherCard).toContainText('尚无服务端自动核验结论')
     await teacherCard.getByRole('button', { name: '接单审阅' }).click()
     await expect(teacherCard.locator('.review-status')).toHaveText('教师已接单')
@@ -178,9 +185,9 @@ test(`${kind}: student submits, teacher returns, student revises, teacher signs 
     await student.reload()
     const returnedCard = student.locator(`.review-card[data-assignment-id="${assignmentId}"]`)
     await expect(returnedCard.locator('.review-status')).toHaveText('退回补充材料', { timeout: 60000 })
-    if (kind === 'code') {
-      await student.goto(`/learn/${OBJECTIVE}?courseVersion=${CS01_VERSION}`)
-      await saveAndRun(student, REVISED_SOURCE)
+    if (isCode) {
+      await student.goto(`/learn/${OBJECTIVE}?courseVersion=${COURSE_VERSION}`)
+      await saveAndRun(student, revisedSource)
     } else {
       await student.goto('/learn/CS05-LOGIC-01')
       await student.getByRole('button', { name: '修改并开始新版本' }).click()
@@ -216,9 +223,22 @@ test(`${kind}: student submits, teacher returns, student revises, teacher signs 
     const approvedCard = student.locator(`.review-card[data-assignment-id="${assignmentId}"]`)
     await expect(approvedCard.locator('.review-status')).toHaveText('审阅通过', { timeout: 60000 })
     await expect(approvedCard).toContainText('授权教师意见')
+    if (isCode) {
+      await student.goto(`/atlas?course=${kind === 'cs03' ? 'CS03' : 'CS01'}&courseVersion=${COURSE_VERSION}&goal=${OBJECTIVE}`)
+      await expect(student.locator('.objective-inspector .evidence-pill')).toHaveText('有达标证据', { timeout: 30000 })
+      await expect(student.locator('.scope-total strong')).toContainText('1 / 30')
+      await student.goto('/reviews')
+      await expect(approvedCard.locator('.review-status')).toHaveText('审阅通过')
+    }
     await approvedCard.getByPlaceholder(/具体说明你不同意哪一条判定/).fill('对独立迁移一条的判定有异议，请复核。')
     await approvedCard.getByRole('button', { name: '提出异议并请求复核' }).click()
     await expect(approvedCard.locator('.review-status')).toHaveText('异议复核中', { timeout: 60000 })
+    if (isCode) {
+      await student.goto(`/atlas?course=${kind === 'cs03' ? 'CS03' : 'CS01'}&courseVersion=${COURSE_VERSION}&goal=${OBJECTIVE}`)
+      await expect(student.locator('.objective-inspector .evidence-pill')).toHaveText('部分条件满足')
+      await expect(student.locator('.scope-total strong')).toContainText('0 / 30')
+    }
+
   } finally {
     await studentContext.close()
     await teacherContext.close()

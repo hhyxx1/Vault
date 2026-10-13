@@ -140,8 +140,8 @@ export async function createReviewAssignment(body: ReviewCreateBody): Promise<Re
     body.assignment_id,
   )
 }
-export async function listMyReviews(): Promise<ReviewAssignment[]> {
-  return (await accountRequest<{ assignments: ReviewAssignment[] }>('reviews/assignments/mine'))
+export async function listMyReviews(signal?: AbortSignal): Promise<ReviewAssignment[]> {
+  return (await accountRequest<{ assignments: ReviewAssignment[] }>('reviews/assignments/mine', { signal }))
     .assignments
 }
 export async function listTeacherQueue(): Promise<ReviewAssignment[]> {

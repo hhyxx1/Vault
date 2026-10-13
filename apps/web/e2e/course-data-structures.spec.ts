@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 test('C++ queue recovery preserves its submitted version and partial graph evidence', async ({ page }) => {
   test.setTimeout(90000)
-  await page.goto('/learn/CS03-M03-O02')
+  await page.goto('/learn/CS03-M03-O02?courseVersion=2ddb5945-157f-5611-bfed-e1e84b96f7cd')
   await expect(page.getByRole('heading', { name: '循环队列在回绕后保持先进先出', exact: true })).toBeVisible()
   await page.getByLabel('运行前预测').fill('第三次入队后的 tail 错误回到 1，下一次入队覆盖 20。')
   await page.getByRole('button', { name: '保存并运行这一版' }).click()
@@ -23,7 +23,7 @@ test('C++ queue recovery preserves its submitted version and partial graph evide
 
 test('external sorting uses real files and repairs interleaved runs', async ({ page }) => {
   test.setTimeout(90000)
-  await page.goto('/learn/CS03-M10-O03')
+  await page.goto('/learn/CS03-M10-O03?courseVersion=2ddb5945-157f-5611-bfed-e1e84b96f7cd')
   await page.getByRole('button', { name: '保存并运行这一版' }).click()
   await expect(page.getByLabel('标准输出')).toHaveText('1 4 2 3 \n', { timeout: 60000 })
   await page.getByRole('button', { name: '修改并开始新版本' }).click()
@@ -31,7 +31,7 @@ test('external sorting uses real files and repairs interleaved runs', async ({ p
   await source.fill((await source.inputValue()).replace('if(hasX){', 'if(hasX&&(!hasY||x<=y)){'))
   await page.getByRole('button', { name: '保存并运行这一版' }).click()
   await expect(page.getByLabel('标准输出')).toHaveText('1 2 3 4 \n', { timeout: 60000 })
-  await page.goto('/learn/CS03-M04-O02?task=changed-condition')
+  await page.goto('/learn/CS03-M04-O02?courseVersion=2ddb5945-157f-5611-bfed-e1e84b96f7cd&task=changed-condition')
   await expect(page.getByRole('heading', { name: '没有多次失配回退的交替模式', exact: true })).toBeVisible()
   await page.getByRole('button', { name: '保存并运行这一版' }).click()
   await expect(page.getByLabel('标准输出')).toHaveText('0 0 1 2 \n', { timeout: 60000 })

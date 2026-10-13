@@ -1,4 +1,5 @@
 import catalog from '../../../../content/courses/catalog.json'
+import stackExample from '../../../../content/courses/CS03.stack-example.json'
 import scopeCatalog from '../../../../content/courses/scope-catalog.json'
 import { courseMapFromPackage } from './course-map'
 import type { CodeRequest } from './code'
@@ -12,7 +13,7 @@ export type PublicSemanticCase = { code: string; stdin: string }
 export type PublicSemanticSuite = {
   standard_version: 'code-semantic-suite-v1'
   oracle_id: string
-  comparator: 'exact' | 'integer' | 'number_tol' | 'token_multiset' | 'line_set' | 'sorted_lines'
+  comparator: 'exact' | 'integer' | 'number_tol' | 'token_multiset' | 'line_set' | 'sorted_lines' | 'huffman_codebook' | 'topological_order' | 'sorted_records' | 'external_project' | 'graph_search_order' | 'minimum_forest'
   language: CodeRequest['language']
   visible_cases: PublicSemanticCase[]
   independent_case_count: number
@@ -80,10 +81,14 @@ export async function loadCodeActivity(objective: string, versionId?: string): P
 // be placed under this glob; course package schemas reject private payload fields.
 const bundles = import.meta.glob<AtlasPackage>(['../../../../content/courses/*-example.json', '../../../../content/courses/*/*/manifest.json'], { import: 'default' })
 
-export async function loadCoursePackage(code: string, edition: 'current' | 'core' = 'current'): Promise<AtlasPackage | null> {
+export async function loadCoursePackage(code: string, edition: 'current' | 'core' = 'current', versionId?: string): Promise<AtlasPackage | null> {
   const current = catalog.courses.find(course => course.code === code)
   const core = [...scopeCatalog.courses, ...extraCourses].find(course => course.code === code)
-  const entry = edition === 'core' ? core : current?.package_path ? current : core
+  const archived = (scopeCatalog as typeof scopeCatalog & { archived_courses?: typeof scopeCatalog.courses }).archived_courses ?? []
+  const preferred = (core as (typeof core & { preferred_for_learning?: boolean }) | undefined)?.preferred_for_learning
+  const entry = versionId
+    ? [...scopeCatalog.courses, ...extraCourses, ...catalog.courses, ...archived].find(item => item.code === code && item.version_id === versionId)
+    : edition === 'core' || preferred ? core : current?.package_path ? current : core
   if (!entry?.package_path) return null
   const load = bundles[`../../../../content/courses/${entry.package_path}`]
   if (!load) return null
@@ -108,4 +113,10 @@ export function workspaceForObjective(objective: string): 'stack_trace' | 'code_
 
 export function hasCurrentActivityPackage(code: string): boolean {
   return !!catalog.courses.find(course => course.code === code)?.package_path
+}
+
+
+export function legacyVersionForObjective(course: string, objective: string): string | undefined {
+  if (course === stackExample.course_code && stackExample.objectives.some(goal => goal.code === objective)) return stackExample.course_version_id
+  return catalog.courses.find(item => item.code === course && item.workspace_bindings?.some(binding => binding.objective_code === objective))?.version_id
 }

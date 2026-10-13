@@ -34,7 +34,18 @@ STANDARD = "code-semantic-suite-v1"
 PROVENANCE = "server_deterministic_checker"
 
 Comparator = Literal[
-    "exact", "integer", "number_tol", "token_multiset", "line_set", "sorted_lines"
+    "exact",
+    "integer",
+    "number_tol",
+    "token_multiset",
+    "line_set",
+    "sorted_lines",
+    "huffman_codebook",
+    "topological_order",
+    "sorted_records",
+    "external_project",
+    "graph_search_order",
+    "minimum_forest",
 ]
 CaseKind = Literal["visible", "independent"]
 
@@ -66,8 +77,7 @@ class SemanticSuite:
     tolerance: float = 0.0
     standard_version: str = STANDARD
     scope_note: str = (
-        "仅核验有限组受控输入上的结果与状态；通过不证明一般正确性，"
-        "解释与独立迁移仍需独立复核。"
+        "仅核验有限组受控输入上的结果与状态；通过不证明一般正确性，解释与独立迁移仍需独立复核。"
     )
 
 
@@ -91,6 +101,24 @@ ORACLES: dict[str, Callable[[str], str]] = {
 
 
 def compare_output(mode: Comparator, expected: str, observed: str, tolerance: float = 0.0) -> bool:
+    if mode in {"graph_search_order", "minimum_forest"}:
+        from vault_backend.course_checks.cs03_graphs import compare_search, compare_forest
+
+        return (compare_search if mode == "graph_search_order" else compare_forest)(
+            expected, observed
+        )
+    if mode in {"sorted_records", "external_project"}:
+        from vault_backend.course_checks.cs03_hash_sort import compare_sorted, compare_project
+
+        return (compare_sorted if mode == "sorted_records" else compare_project)(expected, observed)
+    if mode == "topological_order":
+        from vault_backend.course_checks.cs03_graphs import compare_topology
+
+        return compare_topology(expected, observed)
+    if mode == "huffman_codebook":
+        from vault_backend.course_checks.cs03_huffman import compare_codebook
+
+        return compare_codebook(expected, observed)
     if mode == "exact":
         return expected == observed
     if mode == "integer":
@@ -153,9 +181,36 @@ SUITES: dict[tuple[str, str], SemanticSuite] = {
 # Preserve compatibility for records made before the discovery-version correction.
 LEGACY_SUITES = dict(SUITES)
 _legacy = LEGACY_SUITES[(_CS01_090, "CS01-M03-O03")]
-SUITES = {("0a210de3-0057-5957-986a-902ab7580e18", "CS01-M03-O03"): replace(
-    _legacy, course_version_id="0a210de3-0057-5957-986a-902ab7580e18",
-    activity_version_id="ae1295a6-3157-5859-82c8-b12c151f90af")}
+SUITES = {
+    ("0a210de3-0057-5957-986a-902ab7580e18", "CS01-M03-O03"): replace(
+        _legacy,
+        course_version_id="0a210de3-0057-5957-986a-902ab7580e18",
+        activity_version_id="ae1295a6-3157-5859-82c8-b12c151f90af",
+    )
+}
+
+
+# CS03 linear structures use model-based operation transcripts.
+from vault_backend.course_checks import cs03_linear as _linear  # noqa: E402
+
+ORACLES.update(_linear.ORACLES)
+for _goal, (_oracle, _representation) in _linear.GOALS.items():
+    _visible, _hidden = _linear.INPUTS[_oracle]
+    SUITES[(_linear.COURSE_VERSION, _goal)] = SemanticSuite(
+        course_version_id=_linear.COURSE_VERSION,
+        objective_code=_goal,
+        activity_version_id=_linear.activity_id(_goal),
+        language="cpp17",
+        oracle_id=_oracle,
+        comparator=_linear.COMPARATORS.get(_oracle, "exact"),
+        visible_cases=tuple(
+            SuiteCase(f"visible-{i + 1}", "visible", value) for i, value in enumerate(_visible)
+        ),
+        independent_cases=tuple(
+            SuiteCase(f"internal-{i + 1}", "independent", value) for i, value in enumerate(_hidden)
+        ),
+        scope_note="核验有限输入的产物、行为与边界；不证明一般正确、存储实现、复杂度或独立迁移，解释须审阅。",
+    )
 
 
 def get_suite(
@@ -164,7 +219,8 @@ def get_suite(
     activity_version_id: str | None = None,
 ) -> SemanticSuite:
     suite = SUITES.get((course_version_id, objective_code)) or LEGACY_SUITES.get(
-        (course_version_id, objective_code))
+        (course_version_id, objective_code)
+    )
     if suite is None:
         raise ApiError(404, "SEMANTIC_SUITE_UNAVAILABLE", "该目标没有登记受信语义核验套件。")
     if activity_version_id is not None and activity_version_id != suite.activity_version_id:
@@ -279,8 +335,7 @@ async def run_suite(
     if env_failed:
         fixed_status = "needs_review"
         fixed_reason = (
-            "存在基础设施故障或不完整运行，本次不对固定/语义条件下结论，"
-            "可在环境恢复后重新核验。"
+            "存在基础设施故障或不完整运行，本次不对固定/语义条件下结论，可在环境恢复后重新核验。"
         )
     elif all_met:
         fixed_status = "met"

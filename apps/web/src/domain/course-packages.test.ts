@@ -9,7 +9,7 @@ describe('versioned course loading', () => {
     expect(packages.every(course => course!.status === 'structured_validated')).toBe(true)
   })
   it('keeps legacy goal IDs separate from new core scopes', async () => {
-    const previous = await loadCoursePackage('CS03')
+    const previous = await loadCoursePackage('CS03', 'current', 'c47c1551-76d5-4b80-aeae-33cd253d8ca0')
     const core = await loadCoursePackage('CS03', 'core')
     expect(previous?.objectives.some(goal => goal.code === 'CS03-STACK-01')).toBe(true)
     expect(core?.objectives.some(goal => goal.code === 'CS03-M03-O01')).toBe(true)
@@ -34,4 +34,17 @@ it('selects only a ready code activity from the exact course version and objecti
   expect(codeActivityForObjective(data as never, 'CUSTOM-01')?.code).toBe('CUSTOM-A')
   expect(codeActivityForObjective(data as never, 'CUSTOM-OTHER')).toBeNull()
   expect(codeActivityForObjective({ ...data, activities: [{ ...data.activities[0], availability: 'pending' }] } as never, 'CUSTOM-01')).toBeNull()
+})
+
+it('loads an archived graph by exact course version and rejects wrong-course IDs', async () => {
+  const old = await loadCoursePackage('CS03', 'core', '2ddb5945-157f-5611-bfed-e1e84b96f7cd')
+  expect(old?.version).toBe('CS03-core-practice-0.2.0')
+  expect(await loadCoursePackage('CS01', 'core', '2ddb5945-157f-5611-bfed-e1e84b96f7cd')).toBeNull()
+})
+
+
+it('opens the maintained data-structures learning package by default', async () => {
+  const course = await loadCoursePackage('CS03')
+  expect(course?.version).toBe('CS03-core-practice-0.3.0')
+  expect(course?.objectives).toHaveLength(30)
 })

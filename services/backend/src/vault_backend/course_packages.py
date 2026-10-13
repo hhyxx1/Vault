@@ -128,7 +128,18 @@ class PublicSemanticSuite(PublicRecord):
     standard_version: Literal["code-semantic-suite-v1"]
     oracle_id: str = Field(min_length=1, max_length=80)
     comparator: Literal[
-        "exact", "integer", "number_tol", "token_multiset", "line_set", "sorted_lines"
+        "exact",
+        "integer",
+        "number_tol",
+        "token_multiset",
+        "line_set",
+        "sorted_lines",
+        "huffman_codebook",
+        "topological_order",
+        "sorted_records",
+        "external_project",
+        "graph_search_order",
+        "minimum_forest",
     ]
     language: Language
     visible_cases: list[PublicSemanticCase] = Field(min_length=1, max_length=20)

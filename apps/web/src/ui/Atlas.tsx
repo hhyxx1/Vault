@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { loadCoursePackage, algebraActivityForObjective, codeActivityForObjective, workspaceForObjective, hasCurrentActivityPackage, type AtlasPackage, type AtlasUnit as Unit, type AtlasChapter as Chapter } from '../domain/course-packages'
+import { loadCoursePackage, legacyVersionForObjective, algebraActivityForObjective, codeActivityForObjective, workspaceForObjective, hasCurrentActivityPackage, type AtlasPackage, type AtlasUnit as Unit, type AtlasChapter as Chapter } from '../domain/course-packages'
 import { courses, currentObjectiveEvidence, objectiveStates, stateLabels, TRACE_OBJECTIVE } from '../domain/learning'
 import scopeCatalog from '../../../../content/courses/scope-catalog.json'
 
@@ -26,6 +26,8 @@ import { currentCodeAssessment, codeObjectiveState, currentSuiteAssessment, best
 import { currentAlgebraAttempt } from '../domain/algebra'
 import { useLocal } from '../local/LocalProvider'
 import { AtlasMap } from './AtlasMap'
+import { useCourseReviews } from './useCourseReviews'
+import { reviewedGoalEvidence } from '../domain/review-evidence'
 
 const relationTypes = ['mandatory_prerequisite', 'conceptual_association', 'application'] as const
 type RelationKind = typeof relationTypes[number]
@@ -44,13 +46,14 @@ export default function Atlas() {
   const course = atlasCourses.find(item => item.code === params.get('course')) ?? courses[2]
   const edition = params.get('edition') === 'core' ? 'core' : 'current'
   const [loaded, setLoaded] = useState<{ key: string; data: AtlasPackage | null; error?: string } | null>(null)
-  const key = `${course.code}:${edition}`
+  const requestedVersion = params.get('courseVersion') ?? legacyVersionForObjective(course.code, params.get('goal') ?? '')
+  const key = `${course.code}:${edition}:${requestedVersion ?? 'latest'}`
   useEffect(() => {
     let active = true
-    loadCoursePackage(course.code, edition).then(data => { if (active) setLoaded({ key, data }) })
+    loadCoursePackage(course.code, edition, requestedVersion).then(data => { if (active) setLoaded({ key, data }) })
       .catch(() => { if (active) setLoaded({ key, data: null, error: '课程内容暂时无法加载，请刷新重试。' }) })
     return () => { active = false }
-  }, [course.code, edition, key])
+  }, [course.code, edition, requestedVersion, key])
   const data = loaded?.key === key ? loaded.data : null
   const picker = <label className="course-picker">课程 <select value={course.code} onChange={event => setParams({ course: event.target.value })}>{atlasCourses.map(item => <option key={item.code} value={item.code}>{item.title}</option>)}</select></label>
   if (loaded?.key !== key) return <div className="page atlas-page" role="status">正在打开课程图谱…</div>
@@ -66,6 +69,7 @@ export default function Atlas() {
 function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: string; picker: ReactNode }) {
   const [params, setParams] = useSearchParams()
   const { evidence, courseAttempts, structuredAttempts, codeAttempts, algebraAttempts, help, lastObjective } = useLocal()
+  const reviews = useCourseReviews(data.course_version_id)
   const [directoryOpen, setDirectoryOpen] = useState(false)
   const inspector = useRef<HTMLElement>(null)
   const canvas = useRef<HTMLDivElement>(null)
@@ -110,6 +114,14 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
     const suite = currentSuiteAssessment(codeAttempts, goal.code, data.course_version_id)
     const code = suite ?? currentCodeAssessment(codeAttempts, goal.code, data.course_version_id)
     if (algebra && (!code || algebra.updatedAt >= code.updatedAt)) states.set(goal.id, algebra.result!.prediction_correct ? 'partial' : 'consolidate')
+  }
+  const reviewEvidence = new Map(data.objectives.map(goal => {
+    const activity = codeActivityForObjective(data, goal.code)
+    return [goal.code, reviews.owner && activity ? reviewedGoalEvidence(reviews.rows, reviews.owner, data.course_version_id, goal, activity.version_id) : null] as const
+  }))
+  for (const goal of data.objectives) {
+    const reviewed = reviewEvidence.get(goal.code)
+    if (reviewed) states.set(goal.id, reviewed.state)
   }
   const stateOf = (code: string) => states.get(goals.get(code)?.id ?? '') ?? 'unknown'
   const summary = summarizeObjectiveStates(data.objectives.map(goal => goal.id), states)
@@ -166,7 +178,8 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
     { id: 'fixed_condition', status: selectedAlgebra.result!.prediction_correct ? 'met' as const : 'not_met' as const, reason: '已检查完整有限表并比较本版预测；一般证明、解释及独立迁移分开核验。' },
     ...selectedAlgebra.result!.criteria.filter(item => item.id === 'explanation' || item.id === 'independent_transfer'),
   ] : undefined
-  const goalCriteria = (nativeIsLatest ? nativeCriteria : undefined) ?? selectedSuite?.result?.suite_assessment?.criteria ?? selectedCode?.result?.task_assessment?.criteria ?? (structuredIsLatest && selectedStructured.result && selected
+  const selectedReview = selected ? reviewEvidence.get(selected.code) : null
+  const goalCriteria = selectedReview?.criteria ?? (nativeIsLatest ? nativeCriteria : undefined) ?? selectedSuite?.result?.suite_assessment?.criteria ?? selectedCode?.result?.task_assessment?.criteria ?? (structuredIsLatest && selectedStructured.result && selected
     ? structuredGoalEvidence(selectedStructured.result, selected.code) : result?.criteria)
   const suiteIndependentCounts = selectedSuite?.result?.suite_assessment ? (() => { const independent = selectedSuite.result!.suite_assessment!.cases.filter(c => c.kind === 'independent'); return { total: independent.length, met: independent.filter(c => c.status === 'met').length, not: independent.filter(c => c.status === 'not_met').length, review: independent.filter(c => c.status === 'needs_review').length } })() : null
   const otherRecords = selected ? data.course_code === 'CS03' ? evidence.filter(item => item.objectiveId === selected.code && item.id !== selectedEvidence?.id) : courseAttempts.filter(item => item.objectiveId === selected.code && item.result && item.id !== selectedLogic?.id) : []
@@ -209,7 +222,7 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
       <aside className="objective-inspector" aria-label="目标证据与下一步" tabIndex={-1} ref={inspector}>
         {selected ? <>
           <p className="inspector-path">{locate(selected.code) ? `${locate(selected.code)?.chapter.title} / ${locate(selected.code)?.unit.title}` : '已声明目标 · 章节待建设'}</p><h2>{selected.title}</h2><span className={`evidence-pill ${stateOf(selected.code)}`}>{stateLabels[stateOf(selected.code)]}</span>
-          <p className="inspector-description">{nativeActivity ? '直接填写运算表和映射，先预测性质，再用完整有限表检查和具体反例修改；不要求编写代码。' : canTrace ? '亲自推演每一步栈状态与输出，再解释空栈边界和后进先出的理由。' : canCode ? '用代码实现括号匹配，并解释嵌套、类型不匹配与边界输入的处理。' : canLogic ? '通过真值表核对命题公式，保留推导过程与核验结果。' : canStructured ? '逐步推演入队、出队后的状态与头尾指针，正确处理空队、满队和取模绕回，再解释理由。' : `学习重点：${selected.criteria.map(criterion => criterion.title).slice(0, 2).join('；')}。`}</p><h3>必要表现与当前依据</h3><ul className="atlas-criteria">{selected.criteria.map(criterion => { const checked = goalCriteria?.find(item => item.id === criterion.id); return <li key={criterion.id}><div><strong>{criterion.title}</strong><span className={checked?.status ?? 'unknown'}>{checked ? criterionStatus[checked.status] : '尚无有效依据'}</span></div>{checked && <p>{checked.reason}</p>}</li> })}</ul>
+          <p className="inspector-description">{nativeActivity ? '直接填写运算表和映射，先预测性质，再用完整有限表检查和具体反例修改；不要求编写代码。' : canTrace ? '亲自推演每一步栈状态与输出，再解释空栈边界和后进先出的理由。' : canCode ? '用代码实现括号匹配，并解释嵌套、类型不匹配与边界输入的处理。' : canLogic ? '通过真值表核对命题公式，保留推导过程与核验结果。' : canStructured ? '逐步推演入队、出队后的状态与头尾指针，正确处理空队、满队和取模绕回，再解释理由。' : `学习重点：${selected.criteria.map(criterion => criterion.title).slice(0, 2).join('；')}。`}</p><h3>必要表现与当前依据</h3>{selectedReview && <p className="inspector-note">{selectedReview.state === 'verified' ? '授权教师已按完整标准签署当前课程版本的冻结作品。' : '审阅尚未完成或需补证；暂不作为完整达标结论。'} <Link to="/reviews">查看审阅记录与异议</Link>{selectedReview.revisionId && <span> · 作品版本 {selectedReview.revisionId.slice(0, 8)}</span>}</p>}{reviews.unavailable && <p className="inspector-note">教师审阅结论暂时无法联网确认；本机练习证据仍保留。</p>}<ul className="atlas-criteria">{selected.criteria.map(criterion => { const checked = goalCriteria?.find(item => item.id === criterion.id); return <li key={criterion.id}><div><strong>{criterion.title}</strong><span className={checked?.status ?? 'unknown'}>{checked ? criterionStatus[checked.status] : '尚无有效依据'}</span></div>{checked && <p>{checked.reason}</p>}</li> })}</ul>
           <section className="next-action"><h3>下一步可以做什么</h3>{canLearn ? <><p className="inspector-note">{courseCodeActivity ? courseCodeActivity.completion_limit : canCode ? '可编辑、保存并进入隔离代码实验；按目标逐项自动核验仍在建设。' : result ? '修改作品并重新核验；原理解释与独立新条件仍需复核。' : '先亲自预测与解释，再提交固定活动核验。核验通过也不会自动证明全部掌握。'}</p><Link className="button primary" to={`/learn/${selected.code}${courseCodeActivity ? `?courseVersion=${data.course_version_id}` : ""}`}>{canLogic ? '进入真值表工作台' : canStructured ? '进入队列推演工作台' : '进入学习工作台'}</Link></> : <><span className="small-tag">活动待建设</span><p className="inspector-note">尚未提供这个目标的理论实践活动，也没有可提交的核验路径。目标保留在声明范围内，状态保持未评估。</p><Link className="button primary" to="/my-courses">建立个人课程记录尝试</Link></>}</section>
           <details className="inspector-evidence"><summary>已有作品与核验</summary>{result ? <><p>本机有效核验 · {new Date(resultTimestamp ?? Date.now()).toLocaleString('zh-CN')}</p><p>{result.summary}</p><p>帮助范围：{selectedEvidence ? `${submittedHelp.filter(item => item.kind === 'hint').length} 次提示、${submittedHelp.filter(item => item.kind === 'answer').length} 次答案、${submittedHelp.filter(item => item.kind === 'agent_assist').length} 次助手帮助（提交快照）` : '查看记录以核对答案使用与尝试历史。'}</p><details><summary>核验版本</summary><p>课程：{result.course_version}<br/>活动：{result.activity_version}<br/>规则：{result.standard_version}</p></details></> : selectedCode ? <p>已有本次固定条件依据；原理解释与独立迁移仍待复核。</p> : <p>尚无当前版本的可靠核验。开始尝试或查看既有作品；打开页面、阅读与聊天不增加达标数。</p>}{otherRecords.length > 0 && <p>{otherRecords.length} 条其他历史或账号恢复记录保留在学习证据中，未自动承接到当前状态。</p>}</details>
           <details className="atlas-relations"><summary>知识关系与来源</summary><div className="focus-relations">{data.relations.filter(r => kinds.has(r.kind as RelationKind) && (r.from === selected.code || r.to === selected.code)).map((r, i) => <div className="focus-relation" key={i}><strong>{relationLabel(r.kind)}：{goals.get(r.from)?.title} {r.kind === 'conceptual_association' ? '↔' : '→'} {goals.get(r.to)?.title}</strong><small>来源：{r.source === 'engineering_example_pending_review' ? '工程关系样例，待教研审校' : r.source ?? '待补充'}</small><button type="button" className="related-goal-link" onClick={() => openGoal(r.from === selected.code ? r.to : r.from)}>查看「{goals.get(r.from === selected.code ? r.to : r.from)?.title}」</button></div>)}</div></details>
@@ -226,7 +239,7 @@ function CourseAtlas({ data, title, picker }: { data: AtlasPackage; title: strin
             node?.scrollIntoView({ block: 'center', inline: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
             node?.focus({ preventScroll: true })
           }}>回到局部图谱</button>
-        </> : <div className="panorama-stats"><span className="eyebrow">全景阅读</span><svg className="inspector-intro-icon" width="75" height="65" viewBox="0 0 75 65" aria-hidden="true"><path d="M14 48 35 17 63 43M14 48H63" fill="none" stroke="#b8c8ed" strokeWidth="1.5"/><circle cx="35" cy="17" r="10" fill="#edf3ff" stroke="#315fe7"/><circle cx="14" cy="48" r="7" fill="#f4f7fd" stroke="#8ba1ce"/><circle cx="63" cy="43" r="8" fill="#eef7f4" stroke="#16826b"/></svg><h2>先看范围，<br/>再找下一步。</h2><p className="panorama-description">选择章节或目标，查看关系、必要表现、实际证据与可开展的活动。</p><div className="scope-tally">{stateOrder.map(state => <div key={state}><strong>{summary[state]}</strong><span>{stateLabels[state]}</span></div>)}</div><p className="panorama-subtle">这是范围样例，不表示整门课程已完成建设。个人证据与课程结构分开保存。</p>{resume && <section className="learn-next"><h3>{lastObjective === resume.code ? '继续上次的目标' : '从可用活动开始'}</h3><p>{resume.title}</p><button className="button primary" onClick={() => update({ filter: null, goal: resume.code, chapter: locate(resume.code)?.chapter.id ?? null })}>定位学习目标</button></section>}</div>}
+        </> : <div className="panorama-stats"><span className="eyebrow">全景阅读</span><svg className="inspector-intro-icon" width="75" height="65" viewBox="0 0 75 65" aria-hidden="true"><path d="M14 48 35 17 63 43M14 48H63" fill="none" stroke="#b8c8ed" strokeWidth="1.5"/><circle cx="35" cy="17" r="10" fill="#edf3ff" stroke="#315fe7"/><circle cx="14" cy="48" r="7" fill="#f4f7fd" stroke="#8ba1ce"/><circle cx="63" cy="43" r="8" fill="#eef7f4" stroke="#16826b"/></svg><h2>先看范围，<br/>再找下一步。</h2><p className="panorama-description">选择章节或目标，查看关系、必要表现、实际证据与可开展的活动。</p><div className="scope-tally">{stateOrder.map(state => <div key={state}><strong>{summary[state]}</strong><span>{stateLabels[state]}</span></div>)}</div><p className="panorama-subtle">图谱展示课程范围；是否达标取决于你的实际作品与核验。个人证据与课程结构分开保存。</p>{resume && <section className="learn-next"><h3>{lastObjective === resume.code ? '继续上次的目标' : '从可用活动开始'}</h3><p>{resume.title}</p><button className="button primary" onClick={() => update({ filter: null, goal: resume.code, chapter: locate(resume.code)?.chapter.id ?? null })}>定位学习目标</button></section>}</div>}
       </aside>
     </section>
   </>

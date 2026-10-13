@@ -1,3 +1,5 @@
+> 2026-10-13 更新：默认学习版本已升级为 `CS03-core-practice-0.3.0`，10 模块/30 目标的工程学习闭环见 [交付记录](../../course-reviews/CS03/CS03-core-practice-0.3.0/DELIVERY_REPORT.md)。下文历史建设状态保留；不能用旧版缺口覆盖新版记录，也不能将工程交付称为专业审校通过。
+
 # CS03 数据结构可执行建设记录
 
 版本：`CS03-core-practice-0.2.0`；课程版本 UUID：`2ddb5945-157f-5611-bfed-e1e84b96f7cd`。2026-10-10。

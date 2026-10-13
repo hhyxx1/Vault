@@ -12,5 +12,215 @@
     "accepted": false,
     "accepted_ref": null,
     "note": "合成课仅用于证明工具复用与编号无关，不计入 13 课验收分母。"
+  },
+  "CS03-M01-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M01-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M01-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M02-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M02-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M02-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M03-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M03-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M03-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M04-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M04-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M04-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M05-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M05-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M05-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M06-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M06-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M06-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M07-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M07-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M07-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M08-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M08-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M08-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M09-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M09-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M09-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M10-O01": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M10-O02": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
+  },
+  "CS03-M10-O03": {
+    "executed_ref": "document/course-reviews/CS03/CS03-core-practice-0.3.0/worker-verification.json",
+    "accepted": false,
+    "accepted_ref": null,
+    "course_version_id": "fec2a271-becf-509b-9d1a-16131858f763",
+    "note": "真实 C++ 实践与独立输入工程验证；原理解释、独立迁移及真实专业审校未完成整课验收。"
   }
 }

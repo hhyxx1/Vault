@@ -42,8 +42,10 @@ async def test_teacher_cannot_submit_duplicate_criterion_results(env):
     path = f"/api/v1/reviews/assignments/{assignment['id']}"
     assert (await teacher.post(path + "/claim", json={})).status_code == 200
     rows = results("met")
-    response = await teacher.post(path + "/decisions", json={
-        "decision": "approved", "rubric_results": rows + [rows[0]], "comment": "重复条目"})
+    response = await teacher.post(
+        path + "/decisions",
+        json={"decision": "approved", "rubric_results": rows + [rows[0]], "comment": "重复条目"},
+    )
     assert response.status_code == 422
 
 
@@ -52,61 +54,117 @@ async def test_resubmission_cannot_reuse_an_already_frozen_revision(env):
     teacher, _ = env.seed(f"same-revision-{uuid4()}", "teacher", verified=True)
     path = f"/api/v1/reviews/assignments/{assignment['id']}"
     await teacher.post(path + "/claim", json={})
-    await teacher.post(path + "/decisions", json={"decision": "changes_requested",
-                      "rubric_results": results("needs_review"), "comment": "请修改"})
-    response = await student.post(path + "/resubmit", json={"comment": "没有改作品",
-                                 "evidence_refs": [{"artifact_revision_id": str(work.revision_id),
-                                                    "artifact_hash": work.hash, "note": "原版"}]})
+    await teacher.post(
+        path + "/decisions",
+        json={
+            "decision": "changes_requested",
+            "rubric_results": results("needs_review"),
+            "comment": "请修改",
+        },
+    )
+    response = await student.post(
+        path + "/resubmit",
+        json={
+            "comment": "没有改作品",
+            "evidence_refs": [
+                {
+                    "artifact_revision_id": str(work.revision_id),
+                    "artifact_hash": work.hash,
+                    "note": "原版",
+                }
+            ],
+        },
+    )
     assert response.status_code == 422
 
 
 @pytest.mark.parametrize("work_kind", ["course_attempt", "structured_attempt", "algebra_attempt"])
 async def test_non_code_work_can_be_reviewed_without_claiming_automatic_verification(
-    env, work_kind,
+    env,
+    work_kind,
 ):
     student, owner = env.seed(f"manual-{uuid4()}", "student")
     space_id = await env.claim_space(student, owner)
     revision, artifact = uuid4(), uuid4()
-    content = {"courseCode": "CS05", "objectiveId": "CS05-LOGIC-01",
-               "activityVersion": "CS05-LOGIC-01-TABLE@0.1.0",
-               "rows": [{"implication": None, "contrapositive": None,
-                         "biconditional": None} for _ in range(4)],
-               "explanation": "我用反例区分逆命题，尚未完成所有推演，申请教师反馈。"}
+    content = {
+        "courseCode": "CS05",
+        "objectiveId": "CS05-LOGIC-01",
+        "activityVersion": "CS05-LOGIC-01-TABLE@0.1.0",
+        "rows": [
+            {"implication": None, "contrapositive": None, "biconditional": None} for _ in range(4)
+        ],
+        "explanation": "我用反例区分逆命题，尚未完成所有推演，申请教师反馈。",
+    }
     if work_kind == "structured_attempt":
-        content = {"courseCode": "CS03", "objectiveCode": "CS03-QUEUE-01",
-                   "activityVersion": "CS03-QUEUE-01-TRACE@0.1.0",
-                   "kind": "structured_trace", "traceRows": [], "bracketRows": [],
-                   "explanation": "队列推演尚未完成，请教师指出设计问题。"}
+        content = {
+            "courseCode": "CS03",
+            "objectiveCode": "CS03-QUEUE-01",
+            "activityVersion": "CS03-QUEUE-01-TRACE@0.1.0",
+            "kind": "structured_trace",
+            "traceRows": [],
+            "bracketRows": [],
+            "explanation": "队列推演尚未完成，请教师指出设计问题。",
+        }
     elif work_kind == "algebra_attempt":
-        content = {"courseCode": "CS05", "objectiveCode": "CS05-M04-O01",
-                   "courseVersionId": str(uuid4()), "activityVersionId": str(uuid4()),
-                   "activityVersion": "algebra@0.1.0", "mode": "group",
-                   "table": [["0"]], "secondTable": None, "mapping": None,
-                   "predictions": {"closed": "", "associative": "", "is_group": ""},
-                   "explanation": "先尝试单元素运算表，等待教师审阅解释。"}
-    content_hash = hashlib.sha256(json.dumps(content, ensure_ascii=False, sort_keys=True,
-                                             separators=(",", ":")).encode()).hexdigest()
-    payload = dict(content, id=str(revision), artifactId=str(artifact), spaceId=str(space_id),
-                   result=None, createdAt=datetime.now(UTC).isoformat(),
-                   updatedAt=datetime.now(UTC).isoformat())
+        content = {
+            "courseCode": "CS05",
+            "objectiveCode": "CS05-M04-O01",
+            "courseVersionId": str(uuid4()),
+            "activityVersionId": str(uuid4()),
+            "activityVersion": "algebra@0.1.0",
+            "mode": "group",
+            "table": [["0"]],
+            "secondTable": None,
+            "mapping": None,
+            "predictions": {"closed": "", "associative": "", "is_group": ""},
+            "explanation": "先尝试单元素运算表，等待教师审阅解释。",
+        }
+    content_hash = hashlib.sha256(
+        json.dumps(content, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    payload = dict(
+        content,
+        id=str(revision),
+        artifactId=str(artifact),
+        spaceId=str(space_id),
+        result=None,
+        createdAt=datetime.now(UTC).isoformat(),
+        updatedAt=datetime.now(UTC).isoformat(),
+    )
     owner_url, _ = urls()
     with psycopg.connect(owner_url) as conn:
-        conn.execute("INSERT INTO sync_object (space_id,object_type,object_id,server_object_id,"
-                     "version,payload_hash,payload,provenance) "
-                     "VALUES (%s,%s,%s,%s,1,%s,%s::jsonb,'client_reported')",
-                     (space_id, work_kind, str(revision), uuid4(), bytes.fromhex(content_hash),
-                      json.dumps(payload)))
-    work = SimpleNamespace(course_version_id=content.get("courseVersionId"),
-                           objective=content.get("objectiveCode", content.get("objectiveId")),
-                           activity_version=content.get("activityVersionId",
-                                                        content["activityVersion"]),
-                           artifact_id=artifact,
-                           revision_id=revision, hash=content_hash)
-    body = create_payload(owner, space_id, work, work_kind=work_kind,
-                          course_code=content["courseCode"],
-                          course_version_id=work.course_version_id)
-    response = await student.post("/api/v1/reviews/assignments", json=body,
-                                 headers={"Idempotency-Key": body["assignment_id"]})
+        conn.execute(
+            "INSERT INTO sync_object (space_id,object_type,object_id,server_object_id,"
+            "version,payload_hash,payload,provenance) "
+            "VALUES (%s,%s,%s,%s,1,%s,%s::jsonb,'client_reported')",
+            (
+                space_id,
+                work_kind,
+                str(revision),
+                uuid4(),
+                bytes.fromhex(content_hash),
+                json.dumps(payload),
+            ),
+        )
+    work = SimpleNamespace(
+        course_version_id=content.get("courseVersionId"),
+        objective=content.get("objectiveCode", content.get("objectiveId")),
+        activity_version=content.get("activityVersionId", content["activityVersion"]),
+        artifact_id=artifact,
+        revision_id=revision,
+        hash=content_hash,
+    )
+    body = create_payload(
+        owner,
+        space_id,
+        work,
+        work_kind=work_kind,
+        course_code=content["courseCode"],
+        course_version_id=work.course_version_id,
+    )
+    response = await student.post(
+        "/api/v1/reviews/assignments", json=body, headers={"Idempotency-Key": body["assignment_id"]}
+    )
     assert response.status_code == 201, response.text
     assignment = response.json()
     snapshot = assignment["work_snapshot"][0]
@@ -297,15 +355,11 @@ async def env(tmp_path):
     # the migration owner). Scope it minimally: review history is insert-only,
     # assignments are never deleted, and the review must read the sync projection.
     with psycopg.connect(owner_url) as admin:
-        admin.execute(
-            "GRANT SELECT,INSERT,UPDATE ON review_assignment TO vault_api"
-        )
+        admin.execute("GRANT SELECT,INSERT,UPDATE ON review_assignment TO vault_api")
         admin.execute("GRANT SELECT,INSERT ON review_event TO vault_api")
         admin.execute("GRANT SELECT,INSERT ON server_verification TO vault_api")
         admin.execute("GRANT SELECT ON sync_object TO vault_api")
-        admin.execute(
-            "GRANT EXECUTE ON FUNCTION vault_verified_teacher_exists(uuid) TO vault_api"
-        )
+        admin.execute("GRANT EXECUTE ON FUNCTION vault_verified_teacher_exists(uuid) TO vault_api")
         admin.commit()
     settings = Settings(
         environment="test",
@@ -422,8 +476,7 @@ def results(*statuses, note="理由"):
     # necessary rubric row is answered (the platform rubric has three).
     statuses = statuses + (statuses[-1],) * (len(ids) - len(statuses))
     return [
-        {"id": ids[i], "status": status, "note": f"{note}{i}"}
-        for i, status in enumerate(statuses)
+        {"id": ids[i], "status": status, "note": f"{note}{i}"} for i, status in enumerate(statuses)
     ]
 
 
@@ -461,9 +514,7 @@ async def test_unverified_teacher_cannot_claim_and_others_cannot_see(env):
     student, _, assignment, _ = await open_assignment(
         env, audience="specific_teacher", teacher=unverified_id
     )
-    denied = await unverified_client.post(
-        f"/api/v1/reviews/assignments/{assignment['id']}/claim"
-    )
+    denied = await unverified_client.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
     assert denied.status_code == 403
     assert denied.json()["code"] == "TEACHER_VERIFICATION_REQUIRED"
     other_student, _ = env.seed("s-other", "student")
@@ -479,8 +530,11 @@ async def test_full_approve_flow_with_teacher_signature_and_no_keyword_scoring(e
     assert claim.json()["status"] == "claimed"
     decision = await teacher.post(
         f"/api/v1/reviews/assignments/{assignment['id']}/decisions",
-        json={"decision": "approved", "rubric_results": results("met", "met", note="对"),
-              "comment": "通过"},
+        json={
+            "decision": "approved",
+            "rubric_results": results("met", "met", note="对"),
+            "comment": "通过",
+        },
     )
     assert decision.status_code == 200, decision.text
     body = decision.json()
@@ -498,17 +552,14 @@ async def test_second_teacher_cannot_take_claimed_assignment(env):
     first, _ = env.seed("t-a", "teacher", verified=True)
     second, _ = env.seed("t-b", "teacher", verified=True)
     _, _, assignment, _ = await open_assignment(env)
-    first_claim = await first.post(
-        f"/api/v1/reviews/assignments/{assignment['id']}/claim"
-    )
+    first_claim = await first.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
     assert first_claim.status_code == 200
     conflict = await second.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
     assert conflict.status_code == 409
     assert conflict.json()["code"] == "REVIEW_ALREADY_CLAIMED"
     decide = await second.post(
         f"/api/v1/reviews/assignments/{assignment['id']}/decisions",
-        json={"decision": "approved", "rubric_results": results("met", "met"),
-              "comment": "x"},
+        json={"decision": "approved", "rubric_results": results("met", "met"), "comment": "x"},
     )
     assert decide.status_code == 403
 
@@ -519,9 +570,11 @@ async def test_decision_requires_every_rubric_criterion(env):
     await teacher.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
     missing = await teacher.post(
         f"/api/v1/reviews/assignments/{assignment['id']}/decisions",
-        json={"decision": "approved",
-              "rubric_results": [{"id": "obj1", "status": "met", "note": "仅一条"}],
-              "comment": "缺一条 rubric"},
+        json={
+            "decision": "approved",
+            "rubric_results": [{"id": "obj1", "status": "met", "note": "仅一条"}],
+            "comment": "缺一条 rubric",
+        },
     )
     assert missing.status_code == 422
     assert missing.json()["code"] == "RUBRIC_MISMATCH"
@@ -534,13 +587,22 @@ async def test_changes_requested_resubmit_reapprove_and_appeal_cycle(env):
     await teacher.post(f"/api/v1/reviews/assignments/{aid}/claim")
     returned = await teacher.post(
         f"/api/v1/reviews/assignments/{aid}/decisions",
-        json={"decision": "changes_requested", "rubric_results": results("met", "not_met"),
-              "comment": "解释未说明不变量，请补证"},
+        json={
+            "decision": "changes_requested",
+            "rubric_results": results("met", "not_met"),
+            "comment": "解释未说明不变量，请补证",
+        },
     )
     assert returned.json()["status"] == "changes_requested"
-    wrong_state = await teacher.post(f"/api/v1/reviews/assignments/{aid}/resubmit", json={
-        "comment": "教师不能补证", "evidence_refs": [
-            {"artifact_revision_id": str(uuid4()), "artifact_hash": "b" * 64, "note": "r"}]})
+    wrong_state = await teacher.post(
+        f"/api/v1/reviews/assignments/{aid}/resubmit",
+        json={
+            "comment": "教师不能补证",
+            "evidence_refs": [
+                {"artifact_revision_id": str(uuid4()), "artifact_hash": "b" * 64, "note": "r"}
+            ],
+        },
+    )
     assert wrong_state.status_code == 403
     # A real new synced revision (not a random UUID + hand-typed hash).
     new_work = insert_synced_code(
@@ -550,22 +612,34 @@ async def test_changes_requested_resubmit_reapprove_and_appeal_cycle(env):
         activity_version=work.activity_version,
         course_version_id=work.course_version_id,
     )
-    resubmit = await student.post(f"/api/v1/reviews/assignments/{aid}/resubmit", json={
-        "comment": "已重写解释并附新运行",
-        "evidence_refs": [
-            {"artifact_revision_id": str(new_work.revision_id),
-             "artifact_hash": new_work.hash, "note": "新版本独立输入结果"}]})
+    resubmit = await student.post(
+        f"/api/v1/reviews/assignments/{aid}/resubmit",
+        json={
+            "comment": "已重写解释并附新运行",
+            "evidence_refs": [
+                {
+                    "artifact_revision_id": str(new_work.revision_id),
+                    "artifact_hash": new_work.hash,
+                    "note": "新版本独立输入结果",
+                }
+            ],
+        },
+    )
     assert resubmit.status_code == 200, resubmit.text
     assert resubmit.json()["status"] == "resubmitted"
     assert len(resubmit.json()["work_snapshot"]) == 2
     redecide = await teacher.post(
         f"/api/v1/reviews/assignments/{aid}/decisions",
-        json={"decision": "approved", "rubric_results": results("met", "met"),
-              "comment": "补证充分"},
+        json={
+            "decision": "approved",
+            "rubric_results": results("met", "met"),
+            "comment": "补证充分",
+        },
     )
     assert redecide.json()["status"] == "approved"
-    appeal = await student.post(f"/api/v1/reviews/assignments/{aid}/appeal",
-                                json={"comment": "我对一条判定有异议"})
+    appeal = await student.post(
+        f"/api/v1/reviews/assignments/{aid}/appeal", json={"comment": "我对一条判定有异议"}
+    )
     assert appeal.status_code == 200
     assert appeal.json()["status"] == "in_appeal"
     assert appeal.json()["appeal_count"] == 1
@@ -580,21 +654,26 @@ async def test_appeal_is_capped_at_two(env):
     async def return_work():
         response = await teacher.post(
             f"/api/v1/reviews/assignments/{aid}/decisions",
-            json={"decision": "changes_requested", "rubric_results": results("met", "not_met"),
-                  "comment": "退回"},
+            json={
+                "decision": "changes_requested",
+                "rubric_results": results("met", "not_met"),
+                "comment": "退回",
+            },
         )
         assert response.status_code == 200, response.text
         assert response.json()["status"] == "changes_requested"
 
     await return_work()
     for expected in (1, 2):
-        appealed = await student.post(f"/api/v1/reviews/assignments/{aid}/appeal",
-                                      json={"comment": "异议"})
+        appealed = await student.post(
+            f"/api/v1/reviews/assignments/{aid}/appeal", json={"comment": "异议"}
+        )
         assert appealed.status_code == 200
         assert appealed.json()["appeal_count"] == expected
         await return_work()
-    third = await student.post(f"/api/v1/reviews/assignments/{aid}/appeal",
-                               json={"comment": "第三次异议"})
+    third = await student.post(
+        f"/api/v1/reviews/assignments/{aid}/appeal", json={"comment": "第三次异议"}
+    )
     assert third.status_code == 409
     assert third.json()["code"] == "APPEAL_LIMIT_REACHED"
 
@@ -621,8 +700,11 @@ async def test_role_gates_and_cross_account_appeal_hidden(env):
     teacher, _ = env.seed("t-gate", "teacher", verified=True)
     # A teacher cannot open a review assignment as a student (403 before work checks).
     work = SimpleNamespace(
-        artifact_id=uuid4(), revision_id=uuid4(), hash="d" * 64,
-        objective="CS01-M01-O1", activity_version=str(uuid4()),
+        artifact_id=uuid4(),
+        revision_id=uuid4(),
+        hash="d" * 64,
+        objective="CS01-M01-O1",
+        activity_version=str(uuid4()),
         course_version_id=uuid4(),
     )
     space_probe = create_payload(uuid4(), uuid4(), work)
@@ -634,8 +716,9 @@ async def test_role_gates_and_cross_account_appeal_hidden(env):
     assert as_teacher.status_code == 403
     _, _, assignment, _ = await open_assignment(env)
     outsider, _ = env.seed("s-outsider", "student")
-    appeal = await outsider.post(f"/api/v1/reviews/assignments/{assignment['id']}/appeal",
-                                 json={"comment": "不是我的工单"})
+    appeal = await outsider.post(
+        f"/api/v1/reviews/assignments/{assignment['id']}/appeal", json={"comment": "不是我的工单"}
+    )
     assert appeal.status_code == 404
 
 
@@ -666,8 +749,11 @@ async def test_unsynced_work_is_rejected_with_a_clear_sync_hint(env):
     space_id = await env.claim_space(student, owner)
     # A client-invented UUID/hash with no sync projection must be refused.
     work = SimpleNamespace(
-        artifact_id=uuid4(), revision_id=uuid4(), hash="d" * 64,
-        objective="CS01-M01-O1", activity_version=str(uuid4()),
+        artifact_id=uuid4(),
+        revision_id=uuid4(),
+        hash="d" * 64,
+        objective="CS01-M01-O1",
+        activity_version=str(uuid4()),
         course_version_id=uuid4(),
     )
     payload = create_payload(owner, space_id, work)
@@ -802,8 +888,11 @@ async def test_approve_with_unmet_criteria_is_rejected(env):
     await teacher.post(f"/api/v1/reviews/assignments/{assignment['id']}/claim")
     decision = await teacher.post(
         f"/api/v1/reviews/assignments/{assignment['id']}/decisions",
-        json={"decision": "approved", "rubric_results": results("met", "not_met"),
-              "comment": "想直接通过"},
+        json={
+            "decision": "approved",
+            "rubric_results": results("met", "not_met"),
+            "comment": "想直接通过",
+        },
     )
     assert decision.status_code == 422
     assert decision.json()["code"] == "CANNOT_APPROVE_UNMET_CRITERIA"
@@ -816,13 +905,35 @@ async def test_resubmit_rejects_random_revision_or_hand_typed_hash(env):
     await teacher.post(f"/api/v1/reviews/assignments/{aid}/claim")
     await teacher.post(
         f"/api/v1/reviews/assignments/{aid}/decisions",
-        json={"decision": "changes_requested", "rubric_results": results("met", "not_met"),
-              "comment": "退回"},
+        json={
+            "decision": "changes_requested",
+            "rubric_results": results("met", "not_met"),
+            "comment": "退回",
+        },
     )
     # A random revision UUID + hand-typed hash is not a real synced work.
-    resubmit = await student.post(f"/api/v1/reviews/assignments/{aid}/resubmit", json={
-        "comment": "补证",
-        "evidence_refs": [
-            {"artifact_revision_id": str(uuid4()), "artifact_hash": "f" * 64, "note": "手填"}]})
+    resubmit = await student.post(
+        f"/api/v1/reviews/assignments/{aid}/resubmit",
+        json={
+            "comment": "补证",
+            "evidence_refs": [
+                {"artifact_revision_id": str(uuid4()), "artifact_hash": "f" * 64, "note": "手填"}
+            ],
+        },
+    )
     assert resubmit.status_code == 409
     assert resubmit.json()["code"] == "WORK_NOT_SYNCED"
+
+
+@pytest.mark.parametrize("outcome", ["not_met", "needs_review"])
+async def test_teacher_cannot_sign_a_code_work_whose_server_check_is_unmet(env, outcome):
+    env.verifier.default_outcome = outcome
+    _, _, assignment, _ = await open_assignment(env)
+    teacher, _ = env.seed(f"unmet-code-{uuid4()}", "teacher", verified=True)
+    path = f"/api/v1/reviews/assignments/{assignment['id']}"
+    await teacher.post(path + "/claim", json={})
+    response = await teacher.post(
+        path + "/decisions",
+        json={"decision": "approved", "rubric_results": results("met"), "comment": "不应签署"},
+    )
+    assert response.status_code == 422

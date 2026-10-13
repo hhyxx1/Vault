@@ -52,3 +52,5 @@ blob-report/
 .pytest-tmp*/
 .pg-test*/
 apps/web/capture-*.cjs
+
+/pytest-of-*/

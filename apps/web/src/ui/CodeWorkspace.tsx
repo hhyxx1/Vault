@@ -10,6 +10,7 @@ import { registerIdentityFlusher } from '../local/identity'
 import { runCode } from '../api/verification'
 import { suiteVerdictForRevision } from '../domain/code-assessment'
 import ProcessorTrace from './ProcessorTrace'
+import LearningNavigation from './LearningNavigation'
 
 const criterionName: Record<string, string> = { fixed_condition: '本次条件', explanation: '原理解释', independent_transfer: '独立迁移' }
 const criterionState: Record<string, string> = { met: '满足', not_met: '未满足', needs_review: '待复核' }
@@ -199,7 +200,7 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
   }
   return <div className="page code-workspace">
     <div className="eyebrow">PRACTICE / CODE & OBSERVATION</div>
-    <div className="page-heading"><div><h1>{task?.title ?? '把想法运行起来。'}</h1><p>{lesson ? `${lesson.course.title} / ${lesson.course.objectives.find(goal => goal.code === lesson.objective)?.title}` : '先预测，再运行。比较结果，修改代码，用新的输入再验证。'}</p></div><Link className="text-link" to={lesson ? `/atlas?course=${lesson.course.course_code}&edition=core&goal=${lesson.objective}` : '/atlas'}>回到知识图谱 ↗</Link></div>
+    <div className="page-heading"><div><h1>{task?.title ?? '把想法运行起来。'}</h1><p>{lesson ? `${lesson.course.title} / ${lesson.course.objectives.find(goal => goal.code === lesson.objective)?.title}` : '先预测，再运行。比较结果，修改代码，用新的输入再验证。'}</p></div><Link className="text-link" to={lesson ? `/atlas?course=${lesson.course.course_code}&edition=core&courseVersion=${lesson.course.course_version_id}&goal=${lesson.objective}` : '/atlas'}>回到知识图谱 ↗</Link></div>
     {lesson && <section className="code-course-context" aria-label="课程任务">
       <div><h2>本次任务</h2><p>{task?.student_action}</p>
         <details><summary>需要时看原理与来源</summary>{lesson.activity.theory.map((text, index) => <p key={index}>{text}</p>)}<ul>{lesson.course.sources?.filter(source => lesson.activity.source_refs.includes(source.id)).map(source => <li key={source.id}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a><span>：{source.locator}</span></li>)}</ul></details>
@@ -209,6 +210,7 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
         <nav aria-label="新条件练习">{lesson.activity.variants?.map(variant => <Link key={variant.code} to={`/learn/${lesson.objective}?courseVersion=${lesson.course.course_version_id}&task=${variant.code}`}>新条件：{variant.title}</Link>)}{lesson.variant && <Link to={`/learn/${lesson.objective}?courseVersion=${lesson.course.course_version_id}`}>返回基础任务</Link>}</nav>
       </aside>
     </section>}
+    {lesson && <LearningNavigation course={lesson.course} objective={lesson.objective} />}
     <div className="code-practice-layout">
       <section className="code-practice-editor" aria-label="代码实践">
         <div className="code-practice-toolbar"><label>运行语言<select aria-label="运行语言" disabled={locked} value={request.language} onChange={event => { const language = event.target.value as CodeRequest['language']; const item = templates[language]; setRequest({ language, entry: item.entry, files: { [item.entry]: item.source }, stdin: '' }); setFile(item.entry) }}>{Object.entries(templates).map(([key, item]) => <option key={key} value={key}>{item.label}</option>)}</select></label>
@@ -253,6 +255,7 @@ export default function CodeWorkspace({ lesson }: { lesson?: { course: AtlasPack
               <p className="muted">由服务端受信检查器（{suiteResult.oracle_id}，{suiteResult.comparator} 比较）在隔离环境运行；{suiteEnvironmentIncomplete ? '环境未完成的用例不计为能力错误。' : ''}有限用例不证明一般正确，原理解释与独立迁移仍待复核，本核验不授予独立掌握。</p>
             </>}
           </section>}
+          {lesson && <p className="muted">解释与独立迁移需审阅；登录后可提交已同步作品。教师未接单前保持待复核。<Link className="text-link" to="/reviews">提交作品或查看审阅</Link></p>}
           <label>运行后解释与下一步<textarea aria-label="运行后解释与下一步" placeholder={task?.reflection_prompt} maxLength={4000} disabled={!ready || busy} value={reflection} onChange={event => { const text = event.target.value; setReflection(text); if (selected) setReflections(previous => ({ ...previous, [selected.id]: text })) }}/></label>
         </section>
         <section><span className="eyebrow">VERSIONS / YOUR WORK</span><h2>已保存的尝试</h2>{history.length ? <ol className="code-version-list">{history.map((row, index) => <li key={row.id}><button disabled={busy} aria-pressed={selected?.id === row.id} onClick={() => { setSelected(row); setRequest(structuredClone(row.request)); setFile(row.request.entry); setPrediction(row.learning?.prediction ?? ''); setReflection(reflections[row.id] ?? ''); setMessage('正在查看已保存版本。') }}>{templates[row.request.language].label} · 第 {history.length-index} 版<span>{row.result ? statusNames[row.result.status] : '已保存 · 未取得结果'}</span></button></li>)}</ol> : <p>保存后可回来查看代码和运行结果。</p>}</section>

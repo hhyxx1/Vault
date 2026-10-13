@@ -54,10 +54,7 @@ def require_student(principal) -> None:
 
 
 def require_verified_teacher(principal) -> None:
-    if (
-        principal.account_type != "teacher"
-        or principal.teacher_verification_state != "verified"
-    ):
+    if principal.account_type != "teacher" or principal.teacher_verification_state != "verified":
         raise ApiError(
             403,
             "TEACHER_VERIFICATION_REQUIRED",
@@ -88,8 +85,9 @@ def teacher_authorized(assignment: ReviewAssignment, teacher_id: UUID) -> bool:
     return True
 
 
-async def _load_synced_code_attempt(session, space_id: UUID, revision_id: UUID,
-                                    work_kind: str = "code_attempt") -> dict | None:
+async def _load_synced_code_attempt(
+    session, space_id: UUID, revision_id: UUID, work_kind: str = "code_attempt"
+) -> dict | None:
     """The client-reported sync projection of one code attempt, or None.
 
     The projection is validated on import (shape, hash binding, provenance), so
@@ -105,14 +103,21 @@ async def _load_synced_code_attempt(session, space_id: UUID, revision_id: UUID,
     payload = redact_hidden_suite_fields(obj.payload)
     if work_kind != "code_attempt":
         content = manual_content(work_kind, payload)
-        payload = dict(payload, _work_kind=work_kind, _content=content,
-                       requestHash=content_hash(content), learning={"context": {
-                           "objectiveCode": payload.get("objectiveCode",
-                                                        payload.get("objectiveId")),
-                           "courseVersionId": payload.get("courseVersionId"),
-                           "activityVersionId": payload.get("activityVersionId",
-                                                            payload.get("activityVersion")),
-                       }})
+        payload = dict(
+            payload,
+            _work_kind=work_kind,
+            _content=content,
+            requestHash=content_hash(content),
+            learning={
+                "context": {
+                    "objectiveCode": payload.get("objectiveCode", payload.get("objectiveId")),
+                    "courseVersionId": payload.get("courseVersionId"),
+                    "activityVersionId": payload.get(
+                        "activityVersionId", payload.get("activityVersion")
+                    ),
+                }
+            },
+        )
     return payload
 
 
@@ -209,9 +214,9 @@ def _freeze_work(
         # The student's own imported report is kept as advisory, clearly
         # labelled — and redacted so historical hidden suite secrets never enter
         # the frozen snapshot a teacher can read.
-        "client_reported_result": redact_hidden_suite_fields(
-            {"result": payload.get("result")}
-        ).get("result"),
+        "client_reported_result": redact_hidden_suite_fields({"result": payload.get("result")}).get(
+            "result"
+        ),
     }
 
 
@@ -237,13 +242,16 @@ def validate_rubric(items: list) -> list[dict]:
         )
     for item in items:
         if item.kind != STANDARD_RUBRIC_KINDS[item.id]:
-            raise ApiError(
-                422, "RUBRIC_MISMATCH", "审阅标准条目的评价维度与课程定义不一致。"
-            )
-    titles = {"objective": "客观结果与不变量", "explanation": "解释与设计",
-              "independent": "独立迁移表现"}
-    return [{"id": key, "kind": STANDARD_RUBRIC_KINDS[key], "title": titles[key]}
-            for key in STANDARD_RUBRIC_IDS]
+            raise ApiError(422, "RUBRIC_MISMATCH", "审阅标准条目的评价维度与课程定义不一致。")
+    titles = {
+        "objective": "客观结果与不变量",
+        "explanation": "解释与设计",
+        "independent": "独立迁移表现",
+    }
+    return [
+        {"id": key, "kind": STANDARD_RUBRIC_KINDS[key], "title": titles[key]}
+        for key in STANDARD_RUBRIC_IDS
+    ]
 
 
 async def _load_help_records(session, space_id: UUID, objective_code: str) -> list[dict]:
@@ -302,20 +310,22 @@ async def authoritative_verification(
         if payload.get("courseCode") != course_code:
             raise ApiError(422, "WORK_MISMATCH", "作品课程与审阅请求不一致。")
         return {
-            "kind": payload["_work_kind"], "artifact_id": str(artifact_id),
-            "artifact_revision_id": str(revision_id), "artifact_hash": artifact_hash,
-            "note": note or "", "content": payload["_content"],
-            "learning_context": context, "server_verification": None,
-            "help_records": await _load_help_records(session, space_id,
-                                                     context["objectiveCode"]),
+            "kind": payload["_work_kind"],
+            "artifact_id": str(artifact_id),
+            "artifact_revision_id": str(revision_id),
+            "artifact_hash": artifact_hash,
+            "note": note or "",
+            "content": payload["_content"],
+            "learning_context": context,
+            "server_verification": None,
+            "help_records": await _load_help_records(session, space_id, context["objectiveCode"]),
             "client_reported_result": redact_hidden_suite_fields(
-                {"result": payload.get("result")}).get("result"),
+                {"result": payload.get("result")}
+            ).get("result"),
         }, None
     verifier = getattr(request.app.state, "authoritative_verifier", None)
     if verifier is None:
-        raise ApiError(
-            503, "CODE_WORKER_UNAVAILABLE", "服务端核验未配置，无法提交人工审阅。"
-        )
+        raise ApiError(503, "CODE_WORKER_UNAVAILABLE", "服务端核验未配置，无法提交人工审阅。")
     context = (payload.get("learning") or {}).get("context") or {}
     try:
         code = CodeRequest.model_validate(payload.get("request") or {})
@@ -365,9 +375,7 @@ async def authoritative_verification(
         "provenance": verification.provenance,
         "outcome": verification.outcome,
         "detail": verification.detail,
-        "created_at": verification.created_at.isoformat()
-        if verification.created_at
-        else None,
+        "created_at": verification.created_at.isoformat() if verification.created_at else None,
     }
     freeze = _freeze_work(
         payload,
@@ -376,9 +384,7 @@ async def authoritative_verification(
         artifact_hash=artifact_hash,
         note=note,
         context=context,
-        help_records=await _load_help_records(
-            session, space_id, str(context.get("objectiveCode"))
-        ),
+        help_records=await _load_help_records(session, space_id, str(context.get("objectiveCode"))),
         verification=authoritative,
     )
     return freeze, verification
@@ -477,9 +483,7 @@ async def serialize(session, assignment: ReviewAssignment) -> ReviewAssignmentOu
 
 async def locked_assignment(session, assignment_id: UUID) -> ReviewAssignment:
     assignment = await session.scalar(
-        select(ReviewAssignment)
-        .where(ReviewAssignment.id == assignment_id)
-        .with_for_update()
+        select(ReviewAssignment).where(ReviewAssignment.id == assignment_id).with_for_update()
     )
     if assignment is None:
         # RLS already hides anything the caller may not see; stay indistinguishable.
@@ -521,15 +525,14 @@ async def create_assignment(
                 or existing.artifact_revision_id != body.artifact_revision_id
                 or existing.objective_code != body.objective_code
             ):
-                raise ApiError(
-                    409, "IDEMPOTENCY_CONFLICT", "该审阅请求已固定为另一份作品或目标。"
-                )
+                raise ApiError(409, "IDEMPOTENCY_CONFLICT", "该审阅请求已固定为另一份作品或目标。")
             return await serialize(session, existing)
         # The claimed work must be a real, owned, synced code attempt bound to
         # this course context; ownership/revision/fingerprint are verified first.
         payload, artifact_id = _verified_code_work(
-            await _load_synced_code_attempt(session, body.space_id, body.artifact_revision_id,
-                                            body.work_kind),
+            await _load_synced_code_attempt(
+                session, body.space_id, body.artifact_revision_id, body.work_kind
+            ),
             revision_id=body.artifact_revision_id,
             artifact_hash=body.artifact_hash,
             objective_code=body.objective_code,
@@ -553,13 +556,21 @@ async def create_assignment(
             note=body.student_note,
         )
         authoritative = freeze["server_verification"]
-        evidence_snapshot = ([
-            {
-                "kind": "server_tool",
-                "summary": _server_tool_summary(authoritative, body.artifact_hash),
-            }
-        ] if authoritative else [{"kind": "student_self",
-                                  "summary": "已冻结学生作品，尚无自动核验结论，请教师审阅。"}]) + [
+        evidence_snapshot = (
+            [
+                {
+                    "kind": "server_tool",
+                    "summary": _server_tool_summary(authoritative, body.artifact_hash),
+                }
+            ]
+            if authoritative
+            else [
+                {
+                    "kind": "student_self",
+                    "summary": "已冻结学生作品，尚无自动核验结论，请教师审阅。",
+                }
+            ]
+        ) + [
             item.model_dump(mode="json")
             for item in body.evidence_snapshot
             if item.kind != "server_tool"
@@ -633,9 +644,11 @@ async def get_assignment(request: Request, assignment_id: UUID):
             principal.account_type == "student"
             and assignment.owner_account_id == principal.account_id
         )
-        is_teacher = principal.account_type == "teacher" and (
-            principal.teacher_verification_state == "verified"
-        ) and teacher_authorized(assignment, principal.account_id)
+        is_teacher = (
+            principal.account_type == "teacher"
+            and (principal.teacher_verification_state == "verified")
+            and teacher_authorized(assignment, principal.account_id)
+        )
         if not is_owner and not is_teacher:
             raise ApiError(403, "REVIEW_ACCESS_DENIED", "你无权查看该审阅请求。")
         return await serialize(session, assignment)
@@ -662,9 +675,7 @@ async def teacher_queue(request: Request):
             )
         ).all()
         rows = [
-            row
-            for row in available_rows
-            if teacher_authorized(row, principal.account_id)
+            row for row in available_rows if teacher_authorized(row, principal.account_id)
         ] + list(active_rows)
         return ReviewListOut(assignments=[await serialize(session, row) for row in rows])
 
@@ -733,6 +744,21 @@ async def decide(request: Request, assignment_id: UUID, body: DecisionRequest):
                 "CANNOT_APPROVE_UNMET_CRITERIA",
                 "存在未达到或待核的 rubric 条目，不能判定通过；请退回补充材料。",
             )
+        if body.decision == "approved":
+            current_work = (
+                (assignment.work_snapshot or [])[-1] if assignment.work_snapshot else None
+            )
+            if current_work and current_work.get("kind") == "code_attempt":
+                verification = current_work.get("server_verification") or {}
+                if (
+                    verification.get("provenance") != "server_execution"
+                    or verification.get("outcome") != "met"
+                ):
+                    raise ApiError(
+                        422,
+                        "CANNOT_APPROVE_UNVERIFIED_CODE",
+                        "最新代码作品尚未通过服务端核验，请退回补证后再签署。",
+                    )
         profile = await session.get(TeacherProfile, principal.account_id)
         display_name = profile.display_name if profile is not None else ""
         signature = {
@@ -741,9 +767,7 @@ async def decide(request: Request, assignment_id: UUID, body: DecisionRequest):
             "verification_state": "verified",
             "signed_at": _now().isoformat(),
         }
-        assignment.status = (
-            "approved" if body.decision == "approved" else "changes_requested"
-        )
+        assignment.status = "approved" if body.decision == "approved" else "changes_requested"
         assignment.updated_at = _now()
         await add_event(
             session,
@@ -752,9 +776,7 @@ async def decide(request: Request, assignment_id: UUID, body: DecisionRequest):
             actor_account_id=principal.account_id,
             actor_role="teacher",
             decision=body.decision,
-            rubric_results=[
-                result.model_dump(mode="json") for result in body.rubric_results
-            ],
+            rubric_results=[result.model_dump(mode="json") for result in body.rubric_results],
             comment=body.comment,
             teacher_signature=signature,
         )
